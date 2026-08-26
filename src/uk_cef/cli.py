@@ -116,6 +116,28 @@ def cmd_dividends(cfg: dict, args) -> int:
     out = Path(cfg["paths"]["outputs_dir"])
     out.mkdir(parents=True, exist_ok=True)
     cov.to_csv(out / "investegate_coverage.csv", index=False)
+
+    # committed QA sample + summary so parse quality is inspectable offline
+    div_path = Path(cfg["paths"]["processed_dir"]) / "dividends.parquet"
+    if div_path.exists():
+        div = pd.read_parquet(div_path)
+        summary = {
+            "rows": len(div),
+            "securities": int(div["security_id"].nunique()),
+            "by_confidence": div["confidence"].value_counts(dropna=False).to_dict(),
+            "with_ex_date": int(div["ex_date"].notna().sum()),
+            "with_amount_gbx": int(div["amount_gbx"].notna().sum()),
+            "date_range": [str(div["date"].min()), str(div["date"].max())],
+        }
+        log.info("dividend parse summary: %s", summary)
+        import json as _json
+
+        (out / "dividends_parse_summary.json").write_text(_json.dumps(summary, indent=1, default=str))
+        cols = ["ticker", "date", "headline", "amount", "unit", "currency", "amount_gbx",
+                "ex_date", "pay_date", "confidence", "period", "title"]
+        div[[c for c in cols if c in div.columns]].sample(
+            n=min(250, len(div)), random_state=7
+        ).sort_values(["ticker", "date"]).to_csv(out / "dividends_sample.csv", index=False)
     no_ticker = tmap[tmap["ticker"].isna()]
     no_ticker.assign(names=no_ticker["names"].astype(str)).to_csv(
         out / "investegate_missing_tickers.csv", index=False

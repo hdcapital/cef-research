@@ -95,7 +95,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -f outputs/investegate_coverage.csv outputs/investegate_missing_tickers.csv || true
+          git add -f outputs/investegate_coverage.csv outputs/investegate_missing_tickers.csv \
+                     outputs/dividends_sample.csv outputs/dividends_parse_summary.json || true
           if git diff --cached --quiet; then
             echo "no changes"
           else
