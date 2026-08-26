@@ -1,0 +1,93 @@
+# Central configuration for the UK CEF backtest.
+# Every tunable the pipeline uses lives here; the CLI accepts --config to
+# point at an alternative file. Values marked PRE-SPECIFIED were fixed
+# before results were inspected and must not be tuned on the holdout.
+
+project:
+  start_month: "2007-01"     # AIC archive begins 2007
+  base_currency: GBP
+
+download:
+  base_url: "https://www.theaic.co.uk"
+  archive_path: "/research-tools/data-archive"
+  user_agent: "uk-cef-research/0.1 (open-source backtest research; contact: danielconorsims@gmail.com; ~1 req/s; caches aggressively)"
+  throttle_seconds: 1.2
+  max_retries: 4
+  retry_backoff_seconds: 3.0
+  raw_dir: "data/raw/aic"
+  cache_dir: "data/cache"
+  manifest: "data/manifest.csv"
+
+universe:
+  # Point-in-time membership comes from AIC monthly files. These filters
+  # select which AIC-listed vehicles enter the strategy universe.
+  exclude_vcts: true
+  exclude_sectors:                 # AIC sector names matched case-insensitively, substring
+    - "VCT"
+  include_offshore_london_listed: true
+  # Split-capital share classes and ZDPs are excluded via security-type flags
+  # where the source data identifies them.
+  exclude_security_types:
+    - "zero dividend preference"
+    - "preference"
+    - "split"
+  min_market_cap_gbp_m: null       # primary run: no size filter (robustness grid varies this)
+
+signals:
+  zscore_window_months: 36         # PRE-SPECIFIED default
+  zscore_min_history_months: 24
+  zscore_robustness_windows: [24, 36, 60]
+  widening_horizons_months: [1, 3, 6]
+  overshoot_weights:               # PRE-SPECIFIED composite; do not optimise
+    zscore_rank: 0.50
+    absolute_discount_rank: 0.25
+    widening_3m_rank: 0.25
+
+timing:
+  # Information dated month-end t is first usable for the portfolio held
+  # during month t+1 (AIC publishes ~5-6 working days after month-end;
+  # forming at the end of month t+0 would be look-ahead).
+  publication_lag_months: 1
+
+strategies:
+  top_fraction_decile: 0.10
+  top_fraction_quintile: 0.20
+  rebalance: monthly               # robustness: quarterly
+  weighting: equal                 # robustness: cap-weight, capped inverse-rank
+  min_names: 5                     # skip months with fewer eligible names than this
+
+costs:
+  scenarios_bps_one_way: [0, 25, 50, 100]
+  headline_bps_one_way: 50         # conservative headline: 50bps one-way + stamp duty on buys
+  stamp_duty_bps_on_buys: 50       # UK stamp duty 0.5% on purchases...
+  # ...but most investment trusts are exempt (closed-ended investment
+  # companies' shares have been exempt from stamp duty since the 2014
+  # abolition for ETFs did NOT cover ITs; ITs ARE subject to SDRT unless
+  # Irish/offshore domiciled). We model it explicitly and report both.
+  apply_stamp_duty: true
+  offshore_domiciles_exempt: ["Guernsey", "Jersey", "Ireland", "Luxembourg", "Bermuda", "Cayman Islands", "Isle of Man", "Gibraltar", "Netherlands"]
+
+sample_splits:
+  development: ["2007-01", "2016-12"]
+  validation: ["2017-01", "2021-12"]
+  holdout: ["2022-01", "2099-12"]
+
+robustness:
+  top_fractions: [0.05, 0.10, 0.20, 0.30]
+  zscore_windows: [24, 36, 60]
+  rebalance_frequencies: [monthly, quarterly]
+  weightings: [equal, market_cap, capped_inverse_rank]
+  min_market_caps_gbp_m: [null, 25, 50, 100, 200]
+
+quality:
+  discount_floor: -0.90            # flag discounts below -90%
+  premium_ceiling: 1.00            # flag premiums above +100%
+  max_abs_monthly_return: 1.00     # flag |return| > 100%
+  stale_nav_months: 3
+  discount_disagreement_threshold: 0.02   # calc vs published discount, 2pp
+
+paths:
+  processed_dir: "data/processed"
+  outputs_dir: "outputs"
+  charts_dir: "outputs/charts"
+  entity_overrides: "config/entity_overrides.csv"

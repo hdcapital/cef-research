@@ -1,23 +1,16 @@
-"""Probe the AIC data-archive pages to learn their real structure.
+"""Probe 2: locate and query the AIC data-archive React app's API.
 
-This is a bootstrap/reconnaissance script, run from GitHub Actions (the
-development sandbox has no network access to theaic.co.uk). It fetches the
-data-archive listing pages, saves the raw HTML, extracts every link, and
-downloads a small sample of linked files so parsers can be written against
-the *actual* formats rather than assumed ones.
+The data-archive page mounts a React app (/modules/custom/aic_misc/react-da/)
+into #root. This probe downloads the app bundle, extracts candidate API
+endpoint strings, queries the promising ones, and saves the JSON so the
+real discovery module can be written against the actual API schema.
 
-Results are written under data/probe/ and committed back to the working
-branch by the workflow so they can be inspected offline.
-
-It is deliberately gentle: ~1 request/second, small page budget, and it
-checks robots.txt first and records (and respects) any disallow rules that
-apply to the paths we touch.
+Gentle by design: ~1 req/s, small budget, robots.txt respected (the probe-1
+run confirmed /research-tools/ and /modules/ are not disallowed).
 """
 
 from __future__ import annotations
 
-import csv
-import hashlib
 import json
 import re
 import sys
@@ -26,187 +19,95 @@ import urllib.parse
 from pathlib import Path
 
 import requests
-from bs4 import BeautifulSoup
 
 BASE = "https://www.theaic.co.uk"
-ARCHIVE_PATH = "/research-tools/data-archive"
+ARCHIVE_PAGE = BASE + "/research-tools/data-archive"
 OUT = Path("data/probe")
 UA = (
     "uk-cef-research/0.1 (open-source academic backtest research; "
     "contact: danielconorsims@gmail.com; respects robots.txt; ~1 req/s)"
 )
-THROTTLE_SECONDS = 1.2
-PAGE_BUDGET = 12          # listing pages to fetch in this probe
-SAMPLE_FILE_BUDGET = 12   # linked data files to sample
-SAMPLE_MAX_BYTES = 8_000_000
+THROTTLE = 1.2
 
 session = requests.Session()
 session.headers["User-Agent"] = UA
-
-_last_request = 0.0
+_last = 0.0
 
 
 def fetch(url: str, **kw) -> requests.Response:
-    global _last_request
-    wait = THROTTLE_SECONDS - (time.time() - _last_request)
+    global _last
+    wait = THROTTLE - (time.time() - _last)
     if wait > 0:
         time.sleep(wait)
-    _last_request = time.time()
-    resp = session.get(url, timeout=60, **kw)
-    print(f"GET {url} -> {resp.status_code} ({len(resp.content)} bytes)")
-    return resp
-
-
-def robots_disallows() -> list[str]:
-    try:
-        r = fetch(BASE + "/robots.txt")
-        (OUT / "robots.txt").write_bytes(r.content)
-        rules, active = [], False
-        for line in r.text.splitlines():
-            line = line.split("#", 1)[0].strip()
-            if not line:
-                continue
-            key, _, val = line.partition(":")
-            key, val = key.strip().lower(), val.strip()
-            if key == "user-agent":
-                active = val == "*"
-            elif key == "disallow" and active and val:
-                rules.append(val)
-        return rules
-    except Exception as exc:  # noqa: BLE001
-        print(f"robots.txt fetch failed: {exc}")
-        return []
-
-
-def allowed(url: str, rules: list[str]) -> bool:
-    path = urllib.parse.urlparse(url).path
-    return not any(path.startswith(rule) for rule in rules)
+    _last = time.time()
+    r = session.get(url, timeout=60, **kw)
+    print(f"GET {url} -> {r.status_code} ({len(r.content)} bytes, {r.headers.get('Content-Type')})")
+    return r
 
 
 def main() -> int:
     OUT.mkdir(parents=True, exist_ok=True)
-    rules = robots_disallows()
-    print(f"robots.txt disallow rules for *: {rules}")
+    notes: dict = {"bundle": None, "candidates": [], "responses": []}
 
-    notes: dict[str, object] = {"robots_disallow": rules, "pages": []}
-
-    # --- 1. listing pages -------------------------------------------------
-    start = BASE + ARCHIVE_PATH
-    if not allowed(start, rules):
-        print(f"BLOCKED BY ROBOTS: {start}")
-        notes["archive_blocked_by_robots"] = True
-        (OUT / "probe_notes.json").write_text(json.dumps(notes, indent=2))
+    # 1. find the current react-da bundle name from the page (hash changes)
+    page = fetch(ARCHIVE_PAGE)
+    m = re.search(r'src="(/modules/custom/aic_misc/react-da/[^"]+\.js[^"]*)"', page.text)
+    if not m:
+        print("react-da bundle not found on page")
+        (OUT / "probe2_notes.json").write_text(json.dumps(notes, indent=2))
         return 0
+    bundle_url = BASE + m.group(1).replace("&amp;", "&")
+    notes["bundle"] = bundle_url
 
-    seen_pages: set[str] = set()
-    queue: list[str] = [start]
-    all_links: list[dict[str, str]] = []
-    pages_fetched = 0
+    js = fetch(bundle_url)
+    (OUT / "react_da_bundle.js").write_bytes(js.content)
 
-    while queue and pages_fetched < PAGE_BUDGET:
-        url = queue.pop(0)
-        if url in seen_pages:
-            continue
-        seen_pages.add(url)
-        try:
-            resp = fetch(url)
-        except Exception as exc:  # noqa: BLE001
-            print(f"fetch failed: {exc}")
-            continue
-        pages_fetched += 1
-        slug = re.sub(r"\W+", "_", url.replace(BASE, "")).strip("_") or "root"
-        (OUT / f"page_{pages_fetched:02d}_{slug[:80]}.html").write_bytes(resp.content)
-        notes["pages"].append({"url": url, "status": resp.status_code})
-        if resp.status_code != 200:
-            continue
+    text = js.text
+    # 2. extract candidate endpoints: quoted strings with a slash
+    strings = set(re.findall(r'["\'`](/[A-Za-z0-9_\-./?=&{}$:%]{2,120})["\'`]', text))
+    strings |= set(re.findall(r'["\'`](https?://[A-Za-z0-9_\-./?=&{}$:%]{2,160})["\'`]', text))
+    interesting = sorted(
+        s
+        for s in strings
+        if re.search(r"api|json|archive|file|download|node|views|search", s, re.I)
+    )
+    notes["candidates"] = interesting
+    (OUT / "bundle_strings.txt").write_text("\n".join(sorted(strings)))
+    print(f"{len(strings)} strings, {len(interesting)} interesting")
 
-        soup = BeautifulSoup(resp.content, "html.parser")
-
-        # record forms (year/type filters are likely a form)
-        for form in soup.find_all("form"):
-            controls = []
-            for sel in form.find_all(["select", "input"]):
-                opts = [o.get("value") for o in sel.find_all("option")][:40]
-                controls.append(
-                    {
-                        "tag": sel.name,
-                        "name": sel.get("name"),
-                        "type": sel.get("type"),
-                        "options_sample": opts,
-                    }
-                )
-            notes.setdefault("forms", []).append(
-                {
-                    "page": url,
-                    "action": form.get("action"),
-                    "method": form.get("method"),
-                    "controls": controls,
-                }
-            )
-
-        for a in soup.find_all("a", href=True):
-            href = urllib.parse.urljoin(url, a["href"])
-            text = " ".join(a.get_text(" ", strip=True).split())[:200]
-            all_links.append({"page": url, "href": href, "text": text})
-            # follow pagination within the archive listing only
-            parsed = urllib.parse.urlparse(href)
-            if (
-                parsed.netloc.endswith("theaic.co.uk")
-                and ARCHIVE_PATH in parsed.path
-                and href not in seen_pages
-                and ("page=" in (parsed.query or "") or parsed.query)
-            ):
-                queue.append(href)
-
-    with (OUT / "links.csv").open("w", newline="", encoding="utf-8") as fh:
-        writer = csv.DictWriter(fh, fieldnames=["page", "href", "text"])
-        writer.writeheader()
-        writer.writerows(all_links)
-    print(f"captured {len(all_links)} links from {pages_fetched} pages")
-
-    # --- 2. sample linked files ------------------------------------------
-    file_ext = re.compile(r"\.(xlsx?|pdf|csv|zip|docx?)($|\?)", re.I)
-    samples = []
-    seen_files: set[str] = set()
-    for link in all_links:
-        href = link["href"]
-        if href in seen_files or not file_ext.search(href):
-            continue
-        if not urllib.parse.urlparse(href).netloc.endswith("theaic.co.uk"):
-            continue
-        if not allowed(href, rules):
-            samples.append({"href": href, "status": "blocked_by_robots"})
-            continue
-        seen_files.add(href)
-        if len(seen_files) > SAMPLE_FILE_BUDGET:
+    # 3. query the most promising candidates (GET only, small budget)
+    (OUT / "api").mkdir(exist_ok=True)
+    budget = 8
+    for cand in interesting:
+        if budget <= 0:
             break
+        if "{" in cand or "$" in cand:
+            continue  # templated - needs params we don't know yet
+        url = cand if cand.startswith("http") else BASE + cand
+        host = urllib.parse.urlparse(url).netloc
+        if not host.endswith("theaic.co.uk"):
+            continue
         try:
-            resp = fetch(href, stream=True)
-            content = b""
-            for chunk in resp.iter_content(65536):
-                content += chunk
-                if len(content) > SAMPLE_MAX_BYTES:
-                    break
-            name = Path(urllib.parse.urlparse(href).path).name or "unnamed"
-            (OUT / "samples").mkdir(exist_ok=True)
-            (OUT / "samples" / name).write_bytes(content)
-            samples.append(
-                {
-                    "href": href,
-                    "status": resp.status_code,
-                    "bytes": len(content),
-                    "content_type": resp.headers.get("Content-Type"),
-                    "saved_as": name,
-                    "sha256": hashlib.sha256(content).hexdigest(),
-                    "link_text": link["text"],
-                }
-            )
+            r = fetch(url, headers={"Accept": "application/json"})
         except Exception as exc:  # noqa: BLE001
-            samples.append({"href": href, "status": f"error: {exc}"})
+            notes["responses"].append({"url": url, "error": str(exc)})
+            continue
+        budget -= 1
+        slug = re.sub(r"\W+", "_", cand)[:80].strip("_")
+        body = r.content[:400_000]
+        (OUT / "api" / f"{slug}.txt").write_bytes(body)
+        notes["responses"].append(
+            {
+                "url": url,
+                "status": r.status_code,
+                "content_type": r.headers.get("Content-Type"),
+                "bytes": len(r.content),
+                "saved_as": f"api/{slug}.txt",
+            }
+        )
 
-    notes["samples"] = samples
-    (OUT / "probe_notes.json").write_text(json.dumps(notes, indent=2))
-    print("probe complete")
+    (OUT / "probe2_notes.json").write_text(json.dumps(notes, indent=2))
+    print("probe2 complete")
     return 0
 
 
