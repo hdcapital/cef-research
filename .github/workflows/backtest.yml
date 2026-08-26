@@ -81,6 +81,20 @@ jobs:
       - name: Build panel
         run: python -m uk_cef.cli build-panel
 
+      - name: Restore Investegate crawl state
+        uses: actions/cache/restore@v4
+        with:
+          path: data/investegate_cache
+          key: investegate-v1-${{ github.run_id }}
+          restore-keys: |
+            investegate-v1-
+
+      - name: Aggregate dividends from crawl cache (no new fetches)
+        run: python -m uk_cef.cli dividends --budget-minutes 0 || true
+
+      - name: Rebuild panel with total returns
+        run: python -m uk_cef.cli build-panel
+
       - name: Validate
         run: python -m uk_cef.cli validate || true
 

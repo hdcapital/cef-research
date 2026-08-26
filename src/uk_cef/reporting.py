@@ -475,6 +475,41 @@ def _write_report_md(cfg, out_dir: Path, gross: pd.DataFrame, net: pd.DataFrame,
       "security selection - sources this monthly screen deliberately does not model.")
     A("")
 
+    # Total-return results (Investegate dividends)
+    tr_rows = summary[summary["basis"] == "gross_TR"] if "basis" in summary.columns else pd.DataFrame()
+    if not tr_rows.empty:
+        A("## Total returns (price + parsed dividends)")
+        A("")
+        frac = tr_rows["tr_universe_fraction"].dropna()
+        A("Real per-share dividends with ex-dates were recovered from the Investegate RNS archive "
+          "(see outputs/investegate_coverage.csv). Total returns are computed only on the subset of "
+          "security-years whose parsed dividends pass a cross-check against the AIC's independently "
+          f"published trailing yield ({frac.iloc[0]:.0%} of eligible rows pass; the rest are excluded, "
+          "never assumed dividend-free). These results are on that restricted universe and are "
+          "labelled TR throughout; the price-only series remains the primary, broadest result.")
+        A("")
+        A("| strategy (TR basis) | CAGR | Sharpe | alpha vs TR universe | t |")
+        A("|---|---|---|---|---|")
+        for _, r in tr_rows.iterrows():
+            A(f"| {r['strategy']} | {_fmt(r.get('cagr'))} | {_fmt(r.get('sharpe'), pct=False)} | "
+              f"{_fmt(r.get('alpha_annual_vs_benchmark'))} | {_fmt(r.get('alpha_t_stat'), pct=False)} |")
+        A("")
+
+    ann_cat = _read_csv_safe(out_dir / "catalyst_analysis_announced.csv")
+    if not ann_cat.empty:
+        A("## Announcement-dated catalysts (Investegate)")
+        A("")
+        A("Unlike the AIC completion-month proxy, these use REAL announcement dates (tender offers, "
+          "wind-downs, strategic reviews, reconstructions announced in the trailing 6 months, "
+          "knowable at signal time):")
+        A("")
+        A("| group | n | mean next-month return | t |")
+        A("|---|---|---|---|")
+        for _, r in ann_cat.iterrows():
+            A(f"| {r['group']} | {int(r['n_obs'])} | {_fmt(r['mean_fwd_return'], digits=2)} | "
+              f"{_fmt(r['t_stat'], pct=False)} |")
+        A("")
+
     # Decile table
     if not decile.empty:
         A("## Decile tests (Stage 9)")

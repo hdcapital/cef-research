@@ -188,6 +188,13 @@ def run_backtests(cfg: dict) -> dict:
 
     # ------------------------------------------------ catalyst comparison
     _catalyst_analysis(elig, cfg).to_csv(out_dir / "catalyst_analysis.csv", index=False)
+    ann = _catalyst_analysis_announced(elig, cfg)
+    if ann is not None:
+        ann.to_csv(out_dir / "catalyst_analysis_announced.csv", index=False)
+
+    # ------------------------------------------------ total-return suite
+    _total_return_suite(elig, cfg, out_dir, summary_rows)
+    pd.DataFrame(summary_rows).to_csv(out_dir / "performance_summary.csv", index=False)
 
     # ------------------------------------------------ stress episodes
     stress_rows = []
@@ -529,6 +536,101 @@ def _decomposition(elig: pd.DataFrame, results: dict) -> pd.DataFrame:
                  "discount_return": float((w * ok["fwd_discount_return"]).sum()),
                  "coverage_weight": float(ok["weight"].sum() / grp["weight"].sum())}
             )
+    return pd.DataFrame(rows)
+
+
+def _total_return_suite(elig: pd.DataFrame, cfg: dict, out_dir: Path, summary_rows: list) -> None:
+    """Parallel strategy suite on TOTAL returns (price + parsed dividends),
+    restricted to rows whose dividend coverage passed the PFY cross-check.
+    Clearly labelled basis='gross_TR'; the price-only results remain the
+    primary series (broader universe, no parse-coverage filter)."""
+    if "fwd_total_return" not in elig.columns or elig["fwd_total_return"].notna().sum() < 1000:
+        log.info("total-return suite skipped: no/insufficient dividend data")
+        return
+    tr = elig[elig["dividend_coverage_ok"]].copy()
+    tr["fwd_return"] = tr["fwd_total_return"]
+    n_frac = len(tr) / max(len(elig), 1)
+    log.info("total-return suite: %d rows (%.0f%% of eligible) pass dividend coverage",
+             len(tr), 100 * n_frac)
+    if len(tr) < 10_000:
+        log.warning("TR-covered subset is small; results are indicative only")
+    z = cfg["signals"]["zscore_window_months"]
+    specs = [
+        dict(name="A_absolute_discount_decile_TR", signal_col="discount", top_fraction=0.10),
+        dict(name="C_discount_zscore_TR", signal_col=f"discount_z_{z}m", top_fraction=0.10),
+        dict(name="E_discount_overshoot_TR", signal_col="overshoot_score", top_fraction=0.10),
+    ]
+    bench_tr = benchmark_universe(tr, "equal", name="BM_equal_weight_universe_TR")
+    series = {"BM_equal_weight_universe_TR": bench_tr.gross_returns}
+    results = {"BM_equal_weight_universe_TR": bench_tr}
+    for spec in specs:
+        res = run_strategy(tr, min_names=cfg["strategies"]["min_names"], **spec)
+        results[spec["name"]] = res
+        series[spec["name"]] = res.gross_returns
+    for name, res in results.items():
+        row = perf.summarize(
+            res.gross_returns,
+            bench_tr.gross_returns if name != "BM_equal_weight_universe_TR" else None,
+            name=f"{name}|full|gross_TR",
+        )
+        row.update({"strategy": name, "period": "full", "basis": "gross_TR",
+                    "tr_universe_fraction": round(n_frac, 3)})
+        summary_rows.append(row)
+    pd.DataFrame(series).to_csv(out_dir / "strategy_tr_returns.csv")
+
+
+def _catalyst_analysis_announced(elig: pd.DataFrame, cfg: dict) -> pd.DataFrame | None:
+    """Stage 11 with REAL announcement dates (Investegate): among cheap
+    trusts, does a value-realization announcement in the trailing 6 months
+    (knowable at signal time) predict higher next-month returns?"""
+    cat_path = Path(cfg["paths"]["processed_dir"]) / "catalysts_announced.parquet"
+    if not cat_path.exists():
+        return None
+    cat = pd.read_parquet(cat_path)
+    cat["ann_month"] = pd.to_datetime(cat["date"], errors="coerce").dt.to_period("M")
+    cat = cat[cat["ann_month"].notna()]
+    by_sid: dict[str, set] = {}
+    for sid, g in cat.groupby("security_id"):
+        by_sid[sid] = set(g["ann_month"])
+
+    z = f"discount_z_{cfg['signals']['zscore_window_months']}m"
+    cheap = elig[
+        elig[z].notna() & (elig[z] < -1)
+        & elig["discount"].notna() & elig["sector_median_discount"].notna()
+        & (elig["discount"] < elig["sector_median_discount"])
+    ].copy()
+
+    def has_recent_announcement(sid: str, month: str, window: int = 6) -> bool:
+        months = by_sid.get(sid)
+        if not months:
+            return False
+        p = pd.Period(month, freq="M")
+        return any((p - k).n in range(0, window) for k in months if (p - k).n >= 0)
+
+    cheap["announced_catalyst"] = [
+        has_recent_announcement(s, m) for s, m in zip(cheap["security_id"], cheap["obs_month"])
+    ]
+    rows = []
+    for flag, grp in cheap.groupby("announced_catalyst"):
+        fr = grp["fwd_return"].dropna()
+        rows.append(
+            {"group": "cheap_with_announced_catalyst" if flag else "cheap_no_announced_catalyst",
+             "n_obs": len(grp), "n_with_fwd_return": len(fr),
+             "mean_fwd_return": float(fr.mean()) if len(fr) else np.nan,
+             "median_fwd_return": float(fr.median()) if len(fr) else np.nan,
+             "t_stat": perf.t_stat_mean(fr),
+             "avg_discount": float(grp["discount"].mean()),
+             "avg_zscore": float(grp[z].mean())}
+        )
+    a = cheap[cheap["announced_catalyst"]]["fwd_return"].dropna()
+    b = cheap[~cheap["announced_catalyst"]]["fwd_return"].dropna()
+    if len(a) > 10 and len(b) > 10:
+        from scipy import stats
+
+        t, p = stats.ttest_ind(a, b, equal_var=False)
+        rows.append({"group": "difference (announced - none)", "n_obs": len(a) + len(b),
+                     "mean_fwd_return": float(a.mean() - b.mean()),
+                     "t_stat": float(t), "median_fwd_return": float(p)})
     return pd.DataFrame(rows)
 
 
