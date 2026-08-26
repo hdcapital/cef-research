@@ -402,6 +402,10 @@ def build_panel(cfg: dict) -> pd.DataFrame:
         elig_counts = panel[panel["eligible"]].groupby("obs_month")["security_id"].nunique().rename("eligible_panel")
         pd.concat([uni_counts, elig_counts], axis=1).to_csv(outputs_dir / "universe_counts.csv")
 
+    # per-file parse stats -> outputs/parse_stats.csv and back-fill the
+    # parser_success column of data_inventory.csv
+    _write_parse_stats(mir, uni, ca, outputs_dir)
+
     out_path = processed / "monthly_panel.parquet"
     panel.to_parquet(out_path, index=False)
     log.info("panel written: %s (%d rows, %d securities, %s..%s)",
@@ -487,6 +491,36 @@ def _attach_catalysts(panel: pd.DataFrame, ca: pd.DataFrame, window: int = 6) ->
     panel["catalyst_flag"] = flags
     panel["catalyst_types"] = types
     return panel
+
+
+def _write_parse_stats(mir: pd.DataFrame, uni: pd.DataFrame, ca: pd.DataFrame, outputs_dir: Path) -> None:
+    stats = []
+    if not mir.empty:
+        for f, g in mir.groupby("source_file"):
+            stats.append({"file": f, "publication_type": "mir", "rows_parsed": len(g),
+                          "rows_with_price": int(g["price"].notna().sum()),
+                          "rows_with_nav": int(g["nav"].notna().sum())})
+    if not uni.empty:
+        for f, g in uni.groupby("source_file"):
+            stats.append({"file": f, "publication_type": "keyfacts", "rows_parsed": len(g)})
+    if not ca.empty:
+        for f, g in ca.groupby("source_file"):
+            stats.append({"file": f, "publication_type": "corporate_activity", "rows_parsed": len(g)})
+    ps = pd.DataFrame(stats)
+    ps.to_csv(outputs_dir / "parse_stats.csv", index=False)
+
+    inv_path = outputs_dir / "data_inventory.csv"
+    if inv_path.exists() and not ps.empty:
+        inv = pd.read_csv(inv_path)
+        parsed_names = {Path(f).name.split("_", 2)[-1] if f.count("_") >= 2 else f: n
+                        for f, n in zip(ps["file"], ps["rows_parsed"])}
+        def mark(src: str) -> str:
+            import urllib.parse
+            name = urllib.parse.unquote(str(src).rsplit("/", 1)[-1])
+            n = parsed_names.get(name)
+            return f"ok:{n}rows" if n else ""
+        inv["parser_success"] = inv["source"].map(mark)
+        inv.to_csv(inv_path, index=False)
 
 
 def _write_coverage_report(panel: pd.DataFrame, outputs_dir: Path) -> None:
