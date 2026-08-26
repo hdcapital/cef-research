@@ -268,8 +268,8 @@ def run_backtests(cfg: dict) -> dict:
 def _slice(s: pd.Series, bounds: tuple[str, str] | None) -> pd.Series:
     if s is None or s.empty or bounds is None:
         return s if s is not None else pd.Series(dtype=float)
-    a = pd.Period(bounds[0], freq="M").to_timestamp(how="end")
-    b = pd.Period(bounds[1], freq="M").to_timestamp(how="end") + pd.Timedelta(days=1)
+    a = pd.Period(bounds[0], freq="M").to_timestamp(how="end").normalize()
+    b = pd.Period(bounds[1], freq="M").to_timestamp(how="end").normalize() + pd.Timedelta(days=1)
     return s[(s.index >= a) & (s.index <= b)]
 
 
