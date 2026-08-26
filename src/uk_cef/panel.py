@@ -242,12 +242,19 @@ def build_panel(cfg: dict) -> pd.DataFrame:
     is_ordinary = stype_l.str.contains("ordinary") | (stype_l == "share")
     non_gbx = panel["currency"].notna() & (panel["currency"] != "GBX")
 
+    # late-reported rows (first published in a later monthly bundle) were
+    # not knowable at their observation month: usable for returns, but
+    # never signal-eligible.
+    late = panel["first_release_month"] > panel["obs_month"]
+    panel["late_reported"] = late
+
     panel["eligible"] = (
         is_ordinary
         & ~bad_type
         & ~(is_vct & ucfg["exclude_vcts"])
         & ~is_split_sector
         & ~non_gbx
+        & ~late
         & panel["discount"].notna()
     )
     panel["is_vct"] = is_vct

@@ -29,8 +29,16 @@ universe:
   # where the source data identifies them.
   exclude_security_types:
     - "zero dividend preference"
+    - "zdp"
     - "preference"
     - "split"
+    - "income share"
+    - "capital share"
+    - "package"
+    - "unit"
+    - "c share"
+    - "subscription"
+    - "warrant"
   min_market_cap_gbp_m: null       # primary run: no size filter (robustness grid varies this)
 
 signals:
