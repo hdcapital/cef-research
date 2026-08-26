@@ -268,3 +268,51 @@ def test_total_return_rejects_impossible_dates(tmp_path):
     assert jan["dividend_gbx_month"] == pytest.approx(2.6)  # ex-date month kept
     feb = out[out.obs_month == "2015-02"].iloc[0]
     assert pd.isna(feb["dividend_gbx_month"]) or feb["dividend_gbx_month"] == 0
+
+
+def test_nav_total_return_and_rolling_cagr(tmp_path):
+    """1% NAV growth + 2p dividend every month on NAV 100 base: NAV TR
+    ~1.02%/mo... build 70 months and check the 5y CAGR math."""
+    from uk_cef.panel import _attach_nav_returns
+
+    months = [str(p) for p in pd.period_range("2015-01", periods=70, freq="M")]
+    nav = [100.0 * (1.01 ** i) for i in range(70)]
+    rows = []
+    for i, m in enumerate(months):
+        rows.append({
+            "security_id": "Q", "obs_month": m, "nav": nav[i],
+            "share_price": nav[i] * 0.9, "shares": 1e6,
+            "dividend_gbx_month": 0.5 if i > 0 else np.nan,
+            "dividend_coverage_ok": True, "eligible": True,
+            "company_name": "Q Trust",
+        })
+    panel = pd.DataFrame(rows)
+    out = _attach_nav_returns(panel, tmp_path)
+    last = out.iloc[-1]
+    # monthly nav_tr = 1.01 + 0.5/prev_nav - 1; for a rough check use the
+    # first full month: 0.01 + 0.5/100
+    second = out.iloc[1]
+    assert second["nav_total_return"] == pytest.approx(0.01 + 0.5 / 100.0, rel=1e-6)
+    assert not np.isnan(last["nav_tr_cagr_5y"])
+    # 5y CAGR must exceed the ex-div 1%/mo compounding (12.68%) due to divs
+    assert last["nav_tr_cagr_5y"] > 1.01**12 - 1
+    assert np.isnan(last["nav_tr_cagr_10y"])  # only 70 months of history
+    assert (tmp_path / "nav_cagr_rolling.csv").exists()
+
+
+def test_nav_cagr_requires_dividend_coverage(tmp_path):
+    from uk_cef.panel import _attach_nav_returns
+
+    months = [str(p) for p in pd.period_range("2015-01", periods=70, freq="M")]
+    rows = []
+    for i, m in enumerate(months):
+        rows.append({
+            "security_id": "R", "obs_month": m, "nav": 100.0 + i,
+            "share_price": 90.0, "shares": 1e6,
+            "dividend_gbx_month": np.nan,
+            "dividend_coverage_ok": False,  # a payer with no parsed divs
+            "eligible": True, "company_name": "R Trust",
+        })
+    out = _attach_nav_returns(pd.DataFrame(rows), tmp_path)
+    # CAGR masked rather than silently computed ex-dividend
+    assert out["nav_tr_cagr_5y"].isna().all()

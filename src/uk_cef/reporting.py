@@ -499,6 +499,28 @@ def _write_report_md(cfg, out_dir: Path, gross: pd.DataFrame, net: pd.DataFrame,
               f"{_fmt(r.get('alpha_annual_vs_benchmark'))} | {_fmt(r.get('alpha_t_stat'), pct=False)} |")
         A("")
 
+    qv_rows = summary[summary["strategy"].astype(str).str.startswith(("F_", "BM_5y_record"))] \
+        if "strategy" in summary.columns else pd.DataFrame()
+    if not qv_rows.empty:
+        A("## Quality x value: top-quartile NAV compounders bought on dislocation")
+        A("")
+        A("Strategy F buys trusts in the top quartile of trailing 5-year dividend-inclusive NAV CAGR, "
+          "only when the discount is wider than the trust's own trailing norm (z<threshold). The "
+          "benchmark is the EW portfolio of all trusts with a valid 5-year NAV record, so the "
+          "comparison isolates the screen itself. Quality-only and value-only variants show whether "
+          "the combination adds anything beyond its ingredients. Rolling 3/5/10-year NAV CAGRs for "
+          "every fund are in nav_cagr_rolling.csv.")
+        A("")
+        A("| variant | basis | CAGR | Sharpe | alpha vs 5y-record universe | t | avg holdings |")
+        A("|---|---|---|---|---|---|---|")
+        for _, r in qv_rows.iterrows():
+            ah = r.get("avg_holdings")
+            ah_s = "" if pd.isna(ah) else f"{ah:.0f}"
+            A(f"| {r['strategy']} | {r['basis']} | {_fmt(r.get('cagr'))} | "
+              f"{_fmt(r.get('sharpe'), pct=False)} | {_fmt(r.get('alpha_annual_vs_benchmark'))} | "
+              f"{_fmt(r.get('alpha_t_stat'), pct=False)} | {ah_s} |")
+        A("")
+
     ann_cat = _read_csv_safe(out_dir / "catalyst_analysis_announced.csv")
     if not ann_cat.empty:
         A("## Announcement-dated catalysts (Investegate)")

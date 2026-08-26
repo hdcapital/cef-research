@@ -51,6 +51,13 @@ signals:
     absolute_discount_rank: 0.25
     widening_3m_rank: 0.25
 
+quality_value:
+  # Strategy F: top-quartile 5y NAV total-return CAGR, bought only when the
+  # discount is wider than the trust's own trailing norm. PRE-SPECIFIED.
+  nav_cagr_col: nav_tr_cagr_5y
+  top_quartile: 0.25
+  z_thresholds: [0.0, -0.5, -1.0]   # 0.0 = literally 'wider than its own average'
+
 timing:
   # Information dated month-end t is first usable for the portfolio held
   # during month t+1 (AIC publishes ~5-6 working days after month-end;

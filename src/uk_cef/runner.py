@@ -194,6 +194,9 @@ def run_backtests(cfg: dict) -> dict:
 
     # ------------------------------------------------ total-return suite
     _total_return_suite(elig, cfg, out_dir, summary_rows)
+
+    # ------------------------------------------------ quality x value (F)
+    _quality_value_suite(elig, cfg, out_dir, summary_rows)
     pd.DataFrame(summary_rows).to_csv(out_dir / "performance_summary.csv", index=False)
 
     # ------------------------------------------------ stress episodes
@@ -577,6 +580,69 @@ def _total_return_suite(elig: pd.DataFrame, cfg: dict, out_dir: Path, summary_ro
                     "tr_universe_fraction": round(n_frac, 3)})
         summary_rows.append(row)
     pd.DataFrame(series).to_csv(out_dir / "strategy_tr_returns.csv")
+
+
+def _quality_value_suite(elig: pd.DataFrame, cfg: dict, out_dir: Path, summary_rows: list) -> None:
+    """Strategy F (PRE-SPECIFIED): buy trusts in the TOP QUARTILE of
+    trailing 5-year dividend-inclusive NAV CAGR, but only when their
+    discount is wider than their own trailing norm (discount z-score below
+    a threshold). Variants isolate the ingredients:
+
+      F_quality_only     top-quartile NAV compounders, any discount
+      F_value_only       z < 0 within the 5y-record universe, any quality
+      F_combined_z{t}    both conditions, thresholds 0 / -0.5 / -1
+
+    Ranking universe each month = eligible trusts with a valid 5y NAV TR
+    CAGR (a point-in-time requirement: you can only buy a track record that
+    exists). The benchmark is the EW portfolio of that same universe, so
+    the comparison isolates the screen, not the track-record filter.
+    Returns are evaluated on BOTH bases: price-only fwd returns (primary)
+    and total returns (dividend-coverage subset)."""
+    qv = cfg.get("quality_value", {})
+    col = qv.get("nav_cagr_col", "nav_tr_cagr_5y")
+    if col not in elig.columns or elig[col].notna().sum() < 2000:
+        log.info("quality-value suite skipped: %s unavailable/sparse", col)
+        return
+    z_col = f"discount_z_{cfg['signals']['zscore_window_months']}m"
+    top_q = float(qv.get("top_quartile", 0.25))
+
+    base = elig[elig[col].notna()].copy()
+    base["__nav_rank"] = base.groupby("obs_month")[col].rank(pct=True, ascending=False)
+    in_top = base["__nav_rank"] <= top_q
+
+    def run_screen(mask: pd.Series, name: str, ret_col: str) -> None:
+        sub = base[mask].copy()
+        if ret_col == "fwd_total_return":
+            sub = sub[sub["dividend_coverage_ok"]]
+            sub["fwd_return"] = sub["fwd_total_return"]
+        res = run_strategy(sub, signal_col=col, name=name, top_fraction=1.0,
+                           min_names=cfg["strategies"]["min_names"])
+        bench_sub = base.copy()
+        if ret_col == "fwd_total_return":
+            bench_sub = bench_sub[bench_sub["dividend_coverage_ok"]]
+            bench_sub["fwd_return"] = bench_sub["fwd_total_return"]
+        bench = benchmark_universe(bench_sub, "equal", name=f"bench_{name}")
+        row = perf.summarize(res.gross_returns, bench.gross_returns, name=name)
+        basis = "gross_TR" if ret_col == "fwd_total_return" else "gross"
+        row.update({"strategy": name, "period": "full", "basis": basis,
+                    "avg_holdings": float(res.monthly["n_holdings"].mean()) if not res.monthly.empty else np.nan})
+        summary_rows.append(row)
+        series_store[name] = res.gross_returns
+        if f"BM_5y_record_universe_{basis}" not in series_store:
+            brow = perf.summarize(bench.gross_returns, name=f"BM_5y_record_universe_{basis}")
+            brow.update({"strategy": f"BM_5y_record_universe", "period": "full", "basis": basis})
+            summary_rows.append(brow)
+            series_store[f"BM_5y_record_universe_{basis}"] = bench.gross_returns
+
+    series_store: dict[str, pd.Series] = {}
+    for ret_col, suffix in (("fwd_return", ""), ("fwd_total_return", "_TR")):
+        run_screen(in_top, f"F_quality_only{suffix}", ret_col)
+        run_screen(base[z_col].notna() & (base[z_col] < 0), f"F_value_only{suffix}", ret_col)
+        for zt in qv.get("z_thresholds", [0.0, -0.5, -1.0]):
+            mask = in_top & base[z_col].notna() & (base[z_col] < zt)
+            run_screen(mask, f"F_combined_z{zt}{suffix}", ret_col)
+    pd.DataFrame(series_store).to_csv(out_dir / "quality_value_returns.csv")
+    log.info("quality-value suite: %d variants", len(series_store))
 
 
 def _catalyst_analysis_announced(elig: pd.DataFrame, cfg: dict) -> pd.DataFrame | None:

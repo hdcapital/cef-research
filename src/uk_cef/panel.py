@@ -379,6 +379,9 @@ def build_panel(cfg: dict) -> pd.DataFrame:
     # ---------------- total returns (Investegate dividends, if crawled) ----
     panel = _attach_total_returns(panel, processed, cfg)
 
+    # ---------------- NAV total returns + rolling NAV CAGRs ---------------
+    panel = _attach_nav_returns(panel, Path(cfg["paths"]["outputs_dir"]))
+
     # ---------------- terminal outcomes ----------------
     panel = _classify_terminals(panel, ca)
 
@@ -522,6 +525,91 @@ def _attach_total_returns(panel: pd.DataFrame, processed: Path, cfg: dict) -> pd
     n_div = int((panel["dividend_gbx_month"] > 0).sum())
     log.info("total returns attached: %d dividend months, coverage_ok on %.1f%% of rows",
              n_div, 100 * panel["dividend_coverage_ok"].mean())
+    return panel
+
+
+def _attach_nav_returns(panel: pd.DataFrame, outputs_dir: Path) -> pd.DataFrame:
+    """Monthly NAV total returns and rolling 3/5/10-year NAV CAGRs per fund.
+
+    NAV per share falls when a dividend goes ex, so the total version adds
+    parsed dividends back: nav_tr_t = (NAV_t + D_t) / NAV_{t-1} - 1. The
+    same split/unit-switch machinery used for prices applies (NAV per share
+    divides on a split and rescales on pence/pounds switches) by running
+    _detect_splits with the roles of price and NAV swapped.
+
+    Rolling CAGRs require >=90% of the window's calendar months observed,
+    and the dividend-inclusive versions additionally require >=80% of the
+    window to fall in dividend-coverage-validated years - a payer's NAV
+    CAGR is never silently computed ex-dividend.
+    """
+    panel = panel.copy()
+    nav_rets = []
+    for sid, g in panel.groupby("security_id"):
+        if g["nav"].notna().sum() < 2:
+            continue
+        swapped = g[["security_id", "obs_month"]].copy()
+        swapped["price"] = g["nav"].values
+        swapped["nav"] = g["share_price"].values
+        swapped["shares"] = g["shares"].values
+        out = _detect_splits(swapped)
+        out = out.rename(columns={"price_return": "nav_return",
+                                  "split_adjusted": "nav_split_adjusted",
+                                  "return_invalid_reason": "nav_return_invalid_reason"})
+        nav_rets.append(out)
+    if not nav_rets:
+        panel["nav_return"] = np.nan
+        panel["nav_total_return"] = np.nan
+        for w in (36, 60, 120):
+            panel[f"nav_tr_cagr_{w // 12}y"] = np.nan
+        return panel
+    nav_df = pd.concat(nav_rets, ignore_index=True)
+    panel = panel.merge(
+        nav_df[["security_id", "obs_month", "nav_return", "nav_return_invalid_reason"]],
+        on=["security_id", "obs_month"], how="left",
+    )
+
+    # dividend add-back on the NAV base
+    panel = panel.sort_values(["security_id", "obs_month"])
+    div = panel.get("dividend_gbx_month")
+    if div is None:
+        panel["dividend_gbx_month"] = np.nan
+
+    frames = []
+    for sid, g in panel.groupby("security_id"):
+        periods = pd.PeriodIndex(g["obs_month"], freq="M")
+        full = pd.period_range(periods.min(), periods.max(), freq="M")
+        nav = pd.Series(g["nav"].values, index=periods).reindex(full)
+        nr = pd.Series(g["nav_return"].values, index=periods).reindex(full)
+        d = pd.Series(g["dividend_gbx_month"].values, index=periods).reindex(full).fillna(0.0)
+        cov = pd.Series(g["dividend_coverage_ok"].values, index=periods).reindex(full).fillna(False)
+        prev_nav = nav.shift(1)
+        nav_tr = nr + (d / prev_nav).fillna(0.0).where(nr.notna())
+
+        log1p = np.log1p(nav_tr)
+        obs = nav_tr.notna().astype(float)
+        covf = cov.astype(float)
+        rec = {"security_id": sid, "obs_month": [str(p) for p in full],
+               "nav_total_return": nav_tr.values}
+        for w in (36, 60, 120):
+            s = log1p.rolling(w, min_periods=int(0.9 * w)).sum()
+            n = obs.rolling(w, min_periods=1).sum()
+            cagr = np.expm1(s * (12.0 / n.where(n > 0)))
+            enough = (n >= 0.9 * w)
+            cov_frac = covf.rolling(w, min_periods=1).mean()
+            cagr = cagr.where(enough & (cov_frac >= 0.8))
+            rec[f"nav_tr_cagr_{w // 12}y"] = cagr.values
+        frames.append(pd.DataFrame(rec))
+    roll = pd.concat(frames, ignore_index=True)
+    panel = panel.merge(roll, on=["security_id", "obs_month"], how="left")
+
+    # per-fund deliverable
+    out = panel[panel["eligible"]][
+        ["security_id", "company_name", "obs_month", "nav_total_return",
+         "nav_tr_cagr_3y", "nav_tr_cagr_5y", "nav_tr_cagr_10y"]
+    ].dropna(subset=["nav_tr_cagr_3y", "nav_tr_cagr_5y", "nav_tr_cagr_10y"], how="all")
+    out.to_csv(outputs_dir / "nav_cagr_rolling.csv", index=False)
+    log.info("NAV CAGRs: %d fund-months with a 5y figure",
+             int(panel["nav_tr_cagr_5y"].notna().sum()))
     return panel
 
 
