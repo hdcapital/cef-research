@@ -388,6 +388,15 @@ def build_panel(cfg: dict) -> pd.DataFrame:
     outputs_dir.mkdir(parents=True, exist_ok=True)
     _write_coverage_report(panel, outputs_dir)
 
+    # universe context: MIR (member) panel vs the all-companies files
+    if not uni.empty:
+        uni_counts = uni.groupby("obs_month").agg(
+            all_companies_rows=("company_name", "nunique"),
+            members=("member", lambda s: int((s == "Yes").sum()) if s.notna().any() else np.nan),
+        )
+        elig_counts = panel[panel["eligible"]].groupby("obs_month")["security_id"].nunique().rename("eligible_panel")
+        pd.concat([uni_counts, elig_counts], axis=1).to_csv(outputs_dir / "universe_counts.csv")
+
     out_path = processed / "monthly_panel.parquet"
     panel.to_parquet(out_path, index=False)
     log.info("panel written: %s (%d rows, %d securities, %s..%s)",
