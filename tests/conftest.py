@@ -30,9 +30,10 @@ def toy_panel() -> pd.DataFrame:
         ("S6", -0.30, "UK Equity Income"),
     ]:
         nav = 100.0
+        phase = int(sid[1:])  # deterministic (str hash() is salted per process)
         for i, m in enumerate(months):
             nav *= 1 + rng.normal(0.004, 0.02)
-            disc = base_disc + 0.03 * np.sin(i / 4 + hash(sid) % 5)
+            disc = base_disc + 0.03 * np.sin(i / 4 + phase % 5)
             price = nav * (1 + disc)
             rows.append(
                 {
