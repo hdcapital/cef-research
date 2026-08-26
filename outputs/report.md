@@ -67,6 +67,33 @@ Strategy F buys trusts in the top quartile of trailing 5-year dividend-inclusive
 | F_combined_z0.0_TR | gross_TR | 10.9% | 0.78 | 5.1% | 1.49 | 8 |
 | F_combined_z-0.5_TR | gross_TR | 26.4% | 1.85 | 20.9% | 5.84 | 6 |
 | F_combined_z-1.0_TR | gross_TR | 13.2% | 1.23 | 9.5% | 2.82 | 6 |
+| F_quality_only_SKIP1M | gross_skip1m | 8.0% | 0.60 | 0.5% | 0.31 | 16 |
+| F_value_only_SKIP1M | gross_skip1m | 8.2% | 0.68 | 1.0% | 1.38 | 33 |
+| F_combined_z0.0_SKIP1M | gross_skip1m | 20.8% | 1.28 | 13.8% | 4.16 | 8 |
+| F_combined_z-0.5_SKIP1M | gross_skip1m | 15.2% | 1.16 | 11.2% | 3.41 | 7 |
+| F_combined_z-1.0_SKIP1M | gross_skip1m | 22.5% | 1.71 | 17.9% | 4.64 | 6 |
+
+### The full quality x value surface (4x4 double sort)
+
+Independent monthly quartile sorts: rows = 5y NAV total-return CAGR quartile (Q1 = best compounders), columns = discount z-score quartile (D1 = most dislocated vs own history). Cell = average next-month price return (t-stat). The t+2 panel repeats the sort but skips the first month - what survives there is the slow, harvestable component.
+
+**Horizon t+1**
+
+| | D1 (dislocated) | D2 | D3 | D4 (rich) |
+|---|---|---|---|---|
+| Q1 (best NAV) | 1.42% (t=4.0) | 0.89% (t=2.4) | 0.84% (t=2.3) | 0.27% (t=0.8) |
+| Q2 | 1.09% (t=3.6) | 0.74% (t=2.4) | 0.52% (t=1.8) | -0.01% (t=-0.0) |
+| Q3 | 1.53% (t=5.2) | 0.65% (t=2.2) | 0.37% (t=1.3) | -0.11% (t=-0.3) |
+| Q4 (worst NAV) | 0.98% (t=2.7) | 0.80% (t=2.2) | 0.20% (t=0.6) | -0.34% (t=-1.0) |
+
+**Horizon t+2_skip**
+
+| | D1 (dislocated) | D2 | D3 | D4 (rich) |
+|---|---|---|---|---|
+| Q1 (best NAV) | 0.88% (t=2.2) | 0.92% (t=2.3) | 0.74% (t=2.0) | 0.69% (t=1.8) |
+| Q2 | 0.66% (t=2.3) | 0.49% (t=1.6) | 0.74% (t=2.4) | 0.47% (t=1.5) |
+| Q3 | 0.74% (t=2.6) | 0.73% (t=2.5) | 0.39% (t=1.3) | 0.95% (t=2.9) |
+| Q4 (worst NAV) | 0.83% (t=2.5) | 0.59% (t=1.5) | 0.73% (t=1.9) | -0.10% (t=-0.3) |
 
 ## Announcement-dated catalysts (Investegate)
 
