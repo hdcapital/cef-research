@@ -39,12 +39,15 @@ jobs:
           cache: pip
       - run: pip install -r requirements.txt && pip install -e .
 
+# NOTE: the restore path list must EXACTLY match the list backtest.yml
+      # saves with - actions/cache versions the archive by its path list, so
+      # a different list is a guaranteed cache miss.
       - name: Restore AIC raw cache
         uses: actions/cache/restore@v4
         with:
           path: |
             data/raw
-            data/cache/data-archive.json
+            data/cache
             data/manifest.csv
           key: aic-raw-v1-${{ github.run_id }}
           restore-keys: |
@@ -53,7 +56,7 @@ jobs:
       - name: Restore crawl state
         uses: actions/cache/restore@v4
         with:
-          path: data/cache/investegate
+          path: data/investegate_cache
           key: investegate-v1-${{ github.run_id }}
           restore-keys: |
             investegate-v1-
@@ -72,7 +75,7 @@ jobs:
         if: always()
         uses: actions/cache/save@v4
         with:
-          path: data/cache/investegate
+          path: data/investegate_cache
           key: investegate-v1-${{ github.run_id }}
 
       - name: Upload artifacts

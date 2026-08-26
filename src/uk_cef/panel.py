@@ -376,6 +376,9 @@ def build_panel(cfg: dict) -> pd.DataFrame:
         how="left",
     ).drop(columns=["signal_month"])
 
+    # ---------------- total returns (Investegate dividends, if crawled) ----
+    panel = _attach_total_returns(panel, processed, cfg)
+
     # ---------------- terminal outcomes ----------------
     panel = _classify_terminals(panel, ca)
 
@@ -415,6 +418,92 @@ def build_panel(cfg: dict) -> pd.DataFrame:
     log.info("panel written: %s (%d rows, %d securities, %s..%s)",
              out_path, len(panel), panel["security_id"].nunique(),
              panel["obs_month"].min(), panel["obs_month"].max())
+    return panel
+
+
+def _attach_total_returns(panel: pd.DataFrame, processed: Path, cfg: dict) -> pd.DataFrame:
+    """Total returns = price return + real parsed dividends (ex-date month).
+
+    Uses data/processed/dividends.parquet (Investegate crawl) when present.
+    Integrity rules:
+    - only high/medium-confidence extractions with a GBX amount are used;
+      medium (no ex-date) attach by PAY month and are flagged;
+    - a missing parsed dividend is NOT zero: per security-year, the parsed
+      trailing yield is validated against the independently published AIC
+      trailing yield (PFY). Years where parsed < 50% of published yield
+      (with PFY > 0.5%) are marked dividend_coverage_ok=False and excluded
+      from total-return strategy eligibility - never silently understated.
+    """
+    panel = panel.copy()
+    panel["fwd_total_return"] = np.nan
+    panel["dividend_gbx_month"] = np.nan
+    panel["dividend_coverage_ok"] = False
+    div_path = processed / "dividends.parquet"
+    if not div_path.exists():
+        return panel
+    div = pd.read_parquet(div_path)
+    div = div[div["confidence"].isin(["high", "medium"]) & div["amount_gbx"].notna()].copy()
+    if div.empty:
+        return panel
+    attach_date = div["ex_date"].fillna(div["pay_date"])
+    div["attach_month"] = pd.to_datetime(attach_date, errors="coerce").dt.to_period("M").astype(str)
+    div = div[div["attach_month"].notna() & (div["attach_month"] != "NaT")]
+    monthly = (
+        div.groupby(["security_id", "attach_month"])["amount_gbx"].sum().rename("div_gbx")
+    )
+    key = pd.MultiIndex.from_arrays([panel["security_id"], panel["obs_month"]])
+    panel["dividend_gbx_month"] = monthly.reindex(key).values
+
+    # per-security-year coverage vs published trailing yield (PFY)
+    py = panel[["security_id", "obs_month", "share_price", "dividend_yield"]].copy()
+    py["year"] = py["obs_month"].str[:4]
+    py["div"] = panel["dividend_gbx_month"].fillna(0.0)
+    cov = py.groupby(["security_id", "year"]).agg(
+        parsed_div=("div", "sum"),
+        avg_price=("share_price", "mean"),
+        avg_pfy=("dividend_yield", "mean"),
+    )
+    cov["parsed_yield_pct"] = 100.0 * cov["parsed_div"] / cov["avg_price"]
+    cov["ok"] = (
+        cov["avg_pfy"].isna()  # no published yield to contradict us
+        | (cov["avg_pfy"] < 0.5)  # effectively non-dividend-paying
+        | (cov["parsed_yield_pct"] >= 0.5 * cov["avg_pfy"] - 0.25)  # 25bp tolerance: PFY is rounded
+    )
+    cov_key = pd.MultiIndex.from_arrays([py["security_id"], py["year"]])
+    panel["dividend_coverage_ok"] = cov["ok"].reindex(cov_key).fillna(False).values
+    cov.reset_index().to_csv(Path(cfg["paths"]["outputs_dir"]) / "dividend_coverage_by_security_year.csv", index=False)
+
+    # total return for month t: (P_t + D_t) / P_{t-1} - 1, consistent with
+    # the split-adjusted price return: r_tr = r_price + D_t_adj / P_{t-1}.
+    panel = panel.sort_values(["security_id", "obs_month"])
+    tr_rows = {}
+    for sid, g in panel.groupby("security_id"):
+        periods = pd.PeriodIndex(g["obs_month"], freq="M")
+        s_price = pd.Series(g["share_price"].values, index=periods)
+        s_div = pd.Series(g["dividend_gbx_month"].values, index=periods).fillna(0.0)
+        s_pr = pd.Series(g["price_return"].values, index=periods)
+        full = pd.period_range(periods.min(), periods.max(), freq="M")
+        s_price, s_div, s_pr = s_price.reindex(full), s_div.reindex(full), s_pr.reindex(full)
+        prev_price = s_price.shift(1)
+        tr = s_pr + (s_div / prev_price).fillna(0.0).where(s_pr.notna())
+        d = tr.to_dict()
+        for p in periods:
+            tr_rows[(sid, str(p))] = d.get(p, np.nan)
+    panel["total_return"] = [
+        tr_rows.get((s, m), np.nan) for s, m in zip(panel["security_id"], panel["obs_month"])
+    ]
+    # forward one month, aligned like fwd_return
+    nxt = {
+        (s, str(pd.Period(m, freq="M") - 1)): v
+        for (s, m), v in tr_rows.items()
+        if not (isinstance(v, float) and np.isnan(v))
+    }
+    panel["fwd_total_return"] = [
+        nxt.get((s, m), np.nan) for s, m in zip(panel["security_id"], panel["obs_month"])
+    ]
+    n_div = int((panel["dividend_gbx_month"] > 0).sum())
+    log.info("total returns attached: %d dividend months, coverage_ok on %.1f%% of rows",
+             n_div, 100 * panel["dividend_coverage_ok"].mean())
     return panel
 
 

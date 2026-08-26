@@ -74,7 +74,7 @@ def _tokens_compatible(a: str, b: str) -> bool:
 
 
 class InvestegateCrawler:
-    def __init__(self, cache_dir: str | Path = "data/cache/investegate",
+    def __init__(self, cache_dir: str | Path = "data/investegate_cache",
                  budget_minutes: float = 250.0):
         self.cache = Path(cache_dir)
         self.listings = self.cache / "listings"

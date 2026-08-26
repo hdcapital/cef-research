@@ -188,6 +188,11 @@ def build_entities(cfg: dict) -> pd.DataFrame:
     processed.mkdir(parents=True, exist_ok=True)
 
     mir = parse_all_mir(raw_dir)
+    if mir.empty:
+        raise RuntimeError(
+            f"no MIR files parsed from {raw_dir} - run download first (in CI: "
+            "check the raw-data cache restored with the exact same path list it was saved with)"
+        )
     ca = parse_all_corporate_activity(raw_dir)
     registry = EntityRegistry(cfg["paths"].get("entity_overrides"))
     registry.load_name_changes(ca)

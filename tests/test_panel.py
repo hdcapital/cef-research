@@ -189,3 +189,55 @@ def test_bitemporal_correction_overrides():
     out = _dedupe_bitemporal(rows)
     assert out.iloc[0]["price"] == 105.0
     assert out.iloc[0]["nav"] == 120.0
+
+
+def test_attach_total_returns(tmp_path):
+    from uk_cef.panel import _attach_total_returns
+
+    months = ["2020-01", "2020-02", "2020-03"]
+    panel = pd.DataFrame(
+        {
+            "security_id": ["X"] * 3,
+            "obs_month": months,
+            "share_price": [100.0, 102.0, 99.0],
+            "price_return": [np.nan, 0.02, -0.0294117647],
+            "dividend_yield": [4.0, 4.0, 4.0],
+        }
+    )
+    div = pd.DataFrame(
+        [{"security_id": "X", "confidence": "high", "amount_gbx": 2.0,
+          "ex_date": "2020-02-14", "pay_date": "2020-03-01"}]
+    )
+    div.to_parquet(tmp_path / "dividends.parquet")
+    cfg = {"paths": {"outputs_dir": str(tmp_path)}}
+    out = _attach_total_returns(panel, tmp_path, cfg)
+    feb = out[out.obs_month == "2020-02"].iloc[0]
+    # total return Feb = price return + 2p / 100p
+    assert feb["total_return"] == pytest.approx(0.02 + 0.02)
+    jan = out[out.obs_month == "2020-01"].iloc[0]
+    assert jan["fwd_total_return"] == pytest.approx(0.04)
+    # coverage: parsed 2p on ~100p = 2% vs published 4% -> exactly 50% -> ok
+    assert bool(feb["dividend_coverage_ok"])
+
+
+def test_total_return_missing_dividends_flagged_not_zeroed(tmp_path):
+    from uk_cef.panel import _attach_total_returns
+
+    panel = pd.DataFrame(
+        {
+            "security_id": ["Y"] * 2,
+            "obs_month": ["2020-01", "2020-02"],
+            "share_price": [100.0, 101.0],
+            "price_return": [np.nan, 0.01],
+            "dividend_yield": [5.0, 5.0],  # pays 5% but we parsed nothing
+        }
+    )
+    div = pd.DataFrame(
+        [{"security_id": "OTHER", "confidence": "high", "amount_gbx": 1.0,
+          "ex_date": "2020-02-14", "pay_date": None}]
+    )
+    div.to_parquet(tmp_path / "dividends.parquet")
+    cfg = {"paths": {"outputs_dir": str(tmp_path)}}
+    out = _attach_total_returns(panel, tmp_path, cfg)
+    # TR mechanically equals price return, but coverage flags it unusable
+    assert not out["dividend_coverage_ok"].any()

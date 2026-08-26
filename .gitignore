@@ -2,6 +2,7 @@
 # The pipeline recreates it from public sources.
 data/raw/
 data/cache/
+data/investegate_cache/
 
 # Local processed artifacts can be large; parquet outputs are rebuilt by CI.
 # (Small derived CSVs under outputs/ ARE committed for auditability.)
