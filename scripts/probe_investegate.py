@@ -1,15 +1,14 @@
-"""Probe: verify Investegate's suitability as a dividend/catalyst source.
+"""Probe 2: map Investegate's archive/date/category URL space so the
+dividend crawler fetches the minimum necessary.
 
-Checks (results committed under data/probe/investegate/):
-1. robots.txt - what are we allowed to crawl?
-2. company page for a LIVE trust (CTY, City of London) - structure, filters,
-   pagination, how far back the archive goes.
-3. company page for a DEAD trust (PLI, Perpetual Income & Growth, delisted
-   2020) - do archives persist after delisting?
-4. one dividend-declaration detail page - is the amount/ex-date/pay-date
-   parseable?
+Questions:
+1. /announcement-archive - what params exist (date? category? company?)
+2. do date-filtered URLs work, and how far back?
+3. are DEAD trusts reachable: /company/<TICKER> for ADIG (wound down 2024),
+   SCIN (merged 2022); slug forms /company/<slug>--<ticker>;
+4. how deep does company pagination go (CTY?page=60 ~ 2007 era)?
 
-Gentle: ~1.5s throttle, <15 requests total.
+Budget ~14 requests at 1.5s.
 """
 
 from __future__ import annotations
@@ -24,16 +23,15 @@ import requests
 from bs4 import BeautifulSoup
 
 BASE = "https://www.investegate.co.uk"
-OUT = Path("data/probe/investegate")
+OUT = Path("data/probe/investegate2")
 UA = "uk-cef-research/0.1 (academic CEF dividend research; contact: danielconorsims@gmail.com; ~1 req/1.5s)"
 THROTTLE = 1.5
-
 session = requests.Session()
 session.headers["User-Agent"] = UA
 _last = 0.0
 
 
-def fetch(url: str) -> requests.Response | None:
+def fetch(url: str):
     global _last
     wait = THROTTLE - (time.time() - _last)
     if wait > 0:
@@ -48,62 +46,69 @@ def fetch(url: str) -> requests.Response | None:
         return None
 
 
-def save(name: str, content: bytes) -> None:
-    OUT.mkdir(parents=True, exist_ok=True)
-    (OUT / name).write_bytes(content)
+def describe(label: str, r, notes: dict, save_html: bool = True) -> None:
+    if r is None:
+        notes[label] = "failed"
+        return
+    notes[label] = r.status_code
+    if save_html and r.status_code == 200:
+        (OUT / f"{label}.html").write_bytes(r.content)
+    if r.status_code != 200:
+        return
+    soup = BeautifulSoup(r.content, "html.parser")
+    anns = [
+        {"href": urljoin(BASE, a.get("href", "")), "text": a.get_text(" ", strip=True)[:100]}
+        for a in soup.select('a[href*="/announcement/"]')
+    ]
+    notes[f"{label}_n_announcements"] = len(anns)
+    notes[f"{label}_first"] = anns[:4]
+    notes[f"{label}_last"] = anns[-3:]
+    # date strings visible on page (to date the content)
+    dates = re.findall(r"\b\d{1,2}\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+\d{4}\b",
+                       soup.get_text(" ", strip=True))
+    notes[f"{label}_dates_seen"] = sorted(set(dates))[:6]
+    # forms & interesting query links
+    notes[f"{label}_forms"] = [
+        {"action": f.get("action"), "inputs": [i.get("name") for i in f.find_all(["input", "select"])][:12]}
+        for f in soup.find_all("form")
+    ][:4]
+    qlinks = sorted({a["href"] for a in soup.find_all("a", href=True)
+                     if ("?" in a["href"] or "archive" in a["href"].lower())
+                     and "/announcement/" not in a["href"]})[:25]
+    notes[f"{label}_query_links"] = qlinks
 
 
 def main() -> int:
     OUT.mkdir(parents=True, exist_ok=True)
     notes: dict = {}
 
-    r = fetch(BASE + "/robots.txt")
-    if r is not None:
-        save("robots.txt", r.content)
-        notes["robots_status"] = r.status_code
+    describe("archive_root", fetch(BASE + "/announcement-archive"), notes)
 
-    # live trust company page + a page-2 if discoverable
+    # guess date-filter forms based on what the root shows; try common patterns
     for label, path in [
-        ("company_CTY", "/company/CTY"),
-        ("company_PLI_dead", "/company/PLI"),
-        ("company_AIC", "/company/AIC"),
+        ("archive_date_q", "/announcement-archive?date=2015-06-15"),
+        ("archive_date_path", "/announcement-archive/2015-06-15"),
     ]:
-        r = fetch(BASE + path)
-        if r is None:
-            notes[label] = "failed"
-            continue
-        notes[label] = r.status_code
-        save(f"{label}.html", r.content)
-        if r.status_code != 200:
-            continue
-        soup = BeautifulSoup(r.content, "html.parser")
-        anns = []
-        for a in soup.select('a[href*="/announcement/"]'):
-            anns.append({"href": urljoin(BASE, a.get("href", "")),
-                         "text": a.get_text(" ", strip=True)[:120]})
-        notes[f"{label}_announcements_on_page"] = len(anns)
-        notes[f"{label}_sample"] = anns[:12]
-        # look for pagination / date filters / year links
-        pag = [a.get("href") for a in soup.find_all("a", href=True)
-               if re.search(r"page=|/\d{4}($|/)|older|next|archive", a["href"], re.I)][:15]
-        notes[f"{label}_pagination_hints"] = pag
-        forms = [{ "action": f.get("action"), "inputs": [i.get("name") for i in f.find_all(["input","select"])][:10]}
-                 for f in soup.find_all("form")][:5]
-        notes[f"{label}_forms"] = forms
-        # find a dividend-looking announcement to fetch
-        if label == "company_CTY":
-            div_link = next((a["href"] for a in anns if re.search(r"dividend", a["text"], re.I)), None)
-            notes["dividend_link_found"] = div_link
-            if div_link:
-                rd = fetch(div_link)
-                if rd is not None and rd.status_code == 200:
-                    save("dividend_detail.html", rd.content)
-                    text = BeautifulSoup(rd.content, "html.parser").get_text(" ", strip=True)
-                    m = re.search(r"(dividend[^.]{0,300}?(\d+\.?\d*)\s*(p|pence)[^.]{0,300}?\.)", text, re.I)
-                    notes["dividend_regex_sample"] = m.group(0)[:400] if m else text[:400]
+        describe(label, fetch(BASE + path), notes, save_html=False)
+
+    for label, path in [
+        ("dead_ADIG", "/company/ADIG"),
+        ("dead_SCIN", "/company/SCIN"),
+        ("slug_CTY", "/company/city-of-london-inv-trust--cty"),
+        ("slug_ADIG", "/company/aberdeen-diversified-income-and-growth-trust--adig"),
+    ]:
+        describe(label, fetch(BASE + path), notes, save_html=(label != "slug_CTY"))
+
+    # pagination depth on a live trust
+    for label, path in [
+        ("cty_p30", "/company/CTY?page=30"),
+        ("cty_p60", "/company/CTY?page=60"),
+        ("cty_p120", "/company/CTY?page=120"),
+    ]:
+        describe(label, fetch(BASE + path), notes, save_html=False)
 
     (OUT / "notes.json").write_text(json.dumps(notes, indent=1))
-    print("probe complete")
+    print("probe2 complete")
     return 0
 
 
