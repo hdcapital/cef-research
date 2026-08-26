@@ -123,7 +123,17 @@ No causal claims are made; these test incremental predictive information only.
 
 ## Robustness (Stage 28)
 
-17 pre-specified variants (portfolio size, z-window, rebalance frequency, weighting, market-cap floors): 100% have positive alpha vs the EW universe. Full grid in robustness_grid.csv. If only isolated cells worked, that would indicate overfitting; the grid shows whether the effect occupies a broad region.
+20 pre-specified variants (portfolio size, z-window, rebalance frequency, weighting, market-cap floors): 100% have positive alpha vs the EW universe. Full grid in robustness_grid.csv. If only isolated cells worked, that would indicate overfitting; the grid shows whether the effect occupies a broad region.
+
+**Measurement-error (skip-month) test.** A mis-recorded month-t price both widens the apparent discount and mechanically reverses next month, inflating t+1 results; it cannot inflate the month t+2 return. Alphas when the first post-signal month is skipped:
+
+| variant | alpha (annual) | t | CAGR |
+|---|---|---|---|
+| discount_top10_SKIP1M | 0.7% | 0.41 | 5.7% |
+| z36m_top10_SKIP1M | 1.3% | 1.11 | 10.2% |
+| overshoot_top10_SKIP1M | 3.1% | 2.50 | 12.2% |
+
+The gap between the standard and skip-month alphas is an upper bound on how much of the one-month result is fast reversal (genuine or data-noise); the skip-month alpha is the conservative estimate of the harvestable effect.
 
 ## Economics of the return (Stage 30)
 
