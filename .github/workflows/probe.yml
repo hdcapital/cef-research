@@ -5,13 +5,14 @@ name: probe-aic-archive
 # runner and commits the (small) findings back to the branch for offline
 # inspection. Manual trigger only.
 
+# workflow_dispatch only works for workflows on the default branch, so
+# during development this triggers on pushes whose commit message contains
+# "[probe]". Bot commits made by this workflow never re-trigger it.
 on:
   workflow_dispatch:
-    inputs:
-      script:
-        description: "Probe script to run (relative path)"
-        required: false
-        default: "scripts/probe_archive.py"
+  push:
+    branches:
+      - "claude/**"
 
 permissions:
   contents: write
@@ -22,6 +23,7 @@ concurrency:
 
 jobs:
   probe:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[probe]')
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -31,7 +33,7 @@ jobs:
           python-version: "3.12"
       - run: pip install requests beautifulsoup4
       - name: Run probe
-        run: python ${{ inputs.script }}
+        run: python scripts/probe_archive.py
       - name: Commit probe results
         run: |
           git config user.name "github-actions[bot]"
