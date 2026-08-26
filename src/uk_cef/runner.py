@@ -353,6 +353,28 @@ def _catalyst_analysis(elig: pd.DataFrame, cfg: dict) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+def _skip_month_panel(elig: pd.DataFrame) -> pd.DataFrame:
+    """Replace fwd_return (month t+1) with the month t+2 return.
+
+    Purpose: separates genuine slow discount mean reversion from
+    measurement-error reversal. A mis-recorded month-t price both widens
+    the apparent discount AND mechanically reverses in month t+1, inflating
+    t+1 results; it cannot inflate the t+2 return. If alpha survives the
+    skip, the effect is not a price-error artefact."""
+    ret_map = {
+        (s, m): r
+        for s, m, r in zip(elig["security_id"], elig["obs_month"], elig["price_return"])
+        if pd.notna(r)
+    }
+    out = elig.copy()
+    fwd2 = [
+        ret_map.get((s, str(pd.Period(m, freq="M") + 2)), np.nan)
+        for s, m in zip(out["security_id"], out["obs_month"])
+    ]
+    out["fwd_return"] = fwd2
+    return out
+
+
 def _robustness(elig: pd.DataFrame, cfg: dict, bench: pd.Series) -> pd.DataFrame:
     rob = cfg["robustness"]
     rows = []
@@ -371,15 +393,30 @@ def _robustness(elig: pd.DataFrame, cfg: dict, bench: pd.Series) -> pd.DataFrame
     for mc in rob["min_market_caps_gbp_m"]:
         grid.append(dict(signal_col=f"discount_z_{z_def}m", top_fraction=0.10,
                          min_market_cap=mc, label=f"z{z_def}m_mcap{mc or 0}"))
+    # skip-month (t+2) variants: the measurement-error reversal test
+    skip_panel = _skip_month_panel(elig)
+    grid.append(dict(signal_col="discount", top_fraction=0.10,
+                     label="discount_top10_SKIP1M", __panel="skip"))
+    grid.append(dict(signal_col=f"discount_z_{z_def}m", top_fraction=0.10,
+                     label=f"z{z_def}m_top10_SKIP1M", __panel="skip"))
+    grid.append(dict(signal_col="overshoot_score", top_fraction=0.10,
+                     label="overshoot_top10_SKIP1M", __panel="skip"))
+
+    # skip-month benchmark for fair alpha comparison
+    skip_bench = benchmark_universe(skip_panel, "equal", name="bm_skip").gross_returns
+
     for spec in grid:
         label = spec.pop("label")
+        use_skip = spec.pop("__panel", None) == "skip"
+        use_panel = skip_panel if use_skip else elig
+        use_bench = skip_bench if use_skip else bench
         try:
-            res = run_strategy(elig, name=label, min_names=cfg["strategies"]["min_names"], **spec)
+            res = run_strategy(use_panel, name=label, min_names=cfg["strategies"]["min_names"], **spec)
         except Exception as exc:  # noqa: BLE001
             log.warning("robustness %s failed: %s", label, exc)
             continue
         g = res.gross_returns
-        a, b, t_a, n = perf.alpha_beta(g, bench)
+        a, b, t_a, n = perf.alpha_beta(g, use_bench)
         rows.append(
             {"variant": label, **spec, "months": len(g), "cagr": perf.cagr(g),
              "sharpe": perf.sharpe(g), "max_drawdown": perf.max_drawdown(g),

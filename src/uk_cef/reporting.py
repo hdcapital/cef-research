@@ -487,6 +487,21 @@ def _write_report_md(cfg, out_dir: Path, gross: pd.DataFrame, net: pd.DataFrame,
           "Full grid in robustness_grid.csv. If only isolated cells worked, that would indicate "
           "overfitting; the grid shows whether the effect occupies a broad region.")
         A("")
+        skips = robust[robust["variant"].str.contains("SKIP1M", na=False)]
+        if not skips.empty:
+            A("**Measurement-error (skip-month) test.** A mis-recorded month-t price both widens the "
+              "apparent discount and mechanically reverses next month, inflating t+1 results; it cannot "
+              "inflate the month t+2 return. Alphas when the first post-signal month is skipped:")
+            A("")
+            A("| variant | alpha (annual) | t | CAGR |")
+            A("|---|---|---|---|")
+            for _, r in skips.iterrows():
+                A(f"| {r['variant']} | {_fmt(r['alpha_annual'])} | {_fmt(r['alpha_t'], pct=False)} | {_fmt(r['cagr'])} |")
+            A("")
+            A("The gap between the standard and skip-month alphas is an upper bound on how much of the "
+              "one-month result is fast reversal (genuine or data-noise); the skip-month alpha is the "
+              "conservative estimate of the harvestable effect.")
+            A("")
 
     A("## Economics of the return (Stage 30)")
     A("")
