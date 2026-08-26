@@ -56,12 +56,14 @@ cross-checked against Corporate Activity "Capital Change" events).
 
 Why: no free source provides point-in-time dividend histories for the dead,
 merged and liquidated trusts that make the universe survivorship-free — and
-this project's hard rule is that missing data stays missing. Because discount
-portfolios systematically carry *higher* dividend yields than the universe
-(quantified in `outputs/yield_differentials.csv`), price-only returns
-*understate* the discount strategies relative to the benchmark — conservative
-for the hypothesis being tested — but absolute CAGRs are not total returns
-and must not be quoted as such.
+this project's hard rule is that missing data stays missing. Absolute CAGRs
+are therefore not total returns and must not be quoted as such. The
+*relative* bias is measured rather than assumed: each portfolio's average
+published trailing yield vs the universe's is reported in
+`outputs/yield_differentials.csv`, and that gap (~1pp for the tested
+portfolios) bounds how much a total-return comparison would move the alphas.
+Price returns also treat capital distributions by wind-down vehicles as
+losses, which penalises exactly the trusts discount strategies hold.
 
 ## Survivorship & look-ahead safeguards
 

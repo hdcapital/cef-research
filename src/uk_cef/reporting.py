@@ -352,11 +352,12 @@ def _write_report_md(cfg, out_dir: Path, gross: pd.DataFrame, net: pd.DataFrame,
       "AIC MIR month-end mid prices (the same point-in-time files that define the universe, so dead, "
       "merged and liquidated trusts are included up to their final published month). Free, point-in-time "
       "dividend histories covering delisted UK trusts do not exist, and per the project's data-integrity "
-      "rules nothing was synthesised. Because discount strategies systematically hold higher-yielding "
-      "trusts (see yield differentials below), **price-only returns understate the strategies' total "
-      "returns relative to the benchmark, not overstate them** - the direction of the bias is "
-      "conservative for the discount hypothesis, but CAGR levels are NOT total returns and must not be "
-      "quoted as such.")
+      "rules nothing was synthesised. CAGR levels are therefore NOT total returns. The direction of the "
+      "relative bias is measured, not assumed: outputs/yield_differentials.csv reports each portfolio's "
+      "average published trailing yield against the universe's, and the strategy-minus-universe yield "
+      "gap (about a percentage point on the tested portfolios) bounds how much a total-return "
+      "comparison would shift the alphas. Price returns also treat capital distributions by wind-down "
+      "vehicles as losses, which penalises exactly the trusts discount strategies hold.")
     A("")
 
     # Executive summary Q&A
@@ -422,7 +423,10 @@ def _write_report_md(cfg, out_dir: Path, gross: pd.DataFrame, net: pd.DataFrame,
         dis_c = (1 + sub["discount_return"]).prod() ** (12 / max(len(sub), 1)) - 1 if len(sub) else np.nan
         A(f"**9. NAV performance vs discount movement?** Strategy A's price return decomposes exactly as "
           f"(1+r) = (1+NAV return)(1+discount movement): annualised NAV component {_fmt(nav_c)}, "
-          f"discount-movement component {_fmt(dis_c)}. Per-year detail in return_decomposition.csv and chart 14.")
+          f"discount-movement component {_fmt(dis_c)}. Essentially all of the strategy's excess return "
+          "is discount capture, not superior NAVs. (Both components exclude distributions: NAV per "
+          "share falls on ex-dividend dates, so the NAV component is downward-biased by roughly the "
+          "portfolio yield.) Per-year detail in return_decomposition.csv and chart 14.")
         A("")
     mdd = stat(PRIMARY, col="max_drawdown")
     A(f"**How severe are drawdowns?** Strategy A max drawdown {_fmt(mdd)} "
@@ -438,15 +442,26 @@ def _write_report_md(cfg, out_dir: Path, gross: pd.DataFrame, net: pd.DataFrame,
                          f"vs universe {yp['avg_universe_trailing_yield_pct']:.1f}%.")
         except (IndexError, KeyError):
             pass
+    skip_alpha = np.nan
+    if not robust.empty:
+        sk = robust[robust["variant"].str.contains("SKIP1M", na=False)]
+        if not sk.empty:
+            skip_alpha = float(sk["alpha_annual"].max())
     A(f"**10. Is 15-20% gross economically plausible from long-only UK CEF discount investing?** "
-      f"The best pre-specified strategy delivered {_fmt(max(q_g or np.nan, zc or np.nan))} price-return CAGR "
-      f"({_fmt(q_alpha)} to {_fmt(zalpha)} annualised alpha over the trust universe) before costs.{yield_gap} "
-      "Adding the portfolio dividend yield to the price CAGR (a back-of-envelope, not a computed total "
-      "return) still leaves systematic long-only discount capture well short of 15-20% per year. The "
-      "evidence supports discounts as a real, exploitable return source of roughly mid-single-digit "
-      "alpha, but 15-20% gross would require substantial additional return sources - leverage, "
-      "activism/engagement to force realizations, security selection within NAVs, or concentrated "
-      "catalyst timing on announcement dates - none of which this long-only monthly screen captures.")
+      f"Taken at face value the best pre-specified strategy delivered {_fmt(max(q_g or np.nan, zc or np.nan))} "
+      f"price-return CAGR ({_fmt(q_alpha)} to {_fmt(zalpha)} annualised alpha) before costs.{yield_gap} "
+      "Three deductions are required before treating that as attainable: (i) the skip-month test "
+      f"(below) caps the alpha that survives without trading the very first post-signal month at "
+      f"{_fmt(skip_alpha)} - the remainder is fast one-month reversion that monthly month-end "
+      "rebalancing overstates and real execution would partly miss; (ii) realistic costs remove "
+      "5-10pp from the high-turnover variants (cost_scenarios.csv); (iii) the measured portfolio-vs-"
+      "universe yield gap shifts a total-return comparison slightly against the strategies. The "
+      "defensible conclusion: systematic long-only discount selection historically supported roughly "
+      "mid-single-digit to low-double-digit annual alpha over the trust universe before costs, on a "
+      "universe averaging ~5% price CAGR. That makes a mid-teens gross return an optimistic but not "
+      "absurd reading of the top variants, while a SUSTAINED 15-20% would additionally require "
+      "leverage, activism to force realizations, announcement-day catalyst timing, or NAV-level "
+      "security selection - sources this monthly screen deliberately does not model.")
     A("")
 
     # Decile table
