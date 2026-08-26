@@ -290,7 +290,7 @@ def build_panel(cfg: dict) -> pd.DataFrame:
 
     # ---------------- market cap (£m) ----------------
     # price is pence for GBX quotes; shares x price/100 = £.
-    gbx = panel["currency"].isna() | (panel["currency"] == "GBX")
+    gbx = panel["currency"].isna() | panel["currency"].str.upper().isin(["GBX", "GBP", "STG"])
     panel["market_cap"] = np.where(
         gbx & panel["price"].notna() & panel["shares"].notna(),
         panel["price"] * panel["shares"] / 100.0 / 1e6,
@@ -319,7 +319,11 @@ def build_panel(cfg: dict) -> pd.DataFrame:
     for pat in ucfg["exclude_security_types"]:
         bad_type |= stype_l.str.contains(pat)
     is_ordinary = stype_l.str.contains("ordinary") | (stype_l == "share")
-    non_gbx = panel["currency"].notna() & (panel["currency"] != "GBX")
+    # sterling labels vary by vintage: GBX (pence), GBP/GBp/STG (same
+    # sterling quotes - some 2012/2023 files label pence prices "GBP").
+    # Only genuinely foreign quote currencies (USD/EUR/...) are excluded.
+    sterling = {"GBX", "GBP", "GBp", "STG"}
+    non_gbx = panel["currency"].notna() & ~panel["currency"].str.upper().isin({s.upper() for s in sterling})
 
     # late-reported rows (first published in a later monthly bundle) were
     # not knowable at their observation month: usable for returns, but
