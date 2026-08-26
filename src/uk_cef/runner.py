@@ -236,6 +236,23 @@ def run_backtests(cfg: dict) -> dict:
     )
     net_series.to_csv(out_dir / "strategy_net_returns.csv")
 
+    # Stage 15: optional hypothetical leverage overlay - NEVER part of the
+    # primary results. Flat assumed borrowing cost, clearly labelled.
+    lev_rows = []
+    borrow_annual = 0.03  # ASSUMPTION, documented in the report
+    for name in ("A_absolute_discount_decile", "C_discount_zscore"):
+        g = results[name].gross_returns
+        for lev in (1.10, 1.25):
+            r_lev = lev * g - (lev - 1) * (borrow_annual / 12)
+            lev_rows.append(
+                {"strategy": name, "exposure": lev,
+                 "assumed_borrow_cost_annual": borrow_annual,
+                 "cagr": perf.cagr(r_lev), "sharpe": perf.sharpe(r_lev),
+                 "max_drawdown": perf.max_drawdown(r_lev),
+                 "note": "hypothetical overlay on gross price returns; not a primary result"}
+            )
+    pd.DataFrame(lev_rows).to_csv(out_dir / "leverage_overlay.csv", index=False)
+
     meta = {
         "n_eligible_rows": int(len(elig)),
         "n_securities": int(elig["security_id"].nunique()),
