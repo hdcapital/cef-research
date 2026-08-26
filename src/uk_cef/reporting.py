@@ -422,9 +422,13 @@ def _write_report_md(cfg, out_dir: Path, gross: pd.DataFrame, net: pd.DataFrame,
               f"capital return/realisation policy/liquidation) earned {_fmt(with_c['mean_fwd_return'], digits=2)} "
               f"next month vs {_fmt(no_c['mean_fwd_return'], digits=2)} without "
               f"(n={int(with_c['n_with_fwd_return'])} vs {int(no_c['n_with_fwd_return'])}). "
-              "IMPORTANT: the AIC archive records actions by effective month, not announcement date, so "
-              "this is a 'trailing completed action' proxy - announcement-day catalyst alpha cannot be "
-              "measured from this source and is not claimed.")
+              "The AIC archive records actions by effective month, so this is a 'trailing completed "
+              "action' proxy - but the announcement-dated test (real RNS dates from Investegate; see "
+              "the Announcement-dated catalysts section) reaches the same conclusion: trusts with a "
+              "recently ANNOUNCED catalyst earned less, not more, the following month, consistent with "
+              "the discount re-rating at the announcement itself before a monthly signal can react. "
+              "Catalyst alpha, if harvestable, requires announcement-day execution or pre-announcement "
+              "positioning, not a monthly screen.")
         except (IndexError, KeyError):
             A("**8. Do catalysts improve returns?** See catalyst_analysis.csv.")
         A("")

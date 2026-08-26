@@ -43,6 +43,17 @@ throttled (~1 request / 1.2 s), cached, hashed and recorded in
 `data/manifest.csv`; robots.txt is respected and no access controls are
 bypassed.
 
+**Dividend & announcement layer (Investegate)**: `python -m uk_cef.cli
+dividends` runs a resumable, identity-verified crawl of the free Investegate
+RNS archive (~1 request/1.3s) recovering per-share dividend declarations
+with real ex-dates and corporate-action announcements with real announcement
+dates, for every universe security with a knowable TIDM (delisted trusts
+included where their final ticker still resolves). Parsed dividends are
+cross-validated per security-year against the AIC's independently published
+trailing yield; failing years are excluded from total-return eligibility,
+never silently understated. Total-return results are labelled `_TR`
+throughout and sit alongside (never replace) the price-only primary series.
+
 **Optional cross-check only**: `validate --external` compares a sample of MIR
 prices against Stooq monthly closes for live tickers. External sources never
 contribute a return observation.
