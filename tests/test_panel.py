@@ -149,3 +149,43 @@ def test_extreme_unverified_no_nav():
     row = out[out["obs_month"] == "2009-05"].iloc[0]
     assert pd.isna(row["price_return"])
     assert row["return_invalid_reason"] == "extreme_unverified"
+
+
+def test_bitemporal_coalesce_field_level():
+    """A later errata row that only carries the corrected field must not
+    wipe the original price/NAV (regression for the 2012-05 universe hole)."""
+    from uk_cef.panel import _dedupe_bitemporal
+
+    rows = pd.DataFrame(
+        [
+            {"security_id": "X", "obs_month": "2012-05", "release_month": "2012-05",
+             "file_kind": "main", "price": 100.0, "nav": 120.0, "shares": 1e6,
+             "dividend_yield": 3.0},
+            # errata republishes the row with ONLY gearing-style fields
+            {"security_id": "X", "obs_month": "2012-05", "release_month": "2012-06",
+             "file_kind": "post_errata", "price": np.nan, "nav": np.nan, "shares": np.nan,
+             "dividend_yield": 3.5},
+        ]
+    )
+    out = _dedupe_bitemporal(rows)
+    assert len(out) == 1
+    r = out.iloc[0]
+    assert r["price"] == 100.0 and r["nav"] == 120.0
+    assert r["dividend_yield"] == 3.5           # corrected field DOES update
+    assert r["first_release_month"] == "2012-05"
+
+
+def test_bitemporal_correction_overrides():
+    from uk_cef.panel import _dedupe_bitemporal
+
+    rows = pd.DataFrame(
+        [
+            {"security_id": "X", "obs_month": "2020-01", "release_month": "2020-01",
+             "file_kind": "main", "price": 100.0, "nav": 120.0},
+            {"security_id": "X", "obs_month": "2020-01", "release_month": "2020-01",
+             "file_kind": "errata", "price": 105.0, "nav": np.nan},
+        ]
+    )
+    out = _dedupe_bitemporal(rows)
+    assert out.iloc[0]["price"] == 105.0
+    assert out.iloc[0]["nav"] == 120.0

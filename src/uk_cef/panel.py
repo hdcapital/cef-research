@@ -124,18 +124,23 @@ def parse_all_companies(raw_dir: Path) -> pd.DataFrame:
 
 # ------------------------------------------------------------------- assembly
 def _dedupe_bitemporal(mir: pd.DataFrame) -> pd.DataFrame:
-    """One row per (security, obs_month): latest correction wins for values;
-    first_release_month records when the observation first became public."""
+    """One row per (security, obs_month) with FIELD-LEVEL coalescing: later
+    corrections override a field only where they actually supply a value
+    (errata rows frequently republish a row with just the corrected fields
+    populated - taking the whole latest row would wipe the original data).
+    first_release_month records when the observation first became public.
+    A correction that intentionally blanks a field cannot be represented;
+    none has been observed."""
     mir = mir.copy()
     mir["prec"] = mir["file_kind"].map(_PRECEDENCE)
     mir = mir.sort_values(["security_id", "obs_month", "release_month", "prec"])
-    first_release = (
-        mir.groupby(["security_id", "obs_month"])["release_month"].min().rename("first_release_month")
-    )
-    latest = mir.groupby(["security_id", "obs_month"]).tail(1).copy()
-    latest = latest.merge(first_release, on=["security_id", "obs_month"])
-    n_corr = (latest["release_month"] != latest["first_release_month"]).sum()
-    log.info("panel dedupe: %d rows, %d carry later corrections", len(latest), int(n_corr))
+    grouped = mir.groupby(["security_id", "obs_month"], sort=False)
+    coalesced = grouped.last()  # last NON-NULL value per column
+    coalesced["first_release_month"] = grouped["release_month"].min()
+    coalesced["n_source_rows"] = grouped.size()
+    latest = coalesced.reset_index()
+    n_multi = int((latest["n_source_rows"] > 1).sum())
+    log.info("panel dedupe: %d rows, %d coalesced from multiple source rows", len(latest), n_multi)
     return latest
 
 
