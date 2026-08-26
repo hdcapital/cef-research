@@ -1,0 +1,5 @@
+security_id,ticker,note,verified_by,verified_date
+# Manually verified TIDMs for securities whose ticker is not in any AIC file
+# (mostly trusts that died before the AIC added ISIN/TIDM columns in 2019).
+# Verify against contemporaneous sources before adding - never guess:
+# a wrong ticker maps another company's dividends onto the trust.

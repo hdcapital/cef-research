@@ -91,6 +91,41 @@ def cmd_validate(cfg: dict, args) -> int:
     return 1 if problems else 0
 
 
+def cmd_dividends(cfg: dict, args) -> int:
+    """Resumable Investegate crawl: dividends + announcement-dated catalysts."""
+    import pandas as pd
+
+    from .data_sources.investegate import InvestegateCrawler, build_ticker_map
+
+    tmap = build_ticker_map(cfg)
+    with_ticker = tmap[tmap["ticker"].notna()].copy()
+    log.info("universe: %d securities, %d with a known TIDM", len(tmap), len(with_ticker))
+    crawler = InvestegateCrawler(budget_minutes=args.budget_minutes)
+    # crawl in a stable order: alive-longest first (biggest return-data value)
+    with_ticker["span"] = with_ticker["last_month"].str.slice(0, 4).astype(int) - \
+        with_ticker["first_month"].str.slice(0, 4).astype(int)
+    with_ticker = with_ticker.sort_values("span", ascending=False)
+    for _, row in with_ticker.iterrows():
+        status = crawler.crawl_company(row["security_id"], row["ticker"], row["names"])
+        if status == "budget_exhausted":
+            log.info("budget exhausted after %d requests; state saved for next run",
+                     crawler.requests_made)
+            break
+    crawler.build_outputs(cfg["paths"]["processed_dir"], with_ticker)
+    cov = crawler.coverage_summary()
+    out = Path(cfg["paths"]["outputs_dir"])
+    out.mkdir(parents=True, exist_ok=True)
+    cov.to_csv(out / "investegate_coverage.csv", index=False)
+    no_ticker = tmap[tmap["ticker"].isna()]
+    no_ticker.assign(names=no_ticker["names"].astype(str)).to_csv(
+        out / "investegate_missing_tickers.csv", index=False
+    )
+    log.info("coverage: %s", cov["status"].value_counts().to_dict() if not cov.empty else {})
+    log.info("%d securities lack a TIDM (pre-2019 deaths) -> investegate_missing_tickers.csv; "
+             "add verified tickers to config/investegate_tickers.csv", len(no_ticker))
+    return 0
+
+
 def cmd_backtest(cfg: dict, args) -> int:
     from .runner import run_backtests
 
@@ -125,6 +160,7 @@ def main(argv: list[str] | None = None) -> int:
         ("download", cmd_download),
         ("build-entities", cmd_build_entities),
         ("build-panel", cmd_build_panel),
+        ("dividends", cmd_dividends),
         ("validate", cmd_validate),
         ("backtest", cmd_backtest),
         ("report", cmd_report),
@@ -132,6 +168,9 @@ def main(argv: list[str] | None = None) -> int:
     ]:
         p = sub.add_parser(name)
         p.set_defaults(func=fn)
+        if name == "dividends":
+            p.add_argument("--budget-minutes", type=float, default=250.0,
+                           help="wall-clock crawl budget for this run")
         if name in ("download", "run-all"):
             p.add_argument("--types", default=None, help="comma-separated publication types")
             p.add_argument("--limit", type=int, default=None, help="max new downloads this run")
