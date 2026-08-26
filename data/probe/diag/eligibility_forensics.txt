@@ -1,0 +1,78 @@
+===== 2012-04 =====
+raw parsed rows: 457 from files ['2012-04_mir_MIR1204.CSV', '2012-04_mir_PostMIRErrataAdditional1204.csv', '2012-05_mir_ErrataAdditional1205.CSV', '2012-05_mir_PostMIRErrataAdditional1205.csv', '2012-06_mir_ErrataAdditional1206.CSV', '2012-07_mir_ErrataAdditional1207.CSV', '2012-10_mir_ErrataAdditional1210.csv', '2013-09_mir_ErrataAdditional1309.csv', '2014-01_mir_PostMIRErrataAdditional1401.csv']
+  with price: 218, with nav: 217
+===== 2012-05 =====
+raw parsed rows: 502 from files ['2012-05_mir_MIR1205.CSV', '2012-05_mir_PostMIRErrataAdditional1205.csv', '2012-06_mir_ErrataAdditional1206.CSV', '2012-07_mir_ErrataAdditional1207.CSV', '2012-08_mir_ErrataAdditional1208.csv', '2012-10_mir_ErrataAdditional1210.csv', '2013-09_mir_ErrataAdditional1309.csv', '2014-01_mir_PostMIRErrataAdditional1401.csv']
+  with price: 270, with nav: 266
+===== 2012-06 =====
+raw parsed rows: 459 from files ['2012-06_mir_MIR1206.CSV', '2012-06_mir_PostMIRErrataAdditional1206.csv', '2012-07_mir_ErrataAdditional1207.CSV', '2012-08_mir_ErrataAdditional1208.csv', '2012-08_mir_PostMIRErrataAdditional1208.csv', '2012-09_mir_ErrataAdditional1209.csv', '2012-10_mir_ErrataAdditional1210.csv', '2012-12_mir_ErrataAdditional1212.csv', '2013-05_mir_ErrataAdditional1305.csv', '2013-09_mir_ErrataAdditional1309.csv', '2014-01_mir_PostMIRErrataAdditional1401.csv']
+  with price: 223, with nav: 221
+===== 2023-12 =====
+raw parsed rows: 393 from files ['2023-12_mir_MIR2312.csv', '2023-12_mir_PostMIRErrataAdditional2312.csv', '2024-01_mir_ERR2401.csv']
+  with price: 189, with nav: 189
+===== 2020-04 =====
+raw parsed rows: 418 from files ['2020-04_mir_MIR2004.csv', '2020-04_mir_PostMIRErrataAdditional2004.csv', '2020-05_mir_ERR2005.csv', '2020-10_mir_ERR2010.csv', '2023-10_mir_PostMIRErrataAdditional2310.csv']
+  with price: 202, with nav: 202
+===== 2019-02 =====
+raw parsed rows: 423 from files ['2019-02_mir_MIR1902.csv', '2019-02_mir_PostMIRErrataAdditional1902.csv', '2019-03_mir_ERR1903.csv', '2019-04_mir_ERR1904.csv', '2019-04_mir_MIR1904.csv', '2023-10_mir_PostMIRErrataAdditional2310.csv']
+  with price: 202, with nav: 209
+===== 2012-04 after dedupe =====
+rows: 426
+  has_price: pass=204 fail=222
+  has_nav: pass=203 fail=223
+  is_ordinary: pass=394 fail=32
+  not_vct: pass=305 fail=121
+  not_late: pass=426 fail=0
+  gbx: pass=426 fail=0
+  ALL: 179
+  currencies: {None: 426}
+===== 2012-05 after dedupe =====
+rows: 424
+  has_price: pass=205 fail=219
+  has_nav: pass=203 fail=221
+  is_ordinary: pass=392 fail=32
+  not_vct: pass=303 fail=121
+  not_late: pass=424 fail=0
+  gbx: pass=242 fail=182
+  ALL: 11
+  currencies: {None: 242, 'GBP': 182}
+===== 2012-06 after dedupe =====
+rows: 423
+  has_price: pass=210 fail=213
+  has_nav: pass=208 fail=215
+  is_ordinary: pass=391 fail=32
+  not_vct: pass=302 fail=121
+  not_late: pass=423 fail=0
+  gbx: pass=423 fail=0
+  ALL: 177
+  currencies: {None: 423}
+===== 2023-12 after dedupe =====
+rows: 369
+  has_price: pass=174 fail=195
+  has_nav: pass=174 fail=195
+  is_ordinary: pass=360 fail=9
+  not_vct: pass=316 fail=53
+  not_late: pass=369 fail=0
+  gbx: pass=337 fail=32
+  ALL: 161
+  currencies: {'GBX': 292, None: 45, 'GBP': 22, 'USD': 7, 'EUR': 3}
+===== 2020-04 after dedupe =====
+rows: 407
+  has_price: pass=200 fail=207
+  has_nav: pass=200 fail=207
+  is_ordinary: pass=394 fail=13
+  not_vct: pass=342 fail=65
+  not_late: pass=407 fail=0
+  gbx: pass=366 fail=41
+  ALL: 183
+  currencies: {'GBX': 343, 'GBP': 32, None: 23, 'USD': 6, 'EUR': 3}
+===== 2019-02 after dedupe =====
+rows: 409
+  has_price: pass=199 fail=210
+  has_nav: pass=202 fail=207
+  is_ordinary: pass=394 fail=15
+  not_vct: pass=343 fail=66
+  not_late: pass=409 fail=0
+  gbx: pass=406 fail=3
+  ALL: 183
+  currencies: {None: 208, 'GBX': 198, 'USD': 2, 'GBP': 1}
