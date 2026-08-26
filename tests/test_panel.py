@@ -241,3 +241,30 @@ def test_total_return_missing_dividends_flagged_not_zeroed(tmp_path):
     out = _attach_total_returns(panel, tmp_path, cfg)
     # TR mechanically equals price return, but coverage flags it unusable
     assert not out["dividend_coverage_ok"].any()
+
+
+def test_total_return_rejects_impossible_dates(tmp_path):
+    from uk_cef.panel import _attach_total_returns
+
+    panel = pd.DataFrame(
+        {
+            "security_id": ["Z"] * 2,
+            "obs_month": ["2015-01", "2015-02"],
+            "share_price": [100.0, 100.0],
+            "price_return": [np.nan, 0.0],
+            "dividend_yield": [np.nan, np.nan],
+        }
+    )
+    # pay date BEFORE the announcement (mis-grabbed "year ended" text):
+    # must be discarded, leaving ex-date attach only
+    div = pd.DataFrame(
+        [{"security_id": "Z", "confidence": "high", "amount_gbx": 2.6,
+          "date": "2015-01-15", "ex_date": "2015-01-22", "pay_date": "2014-12-31"}]
+    )
+    div.to_parquet(tmp_path / "dividends.parquet")
+    cfg = {"paths": {"outputs_dir": str(tmp_path)}}
+    out = _attach_total_returns(panel, tmp_path, cfg)
+    jan = out[out.obs_month == "2015-01"].iloc[0]
+    assert jan["dividend_gbx_month"] == pytest.approx(2.6)  # ex-date month kept
+    feb = out[out.obs_month == "2015-02"].iloc[0]
+    assert pd.isna(feb["dividend_gbx_month"]) or feb["dividend_gbx_month"] == 0

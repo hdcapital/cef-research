@@ -442,7 +442,25 @@ def _attach_total_returns(panel: pd.DataFrame, processed: Path, cfg: dict) -> pd
     if not div_path.exists():
         return panel
     div = pd.read_parquet(div_path)
-    div = div[div["confidence"].isin(["high", "medium"]) & div["amount_gbx"].notna()].copy()
+    div = div[div["amount_gbx"].notna()].copy()
+    if div.empty:
+        return panel
+    # date sanity vs the announcement date: the parser can mis-grab dates
+    # from surrounding text ("year ended 31 December ..."). An ex/pay date
+    # earlier than the announcement (less 7d tolerance) or more than ~8
+    # months after it is discarded, and confidence recomputed.
+    ann = (pd.to_datetime(div["date"], errors="coerce")
+           if "date" in div.columns else pd.Series(pd.NaT, index=div.index))
+    for col in ("ex_date", "pay_date"):
+        d = pd.to_datetime(div[col], errors="coerce")
+        bad = d.notna() & ann.notna() & (
+            (d < ann - pd.Timedelta(days=7)) | (d > ann + pd.Timedelta(days=250))
+        )
+        div.loc[bad, col] = None
+    ex_ok = pd.to_datetime(div["ex_date"], errors="coerce").notna()
+    pay_ok = pd.to_datetime(div["pay_date"], errors="coerce").notna()
+    div["confidence"] = np.where(ex_ok, "high", np.where(pay_ok, "medium", "low"))
+    div = div[div["confidence"].isin(["high", "medium"])]
     if div.empty:
         return panel
     attach_date = div["ex_date"].fillna(div["pay_date"])
