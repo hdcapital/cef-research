@@ -1,13 +1,9 @@
 name: probe-aic-archive
 
-# Reconnaissance workflow: the development sandbox cannot reach
-# www.theaic.co.uk, so this fetches the archive structure from a GitHub
-# runner and commits the (small) findings back to the branch for offline
-# inspection. Manual trigger only.
+# Diagnostics workflow: runs a probe/diagnostic script on a GitHub runner
+# (the dev sandbox has no egress to theaic.co.uk) with the shared raw-data
+# cache mounted, and commits small findings back to the branch.
 
-# workflow_dispatch only works for workflows on the default branch, so
-# during development this triggers on pushes whose commit message contains
-# "[probe]". Bot commits made by this workflow never re-trigger it.
 on:
   workflow_dispatch:
   push:
@@ -31,9 +27,19 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: pip install requests beautifulsoup4
-      - name: Run probe
-        run: python scripts/probe_archive.py
+      - run: pip install -r requirements.txt
+      - name: Restore raw-data cache
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            data/raw
+            data/cache
+            data/manifest.csv
+          key: aic-raw-v1-${{ github.run_id }}
+          restore-keys: |
+            aic-raw-v1-
+      - name: Run diagnostic script
+        run: python scripts/diag_parse.py
       - name: Commit probe results
         run: |
           git config user.name "github-actions[bot]"
@@ -42,7 +48,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "no changes"
           else
-            git commit -m "Probe: AIC archive reconnaissance results"
+            git commit -m "Probe: parser/unit diagnostics"
             git pull --rebase origin "${GITHUB_REF_NAME}" || true
             git push origin "HEAD:${GITHUB_REF_NAME}"
           fi
