@@ -42,6 +42,31 @@ Real per-share dividends with ex-dates were recovered from the Investegate RNS a
 | A_absolute_discount_decile_TR | 15.9% | 0.93 | 7.2% | 3.41 |
 | C_discount_zscore_TR | 26.1% | 1.62 | 12.8% | 7.37 |
 | E_discount_overshoot_TR | 30.0% | 1.76 | 15.6% | 8.41 |
+| F_quality_only_TR | 10.3% | 0.75 | 0.7% | 0.43 |
+| BM_5y_record_universe | 9.4% | 0.76 | n/a | n/a |
+| F_value_only_TR | 14.5% | 1.11 | 4.6% | 6.92 |
+| F_combined_z0.0_TR | 10.9% | 0.78 | 5.1% | 1.49 |
+| F_combined_z-0.5_TR | 26.4% | 1.85 | 20.9% | 5.84 |
+| F_combined_z-1.0_TR | 13.2% | 1.23 | 9.5% | 2.82 |
+
+## Quality x value: top-quartile NAV compounders bought on dislocation
+
+Strategy F buys trusts in the top quartile of trailing 5-year dividend-inclusive NAV CAGR, only when the discount is wider than the trust's own trailing norm (z<threshold). The benchmark is the EW portfolio of all trusts with a valid 5-year NAV record, so the comparison isolates the screen itself. Quality-only and value-only variants show whether the combination adds anything beyond its ingredients. Rolling 3/5/10-year NAV CAGRs for every fund are in nav_cagr_rolling.csv.
+
+| variant | basis | CAGR | Sharpe | alpha vs 5y-record universe | t | avg holdings |
+|---|---|---|---|---|---|---|
+| F_quality_only | gross | 8.2% | 0.62 | 1.5% | 0.98 | 16 |
+| BM_5y_record_universe | gross | 6.6% | 0.56 | n/a | n/a |  |
+| F_value_only | gross | 11.8% | 0.93 | 4.8% | 7.35 | 33 |
+| F_combined_z0.0 | gross | 16.3% | 1.16 | 10.8% | 3.54 | 8 |
+| F_combined_z-0.5 | gross | 28.3% | 1.81 | 23.9% | 6.16 | 7 |
+| F_combined_z-1.0 | gross | 7.5% | 0.64 | 5.9% | 1.47 | 6 |
+| F_quality_only_TR | gross_TR | 10.3% | 0.75 | 0.7% | 0.43 | 15 |
+| BM_5y_record_universe | gross_TR | 9.4% | 0.76 | n/a | n/a |  |
+| F_value_only_TR | gross_TR | 14.5% | 1.11 | 4.6% | 6.92 | 31 |
+| F_combined_z0.0_TR | gross_TR | 10.9% | 0.78 | 5.1% | 1.49 | 8 |
+| F_combined_z-0.5_TR | gross_TR | 26.4% | 1.85 | 20.9% | 5.84 | 6 |
+| F_combined_z-1.0_TR | gross_TR | 13.2% | 1.23 | 9.5% | 2.82 | 6 |
 
 ## Announcement-dated catalysts (Investegate)
 
