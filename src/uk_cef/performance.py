@@ -49,7 +49,7 @@ def sharpe(returns: pd.Series, rf_annual: float = 0.0, min_months: int = 24) -> 
     rf_m = (1 + rf_annual) ** (1 / MONTHS_PER_YEAR) - 1
     ex = r - rf_m
     sd = ex.std(ddof=1)
-    if sd == 0 or np.isnan(sd):
+    if np.isnan(sd) or sd < 1e-12:
         return np.nan
     return float(ex.mean() / sd * np.sqrt(MONTHS_PER_YEAR))
 
@@ -64,7 +64,7 @@ def sortino(returns: pd.Series, rf_annual: float = 0.0, min_months: int = 24) ->
     if len(downside) == 0:
         return np.nan
     dd = np.sqrt((downside**2).sum() / len(ex))
-    if dd == 0:
+    if np.isnan(dd) or dd < 1e-12:
         return np.nan
     return float(ex.mean() / dd * np.sqrt(MONTHS_PER_YEAR))
 
@@ -117,7 +117,7 @@ def information_ratio(returns: pd.Series, benchmark: pd.Series, min_months: int 
         return np.nan
     active = df["r"] - df["b"]
     sd = active.std(ddof=1)
-    if sd == 0 or np.isnan(sd):
+    if np.isnan(sd) or sd < 1e-12:
         return np.nan
     return float(active.mean() / sd * np.sqrt(MONTHS_PER_YEAR))
 
@@ -127,7 +127,7 @@ def t_stat_mean(returns: pd.Series) -> float:
     if len(r) < 2:
         return np.nan
     sd = r.std(ddof=1)
-    if sd == 0:
+    if np.isnan(sd) or sd < 1e-12:
         return np.nan
     return float(r.mean() / (sd / np.sqrt(len(r))))
 

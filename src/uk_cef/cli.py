@@ -39,7 +39,14 @@ def cmd_download(cfg: dict, args) -> int:
     types = tuple(args.types.split(",")) if args.types else (
         "mir", "keyfacts", "corporate_activity",
     )
-    rows = client.download_all(publication_types=types, limit=args.limit)
+    # Skip files the pipeline does not parse: MIR sub-components (geographic
+    # split, prior-charge detail, warrants, convertibles), all PDFs (the
+    # company table lives in the XLS/XLSX of the same bundle), and the
+    # sector-summary / manager-rankings workbooks.
+    skip = ("_mir_GEO", "_mir_PC", "_mir_WAR", "_mir_CNV",
+            "_keyfacts_AICSectorSummary", "_keyfacts_AICManagementGroupRankings",
+            ".pdf", ".PDF")
+    rows = client.download_all(publication_types=types, limit=args.limit, skip_patterns=skip)
     ok = sum(1 for r in rows.values() if r["status"] == "ok")
     log.info("download manifest: %d rows, %d ok", len(rows), ok)
     build_inventory(client, Path(cfg["paths"]["outputs_dir"]) / "data_inventory.csv")

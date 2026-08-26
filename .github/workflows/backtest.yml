@@ -1,0 +1,115 @@
+name: backtest
+
+# Full reproducible pipeline: discover -> download (cached) -> entities ->
+# panel -> validate -> backtest -> report. Downloads are cached between runs
+# (actions/cache), so only new monthly files are fetched from the AIC after
+# the first run (~1 req/1.2s throttle either way).
+
+on:
+  workflow_dispatch:
+    inputs:
+      download_limit:
+        description: "Max new files to download this run (empty = all)"
+        required: false
+        default: ""
+  schedule:
+    # monthly, after the AIC's ~6th-working-day publication of month-end data
+    - cron: "0 6 12 * *"
+  push:
+    branches:
+      - "claude/**"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: backtest-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  tests:
+    if: github.event_name != 'push' || contains(github.event.head_commit.message, '[backtest]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt && pip install -e .
+      - run: python -m pytest tests/ -q
+
+  backtest:
+    needs: tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt && pip install -e .
+
+      - name: Restore raw-data cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            data/raw
+            data/cache
+            data/manifest.csv
+          key: aic-raw-v1-${{ github.run_id }}
+          restore-keys: |
+            aic-raw-v1-
+
+      - name: Discover archive
+        run: python -m uk_cef.cli discover
+
+      - name: Download archive files (cached, throttled)
+        run: |
+          LIMIT="${{ inputs.download_limit }}"
+          if [ -n "$LIMIT" ]; then
+            python -m uk_cef.cli download --limit "$LIMIT"
+          else
+            python -m uk_cef.cli download
+          fi
+
+      - name: Build entities
+        run: python -m uk_cef.cli build-entities
+
+      - name: Build panel
+        run: python -m uk_cef.cli build-panel
+
+      - name: Validate
+        run: python -m uk_cef.cli validate || true
+
+      - name: Backtest
+        run: python -m uk_cef.cli backtest
+
+      - name: Report
+        run: python -m uk_cef.cli report
+
+      - name: Upload outputs artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: backtest-outputs
+          path: |
+            outputs/
+            data/manifest.csv
+            data/processed/entities.csv
+          if-no-files-found: warn
+
+      - name: Commit outputs to branch
+        if: github.event_name == 'push'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f outputs data/manifest.csv
+          if git diff --cached --quiet; then
+            echo "no changes"
+          else
+            git commit -m "CI: backtest outputs ($(date -u +%Y-%m-%dT%H:%MZ))"
+            git pull --rebase origin "${GITHUB_REF_NAME}" || true
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
