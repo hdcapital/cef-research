@@ -298,6 +298,11 @@ def build_panel(cfg: dict) -> pd.DataFrame:
     drop_cols = [c for c in ("price", "nav", "prec", "name_key") if c in panel.columns]
     panel = panel.drop(columns=drop_cols)
 
+    # Stage 5 coverage report
+    outputs_dir = Path(cfg["paths"]["outputs_dir"])
+    outputs_dir.mkdir(parents=True, exist_ok=True)
+    _write_coverage_report(panel, outputs_dir)
+
     out_path = processed / "monthly_panel.parquet"
     panel.to_parquet(out_path, index=False)
     log.info("panel written: %s (%d rows, %d securities, %s..%s)",
@@ -380,6 +385,53 @@ def _attach_catalysts(panel: pd.DataFrame, ca: pd.DataFrame, window: int = 6) ->
     panel["catalyst_flag"] = flags
     panel["catalyst_types"] = types
     return panel
+
+
+def _write_coverage_report(panel: pd.DataFrame, outputs_dir: Path) -> None:
+    """outputs/return_data_coverage.csv: per-security span, expected vs
+    observed months, and the dominant reason for gaps - plus a by-year
+    aggregate. Poor early-year coverage must be visible, not hidden."""
+    rows = []
+    for sid, g in panel.groupby("security_id"):
+        months = pd.PeriodIndex(g["obs_month"], freq="M")
+        span = (months.max() - months.min()).n + 1
+        n_price = int(g["share_price"].notna().sum())
+        n_ret = int(g["price_return"].notna().sum()) if "price_return" in g.columns else 0
+        reason = ""
+        if n_price < span:
+            reason = "months missing from MIR or price not supplied"
+        term = g["fwd_return_status"].iloc[-1] if "fwd_return_status" in g.columns else ""
+        rows.append(
+            {
+                "security_id": sid,
+                "company_name": g["company_name"].iloc[-1],
+                "first_month": str(months.min()),
+                "last_month": str(months.max()),
+                "months_expected": span,
+                "months_observed_price": n_price,
+                "months_observed_return": n_ret,
+                "coverage_pct": round(n_price / span, 4) if span else np.nan,
+                "source": "AIC MIR",
+                "terminal_status": term,
+                "reason_missing": reason,
+            }
+        )
+    cov = pd.DataFrame(rows)
+    cov.to_csv(outputs_dir / "return_data_coverage.csv", index=False)
+
+    panel = panel.copy()
+    panel["year"] = panel["obs_month"].str[:4]
+    by_year = panel.groupby("year").agg(
+        securities=("security_id", "nunique"),
+        rows=("security_id", "size"),
+        with_price=("share_price", lambda s: int(s.notna().sum())),
+        with_discount=("discount", lambda s: int(s.notna().sum())),
+        with_return=("price_return", lambda s: int(s.notna().sum())),
+    )
+    by_year["price_coverage_pct"] = (by_year["with_price"] / by_year["rows"]).round(4)
+    by_year["return_coverage_pct"] = (by_year["with_return"] / by_year["rows"]).round(4)
+    by_year.to_csv(outputs_dir / "return_data_coverage_by_year.csv")
+    log.info("coverage report: %d securities", len(cov))
 
 
 def load_panel(cfg: dict) -> pd.DataFrame:

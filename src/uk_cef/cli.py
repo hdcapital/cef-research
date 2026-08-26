@@ -81,6 +81,13 @@ def cmd_validate(cfg: dict, args) -> int:
     problems = check_no_lookahead(panel)
     for p in problems:
         log.error("LOOK-AHEAD: %s", p)
+    if getattr(args, "external", False):
+        from .data_sources.prices import cross_validate
+
+        cmp_df = cross_validate(panel)
+        cmp_path = Path(cfg["paths"]["outputs_dir"]) / "price_cross_validation.csv"
+        cmp_df.to_csv(cmp_path, index=False)
+        log.info("external price cross-validation -> %s (%d rows)", cmp_path, len(cmp_df))
     return 1 if problems else 0
 
 
@@ -128,6 +135,10 @@ def main(argv: list[str] | None = None) -> int:
         if name in ("download", "run-all"):
             p.add_argument("--types", default=None, help="comma-separated publication types")
             p.add_argument("--limit", type=int, default=None, help="max new downloads this run")
+        if name in ("validate", "run-all"):
+            p.add_argument("--external", action="store_true",
+                           help="also cross-check a sample of MIR prices against Stooq "
+                                "(off by default; verify source terms before enabling)")
 
     args = parser.parse_args(argv)
     if not hasattr(args, "types"):
