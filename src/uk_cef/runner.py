@@ -401,6 +401,10 @@ def _robustness(elig: pd.DataFrame, cfg: dict, bench: pd.Series) -> pd.DataFrame
                      label=f"z{z_def}m_top10_SKIP1M", __panel="skip"))
     grid.append(dict(signal_col="overshoot_score", top_fraction=0.10,
                      label="overshoot_top10_SKIP1M", __panel="skip"))
+    grid.append(dict(signal_col=f"discount_z_{z_def}m", top_fraction=0.10,
+                     min_market_cap=100, label=f"z{z_def}m_mcap100_SKIP1M", __panel="skip"))
+    grid.append(dict(signal_col="overshoot_score", top_fraction=0.10,
+                     min_market_cap=100, label="overshoot_mcap100_SKIP1M", __panel="skip"))
 
     # skip-month benchmark for fair alpha comparison
     skip_bench = benchmark_universe(skip_panel, "equal", name="bm_skip").gross_returns

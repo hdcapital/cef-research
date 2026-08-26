@@ -363,6 +363,15 @@ def _write_report_md(cfg, out_dir: Path, gross: pd.DataFrame, net: pd.DataFrame,
     # Executive summary Q&A
     A("## Executive summary - the ten questions")
     A("")
+    A("**Headline caution.** Every strategy's alpha in this study is concentrated in the FIRST month "
+      "after the month-end signal (the skip-month test in the Robustness section quantifies this). "
+      "The standard results below assume the portfolio earns the full calendar month t+1 after a "
+      "month-end-t signal - achievable only by monitoring discounts in near-real-time (daily RNS NAVs "
+      "make this practicable) and trading promptly at the month turn. The skip-month figures are the "
+      "conservative bound for slower execution, and part of the first-month effect may be price-"
+      "measurement noise rather than harvestable reversion. Both bounds are reported; quote them "
+      "together.")
+    A("")
     q_g = stat(PRIMARY)
     q_b = stat(BENCH)
     q_alpha = stat(PRIMARY, col="alpha_annual_vs_benchmark")
@@ -370,7 +379,9 @@ def _write_report_md(cfg, out_dir: Path, gross: pd.DataFrame, net: pd.DataFrame,
     A(f"**1. Does buying discounted UK investment trusts generate excess returns (before costs)?** "
       f"Cheapest-decile absolute discount (A): {_fmt(q_g)} price-return CAGR vs {_fmt(q_b)} for the "
       f"equal-weight universe; annualised alpha {_fmt(q_alpha)} (t={_fmt(q_alpha_t, pct=False)}). "
-      + ("The spread is positive." if (q_alpha or 0) > 0 else "No positive spread - the naive discount screen did not outperform."))
+      + ("The spread is positive, but see the headline caution: it shrinks dramatically when the "
+         "first post-signal month is skipped." if (q_alpha or 0) > 0
+         else "No positive spread - the naive discount screen did not outperform."))
     A("")
     zc = stat("C_discount_zscore")
     zalpha = stat("C_discount_zscore", col="alpha_annual_vs_benchmark")
