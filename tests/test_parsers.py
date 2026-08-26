@@ -86,3 +86,20 @@ def test_event_categorization():
     assert categorize_event("Issue (from treasury)") == "issuance"
     assert categorize_event("Capital Change") == "capital_change"
     assert categorize_event("Something Unknown") == "other"
+
+
+def test_mir_2019_bom_format(samples_dir):
+    """2019-era files carry a UTF-8 BOM and a blank line between the two
+    header rows; regression for the header-detection fix."""
+    p = samples_dir / "MIR1902_excerpt.csv"
+    rows = parse_mir_csv(p)
+    assert len(rows) >= 5
+    aai = next(r for r in rows if r["company_name"] == "Aberdeen Asian Income")
+    assert aai["price"] == pytest.approx(206.0)
+    assert aai["nav"] == pytest.approx(220.3)
+    assert aai["obs_month"] == "2019-02"
+
+
+def test_portfolio_exposure_files_are_components():
+    assert classify_mir_file("MIR Portfolio exposure endNov24.csv") == "component"
+    assert classify_mir_file("MIR%20Portfolio%20exposure%20endDec23_1.xlsx") == "component"

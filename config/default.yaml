@@ -89,6 +89,10 @@ robustness:
 
 quality:
   discount_floor: -0.90            # flag discounts below -90%
+  # ordinary shares of conventional trusts do not genuinely trade below
+  # ~-85%; observations beyond this are residual data errors and are
+  # excluded from strategy ELIGIBILITY (still present + flagged in panel)
+  eligibility_discount_floor: -0.85
   premium_ceiling: 1.00            # flag premiums above +100%
   max_abs_monthly_return: 1.00     # flag |return| > 100%
   stale_nav_months: 3

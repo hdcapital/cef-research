@@ -52,6 +52,15 @@ def run_quality_checks(panel: pd.DataFrame, cfg: dict) -> pd.DataFrame:
     dupes = panel[panel.duplicated(subset=["date", "security_id"], keep=False)]
     issues += _rows(dupes, "duplicate_security_month", "error", lambda r: "duplicate row")
 
+    if "price_unit_corrected" in panel.columns:
+        corr = panel[panel["price_unit_corrected"] == True]  # noqa: E712
+        issues += _rows(corr, "price_unit_corrected", "warning",
+                        lambda r: "price rescaled x100 to restore price/NAV consistency")
+    if "return_invalid_reason" in panel.columns:
+        inv = panel[panel["return_invalid_reason"].notna()]
+        issues += _rows(inv, "return_invalidated", "warning",
+                        lambda r: f"return invalidated: {r['return_invalid_reason']}")
+
     # stale NAV: identical NAV for > stale_nav_months consecutive months
     if "nav_per_share" in panel.columns:
         p = panel.sort_values(["security_id", "date"])

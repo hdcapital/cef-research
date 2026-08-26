@@ -114,25 +114,49 @@ def _is_header_row(row: list[str]) -> bool:
     return c0 in ("AIC", "Category") or c3 in ("Date", "MonthEnd") or not row[1].strip()
 
 
+def _read_rows(path: Path) -> list[list[str]]:
+    """Read CSV rows with encoding detection: some vintages are UTF-8 with
+    BOM, others latin-1. Mis-decoding breaks header detection and mangles
+    '£' in notes."""
+    raw = path.read_bytes()
+    if raw.startswith(b"\xef\xbb\xbf"):
+        text = raw.decode("utf-8-sig", errors="replace")
+    else:
+        try:
+            text = raw.decode("utf-8")
+        except UnicodeDecodeError:
+            text = raw.decode("latin-1")
+    import io
+
+    return list(csv.reader(io.StringIO(text)))
+
+
 def parse_mir_csv(path: str | Path, source_name: str | None = None) -> list[dict]:
     """Parse one MIR (or errata) CSV. Returns a list of row dicts."""
     path = Path(path)
     source_name = source_name or path.name
-    with open(path, newline="", encoding="latin-1") as fh:
-        rows = list(csv.reader(fh))
+    rows = _read_rows(path)
     if len(rows) < 3:
         return []
 
-    # locate the first header pair (errata files may have a banner line)
-    start = None
-    for i in range(min(6, len(rows) - 1)):
-        if rows[i] and rows[i][0].strip() == "AIC" and rows[i + 1][0].strip() == "Category":
-            start = i
-            break
+    # locate the first header pair. Some vintages interleave blank rows
+    # between the two header lines, so pair 'AIC' with the next NON-EMPTY
+    # row rather than the literal next row.
+    start = second = None
+    for i in range(min(8, len(rows))):
+        if rows[i] and rows[i][0].strip() == "AIC":
+            for j in range(i + 1, min(i + 4, len(rows))):
+                if rows[j] and any(c.strip() for c in rows[j]):
+                    if rows[j][0].strip() == "Category":
+                        start, second = i, j
+                    break
+            if start is not None:
+                break
     if start is None:
         log.warning("%s: no MIR header pair found", source_name)
         return []
-    layout = MIRLayout(rows[start], rows[start + 1])
+    layout = MIRLayout(rows[start], rows[second])
+    start = second - 1  # so that data iteration begins after the pair
     if not layout.ok():
         log.warning("%s: header pair found but layout incomplete", source_name)
         return []
@@ -196,6 +220,8 @@ def classify_mir_file(name: str) -> str:
     """main | errata | post_errata | other-component (GEO/PC/WAR/CNV)."""
     n = name.upper()
     stem = Path(name).stem.upper()
+    if "PORTFOLIO" in n or "EXPOSURE" in n:
+        return "component"  # 'MIR Portfolio exposure ...' files: different publication
     if "POSTERR" in n or "POSTMIR" in n:
         return "post_errata"
     if "ERR" in n:

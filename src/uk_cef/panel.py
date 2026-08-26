@@ -140,41 +140,98 @@ def _dedupe_bitemporal(mir: pd.DataFrame) -> pd.DataFrame:
 
 
 def _detect_splits(g: pd.DataFrame) -> pd.DataFrame:
-    """Per-security: compute month-on-month price return with
-    split/consolidation adjustment from the shares-in-issue ratio."""
+    """Per-security: month-on-month price return with (a) split adjustment
+    from the shares-in-issue ratio and (b) data-error guards.
+
+    Guards (returns are INVALIDATED - set missing and flagged - never
+    silently repaired; counts appear in the quality report):
+    - unit_switch: price and NAV both jump ~x100 or ~/100 together (the
+      source switched pounds/pence for the whole row);
+    - price_nav_inconsistent: the implied one-month discount move exceeds
+      a factor of 4 - a genuine move of that size does not occur without a
+      matching NAV move, so this is a scale or keying error;
+    - extreme_unverified: |return| beyond +300% / -90% with no NAV data to
+      corroborate it."""
     g = g.sort_values("obs_month").copy()
     periods = pd.PeriodIndex(g["obs_month"], freq="M")
     g.index = periods
     full = pd.period_range(periods.min(), periods.max(), freq="M")
     price = g["price"].reindex(full)
     shares = g["shares"].reindex(full)
+    nav = g["nav"].reindex(full) if "nav" in g.columns else pd.Series(np.nan, index=full)
 
     prev_price = price.shift(1)
-    prev_shares = shares.shift(1)
-    share_ratio = shares / prev_shares
+    share_ratio = shares / shares.shift(1)
     price_ratio = price / prev_price
+    nav_ratio = nav / nav.shift(1)
 
     ret = price_ratio - 1.0
     adj_flag = pd.Series(False, index=full)
-    # A split/consolidation shows up as a large shares jump whose inverse
-    # matches the price move (market cap roughly continuous).
+    invalid_reason = pd.Series(None, index=full, dtype=object)
+
+    # split/consolidation: large shares jump whose inverse matches the
+    # price move (market cap roughly continuous; band is wide enough to
+    # allow a real +-30% market move in the split month)
     candidate = (
         share_ratio.notna() & price_ratio.notna()
         & ((share_ratio > 1.5) | (share_ratio < 1 / 1.5))
-        & ((price_ratio * share_ratio).sub(1).abs() < 0.15)
+        & ((price_ratio * share_ratio) > 0.65)
+        & ((price_ratio * share_ratio) < 1.35)
     )
     ret[candidate] = (price_ratio * share_ratio - 1.0)[candidate]
     adj_flag[candidate] = True
+
+    # unit switch: price and NAV rescaled x100 together (pence <-> pounds
+    # reporting change). The scale factor is exactly 100, so the true
+    # return is recoverable: adjust rather than discard.
+    up100 = (
+        price_ratio.notna() & nav_ratio.notna() & ~candidate
+        & price_ratio.between(60, 140) & nav_ratio.between(60, 140)
+    )
+    down100 = (
+        price_ratio.notna() & nav_ratio.notna() & ~candidate
+        & price_ratio.between(1 / 140, 1 / 60) & nav_ratio.between(1 / 140, 1 / 60)
+    )
+    ret[up100] = (price_ratio / 100 - 1.0)[up100]
+    ret[down100] = (price_ratio * 100 - 1.0)[down100]
+    adj_flag[up100 | down100] = True
+    price_ratio = price_ratio.copy()
+    price_ratio[up100] = price_ratio[up100] / 100
+    price_ratio[down100] = price_ratio[down100] * 100
+    nav_ratio = nav_ratio.copy()
+    nav_ratio[up100] = nav_ratio[up100] / 100
+    nav_ratio[down100] = nav_ratio[down100] * 100
+    unit_switch = pd.Series(False, index=full)  # residual mixed-scale cases below
+    # price/NAV inconsistency: implied discount move beyond a factor of 4
+    disc_ratio = price_ratio / nav_ratio
+    inconsistent = (
+        price_ratio.notna() & nav_ratio.notna() & ~candidate & ~unit_switch
+        & ((disc_ratio > 4) | (disc_ratio < 0.25))
+    )
+    # extreme move with no NAV corroboration available
+    extreme_unverified = (
+        price_ratio.notna() & nav_ratio.isna() & ~candidate
+        & ((ret > 3.0) | (ret < -0.9))
+    )
+
+    for mask, reason in (
+        (unit_switch, "unit_switch"),
+        (inconsistent, "price_nav_inconsistent"),
+        (extreme_unverified, "extreme_unverified"),
+    ):
+        ret[mask] = np.nan
+        invalid_reason[mask] = reason
 
     out = pd.DataFrame(
         {
             "obs_month": [str(p) for p in full],
             "price_return": ret.values,
             "split_adjusted": adj_flag.values,
+            "return_invalid_reason": invalid_reason.values,
         }
     )
     out["security_id"] = g["security_id"].iloc[0]
-    return out[out["price_return"].notna() | out["split_adjusted"]]
+    return out[out["price_return"].notna() | out["split_adjusted"] | out["return_invalid_reason"].notna()]
 
 
 def build_panel(cfg: dict) -> pd.DataFrame:
@@ -197,6 +254,23 @@ def build_panel(cfg: dict) -> pd.DataFrame:
     ]
 
     panel = _dedupe_bitemporal(mir)
+
+    # ---------------- price unit-consistency correction ----------------
+    # A small number of source rows report the price in pounds while the
+    # NAV is in pence (or vice versa), producing impossible -99% "discounts"
+    # and +9,000% "returns" when the scale reverts next month. Where a x100
+    # rescaling restores price/NAV consistency the price is corrected and
+    # the row flagged; nothing else is touched and the raw value remains in
+    # the named source file.
+    panel["price_unit_corrected"] = False
+    both = panel["price"].notna() & panel["nav"].notna() & (panel["nav"] > 0)
+    ratio = panel["price"] / panel["nav"]
+    up = both & (ratio < 0.04) & (ratio * 100).between(0.4, 2.5)
+    down = both & (ratio > 25) & (ratio / 100).between(0.4, 2.5)
+    panel.loc[up, "price"] = panel.loc[up, "price"] * 100
+    panel.loc[down, "price"] = panel.loc[down, "price"] / 100
+    panel.loc[up | down, "price_unit_corrected"] = True
+    log.info("price unit corrections: %d x100, %d /100", int(up.sum()), int(down.sum()))
 
     # ---------------- discount ----------------
     panel["share_price"] = panel["price"]
@@ -256,6 +330,7 @@ def build_panel(cfg: dict) -> pd.DataFrame:
         & ~non_gbx
         & ~late
         & panel["discount"].notna()
+        & (panel["discount"] >= cfg["quality"].get("eligibility_discount_floor", -0.85))
     )
     panel["is_vct"] = is_vct
     panel["non_gbx_quote"] = non_gbx
@@ -264,11 +339,12 @@ def build_panel(cfg: dict) -> pd.DataFrame:
     rets = []
     for sid, g in panel.groupby("security_id"):
         if g["price"].notna().sum() >= 2:
-            rets.append(_detect_splits(g[["security_id", "obs_month", "price", "shares"]]))
+            rets.append(_detect_splits(g[["security_id", "obs_month", "price", "shares", "nav"]]))
     ret_df = (
         pd.concat(rets, ignore_index=True)
         if rets
-        else pd.DataFrame(columns=["security_id", "obs_month", "price_return", "split_adjusted"])
+        else pd.DataFrame(columns=["security_id", "obs_month", "price_return",
+                                   "split_adjusted", "return_invalid_reason"])
     )
 
     panel = panel.merge(ret_df, on=["security_id", "obs_month"], how="left")
@@ -280,10 +356,12 @@ def build_panel(cfg: dict) -> pd.DataFrame:
     ).astype(str)
     ret_next = ret_next.rename(
         columns={"price_return": "fwd_return", "obs_month": "fwd_return_month",
-                 "split_adjusted": "fwd_split_adjusted"}
+                 "split_adjusted": "fwd_split_adjusted",
+                 "return_invalid_reason": "fwd_return_invalid_reason"}
     )
     panel = panel.merge(
-        ret_next[["security_id", "signal_month", "fwd_return", "fwd_return_month", "fwd_split_adjusted"]],
+        ret_next[["security_id", "signal_month", "fwd_return", "fwd_return_month",
+                  "fwd_split_adjusted", "fwd_return_invalid_reason"]],
         left_on=["security_id", "obs_month"],
         right_on=["security_id", "signal_month"],
         how="left",
@@ -323,6 +401,9 @@ def _classify_terminals(panel: pd.DataFrame, ca: pd.DataFrame) -> pd.DataFrame:
     against corporate-activity terminal events within [-2, +6] months."""
     panel = panel.copy()
     panel["fwd_return_status"] = np.where(panel["fwd_return"].notna(), "observed", "missing_next_price")
+    if "fwd_return_invalid_reason" in panel.columns:
+        inv = panel["fwd_return_invalid_reason"].notna() & panel["fwd_return"].isna()
+        panel.loc[inv, "fwd_return_status"] = "invalid_" + panel.loc[inv, "fwd_return_invalid_reason"]
 
     last_month = panel["obs_month"].max()
     lasts = panel.sort_values("obs_month").groupby("security_id").tail(1)

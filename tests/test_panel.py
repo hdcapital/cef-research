@@ -107,3 +107,45 @@ def test_decile_missing_returns_excluded():
     assert b1["n_members"] == 4
     assert b1["n_with_return"] == 0
     assert np.isnan(b1["fwd_return"])  # not silently 0
+
+
+def _g_nav(months, prices, shares, navs):
+    df = _g(months, prices, shares)
+    df["nav"] = navs
+    return df
+
+
+def test_unit_switch_adjusted_not_dropped():
+    # pence -> pounds reporting switch: price and NAV both /100; true
+    # return recovered (~ -0.4%), not -99% and not discarded
+    g = _g_nav(["2014-09", "2014-10"], [37400.0, 372.5], [2e5, 2e5], [33569.06, 334.62])
+    out = _detect_splits(g)
+    row = out[out["obs_month"] == "2014-10"].iloc[0]
+    assert row["split_adjusted"]
+    assert row["price_return"] == pytest.approx(372.5 * 100 / 37400 - 1, abs=1e-9)
+
+
+def test_price_nav_inconsistent_invalidated():
+    # x10 decimal error in one month's price: +878% "return" with stable NAV
+    g = _g_nav(["2007-03", "2007-04"], [23.5, 230.0], [1e6, 1e6], [276.55, 296.70])
+    out = _detect_splits(g)
+    row = out[out["obs_month"] == "2007-04"].iloc[0]
+    assert pd.isna(row["price_return"])
+    assert row["return_invalid_reason"] == "price_nav_inconsistent"
+
+
+def test_real_capital_distribution_kept():
+    # genuine -75% price with matching -72% NAV (capital returned): kept
+    g = _g_nav(["2024-05", "2024-06"], [34.5, 8.5], [4.5e7, 4.5e7], [40.02, 11.36])
+    out = _detect_splits(g)
+    row = out[out["obs_month"] == "2024-06"].iloc[0]
+    assert row["price_return"] == pytest.approx(8.5 / 34.5 - 1)
+    assert pd.isna(row["return_invalid_reason"])
+
+
+def test_extreme_unverified_no_nav():
+    g = _g_nav(["2009-04", "2009-05"], [0.38, 1.76], [5e7, 5e7], [np.nan, np.nan])
+    out = _detect_splits(g)
+    row = out[out["obs_month"] == "2009-05"].iloc[0]
+    assert pd.isna(row["price_return"])
+    assert row["return_invalid_reason"] == "extreme_unverified"
