@@ -521,6 +521,34 @@ def _write_report_md(cfg, out_dir: Path, gross: pd.DataFrame, net: pd.DataFrame,
               f"{_fmt(r.get('alpha_t_stat'), pct=False)} | {ah_s} |")
         A("")
 
+    grid = _read_csv_safe(out_dir / "quality_value_grid.csv")
+    if not grid.empty:
+        A("### The full quality x value surface (4x4 double sort)")
+        A("")
+        A("Independent monthly quartile sorts: rows = 5y NAV total-return CAGR quartile (Q1 = best "
+          "compounders), columns = discount z-score quartile (D1 = most dislocated vs own history). "
+          "Cell = average next-month price return (t-stat). The t+2 panel repeats the sort but skips "
+          "the first month - what survives there is the slow, harvestable component.")
+        A("")
+        for horizon in grid["horizon"].unique():
+            sub = grid[grid["horizon"] == horizon]
+            A(f"**Horizon {horizon}**")
+            A("")
+            A("| | D1 (dislocated) | D2 | D3 | D4 (rich) |")
+            A("|---|---|---|---|---|")
+            for nq in (1, 2, 3, 4):
+                cells = []
+                for zq in (1, 2, 3, 4):
+                    c = sub[(sub["nav_quartile"] == nq) & (sub["z_quartile"] == zq)]
+                    if c.empty:
+                        cells.append("n/a")
+                    else:
+                        r = c.iloc[0]
+                        cells.append(f"{r['mean_monthly_fwd_return']*100:.2f}% (t={r['t_stat']:.1f})")
+                label = "Q1 (best NAV)" if nq == 1 else (f"Q{nq} (worst NAV)" if nq == 4 else f"Q{nq}")
+                A(f"| {label} | " + " | ".join(cells) + " |")
+            A("")
+
     ann_cat = _read_csv_safe(out_dir / "catalyst_analysis_announced.csv")
     if not ann_cat.empty:
         A("## Announcement-dated catalysts (Investegate)")

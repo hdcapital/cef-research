@@ -641,8 +641,65 @@ def _quality_value_suite(elig: pd.DataFrame, cfg: dict, out_dir: Path, summary_r
         for zt in qv.get("z_thresholds", [0.0, -0.5, -1.0]):
             mask = in_top & base[z_col].notna() & (base[z_col] < zt)
             run_screen(mask, f"F_combined_z{zt}{suffix}", ret_col)
+
+    # skip-month versions (measurement-error / execution-speed bound):
+    # month-t signal, month t+2 return, price basis
+    skip_base = _skip_month_panel(base)
+    skip_base["__nav_rank"] = base["__nav_rank"]
+
+    def run_skip(mask: pd.Series, name: str) -> None:
+        sub = skip_base[mask].copy()
+        res = run_strategy(sub, signal_col=col, name=name, top_fraction=1.0,
+                           min_names=cfg["strategies"]["min_names"])
+        bench = benchmark_universe(skip_base, "equal", name=f"bench_{name}")
+        row = perf.summarize(res.gross_returns, bench.gross_returns, name=name)
+        row.update({"strategy": name, "period": "full", "basis": "gross_skip1m",
+                    "avg_holdings": float(res.monthly["n_holdings"].mean()) if not res.monthly.empty else np.nan})
+        summary_rows.append(row)
+        series_store[name] = res.gross_returns
+
+    run_skip(in_top, "F_quality_only_SKIP1M")
+    run_skip(skip_base[z_col].notna() & (skip_base[z_col] < 0), "F_value_only_SKIP1M")
+    for zt in qv.get("z_thresholds", [0.0, -0.5, -1.0]):
+        run_skip(in_top & skip_base[z_col].notna() & (skip_base[z_col] < zt),
+                 f"F_combined_z{zt}_SKIP1M")
+
     pd.DataFrame(series_store).to_csv(out_dir / "quality_value_returns.csv")
     log.info("quality-value suite: %d variants", len(series_store))
+
+    # -------------------------------------------- 4x4 double-sort grid
+    _quality_value_grid(base, skip_base, z_col, out_dir)
+
+
+def _quality_value_grid(base: pd.DataFrame, skip_base: pd.DataFrame,
+                        z_col: str, out_dir: Path) -> None:
+    """Independent monthly quartile sorts: 5y NAV TR CAGR (Q1 = best
+    compounders) x discount z-score (D1 = most dislocated vs own history).
+    Cell value = time-series mean of the cell's monthly EW forward return,
+    with its t-stat, at both t+1 (standard) and t+2 (skip-month) horizons.
+    Shows the whole quality-x-value surface instead of threshold slices."""
+    rows = []
+    for horizon, df in (("t+1", base), ("t+2_skip", skip_base)):
+        df = df[df[z_col].notna() & df["__nav_rank"].notna()].copy()
+        df["nav_q"] = np.ceil(df["__nav_rank"] * 4).clip(1, 4).astype(int)   # 1 = best NAV
+        df["z_q"] = np.ceil(df.groupby("obs_month")[z_col].rank(pct=True) * 4).clip(1, 4).astype(int)  # 1 = most dislocated
+        cell_month = (
+            df.dropna(subset=["fwd_return"])
+            .groupby(["nav_q", "z_q", "obs_month"])
+            .agg(ret=("fwd_return", "mean"), n=("fwd_return", "size"))
+            .reset_index()
+        )
+        for (nq, zq), g in cell_month.groupby(["nav_q", "z_q"]):
+            s = g["ret"]
+            rows.append(
+                {"horizon": horizon, "nav_quartile": nq, "z_quartile": zq,
+                 "mean_monthly_fwd_return": float(s.mean()),
+                 "t_stat": perf.t_stat_mean(s.reset_index(drop=True)),
+                 "months": len(s), "avg_names_per_month": float(g["n"].mean())}
+            )
+    grid = pd.DataFrame(rows)
+    grid.to_csv(out_dir / "quality_value_grid.csv", index=False)
+    log.info("quality-value 4x4 grid written (%d cells)", len(grid))
 
 
 def _catalyst_analysis_announced(elig: pd.DataFrame, cfg: dict) -> pd.DataFrame | None:
