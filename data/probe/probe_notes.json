@@ -1,0 +1,126 @@
+{
+  "robots_disallow": [
+    "/core/",
+    "/profiles/",
+    "/README.md",
+    "/composer/Metapackage/README.txt",
+    "/composer/Plugin/ProjectMessage/README.md",
+    "/composer/Plugin/Scaffold/README.md",
+    "/composer/Plugin/VendorHardening/README.txt",
+    "/composer/Template/README.txt",
+    "/modules/README.txt",
+    "/sites/README.txt",
+    "/themes/README.txt",
+    "/web.config",
+    "/admin/",
+    "/comment/reply/",
+    "/filter/tips",
+    "/node/add/",
+    "/search/",
+    "/user/register",
+    "/user/password",
+    "/user/login",
+    "/user/logout",
+    "/media/oembed",
+    "/*/media/oembed",
+    "/index.php/admin/",
+    "/index.php/comment/reply/",
+    "/index.php/filter/tips",
+    "/index.php/node/add/",
+    "/index.php/search/",
+    "/index.php/user/password",
+    "/index.php/user/register",
+    "/index.php/user/login",
+    "/index.php/user/logout",
+    "/index.php/media/oembed",
+    "/index.php/*/media/oembed"
+  ],
+  "pages": [
+    {
+      "url": "https://www.theaic.co.uk/research-tools/data-archive",
+      "status": 200
+    }
+  ],
+  "forms": [
+    {
+      "page": "https://www.theaic.co.uk/research-tools/data-archive",
+      "action": "/research-tools/data-archive",
+      "method": "post",
+      "controls": [
+        {
+          "tag": "input",
+          "name": "investment_company_compass",
+          "type": "checkbox",
+          "options_sample": []
+        },
+        {
+          "tag": "input",
+          "name": "corporate_activity",
+          "type": "checkbox",
+          "options_sample": []
+        },
+        {
+          "tag": "input",
+          "name": "first_name",
+          "type": "text",
+          "options_sample": []
+        },
+        {
+          "tag": "input",
+          "name": "surname",
+          "type": "text",
+          "options_sample": []
+        },
+        {
+          "tag": "input",
+          "name": "email_address",
+          "type": "email",
+          "options_sample": []
+        },
+        {
+          "tag": "input",
+          "name": "captcha_sid",
+          "type": "hidden",
+          "options_sample": []
+        },
+        {
+          "tag": "input",
+          "name": "captcha_token",
+          "type": "hidden",
+          "options_sample": []
+        },
+        {
+          "tag": "input",
+          "name": "captcha_response",
+          "type": "hidden",
+          "options_sample": []
+        },
+        {
+          "tag": "input",
+          "name": "captcha_cacheable",
+          "type": "hidden",
+          "options_sample": []
+        },
+        {
+          "tag": "input",
+          "name": "op",
+          "type": "submit",
+          "options_sample": []
+        },
+        {
+          "tag": "input",
+          "name": "form_build_id",
+          "type": "hidden",
+          "options_sample": []
+        },
+        {
+          "tag": "input",
+          "name": "form_id",
+          "type": "hidden",
+          "options_sample": []
+        }
+      ]
+    }
+  ],
+  "samples": []
+}
