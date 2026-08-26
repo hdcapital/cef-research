@@ -1,0 +1,46 @@
+name: probe-aic-archive
+
+# Reconnaissance workflow: the development sandbox cannot reach
+# www.theaic.co.uk, so this fetches the archive structure from a GitHub
+# runner and commits the (small) findings back to the branch for offline
+# inspection. Manual trigger only.
+
+on:
+  workflow_dispatch:
+    inputs:
+      script:
+        description: "Probe script to run (relative path)"
+        required: false
+        default: "scripts/probe_archive.py"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: probe-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests beautifulsoup4
+      - name: Run probe
+        run: python ${{ inputs.script }}
+      - name: Commit probe results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f data/probe
+          if git diff --cached --quiet; then
+            echo "no changes"
+          else
+            git commit -m "Probe: AIC archive reconnaissance results"
+            git pull --rebase origin "${GITHUB_REF_NAME}" || true
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
