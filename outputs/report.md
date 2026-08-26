@@ -32,6 +32,27 @@ All returns are **month-end to month-end share price returns excluding dividends
 
 **10. Is 15-20% gross economically plausible from long-only UK CEF discount investing?** Taken at face value the best pre-specified strategy delivered 25.6% price-return CAGR (8.0% to 14.7% annualised alpha) before costs. Observed trailing yields: portfolio 2.0% vs universe 2.9%. Three deductions are required before treating that as attainable: (i) the skip-month test (below) caps the alpha that survives without trading the very first post-signal month at 2.8% - the remainder is fast one-month reversion that monthly month-end rebalancing overstates and real execution would partly miss; (ii) realistic costs remove 5-10pp from the high-turnover variants (cost_scenarios.csv); (iii) the measured portfolio-vs-universe yield gap shifts a total-return comparison slightly against the strategies. The defensible conclusion: systematic long-only discount selection historically supported roughly mid-single-digit to low-double-digit annual alpha over the trust universe before costs, on a universe averaging ~5% price CAGR. That makes a mid-teens gross return an optimistic but not absurd reading of the top variants, while a SUSTAINED 15-20% would additionally require leverage, activism to force realizations, announcement-day catalyst timing, or NAV-level security selection - sources this monthly screen deliberately does not model.
 
+## Total returns (price + parsed dividends)
+
+Real per-share dividends with ex-dates were recovered from the Investegate RNS archive (see outputs/investegate_coverage.csv). Total returns are computed only on the subset of security-years whose parsed dividends pass a cross-check against the AIC's independently published trailing yield (49% of eligible rows pass; the rest are excluded, never assumed dividend-free). These results are on that restricted universe and are labelled TR throughout; the price-only series remains the primary, broadest result.
+
+| strategy (TR basis) | CAGR | Sharpe | alpha vs TR universe | t |
+|---|---|---|---|---|
+| BM_equal_weight_universe_TR | 7.9% | 0.61 | n/a | n/a |
+| A_absolute_discount_decile_TR | 15.9% | 0.93 | 7.2% | 3.41 |
+| C_discount_zscore_TR | 26.1% | 1.62 | 12.8% | 7.37 |
+| E_discount_overshoot_TR | 30.0% | 1.76 | 15.6% | 8.41 |
+
+## Announcement-dated catalysts (Investegate)
+
+Unlike the AIC completion-month proxy, these use REAL announcement dates (tender offers, wind-downs, strategic reviews, reconstructions announced in the trailing 6 months, knowable at signal time):
+
+| group | n | mean next-month return | t |
+|---|---|---|---|
+| cheap_no_announced_catalyst | 4452 | 2.08% | 21.25 |
+| cheap_with_announced_catalyst | 133 | 1.18% | 2.05 |
+| difference (announced - none) | 4563 | -0.91% | -1.56 |
+
 ## Decile tests (Stage 9)
 
 Average next-month price return by signal decile (1 = cheapest/most dislocated):
