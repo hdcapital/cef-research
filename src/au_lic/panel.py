@@ -121,6 +121,47 @@ def build_panel(cfg: dict) -> pd.DataFrame:
     panel.loc[incons, "fwd_return_status"] = "invalid_tr_price_inconsistent"
     panel.loc[incons, "fwd_return"] = np.nan
 
+    # ---------------- manager performance: NTA total returns ----------------
+    # NTA per share = price / (1 + published discount) - arithmetic on two
+    # published values (explicit NTA Price columns only exist in later
+    # vintages; where present they cross-check this derivation).
+    # Manager (NTA) total return adds back implied distributions:
+    #   implied_div_m = (fund TR_m - price return_m) x price_{m-1}
+    #   nta_tr_m = nta_m/nta_{m-1} - 1 + implied_div_m / nta_{m-1}
+    with np.errstate(all="ignore"):
+        panel["nta_derived"] = np.where(
+            panel["share_price"].notna() & panel["discount"].notna()
+            & (panel["discount"] > -0.95),
+            panel["share_price"] / (1.0 + panel["discount"]),
+            np.nan,
+        )
+    frames = []
+    for sid, g in panel.sort_values("obs_month").groupby("security_id"):
+        periods = pd.PeriodIndex(g["obs_month"], freq="M")
+        full = pd.period_range(periods.min(), periods.max(), freq="M")
+        px = pd.Series(g["share_price"].values, index=periods).reindex(full)
+        nta = pd.Series(g["nta_derived"].values, index=periods).reindex(full)
+        tr = pd.Series(g["tr_1m"].values, index=periods).reindex(full)
+        px_ret = px / px.shift(1) - 1
+        implied_div = ((tr - px_ret) * px.shift(1)).clip(lower=0)
+        nta_tr = nta / nta.shift(1) - 1 + (implied_div / nta.shift(1)).fillna(0.0)
+        # guard: reject months where derived NTA moves >4x against the
+        # fund's own TR (a discount misprint), mirroring the UK rules
+        bad = ((1 + nta_tr) / (1 + tr)).abs()
+        nta_tr = nta_tr.where(~(bad > 4) & ~(bad < 0.25))
+        log1p = np.log1p(nta_tr)
+        obs = nta_tr.notna().astype(float)
+        rec = {"security_id": sid, "obs_month": [str(p) for p in full],
+               "nta_total_return": nta_tr.values}
+        for w in (36, 60):
+            ssum = log1p.rolling(w, min_periods=int(0.9 * w)).sum()
+            n = obs.rolling(w, min_periods=1).sum()
+            cagr = np.expm1(ssum * (12.0 / n.where(n > 0)))
+            rec[f"nta_tr_cagr_{w // 12}y"] = cagr.where(n >= 0.9 * w).values
+        frames.append(pd.DataFrame(rec))
+    roll = pd.concat(frames, ignore_index=True)
+    panel = panel.merge(roll, on=["security_id", "obs_month"], how="left")
+
     panel["date"] = pd.PeriodIndex(panel["obs_month"], freq="M").to_timestamp(how="end").normalize()
     panel["market_cap"] = panel.get("market_cap")
 
@@ -136,6 +177,19 @@ def build_panel(cfg: dict) -> pd.DataFrame:
 
     counts = elig.groupby("obs_month")["security_id"].nunique()
     counts.to_csv(outputs / "au_universe_counts.csv")
+
+    # per-fund NTA (manager) performance deliverables
+    nav_out = panel[panel["eligible"]][
+        ["security_id", "company_name", "obs_month", "nta_derived",
+         "nta_total_return", "nta_tr_cagr_3y", "nta_tr_cagr_5y"]
+    ].dropna(subset=["nta_total_return", "nta_tr_cagr_3y", "nta_tr_cagr_5y"], how="all")
+    nav_out.to_csv(outputs / "au_nta_performance_rolling.csv", index=False)
+    latest = panel["obs_month"].max()
+    leaders = (panel[(panel["obs_month"] == latest) & panel["eligible"]]
+               [["code", "company_name", "sector", "discount", "market_cap",
+                 "nta_tr_cagr_3y", "nta_tr_cagr_5y"]]
+               .sort_values("nta_tr_cagr_5y", ascending=False))
+    leaders.to_csv(outputs / "au_nta_leaderboard.csv", index=False)
     return panel
 
 
