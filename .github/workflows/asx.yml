@@ -1,0 +1,88 @@
+name: asx-backtest
+
+# Australian LIC/LIT study: download monthly investment-products reports
+# (cached), build the panel, run the shared-engine backtest, commit
+# outputs/au. Trigger via '[asx]' commit tag during development;
+# workflow_dispatch and a monthly schedule once on the default branch.
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 7 16 * *"   # monthly, after mid-month report publication
+  push:
+    branches:
+      - "claude/**"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: asx-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  run:
+    if: github.event_name != 'push' || contains(github.event.head_commit.message, '[asx]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt && pip install -e .
+      - run: python -m pytest tests/ -q
+
+      - name: Restore ASX raw cache
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            data/raw/asx
+            data/cache/asx
+            data/au_manifest.csv
+          key: asx-raw-v1-${{ github.run_id }}
+          restore-keys: |
+            asx-raw-v1-
+
+      - name: Download monthly reports
+        run: python -m au_lic.cli download
+
+      - name: Save ASX raw cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            data/raw/asx
+            data/cache/asx
+            data/au_manifest.csv
+          key: asx-raw-v1-${{ github.run_id }}
+
+      - name: Build panel
+        run: python -m au_lic.cli build-panel
+
+      - name: Backtest
+        run: python -m au_lic.cli backtest
+
+      - name: Upload outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: au-outputs
+          path: |
+            outputs/au/
+            data/au_manifest.csv
+          if-no-files-found: warn
+
+      - name: Commit outputs
+        if: github.event_name == 'push'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f outputs/au data/au_manifest.csv
+          if git diff --cached --quiet; then
+            echo "no changes"
+          else
+            git commit -m "CI: AU backtest outputs ($(date -u +%Y-%m-%dT%H:%MZ))"
+            git pull --rebase origin "${GITHUB_REF_NAME}" || true
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
