@@ -125,6 +125,6 @@ jobs:
             echo "no changes"
           else
             git commit -m "CI: backtest outputs ($(date -u +%Y-%m-%dT%H:%MZ))"
-            git pull --rebase origin "${GITHUB_REF_NAME}" || true
+            git pull --rebase -X theirs origin "${GITHUB_REF_NAME}" || true
             git push origin "HEAD:${GITHUB_REF_NAME}"
           fi
