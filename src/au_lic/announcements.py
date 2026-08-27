@@ -32,7 +32,13 @@ BASE = "https://www.asx.com.au"
 LIST_URL = BASE + "/asx/v2/statistics/announcements.do"
 THROTTLE = 1.5
 
-NTA_RE = re.compile(r"\bNTA\b|net tangible asset", re.I)
+# LIC/LIT NAV-disclosure titles vary widely: classic 'NTA & Top 25', but
+# also 'Daily/Weekly/Monthly Fund Update' (credit LITs), 'Monthly
+# Investment Update' (WAM stable), 'Estimated NAV', 'Net Asset Backing'.
+NTA_RE = re.compile(
+    r"\bNTA\b|net tangible|net asset|\bNAV\b|asset backing"
+    r"|(?:daily|weekly|monthly)\s+(?:fund|investment)?\s*(?:update|report)"
+    r"|investment update", re.I)
 DIV_RE = re.compile(r"dividend|distribution", re.I)
 ASAT_RE = re.compile(
     r"as at\s+(\d{1,2})\s+(January|February|March|April|May|June|July|August|"
@@ -156,6 +162,12 @@ def validate_against_panel(panel: pd.DataFrame, ann: pd.DataFrame,
         log.warning("no announcements crawled yet")
         return
     ann = ann.copy()
+    # reclassify from headlines so classifier improvements apply to the
+    # already-crawled archive without refetching
+    ann["kind"] = [
+        "nta" if NTA_RE.search(str(h)) else ("dividend" if DIV_RE.search(str(h)) else "other")
+        for h in ann["headline"]
+    ]
     ann["month"] = pd.to_datetime(ann["date"]).dt.to_period("M").astype(str)
     ann["asat_month"] = pd.to_datetime(ann["asat_date"], errors="coerce") \
         .dt.to_period("M").astype(str)
