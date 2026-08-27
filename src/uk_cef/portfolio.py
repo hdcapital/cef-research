@@ -158,7 +158,18 @@ def run_strategy(
                 sel["__signal"] = sel[signal_col]
                 current_sel = sel
                 months_since_rebalance = 0
-            # if selection impossible this month, keep holding previous book
+            else:
+                # selection impossible this month (fewer than min_names
+                # qualifiers): HOLD the previous book, but refresh to THIS
+                # month's panel rows so fwd_return is the current holding
+                # month's return - reusing last month's rows would relabel
+                # stale returns (and double-count them).
+                reselect = False
+                if current_sel is not None:
+                    held = at_t[at_t["security_id"].isin(prev_weights.index)]
+                    current_sel = held.copy()
+                    current_sel["__signal"] = current_sel.get(signal_col)
+                    current_sel["__sector_w"] = np.nan
         else:
             # carry existing names forward at their drifted weights, using
             # this month's row for each held security (for fwd_return).

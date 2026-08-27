@@ -103,3 +103,32 @@ def test_market_cap_filter(toy_panel):
     p.loc[p["security_id"] == "S6", "market_cap"] = 1.0
     res = run_strategy(p, "discount", "t", top_fraction=0.34, min_names=2, min_market_cap=50)
     assert "S6" not in set(res.holdings["security_id"])
+
+
+def test_carry_forward_uses_current_month_returns():
+    """When a month has fewer than min_names qualifiers, the held book must
+    earn THAT month's return, not a stale relabeled copy of last month's
+    (regression for the screen-strategy attribution bug)."""
+    rows = []
+    rets = {"2020-01": 0.10, "2020-02": -0.20, "2020-03": 0.30}
+    for m in ("2020-01", "2020-02", "2020-03"):
+        for sid in ("A", "B", "C", "D", "E"):
+            # in Feb, only A/B have a signal (screen shrinks below min_names=3)
+            has_sig = not (m == "2020-02" and sid in ("C", "D", "E"))
+            rows.append({
+                "date": pd.Period(m, freq="M").to_timestamp(how="end"),
+                "obs_month": m, "security_id": sid, "company_name": sid,
+                "sector": "G", "market_cap": 100.0,
+                "discount": -0.1 if has_sig else np.nan,
+                "fwd_return": rets[m], "fwd_return_status": "observed",
+            })
+    p = pd.DataFrame(rows)
+    res = run_strategy(p, "discount", "t", top_fraction=1.0, min_names=3)
+    by_month = res.monthly.set_index(res.monthly["holding_month"].astype(str))
+    # Feb signal month (holding March): screen has 2 < 3 names -> carry, but
+    # the March holding must earn Feb-signal fwd_return = 2020-02 row's
+    # fwd_return... rows are keyed by signal month: signal Feb earns
+    # rets['2020-02'] = -0.20 (the return over March in this fixture's
+    # labeling). The bug returned rets['2020-01'] instead.
+    assert by_month.loc["2020-03", "gross_return"] == pytest.approx(-0.20)
+    assert not by_month.loc["2020-03", "rebalanced"]
