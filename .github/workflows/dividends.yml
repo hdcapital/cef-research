@@ -14,7 +14,7 @@ on:
         required: false
         default: "250"
   schedule:
-    - cron: "30 1 * * *"   # 01:30 UTC nightly (off-peak UK)
+    - cron: "30 6 13 * *"  # monthly, the day after the backtest's AIC refresh
   push:
     branches:
       - "claude/**"
