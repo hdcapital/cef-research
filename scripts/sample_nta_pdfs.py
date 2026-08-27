@@ -78,9 +78,32 @@ def main() -> int:
         except Exception as exc:  # noqa: BLE001
             rows.append({**r[["code", "asat_month"]].to_dict(), "status": f"fetch_error:{exc}"})
             continue
-        if resp.status_code != 200 or not resp.content.startswith(b"%PDF"):
+        if resp.status_code != 200:
             rows.append({**r[["code", "asat_month"]].to_dict(), "status": f"http_{resp.status_code}"})
             continue
+        if not resp.content.startswith(b"%PDF"):
+            # the endpoint serves an HTML interstitial; the real PDF lives on
+            # announcements.asx.com.au - extract and follow it
+            m2 = re.search(r'href="(https?://announcements\.asx\.com\.au/[^"]+\.pdf)"',
+                           resp.text) or re.search(r'value="(/asxpdf/[^"]+\.pdf)"', resp.text) \
+                 or re.search(r'href="(/asxpdf/[^"]+\.pdf)"', resp.text)
+            if not m2:
+                Path("outputs/au").mkdir(parents=True, exist_ok=True)
+                Path("outputs/au/interstitial_sample.html").write_bytes(resp.content[:120_000])
+                rows.append({**r[["code", "asat_month"]].to_dict(), "status": "interstitial_no_link"})
+                continue
+            pdf_url = m2.group(1)
+            if pdf_url.startswith("/"):
+                pdf_url = "https://announcements.asx.com.au" + pdf_url
+            time.sleep(1.0)
+            try:
+                resp = session.get(pdf_url, timeout=60)
+            except Exception as exc:  # noqa: BLE001
+                rows.append({**r[["code", "asat_month"]].to_dict(), "status": f"pdf_fetch_error:{exc}"})
+                continue
+            if resp.status_code != 200 or not resp.content.startswith(b"%PDF"):
+                rows.append({**r[["code", "asat_month"]].to_dict(), "status": f"pdf_http_{resp.status_code}"})
+                continue
         try:
             with pdfplumber.open(io.BytesIO(resp.content)) as pdf:
                 text = " ".join((p.extract_text() or "") for p in pdf.pages[:3])
