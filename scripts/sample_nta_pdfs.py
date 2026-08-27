@@ -309,19 +309,14 @@ def parse_nta_text(text: str) -> dict:
                          r"(?:share|security|unit)[^%$]{0,220}?" + _NUM +
                          r"\s*(?:cents|cps|c)\b", text, re.I | re.S):
         return {"stated_raw": float(m.group(1)), "unit": "cents"}
-    # before-tax label, lazy scan to the FIRST $-prefixed value; a % or an
-    # intervening bare $ means we crossed into a returns/holdings table
-    for m in re.finditer(r"(?:pre|before)[- ]tax[^%$]{0,300}?\$\s*" + _NUM, text, re.I | re.S):
-        pre = text[max(0, m.start() - 200):m.start() + 12]
-        tail = text[m.end():m.end() + 20]
-        if NTA_HEAD.search(pre) and not MILLIONS.match(tail):
-            return {"stated_raw": float(m.group(1)), "unit": "dollars"}
     for pat in NTA_PATTERNS:
         for m in pat.finditer(text):
             dollar, num, unit = m.group(1), m.group(2), m.group(3)
             tail = text[m.end():m.end() + 20]
             if MILLIONS.match(tail):    # a $-total, not a per-share figure
                 continue
+            if re.match(r"\s*(?:\*\s*\d|running yield)", tail, re.I):
+                continue        # "1.28 cents * 4 quarters" = a dividend note
             if re.match(r"\s*%", tail):  # "% Change" column, not a level
                 # the level itself usually follows: "+12.44% $0.1663"
                 m2 = re.match(r"\s*%\s*\$\s*" + _NUM, tail)
@@ -333,6 +328,13 @@ def parse_nta_text(text: str) -> dict:
             if "." not in num and not dollar and not unit:
                 continue
             return _classify_value(dollar, num, unit)
+    # before-tax label, lazy scan to the FIRST $-prefixed value; a % or an
+    # intervening bare $ means we crossed into a returns/holdings table
+    for m in re.finditer(r"(?:pre|before)[- ]tax[^%$]{0,300}?\$\s*" + _NUM, text, re.I | re.S):
+        pre = text[max(0, m.start() - 200):m.start() + 12]
+        tail = text[m.end():m.end() + 20]
+        if NTA_HEAD.search(pre) and not MILLIONS.match(tail):
+            return {"stated_raw": float(m.group(1)), "unit": "dollars"}
     return {"stated_raw": None, "unit": None}
 
 
