@@ -68,13 +68,24 @@ def main() -> int:
         return s.get(url, timeout=60, **kw)
 
     for code in codes:
-        try:
-            r = throttled_get(f"{API}/companies/{code.lower()}/announcements?itemsPerPage=5",
-                              headers={"Accept": "application/json"})
-            items = r.json().get("data", {}).get("items", []) if r.status_code == 200 else []
-        except Exception as exc:  # noqa: BLE001
-            rows.append({"code": code, "status": f"api_error:{exc}"})
-            continue
+        items = []
+        # try type-filtered listing first (the 5-item cap then applies to
+        # periodic reports, which include the month-end NTA statements)
+        for q in ("?itemsPerPage=5&announcementTypes=PERIODIC REPORTS",
+                  "?itemsPerPage=5&announcementType=PERIODIC REPORTS",
+                  "?itemsPerPage=5"):
+            try:
+                r = throttled_get(f"{API}/companies/{code.lower()}/announcements{q}",
+                                  headers={"Accept": "application/json"})
+                got = r.json().get("data", {}).get("items", []) if r.status_code == 200 else []
+            except Exception as exc:  # noqa: BLE001
+                rows.append({"code": code, "status": f"api_error:{exc}"})
+                got = []
+                break
+            if got and (q == "?itemsPerPage=5"
+                        or all(i.get("announcementType") == "PERIODIC REPORTS" for i in got)):
+                items = got
+                break
         cand = None
         for it in items:
             head = it.get("headline", "")
@@ -85,10 +96,9 @@ def main() -> int:
                 except Exception:  # noqa: BLE001
                     continue
                 # only month-end as-at dates compare cleanly to the panel
-                if (asat + pd.Timedelta(days=3)).month != asat.month or True:
-                    if asat.day >= 26 or asat == asat + pd.offsets.MonthEnd(0):
-                        cand = (it, asat)
-                        break
+                if asat.day >= 24:
+                    cand = (it, asat)
+                    break
         if cand is None:
             rows.append({"code": code, "status": "no_recent_monthend_nta"})
             continue
