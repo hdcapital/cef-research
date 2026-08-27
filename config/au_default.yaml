@@ -1,0 +1,81 @@
+# Australian LIC/LIT study configuration. Parameters are PRE-SPECIFIED to
+# mirror the UK study (no tuning on AU results): same signal definitions,
+# same overshoot weights, same portfolio rules. AU-specific items: NTA
+# (net tangible assets) is the discount base; no UK-style stamp duty;
+# dividends recorded at cash value with franking noted separately.
+
+project:
+  start_month: "2017-01"          # ASX monthly report archive begins 2017
+  base_currency: AUD
+
+download:
+  base_url: "https://www.asx.com.au"
+  report_page: "/issuers/investment-products/asx-investment-products-monthly-report"
+  report_dam_prefix: "/content/dam/asx/issuers/asx-investment-products-reports"
+  announcements_api: "https://asx.api.markitdigital.com/asx-research/1.0"
+  user_agent: "uk-cef-research/0.1 (academic closed-end-fund research; contact: danielconorsims@gmail.com; ~1 req/1.5s)"
+  throttle_seconds: 1.5
+  max_retries: 4
+  retry_backoff_seconds: 3.0
+  raw_dir: "data/raw/asx"
+  cache_dir: "data/cache/asx"
+  manifest: "data/au_manifest.csv"
+
+universe:
+  # the monthly report covers all investment products; the study universe is
+  # LICs & LITs (listed closed-end investment companies/trusts) only
+  include_product_types: ["LIC", "LIT"]
+  min_market_cap_aud_m: null
+
+signals:                           # identical to UK - pre-specified
+  zscore_window_months: 36
+  zscore_min_history_months: 24
+  zscore_robustness_windows: [24, 36, 60]
+  widening_horizons_months: [1, 3, 6]
+  overshoot_weights:
+    zscore_rank: 0.50
+    absolute_discount_rank: 0.25
+    widening_3m_rank: 0.25
+
+timing:
+  publication_lag_months: 1        # report published mid-following-month
+
+strategies:
+  top_fraction_decile: 0.10
+  top_fraction_quintile: 0.20
+  rebalance: monthly
+  weighting: equal
+  min_names: 5
+
+costs:
+  scenarios_bps_one_way: [0, 25, 50, 100]
+  headline_bps_one_way: 50
+  stamp_duty_bps_on_buys: 0        # Australia abolished share stamp duty (2001)
+  apply_stamp_duty: false
+  offshore_domiciles_exempt: []
+
+sample_splits:                     # fixed before results were inspected
+  development: ["2017-01", "2021-12"]
+  validation: ["2022-01", "2023-12"]
+  holdout: ["2024-01", "2099-12"]
+
+robustness:
+  top_fractions: [0.05, 0.10, 0.20, 0.30]
+  zscore_windows: [24, 36, 60]
+  rebalance_frequencies: [monthly, quarterly]
+  weightings: [equal, market_cap, capped_inverse_rank]
+  min_market_caps_gbp_m: [null, 25, 50, 100, 200]   # AUD millions here
+
+quality:
+  discount_floor: -0.90
+  premium_ceiling: 1.00
+  eligibility_discount_floor: -0.85
+  max_abs_monthly_return: 1.00
+  stale_nav_months: 3
+  discount_disagreement_threshold: 0.02
+
+paths:
+  processed_dir: "data/au_processed"
+  outputs_dir: "outputs/au"
+  charts_dir: "outputs/au/charts"
+  entity_overrides: "config/au_entity_overrides.csv"
