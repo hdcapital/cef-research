@@ -1,27 +1,27 @@
 """Independent number-level NTA validation across the full panel history.
 
-Probe 7 (browser capture of the public announcements page) + probe 8
-established two open routes the anonymous public page itself uses:
+Probes 7/8 (browser capture of the public announcements page + follow-up
+endpoint verification) established that www.asx.com.au/asx/1/announcement/list
+serves the ENTIRE market's announcement history unauthenticated - roughly
+2,000 rows per call paginated backwards by end_date, delisted issuers
+included, each row carrying a direct, working PDF URL on
+announcements.asx.com.au. That replaces both the 5-item capped per-company
+API and the tokened Markit listing.
 
-1. The Markit listing API paginates each company's FULL announcement
-   history (AFI: 1,271 items back to 2011) when called with the public
-   page's embedded bearer token - the same anonymous handshake a browser
-   visitor performs. Unauthenticated calls cap at 5 items.
-2. The file gateway serves any announcement PDF by documentKey with no
-   authentication at all (verified on a 2011 document).
-
-So: for every LIC code in the panel, page its announcement history,
-pick month-end NTA statements (sampled - up to one per code-year, June
-or December preferred), fetch the PDF, parse the stated pre-tax NTA per
-share, and compare with the panel's derived NTA for that month. This
-extends the independent check from "most recent month only" to the whole
-2017->2026 history. Throttled ~1.5s; listings and parses are cached under
-data/asx_ann_cache so reruns only fetch what is new.
-
-If the page token has rotated (401/403), falls back to the 5-item
-unauthenticated listing per code and records that in the summary.
+This script:
+1. sweeps that index backwards to the panel start (2016-11), keeping only
+   rows for LIC codes in our panel (cached incrementally - a full first
+   sweep is ~700 throttled calls, later runs only fetch the new top);
+2. picks month-end NTA statements from headlines (explicit "as at" dates,
+   or month-year titles like "Monthly NTA Statement - July 2020");
+3. samples up to one per code per year, fetches the PDF, parses the stated
+   pre-tax NTA PER SHARE (per-share patterns take priority; $-totals in
+   millions are excluded; cents vs dollars resolved from context only -
+   ambiguity is flagged, never silently corrected);
+4. compares with the panel's derived NTA for that month.
 
 Writes outputs/au/au_nta_pdf_check.csv + au_nta_pdf_check_summary.json.
+First run is budget-bounded; caches make later runs incremental.
 """
 
 from __future__ import annotations
@@ -39,34 +39,45 @@ sys.path.insert(0, "src")
 import pandas as pd
 import requests
 
-API = "https://asx.api.markitdigital.com/asx-research/1.0"
-FILE_GW = API + "/file/{key}"
-# Public token embedded in www.asx.com.au's announcements page JS bundle,
-# captured from the anonymous page's own network traffic (data/probe/asx7).
-# Re-run scripts/probe_asx_browser.py to re-capture if it rotates.
-PAGE_TOKEN = "83ff96335c2d45a094df02a206a39ff4"
+INDEX_URL = "https://www.asx.com.au/asx/1/announcement/list"
 UA = ("uk-cef-research/0.1 (academic closed-end-fund research; "
       "contact: danielconorsims@gmail.com; ~1 req/1.5s)")
 THROTTLE = 1.5
-EARLIEST = "2016-11"          # panel starts 2016-12 (first report 2017-01)
-PDF_BUDGET = int(os.environ.get("NTA_PDF_BUDGET", "400"))   # new PDFs per run
-LIST_BUDGET = int(os.environ.get("NTA_LIST_BUDGET", "1200"))  # listing calls per run
+EARLIEST = pd.Timestamp("2016-11-01", tz="Australia/Sydney")
+SWEEP_BUDGET = int(os.environ.get("NTA_SWEEP_BUDGET", "800"))   # index calls per run
+PDF_BUDGET = int(os.environ.get("NTA_PDF_BUDGET", "400"))       # new PDFs per run
 
-CACHE = Path("data/asx_ann_cache/markit")
+CACHE = Path("data/asx_ann_cache/asx1")
 CACHE.mkdir(parents=True, exist_ok=True)
-PARSE_CACHE = CACHE / "pdf_parse"
-PARSE_CACHE.mkdir(exist_ok=True)
+INDEX_F = CACHE / "lic_announcement_index.parquet"
+STATE_F = CACHE / "sweep_state.json"
+PARSE_DIR = CACHE / "pdf_parse"
+PARSE_DIR.mkdir(exist_ok=True)
 
 NTA_HEAD = re.compile(r"\bNTA\b|net tangible|net asset|\bNAV\b", re.I)
 ASAT = re.compile(r"as at\s+(\d{1,2}\s+\w+\s+\d{4})", re.I)
-# each pattern captures the number; unit (cents vs $) resolved from context
+MONTH_YEAR = re.compile(
+    r"\b(January|February|March|April|May|June|July|August|September|October|"
+    r"November|December)\s+(20[0-9]{2})\b", re.I)
+WEEKLY = re.compile(r"week|daily", re.I)
+
+_NUM = r"([0-9]+(?:\.[0-9]{1,4})?)"
+_UNIT = r"\s*(cents|cps|c\b|¢)?"
+# priority order: per-share pre-tax first, generic totals last
 NTA_PATTERNS = [
-    re.compile(r"pre[- ]tax\s+NTA[^0-9$]{0,80}\$?\s*([0-9]+\.[0-9]{2,4})", re.I),
-    re.compile(r"NTA\s+(?:per\s+(?:share|unit)\s+)?(?:before|pre)[- ]tax[^0-9$]{0,80}\$?\s*([0-9]+\.[0-9]{2,4})", re.I),
-    re.compile(r"net\s+tangible\s+assets?[^0-9$]{0,100}\$?\s*([0-9]+\.[0-9]{2,4})", re.I),
-    re.compile(r"NTA\b[^0-9$]{0,50}\$\s*([0-9]+\.[0-9]{2,4})", re.I),
-    re.compile(r"NAV\s+per\s+(?:share|unit)[^0-9$]{0,80}\$?\s*([0-9]+\.[0-9]{2,4})", re.I),
+    re.compile(r"(?:pre|before)[- ]tax\s+NTA(?:\s+(?:backing\s+)?per\s+(?:ordinary\s+)?(?:share|security|unit))?"
+               r"[^0-9]{0,60}(\$)?\s*" + _NUM + _UNIT, re.I),
+    re.compile(r"NTA\s+(?:per\s+(?:share|security|unit)\s+)?(?:before|pre)[- ]tax"
+               r"[^0-9]{0,60}(\$)?\s*" + _NUM + _UNIT, re.I),
+    re.compile(r"net\s+tangible\s+asset\s+backing\s+per\s+(?:ordinary\s+)?(?:share|security|unit)"
+               r"[^0-9]{0,80}(\$)?\s*" + _NUM + _UNIT, re.I),
+    re.compile(r"NTA\s+(?:backing\s+)?per\s+(?:ordinary\s+)?(?:share|security|unit)"
+               r"[^0-9]{0,60}(\$)?\s*" + _NUM + _UNIT, re.I),
+    re.compile(r"NAV\s+per\s+(?:share|security|unit)[^0-9]{0,60}(\$)?\s*" + _NUM + _UNIT, re.I),
+    re.compile(r"net\s+tangible\s+assets?[^0-9]{0,100}(\$)?\s*" + _NUM + _UNIT, re.I),
+    re.compile(r"NTA\b[^0-9]{0,50}(\$)\s*" + _NUM + _UNIT, re.I),
 ]
+MILLIONS = re.compile(r"^\s*(?:million|billion|m\b|bn\b|'?000)", re.I)
 
 _last = 0.0
 
@@ -80,99 +91,102 @@ def throttled_get(s: requests.Session, url: str, **kw) -> requests.Response:
     return s.get(url, timeout=60, **kw)
 
 
-def fetch_listing(s: requests.Session, code: str, counters: dict) -> list[dict]:
-    """Full announcement listing for one code, cached page-by-page."""
-    xid_f = CACHE / f"{code}_xid.json"
-    if xid_f.exists():
-        xid = json.loads(xid_f.read_text()).get("xid")
-    else:
-        if counters["list_calls"] >= LIST_BUDGET:
-            return []
-        counters["list_calls"] += 1
-        r = throttled_get(s, f"{API}/search/predictive?searchText={code}&useBondsLookup=true",
-                          headers=_auth_headers())
-        xid = None
-        if r.status_code == 200:
-            for it in (r.json().get("data") or {}).get("items") or []:
-                if it.get("symbol") == code:
-                    xid = it.get("xidEntity")
-                    break
-            xid_f.write_text(json.dumps({"xid": xid}))
-        elif r.status_code in (401, 403):
-            counters["token_rejected"] = True
-            return _fallback_listing(s, code, counters)
-    if xid is None:
-        return []
-
-    items: list[dict] = []
-    page = 0
-    while True:
-        pf = CACHE / f"{code}_p{page}.json"
-        if pf.exists():
-            got = json.loads(pf.read_text())
-        else:
-            if counters["list_calls"] >= LIST_BUDGET:
-                counters["list_budget_hit"] = True
-                break
-            counters["list_calls"] += 1
-            r = throttled_get(
-                s, f"{API}/markets/announcements?entityXids={xid}&page={page}&itemsPerPage=100",
-                headers=_auth_headers())
-            if r.status_code in (401, 403):
-                counters["token_rejected"] = True
-                return items or _fallback_listing(s, code, counters)
-            if r.status_code != 200:
-                break
-            got = [{k: it.get(k) for k in ("date", "documentKey", "headline")}
-                   for it in ((r.json().get("data") or {}).get("items") or [])]
-            # cache a page only once it is complete (100 items) or clearly
-            # final; the newest partial page must refresh on later runs
-            if len(got) == 100 or (got and got[-1].get("date", "")[:7] < EARLIEST):
-                pf.write_text(json.dumps(got))
-        items.extend(got)
-        if len(got) < 100 or (got and got[-1].get("date", "")[:7] < EARLIEST):
+def sweep_index(s: requests.Session, codes: set[str], counters: dict) -> pd.DataFrame:
+    """Backward sweep of the market-wide announcement index; keep our codes."""
+    frames = [pd.read_parquet(INDEX_F)] if INDEX_F.exists() else []
+    state = json.loads(STATE_F.read_text()) if STATE_F.exists() else {}
+    # two frontiers: history (sweep back to EARLIEST once) and the live top
+    hist_done = state.get("hist_done", False)
+    end_ms = state.get("earliest_ms")  # resume point for the history sweep
+    if hist_done:
+        end_ms = None  # a fresh top-of-index pass; overlap deduped by id
+    new_rows: list[dict] = []
+    top_pass_calls = 0
+    while counters["index_calls"] < SWEEP_BUDGET:
+        url = INDEX_URL + (f"?end_date={end_ms}" if end_ms else "")
+        counters["index_calls"] += 1
+        r = throttled_get(s, url, headers={"Accept": "application/json"})
+        if r.status_code != 200:
+            counters["index_error"] = f"http_{r.status_code}"
             break
-        page += 1
-    return items
+        txt = r.text
+        m = re.match(r"^[\w$]+\((.*)\)\s*;?\s*$", txt, re.S)
+        data = json.loads(m.group(1) if m else txt)
+        items = data.get("announcement_data") or []
+        if not items:
+            break
+        for it in items:
+            if it.get("issuer_code") in codes:
+                new_rows.append({
+                    "id": it.get("id"),
+                    "code": it.get("issuer_code"),
+                    "release_date": it.get("document_release_date"),
+                    "headline": it.get("header"),
+                    "url": it.get("url"),
+                })
+        dates = pd.to_datetime([i["document_release_date"] for i in items],
+                               utc=True, errors="coerce")
+        oldest = dates.min()
+        end_ms = int(oldest.value // 10**6) - 1
+        if hist_done:
+            # top-up pass: stop once we overlap what the index already holds
+            top_pass_calls += 1
+            if frames and oldest < pd.to_datetime(
+                    frames[0]["release_date"], utc=True, errors="coerce").max():
+                break
+            if top_pass_calls > 60:
+                break
+        else:
+            state = {"hist_done": False, "earliest_ms": end_ms}
+            STATE_F.write_text(json.dumps(state))
+            if oldest.tz_convert("Australia/Sydney") < EARLIEST:
+                state["hist_done"] = True
+                STATE_F.write_text(json.dumps(state))
+                break
+    else:
+        counters["sweep_budget_hit"] = True
+    if new_rows:
+        frames.append(pd.DataFrame(new_rows))
+    if not frames:
+        return pd.DataFrame(columns=["id", "code", "release_date", "headline", "url"])
+    idx = pd.concat(frames, ignore_index=True).drop_duplicates("id")
+    idx.to_parquet(INDEX_F, index=False)
+    counters["index_rows"] = len(idx)
+    counters["hist_done"] = json.loads(STATE_F.read_text()).get("hist_done", False) \
+        if STATE_F.exists() else False
+    return idx
 
 
-def _auth_headers() -> dict:
-    return {"Accept": "application/json", "Authorization": f"Bearer {PAGE_TOKEN}",
-            "Referer": "https://www.asx.com.au/", "Origin": "https://www.asx.com.au"}
-
-
-def _fallback_listing(s: requests.Session, code: str, counters: dict) -> list[dict]:
-    """Unauthenticated 5-item listing - the pre-probe-7 behavior."""
-    if counters["list_calls"] >= LIST_BUDGET:
-        return []
-    counters["list_calls"] += 1
-    r = throttled_get(s, f"{API}/companies/{code.lower()}/announcements?itemsPerPage=5",
-                      headers={"Accept": "application/json"})
-    if r.status_code != 200:
-        return []
-    return [{k: it.get(k) for k in ("date", "documentKey", "headline")}
-            for it in ((r.json().get("data") or {}).get("items") or [])]
-
-
-def pick_candidates(items: list[dict]) -> dict[str, dict]:
-    """Month-end NTA announcements keyed by panel month, one per month."""
-    out: dict[str, dict] = {}
-    for it in items:
-        head = it.get("headline") or ""
-        m = ASAT.search(head)
-        if not (NTA_HEAD.search(head) and m and it.get("documentKey")):
-            continue
+def headline_month(head: str) -> str | None:
+    """Panel month an NTA headline refers to, or None."""
+    if not NTA_HEAD.search(head) or WEEKLY.search(head):
+        return None
+    m = ASAT.search(head)
+    if m:
         try:
             asat = pd.to_datetime(m.group(1), dayfirst=True)
         except Exception:  # noqa: BLE001
-            continue
-        if asat.day < 24:      # only month-end statements compare to the panel
-            continue
-        month = str(asat.to_period("M"))
-        if month not in out:   # keep first (most recent release) per month
-            out[month] = {"documentKey": it["documentKey"], "headline": head,
-                          "asat_month": month}
-    return out
+            return None
+        return str(asat.to_period("M")) if asat.day >= 24 else None
+    m = MONTH_YEAR.search(head)
+    if m:  # "Monthly NTA Statement - July 2020" style: month-end implied
+        return str(pd.Period(f"{m.group(2)}-{m.group(1)[:3]}", freq="M"))
+    return None
+
+
+def pick_candidates(idx: pd.DataFrame) -> pd.DataFrame:
+    """One month-end NTA announcement per (code, month) - latest release."""
+    rows = []
+    for r in idx.itertuples(index=False):
+        month = headline_month(r.headline or "")
+        if month and r.url:
+            rows.append({"code": r.code, "month": month, "id": r.id,
+                         "headline": r.headline, "url": r.url,
+                         "release_date": r.release_date})
+    if not rows:
+        return pd.DataFrame(columns=["code", "month", "id", "headline", "url"])
+    df = pd.DataFrame(rows).sort_values("release_date")
+    return df.groupby(["code", "month"], as_index=False).last()
 
 
 def sample_months(months: list[str]) -> list[str]:
@@ -188,11 +202,30 @@ def sample_months(months: list[str]) -> list[str]:
     return picked
 
 
-def parse_pdf(s: requests.Session, key: str, counters: dict) -> dict:
-    """Fetch + parse one NTA PDF (cached by documentKey)."""
+def parse_nta_text(text: str) -> dict:
+    """Stated pre-tax per-share NTA from PDF text; unit from context only."""
+    for pat in NTA_PATTERNS:
+        for m in pat.finditer(text):
+            dollar, num, unit = m.group(1), m.group(2), m.group(3)
+            tail = text[m.end():m.end() + 20]
+            if MILLIONS.match(tail):    # a $-total, not a per-share figure
+                continue
+            val = float(num)
+            if unit:
+                return {"stated_raw": val, "unit": "cents"}
+            if dollar:
+                return {"stated_raw": val, "unit": "dollars"}
+            # bare number: LIC per-share NTAs are quoted both as dollars
+            # (1.23) and cents (123.45); only context can separate them
+            return {"stated_raw": val,
+                    "unit": "dollars" if val < 20 else "ambiguous"}
+    return {"stated_raw": None, "unit": None}
+
+
+def parse_pdf(s: requests.Session, ann_id: str, url: str, counters: dict) -> dict:
     import pdfplumber
 
-    cf = PARSE_CACHE / f"{key}.json"
+    cf = PARSE_DIR / f"{ann_id}.json"
     if cf.exists():
         return json.loads(cf.read_text())
     if counters["pdf_calls"] >= PDF_BUDGET:
@@ -200,9 +233,9 @@ def parse_pdf(s: requests.Session, key: str, counters: dict) -> dict:
         return {"status": "budget_deferred"}
     counters["pdf_calls"] += 1
     try:
-        r = throttled_get(s, FILE_GW.format(key=key))
+        r = throttled_get(s, url)
     except Exception as exc:  # noqa: BLE001
-        return {"status": f"pdf_error:{exc}"}       # transient: not cached
+        return {"status": f"pdf_error:{exc}"}    # transient - do not cache
     if r.status_code != 200 or not r.content.startswith(b"%PDF"):
         res = {"status": f"pdf_http_{r.status_code}"}
         cf.write_text(json.dumps(res))
@@ -214,18 +247,13 @@ def parse_pdf(s: requests.Session, key: str, counters: dict) -> dict:
         res = {"status": f"pdf_parse:{exc}"}
         cf.write_text(json.dumps(res))
         return res
-    stated = None
-    unit = "dollars"
-    for pat in NTA_PATTERNS:
-        m = pat.search(text)
-        if m:
-            stated = float(m.group(1))
-            tail = text[m.end():m.end() + 15]
-            if re.match(r"\s*(?:cents|cps|c\b)", tail, re.I):
-                unit = "cents"
-            break
-    res = {"status": "parsed" if stated is not None else "no_nta_in_pdf",
-           "stated_raw": stated, "unit": unit}
+    if len(text) < 50:                # scanned image, no text layer - honest gap
+        res = {"status": "no_text_layer"}
+        cf.write_text(json.dumps(res))
+        return res
+    parsed = parse_nta_text(text)
+    res = {"status": "parsed" if parsed["stated_raw"] is not None else "no_nta_in_pdf",
+           **parsed}
     cf.write_text(json.dumps(res))
     return res
 
@@ -234,77 +262,80 @@ def main() -> int:
     panel = pd.read_parquet("data/au_processed/au_monthly_panel.parquet")
     panel["code"] = panel["security_id"].str.replace("ASX:", "", regex=False)
     have_nta = panel[panel["nta_derived"].notna()]
-    counts = have_nta.groupby("code")["obs_month"].nunique()
-    codes = sorted(counts[counts >= 6].index)
-    print(f"codes with >=6 NTA months: {len(codes)}")
+    codes = set(have_nta["code"].unique())
+    print(f"panel codes with any NTA: {len(codes)}")
 
     s = requests.Session()
     s.headers["User-Agent"] = UA
-    counters = {"list_calls": 0, "pdf_calls": 0}
-    rows = []
+    counters = {"index_calls": 0, "pdf_calls": 0}
 
-    for code in codes:
-        try:
-            items = fetch_listing(s, code, counters)
-        except Exception as exc:  # noqa: BLE001
-            rows.append({"code": code, "status": f"listing_error:{exc}"})
-            continue
-        if not items:
-            rows.append({"code": code, "status": "no_listing"})
-            continue
-        cands = pick_candidates(items)
+    idx = sweep_index(s, codes, counters)
+    print(f"index rows for our codes: {len(idx)} "
+          f"(hist_done={counters.get('hist_done')}, calls={counters['index_calls']})")
+    cands = pick_candidates(idx)
+
+    rows = []
+    for code, grp in cands.groupby("code"):
         panel_months = set(have_nta.loc[have_nta["code"] == code, "obs_month"].astype(str))
-        usable = sorted(m for m in cands if m in panel_months)
+        usable = sorted(m for m in grp["month"] if m in panel_months)
         if not usable:
-            rows.append({"code": code, "status": "no_monthend_nta_in_history",
-                         "listing_items": len(items)})
             continue
+        by_month = grp.set_index("month")
         for month in sample_months(usable):
-            cand = cands[month]
-            res = parse_pdf(s, cand["documentKey"], counters)
+            cand = by_month.loc[month]
+            res = parse_pdf(s, str(cand["id"]), cand["url"], counters)
             prow = have_nta[(have_nta["code"] == code) & (have_nta["obs_month"] == month)]
             derived = float(prow["nta_derived"].iloc[0]) if len(prow) else None
-            rec = {"code": code, "month": month, "headline": cand["headline"][:120],
+            rec = {"code": code, "month": month, "headline": str(cand["headline"])[:120],
                    "derived_nta": round(derived, 4) if derived is not None else None,
                    "status": res.get("status")}
-            stated = res.get("stated_raw")
+            stated, unit = res.get("stated_raw"), res.get("unit")
             if stated is not None and derived is not None:
-                unit = res.get("unit", "dollars")
-                stated_dollars = stated / 100.0 if unit == "cents" else stated
-                rec["stated_nta"] = stated_dollars
-                rec["stated_unit"] = unit
-                diff = abs(derived / stated_dollars - 1)
-                # a ~100x gap in either direction is a units statement the
-                # text did not resolve, not a numeric disagreement - flag,
-                # never silently correct
-                if diff > 0.5 and (abs(derived / (stated / 100.0) - 1) < 0.05
-                                   or abs(derived / (stated * 100.0) - 1) < 0.05):
-                    rec["status"] = "unit_ambiguous"
+                if unit == "ambiguous":
+                    # decide nothing: report both readings for the audit file
+                    rec.update({"stated_nta": stated, "stated_unit": "ambiguous",
+                                "status": "unit_ambiguous"})
                 else:
-                    rec["abs_pct_diff"] = diff
+                    stated_dollars = stated / 100.0 if unit == "cents" else stated
+                    rec.update({"stated_nta": stated_dollars, "stated_unit": unit})
+                    diff = abs(derived / stated_dollars - 1)
+                    # ~100x gap = unresolved units statement, not a numeric
+                    # disagreement - flag, never silently correct
+                    if diff > 0.5 and (abs(derived / (stated / 100.0) - 1) < 0.05
+                                       or abs(derived / (stated * 100.0) - 1) < 0.05):
+                        rec["status"] = "unit_ambiguous"
+                    else:
+                        rec["abs_pct_diff"] = diff
             rows.append(rec)
 
     out = pd.DataFrame(rows)
     Path("outputs/au").mkdir(parents=True, exist_ok=True)
     out.to_csv("outputs/au/au_nta_pdf_check.csv", index=False)
-    ok = out[(out["status"] == "parsed") & out.get("abs_pct_diff", pd.Series(dtype=float)).notna()] \
-        if "abs_pct_diff" in out.columns else out.iloc[0:0]
+    if "abs_pct_diff" in out.columns:
+        ok = out[(out["status"] == "parsed") & out["abs_pct_diff"].notna()]
+    else:
+        ok = out.iloc[0:0]
     summary = {
-        "codes_targeted": len(codes),
+        "panel_codes": len(codes),
+        "codes_compared": int(ok["code"].nunique()) if len(ok) else 0,
         "comparisons_parsed": int(len(ok)),
-        "months_covered": sorted(ok["month"].str[:4].unique().tolist()) if len(ok) else [],
+        "years_covered": sorted(ok["month"].str[:4].unique().tolist()) if len(ok) else [],
         "median_abs_pct_diff": float(ok["abs_pct_diff"].median()) if len(ok) else None,
         "p90_abs_pct_diff": float(ok["abs_pct_diff"].quantile(0.9)) if len(ok) else None,
         "within_1pct": float((ok["abs_pct_diff"] < 0.01).mean()) if len(ok) else None,
         "within_2pct": float((ok["abs_pct_diff"] < 0.02).mean()) if len(ok) else None,
-        "listing_calls": counters["list_calls"],
+        "status_counts": out["status"].value_counts().to_dict() if len(out) else {},
+        "index_rows": counters.get("index_rows"),
+        "index_calls": counters["index_calls"],
+        "history_sweep_complete": counters.get("hist_done", False),
         "pdf_fetches": counters["pdf_calls"],
-        "list_budget_hit": counters.get("list_budget_hit", False),
+        "sweep_budget_hit": counters.get("sweep_budget_hit", False),
         "pdf_budget_hit": counters.get("pdf_budget_hit", False),
-        "token_rejected": counters.get("token_rejected", False),
-        "note": "historical sample: up to one month-end NTA PDF per code per "
-                "year, compared with panel-derived NTA; announcement listing "
-                "via the public page's own anonymous API handshake (probe 7/8)",
+        "note": "historical sample: up to one month-end NTA PDF per code per year "
+                "vs panel-derived NTA; announcement index from the public "
+                "unauthenticated market-wide listing (probe 7/8), delisted "
+                "issuers included; per-share pre-tax parse, unit ambiguity "
+                "flagged rather than corrected",
     }
     Path("outputs/au/au_nta_pdf_check_summary.json").write_text(json.dumps(summary, indent=2))
     print(summary)
