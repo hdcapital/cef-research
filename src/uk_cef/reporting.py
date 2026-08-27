@@ -95,7 +95,62 @@ def generate_report(cfg: dict) -> None:
         _chart_quality_value(out_dir, charts / "15_quality_value_growth.png")
 
     _write_report_md(cfg, out_dir, gross, net, panel)
+    _write_readable_logs(out_dir)
     log.info("report + charts written under %s", out_dir)
+
+
+def _write_readable_logs(out_dir: Path) -> None:
+    """Plain-English versions of the F-strategy trade log and episodes."""
+    tl = _read_csv_safe(out_dir / "f_trade_log.csv")
+    ep = _read_csv_safe(out_dir / "f_episodes.csv")
+
+    def month_name(m: str) -> str:
+        return pd.Period(m, freq="M").strftime("%B %Y")
+
+    if not tl.empty:
+        lines = ["# Trade log - quality x value strategy (plain English)",
+                 "",
+                 "Each month the strategy holds every trust that is both a top-quartile",
+                 "5-year NAV compounder and trading wider than its own normal discount,",
+                 "in equal weights. 'Below asset value' is the discount at purchase.",
+                 ""]
+        for month, grp in tl.groupby("month"):
+            lines.append(f"## {month_name(month)}")
+            for _, r in grp[grp["action"] == "BUY"].iterrows():
+                disc = f"{abs(r['entry_discount']) * 100:.1f}% below asset value" \
+                    if pd.notna(r.get("entry_discount")) and r["entry_discount"] < 0 else "around asset value"
+                px = f" at {r['price_gbx_at_signal']:,.0f}p" if pd.notna(r.get("price_gbx_at_signal")) else ""
+                lines.append(f"- **Bought** {r['company_name']}{px} ({disc}), "
+                             f"{r['weight_change_pct']:.0f}% of the portfolio")
+            for _, r in grp[grp["action"] == "SELL"].iterrows():
+                lines.append(f"- **Sold** {r['company_name']} "
+                             f"({abs(r['weight_change_pct']):.0f}% of the portfolio)")
+            for _, r in grp[grp["action"] == "DIVIDEND"].iterrows():
+                lines.append(f"- Dividend received: {r['company_name']} paid "
+                             f"{r['dividend_gbx_per_share']:.2f}p per share "
+                             f"(£{r['income_per_100_invested']:.2f} per £100 invested)")
+            lines.append("")
+        (out_dir / "f_trade_log_readable.md").write_text("\n".join(lines))
+
+    if not ep.empty:
+        lines = ["# Holding episodes - quality x value strategy (plain English)",
+                 "",
+                 "One row per continuous holding spell, best outcomes first.",
+                 "'Contribution' is how much of the portfolio's overall profit the",
+                 "spell provided, in pence per £1 invested in the strategy.",
+                 "",
+                 "| Trust | Bought | Held | Entry discount | Spell return | Contribution |",
+                 "|---|---|---|---|---|---|"]
+        ep2 = ep.sort_values("contribution", ascending=False)
+        for _, r in ep2.iterrows():
+            disc = f"{abs(r['entry_discount']) * 100:.0f}% below" if pd.notna(r["entry_discount"]) and r["entry_discount"] < 0 \
+                else "near/above"
+            lines.append(
+                f"| {r['company_name']} | {month_name(r['entry_month'])} | "
+                f"{int(r['months_held'])} mo | {disc} | "
+                f"{r['spell_compound_return'] * 100:+.0f}% | {r['contribution'] * 100:+.1f}p |"
+            )
+        (out_dir / "f_episodes_readable.md").write_text("\n".join(lines))
 
 
 # ------------------------------------------------------------------ charts
@@ -557,6 +612,17 @@ def _write_report_md(cfg, out_dir: Path, gross: pd.DataFrame, net: pd.DataFrame,
           "comparison isolates the screen itself. Quality-only and value-only variants show whether "
           "the combination adds anything beyond its ingredients. Rolling 3/5/10-year NAV CAGRs for "
           "every fund are in nav_cagr_rolling.csv.")
+        A("")
+        A("**Corrected findings (engine fix).** An earlier version of these results contained a "
+          "carry-forward bug: in months with fewer than five qualifying trusts the engine relabelled "
+          "the previous month's returns as the current month's, double-counting them (37 of 169 "
+          "months for this small screen; broad strategies never trigger the path). With the fix: the "
+          "combination earns ~7% annual alpha at the one-month horizon (t~2-3, stable across "
+          "thresholds, better than either ingredient alone) - but NOTHING survives the skip-month "
+          "test (alphas ~0, t~0), and the effect is ~zero from 2022 onward. The combination is "
+          "therefore the same fast first-month discount snap-back as the simpler signals, "
+          "concentrated in better companies, not a distinct slow anomaly. The decomposition identity "
+          "(annual residuals under 3pp, monthly under 2pp) now verifies the attribution.")
         A("")
         A("| variant | basis | CAGR | Sharpe | alpha vs 5y-record universe | t | avg holdings |")
         A("|---|---|---|---|---|---|---|")
