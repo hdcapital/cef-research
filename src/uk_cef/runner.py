@@ -610,6 +610,8 @@ def _quality_value_suite(elig: pd.DataFrame, cfg: dict, out_dir: Path, summary_r
     base["__nav_rank"] = base.groupby("obs_month")[col].rank(pct=True, ascending=False)
     in_top = base["__nav_rank"] <= top_q
 
+    results_store: dict[str, BacktestResult] = {}
+
     def run_screen(mask: pd.Series, name: str, ret_col: str) -> None:
         sub = base[mask].copy()
         if ret_col == "fwd_total_return":
@@ -617,6 +619,7 @@ def _quality_value_suite(elig: pd.DataFrame, cfg: dict, out_dir: Path, summary_r
             sub["fwd_return"] = sub["fwd_total_return"]
         res = run_strategy(sub, signal_col=col, name=name, top_fraction=1.0,
                            min_names=cfg["strategies"]["min_names"])
+        results_store[name] = res
         bench_sub = base.copy()
         if ret_col == "fwd_total_return":
             bench_sub = bench_sub[bench_sub["dividend_coverage_ok"]]
@@ -651,6 +654,7 @@ def _quality_value_suite(elig: pd.DataFrame, cfg: dict, out_dir: Path, summary_r
         sub = skip_base[mask].copy()
         res = run_strategy(sub, signal_col=col, name=name, top_fraction=1.0,
                            min_names=cfg["strategies"]["min_names"])
+        results_store[name] = res
         bench = benchmark_universe(skip_base, "equal", name=f"bench_{name}")
         row = perf.summarize(res.gross_returns, bench.gross_returns, name=name)
         row.update({"strategy": name, "period": "full", "basis": "gross_skip1m",
@@ -669,6 +673,125 @@ def _quality_value_suite(elig: pd.DataFrame, cfg: dict, out_dir: Path, summary_r
 
     # -------------------------------------------- 4x4 double-sort grid
     _quality_value_grid(base, skip_base, z_col, out_dir)
+
+    # -------------------------------------------- episode deep-dive + trade log
+    _f_deep_dive(base, results_store, z_col, col, out_dir)
+
+
+def _f_deep_dive(base: pd.DataFrame, results_store: dict, z_col: str,
+                 nav_col: str, out_dir: Path) -> None:
+    """Episode-level forensics + trade log for the primary combined
+    strategy (F_combined_z0.0 - the pre-specified literal threshold).
+
+    Outputs:
+    - f_holdings.csv       every monthly position with its signals
+    - f_episodes.csv       contiguous holding spells: entry state, spell
+                           compound return, arithmetic contribution
+    - f_contributors.csv   per-security total contribution (who drove it)
+    - f_subperiods.csv     alpha by sub-period, t+1 and skip-month
+    - f_trade_log.csv      BUY / SELL / DIVIDEND events per £100 invested
+    """
+    primary = "F_combined_z0.0"
+    res = results_store.get(primary)
+    if res is None or res.holdings.empty:
+        return
+    h = res.holdings.copy()
+    h["signal_month"] = (pd.PeriodIndex(h["holding_month"], freq="M") - 1).astype(str)
+
+    sig = base[["security_id", "obs_month", "share_price", z_col, nav_col,
+                "discount", "sector"]].rename(columns={z_col: "z", nav_col: "nav_cagr_5y_sig"})
+    h = h.merge(sig, left_on=["security_id", "signal_month"],
+                right_on=["security_id", "obs_month"], how="left", suffixes=("", "_sig"))
+    divs = base[["security_id", "obs_month", "dividend_gbx_month"]]
+    h = h.merge(divs, left_on=["security_id", "holding_month"],
+                right_on=["security_id", "obs_month"], how="left", suffixes=("", "_hold"))
+
+    h_cols = ["holding_month", "security_id", "company_name", "sector_sig" if "sector_sig" in h.columns else "sector",
+              "weight", "discount_sig" if "discount_sig" in h.columns else "discount",
+              "z", "nav_cagr_5y_sig", "share_price", "next_month_return",
+              "dividend_gbx_month", "return_status"]
+    h[[c for c in h_cols if c in h.columns]].to_csv(out_dir / "f_holdings.csv", index=False)
+
+    # ---- episodes: contiguous spells per security
+    ep_rows = []
+    for sid, g in h.sort_values("holding_month").groupby("security_id"):
+        periods = pd.PeriodIndex(g["holding_month"], freq="M")
+        gap = pd.Series(periods).diff().apply(lambda d: getattr(d, "n", 99))
+        spell_id = (gap != 1).cumsum()
+        for _, sp in g.groupby(spell_id.values):
+            fr = sp["next_month_return"].astype(float)
+            ep_rows.append({
+                "security_id": sid,
+                "company_name": sp["company_name"].iloc[0],
+                "entry_month": sp["holding_month"].iloc[0],
+                "exit_month": sp["holding_month"].iloc[-1],
+                "months_held": len(sp),
+                "entry_discount": sp["discount_sig" if "discount_sig" in sp.columns else "discount"].iloc[0],
+                "entry_z": sp["z"].iloc[0],
+                "entry_nav_cagr_5y": sp["nav_cagr_5y_sig"].iloc[0],
+                "spell_compound_return": float((1 + fr.fillna(0)).prod() - 1),
+                "n_missing_returns": int(fr.isna().sum()),
+                "contribution": float((sp["weight"] * fr).sum(skipna=True)),
+            })
+    episodes = pd.DataFrame(ep_rows).sort_values("contribution", ascending=False)
+    episodes.to_csv(out_dir / "f_episodes.csv", index=False)
+
+    contrib = (episodes.groupby(["security_id", "company_name"])
+               .agg(total_contribution=("contribution", "sum"),
+                    n_episodes=("contribution", "size"),
+                    months_held=("months_held", "sum"))
+               .sort_values("total_contribution", ascending=False)
+               .reset_index())
+    contrib.to_csv(out_dir / "f_contributors.csv", index=False)
+
+    # ---- sub-period alphas, t+1 and skip
+    sub_rows = []
+    splits = {"2011-2016": ("2011-01", "2016-12"), "2017-2021": ("2017-01", "2021-12"),
+              "2022+": ("2022-01", "2099-12")}
+    for name in (primary, f"{primary}_SKIP1M"):
+        r = results_store.get(name)
+        if r is None:
+            continue
+        bench_name = "BM_5y_record_universe"
+        for label, bounds in splits.items():
+            g = _slice(r.gross_returns, bounds)
+            sub_rows.append({"strategy": name, "period": label, "months": len(g.dropna()),
+                             "cagr": perf.cagr(g, min_months=24),
+                             "mean_monthly": float(g.mean()) if len(g.dropna()) else np.nan,
+                             "t_stat": perf.t_stat_mean(g)})
+    pd.DataFrame(sub_rows).to_csv(out_dir / "f_subperiods.csv", index=False)
+
+    # ---- trade log per £100 invested
+    log_rows = []
+    prev: dict[str, float] = {}
+    names_by_sid = dict(zip(h["security_id"], h["company_name"]))
+    for month, grp in h.sort_values("holding_month").groupby("holding_month"):
+        cur = dict(zip(grp["security_id"], grp["weight"]))
+        for sid in sorted(set(prev) | set(cur)):
+            delta = cur.get(sid, 0.0) - prev.get(sid, 0.0)
+            if abs(delta) > 1e-9:
+                row = grp[grp["security_id"] == sid]
+                log_rows.append({
+                    "month": month, "action": "BUY" if delta > 0 else "SELL",
+                    "security_id": sid, "company_name": names_by_sid.get(sid),
+                    "weight_change_pct": round(100 * delta, 2),
+                    "price_gbx_at_signal": float(row["share_price"].iloc[0]) if len(row) else np.nan,
+                    "entry_discount": float(row["discount_sig" if "discount_sig" in h.columns else "discount"].iloc[0]) if len(row) else np.nan,
+                    "entry_z": float(row["z"].iloc[0]) if len(row) else np.nan,
+                })
+        for _, r_ in grp.iterrows():
+            d = r_.get("dividend_gbx_month")
+            px = r_.get("share_price")
+            if pd.notna(d) and d > 0 and pd.notna(px) and px > 0:
+                log_rows.append({
+                    "month": month, "action": "DIVIDEND",
+                    "security_id": r_["security_id"], "company_name": r_["company_name"],
+                    "dividend_gbx_per_share": float(d),
+                    "income_per_100_invested": round(100 * r_["weight"] * d / px, 4),
+                })
+        prev = cur
+    pd.DataFrame(log_rows).to_csv(out_dir / "f_trade_log.csv", index=False)
+    log.info("F deep-dive: %d episodes, %d trade-log events", len(episodes), len(log_rows))
 
 
 def _quality_value_grid(base: pd.DataFrame, skip_base: pd.DataFrame,

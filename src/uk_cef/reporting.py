@@ -91,6 +91,8 @@ def generate_report(cfg: dict) -> None:
         _chart_sector_mix(out_dir, panel, charts / "13_holdings_by_sector.png")
     if (out_dir / "return_decomposition.csv").exists():
         _chart_decomposition(out_dir, charts / "14_return_decomposition.png")
+    if (out_dir / "quality_value_returns.csv").exists():
+        _chart_quality_value(out_dir, charts / "15_quality_value_growth.png")
 
     _write_report_md(cfg, out_dir, gross, net, panel)
     log.info("report + charts written under %s", out_dir)
@@ -156,7 +158,9 @@ def _chart_annual(out_dir: Path, path: Path) -> None:
     cols = [c for c in (f"{PRIMARY}_gross", f"{BENCH}_gross") if c in annual.columns]
     if not cols:
         return
-    sub = annual[cols].dropna(how="all")
+    sub = annual[cols].apply(pd.to_numeric, errors="coerce").dropna(how="all")
+    if sub.empty or sub.notna().sum().sum() == 0:
+        return
     fig, ax = plt.subplots()
     sub.plot.bar(ax=ax)
     ax.set_title("Calendar-year returns (gross price returns)")
@@ -307,6 +311,47 @@ def _chart_decomposition(out_dir: Path, path: Path) -> None:
                  "(price return = NAV return x discount movement; distributions not included)")
     ax.yaxis.set_major_formatter(lambda v, _: f"{v:.0%}")
     ax.legend(["NAV per-share return", "Discount movement"], fontsize=8)
+    fig.tight_layout()
+    fig.savefig(path)
+    plt.close(fig)
+
+
+def _chart_quality_value(out_dir: Path, path: Path) -> None:
+    """Growth of £1: the combined quality x value strategy vs its
+    ingredients and benchmark. Palette validated (dataviz six checks);
+    identity carried by direct end-labels + legend, not color alone."""
+    df = pd.read_csv(out_dir / "quality_value_returns.csv", index_col=0, parse_dates=True)
+    series = [
+        ("F_combined_z0.0", "Combined: top-quartile NAV & z<0", "#2a78d6", 2.4, "-"),
+        ("F_combined_z0.0_SKIP1M", "Combined, first month skipped", "#eb6834", 2.0, "-"),
+        ("F_quality_only", "Quality only", "#1baf7a", 1.6, "--"),
+        ("F_value_only", "Value only (z<0)", "#eda100", 1.6, "--"),
+    ]
+    fig, ax = plt.subplots(figsize=(12, 6.5))
+    ends = []
+    for col, label, color, lw, ls in series:
+        if col not in df.columns:
+            continue
+        s = df[col].dropna()
+        w = (1 + s).cumprod()
+        ax.plot(w.index, w.values, ls, color=color, linewidth=lw, label=label)
+        ends.append((w.index[-1], w.iloc[-1], label, color))
+    bench_col = "BM_5y_record_universe_gross"
+    if bench_col in df.columns:
+        s = df[bench_col].dropna()
+        w = (1 + s).cumprod()
+        ax.plot(w.index, w.values, ":", color="#52514e", linewidth=1.6,
+                label="EW universe (5y-record funds)")
+        ends.append((w.index[-1], w.iloc[-1], "EW universe", "#52514e"))
+    for x, y, label, color in ends:
+        ax.annotate(f"  £{y:,.2f}", xy=(x, y), color=color, fontsize=9,
+                    fontweight="bold", va="center")
+    ax.set_yscale("log")
+    ax.set_title("Growth of £1 - quality x value strategy vs ingredients\n"
+                 "(gross price returns excl. dividends; ~6-8 holdings; see report caveats)")
+    ax.set_ylabel("Wealth (log scale)")
+    ax.legend(fontsize=9, loc="upper left")
+    ax.margins(x=0.08)
     fig.tight_layout()
     fig.savefig(path)
     plt.close(fig)
