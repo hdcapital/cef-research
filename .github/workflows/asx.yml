@@ -64,6 +64,24 @@ jobs:
       - name: Backtest
         run: python -m au_lic.cli backtest
 
+      - name: Restore announcements cache
+        uses: actions/cache/restore@v4
+        with:
+          path: data/asx_ann_cache
+          key: asx-ann-v1-${{ github.run_id }}
+          restore-keys: |
+            asx-ann-v1-
+
+      - name: Announcements crawl + cross-validation
+        run: python -m au_lic.cli announcements --budget-minutes 60
+
+      - name: Save announcements cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: data/asx_ann_cache
+          key: asx-ann-v1-${{ github.run_id }}
+
       - name: Upload outputs
         uses: actions/upload-artifact@v4
         with:
