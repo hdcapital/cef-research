@@ -57,8 +57,8 @@ spell provided, in pence per £1 invested in the strategy.
 | Worldwide Healthcare | May 2012 | 3 mo | 9% below | +5% | +1.3p |
 | Odyssean Investment Trust | April 2024 | 3 mo | near/above | +12% | +1.3p |
 | F&C Investment Trust | September 2024 | 5 mo | 10% below | +16% | +1.3p |
-| Fidelity Japan | April 2019 | 1 mo | 13% below | +8% | +1.3p |
 | Schroder Japan Trust | August 2025 | 1 mo | 13% below | +8% | +1.3p |
+| Fidelity Japan | April 2019 | 1 mo | 13% below | +8% | +1.3p |
 | F&C Investment Trust | July 2025 | 1 mo | 9% below | +6% | +1.3p |
 | Templeton Emerging Markets | July 2020 | 4 mo | 12% below | +9% | +1.2p |
 | JPMorgan Global Growth & Income | May 2020 | 1 mo | near/above | +9% | +1.2p |

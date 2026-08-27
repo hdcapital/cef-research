@@ -53,6 +53,8 @@ Real per-share dividends with ex-dates were recovered from the Investegate RNS a
 
 Strategy F buys trusts in the top quartile of trailing 5-year dividend-inclusive NAV CAGR, only when the discount is wider than the trust's own trailing norm (z<threshold). The benchmark is the EW portfolio of all trusts with a valid 5-year NAV record, so the comparison isolates the screen itself. Quality-only and value-only variants show whether the combination adds anything beyond its ingredients. Rolling 3/5/10-year NAV CAGRs for every fund are in nav_cagr_rolling.csv.
 
+**Corrected findings (engine fix).** An earlier version of these results contained a carry-forward bug: in months with fewer than five qualifying trusts the engine relabelled the previous month's returns as the current month's, double-counting them (37 of 169 months for this small screen; broad strategies never trigger the path). With the fix: the combination earns ~7% annual alpha at the one-month horizon (t~2-3, stable across thresholds, better than either ingredient alone) - but NOTHING survives the skip-month test (alphas ~0, t~0), and the effect is ~zero from 2022 onward. The combination is therefore the same fast first-month discount snap-back as the simpler signals, concentrated in better companies, not a distinct slow anomaly. The decomposition identity (annual residuals under 3pp, monthly under 2pp) now verifies the attribution.
+
 | variant | basis | CAGR | Sharpe | alpha vs 5y-record universe | t | avg holdings |
 |---|---|---|---|---|---|---|
 | F_quality_only | gross | 8.2% | 0.62 | 1.5% | 0.98 | 16 |
