@@ -88,6 +88,7 @@ ROW_POSTTAX = re.compile(r"(?:post|after)[- ]tax", re.I)
 ROW_PERSHARE = re.compile(r"per\s+(?:ordinary\s+)?(?:share|security|unit)", re.I)
 ROW_NTA = re.compile(r"\bNTA\b|net\s+tangible|NAV\b|net\s+asset\s+value", re.I)
 ROW_EXCLUDE = re.compile(r"premium|discount|total|million|change|return|%", re.I)
+NOT_NTA = re.compile(r"dividend|distribution|paid|declared|buy[- ]?back|issue\s+price|exercise", re.I)
 CELL_VAL = re.compile(r"(\$)?\s*([0-9]+(?:\.[0-9]{1,4})?)\s*(cents|cps|¢|c\b)?", re.I)
 
 _last = 0.0
@@ -281,18 +282,29 @@ def parse_nta_text(text: str) -> dict:
     """
     # newsletters glue footnote markers to labels: "NTA per share1 $8.45"
     text = re.sub(r"(?i)\b(share|security|unit)s?(\d)\b", r"\1 ", text)
-    # $-value immediately followed by "per share", NTA named just before it
+    # $-value immediately followed by "per share", NTA named just before it;
+    # never a dividend/buy-back/issue amount, which use the same phrasing
     for m in re.finditer(r"\$\s*" + _NUM + r"\s*per\s+(?:ordinary\s+)?(?:share|security|unit)",
                          text, re.I):
         pre = text[max(0, m.start() - 150):m.start()]
-        near = pre[-60:]
-        if NTA_HEAD.search(pre) and not (ROW_POSTTAX.search(near)
-                                         and not ROW_PRETAX.search(near)):
+        near = pre[-70:]
+        if NTA_HEAD.search(pre) and not NOT_NTA.search(near) \
+                and not (ROW_POSTTAX.search(near) and not ROW_PRETAX.search(near)):
             return {"stated_raw": float(m.group(1)), "unit": "dollars"}
-    # "NAV per unit ... as at <date> was $1.96701" (Magellan trusts)
-    for m in re.finditer(r"(?:NAV|NTA)\s+per\s+(?:share|security|unit).{0,140}?"
+    # "NAV per unit ... as at <date> was $1.96701" / "NTA) per share after
+    # tax ... was $0.858" - tag the basis when only after-tax is published
+    for m in re.finditer(r"(?:NAV|NTA)\)?\s+per\s+(?:share|security|unit)(.{0,140}?)"
                          r"was\s+\$\s*" + _NUM, text, re.I | re.S):
-        return {"stated_raw": float(m.group(1)), "unit": "dollars"}
+        out = {"stated_raw": float(m.group(2)), "unit": "dollars"}
+        if ROW_POSTTAX.search(m.group(1)):
+            out["basis"] = "post_tax"
+        return out
+    # "NTA backing per share ... 255.1 c 233.5 c" (cents, before-tax column
+    # first) - lazy scan to the first cents-suffixed value
+    for m in re.finditer(r"(?:NAV|NTA)\)?\s+(?:backing\s+)?per\s+(?:ordinary\s+)?"
+                         r"(?:share|security|unit)[^%$]{0,220}?" + _NUM +
+                         r"\s*(?:cents|cps|c)\b", text, re.I | re.S):
+        return {"stated_raw": float(m.group(1)), "unit": "cents"}
     # before-tax label, lazy scan to the FIRST $-prefixed value; a % or an
     # intervening bare $ means we crossed into a returns/holdings table
     for m in re.finditer(r"(?:pre|before)[- ]tax[^%$]{0,300}?\$\s*" + _NUM, text, re.I | re.S):
@@ -431,7 +443,8 @@ def main() -> int:
                                 "status": "unit_ambiguous"})
                 else:
                     stated_dollars = stated / 100.0 if unit == "cents" else stated
-                    rec.update({"stated_nta": stated_dollars, "stated_unit": unit})
+                    rec.update({"stated_nta": stated_dollars, "stated_unit": unit,
+                                "stated_basis": res.get("basis", "pre_tax")})
                     diff = abs(derived / stated_dollars - 1)
                     # ~100x gap = unresolved units statement, not a numeric
                     # disagreement - flag, never silently correct
