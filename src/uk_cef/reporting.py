@@ -297,7 +297,9 @@ def _chart_sector_mix(out_dir: Path, panel: pd.DataFrame, path: Path) -> None:
 
 
 def _chart_decomposition(out_dir: Path, path: Path) -> None:
-    d = pd.read_csv(out_dir / "return_decomposition.csv")
+    d = _read_csv_safe(out_dir / "return_decomposition.csv")
+    if d.empty:
+        return
     sub = d[d["strategy"] == PRIMARY].copy()
     if sub.empty:
         return
