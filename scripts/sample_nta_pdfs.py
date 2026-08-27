@@ -63,7 +63,7 @@ ASAT = re.compile(r"as at\s+(\d{1,2}\s+\w+\s+\d{4})", re.I)
 MONTH_YEAR = re.compile(
     r"\b(January|February|March|April|May|June|July|August|September|October|"
     r"November|December)\s+(20[0-9]{2})\b", re.I)
-WEEKLY = re.compile(r"week|daily", re.I)
+WEEKLY = re.compile(r"week|daily|amendment|amended|correction|withdraw", re.I)
 
 _NUM = r"([0-9]+(?:\.[0-9]{1,4})?)"
 _UNIT = r"\s*(cents|cps|c\b|¢)?"
@@ -475,7 +475,7 @@ def main() -> int:
     for rec in rows:
         bad = rec.get("status") == "unit_ambiguous" or \
             (rec.get("abs_pct_diff") is not None and rec["abs_pct_diff"] > 0.05)
-        if not bad or len(debug) >= 60:
+        if not bad or len(debug) >= 150:
             continue
         cf = PARSE_DIR / f"{rec.get('ann_id')}.json"
         if cf.exists():
