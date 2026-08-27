@@ -46,6 +46,8 @@ THROTTLE = 1.5
 EARLIEST = pd.Timestamp("2016-11-01", tz="Australia/Sydney")
 SWEEP_BUDGET = int(os.environ.get("NTA_SWEEP_BUDGET", "800"))   # index calls per run
 PDF_BUDGET = int(os.environ.get("NTA_PDF_BUDGET", "400"))       # new PDFs per run
+DEADLINE_MIN = int(os.environ.get("NTA_DEADLINE_MIN", "180"))   # wall-clock cap
+START = time.time()
 
 CACHE = Path("data/asx_ann_cache/asx1")
 CACHE.mkdir(parents=True, exist_ok=True)
@@ -233,6 +235,9 @@ def parse_pdf(s: requests.Session, ann_id: str, url: str, counters: dict) -> dic
     if counters["pdf_calls"] >= PDF_BUDGET:
         counters["pdf_budget_hit"] = True
         return {"status": "budget_deferred"}
+    if time.time() - START > DEADLINE_MIN * 60:
+        counters["deadline_hit"] = True
+        return {"status": "budget_deferred"}
     counters["pdf_calls"] += 1
     try:
         r = throttled_get(s, url)
@@ -242,6 +247,18 @@ def parse_pdf(s: requests.Session, ann_id: str, url: str, counters: dict) -> dic
         res = {"status": f"pdf_http_{r.status_code}"}
         cf.write_text(json.dumps(res))
         return res
+    if len(r.content) > 15_000_000:
+        res = {"status": "pdf_too_large"}
+        cf.write_text(json.dumps(res))
+        return res
+    # pdfplumber can crawl on pathological PDFs; hard-cap each parse
+    import signal
+
+    def _timeout(signum, frame):  # noqa: ARG001
+        raise TimeoutError("pdf parse timeout")
+
+    signal.signal(signal.SIGALRM, _timeout)
+    signal.alarm(60)
     try:
         with pdfplumber.open(io.BytesIO(r.content)) as pdf:
             text = re.sub(r"\s+", " ", " ".join((p.extract_text() or "") for p in pdf.pages[:3]))
@@ -249,6 +266,8 @@ def parse_pdf(s: requests.Session, ann_id: str, url: str, counters: dict) -> dic
         res = {"status": f"pdf_parse:{exc}"}
         cf.write_text(json.dumps(res))
         return res
+    finally:
+        signal.alarm(0)
     if len(text) < 50:                # scanned image, no text layer - honest gap
         res = {"status": "no_text_layer"}
         cf.write_text(json.dumps(res))
@@ -334,6 +353,7 @@ def main() -> int:
         "sweep_budget_hit": counters.get("sweep_budget_hit", False),
         "index_error": counters.get("index_error"),
         "pdf_budget_hit": counters.get("pdf_budget_hit", False),
+        "deadline_hit": counters.get("deadline_hit", False),
         "note": "historical sample: up to one month-end NTA PDF per code per year "
                 "vs panel-derived NTA; announcement index from the public "
                 "unauthenticated market-wide listing (probe 7/8), delisted "
