@@ -287,10 +287,14 @@ def parse_nta_text(text: str) -> dict:
     for m in re.finditer(r"\$\s*" + _NUM + r"\s*per\s+(?:ordinary\s+)?(?:share|security|unit)",
                          text, re.I):
         pre = text[max(0, m.start() - 150):m.start()]
-        near = pre[-70:]
-        if NTA_HEAD.search(pre) and not NOT_NTA.search(near) \
-                and not (ROW_POSTTAX.search(near) and not ROW_PRETAX.search(near)):
-            return {"stated_raw": float(m.group(1)), "unit": "dollars"}
+        near = pre[-90:]
+        if NTA_HEAD.search(pre) and not NOT_NTA.search(near):
+            out = {"stated_raw": float(m.group(1)), "unit": "dollars"}
+            # some funds (BEL, KAT) headline the after-tax figure only:
+            # keep it, tagged, rather than fall through to a worse match
+            if re.search(r"after[- ]tax", near, re.I) and not ROW_PRETAX.search(near):
+                out["basis"] = "post_tax"
+            return out
     # "NAV per unit ... as at <date> was $1.96701" / "NTA) per share after
     # tax ... was $0.858" - tag the basis when only after-tax is published
     for m in re.finditer(r"(?:NAV|NTA)\)?\s+per\s+(?:share|security|unit)(.{0,140}?)"
@@ -317,6 +321,12 @@ def parse_nta_text(text: str) -> dict:
             dollar, num, unit = m.group(1), m.group(2), m.group(3)
             tail = text[m.end():m.end() + 20]
             if MILLIONS.match(tail):    # a $-total, not a per-share figure
+                continue
+            if re.match(r"\s*%", tail):  # "% Change" column, not a level
+                # the level itself usually follows: "+12.44% $0.1663"
+                m2 = re.match(r"\s*%\s*\$\s*" + _NUM, tail)
+                if m2:
+                    return {"stated_raw": float(m2.group(1)), "unit": "dollars"}
                 continue
             # bare integers ("Top 25 Investments", "Top 20 Holdings") are
             # never NTA quotes - real ones carry decimals, $, or cents
