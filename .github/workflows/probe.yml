@@ -39,7 +39,7 @@ jobs:
           restore-keys: |
             aic-raw-v1-
       - name: Run diagnostic script
-        run: python scripts/probe_asx.py
+        run: python scripts/probe_asx_browser.py
       - name: Commit probe results
         run: |
           git config user.name "github-actions[bot]"
