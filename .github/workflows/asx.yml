@@ -101,7 +101,9 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -f outputs/au data/au_manifest.csv
+          git add -f outputs/au data/au_manifest.csv \
+            data/asx_ann_cache/asx1/lic_announcement_index.parquet \
+            data/asx_ann_cache/asx1/sweep_state.json
           if git diff --cached --quiet; then
             echo "no changes"
           else
