@@ -1,0 +1,85 @@
+name: asx-s3-archive
+
+# Archives the AU LIC raw sources to the user's S3 bucket: all monthly
+# report XLSX files plus every announcement PDF for every fund in the
+# panel universe (delisted included), using the committed announcement
+# index. Resumable: progress manifest lives in the bucket. Runs daily
+# until the ~86.5k-PDF backfill completes, then each run is a cheap
+# top-up of new announcements. Skips cleanly while AWS secrets are absent.
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 2 * * *"
+  push:
+    branches:
+      - "claude/**"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: asx-archive-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  archive:
+    if: github.event_name != 'push' || contains(github.event.head_commit.message, '[archive]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check AWS secrets
+        id: creds
+        env:
+          KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          BUCKET: ${{ secrets.S3_BUCKET }}
+        run: |
+          if [ -z "$KEY" ] || [ -z "$BUCKET" ]; then
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "AWS secrets not configured yet - skipping archive run."
+          else
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/setup-python@v5
+        if: steps.creds.outputs.configured == 'true'
+        with:
+          python-version: "3.12"
+          cache: pip
+      - if: steps.creds.outputs.configured == 'true'
+        run: pip install -r requirements.txt && pip install -e . && pip install boto3
+      - name: Restore ASX raw cache
+        if: steps.creds.outputs.configured == 'true'
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            data/raw/asx
+            data/cache/asx
+            data/au_manifest.csv
+          key: asx-raw-v1-${{ github.run_id }}
+          restore-keys: |
+            asx-raw-v1-
+      - name: Download monthly reports (cached)
+        if: steps.creds.outputs.configured == 'true'
+        run: python -m au_lic.cli download
+      - name: Archive to S3
+        if: steps.creds.outputs.configured == 'true'
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+        run: python scripts/archive_to_s3.py
+      - name: Commit archive status
+        if: steps.creds.outputs.configured == 'true' && github.event_name == 'push'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f outputs/au/au_s3_archive_status.json
+          if git diff --cached --quiet; then
+            echo "no changes"
+          else
+            git commit -m "CI: S3 archive status ($(date -u +%Y-%m-%dT%H:%MZ))"
+            git pull --rebase -X theirs origin "${GITHUB_REF_NAME}" || true
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
