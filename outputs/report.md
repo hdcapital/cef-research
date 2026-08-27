@@ -45,9 +45,9 @@ Real per-share dividends with ex-dates were recovered from the Investegate RNS a
 | F_quality_only_TR | 10.3% | 0.75 | 0.7% | 0.43 |
 | BM_5y_record_universe | 9.4% | 0.76 | n/a | n/a |
 | F_value_only_TR | 14.5% | 1.11 | 4.6% | 6.92 |
-| F_combined_z0.0_TR | 10.9% | 0.78 | 5.1% | 1.49 |
-| F_combined_z-0.5_TR | 26.4% | 1.85 | 20.9% | 5.84 |
-| F_combined_z-1.0_TR | 13.2% | 1.23 | 9.5% | 2.82 |
+| F_combined_z0.0_TR | 14.7% | 0.98 | 5.2% | 2.43 |
+| F_combined_z-0.5_TR | 15.9% | 1.00 | 6.6% | 1.94 |
+| F_combined_z-1.0_TR | 14.8% | 1.07 | 5.4% | 1.35 |
 
 ## Quality x value: top-quartile NAV compounders bought on dislocation
 
@@ -58,20 +58,20 @@ Strategy F buys trusts in the top quartile of trailing 5-year dividend-inclusive
 | F_quality_only | gross | 8.2% | 0.62 | 1.5% | 0.98 | 16 |
 | BM_5y_record_universe | gross | 6.6% | 0.56 | n/a | n/a |  |
 | F_value_only | gross | 11.8% | 0.93 | 4.8% | 7.35 | 33 |
-| F_combined_z0.0 | gross | 16.3% | 1.16 | 10.8% | 3.54 | 8 |
-| F_combined_z-0.5 | gross | 28.3% | 1.81 | 23.9% | 6.16 | 7 |
-| F_combined_z-1.0 | gross | 7.5% | 0.64 | 5.9% | 1.47 | 6 |
+| F_combined_z0.0 | gross | 13.1% | 0.91 | 6.8% | 3.19 | 8 |
+| F_combined_z-0.5 | gross | 13.4% | 0.87 | 6.8% | 2.05 | 6 |
+| F_combined_z-1.0 | gross | 11.9% | 0.87 | 7.5% | 2.03 | 5 |
 | F_quality_only_TR | gross_TR | 10.3% | 0.75 | 0.7% | 0.43 | 15 |
 | BM_5y_record_universe | gross_TR | 9.4% | 0.76 | n/a | n/a |  |
 | F_value_only_TR | gross_TR | 14.5% | 1.11 | 4.6% | 6.92 | 31 |
-| F_combined_z0.0_TR | gross_TR | 10.9% | 0.78 | 5.1% | 1.49 | 8 |
-| F_combined_z-0.5_TR | gross_TR | 26.4% | 1.85 | 20.9% | 5.84 | 6 |
-| F_combined_z-1.0_TR | gross_TR | 13.2% | 1.23 | 9.5% | 2.82 | 6 |
+| F_combined_z0.0_TR | gross_TR | 14.7% | 0.98 | 5.2% | 2.43 | 7 |
+| F_combined_z-0.5_TR | gross_TR | 15.9% | 1.00 | 6.6% | 1.94 | 5 |
+| F_combined_z-1.0_TR | gross_TR | 14.8% | 1.07 | 5.4% | 1.35 | 5 |
 | F_quality_only_SKIP1M | gross_skip1m | 8.0% | 0.60 | 0.5% | 0.31 | 16 |
 | F_value_only_SKIP1M | gross_skip1m | 8.2% | 0.68 | 1.0% | 1.38 | 33 |
-| F_combined_z0.0_SKIP1M | gross_skip1m | 20.8% | 1.28 | 13.8% | 4.16 | 8 |
-| F_combined_z-0.5_SKIP1M | gross_skip1m | 15.2% | 1.16 | 11.2% | 3.41 | 7 |
-| F_combined_z-1.0_SKIP1M | gross_skip1m | 22.5% | 1.71 | 17.9% | 4.64 | 6 |
+| F_combined_z0.0_SKIP1M | gross_skip1m | 7.2% | 0.55 | -0.0% | -0.00 | 8 |
+| F_combined_z-0.5_SKIP1M | gross_skip1m | 8.7% | 0.62 | -1.4% | -0.51 | 6 |
+| F_combined_z-1.0_SKIP1M | gross_skip1m | 8.9% | 0.60 | -1.4% | -0.33 | 5 |
 
 ### The full quality x value surface (4x4 double sort)
 
