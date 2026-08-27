@@ -45,7 +45,7 @@ UA = ("uk-cef-research/0.1 (academic closed-end-fund research; "
 THROTTLE = 1.5
 EARLIEST = pd.Timestamp("2016-11-01", tz="Australia/Sydney")
 SWEEP_BUDGET = int(os.environ.get("NTA_SWEEP_BUDGET", "800"))   # index calls per run
-PDF_BUDGET = int(os.environ.get("NTA_PDF_BUDGET", "400"))       # new PDFs per run
+PDF_BUDGET = int(os.environ.get("NTA_PDF_BUDGET", "600"))       # new PDFs per run
 DEADLINE_MIN = int(os.environ.get("NTA_DEADLINE_MIN", "180"))   # wall-clock cap
 START = time.time()
 
@@ -53,7 +53,9 @@ CACHE = Path("data/asx_ann_cache/asx1")
 CACHE.mkdir(parents=True, exist_ok=True)
 INDEX_F = CACHE / "lic_announcement_index.parquet"
 STATE_F = CACHE / "sweep_state.json"
-PARSE_DIR = CACHE / "pdf_parse"
+# v2: caches the *extracted* text/table rows, so parser improvements can be
+# re-applied to already-fetched PDFs without re-downloading anything
+PARSE_DIR = CACHE / "pdf_extract"
 PARSE_DIR.mkdir(exist_ok=True)
 
 NTA_HEAD = re.compile(r"\bNTA\b|net tangible|net asset|\bNAV\b", re.I)
@@ -65,21 +67,28 @@ WEEKLY = re.compile(r"week|daily", re.I)
 
 _NUM = r"([0-9]+(?:\.[0-9]{1,4})?)"
 _UNIT = r"\s*(cents|cps|c\b|¢)?"
-# priority order: per-share pre-tax first, generic totals last
+# strict per-share/pre-tax patterns only: the generic "net tangible
+# assets ... $X" forms matched fund-level totals and boilerplate
 NTA_PATTERNS = [
     re.compile(r"(?:pre|before)[- ]tax\s+NTA(?:\s+(?:backing\s+)?per\s+(?:ordinary\s+)?(?:share|security|unit))?"
-               r"[^0-9]{0,60}(\$)?\s*" + _NUM + _UNIT, re.I),
+               r"[^0-9%]{0,60}(\$)?\s*" + _NUM + _UNIT, re.I),
     re.compile(r"NTA\s+(?:per\s+(?:share|security|unit)\s+)?(?:before|pre)[- ]tax"
-               r"[^0-9]{0,60}(\$)?\s*" + _NUM + _UNIT, re.I),
-    re.compile(r"net\s+tangible\s+asset\s+backing\s+per\s+(?:ordinary\s+)?(?:share|security|unit)"
-               r"[^0-9]{0,80}(\$)?\s*" + _NUM + _UNIT, re.I),
+               r"[^0-9%]{0,60}(\$)?\s*" + _NUM + _UNIT, re.I),
+    re.compile(r"net\s+tangible\s+assets?\s+(?:backing\s+)?per\s+(?:ordinary\s+)?(?:share|security|unit)"
+               r"[^0-9%]{0,80}(\$)?\s*" + _NUM + _UNIT, re.I),
     re.compile(r"NTA\s+(?:backing\s+)?per\s+(?:ordinary\s+)?(?:share|security|unit)"
-               r"[^0-9]{0,60}(\$)?\s*" + _NUM + _UNIT, re.I),
-    re.compile(r"NAV\s+per\s+(?:share|security|unit)[^0-9]{0,60}(\$)?\s*" + _NUM + _UNIT, re.I),
-    re.compile(r"net\s+tangible\s+assets?[^0-9]{0,100}(\$)?\s*" + _NUM + _UNIT, re.I),
-    re.compile(r"NTA\b[^0-9]{0,50}(\$)\s*" + _NUM + _UNIT, re.I),
+               r"[^0-9%]{0,60}(\$)?\s*" + _NUM + _UNIT, re.I),
+    re.compile(r"NAV\s+per\s+(?:share|security|unit)[^0-9%]{0,60}(\$)?\s*" + _NUM + _UNIT, re.I),
 ]
 MILLIONS = re.compile(r"^\s*(?:million|billion|m\b|bn\b|'?000)", re.I)
+
+# table-row labels, most specific first; "after tax" rows are rejected
+ROW_PRETAX = re.compile(r"(?:pre|before)[- ]tax", re.I)
+ROW_POSTTAX = re.compile(r"(?:post|after)[- ]tax", re.I)
+ROW_PERSHARE = re.compile(r"per\s+(?:ordinary\s+)?(?:share|security|unit)", re.I)
+ROW_NTA = re.compile(r"\bNTA\b|net\s+tangible|NAV\b|net\s+asset\s+value", re.I)
+ROW_EXCLUDE = re.compile(r"premium|discount|total|million|change|return|%", re.I)
+CELL_VAL = re.compile(r"(\$)?\s*([0-9]+(?:\.[0-9]{1,4})?)\s*(cents|cps|¢|c\b)?", re.I)
 
 _last = 0.0
 
@@ -206,24 +215,75 @@ def sample_months(months: list[str]) -> list[str]:
     return picked
 
 
+def _classify_value(dollar: str | None, num: str, unit: str | None) -> dict:
+    val = float(num)
+    if unit:
+        return {"stated_raw": val, "unit": "cents"}
+    if dollar:
+        return {"stated_raw": val, "unit": "dollars"}
+    # bare number: LIC per-share NTAs are quoted both as dollars (1.23)
+    # and cents (123.45); only context can separate them
+    return {"stated_raw": val, "unit": "dollars" if val < 20 else "ambiguous"}
+
+
+def parse_nta_rows(rows: list[list[str]]) -> dict | None:
+    """Pre-tax per-share NTA from table rows: label cell -> value cell.
+
+    Rows are ranked: pre-tax + per-share beats pre-tax beats plain
+    NTA-per-share; 'after tax', premium/discount, totals and %-cells are
+    never used.
+    """
+    best = None
+    for row in rows:
+        cells = [str(c) if c is not None else "" for c in row]
+        label_end = 0
+        label = ""
+        for i, c in enumerate(cells):
+            if CELL_VAL.search(c) and re.search(r"[0-9]", c):
+                label_end = i
+                break
+            label += " " + c
+        else:
+            continue
+        if not ROW_NTA.search(label) or ROW_POSTTAX.search(label) \
+                or ROW_EXCLUDE.search(label):
+            continue
+        score = 1 + (2 if ROW_PRETAX.search(label) else 0) \
+            + (1 if ROW_PERSHARE.search(label) else 0)
+        for c in cells[label_end:]:
+            if "%" in c or MILLIONS.search(c):
+                continue
+            m = CELL_VAL.search(c)
+            if m:
+                unit_hint = "cents" if re.search(r"cent|cps|¢", label, re.I) else None
+                got = _classify_value(m.group(1), m.group(2), m.group(3) or unit_hint)
+                if best is None or score > best[0]:
+                    best = (score, got)
+                break
+    return best[1] if best else None
+
+
 def parse_nta_text(text: str) -> dict:
-    """Stated pre-tax per-share NTA from PDF text; unit from context only."""
+    """Stated pre-tax per-share NTA from flowing text; unit from context."""
     for pat in NTA_PATTERNS:
         for m in pat.finditer(text):
             dollar, num, unit = m.group(1), m.group(2), m.group(3)
             tail = text[m.end():m.end() + 20]
             if MILLIONS.match(tail):    # a $-total, not a per-share figure
                 continue
-            val = float(num)
-            if unit:
-                return {"stated_raw": val, "unit": "cents"}
-            if dollar:
-                return {"stated_raw": val, "unit": "dollars"}
-            # bare number: LIC per-share NTAs are quoted both as dollars
-            # (1.23) and cents (123.45); only context can separate them
-            return {"stated_raw": val,
-                    "unit": "dollars" if val < 20 else "ambiguous"}
+            return _classify_value(dollar, num, unit)
     return {"stated_raw": None, "unit": None}
+
+
+def derive_stated(extract: dict) -> dict:
+    """Stated NTA from a cached extraction: table rows first, text second."""
+    if extract.get("status") != "extracted":
+        return extract
+    got = parse_nta_rows(extract.get("rows") or [])
+    if got is None:
+        got = parse_nta_text(extract.get("text") or "")
+    status = "parsed" if got and got.get("stated_raw") is not None else "no_nta_in_pdf"
+    return {"status": status, **(got or {})}
 
 
 def parse_pdf(s: requests.Session, ann_id: str, url: str, counters: dict) -> dict:
@@ -261,7 +321,18 @@ def parse_pdf(s: requests.Session, ann_id: str, url: str, counters: dict) -> dic
     signal.alarm(60)
     try:
         with pdfplumber.open(io.BytesIO(r.content)) as pdf:
-            text = re.sub(r"\s+", " ", " ".join((p.extract_text() or "") for p in pdf.pages[:3]))
+            pages = pdf.pages[:2]
+            text = re.sub(r"\s+", " ", " ".join((p.extract_text() or "") for p in pages))
+            rows = []
+            for p in pages:
+                try:
+                    for tbl in p.extract_tables() or []:
+                        for row in tbl:
+                            joined = " ".join(str(c) for c in row if c)
+                            if NTA_HEAD.search(joined):
+                                rows.append([str(c) if c is not None else "" for c in row])
+                except Exception:  # noqa: BLE001
+                    pass
     except Exception as exc:  # noqa: BLE001
         res = {"status": f"pdf_parse:{exc}"}
         cf.write_text(json.dumps(res))
@@ -272,9 +343,7 @@ def parse_pdf(s: requests.Session, ann_id: str, url: str, counters: dict) -> dic
         res = {"status": "no_text_layer"}
         cf.write_text(json.dumps(res))
         return res
-    parsed = parse_nta_text(text)
-    res = {"status": "parsed" if parsed["stated_raw"] is not None else "no_nta_in_pdf",
-           **parsed}
+    res = {"status": "extracted", "text": text[:20000], "rows": rows[:40]}
     cf.write_text(json.dumps(res))
     return res
 
@@ -304,7 +373,7 @@ def main() -> int:
         by_month = grp.set_index("month")
         for month in sample_months(usable):
             cand = by_month.loc[month]
-            res = parse_pdf(s, str(cand["id"]), cand["url"], counters)
+            res = derive_stated(parse_pdf(s, str(cand["id"]), cand["url"], counters))
             prow = have_nta[(have_nta["code"] == code) & (have_nta["obs_month"] == month)]
             derived = float(prow["nta_derived"].iloc[0]) if len(prow) else None
             rec = {"code": code, "month": month, "headline": str(cand["headline"])[:120],
