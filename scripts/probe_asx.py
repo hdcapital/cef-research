@@ -1,12 +1,13 @@
-"""ASX probe 2: announcement API shape + monthly report XLSX structure.
+"""ASX probe 3: dividends endpoint, pagination, PDF pattern, modern XLSX.
 
-1. The announcements UI calls asx.api.markitdigital.com/asx-research/1.0 -
-   establish working endpoint paths/params for per-company announcements
-   (live LIC AFI; WAM; a delisted LIC candidate), date-range depth, and
-   whether PDFs are fetchable.
-2. Download three monthly investment-products XLSX vintages (2017-01,
-   2021-06, 2026-04) and dump their sheet names + header rows so the
-   LIC/LIT universe parser is written against reality.
+1. Does the research API expose structured dividends?
+   /companies/afi/dividends and /dividends/history variants.
+2. Announcement pagination: which params actually page (itemsPerPage vs
+   count vs pageSize; page vs pageNumber) - need full history depth (AFI
+   has ~20+ years of announcements; we need back to 2016).
+3. Announcement PDF URL pattern from a documentKey.
+4. Correct modern report vintages: 2021 'jun-2021-abs' and 2026
+   'apr-2026-abs' sheet structures.
 """
 
 from __future__ import annotations
@@ -17,7 +18,8 @@ from pathlib import Path
 
 import requests
 
-OUT = Path("data/probe/asx2")
+OUT = Path("data/probe/asx3")
+API = "https://asx.api.markitdigital.com/asx-research/1.0"
 UA = ("uk-cef-research/0.1 (academic closed-end-fund research; "
       "contact: danielconorsims@gmail.com; ~1 req/1.5s)")
 THROTTLE = 1.5
@@ -41,75 +43,77 @@ def fetch(url: str, **kw):
         return None
 
 
+def jprobe(label: str, url: str, notes: dict) -> None:
+    r = fetch(url, headers={"Accept": "application/json"})
+    if r is None:
+        notes[label] = "failed"
+        return
+    notes[label] = r.status_code
+    (OUT / f"{label}.txt").write_bytes(r.content[:300_000])
+    if r.status_code == 200:
+        try:
+            d = r.json()
+            data = d.get("data", {})
+            notes[f"{label}_data_keys"] = list(data)[:12] if isinstance(data, dict) else f"list[{len(data)}]"
+            items = data.get("items") if isinstance(data, dict) else data
+            if isinstance(items, list):
+                notes[f"{label}_n"] = len(items)
+                notes[f"{label}_first"] = items[:1]
+                notes[f"{label}_last"] = items[-1:]
+        except Exception as exc:  # noqa: BLE001
+            notes[f"{label}_note"] = str(exc)
+
+
 def main() -> int:
     OUT.mkdir(parents=True, exist_ok=True)
     notes: dict = {}
 
-    # ---- announcement API candidates
-    candidates = [
-        ("ann_afi", "https://asx.api.markitdigital.com/asx-research/1.0/companies/afi/announcements?itemsPerPage=25&page=0"),
-        ("ann_afi_dates", "https://asx.api.markitdigital.com/asx-research/1.0/companies/afi/announcements?itemsPerPage=25&fromDate=2017-01-01&toDate=2017-12-31"),
-        ("ann_wam", "https://asx.api.markitdigital.com/asx-research/1.0/companies/wam/announcements?itemsPerPage=10"),
-        ("about_afi", "https://asx.api.markitdigital.com/asx-research/1.0/companies/afi/about"),
-        ("ann_dead_alf", "https://asx.api.markitdigital.com/asx-research/1.0/companies/alf/announcements?itemsPerPage=10"),
-        ("key_stats_afi", "https://asx.api.markitdigital.com/asx-research/1.0/companies/afi/key-statistics"),
-        ("legacy_ann", "https://www.asx.com.au/asx/v2/statistics/announcements.do?by=asxCode&asxCode=AFI&timeframe=Y&year=2020"),
-    ]
-    for label, url in candidates:
-        r = fetch(url, headers={"Accept": "application/json"})
-        if r is None:
-            notes[label] = "failed"
-            continue
-        notes[label] = r.status_code
-        body = r.content[:250_000]
-        (OUT / f"{label}.txt").write_bytes(body)
-        if r.status_code == 200:
-            try:
-                d = r.json()
-                notes[f"{label}_keys"] = list(d)[:8]
-                items = d.get("data", {})
-                if isinstance(items, dict):
-                    notes[f"{label}_data_keys"] = list(items)[:10]
-                    rows = items.get("items") or items.get("announcements") or []
-                    notes[f"{label}_n"] = len(rows)
-                    notes[f"{label}_sample"] = rows[:2]
-            except Exception as exc:  # noqa: BLE001
-                notes[f"{label}_note"] = f"not json: {exc}"
+    jprobe("div_afi", f"{API}/companies/afi/dividends", notes)
+    jprobe("div_hist_afi", f"{API}/companies/afi/dividends/history?years=20", notes)
+    jprobe("ann_p200", f"{API}/companies/afi/announcements?itemsPerPage=200", notes)
+    jprobe("ann_count", f"{API}/companies/afi/announcements?count=50", notes)
+    jprobe("ann_page2", f"{API}/companies/afi/announcements?itemsPerPage=50&page=2", notes)
+    jprobe("ann_pagenum", f"{API}/companies/afi/announcements?pageSize=50&pageNumber=2", notes)
+    jprobe("ann_types", f"{API}/companies/afi/announcements?itemsPerPage=50&announcementTypes=DISTRIBUTION%20ANNOUNCEMENT", notes)
 
-    # try fetching one announcement PDF if a sample gave us a document key
-    # (inspected offline; deferred to the crawler design)
+    # PDF pattern from a known documentKey (2924-03126593-3A699922)
+    for label, url in [
+        ("pdf_display", "https://announcements.asx.com.au/asxpdf/20260826/pdf/3A699922.pdf"),
+        ("pdf_api", f"{API}/announcements/2924-03126593-3A699922/document"),
+    ]:
+        r = fetch(url)
+        if r is not None:
+            notes[label] = {"status": r.status_code,
+                            "type": r.headers.get("Content-Type", "")[:40],
+                            "bytes": len(r.content)}
+            if r.status_code == 200 and "pdf" in r.headers.get("Content-Type", ""):
+                (OUT / f"{label}.pdf").write_bytes(r.content[:400_000])
 
-    # ---- monthly report samples
-    base = "https://www.asx.com.au/content/dam/asx/issuers/asx-investment-products-reports"
-    samples = [
-        ("2017/excel/asx-investment-products-january-2017.xlsx", "ipr_2017_01.xlsx"),
-        ("2021/excel/asx-investment-products-june-2021.xlsx", "ipr_2021_06.xlsx"),
-        ("2026/excel/asx-investment-products-april-2026.xlsx", "ipr_2026_04.xlsx"),
-    ]
+    # modern report vintages (exact hrefs from the page)
     import openpyxl
 
-    for path, name in samples:
+    base = "https://www.asx.com.au/content/dam/asx/issuers/asx-investment-products-reports"
+    for path, name in [
+        ("2021/excel/asx-investment-products-jun-2021-abs.xlsx", "ipr_2021_06.xlsx"),
+        ("2026/excel/asx-investment-products-apr-2026-abs.xlsx", "ipr_2026_04.xlsx"),
+    ]:
         r = fetch(f"{base}/{path}")
         if r is None or r.status_code != 200:
             notes[f"report_{name}"] = r.status_code if r is not None else "failed"
             continue
         (OUT / name).write_bytes(r.content)
-        notes[f"report_{name}"] = len(r.content)
-        try:
-            wb = openpyxl.load_workbook(OUT / name, read_only=True)
-            info = {}
-            for ws in wb.worksheets:
-                rows = []
-                for i, row in enumerate(ws.iter_rows(max_row=8, values_only=True)):
-                    rows.append([str(c)[:28] for c in row if c is not None][:12])
-                info[ws.title] = {"dims": ws.calculate_dimension(), "head": rows}
-            (OUT / f"{name}.structure.json").write_text(json.dumps(info, indent=1, default=str))
-            notes[f"{name}_sheets"] = list(info)
-        except Exception as exc:  # noqa: BLE001
-            notes[f"{name}_error"] = str(exc)
+        wb = openpyxl.load_workbook(OUT / name, read_only=True)
+        info = {}
+        for ws in wb.worksheets:
+            head = []
+            for i, row in enumerate(ws.iter_rows(max_row=8, values_only=True)):
+                head.append([str(c)[:26] for c in row if c is not None][:12])
+            info[ws.title] = head
+        (OUT / f"{name}.structure.json").write_text(json.dumps(info, indent=1, default=str))
+        notes[f"{name}_sheets"] = list(info)
 
     (OUT / "notes.json").write_text(json.dumps(notes, indent=1, default=str))
-    print("asx probe 2 complete")
+    print("asx probe 3 complete")
     return 0
 
 
