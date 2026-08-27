@@ -97,6 +97,9 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -f outputs/investegate_coverage.csv outputs/investegate_missing_tickers.csv \
                      outputs/dividends_sample.csv outputs/dividends_parse_summary.json || true
+          # the processed dividend/catalyst tables are small and committing
+          # them makes the backtest pipeline independent of the crawl cache
+          git add -f data/processed/dividends.parquet data/processed/catalysts_announced.parquet || true
           if git diff --cached --quiet; then
             echo "no changes"
           else
