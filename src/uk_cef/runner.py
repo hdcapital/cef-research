@@ -761,6 +761,62 @@ def _f_deep_dive(base: pd.DataFrame, results_store: dict, z_col: str,
                              "t_stat": perf.t_stat_mean(g)})
     pd.DataFrame(sub_rows).to_csv(out_dir / "f_subperiods.csv", index=False)
 
+    # ---- annual return decomposition: NAV growth x discount change +
+    # distributions (+ residual so rows sum exactly to the total)
+    comp = base[["security_id", "obs_month", "nav_return", "discount",
+                 "dividend_gbx_month", "share_price"]].copy()
+    h2 = h.merge(comp, left_on=["security_id", "holding_month"],
+                 right_on=["security_id", "obs_month"], how="left",
+                 suffixes=("", "_hm"))
+    # discount at signal month (start of holding period) and at holding
+    # month end give the exact re-rating component
+    d_sig = h2["discount_sig"] if "discount_sig" in h2.columns else h2["discount"]
+    d_hold = h2["discount_hm"] if "discount_hm" in h2.columns else h2["discount"]
+    h2["disc_component"] = (1 + d_hold) / (1 + d_sig) - 1
+    h2["nav_component"] = h2["nav_return_hm"] if "nav_return_hm" in h2.columns else h2["nav_return"]
+    h2["div_component"] = (h2["dividend_gbx_month_hm"]
+                           if "dividend_gbx_month_hm" in h2.columns
+                           else h2["dividend_gbx_month"]).fillna(0.0) / h2["share_price"]
+
+    mrows = []
+    for month, grp in h2.groupby("holding_month"):
+        ok = grp.dropna(subset=["nav_component", "disc_component", "weight"])
+        if ok.empty:
+            continue
+        w = ok["weight"] / ok["weight"].sum()
+        tr = ok["next_month_return"].astype(float)
+        total = float((w * (tr + ok["div_component"])).sum()) if tr.notna().all() else np.nan
+        mrows.append({
+            "holding_month": month,
+            "nav_growth": float((w * ok["nav_component"]).sum()),
+            "discount_change": float((w * ok["disc_component"]).sum()),
+            "distributions": float((w * ok["div_component"]).sum()),
+            "total_return": total,
+            "coverage_weight": float(ok["weight"].sum() / grp["weight"].sum()),
+        })
+    md = pd.DataFrame(mrows)
+    if not md.empty:
+        md["residual"] = md["total_return"] - (
+            md["nav_growth"] + md["discount_change"] + md["distributions"]
+        )
+        md.to_csv(out_dir / "f_monthly_decomposition.csv", index=False)
+        md["year"] = md["holding_month"].str[:4]
+        ann = md.groupby("year").apply(
+            lambda g: pd.Series({
+                "total_return": float((1 + g["total_return"]).prod() - 1),
+                "nav_growth": float((1 + g["nav_growth"]).prod() - 1),
+                "discount_change": float((1 + g["discount_change"]).prod() - 1),
+                "distributions": float(g["distributions"].sum()),
+                "months": len(g),
+                "avg_coverage_weight": float(g["coverage_weight"].mean()),
+            }),
+            include_groups=False,
+        ).reset_index()
+        ann["residual"] = ann["total_return"] - (
+            ann["nav_growth"] + ann["discount_change"] + ann["distributions"]
+        )
+        ann.to_csv(out_dir / "f_annual_decomposition.csv", index=False)
+
     # ---- trade log per £100 invested
     log_rows = []
     prev: dict[str, float] = {}
