@@ -75,6 +75,9 @@ jobs:
       - name: Announcements crawl + cross-validation
         run: python -m au_lic.cli announcements --budget-minutes 60
 
+      - name: Sampled NTA PDF numeric validation
+        run: python scripts/sample_nta_pdfs.py || true
+
       - name: Save announcements cache
         if: always()
         uses: actions/cache/save@v4
