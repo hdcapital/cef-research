@@ -98,11 +98,20 @@ class ASXClient:
             href = a["href"]
             if "asx-investment-products-reports" not in href or not href.endswith(".xlsx"):
                 continue
-            m = re.search(r"asx-investment-products-([a-z]+)-(\d{4})", href)
-            if not m or m.group(1).lower() not in MONTHS:
+            # filename eras: 'january-2017', '201801' (numeric), 'apr-2021-abs',
+            # 'jul_2021_abs' (underscores)
+            name = Path(href).name.replace("_", "-")
+            month = None
+            m = re.search(r"asx-investment-products-([a-z]+)-(\d{4})", name)
+            if m and m.group(1).lower() in MONTHS:
+                month = f"{int(m.group(2)):04d}-{MONTHS[m.group(1).lower()]:02d}"
+            else:
+                m = re.search(r"asx-investment-products-(\d{4})(\d{2})", name)
+                if m and 1 <= int(m.group(2)) <= 12:
+                    month = f"{int(m.group(1)):04d}-{int(m.group(2)):02d}"
+            if month is None:
                 log.warning("unrecognised report filename: %s", href)
                 continue
-            month = f"{int(m.group(2)):04d}-{MONTHS[m.group(1).lower()]:02d}"
             url = urljoin(self.base, href)
             out[month] = ReportFile(url=url, observation_month=month,
                                     local_name=f"{month}_ipr_{Path(href).name}")

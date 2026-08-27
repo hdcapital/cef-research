@@ -111,15 +111,17 @@ def parse_ipr_lic_sheet(path: str | Path) -> list[dict]:
 
 
 def report_observation_month(path: str | Path, rows: list[dict]) -> str | None:
-    """The report named month M carries month-end M-1 data. Derive the
-    observation month from the modal NTA date month (authoritative), falling
-    back to filename-month minus one."""
+    """The report named month M carries month-end M-1 data: observation
+    month = filename month - 1, deterministically (the downloader prefixes
+    local names 'YYYY-MM_'). Per-row NTA dates measure staleness but are
+    NOT used for month assignment - modal-NTA inference proved unreliable
+    on vintages with many stale NTAs (it collided and dropped months)."""
+    m = re.match(r"^(\d{4})-(\d{2})_", Path(path).name)
+    if m:
+        return str(pd.Period(f"{m.group(1)}-{m.group(2)}", freq="M") - 1)
     dates = pd.to_datetime(pd.Series([r.get("nta_date") for r in rows]), errors="coerce").dropna()
     if len(dates):
         modal = dates.dt.to_period("M").mode()
         if len(modal):
             return str(modal.iloc[0])
-    m = re.match(r"^(\d{4})-(\d{2})_", Path(path).name)
-    if m:
-        return str(pd.Period(f"{m.group(1)}-{m.group(2)}", freq="M") - 1)
     return None
