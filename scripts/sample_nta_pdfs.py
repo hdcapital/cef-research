@@ -98,12 +98,14 @@ def sweep_index(s: requests.Session, codes: set[str], counters: dict) -> pd.Data
     # two frontiers: history (sweep back to EARLIEST once) and the live top
     hist_done = state.get("hist_done", False)
     end_ms = state.get("earliest_ms")  # resume point for the history sweep
-    if hist_done:
-        end_ms = None  # a fresh top-of-index pass; overlap deduped by id
+    if hist_done or end_ms is None:
+        # the endpoint returns nothing without an end_date (probe 8):
+        # start every pass from "now"; overlap is deduped by id
+        end_ms = int(time.time() * 1000)
     new_rows: list[dict] = []
     top_pass_calls = 0
     while counters["index_calls"] < SWEEP_BUDGET:
-        url = INDEX_URL + (f"?end_date={end_ms}" if end_ms else "")
+        url = f"{INDEX_URL}?end_date={end_ms}"
         counters["index_calls"] += 1
         r = throttled_get(s, url, headers={"Accept": "application/json"})
         if r.status_code != 200:
@@ -330,6 +332,7 @@ def main() -> int:
         "history_sweep_complete": counters.get("hist_done", False),
         "pdf_fetches": counters["pdf_calls"],
         "sweep_budget_hit": counters.get("sweep_budget_hit", False),
+        "index_error": counters.get("index_error"),
         "pdf_budget_hit": counters.get("pdf_budget_hit", False),
         "note": "historical sample: up to one month-end NTA PDF per code per year "
                 "vs panel-derived NTA; announcement index from the public "
