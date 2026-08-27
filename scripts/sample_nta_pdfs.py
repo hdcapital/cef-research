@@ -203,15 +203,20 @@ def pick_candidates(idx: pd.DataFrame) -> pd.DataFrame:
 
 
 def sample_months(months: list[str]) -> list[str]:
-    """Up to one month per calendar year, preferring June then December."""
+    """Up to two months per calendar year: June AND December when present.
+
+    June is Australia's fiscal year-end, when cum/ex-dividend NTA effects
+    peak - December pairs let genuine basis differences be told apart from
+    June-specific timing artifacts.
+    """
     by_year: dict[str, list[str]] = {}
     for m in months:
         by_year.setdefault(m[:4], []).append(m)
     picked = []
     for _, ms in sorted(by_year.items()):
         ms = sorted(ms)
-        pref = [m for m in ms if m.endswith("-06")] or [m for m in ms if m.endswith("-12")] or ms
-        picked.append(pref[0])
+        year_pick = [m for m in ms if m.endswith("-06")] + [m for m in ms if m.endswith("-12")]
+        picked.extend(year_pick or ms[:1])
     return picked
 
 
@@ -274,6 +279,8 @@ def parse_nta_text(text: str) -> dict:
       then the value - adjacency fails, so lazily seek the first $-value)
     - "(1.28 cents * 4 quarters)" between label and value (require $ there)
     """
+    # newsletters glue footnote markers to labels: "NTA per share1 $8.45"
+    text = re.sub(r"(?i)\b(share|security|unit)s?(\d)\b", r"\1 ", text)
     # $-value immediately followed by "per share", NTA named just before it
     for m in re.finditer(r"\$\s*" + _NUM + r"\s*per\s+(?:ordinary\s+)?(?:share|security|unit)",
                          text, re.I):
@@ -282,8 +289,13 @@ def parse_nta_text(text: str) -> dict:
         if NTA_HEAD.search(pre) and not (ROW_POSTTAX.search(near)
                                          and not ROW_PRETAX.search(near)):
             return {"stated_raw": float(m.group(1)), "unit": "dollars"}
-    # before-tax label, lazy scan to the FIRST $-prefixed value
-    for m in re.finditer(r"(?:pre|before)[- ]tax.{0,300}?\$\s*" + _NUM, text, re.I | re.S):
+    # "NAV per unit ... as at <date> was $1.96701" (Magellan trusts)
+    for m in re.finditer(r"(?:NAV|NTA)\s+per\s+(?:share|security|unit).{0,140}?"
+                         r"was\s+\$\s*" + _NUM, text, re.I | re.S):
+        return {"stated_raw": float(m.group(1)), "unit": "dollars"}
+    # before-tax label, lazy scan to the FIRST $-prefixed value; a % or an
+    # intervening bare $ means we crossed into a returns/holdings table
+    for m in re.finditer(r"(?:pre|before)[- ]tax[^%$]{0,300}?\$\s*" + _NUM, text, re.I | re.S):
         pre = text[max(0, m.start() - 200):m.start() + 12]
         tail = text[m.end():m.end() + 20]
         if NTA_HEAD.search(pre) and not MILLIONS.match(tail):
