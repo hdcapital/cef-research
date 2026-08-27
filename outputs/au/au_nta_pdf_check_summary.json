@@ -1,7 +1,7 @@
 {
   "panel_codes": 166,
-  "codes_compared": 48,
-  "comparisons_parsed": 186,
+  "codes_compared": 60,
+  "comparisons_parsed": 202,
   "years_covered": [
     "2016",
     "2017",
@@ -12,24 +12,23 @@
     "2022",
     "2023"
   ],
-  "median_abs_pct_diff": 0.04276716781796008,
-  "p90_abs_pct_diff": 1.0943544600938968,
-  "within_1pct": 0.26344086021505375,
-  "within_2pct": 0.3655913978494624,
+  "median_abs_pct_diff": 0.03428229639967684,
+  "p90_abs_pct_diff": 1.213654870624049,
+  "within_1pct": 0.3118811881188119,
+  "within_2pct": 0.43564356435643564,
   "status_counts": {
-    "parsed": 186,
-    "unit_ambiguous": 159,
-    "budget_deferred": 63,
-    "no_nta_in_pdf": 48,
+    "parsed": 202,
+    "no_nta_in_pdf": 147,
+    "unit_ambiguous": 107,
     "no_text_layer": 7
   },
-  "index_rows": 86557,
-  "index_calls": 588,
+  "index_rows": 86689,
+  "index_calls": 1,
   "history_sweep_complete": true,
-  "pdf_fetches": 400,
+  "pdf_fetches": 463,
   "sweep_budget_hit": false,
   "index_error": null,
-  "pdf_budget_hit": true,
+  "pdf_budget_hit": false,
   "deadline_hit": false,
   "note": "historical sample: up to one month-end NTA PDF per code per year vs panel-derived NTA; announcement index from the public unauthenticated market-wide listing (probe 7/8), delisted issuers included; per-share pre-tax parse, unit ambiguity flagged rather than corrected"
 }
