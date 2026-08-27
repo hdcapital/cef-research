@@ -274,16 +274,24 @@ def parse_nta_rows(rows: list[list[str]]) -> dict | None:
 def parse_nta_text(text: str) -> dict:
     """Stated pre-tax per-share NTA from flowing text; unit from context.
 
-    Evidence-driven forms (outputs/au/au_nta_parse_debug.json):
-    - "The NTA as at 31 Dec 2016 was $7.63 per share"  (value THEN per-share)
-    - "Before Tax * After Tax * 31 December 2016 $5.83" (label, then a date,
-      then the value - adjacency fails, so lazily seek the first $-value)
-    - "(1.28 cents * 4 quarters)" between label and value (require $ there)
+    Candidate scoring, not first-rule-wins: real documents mix explicit
+    labels with generic per-share phrasing, and either can appear first.
+    Every rule contributes candidates; label specificity decides -
+      3 = explicit pre-tax NTA label ("Pre-Tax NTA Backing per share")
+      2 = per-share NTA/NAV label ("NTA per share", "NAV per unit ... was")
+      1 = contextual ("$X per share" near an NTA mention; lazy before-tax)
+    Ties break on document position (earliest wins). Evidence base:
+    outputs/au/au_nta_parse_debug.json.
     """
     # newsletters glue footnote markers to labels: "NTA per share1 $8.45"
     text = re.sub(r"(?i)\b(share|security|unit)s?(\d)\b", r"\1 ", text)
-    # $-value immediately followed by "per share", NTA named just before it;
-    # never a dividend/buy-back/issue amount, which use the same phrasing
+    cands: list[tuple[int, int, dict]] = []   # (-score, position, value)
+
+    def add(score, pos, d):
+        cands.append((-score, pos, d))
+
+    # score 1: $-value immediately followed by "per share", NTA named just
+    # before it; never a dividend/buy-back/issue amount (same phrasing)
     for m in re.finditer(r"\$\s*" + _NUM + r"\s*per\s+(?:ordinary\s+)?(?:share|security|unit)",
                          text, re.I):
         pre = text[max(0, m.start() - 150):m.start()]
@@ -291,25 +299,30 @@ def parse_nta_text(text: str) -> dict:
         if NTA_HEAD.search(pre) and not NOT_NTA.search(near):
             out = {"stated_raw": float(m.group(1)), "unit": "dollars"}
             # some funds (BEL, KAT) headline the after-tax figure only:
-            # keep it, tagged, rather than fall through to a worse match
+            # keep it, tagged, rather than surface a worse match
             if re.search(r"after[- ]tax", near, re.I) and not ROW_PRETAX.search(near):
                 out["basis"] = "post_tax"
-            return out
-    # "NAV per unit ... as at <date> was $1.96701" / "NTA) per share after
-    # tax ... was $0.858" - tag the basis when only after-tax is published
+            add(1, m.start(), out)
+
+    # score 2: "NAV per unit ... as at <date> was $1.96701" / "NTA) per
+    # share after tax ... was $0.858" - basis tagged when after-tax
     for m in re.finditer(r"(?:NAV|NTA)\)?\s+per\s+(?:share|security|unit)(.{0,140}?)"
                          r"was\s+\$\s*" + _NUM, text, re.I | re.S):
         out = {"stated_raw": float(m.group(2)), "unit": "dollars"}
         if ROW_POSTTAX.search(m.group(1)):
             out["basis"] = "post_tax"
-        return out
-    # "NTA backing per share ... 255.1 c 233.5 c" (cents, before-tax column
-    # first) - lazy scan to the first cents-suffixed value
+        add(2, m.start(), out)
+
+    # score 2: "NTA backing per share ... 255.1 c 233.5 c" (cents,
+    # before-tax column first) - lazy to the first cents-suffixed value
     for m in re.finditer(r"(?:NAV|NTA)\)?\s+(?:backing\s+)?per\s+(?:ordinary\s+)?"
                          r"(?:share|security|unit)[^%$]{0,220}?" + _NUM +
                          r"\s*(?:cents|cps|c)\b", text, re.I | re.S):
-        return {"stated_raw": float(m.group(1)), "unit": "cents"}
-    for pat in NTA_PATTERNS:
+        add(2, m.start(), {"stated_raw": float(m.group(1)), "unit": "cents"})
+
+    # strict adjacency patterns: pre-tax labels score 3, per-share labels 2
+    for pi, pat in enumerate(NTA_PATTERNS):
+        score = 3 if pi < 2 else 2
         for m in pat.finditer(text):
             dollar, num, unit = m.group(1), m.group(2), m.group(3)
             tail = text[m.end():m.end() + 20]
@@ -321,21 +334,27 @@ def parse_nta_text(text: str) -> dict:
                 # the level itself usually follows: "+12.44% $0.1663"
                 m2 = re.match(r"\s*%\s*\$\s*" + _NUM, tail)
                 if m2:
-                    return {"stated_raw": float(m2.group(1)), "unit": "dollars"}
+                    add(score, m.start(), {"stated_raw": float(m2.group(1)),
+                                           "unit": "dollars"})
                 continue
-            # bare integers ("Top 25 Investments", "Top 20 Holdings") are
-            # never NTA quotes - real ones carry decimals, $, or cents
+            # bare integers ("Top 25 Investments") are never NTA quotes -
+            # real ones carry decimals, $, or cents
             if "." not in num and not dollar and not unit:
                 continue
-            return _classify_value(dollar, num, unit)
-    # before-tax label, lazy scan to the FIRST $-prefixed value; a % or an
-    # intervening bare $ means we crossed into a returns/holdings table
+            add(score, m.start(), _classify_value(dollar, num, unit))
+
+    # score 1: before-tax label, lazy scan to the FIRST $-prefixed value;
+    # a % or an intervening bare $ means a returns/holdings table
     for m in re.finditer(r"(?:pre|before)[- ]tax[^%$]{0,300}?\$\s*" + _NUM, text, re.I | re.S):
         pre = text[max(0, m.start() - 200):m.start() + 12]
         tail = text[m.end():m.end() + 20]
         if NTA_HEAD.search(pre) and not MILLIONS.match(tail):
-            return {"stated_raw": float(m.group(1)), "unit": "dollars"}
-    return {"stated_raw": None, "unit": None}
+            add(1, m.start(), {"stated_raw": float(m.group(1)), "unit": "dollars"})
+
+    if not cands:
+        return {"stated_raw": None, "unit": None}
+    cands.sort(key=lambda c: (c[0], c[1]))
+    return cands[0][2]
 
 
 def derive_stated(extract: dict) -> dict:
