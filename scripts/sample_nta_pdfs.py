@@ -266,12 +266,37 @@ def parse_nta_rows(rows: list[list[str]]) -> dict | None:
 
 
 def parse_nta_text(text: str) -> dict:
-    """Stated pre-tax per-share NTA from flowing text; unit from context."""
+    """Stated pre-tax per-share NTA from flowing text; unit from context.
+
+    Evidence-driven forms (outputs/au/au_nta_parse_debug.json):
+    - "The NTA as at 31 Dec 2016 was $7.63 per share"  (value THEN per-share)
+    - "Before Tax * After Tax * 31 December 2016 $5.83" (label, then a date,
+      then the value - adjacency fails, so lazily seek the first $-value)
+    - "(1.28 cents * 4 quarters)" between label and value (require $ there)
+    """
+    # $-value immediately followed by "per share", NTA named just before it
+    for m in re.finditer(r"\$\s*" + _NUM + r"\s*per\s+(?:ordinary\s+)?(?:share|security|unit)",
+                         text, re.I):
+        pre = text[max(0, m.start() - 150):m.start()]
+        near = pre[-60:]
+        if NTA_HEAD.search(pre) and not (ROW_POSTTAX.search(near)
+                                         and not ROW_PRETAX.search(near)):
+            return {"stated_raw": float(m.group(1)), "unit": "dollars"}
+    # before-tax label, lazy scan to the FIRST $-prefixed value
+    for m in re.finditer(r"(?:pre|before)[- ]tax.{0,300}?\$\s*" + _NUM, text, re.I | re.S):
+        pre = text[max(0, m.start() - 200):m.start() + 12]
+        tail = text[m.end():m.end() + 20]
+        if NTA_HEAD.search(pre) and not MILLIONS.match(tail):
+            return {"stated_raw": float(m.group(1)), "unit": "dollars"}
     for pat in NTA_PATTERNS:
         for m in pat.finditer(text):
             dollar, num, unit = m.group(1), m.group(2), m.group(3)
             tail = text[m.end():m.end() + 20]
             if MILLIONS.match(tail):    # a $-total, not a per-share figure
+                continue
+            # bare integers ("Top 25 Investments", "Top 20 Holdings") are
+            # never NTA quotes - real ones carry decimals, $, or cents
+            if "." not in num and not dollar and not unit:
                 continue
             return _classify_value(dollar, num, unit)
     return {"stated_raw": None, "unit": None}
@@ -283,7 +308,11 @@ def derive_stated(extract: dict) -> dict:
         return extract
     got = parse_nta_rows(extract.get("rows") or [])
     if got is None:
-        got = parse_nta_text(extract.get("text") or "")
+        # mega-cell tables (whole layout in one cell) only surface via text,
+        # so append the row text to the page text before the text pass
+        rows_text = " ".join(" ".join(c for c in r if c)
+                             for r in (extract.get("rows") or []))
+        got = parse_nta_text((extract.get("text") or "") + " " + rows_text)
     status = "parsed" if got and got.get("stated_raw") is not None else "no_nta_in_pdf"
     return {"status": status, **(got or {})}
 
