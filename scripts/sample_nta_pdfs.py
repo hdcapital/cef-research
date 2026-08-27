@@ -250,6 +250,8 @@ def parse_nta_rows(rows: list[list[str]]) -> dict | None:
             continue
         score = 1 + (2 if ROW_PRETAX.search(label) else 0) \
             + (1 if ROW_PERSHARE.search(label) else 0)
+        if score < 2:   # bare "NTA" labels grab stray numbers ("Top 25...")
+            continue
         for c in cells[label_end:]:
             if "%" in c or MILLIONS.search(c):
                 continue
@@ -376,7 +378,8 @@ def main() -> int:
             res = derive_stated(parse_pdf(s, str(cand["id"]), cand["url"], counters))
             prow = have_nta[(have_nta["code"] == code) & (have_nta["obs_month"] == month)]
             derived = float(prow["nta_derived"].iloc[0]) if len(prow) else None
-            rec = {"code": code, "month": month, "headline": str(cand["headline"])[:120],
+            rec = {"code": code, "month": month, "ann_id": str(cand["id"]),
+                   "headline": str(cand["headline"])[:120],
                    "derived_nta": round(derived, 4) if derived is not None else None,
                    "status": res.get("status")}
             stated, unit = res.get("stated_raw"), res.get("unit")
@@ -401,6 +404,24 @@ def main() -> int:
     out = pd.DataFrame(rows)
     Path("outputs/au").mkdir(parents=True, exist_ok=True)
     out.to_csv("outputs/au/au_nta_pdf_check.csv", index=False)
+
+    # commit the raw evidence for every disagreement/ambiguity so parser
+    # iteration works from actual document text, not guesses
+    debug = []
+    for rec in rows:
+        bad = rec.get("status") == "unit_ambiguous" or \
+            (rec.get("abs_pct_diff") is not None and rec["abs_pct_diff"] > 0.05)
+        if not bad or len(debug) >= 60:
+            continue
+        cf = PARSE_DIR / f"{rec.get('ann_id')}.json"
+        if cf.exists():
+            ext = json.loads(cf.read_text())
+            debug.append({**{k: rec.get(k) for k in
+                             ("code", "month", "derived_nta", "stated_nta", "status")},
+                          "text_head": (ext.get("text") or "")[:1500],
+                          "rows": ext.get("rows")})
+    Path("outputs/au/au_nta_parse_debug.json").write_text(
+        json.dumps(debug, indent=1, default=str))
     if "abs_pct_diff" in out.columns:
         ok = out[(out["status"] == "parsed") & out["abs_pct_diff"].notna()]
     else:
