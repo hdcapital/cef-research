@@ -67,6 +67,15 @@ def build_universe() -> int:
         "vct": int(reg["is_vct"].sum()),
         "live_by_domicile": reg[reg["status"] == "live"]["domicile"]
                             .value_counts(dropna=False).head(8).to_dict(),
+        # the cohort the rebuild exists for: listed, live, never priced by
+        # the registry source - these must come from their own announcements
+        "live_announcements_only_funds": reg[
+            (reg["status"] == "live") & (reg["nav_route"] == "announcements_only")
+        ][["security_id", "name", "sector", "domicile", "isin", "first_seen",
+           "months_listed"]].sort_values("name").to_dict("records"),
+        "live_announcements_only_by_sector": reg[
+            (reg["status"] == "live") & (reg["nav_route"] == "announcements_only")
+        ]["sector"].value_counts().to_dict(),
     }
     Path("reports/build").mkdir(parents=True, exist_ok=True)
     Path("reports/build/universe_registry.json").write_text(
