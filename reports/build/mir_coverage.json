@@ -1,0 +1,62 @@
+{
+  "raw_dir": "data/raw",
+  "mir_files_found": 746,
+  "newest": [
+    "data/raw/aic/2026-06_mir_MIR2606.csv",
+    "data/raw/aic/2026-06_mir_MIR2606PostErr.csv",
+    "data/raw/aic/2026-07_mir_MIR2607.csv",
+    "data/raw/aic/2026-07_mir_MIR2607ERR.csv",
+    "data/raw/aic/2026-07_mir_MIR2607PostErr.csv"
+  ],
+  "target": "data/raw/aic/2026-07_mir_MIR2607PostErr.csv",
+  "parser_fn": "parse_mir_csv",
+  "parsed_rows": 15,
+  "parsed_cols": [
+    "code",
+    "company_name",
+    "currency",
+    "dividend_yield",
+    "nav",
+    "nav_basis",
+    "net_gearing",
+    "obs_date",
+    "obs_month",
+    "price",
+    "sector",
+    "share_type",
+    "shares",
+    "source_file",
+    "total_assets"
+  ],
+  "non_null_by_col": {
+    "sector": 15,
+    "company_name": 15,
+    "share_type": 15,
+    "obs_date": 15,
+    "obs_month": 15,
+    "code": 15,
+    "price": 15,
+    "nav": 15,
+    "nav_basis": 15,
+    "shares": 15,
+    "total_assets": 15,
+    "dividend_yield": 14,
+    "net_gearing": 15,
+    "currency": 15,
+    "source_file": 15
+  },
+  "id_coverage": {
+    "company_name": 15
+  },
+  "rows_with_price": 15,
+  "nav_like_cols": [
+    "nav",
+    "nav_basis"
+  ],
+  "nav_col_coverage": {
+    "nav": 15,
+    "nav_basis": 15
+  },
+  "rows_without_any_nav": 0,
+  "no_nav_sample": []
+}
