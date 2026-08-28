@@ -27,8 +27,24 @@ cands = sorted([p for p in raw.rglob("*")
 out = {"raw_dir": str(raw), "mir_files_found": len(cands),
        "newest": [str(p) for p in cands[-5:]]}
 
-if cands:
-    target = cands[-1]
+# parse EVERY MIR file for the newest month, not just the alphabetically
+# last one (post-errata files carry only a handful of corrections)
+newest_month = max(p.name[:7] for p in cands if p.name[:4].isdigit()) if cands else None
+month_files = [p for p in cands if p.name.startswith(str(newest_month))]
+out["newest_month"] = newest_month
+out["month_files"] = [p.name for p in month_files]
+per_file = {}
+for f in month_files:
+    try:
+        per_file[f.name] = len(MIR.parse_mir_csv(f))
+    except Exception as exc:  # noqa: BLE001
+        per_file[f.name] = f"error: {exc}"
+out["rows_per_file"] = per_file
+best = max((f for f in month_files if isinstance(per_file.get(f.name), int)),
+           key=lambda f: per_file[f.name], default=None)
+
+if best is not None:
+    target = best
     out["target"] = str(target)
     try:
         recs = MIR.parse_mir_csv(target)
