@@ -88,9 +88,15 @@ def fit_fund_models(panel: pd.DataFrame, ret_col: str, params: dict,
     rows = []
     for sid, g in df.sort_values("obs_month").groupby("security_id"):
         g = g.dropna(subset=[ret_col])
-        # a factor column is usable for this fund only if it is observed
-        # alongside the fund's returns often enough to fit
-        usable = [c for c in factor_cols if g[c].notna().sum() >= min_hist]
+        # spec preference: the market-factor set (consistent with DAILY
+        # roll-forward, which has no daily sector_ew) when it overlaps the
+        # fund's history enough; else the sector_ew fallback spec, whose
+        # estimates carry the anchor with a widening error band only
+        market_ok = [c for c in extra_cols if g[c].notna().sum() >= min_hist]
+        if len(market_ok) == len(extra_cols) and extra_cols:
+            usable = market_ok
+        else:
+            usable = ["sector_ew"] if g["sector_ew"].notna().sum() >= min_hist else []
         gg = g.dropna(subset=usable) if usable else g.iloc[0:0]
         rec = {"security_id": sid,
                "sector": g["sector"].dropna().iloc[-1] if g["sector"].notna().any() else None,

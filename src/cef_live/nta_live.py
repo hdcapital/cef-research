@@ -37,6 +37,7 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
                 tier0: pd.DataFrame | None = None,
                 daily_factors: pd.DataFrame | None = None,
                 market_factors: pd.DataFrame | None = None,
+                live_prices: pd.DataFrame | None = None,
                 today: date | None = None) -> pd.DataFrame:
     """Build the live table for one market from its research panel.
 
@@ -101,9 +102,15 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
         est_error = sigma * np.sqrt(max(staleness, 1) / live["est_error"]["trading_days_per_month"]) \
             if pd.notna(sigma) else np.nan
 
-        # price + estimated discount (last panel price; the intraday layer
-        # replaces this with a live feed once the price adapters land)
+        # price: live feed when available (probe-verified adapter), else
+        # the last panel price - the source is always recorded
         price = float(last[price_col]) if pd.notna(last[price_col]) else np.nan
+        price_asof = anchor_source
+        if live_prices is not None and len(live_prices):
+            lp = live_prices[live_prices["security_id"] == sid]
+            if len(lp):
+                price = float(lp["price"].iloc[0])
+                price_asof = f"{lp['price_source'].iloc[0]}@{lp['price_date'].iloc[0]}"
         discount_est = price / nta_est - 1.0 if pd.notna(price) and nta_est else np.nan
 
         # own-history z on published discounts (validated spec)
@@ -137,7 +144,7 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
             "sigma_1m": round(sigma, 6) if pd.notna(sigma) else np.nan,
             "sigma_source": m["sigma_source"] if m is not None else None,
             "est_error": round(est_error, 6) if pd.notna(est_error) else np.nan,
-            "price": price, "price_asof": anchor_source,
+            "price": price, "price_asof": price_asof,
             "discount_est": round(discount_est, 6) if pd.notna(discount_est) else np.nan,
             "disc_mu_36m": round(mu, 6) if pd.notna(mu) else np.nan,
             "disc_sigma_36m": round(sd, 6) if pd.notna(sd) else np.nan,

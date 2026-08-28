@@ -143,3 +143,52 @@ def uk_frequency_census(cache_dir: Path) -> pd.DataFrame:
     g["nav_frequency"] = pd.cut(g["per_month"], [-1, 0.5, 2.5, 12, 1e9],
                                 labels=["adhoc", "monthly", "weekly", "daily"])
     return g.rename(columns={"count": "n_navs", "min": "first", "max": "last"})
+
+
+def uk_nav_samples(cache_dir: Path, n: int = 5) -> list[dict]:
+    """Fetch a handful of recent UK NAV announcement pages (throttled) and
+    return their text heads - parser-design evidence, committed to
+    reports/build so the value parser is written against real RNS text,
+    never guessed."""
+    import requests
+    from bs4 import BeautifulSoup
+
+    pat = re.compile(r"net asset value", re.I)
+    listings = cache_dir / "listings"
+    cands = []
+    for f in sorted(listings.glob("*.csv")) if listings.exists() else []:
+        try:
+            df = pd.read_csv(f, dtype=str)
+        except Exception:  # noqa: BLE001
+            continue
+        if not {"headline", "url", "date"} <= set(df.columns):
+            continue
+        nav = df[df["headline"].fillna("").str.contains(pat) & df["url"].notna()]
+        for r in nav.itertuples(index=False):
+            cands.append({"ticker": f.stem, "date": r.date, "url": r.url})
+    cands.sort(key=lambda c: str(c["date"]), reverse=True)
+    # one per ticker, most recent first, for layout diversity
+    seen, picked = set(), []
+    for c in cands:
+        if c["ticker"] in seen:
+            continue
+        seen.add(c["ticker"])
+        picked.append(c)
+        if len(picked) >= n:
+            break
+    s = requests.Session()
+    s.headers["User-Agent"] = P.UA
+    out = []
+    import time as _t
+    for c in picked:
+        _t.sleep(1.5)
+        url = c["url"]
+        if url.startswith("/"):
+            url = "https://www.investegate.co.uk" + url
+        try:
+            r = s.get(url, timeout=45)
+            text = re.sub(r"\s+", " ", BeautifulSoup(r.text, "html.parser").get_text(" "))
+            out.append({**c, "status": r.status_code, "text_head": text[:2500]})
+        except Exception as exc:  # noqa: BLE001
+            out.append({**c, "status": f"error:{exc}"})
+    return out

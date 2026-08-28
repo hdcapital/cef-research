@@ -21,7 +21,7 @@ from pathlib import Path
 import pandas as pd
 import yaml
 
-from . import harvest_nav, nta_live
+from . import harvest_nav, nta_live, prices
 
 
 def _params() -> dict:
@@ -51,15 +51,24 @@ def nightly(markets: list[str]) -> int:
     today = datetime.now(timezone.utc).date()
     tables = []
     notes = {"date": today.isoformat(), "markets": {}}
+    ysess = prices.session()
 
     if "au" in markets:
         panel = pd.read_parquet("data/au_processed/au_monthly_panel.parquet")
         codes = set(panel["security_id"].str.replace("ASX:", "", regex=False))
         tier0 = harvest_nav.harvest_au(codes)
-        notes["markets"]["au"] = {"tier0_navs": int(len(tier0))}
+        mf = prices.monthly_factor_returns(ysess, "AU")
+        df = prices.daily_factor_returns(ysess, "AU")
+        syms = {f"ASX:{c}": f"{c}.AX" for c in sorted(codes)}
+        live_px = prices.latest_prices(ysess, syms)
+        notes["markets"]["au"] = {"tier0_navs": int(len(tier0)),
+                                  "factors_monthly": mf is not None,
+                                  "factors_daily": df is not None,
+                                  "live_prices": int(len(live_px))}
         t = nta_live.build_table(
             panel, "AU", ret_col="nta_total_return", nav_col="nta_derived",
-            price_col="share_price", params=params, tier0=tier0)
+            price_col="share_price", params=params, tier0=tier0,
+            market_factors=mf, daily_factors=df, live_prices=live_px)
         tables.append(t)
         if len(tier0):
             Path("data/nta_live").mkdir(parents=True, exist_ok=True)
@@ -71,14 +80,37 @@ def nightly(markets: list[str]) -> int:
             panel = pd.read_parquet(p)
             nav_col = next(c for c in ("nav", "nav_per_share") if c in panel.columns)
             price_col = next(c for c in ("price", "share_price") if c in panel.columns)
+            mf = prices.monthly_factor_returns(ysess, "UK")
+            df = prices.daily_factor_returns(ysess, "UK")
+            live_px = pd.DataFrame()
+            try:
+                import yaml as _yaml  # uk config for the SEDOL->TIDM map
+                from uk_cef.data_sources.investegate import build_ticker_map
+                ucfg = _yaml.safe_load(Path("config/default.yaml").read_text())
+                tmap = build_ticker_map(ucfg)
+                tmap = tmap[tmap["ticker"].notna()]
+                # live universe only: funds present in the last panel month
+                last_m = panel["obs_month"].max()
+                alive = set(panel.loc[panel["obs_month"] == last_m, "security_id"])
+                syms = {r.security_id: f"{r.ticker}.L"
+                        for r in tmap.itertuples(index=False)
+                        if r.security_id in alive}
+                live_px = prices.latest_prices(ysess, syms)
+            except Exception as exc:  # noqa: BLE001
+                notes["markets"].setdefault("uk", {})
+                notes["markets"]["uk_ticker_map_error"] = str(exc)
             t = nta_live.build_table(
                 panel, "UK", ret_col="nav_total_return", nav_col=nav_col,
-                price_col=price_col, params=params, tier0=None)
+                price_col=price_col, params=params, tier0=None,
+                market_factors=mf, daily_factors=df, live_prices=live_px)
             tables.append(t)
             cache = Path("data/investegate_cache")
             if cache.exists():
                 census = harvest_nav.uk_frequency_census(cache)
                 census.to_csv("data/nta_live/uk_nav_frequency_census.csv", index=False)
+                Path("reports/build").mkdir(parents=True, exist_ok=True)
+                Path("reports/build/uk_nav_samples.json").write_text(
+                    json.dumps(harvest_nav.uk_nav_samples(cache), indent=1))
                 notes["markets"]["uk"] = {
                     "nav_publishers_found": int(len(census)),
                     "daily_weekly": int((census["nav_frequency"].isin(["daily", "weekly"])).sum())
