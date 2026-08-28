@@ -21,7 +21,7 @@ from pathlib import Path
 import pandas as pd
 import yaml
 
-from . import harvest_nav, nta_live, prices
+from . import harvest_nav, nta_live, prices, universe
 
 
 def _params() -> dict:
@@ -44,6 +44,35 @@ def _snapshot_s3(path: Path, key: str) -> str:
         pass
     s3.upload_file(str(path), bucket, key)
     return f"s3_uploaded:{key}"
+
+
+def build_universe() -> int:
+    """Registry of every listed vehicle - priced or not, live or dead."""
+    import yaml as _yaml
+    cfg_uk = None
+    p = Path("config/default.yaml")
+    if p.exists():
+        cfg_uk = _yaml.safe_load(p.read_text())
+    reg = universe.build(cfg_uk)
+    summary = {
+        "vehicles": int(len(reg)),
+        "by_market": reg.groupby("market").size().to_dict(),
+        "live": int((reg["status"] == "live").sum()),
+        "delisted": int((reg["status"] == "delisted").sum()),
+        "priced_by_source": int(reg["source_prices_it"].sum()),
+        "announcements_only": int((reg["nav_route"] == "announcements_only").sum()),
+        "live_announcements_only": int(((reg["status"] == "live") &
+                                        (reg["nav_route"] == "announcements_only")).sum()),
+        "offshore": int(reg["offshore"].sum()),
+        "vct": int(reg["is_vct"].sum()),
+        "live_by_domicile": reg[reg["status"] == "live"]["domicile"]
+                            .value_counts(dropna=False).head(8).to_dict(),
+    }
+    Path("reports/build").mkdir(parents=True, exist_ok=True)
+    Path("reports/build/universe_registry.json").write_text(
+        json.dumps(summary, indent=2, default=str))
+    print(json.dumps(summary, indent=2, default=str))
+    return 0
 
 
 def nightly(markets: list[str]) -> int:
@@ -183,7 +212,10 @@ def main() -> int:
     sub = ap.add_subparsers(dest="cmd", required=True)
     n = sub.add_parser("nightly")
     n.add_argument("--markets", default="au,uk")
+    sub.add_parser("universe")
     args = ap.parse_args()
+    if args.cmd == "universe":
+        return build_universe()
     if args.cmd == "nightly":
         return nightly([m.strip() for m in args.markets.split(",") if m.strip()])
     return 1
