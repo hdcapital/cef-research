@@ -1,0 +1,63 @@
+# CEF-LIVE pre-specified parameters.
+# NEVER tuned against live outcomes. Any change requires a dated entry in
+# config/CHANGELOG.md committed together with the change.
+
+live_nta:
+  # Tier 1 factor model (per-fund OLS of monthly NAV total returns)
+  factor_model:
+    max_factors: 4
+    min_history_months: 36        # else sector-average betas
+    fit_window_months: 60         # rolling fit window (min_history..window)
+    walkforward_min_preds: 12     # months of walk-forward errors before a
+                                  # fund gets its own sigma_1m; else sector median
+  est_error:
+    # est_error = sigma_1m * sqrt(staleness_days / 21)
+    trading_days_per_month: 21
+  staleness:
+    max_days_for_alerting: 45     # beyond this a fund is excluded from z alerts
+  z_adjustment:
+    window_months: 36             # own-history z window (validated research spec)
+    min_months: 24
+    error_sanity_k: 1.0           # |discount_est - mu| must exceed k * est_error
+
+pulse:
+  budgets:
+    cheap_docs_per_day: 300
+    expensive_escalations_per_day: 20
+    usd_cap_per_day: 10.0
+  models:
+    cheap: ${CHEAP_MODEL}         # claude-haiku-4-5 (repo variable)
+    expensive: ${EXPENSIVE_MODEL} # claude-fable-5   (repo variable)
+
+opportunity:
+  # Gate 1 - dislocation (own-history z only; never absolute discount level:
+  # the AU holdout showed absolute discount is anti-signal)
+  z_threshold: -1.5
+  max_staleness_days: 45
+  max_basis: 2
+  # Gate 3 - forward IRR hurdle, expressed as excess over trailing universe TR
+  irr_hurdle_excess_pp: 8.0
+  watch_gates_required: 2
+  no_news_gap_pct: 5.0            # price gap vs fresh Tier 0/1 NTA, no announcement
+
+forward_irr:
+  nav_growth:
+    lookback_years: 5
+    min_years: 3                  # else sector median
+    shrink_to_sector: 0.5
+    cap_low: -0.05
+    cap_high: 0.15
+  terminal_discount: own_median_5y
+  narrowing_years: 5
+  distributions: trailing_12m_held_flat
+  sensitivities: [own_median, own_median_minus_5pp, zero]
+
+ledger:
+  entry: next_session_open
+  exit_z: -0.5
+  max_hold_months: 12
+  position_pct: 0.10
+  max_positions: 10
+  cash_yield: 0.0
+  base_notional: 100.0
+  report_ccy: AUD

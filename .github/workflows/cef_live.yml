@@ -1,0 +1,103 @@
+name: cef-live-nightly
+
+# CEF-LIVE Phase 1: nightly live-NTA table. Rebuilds both research panels
+# from cached raw data, harvests Tier 0 NAV announcements (AU via the open
+# index; UK frequency census from the crawler cache), fits Tier 1 factor
+# models with walk-forward tracking errors, writes the labelled nta_live
+# table, snapshots it append-only to S3, and commits the acceptance report.
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "30 20 * * 1-5"   # after UK and AU sessions, weekdays
+  push:
+    branches:
+      - "claude/**"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: cef-live-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  nightly:
+    if: github.event_name != 'push' || contains(github.event.head_commit.message, '[live]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt && pip install -e .
+
+      # NOTE: restore path lists must EXACTLY match what the source
+      # workflows save - actions/cache versions archives by path list.
+      - name: Restore AIC raw cache
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            data/raw
+            data/cache
+            data/manifest.csv
+          key: aic-raw-v1-${{ github.run_id }}
+          restore-keys: |
+            aic-raw-v1-
+      - name: Restore ASX raw cache
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            data/raw/asx
+            data/cache/asx
+            data/au_manifest.csv
+          key: asx-raw-v1-${{ github.run_id }}
+          restore-keys: |
+            asx-raw-v1-
+      - name: Restore announcements cache
+        uses: actions/cache/restore@v4
+        with:
+          path: data/asx_ann_cache
+          key: asx-ann-v1-${{ github.run_id }}
+          restore-keys: |
+            asx-ann-v1-
+      - name: Restore Investegate cache
+        uses: actions/cache/restore@v4
+        with:
+          path: data/investegate_cache
+          key: investegate-v1-${{ github.run_id }}
+          restore-keys: |
+            investegate-v1-
+
+      - name: Build UK panel
+        run: |
+          python -m uk_cef.cli build-entities
+          python -m uk_cef.cli build-panel
+      - name: Build AU panel
+        run: |
+          python -m au_lic.cli download
+          python -m au_lic.cli build-panel
+
+      - name: Nightly live NTA table
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+        run: python -m cef_live.cli nightly --markets au,uk
+
+      - name: Commit live outputs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f outputs/live reports/build data/nta_live/latest.parquet \
+            data/nta_live/*.csv || true
+          if git diff --cached --quiet; then
+            echo "no changes"
+          else
+            git commit -m "CI: nightly live NTA table ($(date -u +%Y-%m-%dT%H:%MZ))"
+            git pull --rebase -X theirs origin "${GITHUB_REF_NAME}" || true
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi

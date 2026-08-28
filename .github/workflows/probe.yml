@@ -40,7 +40,7 @@ jobs:
           restore-keys: |
             aic-raw-v1-
       - name: Run diagnostic script
-        run: python scripts/probe_asx8.py
+        run: python scripts/probe_prices.py
       - name: Commit probe results
         run: |
           git config user.name "github-actions[bot]"
