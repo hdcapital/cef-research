@@ -18,7 +18,7 @@ import yaml
 from uk_cef.parsers import mir as MIR
 
 cfg = yaml.safe_load(Path("config/default.yaml").read_text())
-raw = Path(cfg["paths"]["raw_dir"])
+raw = Path(cfg["paths"].get("raw_dir", "data/raw"))
 
 # newest MIR csv/xlsx we hold
 cands = sorted([p for p in raw.rglob("*")
