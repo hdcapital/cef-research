@@ -1,0 +1,84 @@
+{
+  "rows": 638,
+  "basis_counts": {
+    "0": 6,
+    "1": 378,
+    "3": 254
+  },
+  "share_basis_le3_labelled": 1.0,
+  "share_with_sigma": 1.0,
+  "alert_eligible": 79,
+  "z_extremes": [
+    {
+      "security_id": "ASX:MA1",
+      "z_adj": -5.0249,
+      "discount_est": -0.408696,
+      "staleness_days": 1
+    },
+    {
+      "security_id": "ASX:ECP",
+      "z_adj": -2.4691,
+      "discount_est": -0.356867,
+      "staleness_days": 43
+    },
+    {
+      "security_id": "SEDOL:891055",
+      "z_adj": -2.3689,
+      "discount_est": -0.149746,
+      "staleness_days": 108
+    },
+    {
+      "security_id": "SEDOL:B1DPVL6",
+      "z_adj": -2.3601,
+      "discount_est": -0.213589,
+      "staleness_days": 629
+    },
+    {
+      "security_id": "ASX:MOT",
+      "z_adj": -2.2537,
+      "discount_est": -0.233386,
+      "staleness_days": 43
+    },
+    {
+      "security_id": "SEDOL:B8SC6K5",
+      "z_adj": -2.0407,
+      "discount_est": -0.230361,
+      "staleness_days": 43
+    },
+    {
+      "security_id": "SEDOL:3353820",
+      "z_adj": -2.0278,
+      "discount_est": -0.010822,
+      "staleness_days": 2781
+    },
+    {
+      "security_id": "ASX:MIR",
+      "z_adj": -2.0177,
+      "discount_est": -0.124113,
+      "staleness_days": 43
+    },
+    {
+      "security_id": "SEDOL:3073203",
+      "z_adj": -2.0004,
+      "discount_est": -0.008321,
+      "staleness_days": 2237
+    },
+    {
+      "security_id": "SEDOL:B1XHSL1",
+      "z_adj": -1.9485,
+      "discount_est": 0.001416,
+      "staleness_days": 3629
+    }
+  ],
+  "date": "2026-08-28",
+  "markets": {
+    "au": {
+      "tier0_navs": 14
+    },
+    "uk": {
+      "nav_publishers_found": 0,
+      "daily_weekly": 0
+    }
+  },
+  "snapshot": "s3_uploaded:nta_live/2026-08-28.parquet"
+}
