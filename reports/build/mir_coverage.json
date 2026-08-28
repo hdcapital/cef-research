@@ -8,9 +8,20 @@
     "data/raw/aic/2026-07_mir_MIR2607ERR.csv",
     "data/raw/aic/2026-07_mir_MIR2607PostErr.csv"
   ],
-  "target": "data/raw/aic/2026-07_mir_MIR2607PostErr.csv",
+  "newest_month": "2026-07",
+  "month_files": [
+    "2026-07_mir_MIR2607.csv",
+    "2026-07_mir_MIR2607ERR.csv",
+    "2026-07_mir_MIR2607PostErr.csv"
+  ],
+  "rows_per_file": {
+    "2026-07_mir_MIR2607.csv": 282,
+    "2026-07_mir_MIR2607ERR.csv": 10,
+    "2026-07_mir_MIR2607PostErr.csv": 15
+  },
+  "target": "data/raw/aic/2026-07_mir_MIR2607.csv",
   "parser_fn": "parse_mir_csv",
-  "parsed_rows": 15,
+  "parsed_rows": 282,
   "parsed_cols": [
     "code",
     "company_name",
@@ -29,34 +40,95 @@
     "total_assets"
   ],
   "non_null_by_col": {
-    "sector": 15,
-    "company_name": 15,
-    "share_type": 15,
-    "obs_date": 15,
-    "obs_month": 15,
-    "code": 15,
-    "price": 15,
-    "nav": 15,
-    "nav_basis": 15,
-    "shares": 15,
-    "total_assets": 15,
-    "dividend_yield": 14,
-    "net_gearing": 15,
-    "currency": 15,
-    "source_file": 15
+    "sector": 282,
+    "company_name": 282,
+    "share_type": 282,
+    "obs_date": 282,
+    "obs_month": 282,
+    "code": 273,
+    "price": 137,
+    "nav": 137,
+    "nav_basis": 137,
+    "shares": 137,
+    "total_assets": 137,
+    "dividend_yield": 109,
+    "net_gearing": 137,
+    "currency": 137,
+    "source_file": 282
   },
   "id_coverage": {
-    "company_name": 15
+    "company_name": 282
   },
-  "rows_with_price": 15,
+  "rows_with_price": 137,
   "nav_like_cols": [
     "nav",
     "nav_basis"
   ],
   "nav_col_coverage": {
-    "nav": 15,
-    "nav_basis": 15
+    "nav": 137,
+    "nav_basis": 137
   },
-  "rows_without_any_nav": 0,
-  "no_nav_sample": []
+  "rows_without_any_nav": 145,
+  "no_nav_sample": [
+    {
+      "company_name": "RTW Biotech Opportunities",
+      "sector": "Biotechnology & Healthcare"
+    },
+    {
+      "company_name": "Syncona",
+      "sector": "Biotechnology & Healthcare"
+    },
+    {
+      "company_name": "Baker Steel Resources Trust",
+      "sector": "Commodities & Natural Resources"
+    },
+    {
+      "company_name": "Riverstone Energy",
+      "sector": "Commodities & Natural Resources"
+    },
+    {
+      "company_name": "Vietnam Enterprise Investments",
+      "sector": "Country Specialist"
+    },
+    {
+      "company_name": "VietNam Holding",
+      "sector": "Country Specialist"
+    },
+    {
+      "company_name": "VinaCapital Vietnam Opportunity",
+      "sector": "Country Specialist"
+    },
+    {
+      "company_name": "BioPharma Credit",
+      "sector": "Debt - Direct Lending"
+    },
+    {
+      "company_name": "GCP Asset Backed Income",
+      "sector": "Debt - Direct Lending"
+    },
+    {
+      "company_name": "Riverstone Credit Opportunities Income",
+      "sector": "Debt - Direct Lending"
+    },
+    {
+      "company_name": "VPC Specialty Lending Investments",
+      "sector": "Debt - Direct Lending"
+    },
+    {
+      "company_name": "CVC Income & Growth",
+      "sector": "Debt - Loans & Bonds"
+    },
+    {
+      "company_name": "CVC Income & Growth",
+      "sector": "Debt - Loans & Bonds"
+    },
+    {
+      "company_name": "M&G Credit Income",
+      "sector": "Debt - Loans & Bonds"
+    },
+    {
+      "company_name": "TwentyFour Select Monthly Income",
+      "sector": "Debt - Loans & Bonds"
+    }
+  ]
 }
