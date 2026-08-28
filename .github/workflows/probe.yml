@@ -27,8 +27,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: pip install -r requirements.txt playwright
-      - run: playwright install chromium --with-deps
+      - run: pip install -r requirements.txt && pip install -e .
       - name: Restore raw-data cache
         uses: actions/cache/restore@v4
         with:
@@ -40,12 +39,15 @@ jobs:
           restore-keys: |
             aic-raw-v1-
       - name: Run diagnostic script
-        run: python scripts/probe_prices.py
+        run: |
+          python -m uk_cef.cli build-entities
+          python -m uk_cef.cli build-panel
+          python scripts/probe_uk_universe.py
       - name: Commit probe results
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -f data/probe
+          git add -f data/probe reports/build
           if git diff --cached --quiet; then
             echo "no changes"
           else
