@@ -98,6 +98,18 @@ try:
         n = sum(1 for c in r if c.strip())
         prof[n] = prof.get(n, 0) + 1
     out["cells_filled_histogram"] = dict(sorted(prof.items())[:20])
+    # hypothesis: the AIC publishes market data only for UK-registered (GB
+    # ISIN) funds, listing offshore (Guernsey/Jersey) trusts by name only.
+    from collections import Counter
+    fill_by_prefix = {}
+    for r in body:
+        isin = (r[4] if len(r) > 4 else "").strip()
+        pre = isin[:2] if isin else "(none)"
+        filled = sum(1 for c in r if c.strip()) > 6
+        d2 = fill_by_prefix.setdefault(pre, {"with_data": 0, "name_only": 0})
+        d2["with_data" if filled else "name_only"] += 1
+    out["fill_by_isin_prefix"] = dict(sorted(
+        fill_by_prefix.items(), key=lambda kv: -(kv[1]["with_data"] + kv[1]["name_only"])))
     sparse = [r for r in body if sum(1 for c in r if c.strip()) <= 6]
     out["sparse_row_samples"] = [r[:14] for r in sparse[:8]]
     full = [r for r in body if sum(1 for c in r if c.strip()) > 6]
