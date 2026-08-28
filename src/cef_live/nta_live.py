@@ -133,10 +133,19 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
                             zp["error_sanity_k"] * est_error:
                         z_adj = np.nan
 
+        # vehicle-type flags travel WITH the row rather than removing it:
+        # the live universe is deliberately wider than the backtest's, which
+        # excluded VCTs/split-caps/non-sterling for strategy reasons that do
+        # not apply to monitoring. research_eligible preserves the backtest's
+        # definition so the two populations stay distinguishable.
         rows.append({
             "security_id": sid, "market": market,
             "name": last.get("company_name", ""),
             "sector": last.get("sector"),
+            "currency": last.get("currency"),
+            "is_vct": bool(last.get("is_vct", False)),
+            "non_sterling": bool(last.get("non_gbx_quote", False)),
+            "research_eligible": bool(last.get("eligible", True)),
             "nav_anchor": anchor_val, "anchor_date": anchor_date.date().isoformat(),
             "anchor_source": anchor_source,
             "nta_est": round(nta_est, 6), "est_note": est_note,
