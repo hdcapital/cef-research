@@ -1,48 +1,48 @@
 {
   "rows": 638,
   "basis_counts": {
-    "0": 6,
-    "1": 380,
-    "3": 252
+    "0": 34,
+    "1": 354,
+    "3": 250
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 121,
+  "alert_eligible": 130,
   "z_extremes": [
     {
       "security_id": "ASX:AEG",
-      "z_adj": -20.1734,
-      "discount_est": -0.906756,
+      "z_adj": -20.1709,
+      "discount_est": -0.906653,
       "staleness_days": 1042
     },
     {
       "security_id": "ASX:APL",
-      "z_adj": -15.116,
-      "discount_est": -0.777453,
+      "z_adj": -15.1138,
+      "discount_est": -0.777357,
       "staleness_days": 1259
     },
     {
       "security_id": "ASX:OPH",
-      "z_adj": -4.225,
-      "discount_est": -0.252598,
+      "z_adj": -4.1929,
+      "discount_est": -0.251477,
       "staleness_days": 43
     },
     {
       "security_id": "ASX:CD1",
-      "z_adj": -3.8006,
-      "discount_est": -0.561862,
+      "z_adj": -3.7865,
+      "discount_est": -0.561083,
       "staleness_days": 43
     },
     {
       "security_id": "ASX:MOT",
-      "z_adj": -2.513,
-      "discount_est": -0.253421,
+      "z_adj": -2.5642,
+      "discount_est": -0.257378,
       "staleness_days": 43
     },
     {
       "security_id": "ASX:CAM",
-      "z_adj": -2.3873,
-      "discount_est": -0.201617,
+      "z_adj": -2.381,
+      "discount_est": -0.201225,
       "staleness_days": 43
     },
     {
@@ -58,16 +58,16 @@
       "staleness_days": 629
     },
     {
-      "security_id": "SEDOL:906409",
-      "z_adj": -2.3372,
-      "discount_est": -0.122004,
-      "staleness_days": 20
+      "security_id": "ASX:MXT",
+      "z_adj": -2.0335,
+      "discount_est": -0.059274,
+      "staleness_days": 43
     },
     {
-      "security_id": "ASX:MXT",
-      "z_adj": -2.0443,
-      "discount_est": -0.059642,
-      "staleness_days": 43
+      "security_id": "SEDOL:3353820",
+      "z_adj": -2.0278,
+      "discount_est": -0.010822,
+      "staleness_days": 2781
     }
   ],
   "date": "2026-08-28",
@@ -79,6 +79,7 @@
       "live_prices": 100
     },
     "uk": {
+      "tier0_navs": 28,
       "nav_publishers_found": 178,
       "daily_weekly": 162
     }
