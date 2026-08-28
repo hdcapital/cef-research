@@ -32,7 +32,7 @@ jobs:
         with:
           python-version: "3.12"
           cache: pip
-      - run: pip install -r requirements.txt && pip install -e .
+      - run: pip install -r requirements.txt boto3 && pip install -e .
 
       # NOTE: restore path lists must EXACTLY match what the source
       # workflows save - actions/cache versions archives by path list.
