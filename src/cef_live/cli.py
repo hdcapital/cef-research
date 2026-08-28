@@ -147,6 +147,18 @@ def nightly(markets: list[str]) -> int:
     Path("reports/build").mkdir(parents=True, exist_ok=True)
     Path("reports/build/phase1_nightly.json").write_text(
         json.dumps(accept, indent=2, default=str))
+
+    # daily heartbeat - silence must be distinguishable from failure
+    from .notify import notify
+    top = out[out["alert_eligible"] & out["z_adj"].notna()].nsmallest(5, "z_adj")
+    lines = [f"  {r.security_id:>16}  z={r.z_adj:+.2f}  disc={r.discount_est:+.1%}"
+             f"  basis={r.basis} stale={r.staleness_days}d"
+             for r in top.itertuples(index=False)]
+    notify(f"nightly OK - {len(out)} funds, {int(out['alert_eligible'].sum())} eligible",
+           "Nightly live NTA table built.\n"
+           f"Basis counts: {basis_counts}\nSnapshot: {notes['snapshot']}\n"
+           f"Deepest eligible dislocations:\n" + "\n".join(lines),
+           priority="heartbeat")
     print(json.dumps({k: accept[k] for k in
                       ("rows", "basis_counts", "share_with_sigma",
                        "alert_eligible", "snapshot")}, default=str))
