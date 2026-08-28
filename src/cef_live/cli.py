@@ -69,9 +69,11 @@ def nightly(markets: list[str]) -> int:
         p = Path("data/processed/monthly_panel.parquet")
         if p.exists():
             panel = pd.read_parquet(p)
+            nav_col = next(c for c in ("nav", "nav_per_share") if c in panel.columns)
+            price_col = next(c for c in ("price", "share_price") if c in panel.columns)
             t = nta_live.build_table(
-                panel, "UK", ret_col="nav_total_return", nav_col="nav",
-                price_col="price", params=params, tier0=None)
+                panel, "UK", ret_col="nav_total_return", nav_col=nav_col,
+                price_col=price_col, params=params, tier0=None)
             tables.append(t)
             cache = Path("data/investegate_cache")
             if cache.exists():
