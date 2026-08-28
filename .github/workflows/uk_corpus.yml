@@ -1,0 +1,45 @@
+name: uk-nav-corpus
+
+# One-shot parser-corpus capture (see scripts/capture_uk_nav_corpus.py).
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "claude/**"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: uk-corpus-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  capture:
+    if: github.event_name != 'push' || contains(github.event.head_commit.message, '[ukcorpus]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt && pip install -e .
+      - name: Restore Investegate cache
+        uses: actions/cache/restore@v4
+        with:
+          path: data/investegate_cache
+          key: investegate-v1-${{ github.run_id }}
+          restore-keys: |
+            investegate-v1-
+      - run: python scripts/capture_uk_nav_corpus.py
+      - name: Commit corpus
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f data/uk_nav_corpus.json.gz
+          git commit -m "CI: UK NAV parser corpus" || echo "no changes"
+          git pull --rebase -X theirs origin "${GITHUB_REF_NAME}" || true
+          git push origin "HEAD:${GITHUB_REF_NAME}"
