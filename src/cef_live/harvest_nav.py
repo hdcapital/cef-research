@@ -33,12 +33,22 @@ _SPEC.loader.exec_module(P)
 BAD = re.compile(r"amendment|amended|correction|withdraw", re.I)
 
 
+DOTTED_DATE = re.compile(r"\b(\d{1,2})[./](\d{1,2})[./](20\d\d)\b")
+
+
 def _asat_date(head: str) -> pd.Timestamp | None:
     m = P.ASAT.search(head or "")
     if m:
         try:
             return pd.to_datetime(m.group(1), dayfirst=True)
         except Exception:  # noqa: BLE001
+            return None
+    # "NTA at 21.08.2026", "Daily Estimate NTA for 26.08.2026"
+    m = DOTTED_DATE.search(head or "")
+    if m:
+        try:
+            return pd.Timestamp(int(m.group(3)), int(m.group(2)), int(m.group(1)))
+        except ValueError:
             return None
     return None
 
@@ -99,36 +109,35 @@ def harvest_au(codes: set[str], lookback_days: int = 14,
 
 def uk_frequency_census(cache_dir: Path) -> pd.DataFrame:
     """Per-fund NAV-announcement publication frequency from the existing
-    Investegate crawl cache (listing pages only - no new fetches).
+    Investegate crawl cache (per-ticker listing CSVs - no new fetches).
 
-    Counts 'Net Asset Value' titled announcements per fund per month over
-    the cached window and classifies nav_frequency: daily / weekly /
-    monthly / adhoc. Feeds the universe config; value harvesting follows.
+    The crawler stores listings/{ticker}.csv with ann_id, date, headline
+    (and url) for every announcement it has paged over. Counts 'Net Asset
+    Value' titled rows per fund and classifies nav_frequency: daily /
+    weekly / monthly / adhoc. Feeds the universe config; value harvesting
+    follows via the same detail-page path the dividend crawler uses.
     """
     pat = re.compile(r"net asset value", re.I)
-    date_pat = re.compile(r"(\d{1,2}\s+\w{3,9}\s+\d{4})")
+    listings = cache_dir / "listings"
     rows = []
-    for f in sorted(cache_dir.glob("**/*.html")):
+    files = sorted(listings.glob("*.csv")) if listings.exists() else []
+    for f in files:
         try:
-            text = f.read_text(errors="ignore")
+            df = pd.read_csv(f, dtype=str)
         except Exception:  # noqa: BLE001
             continue
-        if not pat.search(text):
+        if "headline" not in df.columns:
             continue
-        slug = f.stem.split("_")[0].upper()
-        for m in pat.finditer(text):
-            seg = text[max(0, m.start() - 400):m.start() + 200]
-            dm = date_pat.search(seg)
-            if dm:
-                try:
-                    d = pd.to_datetime(dm.group(1), dayfirst=True)
-                    rows.append({"slug": slug, "date": d.date().isoformat()})
-                except Exception:  # noqa: BLE001
-                    pass
+        nav = df[df["headline"].fillna("").str.contains(pat)]
+        for r in nav.itertuples(index=False):
+            if getattr(r, "date", None):
+                rows.append({"ticker": f.stem, "date": r.date,
+                             "ann_id": getattr(r, "ann_id", None)})
     if not rows:
-        return pd.DataFrame(columns=["slug", "n_navs", "months", "per_month", "nav_frequency"])
-    df = pd.DataFrame(rows).drop_duplicates()
-    g = df.groupby("slug")["date"].agg(["count", "min", "max"]).reset_index()
+        return pd.DataFrame(columns=["ticker", "n_navs", "first", "last",
+                                     "per_month", "nav_frequency"])
+    df = pd.DataFrame(rows).drop_duplicates(subset=["ticker", "ann_id"])
+    g = df.groupby("ticker")["date"].agg(["count", "min", "max"]).reset_index()
     months = ((pd.to_datetime(g["max"]) - pd.to_datetime(g["min"])).dt.days / 30.4).clip(lower=1)
     g["per_month"] = g["count"] / months
     g["nav_frequency"] = pd.cut(g["per_month"], [-1, 0.5, 2.5, 12, 1e9],
