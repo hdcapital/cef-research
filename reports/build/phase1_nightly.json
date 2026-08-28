@@ -1,73 +1,73 @@
 {
   "rows": 638,
   "basis_counts": {
-    "0": 34,
+    "0": 29,
     "1": 358,
-    "3": 246
+    "3": 251
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 90,
+  "alert_eligible": 128,
   "z_extremes": [
     {
       "security_id": "ASX:AEG",
-      "z_adj": -20.1706,
-      "discount_est": -0.906642,
+      "z_adj": -20.1457,
+      "discount_est": -0.905622,
       "staleness_days": 1042
     },
     {
       "security_id": "ASX:APL",
-      "z_adj": -15.1138,
-      "discount_est": -0.777356,
+      "z_adj": -15.1126,
+      "discount_est": -0.777308,
       "staleness_days": 1259
     },
     {
-      "security_id": "SEDOL:891055",
-      "z_adj": -8.0912,
-      "discount_est": -0.293166,
-      "staleness_days": 108
-    },
-    {
       "security_id": "ASX:OPH",
-      "z_adj": -4.2749,
-      "discount_est": -0.254344,
+      "z_adj": -4.2044,
+      "discount_est": -0.251878,
       "staleness_days": 43
     },
     {
       "security_id": "ASX:CD1",
-      "z_adj": -3.7854,
-      "discount_est": -0.561023,
+      "z_adj": -3.7862,
+      "discount_est": -0.561069,
       "staleness_days": 43
-    },
-    {
-      "security_id": "SEDOL:B1DPVL6",
-      "z_adj": -3.5376,
-      "discount_est": -0.270289,
-      "staleness_days": 629
     },
     {
       "security_id": "ASX:MOT",
-      "z_adj": -2.5036,
-      "discount_est": -0.252691,
+      "z_adj": -2.4766,
+      "discount_est": -0.250606,
       "staleness_days": 43
     },
     {
+      "security_id": "SEDOL:891055",
+      "z_adj": -2.3689,
+      "discount_est": -0.149746,
+      "staleness_days": 108
+    },
+    {
+      "security_id": "SEDOL:B1DPVL6",
+      "z_adj": -2.3601,
+      "discount_est": -0.213589,
+      "staleness_days": 629
+    },
+    {
       "security_id": "ASX:CAM",
-      "z_adj": -2.2862,
-      "discount_est": -0.195294,
+      "z_adj": -2.2899,
+      "discount_est": -0.19552,
+      "staleness_days": 43
+    },
+    {
+      "security_id": "ASX:AMH",
+      "z_adj": -2.2799,
+      "discount_est": -0.184983,
       "staleness_days": 43
     },
     {
       "security_id": "SEDOL:3353820",
-      "z_adj": -2.0231,
-      "discount_est": -0.010735,
+      "z_adj": -2.0278,
+      "discount_est": -0.010822,
       "staleness_days": 2781
-    },
-    {
-      "security_id": "SEDOL:3073203",
-      "z_adj": -2.001,
-      "discount_est": -0.008335,
-      "staleness_days": 2237
     }
   ],
   "date": "2026-08-28",
@@ -79,7 +79,7 @@
       "live_prices": 100
     },
     "uk": {
-      "tier0_navs": 28,
+      "tier0_navs": 23,
       "nav_publishers_found": 178,
       "daily_weekly": 162
     }
