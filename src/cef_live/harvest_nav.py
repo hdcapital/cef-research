@@ -153,40 +153,104 @@ def uk_frequency_census(cache_dir: Path) -> pd.DataFrame:
 # ZDP / preference-share lines are excluded; cum-income is primary and both
 # variants are stored when published (brief §2 Tier 0).
 UK_ASAT = re.compile(r"(?:as at|at)\s+(?:(?:the\s+)?close of business on\s+)?"
+                     r"(?:(?:Mon|Tues|Wednes|Thurs|Fri|Satur|Sun)day,?\s+)?"
                      r"(\d{1,2}\s+\w{3,9}\s+\d{4})", re.I)
-UK_PENCE = r"(?:=\s*)?([0-9]+(?:\.[0-9]+)?)\s*p(?:ence)?\b"
-UK_INC = re.compile(r"\((?:including|incl\.?|cum)[^)]{0,60}(?:revenue|income)[^)]{0,20}\)"
-                    r"[^0-9]{0,30}" + UK_PENCE, re.I)
-UK_EXC = re.compile(r"\((?:excluding|excl\.?|ex)[^)]{0,60}(?:revenue|income)[^)]{0,20}\)"
-                    r"[^0-9]{0,30}" + UK_PENCE, re.I)
-# bare-label variants: "EX Income 439.95p", "Cum Income 443.57p"
-UK_INC2 = re.compile(r"\b(?:cum|incl?\.?)[- ]income\b[^0-9]{0,25}" + UK_PENCE, re.I)
-UK_EXC2 = re.compile(r"\bex[- ]income\b[^0-9]{0,25}" + UK_PENCE, re.I)
-UK_PLAIN = re.compile(r"net asset value[^0-9]{0,220}?" + UK_PENCE, re.I)
+# pence numbers may carry thousands commas: "1,941.32p"
+UK_PNUM = r"(?:=\s*)?([0-9][0-9,]*(?:\.[0-9]+)?)"
+UK_PENCE = UK_PNUM + r"\s*p(?:ence)?\b"
 UK_ZDP = re.compile(r"zero dividend|preference share", re.I)
-# group announcements: "Net Asset Value(s) <Fund Name> <date> <manager>
-# announces the unaudited net asset values ... of the following investment
-# companies" - the fund's own value sits in a table naming it again
+
+# Ordered rule list, written against the committed corpus
+# (data/uk_nav_corpus.json.gz). Each entry: (kind, priority, regex).
+# kind: 'cum' or 'ex'. Lower priority number wins within a kind; fair-value
+# debt beats par, matching the research panel's AIC basis (FCCWETScum).
+_R = re.compile
+UK_RULES = [
+    # Alliance Witan style: "Debt at fair value, including income: 1452.9 pence"
+    ("cum", 0, _R(r"debt at fair value,?\s*(?:including|incl\.?)\s+income:?\s*" + UK_PENCE, re.I)),
+    ("ex", 0, _R(r"debt at fair value,?\s*(?:excluding|excl\.?)\s+income:?\s*" + UK_PENCE, re.I)),
+    # abrdn family: "with Debt at Fair Value Including Income 495.40p"
+    ("cum", 0, _R(r"with Debt at Fair Value\s+Including Income\s+" + UK_PENCE, re.I)),
+    ("ex", 0, _R(r"with Debt at Fair Value\s+Excluding Income\s+" + UK_PENCE, re.I)),
+    ("cum", 1, _R(r"debt at par,?\s*(?:including|incl\.?)\s+income:?\s*" + UK_PENCE, re.I)),
+    ("ex", 1, _R(r"debt at par,?\s*(?:excluding|excl\.?)\s+income:?\s*" + UK_PENCE, re.I)),
+    # parenthesised revenue/income variants:
+    # "(including current financial year revenue items) 264.21p"
+    ("cum", 2, _R(r"\((?:including|incl\.?|cum)[^)]{0,60}(?:revenue|income)[^)]{0,20}\)[^0-9]{0,30}" + UK_PENCE, re.I)),
+    ("ex", 2, _R(r"\((?:excluding|excl\.?|ex)[^)]{0,60}(?:revenue|income)[^)]{0,20}\)[^0-9]{0,30}" + UK_PENCE, re.I)),
+    # abrdn undiluted rows: "Undiluted Including Income 341.98p"
+    ("cum", 2, _R(r"(?:Undiluted|Diluted)?\s*Including Income\s+" + UK_PENCE, re.I)),
+    ("ex", 2, _R(r"(?:Undiluted|Diluted)?\s*Excluding Income\s+" + UK_PENCE, re.I)),
+    # Aberforth style bare labels: "Including ALL Revenue = 1,973.49p"
+    ("cum", 2, _R(r"\bincluding\s+(?:all\s+|current\s+(?:year|period)\s+)?revenue"
+                  r"(?:\s+to\s+\d{1,2}\s+\w{3,9}\s+\d{4})?\s*=?\s*" + UK_PENCE, re.I)),
+    ("ex", 2, _R(r"\bexcluding\s+(?:all\s+|current\s+(?:year|period)\s+)?revenue"
+                 r"(?:\s+to\s+\d{1,2}\s+\w{3,9}\s+\d{4})?\s*=?\s*" + UK_PENCE, re.I)),
+    # bare income labels: "Cum Income 443.57p" / "EX Income 439.95p"
+    ("cum", 2, _R(r"\b(?:cum|incl?\.?)[- ]income\b[^0-9]{0,25}" + UK_PENCE, re.I)),
+    ("ex", 2, _R(r"\bex[- ]income\b[^0-9]{0,25}" + UK_PENCE, re.I)),
+    # Baillie Gifford: "Cum Fair NAV 137.05p ... Ex Par NAV 130.30p" - fair
+    # value beats par, consistent with the panel basis
+    ("cum", 1, _R(r"\bCum\s+Fair\s+NAV\s+" + UK_PENCE, re.I)),
+    ("ex", 1, _R(r"\bEx\s+Fair\s+NAV\s+" + UK_PENCE, re.I)),
+    ("cum", 2, _R(r"\bCum\s+Par\s+NAV\s+" + UK_PENCE, re.I)),
+    ("ex", 2, _R(r"\b(?:XD\s+)?Ex\s+Par\s+NAV\s+" + UK_PENCE, re.I)),
+    # JPMorgan all-caps: "THE NAV PER SHARE IN PENCE, INCLUDING INCOME WITH
+    # DEBT AT FAIR VALUE: 1,247.58" (no p suffix; decimal required)
+    ("cum", 0, _R(r"INCLUDING INCOME[, ]+WITH DEBT AT FAIR VALUE:?\s*([0-9][0-9,]*\.[0-9]+)", re.I)),
+    ("ex", 0, _R(r"EXCLUDING INCOME[, ]+WITH DEBT AT FAIR VALUE:?\s*([0-9][0-9,]*\.[0-9]+)", re.I)),
+    ("cum", 3, _R(r"INCLUDING INCOME\s+WITH DEBT AT PAR(?:\s+VALUE)?:?\s*([0-9][0-9,]*\.[0-9]+)", re.I)),
+    # Brunner prose: "based on the market value of ... debt ..., the
+    # cum-income net asset value per ordinary share was 1745.2p"
+    ("cum", 0, _R(r"market value of[^.]{0,90}?the cum-income net asset value per ordinary share was\s+" + UK_PENCE, re.I)),
+    ("ex", 0, _R(r"market value of[^.]{0,90}?the capital net asset value per ordinary share was\s+" + UK_PENCE, re.I)),
+    ("cum", 2, _R(r"par value of[^.]{0,90}?the cum-income net asset value per ordinary share was\s+" + UK_PENCE, re.I)),
+    ("ex", 2, _R(r"par value of[^.]{0,90}?the capital net asset value per ordinary share was\s+" + UK_PENCE, re.I)),
+    # FCIT table: "Cum Income Ex Income ... Financial liabilities at fair
+    # value 374.45 373.02" (cum column first)
+    ("cum", 0, _R(r"Cum Income\s+Ex Income.{0,120}?at fair value\s+([0-9][0-9,]*\.[0-9]+)\s+[0-9]", re.I | re.S)),
+    ("ex", 0, _R(r"Cum Income\s+Ex Income.{0,120}?at fair value\s+[0-9][0-9,]*\.[0-9]+\s+([0-9][0-9,]*\.[0-9]+)", re.I | re.S)),
+    # Hansa: "Cum Income NAV per Ordinary and 'A' Ordinary Share* 545.63p"
+    ("cum", 2, _R(r"Cum Income NAV per[^0-9]{0,60}" + UK_PENCE, re.I)),
+    ("ex", 2, _R(r"Ex Income NAV per[^0-9]{0,60}" + UK_PENCE, re.I)),
+    # DIVI: "Including current period revenue to 25 th Jun 2026 119.51 per
+    # ordinary share" (spaced ordinal, no p suffix)
+    ("cum", 3, _R(r"including current (?:period|year) revenue(?:\s+to\s+\d{1,2}\s*(?:st|nd|rd|th)?\s+\w{3,9}\s+\d{4})?\s+([0-9][0-9,]*\.[0-9]+)\s+per ordinary share", re.I)),
+    ("ex", 3, _R(r"excluding current (?:period|year) revenue\s+([0-9][0-9,]*\.[0-9]+)(?:\s+per ordinary share)?", re.I)),
+    # Schroder table (no pence suffix): "Cum Income 729.93" - decimal required
+    ("cum", 3, _R(r"\bCum Income\s+([0-9][0-9,]*\.[0-9]+)\b", re.I)),
+    ("ex", 3, _R(r"\bEx Income\s+([0-9][0-9,]*\.[0-9]+)\b", re.I)),
+    # value-first (Aurora / BlackRock): "290.41p per ordinary share (cum-income)"
+    # / "195.37p Including current year income" / "194.65p Capital only"
+    ("cum", 3, _R(UK_PENCE + r"(?:\s+per\s+ordinary\s+share)?\s*\(?cum[- ]income\)?", re.I)),
+    ("ex", 3, _R(UK_PENCE + r"(?:\s+per\s+ordinary\s+share)?\s*\(?ex[- ]income\)?", re.I)),
+    ("cum", 3, _R(UK_PENCE + r"(?:\s+per\s+share)?(?:\s*\(pence sterling\))?\s*-?"
+                  r"\s+including\s+current\s+(?:year|period)\s+(?:income|revenue)", re.I)),
+    ("ex", 3, _R(UK_PENCE + r"(?:\s+per\s+share)?(?:\s*\(pence sterling\))?\s*-?"
+                 r"\s+capital\s+only", re.I)),
+    # BEMO: "Including current period revenue to 26 August 2026 991.15 pence"
+    # (covered by the Aberforth-style rule via the optional date group)
+    # plain fallback: "net asset value ... 123.45p"
+    ("cum_assumed", 9, _R(r"net asset value[^0-9]{0,220}?" + UK_PENCE, re.I)),
+]
+
 UK_HDR_NAME = re.compile(r"Net Asset Value\(s\)\s+(.{5,90}?)\s+\d{1,2}\s+\w{3,9}\s+20\d\d")
 
 
 def parse_uk_nav_text(text: str) -> dict:
-    """Cum/ex-income NAV per share (pence) from RNS text.
+    """Cum/ex-income NAV per share (pence) from RNS text - rule-list parser
+    written against the committed corpus of real announcement pages.
 
-    ZDP / preference-share entitlements are excluded per match (a ZDP
-    mention in the 90 chars before a candidate value disqualifies it),
-    not by dropping text - RNS pages often put all share classes in one
-    run-on line.
+    ZDP / preference-share entitlements are excluded per candidate match;
+    fair-value-debt figures outrank par (panel basis FCCWETScum); the plain
+    fallback is flagged cum_assumed. Ambiguity yields absence, never a guess.
     """
-    def _clean_hit(pat):
+    def hits(pat):
         for m in pat.finditer(text):
             if UK_ZDP.search(text[max(0, m.start() - 90):m.start()]):
                 continue
-            return float(m.group(1))
-        return None
+            yield float(m.group(1).replace(",", ""))
 
-    # as-at date from the FULL text (a group notice's date sits in its
-    # preamble, outside the fund-specific segment restricted to below)
     asat = None
     m = UK_ASAT.search(text)
     if m:
@@ -195,59 +259,25 @@ def parse_uk_nav_text(text: str) -> dict:
         except Exception:  # noqa: BLE001
             pass
 
-    # group announcements: restrict parsing to the segment after the SECOND
-    # mention of the fund's own name (the first is the page header) so a
-    # multi-fund abrdn/BlackRock notice yields THIS fund's value, not the
-    # first row of somebody else's
-    hdr = UK_HDR_NAME.search(text)
-    segment = None
-    if hdr:
-        name = re.sub(r"\s+(plc|limited|ltd|trust)\.?$", "", hdr.group(1).strip(),
-                      flags=re.I)
-        key = name[:28]
-        second = text.find(key, hdr.end())
-        if second > -1:
-            segment = text[second:second + 700]
+    best: dict = {}
+    for kind, prio, pat in UK_RULES:
+        if kind in ("cum", "cum_assumed") and best.get("_cum_prio", 99) <= prio:
+            continue
+        if kind == "ex" and best.get("_ex_prio", 99) <= prio:
+            continue
+        v = next(hits(pat), None)
+        if v is None:
+            continue
+        if kind == "ex":
+            best["nav_ex_pence"] = v
+            best["_ex_prio"] = prio
+        else:
+            best["nav_cum_pence"] = v
+            best["_cum_prio"] = prio
+            if kind == "cum_assumed":
+                best["cum_assumed"] = True
 
-    full_text = text
-    if segment is not None:
-        text = segment
-
-    out: dict = {}
-    for pat in (UK_INC, UK_INC2):
-        v = _clean_hit(pat)
-        if v is not None:
-            out["nav_cum_pence"] = v
-            break
-    for pat in (UK_EXC, UK_EXC2):
-        v = _clean_hit(pat)
-        if v is not None:
-            out["nav_ex_pence"] = v
-            break
-    if "nav_cum_pence" not in out:
-        v = _clean_hit(UK_PLAIN)
-        if v is not None:
-            out["nav_cum_pence"] = v
-            out["cum_assumed"] = True
-    if "nav_cum_pence" not in out and segment is not None:
-        # fail-safe: a restricted segment that yields nothing falls back to
-        # whole-text parsing rather than losing a previously-parseable page
-        text = full_text
-        for pat in (UK_INC, UK_INC2):
-            v = _clean_hit(pat)
-            if v is not None:
-                out["nav_cum_pence"] = v
-                break
-        for pat in (UK_EXC, UK_EXC2):
-            v = _clean_hit(pat)
-            if v is not None:
-                out.setdefault("nav_ex_pence", v)
-                break
-        if "nav_cum_pence" not in out:
-            v = _clean_hit(UK_PLAIN)
-            if v is not None:
-                out["nav_cum_pence"] = v
-                out["cum_assumed"] = True
+    out = {k: v for k, v in best.items() if not k.startswith("_")}
     if asat:
         out["asat"] = asat
     return out
