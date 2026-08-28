@@ -13,7 +13,7 @@
       "security_id": "ASX:MA1",
       "z_adj": -5.0249,
       "discount_est": -0.408696,
-      "staleness_days": 1
+      "staleness_days": 2
     },
     {
       "security_id": "ASX:ECP",
@@ -76,9 +76,9 @@
       "tier0_navs": 14
     },
     "uk": {
-      "nav_publishers_found": 0,
-      "daily_weekly": 0
+      "nav_publishers_found": 178,
+      "daily_weekly": 162
     }
   },
-  "snapshot": "s3_uploaded:nta_live/2026-08-28.parquet"
+  "snapshot": "s3_exists_not_overwritten:nta_live/2026-08-28.parquet"
 }
