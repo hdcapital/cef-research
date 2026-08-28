@@ -1,42 +1,54 @@
 {
   "rows": 638,
   "basis_counts": {
-    "0": 29,
-    "1": 358,
-    "3": 251
+    "0": 6,
+    "1": 380,
+    "3": 252
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 128,
+  "alert_eligible": 123,
   "z_extremes": [
     {
       "security_id": "ASX:AEG",
-      "z_adj": -20.1457,
-      "discount_est": -0.905622,
+      "z_adj": -20.1708,
+      "discount_est": -0.906648,
       "staleness_days": 1042
     },
     {
       "security_id": "ASX:APL",
-      "z_adj": -15.1126,
-      "discount_est": -0.777308,
+      "z_adj": -15.1321,
+      "discount_est": -0.778158,
       "staleness_days": 1259
     },
     {
       "security_id": "ASX:OPH",
-      "z_adj": -4.2044,
-      "discount_est": -0.251878,
+      "z_adj": -4.2548,
+      "discount_est": -0.25364,
       "staleness_days": 43
     },
     {
       "security_id": "ASX:CD1",
-      "z_adj": -3.7862,
-      "discount_est": -0.561069,
+      "z_adj": -3.8214,
+      "discount_est": -0.563,
       "staleness_days": 43
     },
     {
+      "security_id": "ASX:PIA",
+      "z_adj": -2.8282,
+      "discount_est": -0.239868,
+      "staleness_days": 43
+    },
+    {
+      "security_id": "SEDOL:906409",
+      "z_adj": -2.6629,
+      "discount_est": -0.127724,
+      "staleness_days": 20
+    },
+    {
       "security_id": "ASX:MOT",
-      "z_adj": -2.4766,
-      "discount_est": -0.250606,
+      "z_adj": -2.5273,
+      "discount_est": -0.254524,
       "staleness_days": 43
     },
     {
@@ -53,21 +65,9 @@
     },
     {
       "security_id": "ASX:CAM",
-      "z_adj": -2.2899,
-      "discount_est": -0.19552,
+      "z_adj": -2.2434,
+      "discount_est": -0.192613,
       "staleness_days": 43
-    },
-    {
-      "security_id": "ASX:AMH",
-      "z_adj": -2.2799,
-      "discount_est": -0.184983,
-      "staleness_days": 43
-    },
-    {
-      "security_id": "SEDOL:3353820",
-      "z_adj": -2.0278,
-      "discount_est": -0.010822,
-      "staleness_days": 2781
     }
   ],
   "date": "2026-08-28",
@@ -77,11 +77,6 @@
       "factors_monthly": true,
       "factors_daily": true,
       "live_prices": 100
-    },
-    "uk": {
-      "tier0_navs": 23,
-      "nav_publishers_found": 178,
-      "daily_weekly": 162
     }
   },
   "snapshot": "s3_exists_not_overwritten:nta_live/2026-08-28.parquet"
