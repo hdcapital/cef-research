@@ -83,6 +83,7 @@ def nightly(markets: list[str]) -> int:
             mf = prices.monthly_factor_returns(ysess, "UK")
             df = prices.daily_factor_returns(ysess, "UK")
             live_px = pd.DataFrame()
+            tmap = None
             try:
                 import yaml as _yaml  # uk config for the SEDOL->TIDM map
                 from uk_cef.data_sources.investegate import build_ticker_map
@@ -99,19 +100,31 @@ def nightly(markets: list[str]) -> int:
             except Exception as exc:  # noqa: BLE001
                 notes["markets"].setdefault("uk", {})
                 notes["markets"]["uk_ticker_map_error"] = str(exc)
-            t = nta_live.build_table(
-                panel, "UK", ret_col="nav_total_return", nav_col=nav_col,
-                price_col=price_col, params=params, tier0=None,
-                market_factors=mf, daily_factors=df, live_prices=live_px)
-            tables.append(t)
+
+            # Tier 0 BEFORE the table so fresh published NAVs anchor it
             cache = Path("data/investegate_cache")
+            uk_tier0 = None
+            census = pd.DataFrame()
             if cache.exists():
                 census = harvest_nav.uk_frequency_census(cache)
+                Path("data/nta_live").mkdir(parents=True, exist_ok=True)
                 census.to_csv("data/nta_live/uk_nav_frequency_census.csv", index=False)
-                Path("reports/build").mkdir(parents=True, exist_ok=True)
-                Path("reports/build/uk_nav_samples.json").write_text(
-                    json.dumps(harvest_nav.uk_nav_samples(cache), indent=1))
+                if tmap is not None and len(census):
+                    try:
+                        uk_tier0 = harvest_nav.harvest_uk(tmap, census)
+                        if len(uk_tier0):
+                            uk_tier0.to_csv("data/nta_live/uk_tier0_latest.csv", index=False)
+                    except Exception as exc:  # noqa: BLE001
+                        notes["markets"]["uk_tier0_error"] = str(exc)
+
+            t = nta_live.build_table(
+                panel, "UK", ret_col="nav_total_return", nav_col=nav_col,
+                price_col=price_col, params=params, tier0=uk_tier0,
+                market_factors=mf, daily_factors=df, live_prices=live_px)
+            tables.append(t)
+            if len(census):
                 notes["markets"]["uk"] = {
+                    "tier0_navs": int(len(uk_tier0)) if uk_tier0 is not None else 0,
                     "nav_publishers_found": int(len(census)),
                     "daily_weekly": int((census["nav_frequency"].isin(["daily", "weekly"])).sum())
                     if len(census) else 0}

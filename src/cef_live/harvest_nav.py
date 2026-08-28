@@ -145,6 +145,130 @@ def uk_frequency_census(cache_dir: Path) -> pd.DataFrame:
     return g.rename(columns={"count": "n_navs", "min": "first", "max": "last"})
 
 
+# ---------------------------------------------------------------- UK Tier 0
+# Patterns written against real RNS text (reports/build/uk_nav_samples.json):
+#   "NAV per Share (including current financial year revenue items) 264.21p"
+#   "Ordinary Share (including current year revenue) = 102.05p"
+#   "unaudited net asset value ... per ordinary share ... was ... 264.21p"
+# ZDP / preference-share lines are excluded; cum-income is primary and both
+# variants are stored when published (brief §2 Tier 0).
+UK_ASAT = re.compile(r"(?:as at|at)\s+(?:the\s+close of business on\s+)?"
+                     r"(\d{1,2}\s+\w{3,9}\s+\d{4})", re.I)
+UK_PENCE = r"(?:=\s*)?([0-9]+(?:\.[0-9]+)?)\s*p(?:ence)?\b"
+UK_INC = re.compile(r"\((?:including|incl\.?)[^)]{0,60}revenue[^)]{0,20}\)[^0-9]{0,30}" + UK_PENCE, re.I)
+UK_EXC = re.compile(r"\((?:excluding|excl\.?)[^)]{0,60}revenue[^)]{0,20}\)[^0-9]{0,30}" + UK_PENCE, re.I)
+UK_PLAIN = re.compile(r"net asset value[^0-9]{0,220}?" + UK_PENCE, re.I)
+UK_ZDP = re.compile(r"zero dividend|preference share", re.I)
+
+
+def parse_uk_nav_text(text: str) -> dict:
+    """Cum/ex-income NAV per share (pence) from RNS text.
+
+    ZDP / preference-share entitlements are excluded per match (a ZDP
+    mention in the 90 chars before a candidate value disqualifies it),
+    not by dropping text - RNS pages often put all share classes in one
+    run-on line.
+    """
+    def _clean_hit(pat):
+        for m in pat.finditer(text):
+            if UK_ZDP.search(text[max(0, m.start() - 90):m.start()]):
+                continue
+            return float(m.group(1))
+        return None
+
+    out: dict = {}
+    v = _clean_hit(UK_INC)
+    if v is not None:
+        out["nav_cum_pence"] = v
+    v = _clean_hit(UK_EXC)
+    if v is not None:
+        out["nav_ex_pence"] = v
+    if "nav_cum_pence" not in out:
+        v = _clean_hit(UK_PLAIN)
+        if v is not None:
+            out["nav_cum_pence"] = v
+            out["cum_assumed"] = True
+    m = UK_ASAT.search(text)
+    if m:
+        try:
+            out["asat"] = pd.to_datetime(m.group(1), dayfirst=True).date().isoformat()
+        except Exception:  # noqa: BLE001
+            pass
+    return out
+
+
+def harvest_uk(ticker_map: pd.DataFrame, census: pd.DataFrame,
+               lookback_days: int = 7, budget: int = 220) -> pd.DataFrame:
+    """Published UK NAVs: refresh page 1 of each NAV publisher's listing,
+    fetch the newest NAV announcement, parse cum/ex-income NAV.
+
+    ticker_map: security_id<->ticker (verified TIDMs). census: from
+    uk_frequency_census - only funds that actually publish NAVs are
+    polled. Returns security_id, nav_date, nav_value (pence, cum-income
+    primary), nav_ex, source, headline.
+    """
+    import requests
+    from bs4 import BeautifulSoup
+    import time as _t
+
+    tick2sid = dict(zip(ticker_map["ticker"], ticker_map["security_id"]))
+    targets = [t for t in census["ticker"] if t in tick2sid][:budget]
+    s = requests.Session()
+    s.headers["User-Agent"] = P.UA
+    pat = re.compile(r"net asset value", re.I)
+    rows = []
+    cutoff = (datetime.now(timezone.utc) - timedelta(days=lookback_days)).date().isoformat()
+    for tk in targets:
+        _t.sleep(1.5)
+        try:
+            r = s.get(f"https://www.investegate.co.uk/company/{tk}", timeout=45)
+            if r.status_code != 200:
+                continue
+            soup = BeautifulSoup(r.text, "html.parser")
+        except Exception:  # noqa: BLE001
+            continue
+        best = None
+        for tr in soup.select("table.table-investegate tbody tr"):
+            tds = tr.find_all("td")
+            if len(tds) < 4:
+                continue
+            a = tds[3].find("a", href=True)
+            if a is None or "/announcement/" not in a.get("href", ""):
+                continue
+            if not pat.search(a.get_text(" ", strip=True)):
+                continue
+            try:
+                d = pd.to_datetime(tds[0].get_text(" ", strip=True),
+                                   dayfirst=True).date().isoformat()
+            except Exception:  # noqa: BLE001
+                continue
+            if d >= cutoff:
+                best = {"date": d, "url": "https://www.investegate.co.uk" + a["href"]
+                        if a["href"].startswith("/") else a["href"],
+                        "headline": a.get_text(" ", strip=True)}
+                break       # rows are newest-first
+        if best is None:
+            continue
+        _t.sleep(1.5)
+        try:
+            r = s.get(best["url"], timeout=45)
+            text = re.sub(r"\s+", " ",
+                          BeautifulSoup(r.text, "html.parser").get_text(" "))
+        except Exception:  # noqa: BLE001
+            continue
+        got = parse_uk_nav_text(text)
+        if "nav_cum_pence" not in got:
+            continue
+        rows.append({"security_id": tick2sid[tk],
+                     "nav_date": got.get("asat", best["date"]),
+                     "nav_value": got["nav_cum_pence"],
+                     "nav_ex": got.get("nav_ex_pence"),
+                     "cum_assumed": got.get("cum_assumed", False),
+                     "source": f"investegate:{best['url'].rsplit('/', 1)[-1]}",
+                     "headline": best["headline"][:120]})
+    return pd.DataFrame(rows)
+
+
 def uk_nav_samples(cache_dir: Path, n: int = 5) -> list[dict]:
     """Fetch a handful of recent UK NAV announcement pages (throttled) and
     return their text heads - parser-design evidence, committed to
