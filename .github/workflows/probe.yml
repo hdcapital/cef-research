@@ -40,7 +40,7 @@ jobs:
             aic-raw-v1-
       - name: Run diagnostic script
         run: |
-          python scripts/probe_mir_coverage.py
+          python -m cef_live.cli universe
       - name: Commit probe results
         run: |
           git config user.name "github-actions[bot]"
