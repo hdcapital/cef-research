@@ -81,6 +81,30 @@ if best is not None:
     except Exception as exc:  # noqa: BLE001
         out["parse_error"] = f"{type(exc).__name__}: {exc}"
 
+# decisive: are the no-price rows genuinely empty in the SOURCE file, or is
+# our column finder missing them? Dump raw cells for a few of each kind.
+try:
+    from uk_cef.parsers.mir import _read_rows
+    rows = _read_rows(target)
+    hdr_idx = [i for i, r in enumerate(rows[:8]) if r and r[0].strip() == "AIC"]
+    h = hdr_idx[0] if hdr_idx else 0
+    out["raw_header_1"] = rows[h][:18]
+    out["raw_header_2"] = rows[h + 1][:18] if len(rows) > h + 1 else []
+    body = [r for r in rows[h + 2:] if r and any(c.strip() for c in r)]
+    out["raw_body_rows"] = len(body)
+    # cell-fill profile: how many non-empty cells per row
+    prof = {}
+    for r in body:
+        n = sum(1 for c in r if c.strip())
+        prof[n] = prof.get(n, 0) + 1
+    out["cells_filled_histogram"] = dict(sorted(prof.items())[:20])
+    sparse = [r for r in body if sum(1 for c in r if c.strip()) <= 6]
+    out["sparse_row_samples"] = [r[:14] for r in sparse[:8]]
+    full = [r for r in body if sum(1 for c in r if c.strip()) > 6]
+    out["full_row_samples"] = [r[:14] for r in full[:3]]
+except Exception as exc:  # noqa: BLE001
+    out["raw_dump_error"] = str(exc)
+
 Path("reports/build").mkdir(parents=True, exist_ok=True)
 Path("reports/build/mir_coverage.json").write_text(json.dumps(out, indent=2, default=str))
 print(json.dumps(out, indent=2, default=str)[:4000])
