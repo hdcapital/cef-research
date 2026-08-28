@@ -1,111 +1,127 @@
 {
- "stooq_ftas": {
+ "m_ftas": {
   "status": 200,
-  "bytes": 796
+  "n": 151,
+  "first": "1984-11-01",
+  "last": "2026-08-27",
+  "last_close": 5826.0898,
+  "ccy": "GBP"
  },
- "stooq_ftas_rows": 2,
- "stooq_ftas_parse": "'Date'",
- "stooq_ukx": {
+ "m_ukx": {
   "status": 200,
-  "bytes": 796
+  "n": 168,
+  "first": "1985-01-01",
+  "last": "2026-08-27",
+  "last_close": 10792.54,
+  "ccy": "GBP"
  },
- "stooq_ukx_rows": 2,
- "stooq_ukx_parse": "'Date'",
- "stooq_axjo": {
+ "m_axjo": {
   "status": 200,
-  "bytes": 796
+  "n": 406,
+  "first": "1992-11-30",
+  "last": "2026-08-28",
+  "last_close": 9050.9004,
+  "ccy": "AUD"
  },
- "stooq_axjo_rows": 2,
- "stooq_axjo_parse": "'Date'",
- "stooq_aord": {
+ "m_aord": {
   "status": 200,
-  "bytes": 796
+  "n": 169,
+  "first": "1984-10-31",
+  "last": "2026-08-28",
+  "last_close": 9263.0996,
+  "ccy": "AUD"
  },
- "stooq_aord_rows": 2,
- "stooq_aord_parse": "'Date'",
- "stooq_msciworld_etf": {
+ "m_world_acwi": {
   "status": 200,
-  "bytes": 796
+  "n": 222,
+  "first": "2008-04-01",
+  "last": "2026-08-27",
+  "last_close": 161.53,
+  "ccy": "USD"
  },
- "stooq_msciworld_etf_rows": 2,
- "stooq_msciworld_etf_parse": "'Date'",
- "stooq_msciworld_etf2": {
+ "m_world_urth": {
   "status": 200,
-  "bytes": 796
+  "n": 176,
+  "first": "2012-02-01",
+  "last": "2026-08-27",
+  "last_close": 209.93,
+  "ccy": "USD"
  },
- "stooq_msciworld_etf2_rows": 2,
- "stooq_msciworld_etf2_parse": "'Date'",
- "stooq_gbpusd": {
+ "m_gbpusd": {
   "status": 200,
-  "bytes": 796
+  "n": 274,
+  "first": "2003-12-01",
+  "last": "2026-08-28",
+  "last_close": 1.3596,
+  "ccy": "USD"
  },
- "stooq_gbpusd_rows": 2,
- "stooq_gbpusd_parse": "'Date'",
- "stooq_audusd": {
+ "m_audusd": {
   "status": 200,
-  "bytes": 796
+  "n": 244,
+  "first": "2006-05-31",
+  "last": "2026-08-28",
+  "last_close": 0.72,
+  "ccy": "USD"
  },
- "stooq_audusd_rows": 2,
- "stooq_audusd_parse": "'Date'",
- "stooq_cty_uk": {
+ "d_cty_l": {
   "status": 200,
-  "bytes": 796
+  "n": 66,
+  "first": "2026-05-27",
+  "last": "2026-08-27",
+  "last_close": 593.0,
+  "ccy": "GBp"
  },
- "stooq_cty_uk_rows": 2,
- "stooq_cty_uk_parse": "'Date'",
- "stooq_atst_uk": {
+ "d_atst_l": {
+  "status": 404
+ },
+ "d_bsif_l": {
   "status": 200,
-  "bytes": 796
+  "n": 12,
+  "first": "2026-07-17",
+  "last": "2026-08-27",
+  "last_close": 1.0227,
+  "ccy": "GBp"
  },
- "stooq_atst_uk_rows": 2,
- "stooq_atst_uk_parse": "'Date'",
- "stooq_afi_au": {
+ "d_afi_ax": {
   "status": 200,
-  "bytes": 796
+  "n": 66,
+  "first": "2026-05-28",
+  "last": "2026-08-28",
+  "last_close": 6.87,
+  "ccy": "AUD"
  },
- "stooq_afi_au_rows": 2,
- "stooq_afi_au_parse": "'Date'",
- "stooq_wam_au": {
+ "d_wam_ax": {
   "status": 200,
-  "bytes": 796
+  "n": 66,
+  "first": "2026-05-28",
+  "last": "2026-08-28",
+  "last_close": 1.255,
+  "ccy": "AUD"
  },
- "stooq_wam_au_rows": 2,
- "stooq_wam_au_parse": "'Date'",
- "stooq_glin_au": {
+ "d_gvf_ax": {
   "status": 200,
-  "bytes": 796
+  "n": 65,
+  "first": "2026-05-28",
+  "last": "2026-08-28",
+  "last_close": 1.375,
+  "ccy": "AUD"
  },
- "stooq_glin_au_rows": 2,
- "stooq_glin_au_parse": "'Date'",
- "asx1_prices_AFI": {
-  "status": 404,
-  "bytes": 78
- },
- "asx1_prices_WAM": {
-  "status": 404,
-  "bytes": 78
- },
- "asx1_prices_GVF": {
-  "status": 404,
-  "bytes": 78
- },
- "asx1_share_afi": {
-  "status": 404,
-  "bytes": 78
- },
- "yahoo_cty_l": {
+ "d_ftas_d": {
   "status": 200,
-  "bytes": 2294
+  "n": 38,
+  "first": "2026-05-27",
+  "last": "2026-08-27",
+  "last_close": 5699.8701,
+  "ccy": "GBP"
  },
- "yahoo_cty_l_n": 23,
- "yahoo_afi_ax": {
+ "d_axjo_d": {
   "status": 200,
-  "bytes": 3646
+  "n": 65,
+  "first": "2026-05-28",
+  "last": "2026-08-28",
+  "last_close": 9050.2998,
+  "ccy": "AUD"
  },
- "yahoo_afi_ax_n": 24,
- "yahoo_ftas_y": {
-  "status": 200,
-  "bytes": 1168
- },
- "yahoo_ftas_y_n": 1
+ "stooq_body_head": "<!DOCTYPE html><html><head><meta charset=\"utf-8\"><meta name=\"robots\" content=\"noindex,nofollow\"></head><body><noscript>This site requires JavaScript to verify your browser. Please enable JavaScript and reload.</noscript><script nonce=\"NIlLuONdBYLbvjhNtqpwlA\">\n(async()=>{const c=\"AAAAAGqQ2Ab79gnFzgxI",
+ "stooq_status": 200
 }
