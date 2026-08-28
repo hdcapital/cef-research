@@ -152,13 +152,22 @@ def uk_frequency_census(cache_dir: Path) -> pd.DataFrame:
 #   "unaudited net asset value ... per ordinary share ... was ... 264.21p"
 # ZDP / preference-share lines are excluded; cum-income is primary and both
 # variants are stored when published (brief §2 Tier 0).
-UK_ASAT = re.compile(r"(?:as at|at)\s+(?:the\s+close of business on\s+)?"
+UK_ASAT = re.compile(r"(?:as at|at)\s+(?:(?:the\s+)?close of business on\s+)?"
                      r"(\d{1,2}\s+\w{3,9}\s+\d{4})", re.I)
 UK_PENCE = r"(?:=\s*)?([0-9]+(?:\.[0-9]+)?)\s*p(?:ence)?\b"
-UK_INC = re.compile(r"\((?:including|incl\.?)[^)]{0,60}revenue[^)]{0,20}\)[^0-9]{0,30}" + UK_PENCE, re.I)
-UK_EXC = re.compile(r"\((?:excluding|excl\.?)[^)]{0,60}revenue[^)]{0,20}\)[^0-9]{0,30}" + UK_PENCE, re.I)
+UK_INC = re.compile(r"\((?:including|incl\.?|cum)[^)]{0,60}(?:revenue|income)[^)]{0,20}\)"
+                    r"[^0-9]{0,30}" + UK_PENCE, re.I)
+UK_EXC = re.compile(r"\((?:excluding|excl\.?|ex)[^)]{0,60}(?:revenue|income)[^)]{0,20}\)"
+                    r"[^0-9]{0,30}" + UK_PENCE, re.I)
+# bare-label variants: "EX Income 439.95p", "Cum Income 443.57p"
+UK_INC2 = re.compile(r"\b(?:cum|incl?\.?)[- ]income\b[^0-9]{0,25}" + UK_PENCE, re.I)
+UK_EXC2 = re.compile(r"\bex[- ]income\b[^0-9]{0,25}" + UK_PENCE, re.I)
 UK_PLAIN = re.compile(r"net asset value[^0-9]{0,220}?" + UK_PENCE, re.I)
 UK_ZDP = re.compile(r"zero dividend|preference share", re.I)
+# group announcements: "Net Asset Value(s) <Fund Name> <date> <manager>
+# announces the unaudited net asset values ... of the following investment
+# companies" - the fund's own value sits in a table naming it again
+UK_HDR_NAME = re.compile(r"Net Asset Value\(s\)\s+(.{5,90}?)\s+\d{1,2}\s+\w{3,9}\s+20\d\d")
 
 
 def parse_uk_nav_text(text: str) -> dict:
@@ -176,24 +185,47 @@ def parse_uk_nav_text(text: str) -> dict:
             return float(m.group(1))
         return None
 
+    # as-at date from the FULL text (a group notice's date sits in its
+    # preamble, outside the fund-specific segment restricted to below)
+    asat = None
+    m = UK_ASAT.search(text)
+    if m:
+        try:
+            asat = pd.to_datetime(m.group(1), dayfirst=True).date().isoformat()
+        except Exception:  # noqa: BLE001
+            pass
+
+    # group announcements: restrict parsing to the segment after the SECOND
+    # mention of the fund's own name (the first is the page header) so a
+    # multi-fund abrdn/BlackRock notice yields THIS fund's value, not the
+    # first row of somebody else's
+    hdr = UK_HDR_NAME.search(text)
+    if hdr:
+        name = re.sub(r"\s+(plc|limited|ltd|trust)\.?$", "", hdr.group(1).strip(),
+                      flags=re.I)
+        key = name[:28]
+        second = text.find(key, hdr.end())
+        if second > -1:
+            text = text[second:second + 600]
+
     out: dict = {}
-    v = _clean_hit(UK_INC)
-    if v is not None:
-        out["nav_cum_pence"] = v
-    v = _clean_hit(UK_EXC)
-    if v is not None:
-        out["nav_ex_pence"] = v
+    for pat in (UK_INC, UK_INC2):
+        v = _clean_hit(pat)
+        if v is not None:
+            out["nav_cum_pence"] = v
+            break
+    for pat in (UK_EXC, UK_EXC2):
+        v = _clean_hit(pat)
+        if v is not None:
+            out["nav_ex_pence"] = v
+            break
     if "nav_cum_pence" not in out:
         v = _clean_hit(UK_PLAIN)
         if v is not None:
             out["nav_cum_pence"] = v
             out["cum_assumed"] = True
-    m = UK_ASAT.search(text)
-    if m:
-        try:
-            out["asat"] = pd.to_datetime(m.group(1), dayfirst=True).date().isoformat()
-        except Exception:  # noqa: BLE001
-            pass
+    if asat:
+        out["asat"] = asat
     return out
 
 
