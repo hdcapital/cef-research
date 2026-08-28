@@ -200,13 +200,18 @@ def parse_uk_nav_text(text: str) -> dict:
     # multi-fund abrdn/BlackRock notice yields THIS fund's value, not the
     # first row of somebody else's
     hdr = UK_HDR_NAME.search(text)
+    segment = None
     if hdr:
         name = re.sub(r"\s+(plc|limited|ltd|trust)\.?$", "", hdr.group(1).strip(),
                       flags=re.I)
         key = name[:28]
         second = text.find(key, hdr.end())
         if second > -1:
-            text = text[second:second + 600]
+            segment = text[second:second + 700]
+
+    full_text = text
+    if segment is not None:
+        text = segment
 
     out: dict = {}
     for pat in (UK_INC, UK_INC2):
@@ -224,6 +229,25 @@ def parse_uk_nav_text(text: str) -> dict:
         if v is not None:
             out["nav_cum_pence"] = v
             out["cum_assumed"] = True
+    if "nav_cum_pence" not in out and segment is not None:
+        # fail-safe: a restricted segment that yields nothing falls back to
+        # whole-text parsing rather than losing a previously-parseable page
+        text = full_text
+        for pat in (UK_INC, UK_INC2):
+            v = _clean_hit(pat)
+            if v is not None:
+                out["nav_cum_pence"] = v
+                break
+        for pat in (UK_EXC, UK_EXC2):
+            v = _clean_hit(pat)
+            if v is not None:
+                out.setdefault("nav_ex_pence", v)
+                break
+        if "nav_cum_pence" not in out:
+            v = _clean_hit(UK_PLAIN)
+            if v is not None:
+                out["nav_cum_pence"] = v
+                out["cum_assumed"] = True
     if asat:
         out["asat"] = asat
     return out
@@ -301,7 +325,7 @@ def harvest_uk(ticker_map: pd.DataFrame, census: pd.DataFrame,
             stats["parse_fail"] += 1
             if len(stats["fail_samples"]) < 8:
                 stats["fail_samples"].append({"ticker": tk, "url": best["url"],
-                                              "text_head": text[200:1600]})
+                                              "text_head": text[200:6500]})
             continue
         stats["parsed"] += 1
         rows.append({"security_id": tick2sid[tk],
