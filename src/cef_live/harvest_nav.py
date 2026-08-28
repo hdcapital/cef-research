@@ -212,7 +212,11 @@ def harvest_uk(ticker_map: pd.DataFrame, census: pd.DataFrame,
     import time as _t
 
     tick2sid = dict(zip(ticker_map["ticker"], ticker_map["security_id"]))
+    unmapped = [t for t in census["ticker"] if t not in tick2sid]
     targets = [t for t in census["ticker"] if t in tick2sid][:budget]
+    stats = {"targets": len(targets), "unmapped_tickers": len(unmapped),
+             "listing_fail": 0, "no_recent_nav": 0, "detail_fail": 0,
+             "parse_fail": 0, "parsed": 0, "fail_samples": []}
     s = requests.Session()
     s.headers["User-Agent"] = P.UA
     pat = re.compile(r"net asset value", re.I)
@@ -223,9 +227,11 @@ def harvest_uk(ticker_map: pd.DataFrame, census: pd.DataFrame,
         try:
             r = s.get(f"https://www.investegate.co.uk/company/{tk}", timeout=45)
             if r.status_code != 200:
+                stats["listing_fail"] += 1
                 continue
             soup = BeautifulSoup(r.text, "html.parser")
         except Exception:  # noqa: BLE001
+            stats["listing_fail"] += 1
             continue
         best = None
         for tr in soup.select("table.table-investegate tbody tr"):
@@ -248,6 +254,7 @@ def harvest_uk(ticker_map: pd.DataFrame, census: pd.DataFrame,
                         "headline": a.get_text(" ", strip=True)}
                 break       # rows are newest-first
         if best is None:
+            stats["no_recent_nav"] += 1
             continue
         _t.sleep(1.5)
         try:
@@ -255,10 +262,16 @@ def harvest_uk(ticker_map: pd.DataFrame, census: pd.DataFrame,
             text = re.sub(r"\s+", " ",
                           BeautifulSoup(r.text, "html.parser").get_text(" "))
         except Exception:  # noqa: BLE001
+            stats["detail_fail"] += 1
             continue
         got = parse_uk_nav_text(text)
         if "nav_cum_pence" not in got:
+            stats["parse_fail"] += 1
+            if len(stats["fail_samples"]) < 8:
+                stats["fail_samples"].append({"ticker": tk, "url": best["url"],
+                                              "text_head": text[200:1600]})
             continue
+        stats["parsed"] += 1
         rows.append({"security_id": tick2sid[tk],
                      "nav_date": got.get("asat", best["date"]),
                      "nav_value": got["nav_cum_pence"],
@@ -266,6 +279,13 @@ def harvest_uk(ticker_map: pd.DataFrame, census: pd.DataFrame,
                      "cum_assumed": got.get("cum_assumed", False),
                      "source": f"investegate:{best['url'].rsplit('/', 1)[-1]}",
                      "headline": best["headline"][:120]})
+    try:
+        Path("reports/build").mkdir(parents=True, exist_ok=True)
+        import json as _json
+        Path("reports/build/uk_tier0_debug.json").write_text(
+            _json.dumps(stats, indent=1))
+    except Exception:  # noqa: BLE001
+        pass
     return pd.DataFrame(rows)
 
 
