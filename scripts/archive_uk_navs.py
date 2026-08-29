@@ -39,6 +39,10 @@ import requests
 from cef_live.harvest_nav import parse_uk_nav_text  # evidence-tested parser
 
 BUCKET = os.environ.get("S3_BUCKET", "")
+# see archive_to_s3.py: shards split the queue deterministically so one run
+# covers what would otherwise need many nightly restarts
+SHARD = int(os.environ.get("SHARD_INDEX", "0"))
+SHARDS = max(1, int(os.environ.get("SHARD_COUNT", "1")))
 BUDGET = int(os.environ.get("UK_NAV_BUDGET", "7000"))
 DEADLINE_MIN = int(os.environ.get("UK_NAV_DEADLINE_MIN", "300"))
 START = time.time()
@@ -46,8 +50,10 @@ THROTTLE = 1.5
 UA = ("uk-cef-research/0.1 (academic closed-end-fund research; "
       "contact: danielconorsims@gmail.com; ~1 req/1.5s)")
 CACHE = Path("data/investegate_cache/listings")
-HIST = Path("data/uk_nav_history.parquet")
-MANIFEST_KEY = "uk/nav_announcements/manifest.json"
+HIST = Path("data/uk_nav_history.parquet" if SHARDS == 1
+            else f"data/uk_nav_history_s{SHARD}of{SHARDS}.parquet")
+MANIFEST_KEY = ("uk/nav_announcements/manifest.json" if SHARDS == 1
+                else f"uk/nav_announcements/manifest_s{SHARD}of{SHARDS}.json")
 NAV_PAT = re.compile(r"net asset value", re.I)
 
 _last = 0.0
@@ -92,7 +98,12 @@ def main() -> int:
                 work.append({"ticker": f.stem, "ann_id": str(r.ann_id),
                              "date": r.date or "", "url": r.url})
     work.sort(key=lambda w: w["date"], reverse=True)
-    print(f"queue: {len(work)} NAV announcements to fetch (newest first)")
+    if SHARDS > 1:
+        import zlib
+        work = [w for w in work
+                if zlib.crc32(w["ann_id"].encode()) % SHARDS == SHARD]
+    print(f"queue: {len(work)} NAV announcements to fetch (newest first, "
+          f"shard {SHARD + 1}/{SHARDS})")
 
     hist_rows = []
     sess = requests.Session()
@@ -159,7 +170,8 @@ def main() -> int:
               "parse_rate_this_run": round(parsed_n / max(1, len(hist_rows)), 4)
               if hist_rows else None}
     Path("outputs/live").mkdir(parents=True, exist_ok=True)
-    Path("outputs/live/uk_nav_archive_status.json").write_text(json.dumps(status, indent=2))
+    Path("outputs/live/uk_nav_archive_status.json" if SHARDS == 1
+     else f"outputs/live/uk_nav_archive_status_s{SHARD}.json").write_text(json.dumps(status, indent=2))
     print(status)
     return 0
 

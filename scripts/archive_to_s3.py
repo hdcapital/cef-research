@@ -36,6 +36,13 @@ import pandas as pd
 import requests
 
 BUCKET = os.environ.get("S3_BUCKET", "")
+# Sharding: a GitHub Actions job is capped at 6h, and the full backfill is
+# ~36h of throttled requests. Rather than restart nightly, the work is split
+# deterministically across parallel jobs in ONE run - each shard owns a
+# disjoint slice (crc32(id) %% count) and its OWN manifest key, so concurrent
+# shards can never clobber each other's progress.
+SHARD = int(os.environ.get("SHARD_INDEX", "0"))
+SHARDS = max(1, int(os.environ.get("SHARD_COUNT", "1")))
 THROTTLE = 1.5
 PDF_BUDGET = int(os.environ.get("ARCHIVE_PDF_BUDGET", "12000"))
 DEADLINE_MIN = int(os.environ.get("ARCHIVE_DEADLINE_MIN", "330"))
@@ -43,7 +50,8 @@ START = time.time()
 UA = ("uk-cef-research/0.1 (academic closed-end-fund research; "
       "contact: danielconorsims@gmail.com; ~1 req/1.5s)")
 INDEX_F = Path("data/asx_ann_cache/asx1/lic_announcement_index.parquet")
-MANIFEST_KEY = "asx/index/uploaded_manifest.json"
+MANIFEST_KEY = ("asx/index/uploaded_manifest.json" if SHARDS == 1
+                else f"asx/index/uploaded_manifest_s{SHARD}of{SHARDS}.json")
 
 _last = 0.0
 
@@ -72,7 +80,7 @@ def main() -> int:
     for page in s3.get_paginator("list_objects_v2").paginate(
             Bucket=BUCKET, Prefix="asx/monthly-reports/"):
         existing.update(o["Key"] for o in page.get("Contents", []))
-    for f in sorted(raw.glob("*.xlsx")) if raw.exists() else []:
+    for f in (sorted(raw.glob("*.xlsx")) if (raw.exists() and SHARD == 0) else []):
         key = f"asx/monthly-reports/{f.name}"
         if key in existing:
             continue
@@ -92,7 +100,17 @@ def main() -> int:
         obj = s3.get_object(Bucket=BUCKET, Key=MANIFEST_KEY)
         done = set(json.loads(obj["Body"].read()).get("ids", []))
     except s3.exceptions.NoSuchKey:
+        # first sharded run: seed from the pre-sharding single manifest so
+        # already-archived documents are never re-fetched
         done = set()
+        if SHARDS > 1:
+            try:
+                legacy = s3.get_object(Bucket=BUCKET,
+                                       Key="asx/index/uploaded_manifest.json")
+                done = set(json.loads(legacy["Body"].read()).get("ids", []))
+                print(f"seeded shard from legacy manifest: {len(done)} ids")
+            except Exception:  # noqa: BLE001
+                pass
     except Exception as exc:  # noqa: BLE001
         print(f"manifest read failed ({exc}); assuming empty")
         done = set()
@@ -103,7 +121,13 @@ def main() -> int:
     idx["day"] = pd.to_datetime(idx["release_date"], utc=True, errors="coerce") \
         .dt.strftime("%Y-%m-%d")
     todo = idx[~idx["id"].astype(str).isin(done)]
-    print(f"announcements: {len(idx)} indexed, {len(todo)} to fetch")
+    if SHARDS > 1:
+        import zlib
+        mine = todo["id"].astype(str).map(
+            lambda i: zlib.crc32(i.encode()) % SHARDS == SHARD)
+        todo = todo[mine]
+    print(f"announcements: {len(idx)} indexed, {len(todo)} to fetch "
+          f"(shard {SHARD + 1}/{SHARDS})")
 
     def flush_manifest():
         s3.put_object(Bucket=BUCKET, Key=MANIFEST_KEY,
@@ -146,7 +170,8 @@ def main() -> int:
     stats["archived_total"] = len(done)
     stats["remaining"] = int(len(idx) - len(done))
     Path("outputs/au").mkdir(parents=True, exist_ok=True)
-    Path("outputs/au/au_s3_archive_status.json").write_text(json.dumps(stats, indent=2))
+    Path("outputs/au/au_s3_archive_status.json" if SHARDS == 1
+     else f"outputs/au/au_s3_archive_status_s{SHARD}.json").write_text(json.dumps(stats, indent=2))
     print(stats)
     return 0
 
