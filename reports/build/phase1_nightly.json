@@ -1,73 +1,73 @@
 {
   "rows": 638,
   "basis_counts": {
-    "0": 105,
-    "1": 287,
-    "3": 246
+    "0": 6,
+    "1": 380,
+    "3": 252
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 117,
+  "alert_eligible": 138,
   "z_extremes": [
     {
       "security_id": "ASX:AEG",
-      "z_adj": -20.1707,
-      "discount_est": -0.906647,
+      "z_adj": -20.1688,
+      "discount_est": -0.906568,
       "staleness_days": 1043
     },
     {
       "security_id": "ASX:APL",
-      "z_adj": -15.132,
-      "discount_est": -0.778154,
+      "z_adj": -15.1302,
+      "discount_est": -0.778075,
       "staleness_days": 1260
     },
     {
-      "security_id": "SEDOL:891055",
-      "z_adj": -8.0103,
-      "discount_est": -0.291138,
-      "staleness_days": 109
-    },
-    {
       "security_id": "ASX:OPH",
-      "z_adj": -4.2549,
-      "discount_est": -0.253646,
+      "z_adj": -4.2694,
+      "discount_est": -0.25415,
       "staleness_days": 44
     },
     {
       "security_id": "ASX:CD1",
-      "z_adj": -3.8209,
-      "discount_est": -0.562976,
+      "z_adj": -3.8078,
+      "discount_est": -0.562257,
       "staleness_days": 44
     },
     {
+      "security_id": "SEDOL:506241",
+      "z_adj": -3.0346,
+      "discount_est": -0.001276,
+      "staleness_days": 21
+    },
+    {
       "security_id": "ASX:PIA",
-      "z_adj": -2.8283,
-      "discount_est": -0.239872,
+      "z_adj": -2.8316,
+      "discount_est": -0.239994,
       "staleness_days": 44
     },
     {
       "security_id": "ASX:MOT",
-      "z_adj": -2.5273,
-      "discount_est": -0.254523,
+      "z_adj": -2.5227,
+      "discount_est": -0.25417,
       "staleness_days": 44
+    },
+    {
+      "security_id": "SEDOL:891055",
+      "z_adj": -2.3689,
+      "discount_est": -0.149746,
+      "staleness_days": 109
+    },
+    {
+      "security_id": "SEDOL:B1DPVL6",
+      "z_adj": -2.3601,
+      "discount_est": -0.213589,
+      "staleness_days": 630
     },
     {
       "security_id": "ASX:CAM",
-      "z_adj": -2.2434,
-      "discount_est": -0.192616,
+      "z_adj": -2.2633,
+      "discount_est": -0.193861,
       "staleness_days": 44
-    },
-    {
-      "security_id": "SEDOL:3353820",
-      "z_adj": -2.0232,
-      "discount_est": -0.010736,
-      "staleness_days": 2782
-    },
-    {
-      "security_id": "SEDOL:3073203",
-      "z_adj": -2.0009,
-      "discount_est": -0.008335,
-      "staleness_days": 2238
     }
   ],
   "date": "2026-08-29",
@@ -78,10 +78,20 @@
       "factors_daily": true,
       "live_prices": 100
     },
+    "uk_nav_targets": 0,
+    "uk_registry_only_targets": 0,
+    "uk_tier0_error": "name 'requests' is not defined",
     "uk": {
-      "tier0_navs": 99,
+      "tier0_navs": 0,
       "nav_publishers_found": 178,
       "daily_weekly": 162
+    }
+  },
+  "catalysts": {
+    "catalysts": 4,
+    "funds": 2,
+    "by_class": {
+      "substantial_holder": 4
     }
   },
   "snapshot": "s3_exists_not_overwritten:nta_live/2026-08-29.parquet"
