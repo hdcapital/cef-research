@@ -342,9 +342,26 @@ def nightly(markets: list[str]) -> int:
                 census = harvest_nav.uk_frequency_census(cache)
                 Path("data/nta_live").mkdir(parents=True, exist_ok=True)
                 census.to_csv("data/nta_live/uk_nav_frequency_census.csv", index=False)
-                if tmap is not None and len(census):
+                # funds the registry lists but never prices: their NAV
+                # exists only in their own announcements
+                extra = {}
+                rp = Path("data/universe/registry.parquet")
+                tp2 = Path("config/resolved_tickers.csv")
+                if rp.exists() and tp2.exists():
+                    rg = pd.read_parquet(rp)
+                    rt = pd.read_csv(tp2)
+                    rt = rt[rt["status"] == "verified"]
+                    need = rg[(rg["status"] == "live") & (rg["market"] == "UK")
+                              & (rg["nav_route"] == "announcements_only")]
+                    m = need.merge(rt[["security_id", "ticker"]],
+                                   on="security_id", how="inner")
+                    extra = dict(zip(m["ticker"].astype(str).str.upper(),
+                                     m["security_id"]))
+                    notes["markets"]["uk_registry_only_targets"] = len(extra)
+                if tmap is not None and (len(census) or extra):
                     try:
-                        uk_tier0, uk_anns = harvest_nav.harvest_uk(tmap, census)
+                        uk_tier0, uk_anns = harvest_nav.harvest_uk(
+                            tmap, census, extra_targets=extra)
                         all_anns.extend(uk_anns)
                         if len(uk_tier0):
                             uk_tier0.to_csv("data/nta_live/uk_tier0_latest.csv", index=False)

@@ -284,23 +284,39 @@ def parse_uk_nav_text(text: str) -> dict:
 
 
 def harvest_uk(ticker_map: pd.DataFrame, census: pd.DataFrame,
-               lookback_days: int = 7, budget: int = 220) -> pd.DataFrame:
-    """Published UK NAVs: refresh page 1 of each NAV publisher's listing,
-    fetch the newest NAV announcement, parse cum/ex-income NAV.
+               lookback_days: int = 7, budget: int = 400,
+               extra_targets: dict[str, str] | None = None) -> pd.DataFrame:
+    """Published UK NAVs from each fund's own RNS announcements.
 
-    ticker_map: security_id<->ticker (verified TIDMs). census: from
-    uk_frequency_census - only funds that actually publish NAVs are
-    polled. Returns security_id, nav_date, nav_value (pence, cum-income
-    primary), nav_ex, source, headline.
+    Two target sources, because they cover different funds:
+      - census: funds the dividends crawler already paged, i.e. the ones
+        the AIC priced and the research phase therefore knew about;
+      - extra_targets: {ticker: security_id} for funds the registry lists
+        but never prices - the offshore/alternatives cohort whose NAV
+        exists ONLY in their announcements. Without this they would stay
+        invisible however good the parser gets.
+
+    Returns security_id, nav_date, nav_value (pence, cum-income primary),
+    nav_ex, source, headline - plus the announcement rows for the catalyst
+    scan, collected from the same fetched pages.
     """
     import requests
     from bs4 import BeautifulSoup
     import time as _t
 
     tick2sid = dict(zip(ticker_map["ticker"], ticker_map["security_id"]))
-    unmapped = [t for t in census["ticker"] if t not in tick2sid]
-    targets = [t for t in census["ticker"] if t in tick2sid][:budget]
+    if extra_targets:
+        tick2sid.update({t: sid for t, sid in extra_targets.items() if t})
+    census_tickers = [t for t in census["ticker"]] if len(census) else []
+    unmapped = [t for t in census_tickers if t not in tick2sid]
+    ordered = [t for t in census_tickers if t in tick2sid]
+    # registry-only funds first: they have NO other NAV source, whereas the
+    # census funds at least have a (stale) registry print to fall back on
+    if extra_targets:
+        ordered = [t for t in extra_targets if t not in set(ordered)] + ordered
+    targets = ordered[:budget]
     stats = {"targets": len(targets), "unmapped_tickers": len(unmapped),
+             "registry_only_targets": len(extra_targets or {}),
              "listing_fail": 0, "no_recent_nav": 0, "detail_fail": 0,
              "parse_fail": 0, "parsed": 0, "fail_samples": []}
     s = requests.Session()
