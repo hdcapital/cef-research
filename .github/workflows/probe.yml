@@ -40,7 +40,7 @@ jobs:
             aic-raw-v1-
       - name: Run diagnostic script
         run: |
-          python -m cef_live.cli universe
+          python scripts/probe_ticker_sources.py
       - name: Commit probe results
         run: |
           git config user.name "github-actions[bot]"
