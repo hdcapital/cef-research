@@ -1,101 +1,101 @@
-"""Which source can turn a fund NAME or ISIN into a TIDM?
+"""Why the 105 unpriced UK funds still have no ticker - and what can supply one.
 
-The Investegate /search?q= guess returned nothing for all 150 funds, so
-this tests the realistic alternatives against real names from the
-announcements-only cohort before any of them is wired in:
+Four consecutive resolution attempts returned 0/105. Each fix addressed a
+real defect (a guessed search URL, a cache that skipped unresolved rows, an
+entity-resolution pass that minted different security_ids) and none moved
+the number, which means the cause was never in the join - it is that the
+source being joined does not carry these funds.
 
-1. the AIC keyfacts/companies file - it may already carry a TIDM for the
-   funds the MIR leaves name-only (free and authoritative if so);
-2. Yahoo's search endpoint (proven reachable from CI) - name -> symbol,
-   e.g. "HICL Infrastructure" -> HICL.L;
-3. Investegate's actual search - captured, not assumed, so we can see the
-   real URL shape and result markup.
+This probe settles that and tests the identifier-based alternative:
+
+  A. the AIC keyfacts companies file - how many funds it lists, how many
+     carry a ticker, and whether the 105 appear in it at all (by ISIN and
+     by normalised name);
+  B. OpenFIGI's public v3 mapping endpoint - ISIN -> LSE ticker. Every one
+     of the 105 has an ISIN in the registry, and an identifier join cannot
+     make the class of error a name search makes (Yahoo mapped
+     "British & American" to British American Tobacco).
+
+Raw responses are printed and written to reports/build/ticker_sources.json.
+Nothing here writes to the ticker cache; this run only establishes what a
+source actually returns. The dev sandbox has no egress to either host, so
+it runs on a GitHub runner.
 """
+
+from __future__ import annotations
+
 import json
-import re
 import sys
-import time
 from pathlib import Path
 
 sys.path.insert(0, "src")
 
 import pandas as pd
 import requests
+import yaml
 
-OUT = Path("data/probe/tickers")
-OUT.mkdir(parents=True, exist_ok=True)
 UA = ("uk-cef-research/0.1 (academic closed-end-fund research; "
-      "contact: danielconorsims@gmail.com; ~1 req/1.5s)")
-s = requests.Session(); s.headers["User-Agent"] = UA
-notes = {}
+      "contact: danielconorsims@gmail.com)")
+out: dict = {}
 
 reg = pd.read_parquet("data/universe/registry.parquet")
-need = reg[(reg["status"] == "live") & (reg["market"] == "UK")
-           & (reg["nav_route"] == "announcements_only")]
-sample = need.head(8)[["security_id", "name", "isin"]].to_dict("records")
-notes["sample"] = sample
+ao = reg[(reg["market"] == "UK") & (reg["status"] == "live")
+         & (reg["nav_route"] == "announcements_only")].copy()
+out["announcements_only_funds"] = int(len(ao))
+out["with_isin"] = int(ao["isin"].notna().sum())
 
-# --- 1. does the AIC companies/keyfacts file carry tickers? ---
+# ---------------------------------------------------------------- A. keyfacts
 try:
+    from uk_cef.entities import normalize_name
     from uk_cef.panel import parse_all_companies
-    comp = parse_all_companies(Path("data/raw/aic"))
-    notes["companies_rows"] = int(len(comp))
-    notes["companies_cols"] = sorted(comp.columns.tolist())
-    tick_cols = [c for c in comp.columns
-                 if re.search(r"tidm|ticker|epic|symbol", c, re.I)]
-    notes["companies_ticker_cols"] = tick_cols
-    if tick_cols and "company_name" in comp.columns:
-        tc = tick_cols[0]
-        latest = comp.sort_values("obs_month").groupby("company_name").last() \
-            if "obs_month" in comp.columns else comp.groupby("company_name").last()
-        hits = {}
-        for r in sample:
-            m = latest[latest.index.str.contains(
-                re.escape(str(r["name"])[:18]), case=False, na=False)]
-            if len(m):
-                hits[r["name"]] = str(m.iloc[0][tc])
-        notes["companies_ticker_hits"] = hits
+
+    cfg = yaml.safe_load(Path("config/default.yaml").read_text())
+    raw = Path(cfg["download"]["raw_dir"])
+    comp = parse_all_companies(raw)
+    out["keyfacts"] = {
+        "rows": int(len(comp)),
+        "columns": sorted(comp.columns.tolist()) if len(comp) else [],
+        "distinct_funds": int(comp["company_name"].nunique()) if len(comp) else 0,
+    }
+    if len(comp):
+        has_tk = comp["ticker"].notna() if "ticker" in comp.columns else pd.Series(False, index=comp.index)
+        out["keyfacts"]["rows_with_ticker"] = int(has_tk.sum())
+        if "isin" in comp.columns:
+            kf_isins = set(comp.loc[comp["isin"].notna(), "isin"].astype(str).str.upper())
+            kf_isins_tk = set(comp.loc[has_tk & comp["isin"].notna(), "isin"].astype(str).str.upper())
+            tgt = set(ao["isin"].dropna().astype(str).str.upper())
+            out["keyfacts"]["target_isins_present_in_file"] = len(tgt & kf_isins)
+            out["keyfacts"]["target_isins_with_ticker"] = len(tgt & kf_isins_tk)
+        kf_names = {normalize_name(str(n)) for n in comp["company_name"].dropna()}
+        tgt_names = {normalize_name(str(n)) for n in ao["name"].dropna()}
+        out["keyfacts"]["target_names_present_in_file"] = len(tgt_names & kf_names)
+        out["keyfacts"]["sample_rows"] = comp.head(3).to_dict("records")
 except Exception as exc:  # noqa: BLE001
-    notes["companies_error"] = f"{type(exc).__name__}: {exc}"
+    out["keyfacts_error"] = f"{type(exc).__name__}: {exc}"
 
-# --- 2. Yahoo search: name -> symbol ---
-yah = {}
-for r in sample:
-    time.sleep(1.5)
+# ---------------------------------------------------------------- B. OpenFIGI
+# Public mapping endpoint, no key required (rate-limited); 10 jobs per POST.
+# exchCode "LN" is the London listing. Both a scoped and an unscoped request
+# are sent so the response shape is on the record either way.
+sess = requests.Session()
+sess.headers.update({"Content-Type": "application/json", "User-Agent": UA})
+sample = ao["isin"].dropna().astype(str).str.upper().tolist()[:10]
+out["openfigi"] = {"sample_isins": sample}
+for label, jobs in (
+        ("exch_LN", [{"idType": "ID_ISIN", "idValue": i, "exchCode": "LN"} for i in sample]),
+        ("unscoped", [{"idType": "ID_ISIN", "idValue": i} for i in sample[:3]])):
     try:
-        q = requests.utils.quote(str(r["name"]))
-        rr = s.get(f"https://query1.finance.yahoo.com/v1/finance/search?q={q}"
-                   "&quotesCount=6&newsCount=0", timeout=30)
-        if rr.status_code != 200:
-            yah[r["name"]] = f"http_{rr.status_code}"
-            continue
-        quotes = rr.json().get("quotes", [])
-        yah[r["name"]] = [{k: qq.get(k) for k in
-                           ("symbol", "shortname", "exchange", "quoteType")}
-                          for qq in quotes[:4]]
+        r = sess.post("https://api.openfigi.com/v3/mapping",
+                      data=json.dumps(jobs), timeout=60)
+        rec: dict = {"http": r.status_code}
+        try:
+            rec["body"] = r.json()
+        except Exception:  # noqa: BLE001
+            rec["text"] = r.text[:2000]
+        out["openfigi"][label] = rec
     except Exception as exc:  # noqa: BLE001
-        yah[r["name"]] = f"error: {exc}"
-notes["yahoo_search"] = yah
+        out["openfigi"][label] = {"error": f"{type(exc).__name__}: {exc}"}
 
-# --- 3. what does Investegate search actually do? ---
-for label, url in (
-    ("ig_search_q", "https://www.investegate.co.uk/search?q=HICL"),
-    ("ig_search_term", "https://www.investegate.co.uk/search/?term=HICL"),
-    ("ig_company_direct", "https://www.investegate.co.uk/company/HICL"),
-):
-    time.sleep(1.5)
-    try:
-        rr = s.get(url, timeout=30)
-        body = rr.text
-        rec = {"status": rr.status_code, "bytes": len(body)}
-        m = re.search(r"<h1[^>]*>(.{0,120}?)</h1>", body, re.S | re.I)
-        if m:
-            rec["h1"] = re.sub(r"\s+", " ", m.group(1)).strip()[:100]
-        rec["company_links"] = sorted(set(re.findall(
-            r'/company/([A-Za-z0-9._-]{2,12})"', body)))[:10]
-        notes[label] = rec
-    except Exception as exc:  # noqa: BLE001
-        notes[label] = f"error: {exc}"
-
-(OUT / "notes.json").write_text(json.dumps(notes, indent=1, default=str))
-print(json.dumps(notes, indent=1, default=str)[:4000])
+Path("reports/build").mkdir(parents=True, exist_ok=True)
+Path("reports/build/ticker_sources.json").write_text(json.dumps(out, indent=2, default=str))
+print(json.dumps(out, indent=2, default=str)[:6000])

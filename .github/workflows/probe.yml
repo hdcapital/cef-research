@@ -27,7 +27,14 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: pip install -r requirements.txt && pip install -e .
+      - run: pip install -r requirements.txt boto3 && pip install -e .
+      - name: Restore state from S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+        run: python scripts/sync_state.py pull --groups raw_aic
       - name: Restore raw-data cache
         uses: actions/cache/restore@v4
         with:
