@@ -1,0 +1,49 @@
+name: cef-tickers
+
+# Standalone ticker resolution. Reads the committed registry, so it skips
+# the panel rebuild the full nightly needs - ~12 minutes instead of ~50.
+# Resolution is the gate on everything downstream: without a ticker a fund
+# has neither a NAV source (Investegate slug) nor a price source (Yahoo).
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "claude/**"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: tickers-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  resolve:
+    if: github.event_name != 'push' || contains(github.event.head_commit.message, '[tickers]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt && pip install -e .
+      - name: Resolve tickers
+        run: python -m cef_live.cli resolve-tickers --budget 400
+      - name: Commit resolved tickers
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f config/resolved_tickers.csv reports/build/ticker_resolution.json
+          if git diff --cached --quiet; then
+            echo "no changes"
+          else
+            git commit -m "CI: ticker resolution ($(date -u +%Y-%m-%dT%H:%MZ))"
+            for i in 1 2 3 4; do
+              git pull --rebase -X theirs origin "${GITHUB_REF_NAME}" || true
+              if git push origin "HEAD:${GITHUB_REF_NAME}"; then break; fi
+              sleep $((RANDOM % 10 + 4))
+            done
+          fi

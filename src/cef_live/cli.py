@@ -120,11 +120,23 @@ def resolve_tickers(budget: int = 400) -> int:
     out = tickers.resolve(reg, budget=budget)
     live_uk = reg[(reg["status"] == "live") & (reg["market"] == "UK")]
     got = out[out["status"] == "verified"]
+    # the cohort that actually matters: funds with NO other NAV source
+    ao = reg[(reg["status"] == "live") & (reg["market"] == "UK")
+             & (reg["nav_route"] == "announcements_only")]
+    ao_got = ao.merge(got[["security_id", "ticker"]], on="security_id", how="inner")
+    ao_missing = ao[~ao["security_id"].isin(set(got["security_id"]))]
     summary = {"attempted_total": int(len(out)),
                "verified": int(len(got)),
                "unresolved": int((out["status"] != "verified").sum()),
                "live_uk_funds": int(len(live_uk)),
-               "coverage": round(len(got) / max(1, len(live_uk)), 4)}
+               "coverage": round(len(got) / max(1, len(live_uk)), 4),
+               "announcements_only_total": int(len(ao)),
+               "announcements_only_resolved": int(len(ao_got)),
+               "announcements_only_coverage": round(len(ao_got) / max(1, len(ao)), 4),
+               "announcements_only_resolved_names": ao_got[["name", "ticker"]]
+                   .sort_values("name").to_dict("records"),
+               "announcements_only_unresolved_names": ao_missing[["name", "sector", "domicile"]]
+                   .sort_values("name").to_dict("records")}
     Path("reports/build").mkdir(parents=True, exist_ok=True)
     Path("reports/build/ticker_resolution.json").write_text(
         json.dumps(summary, indent=2, default=str))
