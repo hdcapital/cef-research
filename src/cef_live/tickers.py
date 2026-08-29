@@ -1,20 +1,19 @@
 """Resolve tickers for registry funds that never had a MIR row.
 
-The existing ticker map is built by matching AIC MIR identifiers, so the
-110 funds the AIC lists but never prices have no ticker - and without one
-they have neither a NAV source (Investegate slug) nor a price source
-(Yahoo symbol). This module closes that gap.
+The AIC keyfacts/companies file carries a `ticker` column - and unlike the
+MIR, it populates it for the funds the MIR leaves name-only. That is the
+authoritative source: it is the AIC's own identifier for its own listing,
+it needs no external request, and it covers the announcements-only cohort
+(probe: 8 of 8 sampled funds resolved, matching Yahoo's symbols exactly).
 
-Method, deliberately verify-don't-guess: search Investegate for the
-registry name, then confirm the candidate page's H1 header - which reads
-"<Name> (<TICKER>) RNS Announcements" - names the same company, using the
-same lenient token matcher the dividends crawler already trusts. A
-candidate that fails verification is recorded as unresolved, never
-assumed: a wrong ticker would silently staple another fund's share price
-onto this fund's NAV, which is worse than a missing row.
+Yahoo's search endpoint is kept only as a fallback, and always behind name
+verification, because it fails dangerously on its own: searching "British
+& American" returns British American Tobacco, and "Bluefield Solar Income
+Fund" returns its Frankfurt line ahead of the London one. A wrong ticker
+staples another company's share price onto this fund's NAV, so a candidate
+that cannot be verified is recorded unresolved rather than accepted.
 
-Results are cached to config/resolved_tickers.csv (committed) so the
-throttled search runs once per fund, not once per night.
+Results cache to config/resolved_tickers.csv (committed).
 """
 
 from __future__ import annotations
@@ -81,6 +80,36 @@ def verify(s: requests.Session, slug: str, names: list[str]) -> tuple[str, str] 
     return None
 
 
+def from_aic_keyfacts(registry: pd.DataFrame, cfg_uk: dict) -> pd.DataFrame:
+    """Tickers from the AIC companies file, keyed by the SAME entity
+    resolution the registry used - so the join is exact, not fuzzy."""
+    from uk_cef.entities import EntityRegistry
+    from uk_cef.panel import parse_all_companies, parse_all_corporate_activity
+
+    raw = Path(cfg_uk["download"]["raw_dir"])
+    comp = parse_all_companies(raw)
+    if comp.empty or "ticker" not in comp.columns:
+        return pd.DataFrame(columns=["security_id", "ticker", "verified_name",
+                                     "method", "status"])
+    comp = comp[comp["ticker"].notna() & (comp["ticker"].astype(str).str.len() >= 2)]
+    reg_ent = EntityRegistry(cfg_uk["paths"].get("entity_overrides"))
+    reg_ent.load_name_changes(parse_all_corporate_activity(raw))
+    comp = comp.sort_values("obs_month")
+    sids = [reg_ent.resolve(n, c, "Ordinary Share")
+            for n, c in zip(comp["company_name"], comp.get("isin", pd.Series(dtype=str)))]
+    comp = comp.assign(security_id=sids)
+    latest = comp.groupby("security_id").last().reset_index()
+    keep = set(registry["security_id"])
+    latest = latest[latest["security_id"].isin(keep)]
+    return pd.DataFrame({
+        "security_id": latest["security_id"],
+        "ticker": latest["ticker"].astype(str).str.upper().str.strip(),
+        "verified_name": latest["company_name"],
+        "method": "aic_keyfacts",
+        "status": "verified",
+    })
+
+
 def seed_known(registry: pd.DataFrame, cfg_uk: dict | None) -> pd.DataFrame:
     """Pre-fill the cache from tickers the MIR-matched map already knows.
 
@@ -102,6 +131,13 @@ def seed_known(registry: pd.DataFrame, cfg_uk: dict | None) -> pd.DataFrame:
              "verified_name": None, "method": "mir_identifier_match",
              "status": "verified"}
             for r in tmap.itertuples(index=False) if r.security_id not in known]
+    # the AIC's own keyfacts ticker covers the funds the MIR leaves blank
+    try:
+        kf = from_aic_keyfacts(registry, cfg_uk)
+        have = known | {r["security_id"] for r in rows}
+        rows += [r for r in kf.to_dict("records") if r["security_id"] not in have]
+    except Exception as exc:  # noqa: BLE001
+        print(f"keyfacts ticker source unavailable ({exc})")
     if rows:
         cache = pd.concat([cache, pd.DataFrame(rows)], ignore_index=True) \
                   .drop_duplicates("security_id", keep="last")
