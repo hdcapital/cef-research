@@ -16,7 +16,8 @@ per share with the evidence-tested parser (cef_live.harvest_nav), and:
     so any run resumes exactly where the last stopped.
 
 Unparsed pages are recorded with status - never guessed. Budgets:
-UK_NAV_BUDGET pages/run (default 7000), UK_NAV_DEADLINE_MIN (default 300).
+UK_NAV_DEADLINE_MIN (default 300) bounds the run; UK_NAV_BUDGET is an
+optional item cap, unset by default.
 Newest-first means the most decision-relevant history lands first.
 """
 
@@ -43,7 +44,12 @@ BUCKET = os.environ.get("S3_BUCKET", "")
 # covers what would otherwise need many nightly restarts
 SHARD = int(os.environ.get("SHARD_INDEX", "0"))
 SHARDS = max(1, int(os.environ.get("SHARD_COUNT", "1")))
-BUDGET = int(os.environ.get("UK_NAV_BUDGET", "20000"))
+# 0 = unlimited. The wall-clock deadline is the real control:
+# it protects the 6h job cap directly, whereas an item budget is
+# only a guess at how many items fit in that window - and it guessed
+# low, stopping shards with hours to spare. Politeness is the
+# throttle's job, not the budget's.
+BUDGET = int(os.environ.get("UK_NAV_BUDGET", "0"))
 DEADLINE_MIN = int(os.environ.get("UK_NAV_DEADLINE_MIN", "300"))
 START = time.time()
 THROTTLE = 1.5
@@ -110,7 +116,7 @@ def main() -> int:
     sess.headers["User-Agent"] = UA
     fetched = failed = 0
     for w in work:
-        if fetched >= BUDGET or (time.time() - START) > DEADLINE_MIN * 60:
+        if (time.time() - START) > DEADLINE_MIN * 60 or (BUDGET and fetched >= BUDGET):
             print("budget/deadline reached - stopping cleanly")
             break
         url = w["url"]

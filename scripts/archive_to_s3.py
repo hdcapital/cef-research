@@ -20,7 +20,8 @@ project's 1.5s throttle toward ASX; wall-clock and count budgets keep each
 run inside CI limits. ~86.5k PDFs total => roughly a week of daily runs.
 
 Env: S3_BUCKET, AWS_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY;
-optional ARCHIVE_PDF_BUDGET (default 12000), ARCHIVE_DEADLINE_MIN (330).
+ARCHIVE_DEADLINE_MIN (330) bounds the run; ARCHIVE_PDF_BUDGET is an
+optional item cap, unset by default.
 """
 
 from __future__ import annotations
@@ -44,7 +45,16 @@ BUCKET = os.environ.get("S3_BUCKET", "")
 SHARD = int(os.environ.get("SHARD_INDEX", "0"))
 SHARDS = max(1, int(os.environ.get("SHARD_COUNT", "1")))
 THROTTLE = 1.5
-PDF_BUDGET = int(os.environ.get("ARCHIVE_PDF_BUDGET", "20000"))
+PDF_# 0 = unlimited. The wall-clock deadline is the real control:
+# it protects the 6h job cap directly, whereas an item budget is
+# only a guess at how many items fit in that window - and it guessed
+# low, stopping shards with hours to spare. Politeness is the
+# throttle's job, not the budget's.
+# 0 = unlimited. The wall-clock deadline is the real control: it
+# protects the 6h job cap directly, whereas an item budget only
+# guesses how many items fit in that window - and it guessed low,
+# stopping shards with hours to spare. Politeness is the throttle.
+PDF_BUDGET = int(os.environ.get("ARCHIVE_PDF_BUDGET", "0"))
 DEADLINE_MIN = int(os.environ.get("ARCHIVE_DEADLINE_MIN", "330"))
 START = time.time()
 UA = ("uk-cef-research/0.1 (academic closed-end-fund research; "
@@ -135,7 +145,7 @@ def main() -> int:
 
     fetched = 0
     for row in todo.itertuples(index=False):
-        if fetched >= PDF_BUDGET or (time.time() - START) > DEADLINE_MIN * 60:
+        if (time.time() - START) > DEADLINE_MIN * 60 or (PDF_BUDGET and fetched >= PDF_BUDGET):
             print("budget/deadline reached - stopping cleanly")
             break
         try:
