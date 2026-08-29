@@ -43,7 +43,7 @@ BUCKET = os.environ.get("S3_BUCKET", "")
 # covers what would otherwise need many nightly restarts
 SHARD = int(os.environ.get("SHARD_INDEX", "0"))
 SHARDS = max(1, int(os.environ.get("SHARD_COUNT", "1")))
-BUDGET = int(os.environ.get("UK_NAV_BUDGET", "7000"))
+BUDGET = int(os.environ.get("UK_NAV_BUDGET", "20000"))
 DEADLINE_MIN = int(os.environ.get("UK_NAV_DEADLINE_MIN", "300"))
 START = time.time()
 THROTTLE = 1.5

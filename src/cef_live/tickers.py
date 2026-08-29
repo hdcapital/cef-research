@@ -126,7 +126,10 @@ def seed_known(registry: pd.DataFrame, cfg_uk: dict | None) -> pd.DataFrame:
     except Exception:  # noqa: BLE001
         return cache
     tmap = tmap[tmap["ticker"].notna()]
-    known = set(cache["security_id"])
+    # skip only funds already VERIFIED - a row cached as unresolved by an
+    # earlier attempt must not block a better source from filling it in,
+    # which is exactly how 105 keyfacts tickers were silently discarded
+    known = set(cache.loc[cache["status"] == "verified", "security_id"])
     rows = [{"security_id": r.security_id, "ticker": str(r.ticker).upper(),
              "verified_name": None, "method": "mir_identifier_match",
              "status": "verified"}
