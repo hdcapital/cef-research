@@ -84,9 +84,14 @@ def build_universe() -> int:
     return 0
 
 
-def resolve_tickers(budget: int = 150) -> int:
+def resolve_tickers(budget: int = 400) -> int:
     """Resolve Investegate/Yahoo tickers for live registry funds with none."""
     reg = pd.read_parquet("data/universe/registry.parquet")
+    cfg_uk = None
+    p = Path("config/default.yaml")
+    if p.exists():
+        cfg_uk = yaml.safe_load(p.read_text())
+    tickers.seed_known(reg, cfg_uk)      # free: already-verified identifiers
     out = tickers.resolve(reg, budget=budget)
     live_uk = reg[(reg["status"] == "live") & (reg["market"] == "UK")]
     got = out[out["status"] == "verified"]
@@ -288,7 +293,7 @@ def main() -> int:
     n.add_argument("--markets", default="au,uk")
     sub.add_parser("universe")
     rt = sub.add_parser("resolve-tickers")
-    rt.add_argument("--budget", type=int, default=150)
+    rt.add_argument("--budget", type=int, default=400)
     sub.add_parser("universe-sheet")
     args = ap.parse_args()
     if args.cmd == "universe":

@@ -81,7 +81,36 @@ def verify(s: requests.Session, slug: str, names: list[str]) -> tuple[str, str] 
     return None
 
 
-def resolve(registry: pd.DataFrame, budget: int = 150) -> pd.DataFrame:
+def seed_known(registry: pd.DataFrame, cfg_uk: dict | None) -> pd.DataFrame:
+    """Pre-fill the cache from tickers the MIR-matched map already knows.
+
+    Those funds were resolved by identifier match and are already verified;
+    re-searching them would waste requests and risk a worse match.
+    """
+    cache = pd.read_csv(CACHE) if CACHE.exists() else pd.DataFrame(
+        columns=["security_id", "ticker", "verified_name", "method", "status"])
+    if cfg_uk is None:
+        return cache
+    try:
+        from uk_cef.data_sources.investegate import build_ticker_map
+        tmap = build_ticker_map(cfg_uk)
+    except Exception:  # noqa: BLE001
+        return cache
+    tmap = tmap[tmap["ticker"].notna()]
+    known = set(cache["security_id"])
+    rows = [{"security_id": r.security_id, "ticker": str(r.ticker).upper(),
+             "verified_name": None, "method": "mir_identifier_match",
+             "status": "verified"}
+            for r in tmap.itertuples(index=False) if r.security_id not in known]
+    if rows:
+        cache = pd.concat([cache, pd.DataFrame(rows)], ignore_index=True) \
+                  .drop_duplicates("security_id", keep="last")
+        CACHE.parent.mkdir(parents=True, exist_ok=True)
+        cache.to_csv(CACHE, index=False)
+    return cache
+
+
+def resolve(registry: pd.DataFrame, budget: int = 400) -> pd.DataFrame:
     """Resolve tickers for live registry rows that lack one.
 
     Returns the full cache: security_id, ticker, verified_name, method,
@@ -90,7 +119,8 @@ def resolve(registry: pd.DataFrame, budget: int = 150) -> pd.DataFrame:
     """
     cache = pd.read_csv(CACHE) if CACHE.exists() else pd.DataFrame(
         columns=["security_id", "ticker", "verified_name", "method", "status"])
-    known = set(cache["security_id"])
+    # only skip funds already VERIFIED; unresolved ones are retried
+    known = set(cache.loc[cache["status"] == "verified", "security_id"])
 
     need = registry[(registry["status"] == "live")
                     & (registry["market"] == "UK")

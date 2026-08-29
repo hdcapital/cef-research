@@ -84,7 +84,7 @@ jobs:
         run: python -m cef_live.cli universe
 
       - name: Resolve tickers for unpriced funds
-        run: python -m cef_live.cli resolve-tickers --budget 150
+        run: python -m cef_live.cli resolve-tickers --budget 400
 
       - name: Nightly live NTA table
         env:
