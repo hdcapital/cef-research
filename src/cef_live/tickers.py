@@ -1,23 +1,38 @@
 """Resolve tickers for registry funds that never had a MIR row.
 
-The AIC keyfacts/companies file carries a `ticker` column - and unlike the
-MIR, it populates it for the funds the MIR leaves name-only. That is the
-authoritative source: it is the AIC's own identifier for its own listing,
-it needs no external request, and it covers the announcements-only cohort
-(probe: 8 of 8 sampled funds resolved, matching Yahoo's symbols exactly).
+A fund with no ticker has neither a NAV source (its Investegate
+announcement page) nor a price source, so it cannot be priced at all. 105
+live UK funds - the entire offshore/alternatives cohort the AIC lists but
+never prices - were in that state.
 
-Yahoo's search endpoint is kept only as a fallback, and always behind name
-verification, because it fails dangerously on its own: searching "British
-& American" returns British American Tobacco, and "Bluefield Solar Income
-Fund" returns its Frankfurt line ahead of the London one. A wrong ticker
-staples another company's share price onto this fund's NAV, so a candidate
-that cannot be verified is recorded unresolved rather than accepted.
+Order of sources, identifier before name:
+
+1. the MIR-matched map, already verified by identifier;
+2. the AIC keyfacts/companies file, joined on ISIN (it carries a populated
+   ticker column for 104 of the 105);
+3. OpenFIGI's public ISIN -> exchange-code mapping, scoped to the London
+   listing.
+
+Name search is the last resort, never the first, because it fails
+dangerously unaided: "British & American" returns British American
+Tobacco, and "Bluefield Solar Income Fund" returns its Frankfurt line
+ahead of the London one. An identifier join cannot make that class of
+error at all.
+
+Whatever the source, the candidate is put through the same check before
+it is accepted: fetch the Investegate company page and confirm its H1
+names this fund. A wrong ticker staples another company's share price onto
+this fund's NAV, so a candidate that fails verification is recorded with
+the disagreement (status unresolved_name_mismatch, the rejected candidate
+kept in verified_name) rather than used.
 
 Results cache to config/resolved_tickers.csv (committed).
 """
 
 from __future__ import annotations
 
+import json
+import os
 import re
 import time
 from pathlib import Path
@@ -80,6 +95,79 @@ def verify(s: requests.Session, slug: str, names: list[str]) -> tuple[str, str] 
     return None
 
 
+# ------------------------------------------------------------------ OpenFIGI
+OPENFIGI_URL = "https://api.openfigi.com/v3/mapping"
+FIGI_BATCH = 10          # jobs per request, per OpenFIGI's documented limit
+FIGI_SLEEP = 3.0         # unauthenticated allowance is 25 requests/minute
+
+
+def _figi_pick(data: list[dict]) -> dict | None:
+    """The London closed-end listing among an ISIN's FIGI records."""
+    ln = [d for d in data if str(d.get("exchCode", "")).upper() == "LN"]
+    pool = ln or data
+    for d in pool:
+        if "closed-end" in str(d.get("securityType", "")).lower():
+            return d
+    return pool[0] if pool else None
+
+
+def from_openfigi(need: pd.DataFrame, session: requests.Session | None = None
+                  ) -> dict[str, tuple[str, str]]:
+    """ISIN -> (candidate ticker, FIGI name) for the London listing.
+
+    OpenFIGI's public mapping endpoint takes the identifier we already hold
+    for every registry fund and returns the exchange's own code. It is an
+    identifier join, so it cannot make the class of error a name search
+    makes - Yahoo returns British American Tobacco for "British & American"
+    - and it is scoped with exchCode "LN" so it cannot return the Frankfurt
+    line of a London trust either.
+
+    The result is a CANDIDATE, not an answer: every one is put through the
+    same Investegate H1 name check as any other source before it is
+    accepted, because a wrong ticker staples another company's share price
+    onto this fund's NAV.
+    """
+    s = session or requests.Session()
+    s.headers.update({"Content-Type": "application/json", "User-Agent": UA})
+    key = os.environ.get("OPENFIGI_API_KEY")
+    if key:
+        s.headers["X-OPENFIGI-APIKEY"] = key
+    isins = [i for i in need["isin"].dropna().astype(str).str.strip().str.upper()
+             if len(i) == 12]
+    out: dict[str, tuple[str, str]] = {}
+    for start in range(0, len(isins), FIGI_BATCH):
+        chunk = isins[start:start + FIGI_BATCH]
+        jobs = [{"idType": "ID_ISIN", "idValue": i, "exchCode": "LN"} for i in chunk]
+        try:
+            r = s.post(OPENFIGI_URL, data=json.dumps(jobs), timeout=60)
+        except Exception as exc:  # noqa: BLE001
+            print(f"openfigi request failed ({exc}); {len(chunk)} ISINs unmapped")
+            time.sleep(FIGI_SLEEP)
+            continue
+        if r.status_code == 429:
+            # documented rate-limit response: wait out the window and retry once
+            time.sleep(60)
+            try:
+                r = s.post(OPENFIGI_URL, data=json.dumps(jobs), timeout=60)
+            except Exception:  # noqa: BLE001
+                continue
+        if r.status_code != 200:
+            print(f"openfigi HTTP {r.status_code} for {len(chunk)} ISINs")
+            time.sleep(FIGI_SLEEP)
+            continue
+        try:
+            body = r.json()
+        except Exception:  # noqa: BLE001
+            body = []
+        for isin, res in zip(chunk, body):
+            hit = _figi_pick(res.get("data") or []) if isinstance(res, dict) else None
+            if hit and hit.get("ticker"):
+                out[isin] = (str(hit["ticker"]).upper(), str(hit.get("name") or ""))
+        time.sleep(FIGI_SLEEP)
+    print(f"openfigi: {len(out)}/{len(isins)} ISINs returned a London ticker")
+    return out
+
+
 def from_aic_keyfacts(registry: pd.DataFrame, cfg_uk: dict) -> pd.DataFrame:
     """Tickers from the AIC companies file, joined on ISIN.
 
@@ -127,6 +215,12 @@ def from_aic_keyfacts(registry: pd.DataFrame, cfg_uk: dict) -> pd.DataFrame:
         rows.append({"security_id": r.security_id, "ticker": hit[0],
                      "verified_name": hit[1], "method": method,
                      "status": "verified"})
+    # visible, not silent: four attempts at this join each returned 0 for the
+    # cohort it exists to serve, and none of them said so. A join that
+    # matches nothing must announce it.
+    print(f"keyfacts: {len(comp)} ticker-bearing rows, {len(by_isin)} ISINs, "
+          f"{len(by_name)} names -> matched {len(rows)} of {len(registry)} "
+          f"registry rows")
     return pd.DataFrame(rows)
 
 
@@ -187,22 +281,45 @@ def resolve(registry: pd.DataFrame, budget: int = 400) -> pd.DataFrame:
     if not len(need):
         return cache
 
+    todo = need.head(budget)
     s = requests.Session()
     s.headers["User-Agent"] = UA
+    # Identifier first: every registry fund carries an ISIN, and mapping it
+    # to the London listing cannot mis-identify the company the way a name
+    # search can. The search endpoint stays as the fallback for the rows
+    # OpenFIGI does not cover.
+    figi = from_openfigi(todo)
     rows = []
-    for r in need.head(budget).itertuples(index=False):
+    for r in todo.itertuples(index=False):
         names = [n for n in [r.name] if isinstance(n, str)]
         rec = {"security_id": r.security_id, "ticker": None,
                "verified_name": None, "method": None, "status": "unresolved"}
-        # 1. the fund's own name as a slug guess is worthless (slugs are
-        #    tickers), so go through search
-        for slug in _candidates(s, r.name or ""):
-            got = verify(s, slug, names)
+        isin = str(getattr(r, "isin", "") or "").strip().upper()
+        cand = figi.get(isin)
+        if cand:
+            got = verify(s, cand[0], names)
             if got:
                 rec.update(ticker=got[0], verified_name=got[1],
-                           method="search+h1", status="verified")
-                break
+                           method="openfigi_isin+h1", status="verified")
+            else:
+                # the mapping returned something the name check rejects -
+                # keep WHAT it returned so the disagreement is auditable,
+                # but never let an unverified ticker price this fund
+                rec["verified_name"] = f"figi_candidate:{cand[0]} ({cand[1]})"
+                rec["status"] = "unresolved_name_mismatch"
+        if rec["status"] != "verified":
+            # the fund's own name as a slug guess is worthless (slugs are
+            # tickers), so go through search
+            for slug in _candidates(s, r.name or ""):
+                got = verify(s, slug, names)
+                if got:
+                    rec.update(ticker=got[0], verified_name=got[1],
+                               method="search+h1", status="verified")
+                    break
         rows.append(rec)
+    done = sum(1 for x in rows if x["status"] == "verified")
+    print(f"resolve: {done}/{len(rows)} verified "
+          f"({sum(1 for x in rows if x['method'] == 'openfigi_isin+h1')} via ISIN)")
 
     out = pd.concat([cache, pd.DataFrame(rows)], ignore_index=True) \
             .drop_duplicates("security_id", keep="last")

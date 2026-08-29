@@ -179,3 +179,60 @@ def test_keyfacts_tickers_join_without_re_resolving_ids():
     # offshore ISIN joins directly; a blank ISIN still resolves by name
     assert "isin" in out[out["ticker"] == "AIC"].iloc[0]["method"]
     assert "name" in out[out["ticker"] == "BAF"].iloc[0]["method"]
+
+
+def test_figi_pick_prefers_the_london_closed_end_listing():
+    """The Frankfurt line of a London trust must never win.
+
+    Yahoo returned Bluefield's Frankfurt listing ahead of London; an
+    exchange-scoped identifier map is only safe if the picker actually
+    honours the scope.
+    """
+    from cef_live import tickers as T
+
+    data = [{"exchCode": "GR", "ticker": "XYZ", "securityType": "Closed-End Fund"},
+            {"exchCode": "LN", "ticker": "BSIF", "securityType": "Closed-End Fund"},
+            {"exchCode": "LN", "ticker": "BSIFD", "securityType": "Debt"}]
+    assert T._figi_pick(data)["ticker"] == "BSIF"
+    assert T._figi_pick([]) is None
+
+
+def test_identifier_candidate_is_never_accepted_without_the_name_check(monkeypatch):
+    """An ISIN map is an identifier join, but it is still only a candidate.
+
+    A ticker that fails the H1 name check must be recorded as a
+    disagreement - keeping WHAT was rejected - never written as the fund's
+    ticker, because a wrong ticker prices this fund off another company's
+    shares.
+    """
+    import pandas as pd
+
+    from cef_live import tickers as T
+
+    reg = pd.DataFrame([
+        {"security_id": "SEDOL:AAA", "name": "Good Trust", "isin": "GB00AAAAAAA1",
+         "status": "live", "market": "UK"},
+        {"security_id": "SEDOL:BBB", "name": "British & American", "isin": "GB0000653112",
+         "status": "live", "market": "UK"},
+    ])
+    monkeypatch.setattr(T, "CACHE", Path("/tmp/_test_tickers_cache.csv"))
+    if T.CACHE.exists():
+        T.CACHE.unlink()
+    monkeypatch.setattr(T, "from_openfigi", lambda need, session=None: {
+        "GB00AAAAAAA1": ("GDT", "GOOD TRUST PLC"),
+        "GB0000653112": ("BATS", "BRITISH AMERICAN TOBACCO"),
+    })
+    # the page check passes only where the H1 really names this fund
+    monkeypatch.setattr(T, "verify", lambda s, slug, names:
+                        ("GDT", "Good Trust") if slug == "GDT" else None)
+    monkeypatch.setattr(T, "_candidates", lambda s, name: [])
+
+    out = T.resolve(reg, budget=10).set_index("security_id")
+    assert out.loc["SEDOL:AAA", "status"] == "verified"
+    assert out.loc["SEDOL:AAA", "ticker"] == "GDT"
+    assert out.loc["SEDOL:AAA", "method"] == "openfigi_isin+h1"
+    # the tobacco company must not become this trust's ticker
+    assert out.loc["SEDOL:BBB", "status"] == "unresolved_name_mismatch"
+    assert pd.isna(out.loc["SEDOL:BBB", "ticker"])
+    assert "BATS" in str(out.loc["SEDOL:BBB", "verified_name"])
+    T.CACHE.unlink(missing_ok=True)
