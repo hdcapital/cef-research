@@ -219,8 +219,8 @@ def test_identifier_candidate_is_never_accepted_without_the_name_check(monkeypat
     if T.CACHE.exists():
         T.CACHE.unlink()
     monkeypatch.setattr(T, "from_openfigi", lambda need, session=None: {
-        "GB00AAAAAAA1": ("GDT", "GOOD TRUST PLC"),
-        "GB0000653112": ("BATS", "BRITISH AMERICAN TOBACCO"),
+        "GB00AAAAAAA1": ("GDT", "GOOD TRUST PLC", "Closed-End Fund"),
+        "GB0000653112": ("BATS", "BRITISH AMERICAN TOBACCO", "Common Stock"),
     })
     # the page check passes only where the H1 really names this fund
     monkeypatch.setattr(T, "verify", lambda s, slug, names:
@@ -236,3 +236,28 @@ def test_identifier_candidate_is_never_accepted_without_the_name_check(monkeypat
     assert pd.isna(out.loc["SEDOL:BBB", "ticker"])
     assert "BATS" in str(out.loc["SEDOL:BBB", "verified_name"])
     T.CACHE.unlink(missing_ok=True)
+
+
+def test_unconfirmed_isin_mapping_needs_fund_type_not_just_a_name():
+    """Security type is what makes an unconfirmed page acceptable.
+
+    The name matcher is lenient by necessity - it must accept
+    "CHENAVARI TORO INCOME FUND L" for "Chenavari Toro Income Fund" - and
+    it is lenient enough to also accept "BRITISH AMERICAN TOBACCO PLC" for
+    "British & American". So a name alone can never carry an unverified
+    mapping; the record must also be typed a fund.
+    """
+    from cef_live import tickers as T
+
+    ok = ("TORO", "CHENAVARI TORO INCOME FUND L", "Closed-End Fund")
+    assert T._figi_self_consistent(ok, ["Chenavari Toro Income Fund"])
+
+    # the exact trap: a lenient name match on an operating company
+    tobacco = ("BATS", "BRITISH AMERICAN TOBACCO PLC", "Common Stock")
+    from uk_cef.data_sources.investegate import _tokens_compatible
+    assert _tokens_compatible("British & American", tobacco[1])   # name says yes
+    assert not T._figi_self_consistent(tobacco, ["British & American"])  # type says no
+
+    # right type, wrong company - the name check still has to bite
+    wrong = ("XYZ", "SOME OTHER TRUST PLC", "Closed-End Fund")
+    assert not T._figi_self_consistent(wrong, ["Chenavari Toro Income Fund"])

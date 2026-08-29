@@ -112,7 +112,7 @@ def _figi_pick(data: list[dict]) -> dict | None:
 
 
 def from_openfigi(need: pd.DataFrame, session: requests.Session | None = None
-                  ) -> dict[str, tuple[str, str]]:
+                  ) -> dict[str, tuple[str, str, str]]:
     """ISIN -> (candidate ticker, FIGI name) for the London listing.
 
     OpenFIGI's public mapping endpoint takes the identifier we already hold
@@ -134,10 +134,26 @@ def from_openfigi(need: pd.DataFrame, session: requests.Session | None = None
         s.headers["X-OPENFIGI-APIKEY"] = key
     isins = [i for i in need["isin"].dropna().astype(str).str.strip().str.upper()
              if len(i) == 12]
-    out: dict[str, tuple[str, str]] = {}
+    out: dict[str, tuple[str, str, str]] = {}
+    # Pass 1 asks for the London listing directly. Pass 2 retries only the
+    # ISINs that came back empty, unscoped, and still keeps LN records ONLY
+    # - a trust's Frankfurt or Amsterdam line is not the security we price.
+    queue = list(isins)
+    for scoped in (True, False):
+        if not queue:
+            break
+        queue = _figi_pass(s, queue, out, scoped=scoped)
+    print(f"openfigi: {len(out)}/{len(isins)} ISINs returned a London ticker")
+    return out
+
+
+def _figi_pass(s: requests.Session, isins: list[str],
+               out: dict[str, tuple[str, str, str]], scoped: bool) -> list[str]:
+    """One sweep; returns the ISINs still unmapped."""
     for start in range(0, len(isins), FIGI_BATCH):
         chunk = isins[start:start + FIGI_BATCH]
-        jobs = [{"idType": "ID_ISIN", "idValue": i, "exchCode": "LN"} for i in chunk]
+        jobs = [{"idType": "ID_ISIN", "idValue": i,
+                 **({"exchCode": "LN"} if scoped else {})} for i in chunk]
         try:
             r = s.post(OPENFIGI_URL, data=json.dumps(jobs), timeout=60)
         except Exception as exc:  # noqa: BLE001
@@ -160,12 +176,45 @@ def from_openfigi(need: pd.DataFrame, session: requests.Session | None = None
         except Exception:  # noqa: BLE001
             body = []
         for isin, res in zip(chunk, body):
-            hit = _figi_pick(res.get("data") or []) if isinstance(res, dict) else None
+            data = (res.get("data") or []) if isinstance(res, dict) else []
+            if not scoped:
+                data = [d for d in data
+                        if str(d.get("exchCode", "")).upper() == "LN"]
+            hit = _figi_pick(data)
             if hit and hit.get("ticker"):
-                out[isin] = (str(hit["ticker"]).upper(), str(hit.get("name") or ""))
+                out[isin] = (str(hit["ticker"]).upper(), str(hit.get("name") or ""),
+                             str(hit.get("securityType") or ""))
         time.sleep(FIGI_SLEEP)
-    print(f"openfigi: {len(out)}/{len(isins)} ISINs returned a London ticker")
-    return out
+    return [i for i in isins if i not in out]
+
+
+FUND_TYPES = ("closed-end fund", "fund", "investment trust", "unit trust",
+              "mutual fund", "reit")
+
+
+def _figi_self_consistent(cand: tuple[str, str, str], names: list[str]) -> bool:
+    """Is an unconfirmed ISIN mapping safe to accept on its own?
+
+    Only when BOTH hold:
+
+    1. the record is typed as a fund. This is the check that carries the
+       weight. The name matcher is deliberately lenient - it has to accept
+       "Chenavari Toro Income Fund" for "CHENAVARI TORO INCOME FUND L" -
+       and lenient enough that it also accepts "BRITISH AMERICAN TOBACCO"
+       for "British & American". Security type does not: a tobacco company
+       is Common Stock, never a Closed-End Fund.
+    2. the name OpenFIGI returns for that ISIN is compatible with the name
+       the registry holds, which catches a wrong or stale ISIN.
+
+    Either alone would let something through; together they are what makes
+    an unverified page acceptable, and the method label keeps the fact that
+    the page was never confirmed on the record.
+    """
+    _ticker, figi_name, sec_type = cand
+    st = sec_type.lower()
+    if not any(t in st for t in FUND_TYPES):
+        return False
+    return any(_tokens_compatible(figi_name, n) for n in names if n)
 
 
 def from_aic_keyfacts(registry: pd.DataFrame, cfg_uk: dict) -> pd.DataFrame:
@@ -301,10 +350,20 @@ def resolve(registry: pd.DataFrame, budget: int = 400) -> pd.DataFrame:
             if got:
                 rec.update(ticker=got[0], verified_name=got[1],
                            method="openfigi_isin+h1", status="verified")
+            elif _figi_self_consistent(cand, names):
+                # Investegate did not confirm the page - it may not carry
+                # this fund under that slug - but the mapping is internally
+                # consistent: the ISIN is this fund's own identifier, the
+                # record is typed a fund rather than an operating company,
+                # and the name it returns for that ISIN is this fund's name.
+                # Accepted, and labelled so the unconfirmed page is visible:
+                # the NAV harvester may still find nothing under this slug.
+                rec.update(ticker=cand[0], verified_name=cand[1],
+                           method="openfigi_isin+figi_name", status="verified")
             else:
-                # the mapping returned something the name check rejects -
-                # keep WHAT it returned so the disagreement is auditable,
-                # but never let an unverified ticker price this fund
+                # the mapping returned something the checks reject - keep
+                # WHAT it returned so the disagreement is auditable, but
+                # never let an unverified ticker price this fund
                 rec["verified_name"] = f"figi_candidate:{cand[0]} ({cand[1]})"
                 rec["status"] = "unresolved_name_mismatch"
         if rec["status"] != "verified":
