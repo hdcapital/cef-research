@@ -30,6 +30,7 @@ jobs:
           python-version: "3.12"
           cache: pip
       - run: pip install -r requirements.txt && pip install -e .
+      - run: python -m pytest tests/test_nav_source_invariants.py -q
       - name: Resolve tickers
         run: python -m cef_live.cli resolve-tickers --budget 400
       - name: Commit resolved tickers

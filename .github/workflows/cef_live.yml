@@ -33,6 +33,9 @@ jobs:
           python-version: "3.12"
           cache: pip
       - run: pip install -r requirements.txt boto3 && pip install -e .
+      # architectural invariants: the registry is identity-only and every
+      # addressable fund is a NAV target. A regression fails the run.
+      - run: python -m pytest tests/test_nav_source_invariants.py -q
 
       # NOTE: restore path lists must EXACTLY match what the source
       # workflows save - actions/cache versions archives by path list.
