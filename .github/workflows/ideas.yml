@@ -1,0 +1,90 @@
+name: cef-ideas
+
+# Pre-open idea scan. Reads the overnight announcement flow, classifies
+# catalysts, checks each fund's dislocation and forward return against the
+# pre-specified hurdle, writes every verdict to the paper-trade ledger, and
+# emails only what clears.
+#
+# Timing: once per market, before its open, so an idea arrives while it can
+# still be acted on. The horizon is months to years - positions built over
+# days or weeks - so nothing here repeats during a session.
+#   UK  06:20 UTC = 07:20 London (RNS opens 07:00, market 08:00)
+#   AU  23:10 UTC = 09:10 Sydney next day (market opens 10:00)
+# Both are UTC-pinned; the Cloudflare scheduler handles DST if it takes
+# these over, and a late run still emails - it just arrives later.
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "20 6 * * 1-5"
+    - cron: "10 23 * * 0-4"
+  push:
+    branches:
+      - "claude/**"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ideas-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  scan:
+    if: github.event_name != 'push' || contains(github.event.head_commit.message, '[ideas]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt boto3 && pip install -e .
+
+      - name: Restore Investegate cache
+        uses: actions/cache/restore@v4
+        with:
+          path: data/investegate_cache
+          key: investegate-v1-${{ github.run_id }}
+          restore-keys: |
+            investegate-v1-
+      - name: Restore announcements cache
+        uses: actions/cache/restore@v4
+        with:
+          path: data/asx_ann_cache
+          key: asx-ann-v1-${{ github.run_id }}
+          restore-keys: |
+            asx-ann-v1-
+
+      # refresh the overnight announcement flow, then judge it
+      - name: Refresh announcements + NAV
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+        run: python -m cef_live.cli nightly --markets au,uk
+
+      - name: Score ideas and email
+        env:
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          ALERT_EMAIL_TO: ${{ secrets.ALERT_EMAIL_TO }}
+        run: python -m cef_live.cli ideas
+
+      - name: Commit ledger + outputs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f data/ledger outputs/live reports/build data/nta_live/latest.parquet || true
+          if git diff --cached --quiet; then
+            echo "no changes"
+          else
+            git commit -m "CI: pre-open idea scan ($(date -u +%Y-%m-%dT%H:%MZ))"
+            for i in 1 2 3 4; do
+              git pull --rebase -X theirs origin "${GITHUB_REF_NAME}" || true
+              if git push origin "HEAD:${GITHUB_REF_NAME}"; then break; fi
+              sleep $((RANDOM % 10 + 4))
+            done
+          fi

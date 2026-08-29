@@ -21,8 +21,8 @@ from pathlib import Path
 import pandas as pd
 import yaml
 
-from . import (catalysts, forward_irr, harvest_nav, nta_live, prices, tickers,
-               universe, universe_report)
+from . import (catalysts, forward_irr, harvest_nav, nta_live, opportunities,
+               prices, tickers, universe, universe_report)
 
 
 def _params() -> dict:
@@ -159,6 +159,89 @@ def universe_sheet() -> int:
     print("emailed:" , sent)
     Path("reports/build/universe_sheet.json").write_text(
         json.dumps({**summary, "emailed": sent, "file": str(path)}, indent=2, default=str))
+    return 0
+
+
+def ideas() -> int:
+    """Pre-open idea scan: catalysts + dislocation + return, emailed.
+
+    Reads what the nightly produced (live table, catalysts, IRR), applies
+    the three pre-specified gates, writes every verdict to the point-in-time
+    ledger, and emails only what clears. Run once per market before its
+    open - the horizon is months to years, so nothing here needs to repeat
+    during a session.
+    """
+    params = _params()
+    live = pd.read_parquet("data/nta_live/latest.parquet")
+    cats = None
+    cp = Path("outputs/live/catalysts_recent.csv")
+    if cp.exists():
+        cats = pd.read_csv(cp)
+    irr = None
+    ip = Path("data/forward_irr/latest.parquet")
+    if ip.exists():
+        irr = pd.read_parquet(ip)
+
+    hurdle_base = None
+    hp = Path("data/processed/monthly_panel.parquet")
+    if hp.exists():
+        hurdle_base = opportunities.universe_trailing_tr(pd.read_parquet(hp))
+
+    verdicts = opportunities.evaluate(live, cats, irr, params, hurdle_base)
+    # ledger write and signal emission are one step: the email is rendered
+    # FROM the ledger rows, so an idea cannot be sent without being recorded
+    rows = opportunities.append_ledger(verdicts, "data/ledger/signals.parquet")
+    Path("outputs/live").mkdir(parents=True, exist_ok=True)
+    if len(verdicts):
+        verdicts.to_csv("outputs/live/ideas_latest.csv", index=False)
+
+    opps = verdicts[verdicts["verdict"] == "OPPORTUNITY"] if len(verdicts) else verdicts
+    watch = verdicts[verdicts["verdict"] == "WATCH"] if len(verdicts) else verdicts
+    summary = {"evaluated": int(len(live)), "opportunities": int(len(opps)),
+               "watch": int(len(watch)), "ledger_rows": rows,
+               "hurdle_base": hurdle_base,
+               "hurdle": None if hurdle_base is None else round(
+                   hurdle_base + params["opportunity"]["irr_hurdle_excess_pp"] / 100.0, 4)}
+    Path("reports/build").mkdir(parents=True, exist_ok=True)
+    Path("reports/build/ideas.json").write_text(json.dumps(summary, indent=2, default=str))
+    print(json.dumps(summary, indent=2, default=str))
+
+    def _fmt(df, head):
+        out = [head]
+        for r in df.itertuples(index=False):
+            out.append(f"\n  {r.name} ({r.market})")
+            out.append(f"    discount {r.discount_est:+.1%}  z {r.z_adj:+.2f}  "
+                       f"IRR {('n/a' if r.irr_central is None else f'{r.irr_central:+.1%}')}"
+                       f"  vs hurdle {('n/a' if r.hurdle is None else f'{r.hurdle:+.1%}')}")
+            if r.catalyst_class:
+                out.append(f"    catalyst: {r.catalyst_class} ({r.catalyst_date}) "
+                           f"- {(r.catalyst_headline or '')[:80]}")
+            gates = [g for g, ok in (("dislocation", r.gate1_dislocation),
+                                     ("catalyst", r.gate2_catalyst),
+                                     ("return", r.gate3_return)) if ok]
+            out.append(f"    gates passed: {', '.join(gates)}")
+        return "\n".join(out)
+
+    from .notify import notify
+    if len(opps) or len(watch):
+        body = []
+        if len(opps):
+            body.append(_fmt(opps, f"{len(opps)} OPPORTUNITY - all three gates:"))
+        if len(watch):
+            body.append(_fmt(watch.head(12), f"\n{len(watch)} WATCH - two of three:"))
+        body.append(f"\n\nHurdle: trailing universe return "
+                    f"{'n/a' if hurdle_base is None else f'{hurdle_base:.1%}'} + "
+                    f"{params['opportunity']['irr_hurdle_excess_pp']:.0f}pp.")
+        body.append("Every verdict above is recorded in the paper-trade ledger "
+                    "at signal time, whether or not you act on it.")
+        notify(f"{len(opps)} opportunity, {len(watch)} watch",
+               "\n".join(body),
+               priority="critical" if len(opps) else "normal")
+    else:
+        notify("no ideas today",
+               f"Scanned {len(live)} funds. Nothing cleared two gates.\n"
+               "Silence here means the scan ran and found nothing, not that "
+               "it failed to run.", priority="heartbeat")
     return 0
 
 
@@ -331,6 +414,7 @@ def main() -> int:
     rt = sub.add_parser("resolve-tickers")
     rt.add_argument("--budget", type=int, default=400)
     sub.add_parser("universe-sheet")
+    sub.add_parser("ideas")
     args = ap.parse_args()
     if args.cmd == "universe":
         return build_universe()
@@ -338,6 +422,8 @@ def main() -> int:
         return resolve_tickers(args.budget)
     if args.cmd == "universe-sheet":
         return universe_sheet()
+    if args.cmd == "ideas":
+        return ideas()
     if args.cmd == "nightly":
         return nightly([m.strip() for m in args.markets.split(",") if m.strip()])
     return 1
