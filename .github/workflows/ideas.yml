@@ -41,6 +41,13 @@ jobs:
           python-version: "3.12"
           cache: pip
       - run: pip install -r requirements.txt boto3 && pip install -e .
+      - name: Restore state from S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+        run: python scripts/sync_state.py pull --groups uk_announcements,asx_index,tickers
       # architectural invariants: the registry is identity-only and every
       # addressable fund is a NAV target. A regression fails the run.
       - run: python -m pytest tests/test_nav_source_invariants.py -q
@@ -75,6 +82,15 @@ jobs:
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           ALERT_EMAIL_TO: ${{ secrets.ALERT_EMAIL_TO }}
         run: python -m cef_live.cli ideas
+
+      - name: Persist state to S3
+        if: always()
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+        run: python scripts/sync_state.py push --groups uk_announcements,asx_index,tickers
 
       - name: Commit ledger + outputs
         run: |

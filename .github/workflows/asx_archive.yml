@@ -52,7 +52,15 @@ jobs:
           python-version: "3.12"
           cache: pip
       - if: steps.creds.outputs.configured == 'true'
-        run: pip install -r requirements.txt && pip install -e . && pip install boto3
+        run: pip install -r requirements.txt boto3 && pip install -e . && pip install boto3
+      - name: Restore state from S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+        run: python scripts/sync_state.py pull --groups asx_index,raw_asx
+
       - name: Restore ASX raw cache
         if: steps.creds.outputs.configured == 'true'
         uses: actions/cache/restore@v4
@@ -77,6 +85,15 @@ jobs:
           SHARD_INDEX: ${{ matrix.shard }}
           SHARD_COUNT: "6"
         run: python scripts/archive_to_s3.py
+      - name: Persist state to S3
+        if: always()
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+        run: python scripts/sync_state.py push --groups asx_index,raw_asx
+
       - name: Commit archive status
         if: steps.creds.outputs.configured == 'true' && github.event_name == 'push'
         run: |

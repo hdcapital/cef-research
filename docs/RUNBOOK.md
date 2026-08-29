@@ -58,3 +58,29 @@ recorded `unresolved` rather than accepted.
   by hand for names that matter.
 - **Stale NAV**: `basis 3` and `staleness_days > 45` exclude a fund from
   ideas by design. A stale NAV must never evidence a dislocation.
+
+## Where state lives
+
+S3 is the system of record for anything expensive to rebuild. The GitHub
+Actions cache is a speed-up that nothing depends on - it is evicted after 7
+days unused or when the repo exceeds 10GB, which is fine for pip wheels and
+unacceptable for a 750k-fetch announcement index.
+
+| Group | Contents | Cost to rebuild |
+|---|---|---|
+| `uk_announcements` | Investegate listings + details | ~750k throttled fetches |
+| `asx_index` | market-wide announcement index + sweep state | ~700 calls |
+| `asx_pdf_extract` | parsed PDF text | ~700 downloads + parsing |
+| `raw_aic` / `raw_asx` | source archive files | a decade of downloads |
+| `tickers` | resolved ticker map | verification passes |
+
+Each group is one tarball at `s3://$S3_BUCKET/state/<group>.tar.gz`, versioned
+by content hash so an unchanged group is not re-uploaded. Every workflow pulls
+what it needs at start and pushes at end with `if: always()`, so state
+survives a failed or cancelled run.
+
+Raw documents (announcement PDFs, NAV announcement text) and daily snapshots
+are separate, append-only, under `asx/`, `uk/` and `nta_live/`.
+
+The repo keeps what benefits from version history: code, config, params, the
+registry, and small analytical outputs. It is not the durability mechanism.
