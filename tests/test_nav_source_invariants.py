@@ -48,6 +48,27 @@ def test_every_addressable_fund_is_a_nav_target():
     assert ordered[:2] == ["HICL", "TRIG"]
 
 
+def test_no_item_budget_truncates_the_addressable_universe():
+    """Ordering every fund is not enough - nothing may cut the list after.
+
+    The ordering helper was already correct; the harvest then took
+    ordered[:400] while the addressable universe had grown to 562, so 162
+    funds were dropped every night by a default constant. A fund missing
+    from the NAV output must always mean it published nothing parseable.
+    """
+    import inspect
+
+    from cef_live import harvest_nav
+
+    default = inspect.signature(harvest_nav.harvest_uk).parameters["budget"].default
+    assert not default, (
+        f"harvest_uk defaults to a {default}-fund cap; funds beyond it are "
+        "never asked for their NAV")
+    src = inspect.getsource(harvest_nav.harvest_uk)
+    assert "ordered[:budget] if budget else ordered" in src, (
+        "the target list is truncated unconditionally")
+
+
 def test_harvest_uk_signature_still_accepts_full_target_set():
     """harvest_uk must keep the parameter that carries registry targets."""
     from cef_live import harvest_nav

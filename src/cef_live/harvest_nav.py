@@ -284,8 +284,9 @@ def parse_uk_nav_text(text: str) -> dict:
 
 
 def harvest_uk(ticker_map: pd.DataFrame, census: pd.DataFrame,
-               lookback_days: int = 7, budget: int = 400,
-               extra_targets: dict[str, str] | None = None) -> pd.DataFrame:
+               lookback_days: int = 7, budget: int = 0,
+               extra_targets: dict[str, str] | None = None,
+               deadline_min: float = 60.0) -> pd.DataFrame:
     """Published NAV for EVERY fund we can address, from its own RNS page.
 
     The registry (AIC/ASX files) is used for identity only. Every live fund
@@ -310,7 +311,14 @@ def harvest_uk(ticker_map: pd.DataFrame, census: pd.DataFrame,
     seen |= set(second)
     rest = [t for t in tick2sid if t not in seen]
     ordered = first + second + rest
-    targets = ordered[:budget]
+    # No item cap by default. A budget of 400 silently dropped 162 funds
+    # once ticker resolution took the addressable universe to 562 - the
+    # precise failure this module's docstring rules out, arriving through
+    # a constant rather than a filter. At 1.5s per fund the whole universe
+    # is ~15 minutes, so wall-clock is the only control that is needed;
+    # politeness is the throttle's job.
+    targets = ordered[:budget] if budget else ordered
+    started = _t.time()
     stats = {"targets": len(targets), "unmapped_tickers": len(unmapped),
              "registry_only_targets": len(extra_targets or {}),
              "listing_fail": 0, "no_recent_nav": 0, "detail_fail": 0,
@@ -325,6 +333,9 @@ def harvest_uk(ticker_map: pd.DataFrame, census: pd.DataFrame,
     cat_cutoff = (datetime.now(timezone.utc) - timedelta(days=45)).date().isoformat()
     ann_rows: list[dict] = []
     for tk in targets:
+        if (_t.time() - started) > deadline_min * 60:
+            stats["deadline_reached_after"] = len(rows)
+            break
         _t.sleep(1.5)
         try:
             r = s.get(f"https://www.investegate.co.uk/company/{tk}", timeout=45)
