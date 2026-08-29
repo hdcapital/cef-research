@@ -1,97 +1,390 @@
 {
   "attempted_total": 571,
-  "verified": 290,
-  "unresolved": 281,
+  "verified": 551,
+  "unresolved": 20,
   "live_uk_funds": 281,
-  "coverage": 1.032,
+  "coverage": 1.9609,
   "announcements_only_total": 105,
-  "announcements_only_resolved": 0,
-  "announcements_only_coverage": 0.0,
-  "announcements_only_resolved_names": [],
-  "announcements_only_unresolved_names": [
+  "announcements_only_resolved": 93,
+  "announcements_only_coverage": 0.8857,
+  "announcements_only_resolved_names": [
     {
       "name": "Achilles Investment Company",
-      "sector": "Flexible Investment",
-      "domicile": "GG"
+      "ticker": "AIC"
     },
     {
       "name": "Alternative Liquidity Fund",
-      "sector": "Hedge Funds",
-      "domicile": "GG"
+      "ticker": "ALF"
     },
     {
       "name": "Ashoka WhiteOak Emerging Markets",
-      "sector": "Global Emerging Markets",
-      "domicile": "GB"
+      "ticker": "AWEM"
     },
     {
       "name": "BH Macro",
-      "sector": "Hedge Funds",
-      "domicile": "GG"
+      "ticker": "BHMU"
     },
     {
       "name": "Baker Steel Resources Trust",
-      "sector": "Commodities & Natural Resources",
-      "domicile": "GG"
+      "ticker": "BSRT"
     },
     {
       "name": "Blackfinch Spring VCT",
-      "sector": "VCT",
-      "domicile": "GB"
-    },
-    {
-      "name": "Bluefield Solar Income Fund",
-      "sector": "Renewable Energy Infrastructure",
-      "domicile": "GG"
+      "ticker": "BFSP"
     },
     {
       "name": "British & American",
-      "sector": "Global Equity Income",
-      "domicile": "GB"
+      "ticker": "BAF"
     },
     {
       "name": "British Smaller Companies VCT",
-      "sector": "VCT",
-      "domicile": "GB"
+      "ticker": "BSV"
     },
     {
       "name": "British Smaller Companies VCT 2",
-      "sector": "VCT",
-      "domicile": "GB"
+      "ticker": "BSC"
     },
     {
       "name": "CT Private Equity Trust",
-      "sector": "Private Equity",
-      "domicile": "GB"
+      "ticker": "CTPE"
     },
     {
       "name": "CVC Income & Growth",
-      "sector": "Debt - Loans & Bonds",
-      "domicile": "JE"
+      "ticker": "CVCG"
     },
     {
       "name": "CVC Income & Growth",
-      "sector": "Debt - Loans & Bonds",
-      "domicile": "JE"
+      "ticker": "CVCE"
     },
     {
       "name": "Calculus VCT",
-      "sector": "VCT",
-      "domicile": "GB"
+      "ticker": "CLC"
     },
     {
       "name": "Canadian General Investments",
-      "sector": "North America",
-      "domicile": "CA"
+      "ticker": "CGI"
     },
     {
       "name": "Castelnau Group",
-      "sector": "Flexible Investment",
-      "domicile": "GG"
+      "ticker": "CGL"
     },
     {
       "name": "Ceiba Investments",
-      "sector": "Property - Rest of World",
+      "ticker": "CBA"
+    },
+    {
+      "name": "Cordiant Digital Infrastructure",
+      "ticker": "CORD"
+    },
+    {
+      "name": "Crystal Amber Fund",
+      "ticker": "CRS"
+    },
+    {
+      "name": "Custodian Property Income REIT",
+      "ticker": "CREI"
+    },
+    {
+      "name": "DP Aircraft I",
+      "ticker": "DPA"
+    },
+    {
+      "name": "EJF Investments",
+      "ticker": "EJFI"
+    },
+    {
+      "name": "EJF Investments",
+      "ticker": "EJFZ"
+    },
+    {
+      "name": "Fair Oaks Income 2021",
+      "ticker": "FAIR"
+    },
+    {
+      "name": "Foresight Enterprise VCT",
+      "ticker": "FTF"
+    },
+    {
+      "name": "Foresight Environmental Infrastructure",
+      "ticker": "FGEN"
+    },
+    {
+      "name": "Foresight Solar Fund",
+      "ticker": "FSFL"
+    },
+    {
+      "name": "Foresight VCT",
+      "ticker": "FTV"
+    },
+    {
+      "name": "Foresight Ventures VCT",
+      "ticker": "FVEN"
+    },
+    {
+      "name": "Gore Street Energy Storage",
+      "ticker": "GSF"
+    },
+    {
+      "name": "Gresham House Energy Storage",
+      "ticker": "GRID"
+    },
+    {
+      "name": "HICL Infrastructure",
+      "ticker": "HICL"
+    },
+    {
+      "name": "HarbourVest Global Private Equity",
+      "ticker": "HVPE"
+    },
+    {
+      "name": "HgCapital Trust",
+      "ticker": "HGT"
+    },
+    {
+      "name": "Home REIT",
+      "ticker": "HOME"
+    },
+    {
+      "name": "ICG-Longbow Senior Secured UK Property Debt Invest",
+      "ticker": "LBOW"
+    },
+    {
+      "name": "India Capital Growth Fund",
+      "ticker": "IGC"
+    },
+    {
+      "name": "International Public Partnerships",
+      "ticker": "INPP"
+    },
+    {
+      "name": "JPEL Private Equity",
+      "ticker": "JPEL"
+    },
+    {
+      "name": "Literacy Capital",
+      "ticker": "BOOK"
+    },
+    {
+      "name": "Living REIT",
+      "ticker": "LIVE"
+    },
+    {
+      "name": "Marwyn Value Investors",
+      "ticker": "MVI"
+    },
+    {
+      "name": "Maven Income and Growth VCT",
+      "ticker": "MIG1"
+    },
+    {
+      "name": "Maven Income and Growth VCT 3",
+      "ticker": "MIG3"
+    },
+    {
+      "name": "Maven Income and Growth VCT 4",
+      "ticker": "MAV4"
+    },
+    {
+      "name": "Molten Ventures",
+      "ticker": "GROW"
+    },
+    {
+      "name": "Neuberger Private Equity Partners",
+      "ticker": "NBPE"
+    },
+    {
+      "name": "NextEnergy Solar Fund",
+      "ticker": "NESF"
+    },
+    {
+      "name": "Northern 2 VCT",
+      "ticker": "NTV"
+    },
+    {
+      "name": "Northern 3 VCT",
+      "ticker": "NTN"
+    },
+    {
+      "name": "Northern Venture Trust",
+      "ticker": "NVT"
+    },
+    {
+      "name": "Octopus Future Generations VCT",
+      "ticker": "OFG"
+    },
+    {
+      "name": "Octopus Renewables Infrastructure Trust",
+      "ticker": "ORIT"
+    },
+    {
+      "name": "Onward Opportunities",
+      "ticker": "ONWD"
+    },
+    {
+      "name": "Oxford Technology 2 VCT - OT1 shares",
+      "ticker": "OT1"
+    },
+    {
+      "name": "Oxford Technology 2 VCT - OT2 shares",
+      "ticker": "OXH"
+    },
+    {
+      "name": "Oxford Technology 2 VCT - OT3 shares",
+      "ticker": "OT3"
+    },
+    {
+      "name": "Oxford Technology 2 VCT - OT4 shares",
+      "ticker": "OT4"
+    },
+    {
+      "name": "PXN Growth VCT",
+      "ticker": "PGV"
+    },
+    {
+      "name": "Pantheon Infrastructure",
+      "ticker": "PINT"
+    },
+    {
+      "name": "Parvus Energy Efficiency Trust",
+      "ticker": "AEET"
+    },
+    {
+      "name": "Pembroke VCT B shares",
+      "ticker": "PEMB"
+    },
+    {
+      "name": "Pershing Square Holdings",
+      "ticker": "PSH"
+    },
+    {
+      "name": "Phoenix Spree Deutschland",
+      "ticker": "PSDL"
+    },
+    {
+      "name": "Puma AIM VCT",
+      "ticker": "PAIM"
+    },
+    {
+      "name": "Puma VCT 13",
+      "ticker": "PU13"
+    },
+    {
+      "name": "Real Estate Credit Investments",
+      "ticker": "RECI"
+    },
+    {
+      "name": "Regional REIT",
+      "ticker": "RGL"
+    },
+    {
+      "name": "Renewables Infrastructure Group",
+      "ticker": "TRIG"
+    },
+    {
+      "name": "Residential Secure Income REIT",
+      "ticker": "RESI"
+    },
+    {
+      "name": "Rights & Issues Investment Trust",
+      "ticker": "RIII"
+    },
+    {
+      "name": "River UK Micro Cap",
+      "ticker": "RMMC"
+    },
+    {
+      "name": "Riverstone Energy",
+      "ticker": "RSE"
+    },
+    {
+      "name": "Ruffer Investment Company",
+      "ticker": "RICA"
+    },
+    {
+      "name": "SDCL Efficiency Income",
+      "ticker": "SEIT"
+    },
+    {
+      "name": "Schroder BSC Social Impact",
+      "ticker": "SBSI"
+    },
+    {
+      "name": "Schroder European Real Estate",
+      "ticker": "SERE"
+    },
+    {
+      "name": "Schroder Real Estate",
+      "ticker": "SREI"
+    },
+    {
+      "name": "Seneca Growth Capital VCT",
+      "ticker": "HYG"
+    },
+    {
+      "name": "Seneca Growth Capital VCT B shares",
+      "ticker": "SVCT"
+    },
+    {
+      "name": "Sequoia Economic Infrastructure Income",
+      "ticker": "SEQI"
+    },
+    {
+      "name": "Seraphim Space Investment Trust",
+      "ticker": "SSIT"
+    },
+    {
+      "name": "Syncona",
+      "ticker": "SYNC"
+    },
+    {
+      "name": "Target Healthcare REIT",
+      "ticker": "THRL"
+    },
+    {
+      "name": "Tritax Big Box REIT",
+      "ticker": "BBOX"
+    },
+    {
+      "name": "TwentyFour Income Fund",
+      "ticker": "TFIF"
+    },
+    {
+      "name": "TwentyFour Select Monthly Income",
+      "ticker": "SMIF"
+    },
+    {
+      "name": "VH Global Energy Infrastructure",
+      "ticker": "ENRG"
+    },
+    {
+      "name": "VPC Specialty Lending Investments",
+      "ticker": "VSL"
+    },
+    {
+      "name": "VietNam Holding",
+      "ticker": "VNH"
+    },
+    {
+      "name": "Vietnam Enterprise Investments",
+      "ticker": "VEIL"
+    },
+    {
+      "name": "VinaCapital Vietnam Opportunity",
+      "ticker": "VOF"
+    },
+    {
+      "name": "Worsley Investors",
+      "ticker": "WINV"
+    },
+    {
+      "name": "abrdn European Logistics Income",
+      "ticker": "ASLI"
+    }
+  ],
+  "announcements_only_unresolved_names": [
+    {
+      "name": "Bluefield Solar Income Fund",
+      "sector": "Renewable Energy Infrastructure",
       "domicile": "GG"
     },
     {
@@ -105,228 +398,13 @@
       "domicile": "GG"
     },
     {
-      "name": "Cordiant Digital Infrastructure",
-      "sector": "Infrastructure",
-      "domicile": "GG"
-    },
-    {
-      "name": "Crystal Amber Fund",
-      "sector": "Flexible Investment",
-      "domicile": "GG"
-    },
-    {
-      "name": "Custodian Property Income REIT",
-      "sector": "Property - UK Commercial",
-      "domicile": "GB"
-    },
-    {
-      "name": "DP Aircraft I",
-      "sector": "Leasing",
-      "domicile": "GG"
-    },
-    {
       "name": "Digital 9 Infrastructure",
       "sector": "Infrastructure",
       "domicile": "JE"
     },
     {
-      "name": "EJF Investments",
-      "sector": "Debt - Structured Finance",
-      "domicile": "JE"
-    },
-    {
-      "name": "EJF Investments",
-      "sector": "Debt - Structured Finance",
-      "domicile": "JE"
-    },
-    {
-      "name": "Fair Oaks Income 2021",
-      "sector": "Debt - Structured Finance",
-      "domicile": "GG"
-    },
-    {
-      "name": "Foresight Enterprise VCT",
-      "sector": "VCT",
-      "domicile": "GB"
-    },
-    {
-      "name": "Foresight Environmental Infrastructure",
-      "sector": "Renewable Energy Infrastructure",
-      "domicile": "GG"
-    },
-    {
-      "name": "Foresight Solar Fund",
-      "sector": "Renewable Energy Infrastructure",
-      "domicile": "JE"
-    },
-    {
-      "name": "Foresight VCT",
-      "sector": "VCT",
-      "domicile": "GB"
-    },
-    {
-      "name": "Foresight Ventures VCT",
-      "sector": "VCT",
-      "domicile": "GB"
-    },
-    {
       "name": "Gabelli Merchant Partners",
       "sector": "Hedge Funds",
-      "domicile": "GB"
-    },
-    {
-      "name": "Gore Street Energy Storage",
-      "sector": "Renewable Energy Infrastructure",
-      "domicile": "GB"
-    },
-    {
-      "name": "Gresham House Energy Storage",
-      "sector": "Renewable Energy Infrastructure",
-      "domicile": "GB"
-    },
-    {
-      "name": "HICL Infrastructure",
-      "sector": "Infrastructure",
-      "domicile": "GB"
-    },
-    {
-      "name": "HarbourVest Global Private Equity",
-      "sector": "Private Equity",
-      "domicile": "GG"
-    },
-    {
-      "name": "HgCapital Trust",
-      "sector": "Private Equity",
-      "domicile": "GB"
-    },
-    {
-      "name": "Home REIT",
-      "sector": "Property - UK Residential",
-      "domicile": "GB"
-    },
-    {
-      "name": "ICG-Longbow Senior Secured UK Property Debt Invest",
-      "sector": "Property - Debt",
-      "domicile": "GG"
-    },
-    {
-      "name": "India Capital Growth Fund",
-      "sector": "India / Indian Subcontinent",
-      "domicile": "GB"
-    },
-    {
-      "name": "International Public Partnerships",
-      "sector": "Infrastructure",
-      "domicile": "GB"
-    },
-    {
-      "name": "JPEL Private Equity",
-      "sector": "Private Equity",
-      "domicile": "GG"
-    },
-    {
-      "name": "Literacy Capital",
-      "sector": "Private Equity",
-      "domicile": "GB"
-    },
-    {
-      "name": "Living REIT",
-      "sector": "Property - UK Residential",
-      "domicile": "GB"
-    },
-    {
-      "name": "Marwyn Value Investors",
-      "sector": "UK Smaller Companies",
-      "domicile": "KY"
-    },
-    {
-      "name": "Maven Income and Growth VCT",
-      "sector": "VCT",
-      "domicile": "GB"
-    },
-    {
-      "name": "Maven Income and Growth VCT 3",
-      "sector": "VCT",
-      "domicile": "GB"
-    },
-    {
-      "name": "Maven Income and Growth VCT 4",
-      "sector": "VCT",
-      "domicile": "GB"
-    },
-    {
-      "name": "Molten Ventures",
-      "sector": "Growth Capital",
-      "domicile": "GB"
-    },
-    {
-      "name": "Neuberger Private Equity Partners",
-      "sector": "Private Equity",
-      "domicile": "GG"
-    },
-    {
-      "name": "NextEnergy Solar Fund",
-      "sector": "Renewable Energy Infrastructure",
-      "domicile": "GG"
-    },
-    {
-      "name": "Northern 2 VCT",
-      "sector": "VCT",
-      "domicile": "GB"
-    },
-    {
-      "name": "Northern 3 VCT",
-      "sector": "VCT",
-      "domicile": "GB"
-    },
-    {
-      "name": "Northern Venture Trust",
-      "sector": "VCT",
-      "domicile": "GB"
-    },
-    {
-      "name": "Octopus Future Generations VCT",
-      "sector": "VCT",
-      "domicile": "GB"
-    },
-    {
-      "name": "Octopus Renewables Infrastructure Trust",
-      "sector": "Renewable Energy Infrastructure",
-      "domicile": "GB"
-    },
-    {
-      "name": "Onward Opportunities",
-      "sector": "UK Smaller Companies",
-      "domicile": "GG"
-    },
-    {
-      "name": "Oxford Technology 2 VCT - OT1 shares",
-      "sector": "VCT",
-      "domicile": "GB"
-    },
-    {
-      "name": "Oxford Technology 2 VCT - OT2 shares",
-      "sector": "VCT",
-      "domicile": "GB"
-    },
-    {
-      "name": "Oxford Technology 2 VCT - OT3 shares",
-      "sector": "VCT",
-      "domicile": "GB"
-    },
-    {
-      "name": "Oxford Technology 2 VCT - OT4 shares",
-      "sector": "VCT",
-      "domicile": "GB"
-    },
-    {
-      "name": "PXN Growth VCT",
-      "sector": "VCT",
-      "domicile": "GB"
-    },
-    {
-      "name": "Pantheon Infrastructure",
-      "sector": "Infrastructure",
       "domicile": "GB"
     },
     {
@@ -335,133 +413,13 @@
       "domicile": "GG"
     },
     {
-      "name": "Parvus Energy Efficiency Trust",
-      "sector": "Renewable Energy Infrastructure",
-      "domicile": "GB"
-    },
-    {
-      "name": "Pembroke VCT B shares",
-      "sector": "VCT",
-      "domicile": "GB"
-    },
-    {
-      "name": "Pershing Square Holdings",
-      "sector": "North America",
-      "domicile": "GG"
-    },
-    {
-      "name": "Phoenix Spree Deutschland",
-      "sector": "Property - Europe",
-      "domicile": "JE"
-    },
-    {
-      "name": "Puma AIM VCT",
-      "sector": "VCT AIM Quoted",
-      "domicile": "GB"
-    },
-    {
-      "name": "Puma VCT 13",
-      "sector": "VCT",
-      "domicile": "GB"
-    },
-    {
       "name": "RTW Biotech Opportunities",
       "sector": "Biotechnology & Healthcare",
       "domicile": "GG"
     },
     {
-      "name": "Real Estate Credit Investments",
-      "sector": "Property - Debt",
-      "domicile": "GB"
-    },
-    {
-      "name": "Regional REIT",
-      "sector": "Property - UK Commercial",
-      "domicile": "GG"
-    },
-    {
-      "name": "Renewables Infrastructure Group",
-      "sector": "Renewable Energy Infrastructure",
-      "domicile": "GG"
-    },
-    {
-      "name": "Residential Secure Income REIT",
-      "sector": "Property - UK Residential",
-      "domicile": "GB"
-    },
-    {
-      "name": "Rights & Issues Investment Trust",
-      "sector": "UK Smaller Companies",
-      "domicile": "GB"
-    },
-    {
-      "name": "River UK Micro Cap",
-      "sector": "UK Smaller Companies",
-      "domicile": "GG"
-    },
-    {
-      "name": "Riverstone Energy",
-      "sector": "Commodities & Natural Resources",
-      "domicile": "GG"
-    },
-    {
-      "name": "Ruffer Investment Company",
-      "sector": "Flexible Investment",
-      "domicile": "GB"
-    },
-    {
-      "name": "SDCL Efficiency Income",
-      "sector": "Renewable Energy Infrastructure",
-      "domicile": "GB"
-    },
-    {
-      "name": "Schroder BSC Social Impact",
-      "sector": "Flexible Investment",
-      "domicile": "GB"
-    },
-    {
-      "name": "Schroder European Real Estate",
-      "sector": "Property - Europe",
-      "domicile": "GB"
-    },
-    {
-      "name": "Schroder Real Estate",
-      "sector": "Property - UK Commercial",
-      "domicile": "GB"
-    },
-    {
-      "name": "Seneca Growth Capital VCT",
-      "sector": "VCT",
-      "domicile": "GB"
-    },
-    {
-      "name": "Seneca Growth Capital VCT B shares",
-      "sector": "VCT",
-      "domicile": "GB"
-    },
-    {
-      "name": "Sequoia Economic Infrastructure Income",
-      "sector": "Infrastructure",
-      "domicile": "GG"
-    },
-    {
-      "name": "Seraphim Space Investment Trust",
-      "sector": "Growth Capital",
-      "domicile": "GB"
-    },
-    {
       "name": "Seraphim Space Investment Trust C shares",
       "sector": "Growth Capital",
-      "domicile": "GB"
-    },
-    {
-      "name": "Syncona",
-      "sector": "Biotechnology & Healthcare",
-      "domicile": "GG"
-    },
-    {
-      "name": "Target Healthcare REIT",
-      "sector": "Property - UK Healthcare",
       "domicile": "GB"
     },
     {
@@ -475,63 +433,13 @@
       "domicile": "GB"
     },
     {
-      "name": "Tritax Big Box REIT",
-      "sector": "Property - UK Logistics",
-      "domicile": "GB"
-    },
-    {
       "name": "Tufton Assets",
       "sector": "Leasing",
       "domicile": "GG"
     },
     {
-      "name": "TwentyFour Income Fund",
-      "sector": "Debt - Structured Finance",
-      "domicile": "GG"
-    },
-    {
-      "name": "TwentyFour Select Monthly Income",
-      "sector": "Debt - Loans & Bonds",
-      "domicile": "GG"
-    },
-    {
       "name": "US Solar Fund",
       "sector": "Renewable Energy Infrastructure",
-      "domicile": "GB"
-    },
-    {
-      "name": "VH Global Energy Infrastructure",
-      "sector": "Renewable Energy Infrastructure",
-      "domicile": "GB"
-    },
-    {
-      "name": "VPC Specialty Lending Investments",
-      "sector": "Debt - Direct Lending",
-      "domicile": "GB"
-    },
-    {
-      "name": "VietNam Holding",
-      "sector": "Country Specialist",
-      "domicile": "GG"
-    },
-    {
-      "name": "Vietnam Enterprise Investments",
-      "sector": "Country Specialist",
-      "domicile": "KY"
-    },
-    {
-      "name": "VinaCapital Vietnam Opportunity",
-      "sector": "Country Specialist",
-      "domicile": "GG"
-    },
-    {
-      "name": "Worsley Investors",
-      "sector": "UK Smaller Companies",
-      "domicile": "GG"
-    },
-    {
-      "name": "abrdn European Logistics Income",
-      "sector": "Property - Europe",
       "domicile": "GB"
     }
   ]
