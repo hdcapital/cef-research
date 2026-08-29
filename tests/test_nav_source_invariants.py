@@ -261,3 +261,34 @@ def test_unconfirmed_isin_mapping_needs_fund_type_not_just_a_name():
     # right type, wrong company - the name check still has to bite
     wrong = ("XYZ", "SOME OTHER TRUST PLC", "Closed-End Fund")
     assert not T._figi_self_consistent(wrong, ["Chenavari Toro Income Fund"])
+
+
+def test_one_broken_ticker_source_does_not_cancel_the_others(monkeypatch, tmp_path):
+    """A source that fails must not take the working ones down with it.
+
+    This is the defect behind four consecutive 0-of-105 runs: the MIR
+    ticker map raised, seed_known returned on the spot, and the keyfacts
+    join below it never executed - silently, so every diagnosis blamed the
+    join it had in fact never run.
+    """
+    import pandas as pd
+
+    from cef_live import tickers as T
+
+    monkeypatch.setattr(T, "CACHE", tmp_path / "cache.csv")
+    reg = pd.DataFrame([{"security_id": "SEDOL:AAA", "name": "Good Trust",
+                         "isin": "GB00AAAAAAA1", "status": "live", "market": "UK"}])
+
+    def boom(_cfg):
+        raise RuntimeError("MIR files not on disk")
+
+    import uk_cef.data_sources.investegate as IG
+    monkeypatch.setattr(IG, "build_ticker_map", boom)
+    monkeypatch.setattr(T, "from_aic_keyfacts", lambda registry, cfg: pd.DataFrame(
+        [{"security_id": "SEDOL:AAA", "ticker": "GDT", "verified_name": "Good Trust",
+          "method": "aic_keyfacts_isin", "status": "verified"}]))
+
+    out = T.seed_known(reg, {"download": {"raw_dir": "x"}})
+    assert (out["security_id"] == "SEDOL:AAA").any(), \
+        "keyfacts result was discarded because an unrelated source failed"
+    assert out.set_index("security_id").loc["SEDOL:AAA", "ticker"] == "GDT"

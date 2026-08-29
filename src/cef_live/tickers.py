@@ -283,12 +283,20 @@ def seed_known(registry: pd.DataFrame, cfg_uk: dict | None) -> pd.DataFrame:
         columns=["security_id", "ticker", "verified_name", "method", "status"])
     if cfg_uk is None:
         return cache
+    # Each source is attempted INDEPENDENTLY and reports its own failure.
+    # A bare `return cache` here is what actually caused four consecutive
+    # 0-of-105 runs: the MIR map raised (this workflow restores only the
+    # small raw_aic state group, so the MIR files are not on disk), the
+    # function returned before the keyfacts join was ever reached, and
+    # nothing said so. One source being unavailable must never silently
+    # cancel the others.
     try:
         from uk_cef.data_sources.investegate import build_ticker_map
         tmap = build_ticker_map(cfg_uk)
-    except Exception:  # noqa: BLE001
-        return cache
-    tmap = tmap[tmap["ticker"].notna()]
+        tmap = tmap[tmap["ticker"].notna()]
+    except Exception as exc:  # noqa: BLE001
+        print(f"mir ticker map unavailable ({type(exc).__name__}: {exc})")
+        tmap = pd.DataFrame(columns=["security_id", "ticker"])
     # skip only funds already VERIFIED - a row cached as unresolved by an
     # earlier attempt must not block a better source from filling it in,
     # which is exactly how 105 keyfacts tickers were silently discarded
