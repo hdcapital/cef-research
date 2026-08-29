@@ -363,12 +363,21 @@ def nightly(markets: list[str]) -> int:
                     rg = pd.read_parquet(rp)
                     rt = pd.read_csv(tp2)
                     rt = rt[rt["status"] == "verified"]
-                    need = rg[(rg["status"] == "live") & (rg["market"] == "UK")
-                              & (rg["nav_route"] == "announcements_only")]
+                    # EVERY live UK fund with a ticker - the registry gives
+                    # identity, the fund's own announcements give the NAV
+                    need = rg[(rg["status"] == "live") & (rg["market"] == "UK")]
                     m = need.merge(rt[["security_id", "ticker"]],
                                    on="security_id", how="inner")
-                    extra = dict(zip(m["ticker"].astype(str).str.upper(),
-                                     m["security_id"]))
+                    tmap = pd.concat([
+                        tmap, m[["security_id", "ticker"]]], ignore_index=True
+                    ).drop_duplicates("security_id", keep="last")
+                    # priority: funds the registry never prices go first
+                    ao = m[m["security_id"].isin(set(
+                        rg.loc[rg["nav_route"] == "announcements_only",
+                               "security_id"]))]
+                    extra = dict(zip(ao["ticker"].astype(str).str.upper(),
+                                     ao["security_id"]))
+                    notes["markets"]["uk_nav_targets"] = int(len(m))
                     notes["markets"]["uk_registry_only_targets"] = len(extra)
                 if tmap is not None and (len(census) or extra):
                     try:

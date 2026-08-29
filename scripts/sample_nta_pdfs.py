@@ -104,9 +104,26 @@ def throttled_get(s: requests.Session, url: str, **kw) -> requests.Response:
 
 
 def sweep_index(s: requests.Session, codes: set[str], counters: dict) -> pd.DataFrame:
-    """Backward sweep of the market-wide announcement index; keep our codes."""
+    """Backward sweep of the market-wide announcement index; keep our codes.
+
+    The kept-code set is recorded in the sweep state. If the registry later
+    gains codes (a fund lists, or entity resolution improves), the history
+    is re-swept for them rather than leaving those funds permanently absent
+    from the index - which is how UWC, AIX, MRE, PCX and WHI ended up with
+    no announcements and therefore no Tier 0 NAV.
+    """
+    import hashlib
     frames = [pd.read_parquet(INDEX_F)] if INDEX_F.exists() else []
     state = json.loads(STATE_F.read_text()) if STATE_F.exists() else {}
+    code_sig = hashlib.md5(",".join(sorted(codes)).encode()).hexdigest()[:12]
+    if state.get("code_sig") and state["code_sig"] != code_sig:
+        have = set(frames[0]["code"]) if frames else set()
+        new_codes = codes - have
+        if new_codes:
+            print(f"registry gained {len(new_codes)} codes since last sweep "
+                  f"({sorted(new_codes)[:8]}...); re-sweeping history")
+            state = {"hist_done": False, "earliest_ms": None}
+            counters["resweep_for_new_codes"] = sorted(new_codes)
     # two frontiers: history (sweep back to EARLIEST once) and the live top
     hist_done = state.get("hist_done", False)
     end_ms = state.get("earliest_ms")  # resume point for the history sweep
@@ -151,10 +168,12 @@ def sweep_index(s: requests.Session, codes: set[str], counters: dict) -> pd.Data
             if top_pass_calls > 60:
                 break
         else:
-            state = {"hist_done": False, "earliest_ms": end_ms}
+            state = {"hist_done": False, "earliest_ms": end_ms,
+                     "code_sig": code_sig}
             STATE_F.write_text(json.dumps(state))
             if oldest.tz_convert("Australia/Sydney") < EARLIEST:
                 state["hist_done"] = True
+                state["code_sig"] = code_sig
                 STATE_F.write_text(json.dumps(state))
                 break
     else:
