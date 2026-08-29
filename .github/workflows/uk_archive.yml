@@ -18,9 +18,6 @@ on:
 permissions:
   contents: write
 
-concurrency:
-  group: uk-archive-${{ github.ref }}-${{ matrix.shard }}
-  cancel-in-progress: false
 
 jobs:
   archive:
@@ -30,6 +27,9 @@ jobs:
       fail-fast: false
       matrix:
         shard: [0, 1, 2, 3, 4, 5]
+    concurrency:
+      group: uk-archive-${{ github.ref }}-${{ matrix.shard }}
+      cancel-in-progress: false
 
     timeout-minutes: 340
     steps:
