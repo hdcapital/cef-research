@@ -120,3 +120,30 @@ def test_index_sweep_resweeps_when_registry_gains_codes():
     assert "code_sig" in src, "sweep must record which codes it kept"
     assert "re-sweeping history" in src, (
         "sweep must re-run history when the registry gains codes")
+
+
+@pytest.mark.parametrize("script", [
+    "scripts/archive_to_s3.py",
+    "scripts/archive_uk_navs.py",
+    "scripts/sync_state.py",
+])
+def test_archive_scripts_actually_execute(script, monkeypatch):
+    """Import each archive script for real, not just parse it.
+
+    A botched edit once produced `PDF_# comment` on one line and
+    `BUDGET = ...` on the next: valid syntax, so ast.parse passed, but a
+    NameError at import that killed shards after they had been dispatched.
+    Parsing is not enough - the module has to run.
+    """
+    import importlib.util
+    import sys
+
+    monkeypatch.setenv("SHARD_INDEX", "0")
+    monkeypatch.setenv("SHARD_COUNT", "8")
+    monkeypatch.setattr(sys, "argv", ["test"])
+    spec = importlib.util.spec_from_file_location("_probe", script)
+    module = importlib.util.module_from_spec(spec)
+    try:
+        spec.loader.exec_module(module)
+    except SystemExit:
+        pass          # argv-driven scripts may exit on usage; that is fine

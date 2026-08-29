@@ -50,11 +50,6 @@ if SHARD >= SHARDS:
         "The matrix size and SHARD_COUNT must match, or shards silently "
         "duplicate each other's work.")
 THROTTLE = 1.5
-PDF_# 0 = unlimited. The wall-clock deadline is the real control:
-# it protects the 6h job cap directly, whereas an item budget is
-# only a guess at how many items fit in that window - and it guessed
-# low, stopping shards with hours to spare. Politeness is the
-# throttle's job, not the budget's.
 # 0 = unlimited. The wall-clock deadline is the real control: it
 # protects the 6h job cap directly, whereas an item budget only
 # guesses how many items fit in that window - and it guessed low,
