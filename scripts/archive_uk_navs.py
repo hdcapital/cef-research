@@ -44,6 +44,11 @@ BUCKET = os.environ.get("S3_BUCKET", "")
 # covers what would otherwise need many nightly restarts
 SHARD = int(os.environ.get("SHARD_INDEX", "0"))
 SHARDS = max(1, int(os.environ.get("SHARD_COUNT", "1")))
+if SHARD >= SHARDS:
+    raise SystemExit(
+        f"SHARD_INDEX out of range: {SHARD} with SHARD_COUNT={SHARDS}. "
+        "The matrix size and SHARD_COUNT must match, or shards silently "
+        "duplicate each other's work.")
 # 0 = unlimited. The wall-clock deadline is the real control:
 # it protects the 6h job cap directly, whereas an item budget is
 # only a guess at how many items fit in that window - and it guessed
@@ -82,11 +87,22 @@ def main() -> int:
     if BUCKET:
         import boto3
         s3 = boto3.client("s3", region_name=os.environ.get("AWS_REGION"))
+        # union every manifest under the prefix, whatever shard layout wrote
+        # it - progress must survive a change in shard count
+        manifests = 0
         try:
-            done = set(json.loads(
-                s3.get_object(Bucket=BUCKET, Key=MANIFEST_KEY)["Body"].read()).get("ids", []))
-        except Exception:  # noqa: BLE001
-            done = set()
+            for page in s3.get_paginator("list_objects_v2").paginate(
+                    Bucket=BUCKET, Prefix="uk/nav_announcements/manifest"):
+                for o in page.get("Contents", []):
+                    try:
+                        body = s3.get_object(Bucket=BUCKET, Key=o["Key"])["Body"].read()
+                        done |= set(json.loads(body).get("ids", []))
+                        manifests += 1
+                    except Exception:  # noqa: BLE001
+                        continue
+            print(f"read {manifests} manifest(s)")
+        except Exception as exc:  # noqa: BLE001
+            print(f"manifest listing failed ({exc}); starting from empty")
     print(f"manifest: {len(done)} NAV announcements already archived")
 
     # work queue from the existing listings index, newest first

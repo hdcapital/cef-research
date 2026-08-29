@@ -44,6 +44,11 @@ BUCKET = os.environ.get("S3_BUCKET", "")
 # shards can never clobber each other's progress.
 SHARD = int(os.environ.get("SHARD_INDEX", "0"))
 SHARDS = max(1, int(os.environ.get("SHARD_COUNT", "1")))
+if SHARD >= SHARDS:
+    raise SystemExit(
+        f"SHARD_INDEX out of range: {SHARD} with SHARD_COUNT={SHARDS}. "
+        "The matrix size and SHARD_COUNT must match, or shards silently "
+        "duplicate each other's work.")
 THROTTLE = 1.5
 PDF_# 0 = unlimited. The wall-clock deadline is the real control:
 # it protects the 6h job cap directly, whereas an item budget is
@@ -106,24 +111,25 @@ def main() -> int:
         return 0
 
     # ---- 3. announcement PDFs, resumable via bucket-held manifest ----
+    # Union every manifest under the prefix, whatever shard layout wrote it.
+    # The key embeds the shard count, so without this a change from 6 to 8
+    # shards would orphan the old manifests and re-fetch everything already
+    # archived. Progress must survive re-sharding.
+    done: set[str] = set()
+    manifests = 0
     try:
-        obj = s3.get_object(Bucket=BUCKET, Key=MANIFEST_KEY)
-        done = set(json.loads(obj["Body"].read()).get("ids", []))
-    except s3.exceptions.NoSuchKey:
-        # first sharded run: seed from the pre-sharding single manifest so
-        # already-archived documents are never re-fetched
-        done = set()
-        if SHARDS > 1:
-            try:
-                legacy = s3.get_object(Bucket=BUCKET,
-                                       Key="asx/index/uploaded_manifest.json")
-                done = set(json.loads(legacy["Body"].read()).get("ids", []))
-                print(f"seeded shard from legacy manifest: {len(done)} ids")
-            except Exception:  # noqa: BLE001
-                pass
+        for page in s3.get_paginator("list_objects_v2").paginate(
+                Bucket=BUCKET, Prefix="asx/index/uploaded_manifest"):
+            for o in page.get("Contents", []):
+                try:
+                    body = s3.get_object(Bucket=BUCKET, Key=o["Key"])["Body"].read()
+                    done |= set(json.loads(body).get("ids", []))
+                    manifests += 1
+                except Exception:  # noqa: BLE001
+                    continue
     except Exception as exc:  # noqa: BLE001
-        print(f"manifest read failed ({exc}); assuming empty")
-        done = set()
+        print(f"manifest listing failed ({exc}); starting from empty")
+    print(f"read {manifests} manifest(s)")
     print(f"manifest: {len(done)} PDFs already archived")
 
     idx = pd.read_parquet(INDEX_F)
