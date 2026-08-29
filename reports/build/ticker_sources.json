@@ -1,0 +1,1393 @@
+{
+  "announcements_only_funds": 105,
+  "with_isin": 105,
+  "keyfacts": {
+    "rows": 101891,
+    "columns": [
+      "company_name",
+      "domicile",
+      "ftse_index",
+      "fund_of_funds",
+      "isin",
+      "listing",
+      "manager",
+      "market_cap_m",
+      "member",
+      "obs_month",
+      "s1158",
+      "sector",
+      "source_file",
+      "ticker",
+      "total_assets_m"
+    ],
+    "distinct_funds": 1626,
+    "rows_with_ticker": 55078,
+    "target_isins_present_in_file": 104,
+    "target_isins_with_ticker": 104,
+    "target_names_present_in_file": 101,
+    "sample_rows": [
+      {
+        "source_file": "2007-01_keyfacts_AIC Companies end Jan 07.xls",
+        "company_name": "Aberdeen All Asia",
+        "sector": "Asia Pacific - Including Japan",
+        "manager": "Aberdeen",
+        "total_assets_m": 41.618,
+        "market_cap_m": 36.377,
+        "domicile": "UK",
+        "obs_month": "2007-01",
+        "member": NaN,
+        "s1158": NaN,
+        "listing": NaN,
+        "fund_of_funds": NaN,
+        "isin": NaN,
+        "ticker": NaN,
+        "ftse_index": NaN
+      },
+      {
+        "source_file": "2007-01_keyfacts_AIC Companies end Jan 07.xls",
+        "company_name": "Aberdeen Asian Income",
+        "sector": "Asia Pacific - Excluding Japan",
+        "manager": "Aberdeen",
+        "total_assets_m": 137.152,
+        "market_cap_m": 120.725,
+        "domicile": "JER",
+        "obs_month": "2007-01",
+        "member": NaN,
+        "s1158": NaN,
+        "listing": NaN,
+        "fund_of_funds": NaN,
+        "isin": NaN,
+        "ticker": NaN,
+        "ftse_index": NaN
+      },
+      {
+        "source_file": "2007-01_keyfacts_AIC Companies end Jan 07.xls",
+        "company_name": "Aberdeen Asian Smaller Companies",
+        "sector": "Asia Pacific - Excluding Japan",
+        "manager": "Aberdeen",
+        "total_assets_m": 124.007,
+        "market_cap_m": 101.078,
+        "domicile": "UK",
+        "obs_month": "2007-01",
+        "member": NaN,
+        "s1158": NaN,
+        "listing": NaN,
+        "fund_of_funds": NaN,
+        "isin": NaN,
+        "ticker": NaN,
+        "ftse_index": NaN
+      }
+    ]
+  },
+  "openfigi": {
+    "sample_isins": [
+      "GG00BT3GKD08",
+      "GG00BYRGPD65",
+      "GB00BMZR7D19",
+      "GG00BQBFY479",
+      "GG00B6686L20",
+      "GB00BKV46W45",
+      "GG00BB0RDB98",
+      "GB0000653112",
+      "GB0001403152",
+      "GB0005001796"
+    ],
+    "exch_LN": {
+      "http": 200,
+      "body": [
+        {
+          "data": [
+            {
+              "figi": "BBG01SCHZLH3",
+              "name": "ACHILLES INVESTMENT CO LTD",
+              "ticker": "AIC",
+              "exchCode": "LN",
+              "compositeFIGI": "BBG01SCHZLG4",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01SCHZLW6",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AIC"
+            }
+          ]
+        },
+        {
+          "data": [
+            {
+              "figi": "BBG00B0JXX59",
+              "name": "ALTERNATIVE LIQUIDITY FUND L",
+              "ticker": "ALF",
+              "exchCode": "LN",
+              "compositeFIGI": "BBG00B0JXX31",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALF"
+            }
+          ]
+        },
+        {
+          "data": [
+            {
+              "figi": "BBG01G69CHN1",
+              "name": "ASHOKA WHITEOAK EMERGING MAR",
+              "ticker": "AWEM",
+              "exchCode": "LN",
+              "compositeFIGI": "BBG01G69CHM2",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01G69CHR7",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AWEM"
+            }
+          ]
+        },
+        {
+          "data": [
+            {
+              "figi": "BBG000R0VBD6",
+              "name": "BH MACRO LTD - USD",
+              "ticker": "BHMU",
+              "exchCode": "LN",
+              "compositeFIGI": "BBG000R0V9M1",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG001SQDMR7",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "BHMU"
+            }
+          ]
+        },
+        {
+          "data": [
+            {
+              "figi": "BBG000QTFLM0",
+              "name": "BAKER STEEL RESOURCES TRUST",
+              "ticker": "BSRT",
+              "exchCode": "LN",
+              "compositeFIGI": "BBG000QTFL13",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG001T8LF74",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "BSRT"
+            }
+          ]
+        },
+        {
+          "data": [
+            {
+              "figi": "BBG00T2MK020",
+              "name": "BLACKFINCH SPRING VCT PLC",
+              "ticker": "BFSP",
+              "exchCode": "LN",
+              "compositeFIGI": "BBG00T2MK011",
+              "securityType": "Common Stock",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00T2MK057",
+              "securityType2": "Common Stock",
+              "securityDescription": "BFSP"
+            }
+          ]
+        },
+        {
+          "warning": "No identifier found."
+        },
+        {
+          "data": [
+            {
+              "figi": "BBG000BTBJY2",
+              "name": "BRITISH & AMERICAN INVEST TR",
+              "ticker": "BAF",
+              "exchCode": "LN",
+              "compositeFIGI": "BBG000BTBJL6",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG001S71TD2",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "BAF"
+            }
+          ]
+        },
+        {
+          "data": [
+            {
+              "figi": "BBG000GJN1R3",
+              "name": "BRITISH SMALLER COS VCT PLC",
+              "ticker": "BSV",
+              "exchCode": "LN",
+              "compositeFIGI": "BBG000GJN0Y7",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG001S8W2Q1",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "BSV"
+            }
+          ]
+        },
+        {
+          "data": [
+            {
+              "figi": "BBG000HJ37G3",
+              "name": "BRITISH SMALLER COMPANIES VC",
+              "ticker": "BSC",
+              "exchCode": "LN",
+              "compositeFIGI": "BBG000HJ25Q7",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG001SHQ4T1",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "BSC"
+            }
+          ]
+        }
+      ]
+    },
+    "unscoped": {
+      "http": 200,
+      "body": [
+        {
+          "data": [
+            {
+              "figi": "BBG01SCHZLH3",
+              "name": "ACHILLES INVESTMENT CO LTD",
+              "ticker": "AIC",
+              "exchCode": "LN",
+              "compositeFIGI": "BBG01SCHZLG4",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01SCHZLW6",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AIC"
+            },
+            {
+              "figi": "BBG01SJ2J3B3",
+              "name": "ACHILLES INVESTMENT CO LTD",
+              "ticker": "AICL",
+              "exchCode": "TQ",
+              "compositeFIGI": "BBG01SJ2J396",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01SCHZLW6",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AICL"
+            },
+            {
+              "figi": "BBG01SJ32640",
+              "name": "ACHILLES INVESTMENT CO LTD",
+              "ticker": "AICGBX",
+              "exchCode": "EP",
+              "compositeFIGI": "BBG01SJ32631",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01SCHZLW6",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AICGBX"
+            },
+            {
+              "figi": "BBG01SJ32686",
+              "name": "ACHILLES INVESTMENT CO LTD",
+              "ticker": "AICGBX",
+              "exchCode": "EZ",
+              "compositeFIGI": "BBG01SJ32677",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01SCHZLW6",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AICGBX"
+            },
+            {
+              "figi": "BBG01SJ326X8",
+              "name": "ACHILLES INVESTMENT CO LTD",
+              "ticker": "AICGBX",
+              "exchCode": "EO",
+              "compositeFIGI": "BBG01SJ326X8",
+              "securityType": "Common Stock",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01SCHZLW6",
+              "securityType2": "Common Stock",
+              "securityDescription": "AICGBX"
+            },
+            {
+              "figi": "BBG01SJ326Y7",
+              "name": "ACHILLES INVESTMENT CO LTD",
+              "ticker": "AICGBX",
+              "exchCode": "X2",
+              "compositeFIGI": "BBG01SJ326X8",
+              "securityType": "Common Stock",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01SCHZLW6",
+              "securityType2": "Common Stock",
+              "securityDescription": "AICGBX"
+            },
+            {
+              "figi": "BBG01SJ32702",
+              "name": "ACHILLES INVESTMENT CO LTD",
+              "ticker": "AICGBX",
+              "exchCode": "XH",
+              "compositeFIGI": "BBG01SJ326X8",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01SCHZLW6",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AICGBX"
+            },
+            {
+              "figi": "BBG01SJ32757",
+              "name": "ACHILLES INVESTMENT CO LTD",
+              "ticker": "AICGBX",
+              "exchCode": "XJ",
+              "compositeFIGI": "BBG01SJ326X8",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01SCHZLW6",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AICGBX"
+            },
+            {
+              "figi": "BBG01SJ32766",
+              "name": "ACHILLES INVESTMENT CO LTD",
+              "ticker": "AICGBX",
+              "exchCode": "XL",
+              "compositeFIGI": "BBG01SJ326X8",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01SCHZLW6",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AICGBX"
+            },
+            {
+              "figi": "BBG01SJ32775",
+              "name": "ACHILLES INVESTMENT CO LTD",
+              "ticker": "AICGBX",
+              "exchCode": "XG",
+              "compositeFIGI": "BBG01SJ326X8",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01SCHZLW6",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AICGBX"
+            },
+            {
+              "figi": "BBG01SJ32784",
+              "name": "ACHILLES INVESTMENT CO LTD",
+              "ticker": "AICGBX",
+              "exchCode": "XO",
+              "compositeFIGI": "BBG01SJ326X8",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01SCHZLW6",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AICGBX"
+            },
+            {
+              "figi": "BBG01SJ327D8",
+              "name": "ACHILLES INVESTMENT CO LTD",
+              "ticker": "AICGBX",
+              "exchCode": "XA",
+              "compositeFIGI": "BBG01SJ326X8",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01SCHZLW6",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AICGBX"
+            },
+            {
+              "figi": "BBG01SJ327F6",
+              "name": "ACHILLES INVESTMENT CO LTD",
+              "ticker": "AICGBX",
+              "exchCode": "E1",
+              "compositeFIGI": "BBG01SJ326X8",
+              "securityType": "Common Stock",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01SCHZLW6",
+              "securityType2": "Common Stock",
+              "securityDescription": "AICGBX"
+            },
+            {
+              "figi": "BBG01SJ327H4",
+              "name": "ACHILLES INVESTMENT CO LTD",
+              "ticker": "AICGBX",
+              "exchCode": "XW",
+              "compositeFIGI": "BBG01SJ326X8",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01SCHZLW6",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AICGBX"
+            },
+            {
+              "figi": "BBG01SJ327J2",
+              "name": "ACHILLES INVESTMENT CO LTD",
+              "ticker": "AICGBX",
+              "exchCode": "XU",
+              "compositeFIGI": "BBG01SJ326X8",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01SCHZLW6",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AICGBX"
+            },
+            {
+              "figi": "BBG01SJ327L9",
+              "name": "ACHILLES INVESTMENT CO LTD",
+              "ticker": "AICGBX",
+              "exchCode": "XV",
+              "compositeFIGI": "BBG01SJ326X8",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01SCHZLW6",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AICGBX"
+            },
+            {
+              "figi": "BBG01SJ327N7",
+              "name": "ACHILLES INVESTMENT CO LTD",
+              "ticker": "AICGBX",
+              "exchCode": "XQ",
+              "compositeFIGI": "BBG01SJ326X8",
+              "securityType": "Common Stock",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01SCHZLW6",
+              "securityType2": "Common Stock",
+              "securityDescription": "AICGBX"
+            },
+            {
+              "figi": "BBG01SJ327P5",
+              "name": "ACHILLES INVESTMENT CO LTD",
+              "ticker": "AICGBX",
+              "exchCode": "XX",
+              "compositeFIGI": "BBG01SJ326X8",
+              "securityType": "Common Stock",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01SCHZLW6",
+              "securityType2": "Common Stock",
+              "securityDescription": "AICGBX"
+            },
+            {
+              "figi": "BBG01SJ327Q4",
+              "name": "ACHILLES INVESTMENT CO LTD",
+              "ticker": "AICGBX",
+              "exchCode": "XZ",
+              "compositeFIGI": "BBG01SJ326X8",
+              "securityType": "Common Stock",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01SCHZLW6",
+              "securityType2": "Common Stock",
+              "securityDescription": "AICGBX"
+            },
+            {
+              "figi": "BBG01SJ327S2",
+              "name": "ACHILLES INVESTMENT CO LTD",
+              "ticker": "AICGBX",
+              "exchCode": "X1",
+              "compositeFIGI": "BBG01SJ326X8",
+              "securityType": "Common Stock",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01SCHZLW6",
+              "securityType2": "Common Stock",
+              "securityDescription": "AICGBX"
+            },
+            {
+              "figi": "BBG01SJ327Z4",
+              "name": "ACHILLES INVESTMENT CO LTD",
+              "ticker": "AICGBX",
+              "exchCode": "EU",
+              "compositeFIGI": "BBG01SJ327Y5",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01SCHZLW6",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AICGBX"
+            },
+            {
+              "figi": "BBG01SJXSBF3",
+              "name": "ACHILLES INVESTMENT CO LTD",
+              "ticker": "AICL",
+              "exchCode": "S1",
+              "compositeFIGI": "BBG01SJXSBD5",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01SCHZLW6",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AICL"
+            },
+            {
+              "figi": "BBG01SNCJ3L5",
+              "name": "ACHILLES INVESTMENT CO LTD",
+              "ticker": "AICL",
+              "exchCode": "PO",
+              "compositeFIGI": "BBG01SNCJ3J8",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01SCHZLW6",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AICL"
+            },
+            {
+              "figi": "BBG01SNCJ451",
+              "name": "ACHILLES INVESTMENT CO LTD",
+              "ticker": "AICL",
+              "exchCode": "L1",
+              "compositeFIGI": "BBG01SNCJ442",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01SCHZLW6",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AICL"
+            },
+            {
+              "figi": "BBG01SNCJ4H8",
+              "name": "ACHILLES INVESTMENT CO LTD",
+              "ticker": "AICL",
+              "exchCode": "L3",
+              "compositeFIGI": "BBG01SNCJ4G9",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01SCHZLW6",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AICL"
+            },
+            {
+              "figi": "BBG01SNCJ4Y9",
+              "name": "ACHILLES INVESTMENT CO LTD",
+              "ticker": "AICL",
+              "exchCode": "B3",
+              "compositeFIGI": "BBG01SNCJ4X0",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01SCHZLW6",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AICL"
+            }
+          ]
+        },
+        {
+          "data": [
+            {
+              "figi": "BBG00B0JXX59",
+              "name": "ALTERNATIVE LIQUIDITY FUND L",
+              "ticker": "ALF",
+              "exchCode": "LN",
+              "compositeFIGI": "BBG00B0JXX31",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALF"
+            },
+            {
+              "figi": "BBG00B0MQLH3",
+              "name": "ALTERNATIVE LIQUIDITY FUND L",
+              "ticker": "ALFUSD",
+              "exchCode": "EO",
+              "compositeFIGI": "BBG00B0MQLH3",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALFUSD"
+            },
+            {
+              "figi": "BBG00B0MQLL8",
+              "name": "ALTERNATIVE LIQUIDITY FUND L",
+              "ticker": "ALFUSD",
+              "exchCode": "EU",
+              "compositeFIGI": "BBG00B0MQLJ1",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALFUSD"
+            },
+            {
+              "figi": "BBG00B0MQLN6",
+              "name": "ALTERNATIVE LIQUIDITY FUND L",
+              "ticker": "ALFUSD",
+              "exchCode": "XH",
+              "compositeFIGI": "BBG00B0MQLH3",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALFUSD"
+            },
+            {
+              "figi": "BBG00B0MQLQ3",
+              "name": "ALTERNATIVE LIQUIDITY FUND L",
+              "ticker": "ALFUSD",
+              "exchCode": "XF",
+              "compositeFIGI": "BBG00B0MQLH3",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALFUSD"
+            },
+            {
+              "figi": "BBG00B0MQLT0",
+              "name": "ALTERNATIVE LIQUIDITY FUND",
+              "ticker": "ALFUSD",
+              "exchCode": "XE",
+              "compositeFIGI": "BBG00B0MQLH3",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALFUSD"
+            },
+            {
+              "figi": "BBG00B0MQLW6",
+              "name": "ALTERNATIVE LIQUIDITY FUND L",
+              "ticker": "ALFUSD",
+              "exchCode": "XJ",
+              "compositeFIGI": "BBG00B0MQLH3",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALFUSD"
+            },
+            {
+              "figi": "BBG00B0MQLY4",
+              "name": "ALTERNATIVE LIQUIDITY FUND L",
+              "ticker": "ALFUSD",
+              "exchCode": "XL",
+              "compositeFIGI": "BBG00B0MQLH3",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALFUSD"
+            },
+            {
+              "figi": "BBG00B0MQM09",
+              "name": "ALTERNATIVE LIQUIDITY FUND L",
+              "ticker": "ALFUSD",
+              "exchCode": "XG",
+              "compositeFIGI": "BBG00B0MQLH3",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALFUSD"
+            },
+            {
+              "figi": "BBG00B0MQM27",
+              "name": "ALTERNATIVE LIQUIDITY FUND L",
+              "ticker": "ALFUSD",
+              "exchCode": "XO",
+              "compositeFIGI": "BBG00B0MQLH3",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALFUSD"
+            },
+            {
+              "figi": "BBG00B0MQMB7",
+              "name": "ALTERNATIVE LIQUIDITY FUND",
+              "ticker": "ALFUSD",
+              "exchCode": "XS",
+              "compositeFIGI": "BBG00B0MQLH3",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALFUSD"
+            },
+            {
+              "figi": "BBG00B0MQMD5",
+              "name": "ALTERNATIVE LIQUIDITY FUND L",
+              "ticker": "ALFUSD",
+              "exchCode": "XA",
+              "compositeFIGI": "BBG00B0MQLH3",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALFUSD"
+            },
+            {
+              "figi": "BBG00B0MQMG2",
+              "name": "ALTERNATIVE LIQUIDITY FUND L",
+              "ticker": "ALFUSD",
+              "exchCode": "E1",
+              "compositeFIGI": "BBG00B0MQLH3",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALFUSD"
+            },
+            {
+              "figi": "BBG00B0MQML6",
+              "name": "ALTERNATIVE LIQUIDITY FUND L",
+              "ticker": "ALFUSD",
+              "exchCode": "XW",
+              "compositeFIGI": "BBG00B0MQLH3",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALFUSD"
+            },
+            {
+              "figi": "BBG00B0MQMN4",
+              "name": "ALTERNATIVE LIQUIDITY FUND L",
+              "ticker": "ALFUSD",
+              "exchCode": "XU",
+              "compositeFIGI": "BBG00B0MQLH3",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALFUSD"
+            },
+            {
+              "figi": "BBG00B0MQMQ1",
+              "name": "ALTERNATIVE LIQUIDITY FUND L",
+              "ticker": "ALFUSD",
+              "exchCode": "XV",
+              "compositeFIGI": "BBG00B0MQLH3",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALFUSD"
+            },
+            {
+              "figi": "BBG00BCH20M7",
+              "name": "ALTERNATIVE LIQUIDITY FUND L",
+              "ticker": "ALFL",
+              "exchCode": "L3",
+              "compositeFIGI": "BBG00BCH20L8",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALFL"
+            },
+            {
+              "figi": "BBG00BCH20T0",
+              "name": "ALTERNATIVE LIQUIDITY FUND L",
+              "ticker": "ALFL",
+              "exchCode": "B3",
+              "compositeFIGI": "BBG00BCH20S1",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALFL"
+            },
+            {
+              "figi": "BBG00BCH2118",
+              "name": "ALTERNATIVE LIQUIDITY FUND L",
+              "ticker": "ALFL",
+              "exchCode": "PO",
+              "compositeFIGI": "BBG00BCH2109",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALFL"
+            },
+            {
+              "figi": "BBG00JKRHLM7",
+              "name": "ALTERNATIVE LIQUIDITY FUND L",
+              "ticker": "ALFGBX",
+              "exchCode": "X2",
+              "compositeFIGI": "BBG00JKRHLM7",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALFGBX"
+            },
+            {
+              "figi": "BBG00JKRHLN6",
+              "name": "ALTERNATIVE LIQUIDITY FUND L",
+              "ticker": "ALFGBX",
+              "exchCode": "XB",
+              "compositeFIGI": "BBG00JKRHLM7",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALFGBX"
+            },
+            {
+              "figi": "BBG00JKRHLR2",
+              "name": "ALTERNATIVE LIQUIDITY FUND L",
+              "ticker": "ALFGBX",
+              "exchCode": "XH",
+              "compositeFIGI": "BBG00JKRHLM7",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALFGBX"
+            },
+            {
+              "figi": "BBG00JKRHLV7",
+              "name": "ALTERNATIVE LIQUIDITY FUND L",
+              "ticker": "ALFGBX",
+              "exchCode": "XF",
+              "compositeFIGI": "BBG00JKRHLM7",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALFGBX"
+            },
+            {
+              "figi": "BBG00JKRHLY4",
+              "name": "ALTERNATIVE LIQUIDITY FUND",
+              "ticker": "ALFGBX",
+              "exchCode": "XE",
+              "compositeFIGI": "BBG00JKRHLM7",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALFGBX"
+            },
+            {
+              "figi": "BBG00JKRHM09",
+              "name": "ALTERNATIVE LIQUIDITY FUND L",
+              "ticker": "ALFGBX",
+              "exchCode": "XJ",
+              "compositeFIGI": "BBG00JKRHLM7",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALFGBX"
+            },
+            {
+              "figi": "BBG00JKRHM18",
+              "name": "ALTERNATIVE LIQUIDITY FUND L",
+              "ticker": "ALFGBX",
+              "exchCode": "XL",
+              "compositeFIGI": "BBG00JKRHLM7",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALFGBX"
+            },
+            {
+              "figi": "BBG00JKRHM36",
+              "name": "ALTERNATIVE LIQUIDITY FUND L",
+              "ticker": "ALFGBX",
+              "exchCode": "XG",
+              "compositeFIGI": "BBG00JKRHLM7",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALFGBX"
+            },
+            {
+              "figi": "BBG00JKRHM45",
+              "name": "ALTERNATIVE LIQUIDITY FUND L",
+              "ticker": "ALFGBX",
+              "exchCode": "XO",
+              "compositeFIGI": "BBG00JKRHLM7",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALFGBX"
+            },
+            {
+              "figi": "BBG00JKRHMB7",
+              "name": "ALTERNATIVE LIQUIDITY FUND",
+              "ticker": "ALFGBX",
+              "exchCode": "XS",
+              "compositeFIGI": "BBG00JKRHLM7",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALFGBX"
+            },
+            {
+              "figi": "BBG00JKRHMD5",
+              "name": "ALTERNATIVE LIQUIDITY FUND L",
+              "ticker": "ALFGBX",
+              "exchCode": "XA",
+              "compositeFIGI": "BBG00JKRHLM7",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALFGBX"
+            },
+            {
+              "figi": "BBG00JKRHMF3",
+              "name": "ALTERNATIVE LIQUIDITY FUND L",
+              "ticker": "ALFGBX",
+              "exchCode": "E1",
+              "compositeFIGI": "BBG00JKRHLM7",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALFGBX"
+            },
+            {
+              "figi": "BBG00JKRHMJ9",
+              "name": "ALTERNATIVE LIQUIDITY FUND L",
+              "ticker": "ALFGBX",
+              "exchCode": "XW",
+              "compositeFIGI": "BBG00JKRHLM7",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALFGBX"
+            },
+            {
+              "figi": "BBG00JKRHML6",
+              "name": "ALTERNATIVE LIQUIDITY FUND L",
+              "ticker": "ALFGBX",
+              "exchCode": "XU",
+              "compositeFIGI": "BBG00JKRHLM7",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALFGBX"
+            },
+            {
+              "figi": "BBG00JKRHMM5",
+              "name": "ALTERNATIVE LIQUIDITY FUND L",
+              "ticker": "ALFGBX",
+              "exchCode": "XV",
+              "compositeFIGI": "BBG00JKRHLM7",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALFGBX"
+            },
+            {
+              "figi": "BBG00JKRHMV5",
+              "name": "ALTERNATIVE LIQUIDITY FUND L",
+              "ticker": "ALFGBX",
+              "exchCode": "EU",
+              "compositeFIGI": "BBG00JKRHMT8",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALFGBX"
+            },
+            {
+              "figi": "BBG00JN8FPH5",
+              "name": "ALTERNATIVE LIQUIDITY FUND L",
+              "ticker": "ALFUSD",
+              "exchCode": "XX",
+              "compositeFIGI": "BBG00B0MQLH3",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALFUSD"
+            },
+            {
+              "figi": "BBG00JN8PQ37",
+              "name": "ALTERNATIVE LIQUIDITY FUND L",
+              "ticker": "ALFGBX",
+              "exchCode": "XX",
+              "compositeFIGI": "BBG00JKRHLM7",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALFGBX"
+            },
+            {
+              "figi": "BBG00PQ1J547",
+              "name": "ALTERNATIVE LIQUIDITY FUND L",
+              "ticker": "ALFUSD",
+              "exchCode": "EP",
+              "compositeFIGI": "BBG00PQ1J538",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALFUSD"
+            },
+            {
+              "figi": "BBG00PQ1J565",
+              "name": "ALTERNATIVE LIQUIDITY FUND L",
+              "ticker": "ALFUSD",
+              "exchCode": "EZ",
+              "compositeFIGI": "BBG00PQ1J556",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALFUSD"
+            },
+            {
+              "figi": "BBG00Q6S3769",
+              "name": "ALTERNATIVE LIQUIDITY FUND",
+              "ticker": "ALFUSD",
+              "exchCode": "X2",
+              "compositeFIGI": "BBG00B0MQLH3",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALFUSD"
+            },
+            {
+              "figi": "BBG00Y7BBZQ5",
+              "name": "ALTERNATIVE LIQUIDITY FUND L",
+              "ticker": "ALFL",
+              "exchCode": "L1",
+              "compositeFIGI": "BBG00Y7BBZP6",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG00B0JXX40",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "ALFL"
+            }
+          ]
+        },
+        {
+          "data": [
+            {
+              "figi": "BBG01G69CHN1",
+              "name": "ASHOKA WHITEOAK EMERGING MAR",
+              "ticker": "AWEM",
+              "exchCode": "LN",
+              "compositeFIGI": "BBG01G69CHM2",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01G69CHR7",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AWEM"
+            },
+            {
+              "figi": "BBG01GHVQ141",
+              "name": "ASHOKA WHITEOAK EMERGING MAR",
+              "ticker": "AWEML",
+              "exchCode": "TQ",
+              "compositeFIGI": "BBG01GHVQ132",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01G69CHR7",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AWEML"
+            },
+            {
+              "figi": "BBG01GHVXCQ5",
+              "name": "ASHOKA WHITEOAK EMERGING MAR",
+              "ticker": "AWEMGBX",
+              "exchCode": "EP",
+              "compositeFIGI": "BBG01GHVXCN8",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01G69CHR7",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AWEMGBX"
+            },
+            {
+              "figi": "BBG01GHVXCS3",
+              "name": "ASHOKA WHITEOAK EMERGING MAR",
+              "ticker": "AWEMGBX",
+              "exchCode": "EZ",
+              "compositeFIGI": "BBG01GHVXCR4",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01G69CHR7",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AWEMGBX"
+            },
+            {
+              "figi": "BBG01GHVXCT2",
+              "name": "ASHOKA WHITEOAK EMERGING MAR",
+              "ticker": "AWEMGBX",
+              "exchCode": "EO",
+              "compositeFIGI": "BBG01GHVXCT2",
+              "securityType": "Common Stock",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01G69CHR7",
+              "securityType2": "Common Stock",
+              "securityDescription": "AWEMGBX"
+            },
+            {
+              "figi": "BBG01GHVXCV9",
+              "name": "ASHOKA WHITEOAK EMERGING MAR",
+              "ticker": "AWEMGBX",
+              "exchCode": "X2",
+              "compositeFIGI": "BBG01GHVXCT2",
+              "securityType": "Common Stock",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01G69CHR7",
+              "securityType2": "Common Stock",
+              "securityDescription": "AWEMGBX"
+            },
+            {
+              "figi": "BBG01GHVXCX7",
+              "name": "ASHOKA WHITEOAK EMERGING MAR",
+              "ticker": "AWEMGBX",
+              "exchCode": "XH",
+              "compositeFIGI": "BBG01GHVXCT2",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01G69CHR7",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AWEMGBX"
+            },
+            {
+              "figi": "BBG01GHVXD29",
+              "name": "ASHOKA WHITEOAK EMERGING MAR",
+              "ticker": "AWEMGBX",
+              "exchCode": "XJ",
+              "compositeFIGI": "BBG01GHVXCT2",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01G69CHR7",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AWEMGBX"
+            },
+            {
+              "figi": "BBG01GHVXD38",
+              "name": "ASHOKA WHITEOAK EMERGING MAR",
+              "ticker": "AWEMGBX",
+              "exchCode": "XL",
+              "compositeFIGI": "BBG01GHVXCT2",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01G69CHR7",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AWEMGBX"
+            },
+            {
+              "figi": "BBG01GHVXD47",
+              "name": "ASHOKA WHITEOAK EMERGING MAR",
+              "ticker": "AWEMGBX",
+              "exchCode": "XG",
+              "compositeFIGI": "BBG01GHVXCT2",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01G69CHR7",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AWEMGBX"
+            },
+            {
+              "figi": "BBG01GHVXD56",
+              "name": "ASHOKA WHITEOAK EMERGING MAR",
+              "ticker": "AWEMGBX",
+              "exchCode": "XO",
+              "compositeFIGI": "BBG01GHVXCT2",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01G69CHR7",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AWEMGBX"
+            },
+            {
+              "figi": "BBG01GHVXD92",
+              "name": "ASHOKA WHITEOAK EMERGING MAR",
+              "ticker": "AWEMGBX",
+              "exchCode": "XA",
+              "compositeFIGI": "BBG01GHVXCT2",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01G69CHR7",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AWEMGBX"
+            },
+            {
+              "figi": "BBG01GHVXDB9",
+              "name": "ASHOKA WHITEOAK EMERGING MAR",
+              "ticker": "AWEMGBX",
+              "exchCode": "E1",
+              "compositeFIGI": "BBG01GHVXCT2",
+              "securityType": "Common Stock",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01G69CHR7",
+              "securityType2": "Common Stock",
+              "securityDescription": "AWEMGBX"
+            },
+            {
+              "figi": "BBG01GHVXDD7",
+              "name": "ASHOKA WHITEOAK EMERGING MAR",
+              "ticker": "AWEMGBX",
+              "exchCode": "XW",
+              "compositeFIGI": "BBG01GHVXCT2",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01G69CHR7",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AWEMGBX"
+            },
+            {
+              "figi": "BBG01GHVXDF5",
+              "name": "ASHOKA WHITEOAK EMERGING MAR",
+              "ticker": "AWEMGBX",
+              "exchCode": "XU",
+              "compositeFIGI": "BBG01GHVXCT2",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01G69CHR7",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AWEMGBX"
+            },
+            {
+              "figi": "BBG01GHVXDH3",
+              "name": "ASHOKA WHITEOAK EMERGING MAR",
+              "ticker": "AWEMGBX",
+              "exchCode": "XV",
+              "compositeFIGI": "BBG01GHVXCT2",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01G69CHR7",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AWEMGBX"
+            },
+            {
+              "figi": "BBG01GHVXDK9",
+              "name": "ASHOKA WHITEOAK EMERGING MAR",
+              "ticker": "AWEMGBX",
+              "exchCode": "XQ",
+              "compositeFIGI": "BBG01GHVXCT2",
+              "securityType": "Common Stock",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01G69CHR7",
+              "securityType2": "Common Stock",
+              "securityDescription": "AWEMGBX"
+            },
+            {
+              "figi": "BBG01GHVXDL8",
+              "name": "ASHOKA WHITEOAK EMERGING MAR",
+              "ticker": "AWEMGBX",
+              "exchCode": "XX",
+              "compositeFIGI": "BBG01GHVXCT2",
+              "securityType": "Common Stock",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01G69CHR7",
+              "securityType2": "Common Stock",
+              "securityDescription": "AWEMGBX"
+            },
+            {
+              "figi": "BBG01GHVXDM7",
+              "name": "ASHOKA WHITEOAK EMERGING MAR",
+              "ticker": "AWEMGBX",
+              "exchCode": "XZ",
+              "compositeFIGI": "BBG01GHVXCT2",
+              "securityType": "Common Stock",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01G69CHR7",
+              "securityType2": "Common Stock",
+              "securityDescription": "AWEMGBX"
+            },
+            {
+              "figi": "BBG01GHVXDP4",
+              "name": "ASHOKA WHITEOAK EMERGING MAR",
+              "ticker": "AWEMGBX",
+              "exchCode": "X1",
+              "compositeFIGI": "BBG01GHVXCT2",
+              "securityType": "Common Stock",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01G69CHR7",
+              "securityType2": "Common Stock",
+              "securityDescription": "AWEMGBX"
+            },
+            {
+              "figi": "BBG01GHVXDX5",
+              "name": "ASHOKA WHITEOAK EMERGING MAR",
+              "ticker": "AWEMGBX",
+              "exchCode": "EU",
+              "compositeFIGI": "BBG01GHVXDW6",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01G69CHR7",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AWEMGBX"
+            },
+            {
+              "figi": "BBG01GJ3RGR2",
+              "name": "ASHOKA WHITEOAK EMERGING MAR",
+              "ticker": "AWEML",
+              "exchCode": "S1",
+              "compositeFIGI": "BBG01GJ3RGQ3",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01G69CHR7",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AWEML"
+            },
+            {
+              "figi": "BBG01PKF08D5",
+              "name": "ASHOKA WHITEOAK EMERGING MAR",
+              "ticker": "AWEML",
+              "exchCode": "QX",
+              "compositeFIGI": "BBG01PKF08C6",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01G69CHR7",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AWEML"
+            },
+            {
+              "figi": "BBG022X56T69",
+              "name": "ASHOKA WHITEOAK EMERGING MAR",
+              "ticker": "AWEML",
+              "exchCode": "PO",
+              "compositeFIGI": "BBG022X56T50",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01G69CHR7",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AWEML"
+            },
+            {
+              "figi": "BBG022X572C0",
+              "name": "ASHOKA WHITEOAK EMERGING MAR",
+              "ticker": "AWEML",
+              "exchCode": "L1",
+              "compositeFIGI": "BBG022X57294",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01G69CHR7",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AWEML"
+            },
+            {
+              "figi": "BBG022X578Y3",
+              "name": "ASHOKA WHITEOAK EMERGING MAR",
+              "ticker": "AWEML",
+              "exchCode": "L3",
+              "compositeFIGI": "BBG022X578W5",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01G69CHR7",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AWEML"
+            },
+            {
+              "figi": "BBG022X57JK4",
+              "name": "ASHOKA WHITEOAK EMERGING MAR",
+              "ticker": "AWEML",
+              "exchCode": "B3",
+              "compositeFIGI": "BBG022X57JH8",
+              "securityType": "Closed-End Fund",
+              "marketSector": "Equity",
+              "shareClassFIGI": "BBG01G69CHR7",
+              "securityType2": "Mutual Fund",
+              "securityDescription": "AWEML"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
