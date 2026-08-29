@@ -91,7 +91,23 @@ def build_au(panel: pd.DataFrame) -> pd.DataFrame:
     return agg
 
 
-def finalise(frames: list[pd.DataFrame], as_of: str | None = None) -> pd.DataFrame:
+def _manual_ids() -> set[str]:
+    """security_ids from universe/manual.yaml - never delisting candidates."""
+    from pathlib import Path
+    import yaml
+    p = Path("universe/manual.yaml")
+    if not p.exists():
+        return set()
+    try:
+        doc = yaml.safe_load(p.read_text()) or {}
+    except Exception:  # noqa: BLE001
+        return set()
+    return {f.get("security_id") for f in (doc.get("funds") or [])
+            if f.get("security_id")}
+
+
+def finalise(frames: list[pd.DataFrame], as_of: str | None = None,
+             params: dict | None = None) -> pd.DataFrame:
     """Combine market registries and derive status + vehicle flags."""
     reg = pd.concat([f for f in frames if f is not None and len(f)], ignore_index=True)
     reg["domicile"] = reg["isin"].map(_domicile)
@@ -110,6 +126,35 @@ def finalise(frames: list[pd.DataFrame], as_of: str | None = None) -> pd.DataFra
         reg.loc[g.index, "market_latest_month"] = latest
         reg.loc[g[g["last_seen"] >= latest].index, "status"] = "live"
 
+    # --- delisting review: absence from the registry source, measured in
+    # monthly releases missed. Nothing is deleted; a fund drops out of the
+    # LIVE universe only after review, and manual entries never do.
+    miss_thr = 2
+    grace = 3
+    if params and "universe" in params:
+        miss_thr = int(params["universe"].get("delist_after_missing_months", 2))
+        grace = int(params["universe"].get("review_grace_months", 3))
+    manual = _manual_ids()
+    reg["months_missing"] = 0
+    for mkt, g in reg.groupby("market"):
+        latest = pd.Period(g["last_seen"].max(), freq="M")
+        missing = (latest - pd.PeriodIndex(g["last_seen"], freq="M")).n \
+            if hasattr((latest - pd.PeriodIndex(g["last_seen"], freq="M")), "n") \
+            else [(latest - pd.Period(x, freq="M")).n for x in g["last_seen"]]
+        reg.loc[g.index, "months_missing"] = list(missing)
+    reg["manual_entry"] = reg["security_id"].isin(manual)
+    cand = (reg["months_missing"] >= miss_thr) & (~reg["manual_entry"])
+    reg.loc[cand & (reg["months_missing"] < miss_thr + grace),
+            "status"] = "delist_candidate"
+    reg.loc[cand & (reg["months_missing"] >= miss_thr + grace),
+            "status"] = "delisted"
+    # a manual entry is tracked because the user said so - its absence from
+    # a registry file is the reason it is listed there, not a reason to drop it
+    reg.loc[reg["manual_entry"], "status"] = "live"
+    reg["review_action"] = ""
+    reg.loc[reg["status"] == "delist_candidate", "review_action"] = \
+        "confirm delisting, or add to universe/manual.yaml to keep tracking"
+
     reg["source_prices_it"] = reg["source_priced_months"] > 0
     # what we expect to carry this fund's NAV: the registry, or its own
     # announcements (the offshore/unpriced cohort the rebuild exists for)
@@ -118,7 +163,7 @@ def finalise(frames: list[pd.DataFrame], as_of: str | None = None) -> pd.DataFra
     return reg.sort_values(["market", "name"]).reset_index(drop=True)
 
 
-def build(cfg_uk: dict | None = None) -> pd.DataFrame:
+def build(cfg_uk: dict | None = None, params: dict | None = None) -> pd.DataFrame:
     """Build and persist the combined registry."""
     frames = []
     if cfg_uk is not None:
@@ -143,7 +188,7 @@ def build(cfg_uk: dict | None = None) -> pd.DataFrame:
 
     if not frames:
         raise RuntimeError("no registry sources available")
-    reg = finalise(frames)
+    reg = finalise(frames, params=params)
 
     out = Path("data/universe")
     out.mkdir(parents=True, exist_ok=True)

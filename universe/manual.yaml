@@ -1,0 +1,13 @@
+# Manually tracked vehicles: holdcos, oddballs, and anything not carried by
+# the AIC/ASX registry files. Entries here are treated exactly like sourced
+# funds by the pipeline, with one exception - they are NEVER flagged as
+# delisting candidates, because their absence from a registry file is the
+# reason they are listed here.
+#
+# funds:
+#   - security_id: MANUAL:hansa-a
+#     name: Hansa Investment Company A shares
+#     market: UK
+#     ticker: HANA
+#     nav_basis_hint: announcements
+funds: []

@@ -29,6 +29,16 @@ pulse:
     cheap: ${CHEAP_MODEL}         # claude-haiku-4-5 (repo variable)
     expensive: ${EXPENSIVE_MODEL} # claude-fable-5   (repo variable)
 
+universe:
+  # A fund missing from its registry source for this many consecutive
+  # monthly releases becomes a delisting candidate: excluded from alerting,
+  # surfaced for review, never deleted (point-in-time discipline keeps the
+  # history). Entries in universe/manual.yaml are never flagged.
+  delist_after_missing_months: 2
+  # Candidates are held in review this long before being treated as
+  # delisted; the review email repeats until confirmed or the fund returns.
+  review_grace_months: 3
+
 opportunity:
   # Gate 1 - dislocation (own-history z only; never absolute discount level:
   # the AU holdout showed absolute discount is anti-signal)

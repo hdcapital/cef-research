@@ -54,8 +54,10 @@ def build_universe() -> int:
     p = Path("config/default.yaml")
     if p.exists():
         cfg_uk = _yaml.safe_load(p.read_text())
-    reg = universe.build(cfg_uk)
+    reg = universe.build(cfg_uk, _params())
+    cand = reg[reg["status"] == "delist_candidate"]
     summary = {
+        "delist_candidates": int(len(cand)),
         "vehicles": int(len(reg)),
         "by_market": reg.groupby("market").size().to_dict(),
         "live": int((reg["status"] == "live").sum()),
@@ -82,6 +84,28 @@ def build_universe() -> int:
     Path("reports/build/universe_registry.json").write_text(
         json.dumps(summary, indent=2, default=str))
     print(json.dumps(summary, indent=2, default=str))
+
+    # review queue: warn BEFORE anything stops being tracked, so a fund is
+    # never dropped without a chance to keep it
+    if len(cand):
+        cand.sort_values(["market", "name"])[
+            ["security_id", "name", "market", "sector", "last_seen",
+             "months_missing", "review_action"]
+        ].to_csv("outputs/live/delist_review.csv", index=False)
+        lines = [f"  {r['name']} ({r.get('market','')}) — last seen "
+                 f"{r['last_seen']}, missing {int(r['months_missing'])} monthly "
+                 f"release(s)" for _, r in cand.sort_values("months_missing",
+                                                            ascending=False).head(30).iterrows()]
+        from .notify import notify
+        notify(f"{len(cand)} fund(s) awaiting delisting review",
+               "These funds have stopped appearing in their registry source. "
+               "They are already excluded from idea generation, and will be "
+               "treated as delisted after the review grace period.\n\n"
+               "To KEEP tracking one, add it to universe/manual.yaml — manual "
+               "entries are never flagged.\n\n" + "\n".join(lines)
+               + "\n\nFull list attached; nothing is ever deleted from the "
+                 "registry, so the history stays intact either way.",
+               attachments=["outputs/live/delist_review.csv"])
     return 0
 
 
@@ -186,6 +210,15 @@ def ideas() -> int:
     hp = Path("data/processed/monthly_panel.parquet")
     if hp.exists():
         hurdle_base = opportunities.universe_trailing_tr(pd.read_parquet(hp))
+
+    # a fund that may no longer exist must not generate an idea
+    rp = Path("data/universe/registry.parquet")
+    if rp.exists():
+        reg = pd.read_parquet(rp)
+        keep = set(reg.loc[reg["status"] == "live", "security_id"])
+        before = len(live)
+        live = live[live["security_id"].isin(keep)]
+        print(f"universe filter: {before} -> {len(live)} live funds evaluated")
 
     verdicts = opportunities.evaluate(live, cats, irr, params, hurdle_base)
     # ledger write and signal emission are one step: the email is rendered
