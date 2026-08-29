@@ -21,7 +21,7 @@ from pathlib import Path
 import pandas as pd
 import yaml
 
-from . import harvest_nav, nta_live, prices, universe
+from . import forward_irr, harvest_nav, nta_live, prices, tickers, universe, universe_report
 
 
 def _params() -> dict:
@@ -81,6 +81,71 @@ def build_universe() -> int:
     Path("reports/build/universe_registry.json").write_text(
         json.dumps(summary, indent=2, default=str))
     print(json.dumps(summary, indent=2, default=str))
+    return 0
+
+
+def resolve_tickers(budget: int = 150) -> int:
+    """Resolve Investegate/Yahoo tickers for live registry funds with none."""
+    reg = pd.read_parquet("data/universe/registry.parquet")
+    out = tickers.resolve(reg, budget=budget)
+    live_uk = reg[(reg["status"] == "live") & (reg["market"] == "UK")]
+    got = out[out["status"] == "verified"]
+    summary = {"attempted_total": int(len(out)),
+               "verified": int(len(got)),
+               "unresolved": int((out["status"] != "verified").sum()),
+               "live_uk_funds": int(len(live_uk)),
+               "coverage": round(len(got) / max(1, len(live_uk)), 4)}
+    Path("reports/build").mkdir(parents=True, exist_ok=True)
+    Path("reports/build/ticker_resolution.json").write_text(
+        json.dumps(summary, indent=2, default=str))
+    print(json.dumps(summary, indent=2))
+    return 0
+
+
+def universe_sheet() -> int:
+    """Build the universe spreadsheet and email it."""
+    reg = pd.read_parquet("data/universe/registry.parquet")
+    live = pd.read_parquet("data/nta_live/latest.parquet")
+    hist = None
+    hp = Path("data/processed/monthly_panel.parquet")
+    if hp.exists():
+        hist = pd.read_parquet(hp)
+        if "discount" not in hist.columns and {"share_price", "nav_per_share"} <= set(hist.columns):
+            hist["discount"] = hist["share_price"] / hist["nav_per_share"] - 1.0
+    irr = None
+    if hist is not None:
+        try:
+            irr = forward_irr.build(live, hist, _params())
+            Path("data/forward_irr").mkdir(parents=True, exist_ok=True)
+            irr.to_parquet("data/forward_irr/latest.parquet", index=False)
+        except Exception as exc:  # noqa: BLE001
+            print(f"forward IRR failed ({exc}); sheet will omit it")
+
+    # attach resolved tickers so the sheet is addressable
+    tp = Path("config/resolved_tickers.csv")
+    if tp.exists():
+        tk = pd.read_csv(tp)
+        tk = tk[tk["status"] == "verified"][["security_id", "ticker"]]
+        reg = reg.merge(tk, on="security_id", how="left")
+
+    stamp = datetime.now(timezone.utc).date().isoformat()
+    path, summary = universe_report.build(
+        reg, live, irr, hist, Path(f"outputs/live/cef_universe_{stamp}.xlsx"))
+    print(json.dumps(summary, indent=2, default=str))
+
+    from .notify import notify
+    body = (f"CEF universe spreadsheet, {stamp}.\n\n"
+            f"Funds tracked: {summary['rows']} ({summary['live']} live)\n"
+            f"With a market price: {summary['with_price']}\n"
+            f"With a live NAV estimate: {summary['with_live_nav']}\n"
+            f"With a forward IRR: {summary['with_irr']}\n\n"
+            "Sheets: Universe (all), Live only, Most dislocated (lowest z).\n"
+            "Published NAVs and modelled estimates are separate columns; a "
+            "blank means we hold no value, never a filled-in one.")
+    sent = notify(f"universe spreadsheet {stamp}", body, attachments=[str(path)])
+    print("emailed:" , sent)
+    Path("reports/build/universe_sheet.json").write_text(
+        json.dumps({**summary, "emailed": sent, "file": str(path)}, indent=2, default=str))
     return 0
 
 
@@ -222,9 +287,16 @@ def main() -> int:
     n = sub.add_parser("nightly")
     n.add_argument("--markets", default="au,uk")
     sub.add_parser("universe")
+    rt = sub.add_parser("resolve-tickers")
+    rt.add_argument("--budget", type=int, default=150)
+    sub.add_parser("universe-sheet")
     args = ap.parse_args()
     if args.cmd == "universe":
         return build_universe()
+    if args.cmd == "resolve-tickers":
+        return resolve_tickers(args.budget)
+    if args.cmd == "universe-sheet":
+        return universe_sheet()
     if args.cmd == "nightly":
         return nightly([m.strip() for m in args.markets.split(",") if m.strip()])
     return 1

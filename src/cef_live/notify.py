@@ -17,13 +17,21 @@ swallow an alert.
 
 from __future__ import annotations
 
+import mimetypes
 import os
 import smtplib
+from email.message import EmailMessage
 from email.mime.text import MIMEText
+from pathlib import Path
 
 
-def notify(subject: str, body: str, priority: str = "normal") -> bool:
-    """Send one alert. Returns True on delivery, False otherwise."""
+def notify(subject: str, body: str, priority: str = "normal",
+           attachments: list[str] | None = None) -> bool:
+    """Send one alert, optionally with file attachments.
+
+    Returns True on delivery, False otherwise. A missing attachment is
+    reported and skipped rather than silently dropping the whole message.
+    """
     addr = os.environ.get("GMAIL_ADDRESS", "")
     pw = os.environ.get("GMAIL_APP_PASSWORD", "")
     to = os.environ.get("ALERT_EMAIL_TO", "") or addr
@@ -32,7 +40,20 @@ def notify(subject: str, body: str, priority: str = "normal") -> bool:
     if not (addr and pw and to):
         print(f"notify (email unconfigured): {tag}{subject}\n{body[:500]}")
         return False
-    msg = MIMEText(body, "plain", "utf-8")
+    if attachments:
+        msg = EmailMessage()
+        msg.set_content(body)
+        for path in attachments:
+            p = Path(path)
+            if not p.exists():
+                print(f"notify: attachment missing, skipped: {p}")
+                continue
+            ctype, _ = mimetypes.guess_type(p.name)
+            maintype, _, subtype = (ctype or "application/octet-stream").partition("/")
+            msg.add_attachment(p.read_bytes(), maintype=maintype,
+                               subtype=subtype, filename=p.name)
+    else:
+        msg = MIMEText(body, "plain", "utf-8")
     msg["Subject"] = tag + subject
     msg["From"] = addr
     msg["To"] = to
