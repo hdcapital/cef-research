@@ -81,33 +81,53 @@ def verify(s: requests.Session, slug: str, names: list[str]) -> tuple[str, str] 
 
 
 def from_aic_keyfacts(registry: pd.DataFrame, cfg_uk: dict) -> pd.DataFrame:
-    """Tickers from the AIC companies file, keyed by the SAME entity
-    resolution the registry used - so the join is exact, not fuzzy."""
-    from uk_cef.entities import EntityRegistry
-    from uk_cef.panel import parse_all_companies, parse_all_corporate_activity
+    """Tickers from the AIC companies file, joined on ISIN.
+
+    Deliberately does NOT re-run entity resolution. A fresh EntityRegistry
+    fed the companies file produced different security_ids than the one fed
+    the MIR - old numeric SEDOLs where the registry holds modern ones - so
+    the join silently matched nothing for the very cohort it exists to
+    serve. ISIN is carried by both sides and is unambiguous, so join on it;
+    normalised name is the fallback for rows where the companies file omits
+    the ISIN.
+    """
+    from uk_cef.entities import normalize_name
+    from uk_cef.panel import parse_all_companies
 
     raw = Path(cfg_uk["download"]["raw_dir"])
     comp = parse_all_companies(raw)
     if comp.empty or "ticker" not in comp.columns:
         return pd.DataFrame(columns=["security_id", "ticker", "verified_name",
                                      "method", "status"])
-    comp = comp[comp["ticker"].notna() & (comp["ticker"].astype(str).str.len() >= 2)]
-    reg_ent = EntityRegistry(cfg_uk["paths"].get("entity_overrides"))
-    reg_ent.load_name_changes(parse_all_corporate_activity(raw))
-    comp = comp.sort_values("obs_month")
-    sids = [reg_ent.resolve(n, c, "Ordinary Share")
-            for n, c in zip(comp["company_name"], comp.get("isin", pd.Series(dtype=str)))]
-    comp = comp.assign(security_id=sids)
-    latest = comp.groupby("security_id").last().reset_index()
-    keep = set(registry["security_id"])
-    latest = latest[latest["security_id"].isin(keep)]
-    return pd.DataFrame({
-        "security_id": latest["security_id"],
-        "ticker": latest["ticker"].astype(str).str.upper().str.strip(),
-        "verified_name": latest["company_name"],
-        "method": "aic_keyfacts",
-        "status": "verified",
-    })
+    comp = comp[comp["ticker"].notna()
+                & (comp["ticker"].astype(str).str.strip().str.len() >= 2)].copy()
+    comp["ticker"] = comp["ticker"].astype(str).str.upper().str.strip()
+    if "obs_month" in comp.columns:
+        comp = comp.sort_values("obs_month")
+
+    by_isin, by_name = {}, {}
+    for r in comp.itertuples(index=False):
+        isin = str(getattr(r, "isin", "") or "").strip().upper()
+        if isin:
+            by_isin[isin] = (r.ticker, r.company_name)
+        nm = normalize_name(str(r.company_name or ""))
+        if nm:
+            by_name[nm] = (r.ticker, r.company_name)
+
+    rows = []
+    for r in registry.itertuples(index=False):
+        isin = str(getattr(r, "isin", "") or "").strip().upper()
+        hit = by_isin.get(isin) if isin else None
+        method = "aic_keyfacts_isin"
+        if hit is None:
+            hit = by_name.get(normalize_name(str(getattr(r, "name", "") or "")))
+            method = "aic_keyfacts_name"
+        if hit is None:
+            continue
+        rows.append({"security_id": r.security_id, "ticker": hit[0],
+                     "verified_name": hit[1], "method": method,
+                     "status": "verified"})
+    return pd.DataFrame(rows)
 
 
 def seed_known(registry: pd.DataFrame, cfg_uk: dict | None) -> pd.DataFrame:

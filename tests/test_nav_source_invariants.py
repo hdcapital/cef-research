@@ -147,3 +147,35 @@ def test_archive_scripts_actually_execute(script, monkeypatch):
         spec.loader.exec_module(module)
     except SystemExit:
         pass          # argv-driven scripts may exit on usage; that is fine
+
+
+def test_keyfacts_tickers_join_without_re_resolving_ids():
+    """Ticker join must use ISIN, not a second entity-resolution pass.
+
+    Re-resolving the companies file produced different security_ids than the
+    registry held (old numeric SEDOLs vs modern ones), so the join matched
+    zero of the 105 funds it exists to serve - twice, silently.
+    """
+    from unittest.mock import patch
+    from cef_live import tickers as T
+
+    reg = pd.DataFrame([
+        {"security_id": "SEDOL:BT3GKD0", "name": "Achilles Investment Company",
+         "isin": "GG00BT3GKD08"},
+        {"security_id": "NAME:british and american|ordinary share",
+         "name": "British & American", "isin": ""},
+    ])
+    comp = pd.DataFrame([
+        {"company_name": "Achilles Investment Company", "isin": "GG00BT3GKD08",
+         "ticker": "AIC", "obs_month": "2026-07"},
+        {"company_name": "British & American", "isin": None,
+         "ticker": "BAF", "obs_month": "2026-07"},
+    ])
+    with patch("uk_cef.panel.parse_all_companies", return_value=comp):
+        out = T.from_aic_keyfacts(reg, {"download": {"raw_dir": "x"}})
+
+    assert len(out) == 2, "both funds must resolve"
+    assert set(out["ticker"]) == {"AIC", "BAF"}
+    # offshore ISIN joins directly; a blank ISIN still resolves by name
+    assert "isin" in out[out["ticker"] == "AIC"].iloc[0]["method"]
+    assert "name" in out[out["ticker"] == "BAF"].iloc[0]["method"]
