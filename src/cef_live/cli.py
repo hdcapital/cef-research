@@ -21,7 +21,8 @@ from pathlib import Path
 import pandas as pd
 import yaml
 
-from . import forward_irr, harvest_nav, nta_live, prices, tickers, universe, universe_report
+from . import (catalysts, forward_irr, harvest_nav, nta_live, prices, tickers,
+               universe, universe_report)
 
 
 def _params() -> dict:
@@ -133,9 +134,14 @@ def universe_sheet() -> int:
         tk = tk[tk["status"] == "verified"][["security_id", "ticker"]]
         reg = reg.merge(tk, on="security_id", how="left")
 
+    cats = None
+    cp = Path("outputs/live/catalysts_recent.csv")
+    if cp.exists():
+        cats = pd.read_csv(cp)
+
     stamp = datetime.now(timezone.utc).date().isoformat()
     path, summary = universe_report.build(
-        reg, live, irr, hist, Path(f"outputs/live/cef_universe_{stamp}.xlsx"))
+        reg, live, irr, hist, Path(f"outputs/live/cef_universe_{stamp}.xlsx"), cats)
     print(json.dumps(summary, indent=2, default=str))
 
     from .notify import notify
@@ -143,8 +149,10 @@ def universe_sheet() -> int:
             f"Funds tracked: {summary['rows']} ({summary['live']} live)\n"
             f"With a market price: {summary['with_price']}\n"
             f"With a live NAV estimate: {summary['with_live_nav']}\n"
-            f"With a forward IRR: {summary['with_irr']}\n\n"
-            "Sheets: Universe (all), Live only, Most dislocated (lowest z).\n"
+            f"With a forward IRR: {summary['with_irr']}\n"
+            f"Catalysts announced (30d): {summary.get('catalysts', 0)}\n\n"
+            "Sheets: Universe (all), Live only, Most dislocated (lowest z), "
+            "Catalysts.\n"
             "Published NAVs and modelled estimates are separate columns; a "
             "blank means we hold no value, never a filled-in one.")
     sent = notify(f"universe spreadsheet {stamp}", body, attachments=[str(path)])
@@ -158,6 +166,7 @@ def nightly(markets: list[str]) -> int:
     params = _params()
     today = datetime.now(timezone.utc).date()
     tables = []
+    all_anns: list[dict] = []
     notes = {"date": today.isoformat(), "markets": {}}
     ysess = prices.session()
 
@@ -219,7 +228,8 @@ def nightly(markets: list[str]) -> int:
                 census.to_csv("data/nta_live/uk_nav_frequency_census.csv", index=False)
                 if tmap is not None and len(census):
                     try:
-                        uk_tier0 = harvest_nav.harvest_uk(tmap, census)
+                        uk_tier0, uk_anns = harvest_nav.harvest_uk(tmap, census)
+                        all_anns.extend(uk_anns)
                         if len(uk_tier0):
                             uk_tier0.to_csv("data/nta_live/uk_tier0_latest.csv", index=False)
                     except Exception as exc:  # noqa: BLE001
@@ -238,6 +248,21 @@ def nightly(markets: list[str]) -> int:
                     if len(census) else 0}
         else:
             notes["markets"]["uk"] = "panel_missing_skipped"
+
+    # ---- catalyst scan: the reason to read announcements beyond NAV ----
+    cat_frames = []
+    if all_anns:
+        cat_frames.append(catalysts.scan_rows(all_anns))
+    au_idx = "data/asx_ann_cache/asx1/lic_announcement_index.parquet"
+    au_cat = catalysts.scan_au(au_idx)
+    if len(au_cat):
+        cat_frames.append(au_cat)
+    cats = pd.concat([c for c in cat_frames if len(c)], ignore_index=True) \
+        if any(len(c) for c in cat_frames) else pd.DataFrame()
+    if len(cats):
+        Path("outputs/live").mkdir(parents=True, exist_ok=True)
+        cats.to_csv("outputs/live/catalysts_recent.csv", index=False)
+    notes["catalysts"] = catalysts.summarise(cats)
 
     if not tables:
         print("no market tables built"); return 1
@@ -275,10 +300,21 @@ def nightly(markets: list[str]) -> int:
     lines = [f"  {r.security_id:>16}  z={r.z_adj:+.2f}  disc={r.discount_est:+.1%}"
              f"  basis={r.basis} stale={r.staleness_days}d"
              for r in top.itertuples(index=False)]
-    notify(f"nightly OK - {len(out)} funds, {int(out['alert_eligible'].sum())} eligible",
+    cat_lines = []
+    if len(cats):
+        top = cats.merge(out[["security_id", "name", "z_adj", "discount_est"]],
+                         on="security_id", how="left").head(12)
+        for r in top.itertuples(index=False):
+            z = "" if pd.isna(getattr(r, "z_adj", None)) else f"  z={r.z_adj:+.2f}"
+            cat_lines.append(f"  {r.date}  {(r.name or r.security_id)[:34]:<34} "
+                             f"{r.catalyst_class}{z}")
+    notify(f"nightly OK - {len(out)} funds, {int(out['alert_eligible'].sum())} eligible"
+           + (f", {catalysts.summarise(cats)['catalysts']} catalysts" if len(cats) else ""),
            "Nightly live NTA table built.\n"
            f"Basis counts: {basis_counts}\nSnapshot: {notes['snapshot']}\n"
-           f"Deepest eligible dislocations:\n" + "\n".join(lines),
+           f"Deepest eligible dislocations:\n" + "\n".join(lines)
+           + ("\n\nCatalysts announced (last 30 days):\n" + "\n".join(cat_lines)
+              if cat_lines else "\n\nNo catalysts in the last 30 days."),
            priority="heartbeat")
     print(json.dumps({k: accept[k] for k in
                       ("rows", "basis_counts", "share_with_sigma",

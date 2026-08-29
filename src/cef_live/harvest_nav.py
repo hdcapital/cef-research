@@ -308,6 +308,10 @@ def harvest_uk(ticker_map: pd.DataFrame, census: pd.DataFrame,
     pat = re.compile(r"net asset value", re.I)
     rows = []
     cutoff = (datetime.now(timezone.utc) - timedelta(days=lookback_days)).date().isoformat()
+    # every listing page is already being fetched for NAV; the catalyst rows
+    # are on the same page, so collecting them costs no extra requests
+    cat_cutoff = (datetime.now(timezone.utc) - timedelta(days=45)).date().isoformat()
+    ann_rows: list[dict] = []
     for tk in targets:
         _t.sleep(1.5)
         try:
@@ -327,18 +331,27 @@ def harvest_uk(ticker_map: pd.DataFrame, census: pd.DataFrame,
             a = tds[3].find("a", href=True)
             if a is None or "/announcement/" not in a.get("href", ""):
                 continue
-            if not pat.search(a.get_text(" ", strip=True)):
-                continue
+            head = a.get_text(" ", strip=True)
             try:
                 d = pd.to_datetime(tds[0].get_text(" ", strip=True),
                                    dayfirst=True).date().isoformat()
             except Exception:  # noqa: BLE001
                 continue
+            href = a["href"]
+            if d >= cat_cutoff:
+                ann_rows.append({
+                    "security_id": tick2sid[tk], "date": d, "headline": head,
+                    "url": ("https://www.investegate.co.uk" + href)
+                           if href.startswith("/") else href})
+            if not pat.search(head):
+                continue
             if d >= cutoff:
-                best = {"date": d, "url": "https://www.investegate.co.uk" + a["href"]
-                        if a["href"].startswith("/") else a["href"],
-                        "headline": a.get_text(" ", strip=True)}
-                break       # rows are newest-first
+                best = best or {"date": d,
+                                "url": ("https://www.investegate.co.uk" + href)
+                                       if href.startswith("/") else href,
+                                "headline": head}
+                # keep scanning the page so catalysts below the NAV row are
+                # still collected (rows are newest-first)
         if best is None:
             stats["no_recent_nav"] += 1
             continue
@@ -368,11 +381,12 @@ def harvest_uk(ticker_map: pd.DataFrame, census: pd.DataFrame,
     try:
         Path("reports/build").mkdir(parents=True, exist_ok=True)
         import json as _json
+        stats["announcements_seen"] = len(ann_rows)
         Path("reports/build/uk_tier0_debug.json").write_text(
             _json.dumps(stats, indent=1))
     except Exception:  # noqa: BLE001
         pass
-    return pd.DataFrame(rows)
+    return pd.DataFrame(rows), ann_rows
 
 
 def uk_nav_samples(cache_dir: Path, n: int = 5) -> list[dict]:

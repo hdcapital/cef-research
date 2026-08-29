@@ -32,9 +32,19 @@ BASIS_LABEL = {0: "0 - published NAV (issuer announcement)",
 
 def build(registry: pd.DataFrame, live: pd.DataFrame,
           irr: pd.DataFrame | None, hist: pd.DataFrame | None,
-          out_path: Path) -> tuple[Path, dict]:
+          out_path: Path, cats: pd.DataFrame | None = None) -> tuple[Path, dict]:
     df = registry.merge(live, on="security_id", how="left",
                         suffixes=("", "_live"))
+    if cats is not None and len(cats):
+        latest = (cats.sort_values(["weight", "date"], ascending=[False, False])
+                      .groupby("security_id").head(1)
+                      .rename(columns={"catalyst_class": "catalyst_latest",
+                                       "date": "catalyst_date",
+                                       "headline": "catalyst_headline"}))
+        df = df.merge(latest[["security_id", "catalyst_latest", "catalyst_date",
+                              "catalyst_headline"]], on="security_id", how="left")
+        counts = cats.groupby("security_id").size().rename("catalysts_30d").reset_index()
+        df = df.merge(counts, on="security_id", how="left")
     if irr is not None and len(irr):
         df = df.merge(irr, on="security_id", how="left")
 
@@ -78,6 +88,8 @@ def build(registry: pd.DataFrame, live: pd.DataFrame,
         ("g_used", "NAV growth used"),
         ("terminal_discount_own", "Terminal discount"),
         ("dist_yield_used", "Distribution yield"),
+        ("catalyst_latest", "Latest catalyst"), ("catalyst_date", "Catalyst date"),
+        ("catalyst_headline", "Catalyst headline"), ("catalysts_30d", "Catalysts (30d)"),
         ("nav_route", "NAV route"), ("source_priced_months", "Months priced by registry"),
         ("alert_eligible", "Alert eligible"), ("updated_at", "Updated"),
     ]
@@ -91,6 +103,16 @@ def build(registry: pd.DataFrame, live: pd.DataFrame,
         live_only = sheet[sheet["Listing status"] == "live"] \
             if "Listing status" in sheet.columns else sheet
         live_only.to_excel(xl, sheet_name="Live only", index=False)
+        if cats is not None and len(cats):
+            named = cats.merge(
+                registry[["security_id", "name", "market", "sector"]],
+                on="security_id", how="left")
+            named[["date", "name", "market", "sector", "catalyst_class",
+                   "headline", "url"]].rename(columns={
+                       "date": "Date", "name": "Fund", "market": "Market",
+                       "sector": "Sector", "catalyst_class": "Catalyst",
+                       "headline": "Headline", "url": "Link"}).to_excel(
+                xl, sheet_name="Catalysts", index=False)
         if "Z-score (own history)" in sheet.columns:
             disl = live_only[live_only["Z-score (own history)"].notna()] \
                 .nsmallest(40, "Z-score (own history)")
@@ -112,6 +134,7 @@ def build(registry: pd.DataFrame, live: pd.DataFrame,
                          if "Live NAV estimate" in sheet.columns else 0,
         "with_irr": int(sheet["Forward IRR (central)"].notna().sum())
                     if "Forward IRR (central)" in sheet.columns else 0,
+        "catalysts": int(len(cats)) if cats is not None else 0,
         "generated": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
     }
     return out_path, summary
