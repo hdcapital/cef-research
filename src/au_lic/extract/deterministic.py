@@ -369,12 +369,37 @@ def extract_issue(text: str, headline: str) -> list[dict]:
 
 
 # ------------------------------------- Form 603/604/605: substantial holdings
-HOLDER_PCT = re.compile(
-    r"voting power[^0-9%]{0,80}([0-9]{1,2}(?:\.[0-9]+)?)\s*%", re.I)
-# Requires an explicit separator and stops at a sentence end. Without both,
-# the name class (which contains ".") ran straight through the following
-# sentence and captured "ement. The voting power is 7.35" - a wrong holder
-# name is worse than none, because it reads as a real counterparty.
+# Form 604 is a TABLE: "Person's votes | Voting power" are column headers and
+# the numbers sit in the rows below, far past any small window. So the label
+# is located, then the percentages are read positionally - preferring the
+# "Present notice" row, which is the holding NOW rather than the previous one.
+PCT_ANY = re.compile(r"([0-9]{1,2}(?:\.[0-9]+)?)\s*%")
+
+
+def _voting_power(text: str) -> tuple[float | None, float | None]:
+    """(previous, present) voting power from a Form 603/604/605.
+
+    Form 604 states BOTH, in one row: "Previous notice | Present notice", so
+    the first percentage after the label is the OLD holding. Taking it would
+    report a holder as smaller than they are and hide an accumulation - which
+    is the catalyst this extractor exists to see. The last percentage in the
+    row is the current holding, and keeping both makes the CHANGE available,
+    which is the signal itself rather than a level.
+    """
+    t = text or ""
+    low = t.lower()
+    for anchor in ("voting power", "present notice", "substantial holder"):
+        i = low.find(anchor)
+        if i == -1:
+            continue
+        vals = [v for v in (_num(m.group(1)) for m in PCT_ANY.finditer(t, i))
+                if v is not None and 0 <= v <= 100]
+        if not vals:
+            continue
+        return (vals[0], vals[-1]) if len(vals) >= 2 else (None, vals[0])
+    return None, None
+
+
 HOLDER_NAME = re.compile(
     r"name of substantial holder\s*(?:\([^)]{0,30}\))?\s*[:\-]\s*"
     r"([A-Z][^\n.;:]{2,59})", re.I)
@@ -387,8 +412,7 @@ def extract_substantial_holder(text: str, headline: str) -> list[dict]:
     the taxonomy, and the direction is in the headline: becoming, changing,
     or ceasing.
     """
-    m = HOLDER_PCT.search(text)
-    pct = _num(m.group(1)) if m else None
+    prev_pct, pct = _voting_power(text)
     h = headline or ""
     if re.search(r"ceasing", h, re.I):
         direction = "ceased"
@@ -401,6 +425,7 @@ def extract_substantial_holder(text: str, headline: str) -> list[dict]:
     nm = HOLDER_NAME.search(text)
     return [{"section": "other_material_events", "event_type": "substantial_holder",
              "direction": direction, "voting_power_pct": pct,
+             "voting_power_prev_pct": prev_pct,
              "holder": nm.group(1).strip() if nm else None,
              "extractor": "form_60x_v1"}]
 

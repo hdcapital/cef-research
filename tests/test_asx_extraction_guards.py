@@ -595,3 +595,22 @@ def test_weekday_prefixed_dates_parse():
     assert D._parse_any_date("Wednesday February 28, 2018") == "2018-02-28"
     assert D._parse_any_date("15/02/2021") == "2021-02-15"
     assert D._parse_any_date("28 October 2016") == "2016-10-28"
+
+
+def test_form_604_reports_the_present_holding_not_the_previous_one():
+    """Form 604 states both, in one row: "Previous notice | Present notice".
+
+    Taking the first percentage reports the holder as SMALLER than they are
+    and hides an accumulation - which is the catalyst this extractor exists
+    to see, so the error points away from the signal. Both are kept, because
+    the change is the signal rather than the level.
+    """
+    from au_lic.extract import deterministic as D
+
+    f604 = ("Form 604 Notice of change of interests of substantial holder "
+            "Class of securities Previous notice Present notice "
+            "Person votes Voting power Person votes Voting power "
+            "Ordinary 12,345,678 5.12% 18,900,000 7.84%")
+    r = D.extract("substantial_holder", f604, [], "Change in substantial holding")[0]
+    assert r["voting_power_pct"] == 7.84, "reported the previous holding"
+    assert r["voting_power_prev_pct"] == 5.12

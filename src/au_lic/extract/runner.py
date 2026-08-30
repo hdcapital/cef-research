@@ -415,8 +415,8 @@ def run_deterministic(limit: int = 0, deadline_min: float = 300.0) -> dict:
     started = time.time()
     rows: list[dict] = []
     escalations: list[dict] = []
-    stats = {"documents": 0, "no_pdf": 0, "unreadable": 0, "parsed": 0,
-             "escalated": 0, "by_family": {}}
+    stats = {"documents": 0, "no_pdf": 0, "unreadable": 0, "image_only": 0,
+             "parsed": 0, "escalated": 0, "by_family": {}}
     for rec in idx.to_dict("records"):
         if (time.time() - started) > deadline_min * 60:
             print("deadline reached - stopping cleanly")
@@ -437,6 +437,18 @@ def run_deterministic(limit: int = 0, deadline_min: float = 300.0) -> dict:
                                    ("announcement_id", "ticker", "published_at",
                                     "family", "headline")},
                                 "reason": "pdf_unreadable"})
+            continue
+        if not deterministic.has_text_layer(text):
+            # a scanned PDF is not a parse failure and must not be sent to a
+            # TEXT model, which would read exactly as little from it and
+            # charge for the attempt. Counted apart so the parse rate
+            # measures parsing, and queued as an OCR candidate.
+            stats["image_only"] = stats.get("image_only", 0) + 1
+            escalations.append({**{k: rec[k] for k in
+                                   ("announcement_id", "ticker", "published_at",
+                                    "family", "headline")},
+                                "reason": "no_text_layer_needs_ocr"})
+            done.add(rec["announcement_id"])
             continue
         facts = deterministic.extract(rec["family"], text, tbl, rec.get("headline") or "")
         if not facts:
@@ -479,7 +491,12 @@ def run_deterministic(limit: int = 0, deadline_min: float = 300.0) -> dict:
         write_manifest(done, DET_MANIFEST_PREFIX)
     stats["fact_rows"] = len(rows)
     stats["escalation_rows"] = len(escalations)
+    # two rates, because they answer different questions: how much of the
+    # corpus landed, and how good the parsers are on documents that HAVE text
+    readable = max(1, stats["documents"] - stats["no_pdf"] - stats["unreadable"]
+                   - stats["image_only"])
     stats["parse_rate"] = round(stats["parsed"] / max(1, stats["documents"]), 4)
+    stats["parse_rate_text_bearing"] = round(stats["parsed"] / readable, 4)
     return stats
 
 
@@ -512,7 +529,8 @@ def diagnose_failures(limit: int = 240, per_family: int = 12) -> dict:
     counts: dict[str, dict] = {}
     for rec in sample.to_dict("records"):
         fam = rec["family"]
-        counts.setdefault(fam, {"tried": 0, "parsed": 0, "failed": 0})
+        counts.setdefault(fam, {"tried": 0, "parsed": 0, "failed": 0,
+                                "image_only": 0})
         counts[fam]["tried"] += 1
         key = (f"asx/announcements/{rec['ticker']}/"
                f"{rec['day']}_{rec['announcement_id']}.pdf")
@@ -524,6 +542,9 @@ def diagnose_failures(limit: int = 240, per_family: int = 12) -> dict:
             fails.setdefault(fam, []).append({"headline": rec.get("headline"),
                                               "error": f"{type(exc).__name__}",
                                               "text": ""})
+            continue
+        if not deterministic.has_text_layer(text):
+            counts[fam]["image_only"] = counts[fam].get("image_only", 0) + 1
             continue
         got = deterministic.extract(fam, text, tbl, rec.get("headline") or "")
         if got:
@@ -540,6 +561,8 @@ def diagnose_failures(limit: int = 240, per_family: int = 12) -> dict:
                 "chars": len(text)})
     for fam, c in counts.items():
         c["parse_rate"] = round(c["parsed"] / max(1, c["tried"]), 4)
+        c["parse_rate_text_bearing"] = round(
+            c["parsed"] / max(1, c["tried"] - c.get("image_only", 0)), 4)
     return {"sampled": int(len(sample)), "by_family": counts, "failures": fails}
 
 
