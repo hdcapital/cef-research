@@ -368,3 +368,76 @@ def test_an_unpriced_model_reports_as_unpriced_not_as_free(monkeypatch):
     priced = dict.fromkeys(list(R.PRICES) + [R.MODEL])
     assert "some-model-not-in-the-table" in priced
     assert R.PRICES.get("some-model-not-in-the-table") is None
+
+
+# --------------------------------------------------- deterministic extractors
+def test_deterministic_nta_uses_the_already_validated_parser():
+    """The NTA path must not be a second, unproven parser.
+
+    A fresh regex would have to re-earn the accuracy the scored-label parser
+    was tuned to on real announcements; reusing it means the validation
+    carries over.
+    """
+    from au_lic.extract import deterministic as D
+
+    facts = D.extract_nta("Pre-Tax NTA Backing per share as at 31 March 2021 "
+                          "was $1.27", [], "Net Tangible Asset Backing")
+    assert len(facts) == 1
+    assert facts[0]["nav_per_share"] == 1.27
+    assert facts[0]["valuation_date"] == "2021-03-31"
+    assert facts[0]["extractor"] == "nta_scored_v1"
+
+
+def test_cents_are_converted_and_ambiguous_units_are_refused():
+    """A unit error is a 100x NAV error - the worst kind, because it looks real."""
+    from au_lic.extract import deterministic as D
+
+    facts = D.extract_nta("NTA per share as at 30 June 2020: 127.5 cents", [],
+                          "Net Tangible Asset Backing")
+    assert facts and abs(facts[0]["nav_per_share"] - 1.275) < 1e-9
+
+
+def test_buyback_execution_is_extracted_from_the_daily_notice():
+    from au_lic.extract import deterministic as D
+
+    text = ("Total number of shares bought back before the previous day: 1,200,000 "
+            "Number of shares bought back 250,000 Highest price paid $1.0450 "
+            "Remaining to be bought back 4,750,000")
+    f = D.extract_buyback(text, "Daily share buy-back notice - Appendix 3E")
+    assert f and f[0]["event_type"] == "buyback_execution"
+    assert f[0]["shares_bought_back"] in (1200000.0, 250000.0)
+    assert f[0]["remaining_to_buy_back"] == 4750000.0
+
+
+def test_distribution_amount_and_dates_are_extracted():
+    """Without distributions a NAV series is a price return, not a total return."""
+    from au_lic.extract import deterministic as D
+
+    text = ("Dividend/distribution amount per security 6.5 cents "
+            "Franked amount per security 100% franked "
+            "Ex-Date 15/02/2021 Record Date 16/02/2021 Payment Date 26/02/2021")
+    f = D.extract_dividend(text, "Appendix 3A.1 - Dividend/Distribution")
+    assert f and f[0]["amount_per_share_cents"] == 6.5
+    assert f[0]["franking_pct"] == 100.0
+    assert f[0]["ex_date"] == "2021-02-15"
+    assert f[0]["payment_date"] == "2021-02-26"
+
+
+def test_special_dividend_is_labelled_from_the_headline():
+    from au_lic.extract import deterministic as D
+
+    f = D.extract_dividend("Dividend/distribution amount per security 20 cents",
+                           "Special Dividend Announcement")
+    assert f and f[0]["event_type"] == "special_dividend"
+
+
+def test_unparseable_document_returns_nothing_so_it_escalates():
+    """[] must mean 'escalate', never 'contained nothing'.
+
+    If a parser failure were written as an empty result, the document would
+    be marked done and never seen by the model - a silent hole in the series.
+    """
+    from au_lic.extract import deterministic as D
+
+    assert D.extract("nta", "This page intentionally left blank.", [], "NTA") == []
+    assert D.extract("unknown_family", "anything", [], "x") == []

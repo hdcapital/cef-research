@@ -38,6 +38,7 @@ import pandas as pd
 sys.path.insert(0, "src")
 
 from au_lic.extract import guards
+from au_lic.extract import deterministic
 from au_lic.extract import router
 
 MODEL = os.environ.get("EXTRACT_MODEL") or "claude-opus-5"
@@ -144,7 +145,7 @@ def load_queue(limit: int = 0, ticker: str | None = None,
     return idx.head(limit) if limit else idx
 
 
-def read_manifest() -> set[str]:
+def read_manifest(prefix: str = MANIFEST_PREFIX) -> set[str]:
     if not BUCKET:
         return set()
     import boto3
@@ -152,7 +153,7 @@ def read_manifest() -> set[str]:
     done: set[str] = set()
     try:
         for page in s3.get_paginator("list_objects_v2").paginate(
-                Bucket=BUCKET, Prefix=MANIFEST_PREFIX):
+                Bucket=BUCKET, Prefix=prefix):
             for o in page.get("Contents", []):
                 try:
                     body = s3.get_object(Bucket=BUCKET, Key=o["Key"])["Body"].read()
@@ -164,13 +165,13 @@ def read_manifest() -> set[str]:
     return done
 
 
-def write_manifest(done: set[str]) -> None:
+def write_manifest(done: set[str], prefix: str = MANIFEST_PREFIX) -> None:
     if not BUCKET:
         return
     import boto3
     s3 = boto3.client("s3", region_name=os.environ.get("AWS_REGION"))
-    key = (f"{MANIFEST_PREFIX}.json" if SHARDS == 1
-           else f"{MANIFEST_PREFIX}_s{SHARD}of{SHARDS}.json")
+    key = (f"{prefix}.json" if SHARDS == 1
+           else f"{prefix}_s{SHARD}of{SHARDS}.json")
     s3.put_object(Bucket=BUCKET, Key=key,
                   Body=json.dumps({"ids": sorted(done)}).encode())
 
@@ -376,6 +377,112 @@ def collect_batch(batch_id: str) -> dict:
 
 
 
+# -------------------------------------------------------------- deterministic
+DET_MANIFEST_PREFIX = "asx/extract/det_manifest"
+
+
+def run_deterministic(limit: int = 0, deadline_min: float = 300.0) -> dict:
+    """Parse the prescribed-form route in Python, straight from the archive.
+
+    No model, no per-document cost, and re-runnable: when a parser improves,
+    the whole corpus can be reparsed for the price of the compute.
+
+    A document the parser cannot read is recorded as an ESCALATION with its
+    family and headline, not dropped. That queue is what the model pass later
+    consumes, so 'the parser could not read it' stays distinguishable from
+    'the document contained nothing'.
+    """
+    import boto3
+
+    s3 = boto3.client("s3", region_name=os.environ.get("AWS_REGION"))
+    done = read_manifest(DET_MANIFEST_PREFIX)
+    idx = router.route_index(pd.read_parquet(INDEX_F))
+    idx = idx[idx["route"] == "deterministic"].copy()
+    idx["announcement_id"] = idx["id"].astype(str)
+    idx["published_at"] = pd.to_datetime(idx["release_date"], utc=True,
+                                         errors="coerce").dt.strftime("%Y-%m-%d")
+    idx = idx[idx["published_at"].notna() & ~idx["announcement_id"].isin(done)]
+    idx = idx.rename(columns={"code": "ticker"})
+    idx["day"] = idx["published_at"]
+    if SHARDS > 1:
+        idx = idx[idx["announcement_id"].map(
+            lambda i: zlib.crc32(i.encode()) % SHARDS == SHARD)]
+    idx = idx.sort_values("published_at", ascending=False)
+    if limit:
+        idx = idx.head(limit)
+    print(f"deterministic: {len(idx)} documents (shard {SHARD + 1}/{SHARDS})")
+
+    started = time.time()
+    rows: list[dict] = []
+    escalations: list[dict] = []
+    stats = {"documents": 0, "no_pdf": 0, "unreadable": 0, "parsed": 0,
+             "escalated": 0, "by_family": {}}
+    for rec in idx.to_dict("records"):
+        if (time.time() - started) > deadline_min * 60:
+            print("deadline reached - stopping cleanly")
+            break
+        stats["documents"] += 1
+        key = (f"asx/announcements/{rec['ticker']}/"
+               f"{rec['day']}_{rec['announcement_id']}.pdf")
+        try:
+            data = s3.get_object(Bucket=BUCKET, Key=key)["Body"].read()
+        except Exception:  # noqa: BLE001
+            stats["no_pdf"] += 1
+            continue
+        try:
+            text, tbl = deterministic.pdf_pages(data)
+        except Exception:  # noqa: BLE001
+            stats["unreadable"] += 1
+            escalations.append({**{k: rec[k] for k in
+                                   ("announcement_id", "ticker", "published_at",
+                                    "family", "headline")},
+                                "reason": "pdf_unreadable"})
+            continue
+        facts = deterministic.extract(rec["family"], text, tbl, rec.get("headline") or "")
+        if not facts:
+            stats["escalated"] += 1
+            escalations.append({**{k: rec[k] for k in
+                                   ("announcement_id", "ticker", "published_at",
+                                    "family", "headline")},
+                                "reason": "no_facts_parsed"})
+            done.add(rec["announcement_id"])
+            continue
+        fam = rec["family"]
+        stats["by_family"][fam] = stats["by_family"].get(fam, 0) + len(facts)
+        for f in facts:
+            rows.append({"announcement_id": rec["announcement_id"],
+                         "ticker": rec["ticker"],
+                         "published_at": rec["published_at"],
+                         "family": fam, "source": "deterministic",
+                         "payload": json.dumps(f, default=str),
+                         **{k: f.get(k) for k in
+                            ("section", "valuation_date", "nav_per_share",
+                             "nav_basis", "extractor")}})
+        stats["parsed"] += 1
+        done.add(rec["announcement_id"])
+
+    out = Path("data/asx_extract")
+    out.mkdir(parents=True, exist_ok=True)
+    tag = f"det_s{SHARD}of{SHARDS}"
+    if rows:
+        pd.DataFrame(rows).to_parquet(out / f"facts_{tag}.parquet", index=False)
+    if escalations:
+        pd.DataFrame(escalations).to_parquet(out / f"escalations_{tag}.parquet",
+                                             index=False)
+    if BUCKET:
+        import boto3 as _b
+        c = _b.client("s3", region_name=os.environ.get("AWS_REGION"))
+        for name in (f"facts_{tag}.parquet", f"escalations_{tag}.parquet"):
+            f = out / name
+            if f.exists():
+                c.upload_file(str(f), BUCKET, f"asx/extract/{name}")
+        write_manifest(done, DET_MANIFEST_PREFIX)
+    stats["fact_rows"] = len(rows)
+    stats["escalation_rows"] = len(escalations)
+    stats["parse_rate"] = round(stats["parsed"] / max(1, stats["documents"]), 4)
+    return stats
+
+
 # ------------------------------------------------------------------ estimate
 # Published per-million-token rates. Batch is half. Cached input reads at 0.1x,
 # which matters here because the instruction block is ~identical every call.
@@ -539,7 +646,7 @@ def main(argv: list[str]) -> int:
 
     ap = argparse.ArgumentParser()
     ap.add_argument("mode", choices=["sync", "submit", "collect", "queue",
-                                     "estimate", "compare"])
+                                     "estimate", "compare", "deterministic"])
     ap.add_argument("--limit", type=int, default=10)
     ap.add_argument("--ticker")
     ap.add_argument("--batch-id")
@@ -555,6 +662,13 @@ def main(argv: list[str]) -> int:
                           "sample": q.head(5)[["announcement_id", "ticker",
                                                "published_at"]].to_dict("records")},
                          indent=2, default=str))
+        return 0
+    if a.mode == "deterministic":
+        out = run_deterministic(limit=a.limit)
+        Path("reports/build").mkdir(parents=True, exist_ok=True)
+        Path("reports/build/asx_deterministic_status.json").write_text(
+            json.dumps(out, indent=2, default=str))
+        print(json.dumps(out, indent=2, default=str))
         return 0
     if not os.environ.get("ANTHROPIC_API_KEY"):
         print("ANTHROPIC_API_KEY not set - extraction skipped")

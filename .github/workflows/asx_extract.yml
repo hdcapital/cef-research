@@ -15,8 +15,8 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "queue | estimate | compare | sync | submit | collect"
-        default: "queue"
+        description: "deterministic | queue | estimate | compare | sync | submit | collect"
+        default: "deterministic"
       limit:
         description: "documents to process"
         default: "10"
@@ -36,6 +36,13 @@ permissions:
 jobs:
   extract:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5, 6, 7]
+    concurrency:
+      group: asx-extract-${{ github.ref }}-${{ matrix.shard }}
+      cancel-in-progress: false
     timeout-minutes: 340
     steps:
       - uses: actions/checkout@v4
@@ -60,6 +67,8 @@ jobs:
           AWS_REGION: ${{ secrets.AWS_REGION }}
           S3_BUCKET: ${{ secrets.S3_BUCKET }}
           ANTHROPIC_API_KEY: ${{ secrets.CLAUDE_SECRET_KEY || secrets.ANTHROPIC_API_KEY }}
+          SHARD_INDEX: ${{ matrix.shard }}
+          SHARD_COUNT: "8"
           # explicit id wins; otherwise the tier picks one of the repo's
           # configured model variables. No model id is hardcoded here.
           EXTRACT_MODEL: ${{ github.event.inputs.model || (github.event.inputs.tier == 'expensive' && vars.EXPENSIVE_MODEL || vars.CHEAP_MODEL) }}
@@ -73,7 +82,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -f reports/build/asx_extract_status.json || true
+          git add -f reports/build/asx_extract_status.json \
+            reports/build/asx_deterministic_status.json || true
           if git diff --cached --quiet; then
             echo "no changes"
           else
