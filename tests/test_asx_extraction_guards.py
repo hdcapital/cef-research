@@ -614,3 +614,19 @@ def test_form_604_reports_the_present_holding_not_the_previous_one():
     r = D.extract("substantial_holder", f604, [], "Change in substantial holding")[0]
     assert r["voting_power_pct"] == 7.84, "reported the previous holding"
     assert r["voting_power_prev_pct"] == 5.12
+
+
+def test_sharded_status_files_do_not_collide():
+    """Eight shards writing one filename means seven results are lost.
+
+    The facts parquets were already per-shard, so no DATA was lost - but the
+    committed status was whichever shard finished last, and the run's real
+    totals could not be recovered from it. A per-shard status is the
+    difference between "7,533 documents" and the actual corpus-wide number.
+    """
+    import inspect
+
+    from au_lic.extract import runner as R
+
+    src = inspect.getsource(R.main)
+    assert "asx_deterministic_status_s{SHARD}of{SHARDS}" in src

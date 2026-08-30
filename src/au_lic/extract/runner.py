@@ -873,8 +873,14 @@ def main(argv: list[str]) -> int:
     if a.mode == "deterministic":
         out = run_deterministic(limit=a.limit)
         Path("reports/build").mkdir(parents=True, exist_ok=True)
-        Path("reports/build/asx_deterministic_status.json").write_text(
-            json.dumps(out, indent=2, default=str))
+        # per-shard filename: all eight shards wrote the SAME path, so the
+        # committed status was whichever shard happened to finish last and
+        # the run's real totals were unrecoverable from it
+        Path(f"reports/build/asx_deterministic_status_s{SHARD}of{SHARDS}.json"
+             if SHARDS > 1 else
+             "reports/build/asx_deterministic_status.json").write_text(
+            json.dumps({**out, "shard": SHARD, "shards": SHARDS},
+                       indent=2, default=str))
         print(json.dumps(out, indent=2, default=str))
         return 0
     if not os.environ.get("ANTHROPIC_API_KEY"):

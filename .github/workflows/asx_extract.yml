@@ -101,6 +101,7 @@ jobs:
           # discarded the status of a run that had succeeded
           for f in reports/build/asx_extract_status.json \
                    reports/build/asx_deterministic_status.json \
+                   reports/build/asx_deterministic_status_s*.json \
                    reports/build/asx_price_coverage.json \
                    reports/build/asx_parse_failures.json \
                    reports/build/asx_nta_validation.json; do
