@@ -43,6 +43,13 @@ INDEX_URL = "https://www.asx.com.au/asx/1/announcement/list"
 UA = ("uk-cef-research/0.1 (academic closed-end-fund research; "
       "contact: danielconorsims@gmail.com; ~1 req/1.5s)")
 THROTTLE = 1.5
+# Index calls get their own spacing. The endpoint answers the first request
+# and then times out, which is a rate limit expressed as a timeout, so the
+# only respectful lever is to ask less often. 60s is the slow-crawl setting.
+INDEX_THROTTLE = float(os.environ.get("NTA_INDEX_THROTTLE", "1.5"))
+INDEX_DEADLINE_MIN = float(os.environ.get("NTA_INDEX_DEADLINE_MIN", "0"))  # 0 = off
+MAX_CONSECUTIVE_INDEX_FAILURES = int(
+    os.environ.get("NTA_MAX_CONSECUTIVE_FAILURES", "5"))
 EARLIEST = pd.Timestamp("2016-11-01", tz="Australia/Sydney")
 SWEEP_BUDGET = int(os.environ.get("NTA_SWEEP_BUDGET", "800"))   # index calls per run
 PDF_BUDGET = int(os.environ.get("NTA_PDF_BUDGET", "600"))       # new PDFs per run
@@ -94,9 +101,10 @@ CELL_VAL = re.compile(r"(\$)?\s*([0-9]+(?:\.[0-9]{1,4})?)\s*(cents|cps|¢|c\b)?"
 _last = 0.0
 
 
-def throttled_get(s: requests.Session, url: str, **kw) -> requests.Response:
+def throttled_get(s: requests.Session, url: str, throttle: float | None = None,
+                  **kw) -> requests.Response:
     global _last
-    wait = THROTTLE - (time.time() - _last)
+    wait = (THROTTLE if throttle is None else throttle) - (time.time() - _last)
     if wait > 0:
         time.sleep(wait)
     _last = time.time()
@@ -168,9 +176,34 @@ def sweep_index(s: requests.Session, codes: set[str], counters: dict) -> pd.Data
     new_rows: list[dict] = []
     top_pass_calls = 0
     while counters["index_calls"] < SWEEP_BUDGET:
+        if INDEX_DEADLINE_MIN and (time.time() - START) > INDEX_DEADLINE_MIN * 60:
+            counters["index_deadline_hit"] = True
+            state["top_cursor_ms"] = end_ms
+            STATE_F.write_text(json.dumps(state))
+            break
         url = f"{INDEX_URL}?end_date={end_ms}"
         counters["index_calls"] += 1
-        r = throttled_get(s, url, headers={"Accept": "application/json"})
+        # A timeout used to propagate out of the sweep and end it - one bad
+        # call killed a whole run, and `|| true` in the workflow hid it. Now
+        # it is counted and the crawl continues, because on a throttled
+        # endpoint SOME calls timing out is the expected condition, not a
+        # failure of the run.
+        try:
+            r = throttled_get(s, url, throttle=INDEX_THROTTLE,
+                              headers={"Accept": "application/json"})
+        except Exception as exc:  # noqa: BLE001
+            counters["index_timeouts"] = counters.get("index_timeouts", 0) + 1
+            counters["consecutive_failures"] = counters.get("consecutive_failures", 0) + 1
+            counters["last_index_error"] = f"{type(exc).__name__}"
+            state["top_cursor_ms"] = end_ms
+            STATE_F.write_text(json.dumps(state))
+            if counters["consecutive_failures"] >= MAX_CONSECUTIVE_INDEX_FAILURES:
+                counters["index_error"] = "consecutive_timeouts"
+                break
+            time.sleep(min(120, 15 * counters["consecutive_failures"]))  # back off
+            continue
+        counters["consecutive_failures"] = 0
+        counters["index_ok"] = counters.get("index_ok", 0) + 1
         if r.status_code != 200:
             counters["index_error"] = f"http_{r.status_code}"
             break
@@ -192,6 +225,8 @@ def sweep_index(s: requests.Session, codes: set[str], counters: dict) -> pd.Data
         dates = pd.to_datetime([i["document_release_date"] for i in items],
                                utc=True, errors="coerce")
         oldest = dates.min()
+        counters.setdefault("days_per_call", []).append(
+            int((dates.max() - oldest).days) + 1)
         end_ms = int(oldest.value // 10**6) - 1
         if hist_done:
             # top-up pass: sweep back until it reaches the top of the
@@ -605,6 +640,13 @@ def main() -> int:
         "history_sweep_complete": counters.get("hist_done", False),
         "pdf_fetches": counters["pdf_calls"],
         "sweep_budget_hit": counters.get("sweep_budget_hit", False),
+        "index_ok": counters.get("index_ok", 0),
+        "index_timeouts": counters.get("index_timeouts", 0),
+        "index_deadline_hit": counters.get("index_deadline_hit", False),
+        "days_per_call": counters.get("days_per_call", [])[:40],
+        "median_days_per_call": (
+            sorted(counters["days_per_call"])[len(counters["days_per_call"]) // 2]
+            if counters.get("days_per_call") else None),
         "index_error": counters.get("index_error"),
         "pdf_budget_hit": counters.get("pdf_budget_hit", False),
         "deadline_hit": counters.get("deadline_hit", False),
