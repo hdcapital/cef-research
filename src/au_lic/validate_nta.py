@@ -37,7 +37,14 @@ BASIS_MIN_OBS = 3          # a per-fund offset needs repetition to be a basis
 
 
 def _month(s: pd.Series) -> pd.Series:
-    return pd.to_datetime(s, errors="coerce").dt.to_period("M").astype(str)
+    """Month key, with undated rows as NaN rather than the string "NaT".
+
+    Period.astype(str) renders a missing value as the literal "NaT", which
+    dropna() then keeps - so undated NAVs survived as a month named "NaT"
+    and silently joined against nothing.
+    """
+    per = pd.to_datetime(s, errors="coerce").dt.to_period("M")
+    return per.astype(str).where(per.notna())
 
 
 def compare(extracted: pd.DataFrame, panel: pd.DataFrame) -> pd.DataFrame:

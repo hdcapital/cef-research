@@ -120,3 +120,18 @@ def test_validation_reads_the_built_panel_not_a_rebuild():
     assert "load_panel" in src
     # and it fails with a clear instruction rather than a stack trace
     assert "build-panel" in src
+
+
+def test_undated_navs_do_not_become_a_month_called_NaT():
+    """Period.astype(str) renders a missing value as the literal "NaT".
+
+    dropna() then keeps it, so an undated NAV survived as a month named
+    "NaT" and joined against nothing - inflating the extraction count while
+    contributing zero comparable observations, which is precisely the shape
+    of failure that makes an empty join hard to read.
+    """
+    s = pd.Series(["2021-03-31", None, "not a date"])
+    keys = V._month(s)
+    assert keys.tolist()[0] == "2021-03"
+    assert keys.isna().sum() == 2
+    assert "NaT" not in set(keys.dropna())

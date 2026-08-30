@@ -565,11 +565,17 @@ def run_validate(limit: int = 0) -> dict:
             nav["valuation_date"].notna().sum()) if "valuation_date" in nav.columns else 0,
         "nav_tickers": int(nav["ticker"].nunique()) if "ticker" in nav.columns else 0,
         "nav_months_sample": sorted(set(nav_months.dropna()))[:6],
+        "nav_month_min": min(nav_months.dropna(), default=None),
+        "nav_month_max": max(nav_months.dropna(), default=None),
+        "nav_rows_by_year": nav_months.dropna().str[:4].value_counts()
+                            .sort_index().tail(12).to_dict(),
         "panel_rows": int(len(panel)),
         "panel_has_nta_price": "nta_price" in panel.columns,
         "panel_tickers": int(pan_t.nunique()),
         "panel_months_sample": sorted(
             set(panel["obs_month"].astype(str)))[:6] if "obs_month" in panel.columns else [],
+        "panel_month_min": str(panel["obs_month"].min()) if "obs_month" in panel.columns else None,
+        "panel_month_max": str(panel["obs_month"].max()) if "obs_month" in panel.columns else None,
         "ticker_overlap": int(len(set(nav.get("ticker", pd.Series(dtype=str))
                                       .astype(str).str.upper())
                                   & set(pan_t.str.upper()))),
