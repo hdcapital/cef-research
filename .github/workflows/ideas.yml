@@ -68,6 +68,45 @@ jobs:
             asx-ann-v1-
 
       # refresh the overnight announcement flow, then judge it
+      # The scan runs `nightly`, which reads BOTH monthly panels. ideas.yml
+      # never built them, so every scheduled scan since this workflow was
+      # written died on FileNotFoundError before scoring anything - which is
+      # why no idea email has ever been sent. The nightly workflow builds
+      # them; this one has to as well.
+      - name: Restore raw sources from S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+        run: python scripts/sync_state.py pull --groups raw_aic,raw_asx
+      - name: Restore AIC raw cache
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            data/raw
+            data/cache
+            data/manifest.csv
+          key: aic-raw-v1-${{ github.run_id }}
+          restore-keys: |
+            aic-raw-v1-
+      - name: Restore ASX raw cache
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            data/raw/asx
+            data/cache/asx
+            data/au_manifest.csv
+          key: asx-raw-v1-${{ github.run_id }}
+          restore-keys: |
+            asx-raw-v1-
+      - name: Build panels
+        run: |
+          python -m uk_cef.cli build-entities
+          python -m uk_cef.cli build-panel
+          python -m au_lic.cli download
+          python -m au_lic.cli build-panel
+
       - name: Refresh announcements + NAV
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}

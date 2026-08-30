@@ -495,3 +495,25 @@ def test_every_imported_third_party_dependency_is_declared():
     """
     req = Path("requirements.txt").read_text()
     assert "boto3" in req, "boto3 is imported by src/ and scripts/ but undeclared"
+
+
+def test_the_ideas_scan_builds_the_panels_it_reads():
+    """Every scheduled idea scan has died before scoring anything.
+
+    ideas.yml runs `cef_live.cli nightly`, which reads both monthly panels,
+    but never built them - so the scan failed on FileNotFoundError in under a
+    second, twice a day, and no idea email has ever been sent. The workflow
+    that produces the system's only user-visible output was the one nobody
+    had watched run.
+    """
+    import yaml as _yaml
+
+    wf = _yaml.safe_load(Path(".github/workflows/ideas.yml").read_text())
+    steps = wf["jobs"]["scan"]["steps"]
+    runs = "\n".join(str(s.get("run", "")) for s in steps)
+    scan_at = next(i for i, s in enumerate(steps)
+                   if "cef_live.cli nightly" in str(s.get("run", "")))
+    build_at = next(i for i, s in enumerate(steps)
+                    if "au_lic.cli build-panel" in str(s.get("run", "")))
+    assert build_at < scan_at, "panels must be built before the scan reads them"
+    assert "uk_cef.cli build-panel" in runs
