@@ -500,6 +500,33 @@ def run_deterministic(limit: int = 0, deadline_min: float = 300.0) -> dict:
     return stats
 
 
+
+def _key_overlap_diag(nav, nav_months, pan_t, panel) -> dict:
+    """Composite-key overlap, and one shared ticker's months on each side."""
+    try:
+        nk = pd.DataFrame({"t": nav.get("ticker", pd.Series(dtype=str))
+                           .astype(str).str.upper(), "m": nav_months}).dropna()
+        pk = pd.DataFrame({"t": pan_t.astype(str).str.upper(),
+                           "m": panel["obs_month"].astype(str)}).dropna()
+        ns = set(map(tuple, nk.values))
+        ps = set(map(tuple, pk.values))
+        both = ns & ps
+        shared_t = sorted(set(nk["t"]) & set(pk["t"]))
+        probe = shared_t[0] if shared_t else None
+        return {
+            "composite_key_overlap": len(both),
+            "nav_unique_keys": len(ns), "panel_unique_keys": len(ps),
+            "key_overlap_sample": [f"{a}|{b}" for a, b in sorted(both)[:5]],
+            "probe_ticker": probe,
+            "probe_nav_months": sorted(nk.loc[nk["t"] == probe, "m"])[-6:]
+                                if probe else [],
+            "probe_panel_months": sorted(pk.loc[pk["t"] == probe, "m"])[-6:]
+                                  if probe else [],
+        }
+    except Exception as exc:  # noqa: BLE001
+        return {"key_overlap_error": f"{type(exc).__name__}: {exc}"}
+
+
 def run_validate(limit: int = 0) -> dict:
     """Compare extracted NTA with the exchange's published NTA.
 
@@ -591,6 +618,11 @@ def run_validate(limit: int = 0) -> dict:
         "panel_key_sample": [f"{a}|{b}" for a, b in zip(
             pan_t.head(5), panel["obs_month"].astype(str).head(5))]
             if "obs_month" in panel.columns else [],
+        # The composite key intersection itself. Every diagnosis so far has
+        # inferred overlap from ticker sets and month RANGES separately, and
+        # both can look fine while no (ticker, month) PAIR coincides. This is
+        # the only figure that settles it.
+        **_key_overlap_diag(nav, nav_months, pan_t, panel),
     }
     Path("reports/build").mkdir(parents=True, exist_ok=True)
     Path("reports/build/asx_nta_validation.json").write_text(
