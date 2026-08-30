@@ -460,7 +460,12 @@ def nightly(markets: list[str]) -> int:
                          on="security_id", how="left").head(12)
         for r in top.itertuples(index=False):
             z = "" if pd.isna(getattr(r, "z_adj", None)) else f"  z={r.z_adj:+.2f}"
-            cat_lines.append(f"  {r.date}  {(r.name or r.security_id)[:34]:<34} "
+            # `x or y` is wrong for a possibly-NaN name: NaN is TRUTHY, so a
+            # left-joined miss returns the float and slicing it raises. This
+            # crashed the nightly AFTER a 24-minute harvest, losing the run.
+            nm = getattr(r, "name", None)
+            label = str(nm) if isinstance(nm, str) and nm.strip() else str(r.security_id)
+            cat_lines.append(f"  {r.date}  {label[:34]:<34} "
                              f"{r.catalyst_class}{z}")
     notify(f"nightly OK - {len(out)} funds, {int(out['alert_eligible'].sum())} eligible"
            + (f", {catalysts.summarise(cats)['catalysts']} catalysts" if len(cats) else ""),

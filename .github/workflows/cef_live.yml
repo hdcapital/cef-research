@@ -123,7 +123,12 @@ jobs:
           S3_BUCKET: ${{ secrets.S3_BUCKET }}
         run: python scripts/sync_state.py push --groups raw_aic,raw_asx,uk_announcements,asx_index,tickers
 
+      # always(): the outputs are written BEFORE the step can fail, and a
+      # 24-minute harvest must not be thrown away because the email formatter
+      # raised afterwards. It is also required by the non-zero exit this
+      # workflow now returns when a harvester errors.
       - name: Commit live outputs
+        if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

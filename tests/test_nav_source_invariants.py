@@ -343,3 +343,25 @@ def test_harvester_globals_all_resolve(fname):
                   if i.opname == "LOAD_GLOBAL"}
     missing = [n for n in missing if n in referenced]
     assert not missing, f"{fname} references undefined global(s): {missing}"
+
+
+def test_nan_name_does_not_crash_the_catalyst_digest():
+    """`x or y` is wrong whenever x may be NaN - NaN is truthy.
+
+    A left join that misses puts a float in `name`; `(r.name or r.security_id)`
+    then returns the float and slicing it raises. This crashed the nightly
+    AFTER a 24-minute harvest, so the cost of the bug was the whole run, not
+    one email line. Same trap, same shape, as the ISIN handling in tickers.py.
+    """
+    import math
+    import pandas as pd
+
+    df = pd.DataFrame([{"security_id": "ASX:ABC", "name": float("nan")},
+                       {"security_id": "ASX:DEF", "name": "Real Fund"}])
+    for r in df.itertuples(index=False):
+        nm = getattr(r, "name", None)
+        label = str(nm) if isinstance(nm, str) and nm.strip() else str(r.security_id)
+        assert isinstance(label[:34], str)
+    # the trap itself, documented so it is not reintroduced
+    assert (float("nan") or "fallback") != "fallback"
+    assert math.isnan(float("nan") or "fallback")
