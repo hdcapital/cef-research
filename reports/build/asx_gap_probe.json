@@ -1,0 +1,79 @@
+{
+  "index_file": "data/asx_ann_cache/asx1/lic_announcement_index.parquet",
+  "exists": true,
+  "index_rows": 86692,
+  "index_span": "2016-10-31 -> 2026-08-27",
+  "rows_by_year": {
+    "2016": 1319,
+    "2017": 9115,
+    "2018": 10687,
+    "2019": 13874,
+    "2020": 15562,
+    "2021": 13780,
+    "2022": 12100,
+    "2023": 10116,
+    "2026": 139
+  },
+  "contiguous_frontier": "2023-11-07",
+  "global_max": "2026-08-27",
+  "sweep_state": {
+    "hist_done": true,
+    "earliest_ms": 1477901341999,
+    "top_cursor_ms": 1787780128999
+  },
+  "SWEEP_BUDGET": 800,
+  "codes_in_registry": null,
+  "reachability": {
+    "asx1_no_params": {
+      "url": "https://www.asx.com.au/asx/1/announcement/list",
+      "http": 200,
+      "secs": 0.2,
+      "bytes": 259,
+      "head": "{\"result_count\":0,\"total_search_count\":0,\"error_message\":\"Invalid date ranges supplied. End Date must be provided\",\"comp"
+    },
+    "asx1_recent": {
+      "url": "https://www.asx.com.au/asx/1/announcement/list?end_date=1788087984491",
+      "error": "ReadTimeout",
+      "secs": 25.0
+    },
+    "asx1_2024": {
+      "url": "https://www.asx.com.au/asx/1/announcement/list?end_date=1719792000000",
+      "error": "ReadTimeout",
+      "secs": 25.0
+    },
+    "asx_home": {
+      "url": "https://www.asx.com.au/",
+      "http": 200,
+      "secs": 0.2,
+      "bytes": 162386,
+      "head": "\n<!DOCTYPE HTML>\n<html lang=\"en\">\n    <head>\n  \n    <meta charset=\"UTF-8\"/>\n    \n    \n    \n    \n    \n    \n    <meta prop"
+    },
+    "markit_afi": {
+      "url": "https://asx.api.markitdigital.com/asx-research/1.0/companies/AFI/announcements?access_toke",
+      "http": 200,
+      "secs": 0.6,
+      "bytes": 1251,
+      "head": "{\"data\":{\"displayName\":\"AUSTRALIAN FOUNDATION INVESTMENT COMPANY LIMITED\",\"issueType\":\"CS\",\"items\":[{\"announcementType\":"
+    }
+  },
+  "calls": [
+    {
+      "call": 1,
+      "end_date_ms": 1788088035516,
+      "http": 200,
+      "items": 2000,
+      "newest": "2026-08-28",
+      "oldest": "2026-08-26",
+      "days_covered": 1,
+      "reaches_frontier": false
+    },
+    {
+      "call": 2,
+      "end_date_ms": 1787780128999,
+      "error": "ReadTimeout: HTTPSConnectionPool(host='www.asx.com.au', port=443): Read timed out. (read timeout=60)"
+    }
+  ],
+  "avg_days_per_call": 1.0,
+  "gap_days": 1025,
+  "calls_needed_estimate": 1025
+}
