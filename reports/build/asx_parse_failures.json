@@ -3,9 +3,9 @@
   "by_family": {
     "nta": {
       "tried": 121,
-      "parsed": 77,
-      "failed": 44,
-      "parse_rate": 0.6364
+      "parsed": 94,
+      "failed": 27,
+      "parse_rate": 0.7769
     },
     "buyback_daily": {
       "tried": 69,
@@ -15,21 +15,21 @@
     },
     "substantial_holder": {
       "tried": 14,
-      "parsed": 0,
-      "failed": 14,
-      "parse_rate": 0.0
+      "parsed": 4,
+      "failed": 10,
+      "parse_rate": 0.2857
     },
     "issue": {
       "tried": 16,
-      "parsed": 0,
-      "failed": 16,
-      "parse_rate": 0.0
+      "parsed": 10,
+      "failed": 6,
+      "parse_rate": 0.625
     },
     "dividend": {
       "tried": 13,
-      "parsed": 1,
-      "failed": 12,
-      "parse_rate": 0.0769
+      "parsed": 12,
+      "failed": 1,
+      "parse_rate": 0.9231
     },
     "share_cancellation": {
       "tried": 7,
@@ -39,116 +39,6 @@
     }
   },
   "failures": {
-    "nta": [
-      {
-        "announcement_id": "01797605",
-        "ticker": "WDE",
-        "published_at": "2016-10-31",
-        "headline": "Weekly Net Tangible Asset Backing",
-        "text_head": "y 1 November 2016 l n The Manager ASX Market Announcements o Australian Securities Exchange Sydney NSW 2000 e s Wealth Defender Equities Limited (ASX: WDE) advises that its estimated weekly pre-tax Net Tangible Asset Backing per share (NTA) as at Friday, 28 October 2016 was: $0.8623. u This figure is estimated and unaudited. l a n Sarah Prince Company Secretary o s Contact Details r Should investors have any questions or queries regarding the company, please contact Wealth Defender e Equities Investor Services on 1800 645 202 or invest@wealthdefenderequities.com.au. p All holding enquiries should be directed to our share registrar, Link Market Services 1300 554 474 or wde@linkmarketservices.",
-        "table_rows": [],
-        "chars": 962
-      },
-      {
-        "announcement_id": "01810366",
-        "ticker": "BSN",
-        "published_at": "2016-12-06",
-        "headline": "Net Tangible Asset Backing",
-        "text_head": "BISAN Ltd ABN 75 006 301 800 y ASX Announcement l n 6 December 2016 Disclosure pursuant to ASX Listing Rule 4.12 o The net tangible asset backing per Bisan Limited share as at 31 August 2016 is 0.0384c. e s Brett Crowley Company Secretary u l a n o s r e p r o F Suite 904, 37 Bligh Street, Sydney NSW 2000 Australia Tel: +61 (02) 9233 3308",
-        "table_rows": [],
-        "chars": 340
-      },
-      {
-        "announcement_id": "01839978",
-        "ticker": "ABW",
-        "published_at": "2017-03-16",
-        "headline": "ABW - NTA Estimate $0.81",
-        "text_head": "A.B.N. 69 092 626 885 AFSL No. 222110 Suite 613, Level 6 370 St Kilda Road 17 March 2017 MELBOURNE VIC 3004 y Telephone: 1300 553 431 l ASX Limited Email: enquiries@aurorafunds.com.au n Level 6, Exchange Centre 20 Bridge Street o Sydney NSW 2000 Attention: Company Announcements e s AURORA ABSOLUTE RETURN FUND u We advise that the estimated Net Asset Value per Unit of the Fund including franking credits as at 16 March 2017 was $0.81. l a n About the Aurora Absolute Return Fund The Fund aims to produce positive returns irrespective of the direction of the share market, by o investing in predominantly Australian listed securities and derivatives through the unlisted Aurora Fortitude Absolute Re",
-        "table_rows": [],
-        "chars": 875
-      },
-      {
-        "announcement_id": "01848978",
-        "ticker": "USP",
-        "published_at": "2017-04-19",
-        "headline": "Fund Update",
-        "text_head": "y l 19 April 2017 n US Select Private Opportunities Fund III New Investor Commitment to the Limited Partnership o Walsh & Company Investments Limited (Responsible Entity), as responsible entity for the US Select Private Opportunities Fund III (Fund) (ASX Code: USP), advises that Cordish Dixon III Australian Wholesale Fund (CDW III), a newly formed wholesale investment fund, intends to commit approximately e US$12 million into the US Select Private Opportunities Fund III L.P. (Limited Partnership). CDW III intends to invest alongside the Fund and other existing investors into the Limited Partnership. The s Fund\u2019s total US dollar commitment into the Limited Partnership will remain unchanged. \u201c",
-        "table_rows": [],
-        "chars": 1808
-      },
-      {
-        "announcement_id": "01924200",
-        "ticker": "HHV",
-        "published_at": "2017-11-21",
-        "headline": "Net Tangible Asset Backing - 17 November 2017",
-        "text_head": "y l n o e s u l a n o s r e p r o F",
-        "table_rows": [],
-        "chars": 35
-      },
-      {
-        "announcement_id": "01961052",
-        "ticker": "AYZ",
-        "published_at": "2018-03-12",
-        "headline": "Net Tangible Asset Backing",
-        "text_head": "13 March 2018 y The Manager l Company Announcements Office n Australian Securities Exchange Limited o Level 6, Exchange Centre 20 Bridge Street Sydney, NSW 2000 e s Australian Masters Yield Fund No 5 Limited u (ASX Code: AYZ) Net Tangible Asset Backing l As at 28 February 2018, the Australian Masters Yield Fund No 5 Limited (the Company) had a an estimated, unaudited after-tax NTA per share of $59.59 (January 2018: $60.08). n o s Yours sincerely, r e Hannah Chan p Company Secretary Australian Masters Yield Fund No 5 Limited r o F *Source: Walsh & Company Asset Management Pty Limited \u2013 the historical performance of the Manager is not a guarantee of the future performance of the Portfolio or t",
-        "table_rows": [],
-        "chars": 710
-      },
-      {
-        "announcement_id": "01965253",
-        "ticker": "AUP",
-        "published_at": "2018-03-25",
-        "headline": "AUP - NTA Estimate $4.16",
-        "text_head": "A.B.N. 69 092 626 885 AFSL No. 222110 Suite 613, Level 6 370 St Kilda Road 26 March 2018 MELBOURNE VIC 3004 y PO Box 33281, Melbourne VIC 3004 l ASX Limited Telephone: 1300 553 431 n Email: enquiries@aurorafunds.com.au Level 6, Exchange Centre 20 Bridge Street o Sydney NSW 2000 Attention: Company Announcements e AURORA PROPERTY BUY-WRITE INCOME TRUST (AUP) s u We advise that the estimated Net Asset Value per Unit of the Trust including franking credits as at 23 March 2018 was $4.16. RNY Property Trust l AUP has an interest of approximately 81% interest in the RNY Property Trust (RNY), which is listed a on the ASX. Due to AUP\u2019s significant ownership interest, RNY is thinly traded. AUP is curr",
-        "table_rows": [],
-        "chars": 1091
-      },
-      {
-        "announcement_id": "01987759",
-        "ticker": "AEG",
-        "published_at": "2018-06-04",
-        "headline": "Unadjusted Net Tangible Assets",
-        "text_head": "ASX Release UNADJUSTED NET TANGIBLE ASSETS Tuesday, 5 June 2018 Absolute Equity Performance Fund Limited ACN 608 552 496 (ASX:AEG) (the Company) advises that the estimated net tangible assets (NTA) of the Company\u2019s Investment Portfolio at close of business on 31 May 2018 was $1.18 and at the close of business on 1 June 2018 was $1.19. This equates to an estimated month-to-date performance to 31 May 2018 of +4.8%, and to 1 June 2018 of +0.3%. Please note that the above estimates are pre-tax and unadjusted and may not include the impact of all corporate actions for the month-to-date. The estimate is based primarily on internal data and should not be relied upon as being accurate. A formal mont",
-        "table_rows": [],
-        "chars": 1056
-      },
-      {
-        "announcement_id": "01999092",
-        "ticker": "MXT",
-        "published_at": "2018-07-12",
-        "headline": "Daily Fund Update",
-        "text_head": "y l n The Manager o Company Announcement Office Australian Securities Exchange Limited Level 6, Exchange Centre e 20 Bridge Street Sydney NSW 2000 12 July 2018 s u l Daily NTA Estimate a As at the close of business on Wednesday, 11 July 2018 the unaudited estimate of the Net Tangible n Asset (NTA) per unit of MCP Master Income Trust (ASX: MXT) was 2.0044*. o Yours sincerely, s r e Martin Farr p Senior Corporate Clients Manager r o The Investment Objective of MCP Master Income Trust is to provide monthly cash income, low risk of capital loss and portfolio diversification by actively managing diversified loan portfolios and F participating in Australia\u2019s bank-dominated corporate loan market. T",
-        "table_rows": [],
-        "chars": 1035
-      },
-      {
-        "announcement_id": "02007873",
-        "ticker": "PIA",
-        "published_at": "2018-08-09",
-        "headline": "Net Tangible Asset Backing - 31 July 2018",
-        "text_head": "WEEKLY NTA NTA ANNOUNCEMENT y l n PENGANA INTERNATIONAL EQUITIES LIMITED o(ASX: PIA) NET TANGIBLE ASSET (NTA) BACKING AS AT 31 JULY 2018 e s u Cents per share Net tangible asset value before provision for tax on unrealised income and gains 124.13 l a Provision for tax on unrealised income and gains (1.57) Net tangible asset value after provision for tax on unrealised n income and gains 122.56 The net asset value of the Company is unaudited and calculated using last sale price (less realisation o costs) to value the investments, with no reference to the number of outstanding options. s FOR FURTHER r INFORMATION PLEASE VISIT e OUR WEBSITE: PENGANA.COM p /PIA r o F PENGANA INTERNATIONAL EQUITIE",
-        "table_rows": [],
-        "chars": 1014
-      },
-      {
-        "announcement_id": "02018625",
-        "ticker": "BSN",
-        "published_at": "2018-09-03",
-        "headline": "Net Tangible Asset Backing",
-        "text_head": "BISAN Ltd ABN 75 006 301 800 y ASX Announcement l n 4 September 2018 Disclosure pursuant to ASX Listing Rule 4.12 o The net tangible asset backing per Bisan Limited share as at 31 August 2018 is Nil. e Adrien Wing s Company Secretary u l a n o s r e p r o F Level 33, 50 Bridge Street, Sydney NSW 2000 Australia Tel: +61 (02) 9233 3308",
-        "table_rows": [],
-        "chars": 335
-      },
-      {
-        "announcement_id": "02032203",
-        "ticker": "PAI",
-        "published_at": "2018-10-09",
-        "headline": "Weekly Net Tangible Asset Backing",
-        "text_head": "9 October 2018 y The Manager ASX Market Announcements l Australian Securities Exchange Limited n Sydney NSW 2000 o WEEKLY PRE-TAX NET TANGIBLE ASSET (\u201cNTA\u201d) UPDATE e s Platinum Asia Investments Limited (\u201cPAI\u201d) advises that its estimated weekly pre-tax Net Tangible Asset Backing u per share as at Friday, 5 October 2018 was $1.0724. The NTA is unaudited and indicative only. l a n o J Jefferies Company Secretary s r e p r o F Level 8, 7 Macquarie Place, Sydney NSW 2000, Australia | GPO Box 2724, Sydney NSW 2001 Telephone 61 2 9255 7500 | Investor Services 1300 726 700 | Facsimile 61 2 9254 5555 | Email invest@platinum.com.au | Website www.platinumasia.com.au Platinum Asia Investments Limited AB",
-        "table_rows": [],
-        "chars": 716
-      }
-    ],
     "substantial_holder": [
       {
         "announcement_id": "01819879",
@@ -164,18 +54,9 @@
         "ticker": "WAM",
         "published_at": "2018-06-29",
         "headline": "Becoming a substantial shareholder for PSI",
-        "text_head": "y l n o e s u l a n o s r e p r o F y l n o e s u l a n o s r e p r o F y l n o e s u l a n o s r e p r o F y l n o e s u l a n o s r e p r o F",
+        "text_head": "a a a a",
         "table_rows": [],
-        "chars": 143
-      },
-      {
-        "announcement_id": "02011359",
-        "ticker": "WMI",
-        "published_at": "2018-08-20",
-        "headline": "Ceasing to be a substantial holder for REF",
-        "text_head": "y l n o e s u l a n o s r e p r o F y l n o e s u l a n o s r e p r o F y l n o e s u l a n o s r e p r o F y l n o e s u l a n o s r e p r o F",
-        "table_rows": [],
-        "chars": 143
+        "chars": 7
       },
       {
         "announcement_id": "02022095",
@@ -191,27 +72,18 @@
         "ticker": "CBC",
         "published_at": "2019-09-03",
         "headline": "Change in substantial holding from CIW",
-        "text_head": "604 GUIDE page 1/1 13 March 2000 Form 604 Corporations Act 2001 Section 671B Notice of change of interests of substantial holder y To: Company Name/Scheme CBG Capital Limited (CBC) lACN/ARSN ACN 168 936 249 n 1. Details of substantial holder (1) Name Clime Investment Management Limited (ACN 067 185 899) (CIW) and each of CIW\u2019s subsidiaries including those listed in o Annexure B (CIW Group Companies) ACN\\ARSN (if applicable) ACN 067 185 899 There was a change in the interests of the esubstantial holder on 02/09/2019 The previous notice was given to the company on 30/08/2019 The previous notice was dated 30/08/2019 s 2. Previous and present voting power uThe total number of votes attached to a",
+        "text_head": "604 GUIDE page 1/1 13 March 2000 Form 604 Corporations Act 2001 Section 671B Notice of change of interests of substantial holder To: Company Name/Scheme CBG Capital Limited (CBC) lACN/ARSN ACN 168 936 249 1. Details of substantial holder (1) Name Clime Investment Management Limited (ACN 067 185 899) (CIW) and each of CIW\u2019s subsidiaries including those listed in Annexure (CIW Group Companies) ACN\\ARSN (if applicable) ACN 067 185 899 There was a change in the interests of the esubstantial holder on 02/09/2019 The previous notice was given to the company on 30/08/2019 The previous notice was dated 30/08/2019 2. Previous and present voting power uThe total number of votes attached to all the vot",
         "table_rows": [],
-        "chars": 7326
-      },
-      {
-        "announcement_id": "02238195",
-        "ticker": "HHY",
-        "published_at": "2020-05-25",
-        "headline": "Ceasing to be a substantial holder",
-        "text_head": " ",
-        "table_rows": [],
-        "chars": 1
+        "chars": 7198
       },
       {
         "announcement_id": "02243391",
         "ticker": "TEK",
         "published_at": "2020-06-10",
         "headline": "Change in substantial holding for ISU",
-        "text_head": "THORNEY TECHNOLOGIES LTD ABN: 66 096 782 188 CROSS RELEASE ASX: ISU y l n 10 June 2020 o BY ASX ONLINE - 5 pages e Manager Company Announcements ASX Limited s Level 10 20 Bond Street SYDNEY NSW 2000 u l a Dear Sir/Madam, Notice of change of interests of substantial holder n iSelect Limited [ASX:ISU] o Following is a Form 604 Notice of change of interests of substantial holder dated 10 June 2020 in accordance with section 671B of the Corporations Act 2001 (Cth). s Yours sincerely, r e p CRAIG SMITH ACIS, CPA Secretary r o F Level 39, 55 Collins Street, Melbourne Vic 3000 Telephone + 61 3 9921 7116 Facsimile + 61 3 9921 7100 Form 604 Corporations Act 2001 Section 671B Notice of change of inter",
+        "text_head": "THORNEY TECHNOLOGIES LTD ABN: 66 096 782 188 CROSS RELEASE ASX: ISU 10 June 2020 BY ASX ONLINE - 5 pages Manager Company Announcements ASX Limited Level 10 20 Bond Street SYDNEY NSW 2000 a Dear Sir/Madam, Notice of change of interests of substantial holder iSelect Limited [ASX:ISU] Following is a Form 604 Notice of change of interests of substantial holder dated 10 June 2020 in accordance with section 671B of the Corporations Act 2001 (Cth). Yours sincerely, CRAIG SMITH ACIS, CPA Secretary Level 39, 55 Collins Street, Melbourne Vic 3000 Telephone + 61 3 9921 7116 Facsimile + 61 3 9921 7100 Form 604 Corporations Act 2001 Section 671B Notice of change of interests of substantial holder To: com",
         "table_rows": [],
-        "chars": 6103
+        "chars": 5967
       },
       {
         "announcement_id": "02276634",
@@ -223,268 +95,163 @@
         "chars": 5170
       },
       {
-        "announcement_id": "02282763",
-        "ticker": "WAA",
-        "published_at": "2020-09-18",
-        "headline": "Change in substantial holding for MEL - Correction",
-        "text_head": "TO: ASX Company Announcements Office FROM: Wilson Asset Management Group DATE: 18 September 2020 y NO OF PAGES: 7 (including this page) l n In accordance with Section 671B of the Corporations Act 2001, please find following Form 604 \u2010 Notice of change of interests of substantial holder in relation to Metgasco Limited (ASX: MEL). o The primary purpose of this notice is to disclose certain indirect relevant interests and voting powers that the Wilson Asset Management Group are deemed to hold in MEL pursuant to the Corporations Act. e As detailed in the notice, the Wilson Asset Management Group are deemed to hold an indirect deemed relevant interest in MEL shares held by each of Keybridge Capit",
-        "table_rows": [],
-        "chars": 8207
-      },
-      {
         "announcement_id": "02378096",
         "ticker": "WAX",
         "published_at": "2021-05-25",
         "headline": "Becoming a substantial holder for LGL",
-        "text_head": "603 Page 1 of 2 15 July 2001 Form 603 Corporations Act 2001 Section 671B Notice of initial substantial holder To Company Name/Scheme Lynch Group Holdings Ltd (ASX:LGL) y ACN/ARSN ACN: 608 543 219 l n1.Details of substantial holder (1) Name Wilson Asset Management Group (refer entities listed in Annexure A) oACN/ARSN (if applicable) The holder became a substantial holder on 21/05/2021 e s2.Details of voting power The total number of votes attached to all the voting shares in the company or voting interests in the scheme that the substantial holder or an associate (2) had a relevant interest (3) in on the date the substantial holder became a substantial holder are as follows: u Class of securi",
+        "text_head": "603 Page 1 of 2 15 July 2001 Form 603 Corporations Act 2001 Section 671B Notice of initial substantial holder To Company Name/Scheme Lynch Group Holdings Ltd (ASX:LGL) ACN/ARSN ACN: 608 543 219 n1.Details of substantial holder (1) Name Wilson Asset Management Group (refer entities listed in Annexure A) oACN/ARSN (if applicable) The holder became a substantial holder on 21/05/2021 s2.Details of voting power The total number of votes attached to all the voting shares in the company or voting interests in the scheme that the substantial holder or an associate (2) had a relevant interest (3) in on the date the substantial holder became a substantial holder are as follows: Class of securities (4)",
         "table_rows": [],
-        "chars": 13195
+        "chars": 13079
       },
       {
         "announcement_id": "02383689",
         "ticker": "WAM",
         "published_at": "2021-06-10",
         "headline": "Change in substantial holding for DSK",
-        "text_head": "604 Page 1 of 2 15 July 2001 Form 604 Corporations Act 2001 Section 671B Notice of change of interests of substantial holder To Company Name/Scheme Dusk Group Limited (ASX: DSK) y ACN/ARSN ACN 603 018 131 l n 1. Details of substantial holder (1) Name Wilson Asset Management Group (refer entities listed in Annexure A) o ACN/ARSN (if applicable) There was a change in the interests of the e substantial holder on 08/06/2021 The previous notice was given to the company on 25/01/2021 s The previous notice was dated 25/01/2021 u 2. Previous and present voting power The total number of votes attached to all the voting shares in the company or voting interests in the scheme that the substantial holde",
+        "text_head": "604 Page 1 of 2 15 July 2001 Form 604 Corporations Act 2001 Section 671B Notice of change of interests of substantial holder To Company Name/Scheme Dusk Group Limited (ASX: DSK) ACN/ARSN ACN 603 018 131 1. Details of substantial holder (1) Name Wilson Asset Management Group (refer entities listed in Annexure A) ACN/ARSN (if applicable) There was a change in the interests of the substantial holder on 08/06/2021 The previous notice was given to the company on 25/01/2021 The previous notice was dated 25/01/2021 2. Previous and present voting power The total number of votes attached to all the voting shares in the company or voting interests in the scheme that the substantial holder or an associ",
         "table_rows": [],
-        "chars": 11325
+        "chars": 11193
       },
       {
         "announcement_id": "02472697",
         "ticker": "WAM",
         "published_at": "2022-01-03",
         "headline": "Change in substantial holding for PAF",
-        "text_head": "604 Page 1 of 3 15 July 2001 Form 604 Corporations Act 2001 Section 671B Notice of change of interests of substantial holder To Company Name/Scheme PM Capital Asian Opportunities Fund Limited (ASX:PAF) y ACN/ARSN ACN 168 666 171 l n1. Details of substantial holder (1) Name WAM Capital Limited (refer associated entities listed in Annexure A) o ACN/ARSN (if applicable) ACN 086 587 395 There was a change in the interests of the esubstantial holder on 31/12/2021 The previous notice was given to the company on 30/12/2021 sThe previous notice was dated 30/12/2021 u 2. Previous and present voting power The total number of votes attached to all the voting shares in the company or voting interests in",
+        "text_head": "604 Page 1 of 3 15 July 2001 Form 604 Corporations Act 2001 Section 671B Notice of change of interests of substantial holder To Company Name/Scheme PM Capital Asian Opportunities Fund Limited (ASX:PAF) ACN/ARSN ACN 168 666 171 n1. Details of substantial holder (1) Name WAM Capital Limited (refer associated entities listed in Annexure A) ACN/ARSN (if applicable) ACN 086 587 395 There was a change in the interests of the esubstantial holder on 31/12/2021 The previous notice was given to the company on 30/12/2021 sThe previous notice was dated 30/12/2021 2. Previous and present voting power The total number of votes attached to all the voting shares in the company or voting interests in the sch",
         "table_rows": [],
-        "chars": 7128
+        "chars": 7020
+      },
+      {
+        "announcement_id": "02551766",
+        "ticker": "RYD",
+        "published_at": "2022-08-10",
+        "headline": "Notice of Initial Substantial Holder for LDX",
+        "text_head": "yder Capital Limited Manager ASX Announcements Office ASX Limited 10 August 2022 Dear Sir/Madam, Ryder Capital Limited Notice of Initial Substantial Holder in Lumos Diagnostics Holdings Limited Please find attached an ASIC Form 603 (Notice of Initial Substantial Holder) issued by Ryder Capital Limited in relation to the ordinary shares in Lumos Diagnostics Holdings Limited. a Regards, Claudia Rososinski Company Secretary Level 28, 88 Phillip St, Sydney NSW 2000 T: +61 2 9000 9020 ACN 606 695 854 www.rydercapital.com.au 603 page 1/2 15 October 2018 Form 603 Corporations Act 2001 Section 671B Notice of initial substantial holder To Company Name/Scheme LUMOS DIAGNOSTICS HOLDINGS LIMITED ACN/ARS",
+        "table_rows": [],
+        "chars": 6519
       }
     ],
-    "issue": [
+    "nta": [
       {
-        "announcement_id": "01824286",
-        "ticker": "FGG",
-        "published_at": "2017-01-31",
-        "headline": "Appendix 3B Exercise of Options",
-        "text_head": "Appendix 3B New issue announcement Rule 2.7, 3.10.3, 3.10.4, 3.10.5 Appendix 3B y New issue announcement, application for quotation of additional securities l and agreement n Information or documents not available now must be given to ASX as soon as available. Information and o documents given to ASX become ASX\u2019s property and may be made public. Introduced 01/07/96 Origin: Appendix 5 Amended 01/07/98, 01/09/99, 01/07/00, 30/09/01, 11/03/02, 01/01/03, 24/10/05, 01/08/12, 04/03/13 e Name of entity s Future Generation Global Investment Company Limited u ABN 52 606 110 838 l We (the entity) give ASX the following information. a n Part 1 - All issues You must complete the relevant sections (attac",
+        "announcement_id": "01848978",
+        "ticker": "USP",
+        "published_at": "2017-04-19",
+        "headline": "Fund Update",
+        "text_head": "y l 19 April 2017 n US Select Private Opportunities Fund III New Investor Commitment to the Limited Partnership o Walsh & Company Investments Limited (Responsible Entity), as responsible entity for the US Select Private Opportunities Fund III (Fund) (ASX Code: USP), advises that Cordish Dixon III Australian Wholesale Fund (CDW III), a newly formed wholesale investment fund, intends to commit approximately e US$12 million into the US Select Private Opportunities Fund III L.P. (Limited Partnership). CDW III intends to invest alongside the Fund and other existing investors into the Limited Partnership. The s Fund\u2019s total US dollar commitment into the Limited Partnership will remain unchanged. \u201c",
         "table_rows": [],
-        "chars": 5049
+        "chars": 1808
       },
       {
-        "announcement_id": "01828555",
-        "ticker": "WLE",
-        "published_at": "2017-02-14",
-        "headline": "Appendix 3B",
-        "text_head": "Appendix 3B New issue announcement Rule 2.7, 3.10.3, 3.10.4, 3.10.5 Appendix 3B y New issue announcement, application for quotation of additional securities l and agreement n Information or documents not available now must be given to ASX as soon as available. Information and o documents given to ASX become ASX\u2019s property and may be made public. Introduced 01/07/96 Origin: Appendix 5 Amended 01/07/98, 01/09/99, 01/07/00, 30/09/01, 11/03/02, 01/01/03, 24/10/05, 01/08/12, 04/03/13 e Name of entity s WAM LEADERS LIMITED u ABN 33 611 053 751 l We (the entity) give ASX the following information. a n Part 1 - All issues You must complete the relevant sections (attach sheets if there is not enough ",
+        "announcement_id": "01924200",
+        "ticker": "HHV",
+        "published_at": "2017-11-21",
+        "headline": "Net Tangible Asset Backing - 17 November 2017",
+        "text_head": "a",
         "table_rows": [],
-        "chars": 4976
+        "chars": 1
       },
       {
-        "announcement_id": "01855138",
-        "ticker": "WAA",
-        "published_at": "2017-05-05",
-        "headline": "Appendix 3B",
-        "text_head": "Appendix 3B New issue announcement Rule 2.7, 3.10.3, 3.10.4, 3.10.5 Appendix 3B y New issue announcement, application for quotation of additional securities l and agreement n Information or documents not available now must be given to ASX as soon as available. Information and o documents given to ASX become ASX\u2019s property and may be made public. Introduced 01/07/96 Origin: Appendix 5 Amended 01/07/98, 01/09/99, 01/07/00, 30/09/01, 11/03/02, 01/01/03, 24/10/05, 01/08/12, 04/03/13 e Name of entity s WAM ACTIVE LIMITED u ABN 49 126 420 719 l We (the entity) give ASX the following information. a n Part 1 - All issues You must complete the relevant sections (attach sheets if there is not enough s",
+        "announcement_id": "01961052",
+        "ticker": "AYZ",
+        "published_at": "2018-03-12",
+        "headline": "Net Tangible Asset Backing",
+        "text_head": "13 March 2018 The Manager Company Announcements Office Australian Securities Exchange Limited Level 6, Exchange Centre 20 Bridge Street Sydney, NSW 2000 Australian Masters Yield Fund No 5 Limited (ASX Code: AYZ) Net Tangible Asset Backing As at 28 February 2018, the Australian Masters Yield Fund No 5 Limited (the Company) had a an estimated, unaudited after-tax NTA per share of $59.59 (January 2018: $60.08). Yours sincerely, Hannah Chan Company Secretary Australian Masters Yield Fund No 5 Limited *Source: Walsh & Company Asset Management Pty Limited \u2013 the historical performance of the Manager is not a guarantee of the future performance of the Portfolio or the Company",
         "table_rows": [],
-        "chars": 5026
+        "chars": 676
       },
       {
-        "announcement_id": "01937591",
-        "ticker": "EAI",
-        "published_at": "2017-12-27",
-        "headline": "Appendix 3B",
-        "text_head": "Appendix 3B New issue announcement Rule 2.7, 3.10.3, 3.10.4, 3.10.5 Appendix 3B New issue announcement, y application for quotation of additional securities l and agreement n Information or documents not available now must be given to ASX as soon as available. Information and o documents given to ASX become ASX\u2019s property and may be made public. Introduced 01/07/96 Origin: Appendix 5 Amended 01/07/98, 01/09/99, 01/07/00, 30/09/01, 11/03/02, 01/01/03, 24/10/05, 01/08/12, 04/03/13 e Name of entity Ellerston Asian Investments Limited s ABN u 82 606 683 729 We (the entity) give ASX the following information. l a Part 1 - All issues n You must complete the relevant sections (attach sheets if ther",
-        "table_rows": [],
-        "chars": 5046
-      },
-      {
-        "announcement_id": "01945786",
-        "ticker": "APL",
-        "published_at": "2018-01-31",
-        "headline": "Appendix 3B",
-        "text_head": "Appendix 3B New issue announcement Rule 2.7, 3.10.3, 3.10.4, 3.10.5 Appendix 3B y New issue announcement, application for quotation of additional securities l and agreement n Information or documents not available now must be given to ASX as soon as available. Information and o documents given to ASX become ASX\u2019s property and may be made public. Introduced 01/07/96 Origin: Appendix 5 Amended 01/07/98, 01/09/99, 01/07/00, 30/09/01, 11/03/02, 01/01/03, 24/10/05, 01/08/12, 04/03/13 e Name of entity s Antipodes Global Investment Company Limited u ABN 38 612 843 517 l We (the entity) give ASX the following information. a n Part 1 - All issues You must complete the relevant sections (attach sheets",
-        "table_rows": [],
-        "chars": 5290
-      },
-      {
-        "announcement_id": "01969774",
-        "ticker": "APL",
-        "published_at": "2018-04-10",
-        "headline": "Appendix 3B",
-        "text_head": "Appendix 3B New issue announcement Rule 2.7, 3.10.3, 3.10.4, 3.10.5 Appendix 3B y New issue announcement, application for quotation of additional securities l and agreement n Information or documents not available now must be given to ASX as soon as available. Information and o documents given to ASX become ASX\u2019s property and may be made public. Introduced 01/07/96 Origin: Appendix 5 Amended 01/07/98, 01/09/99, 01/07/00, 30/09/01, 11/03/02, 01/01/03, 24/10/05, 01/08/12, 04/03/13 e Name of entity s Antipodes Global Investment Company Limited u ABN 38 612 843 517 l We (the entity) give ASX the following information. a n Part 1 - All issues You must complete the relevant sections (attach sheets",
-        "table_rows": [],
-        "chars": 5288
-      },
-      {
-        "announcement_id": "02104215",
-        "ticker": "WQG",
-        "published_at": "2019-05-09",
-        "headline": "Appendix 3B",
-        "text_head": "Appendix 3B New issue announcement Rule 2.7, 3.10.3, 3.10.4, 3.10.5 Appendix 3B y New issue announcement, application for quotation of additional securities l n and agreement o Information or documents not available now must be given to ASX as soon as available. Information and documents given to ASX become ASX\u2019s property and may be made public. Introduced 01/07/96 Origin: Appendix 5 Amended 01/07/98, 01/09/99, 01/07/00, 30/09/01, 11/03/02, 01/01/03, 24/10/05, 01/08/12, 04/03/13 e Name of entity s WCM Global Growth Limited u ABN 69 617 281 268 l a We (the entity) give ASX the following information. n Part 1 - All issues You must complete the relevant sections (attach sheets if there is not e",
-        "table_rows": [],
-        "chars": 5291
-      },
-      {
-        "announcement_id": "02113055",
-        "ticker": "NBI",
-        "published_at": "2019-06-11",
-        "headline": "Appendix 3B",
-        "text_head": "Appendix 3B New issue announcement Rule 2.7, 3.10.3, 3.10.4, 3.10.5 Appendix 3B y New issue announcement, application for quotation of additional securities l and agreement n Information or documents not available now must be given to ASX as soon as available. Information and o documents given to ASX become ASX\u2019s property and may be made public. Introduced 01/07/96 Origin: Appendix 5 Amended 01/07/98, 01/09/99, 01/07/00, 30/09/01, 11/03/02, 01/01/03, 24/10/05, 01/08/12, 04/03/13 e Name of entity s NB Global Corporate Income Trust u ABN 33 459 408 980 l We (the entity) give ASX the following information. a n Part 1 - All issues You must complete the relevant sections (attach sheets if there i",
-        "table_rows": [],
-        "chars": 4940
-      },
-      {
-        "announcement_id": "02271200",
-        "ticker": "WMI",
-        "published_at": "2020-08-25",
-        "headline": "Proposed issue of Securities - WMI",
-        "text_head": "Proposed issue of securities Announcement Summary y Entity name WAM MICROCAP LIMITED l n Announcement Type New announcement o Date of this announcement Tuesday August 25, 2020 e The Proposed issue is: A placement or other type of issue s Total number of +securities proposed to be issued for a placement or other type of issue u Maximum Number of ASX +security code +Security description +securities to be issued l a WMI ORDINARY FULLY PAID 21,278,371 n Proposed +issue date o Monday August 31, 2020 s Refer to next page for full details of the announcement r e p r o F Proposed issue of securities 1 / 5 Proposed issue of securities Part 1 - Entity and announcement details 1.1 Name of +Entity WAM M",
-        "table_rows": [],
-        "chars": 4018
-      },
-      {
-        "announcement_id": "02393507",
-        "ticker": "MOT",
-        "published_at": "2021-07-08",
-        "headline": "Application for quotation of securities - MOT",
-        "text_head": "Application for quotation of +securities Announcement Summary Entity name MCP INCOME OPPORTUNITIES TRUST y Announcement Type l n New announcement Date of this announcement o Thursday July 08, 2021 The +securities to be quoted are: e +Securities issued under a +dividend or distribution plan s Total number of +securities to be quoted u ASX +security Number of +securities to code Security description be quoted Issue date MOT ORDINARY UNITS FULLY PAID 64,917 08/07/2021 l a Refer to next page for full details of the announcement n o s r e p r o F Application for quotation of +securities 1 / 6 Application for quotation of +securities Part 1 - Entity and announcement details 1.1 Name of entity y MC",
-        "table_rows": [],
-        "chars": 2535
-      },
-      {
-        "announcement_id": "02419714",
-        "ticker": "WGB",
-        "published_at": "2021-09-09",
-        "headline": "Application for quotation of securities - WGB",
-        "text_head": "Application for quotation of +securities Announcement Summary Entity name WAM GLOBAL LIMITED y Announcement Type l n New announcement Date of this announcement o Thursday September 09, 2021 The +securities to be quoted are: e +Securities issued, transferred or re-classified as a result of options being exercised or other +convertible securities being converted s Total number of +securities to be quoted u ASX +security Number of +securities to code Security description be quoted Issue date l WGB ORDINARY FULLY PAID 110,232 09/09/2021 a n Refer to next page for full details of the announcement o s r e p r o F Application for quotation of +securities 1 / 6 Application for quotation of +securiti",
-        "table_rows": [],
-        "chars": 3215
-      },
-      {
-        "announcement_id": "02504962",
-        "ticker": "MFF",
-        "published_at": "2022-03-30",
-        "headline": "Application for quotation of securities - MFF",
-        "text_head": "Application for quotation of +securities Announcement Summary Entity name MFF CAPITAL INVESTMENTS LIMITED y Announcement Type l n New announcement Date of this announcement o Thursday March 31, 2022 The +securities to be quoted are: e +Securities issued, transferred or re-classified as a result of options being exercised or other +convertible securities being converted s Total number of +securities to be quoted u ASX +security Number of +securities to code Security description be quoted Issue date l MFF ORDINARY FULLY PAID 67 31/03/2022 a n Refer to next page for full details of the announcement o s r e p r o F Application for quotation of +securities 1 / 6 Application for quotation of +secu",
-        "table_rows": [],
-        "chars": 3222
-      }
-    ],
-    "dividend": [
-      {
-        "announcement_id": "01883359",
+        "announcement_id": "01987759",
         "ticker": "AEG",
-        "published_at": "2017-08-13",
-        "headline": "Maiden Dividend Announcement",
-        "text_head": "yASX Release l n ABSOLUTE EQUITY PERFORMANCE FUND (AEG) ANNOUNCES MAIDEN DIVIDEND o eMonday, 14 August 2017 Highlights s \u2022 2.5 cents per share fully franked final dividend. u \u2022 Loyalty Option Holders that exercise their options before 16 November 2017 will be eligible to receive the fully franked final dividend. Absolute Equity Performance Fund Limited (ASX:AEG) (Company or AEG) today announces a maiden fully lfranked final dividend of 2.5 cents per share. a The Company has assessed its available franking credits based on a corporate tax rate of 30% with input from its professional advisors. n The maiden fully franked final dividend of 2.5 cents per share will be paid on 6 December 2017 and ",
+        "published_at": "2018-06-04",
+        "headline": "Unadjusted Net Tangible Assets",
+        "text_head": "ASX Release UNADJUSTED NET TANGIBLE ASSETS Tuesday, 5 June 2018 Absolute Equity Performance Fund Limited ACN 608 552 496 (ASX:AEG) (the Company) advises that the estimated net tangible assets (NTA) of the Company\u2019s Investment Portfolio at close of business on 31 May 2018 was $1.18 and at the close of business on 1 June 2018 was $1.19. This equates to an estimated month-to-date performance to 31 May 2018 of +4.8%, and to 1 June 2018 of +0.3%. Please note that the above estimates are pre-tax and unadjusted and may not include the impact of all corporate actions for the month-to-date. The estimate is based primarily on internal data and should not be relied upon as being accurate. A formal mont",
         "table_rows": [],
-        "chars": 1560
+        "chars": 1056
       },
       {
-        "announcement_id": "01950075",
-        "ticker": "CIN",
-        "published_at": "2018-02-13",
-        "headline": "Dividend/Distribution - CINPA",
-        "text_head": "Notification of dividend / distribution Notification of dividend / distribution Announcement Summary Entity name CARLTON INVESTMENTS LIMITED y Security on which the Distribution will be paid lCINPA - 7% CUMULATIVE PREFERENCE n Announcement Type New announcement o Date of this announcement Tuesday February 13, 2018 e Distribution Amount AUD 0.07000000 s Ex Date uWednesday February 28, 2018 Record Date Thursday March 1, 2018 l Payment Date a Tuesday March 20, 2018 nRefer to below for full details of the announcement o Announcement Details s Part 1 - Entity and announcement details r e1.1 Name of +Entity CARLTON INVESTMENTS LIMITED p Registration Number 1.2 Registered Number Type ABN 8500002026",
-        "table_rows": [],
-        "chars": 4731
-      },
-      {
-        "announcement_id": "02089557",
-        "ticker": "MXT",
-        "published_at": "2019-03-25",
-        "headline": "Dividend/Distribution - MXT",
-        "text_head": "Notification of dividend / distribution Notification of dividend / distribution Announcement Summary Entity name MCP MASTER INCOME TRUST y Security on which the Distribution will be paid lMXT - ORDINARY UNITS FULLY PAID n Announcement Type New announcement o Date of this announcement Monday March 25, 2019 e Distribution Amount AUD 0.01130000 s Ex Date uFriday March 29, 2019 Record Date Monday April 1, 2019 l Payment Date a Monday April 8, 2019 nDRP election date Monday April 1, 2019 17:00:00 o Refer to below for full details of the announcement s Announcement Details r e Part 1 - Entity and announcement details p 1.1 Name of +Entity MCP MASTER INCOME TRUST Registration Number r 1.2 Registere",
-        "table_rows": [
-          [
-            "Part 4A - +Dividend reinvestment plan (DRP)\n4A.1 What is the default option if +security holders do not indicate whether they want to\nparticipate in the DRP?\nParticipation in DRP (i.e. +securities issued)\n4A.2 Last date and time for lodgement of\n4A.3 DRP discount rate\nelection notices to share registry under DRP\n0.0000 %\nMonday April 1, 2019 17:00:00\n4A.4 Period of calculation of reinvestment price\nStart Date End Date\n4A.5 DRP price calculation methodology\nNet Asset Value of a unit as determined in accordance with the MXT constitution on the record date\n4A.6 DRP Price (including any discount):\n4A.7 DRP +securities +issue date\nAUD\n4A.8a Do DRP +securities rank pari passu from\n4A.8 Will DRP +securities be a new issue?\n+issue date?\nYes\nYes\n4A.9 Is there a minimum dollar amount or number of +securities required for DRP participation?\nNo\n4A.10 Is there a maximum dollar amount or number of +securities required for DRP participation?\n4A.11 Are there any other conditions applying to DRP participation?\n4A.12 Link to a copy of the DRP plan rules\n4A.13 Further information about the DRP\nPart 5 - Further information\n5.1 Please provide any further information applicable to this dividend/distribution\n5.2 Additional information for inclusion in the Announcement Summary"
-          ]
-        ],
-        "chars": 5326
-      },
-      {
-        "announcement_id": "02096546",
-        "ticker": "WAA",
-        "published_at": "2019-04-15",
-        "headline": "Update - Dividend/Distribution - WAA",
-        "text_head": "Notification of dividend / distribution Notification of dividend / distribution Update Summary Entity name WAM ACTIVE LIMITED y Security on which the Distribution will be paid lWAA - ORDINARY FULLY PAID n Announcement Type Update to previous announcement o Date of this announcement Monday April 15, 2019 e Reason for the Update Update to Part 4A.6 - DRP Price s u Refer to below for full details of the announcement Announcement Details l a Part 1 - Entity and announcement details n 1.1 Name of +Entity oWAM ACTIVE LIMITED Registration Number s 1.2 Registered Number Type ABN 49126420719 r e 1.3 ASX issuer code WAA p 1.4 The announcement is Update/amendment to previous announcement r 1.4a Reason ",
-        "table_rows": [],
-        "chars": 5291
-      },
-      {
-        "announcement_id": "02134717",
-        "ticker": "PIC",
-        "published_at": "2019-08-18",
-        "headline": "Dividend/Distribution - PIC",
-        "text_head": "Notification of dividend / distribution Notification of dividend / distribution Announcement Summary Entity name PERPETUAL EQUITY INVESTMENT COMPANY LIMITED y Security on which the Distribution will be paid lPIC - ORDINARY FULLY PAID n Announcement Type New announcement o Date of this announcement Monday August 19, 2019 e Distribution Amount AUD 0.03400000 s Ex Date uWednesday October 2, 2019 Record Date Thursday October 3, 2019 l Payment Date a Friday October 18, 2019 nDRP election date Friday October 4, 2019 17:00:00 o Refer to below for full details of the announcement s Announcement Details r e Part 1 - Entity and announcement details p 1.1 Name of +Entity PERPETUAL EQUITY INVESTMENT COM",
-        "table_rows": [],
-        "chars": 5567
-      },
-      {
-        "announcement_id": "02138345",
+        "announcement_id": "02007873",
         "ticker": "PIA",
-        "published_at": "2019-08-26",
-        "headline": "Dividend/Distribution - PIA",
-        "text_head": "Notification of dividend / distribution Notification of dividend / distribution Announcement Summary Entity name PENGANA INTERNATIONAL EQUITIES LIMITED y Security on which the Distribution will be paid lPIA - ORDINARY FULLY PAID n Announcement Type New announcement o Date of this announcement Monday August 26, 2019 e Distribution Amount AUD 0.03500000 s Ex Date uMonday November 4, 2019 Record Date Tuesday November 5, 2019 l Payment Date a Tuesday November 19, 2019 nDRP election date Wednesday November 6, 2019 17:00:00 o Refer to below for full details of the announcement s Announcement Details r e Part 1 - Entity and announcement details p 1.1 Name of +Entity PENGANA INTERNATIONAL EQUITIES L",
+        "published_at": "2018-08-09",
+        "headline": "Net Tangible Asset Backing - 31 July 2018",
+        "text_head": "WEEKLY NTA NTA ANNOUNCEMENT y l n PENGANA INTERNATIONAL EQUITIES LIMITED o(ASX: PIA) NET TANGIBLE ASSET (NTA) BACKING AS AT 31 JULY 2018 e s u Cents per share Net tangible asset value before provision for tax on unrealised income and gains 124.13 l a Provision for tax on unrealised income and gains (1.57) Net tangible asset value after provision for tax on unrealised n income and gains 122.56 The net asset value of the Company is unaudited and calculated using last sale price (less realisation o costs) to value the investments, with no reference to the number of outstanding options. s FOR FURTHER r INFORMATION PLEASE VISIT e OUR WEBSITE: PENGANA.COM p /PIA r o F PENGANA INTERNATIONAL EQUITIE",
         "table_rows": [],
-        "chars": 5392
+        "chars": 1014
       },
       {
-        "announcement_id": "02312717",
-        "ticker": "PCI",
-        "published_at": "2020-11-23",
-        "headline": "Dividend/Distribution - PCI",
-        "text_head": "Notification of dividend / distribution Announcement Summary Entity name PERPETUAL CREDIT INCOME TRUST y Security on which the Distribution will be paid l n PCI - ORDINARY UNITS FULLY PAID Announcement Type o New announcement Date of this announcement e Tuesday November 24, 2020 s Distribution Amount AUD 0.00284511 u Ex Date Friday November 27, 2020 l a Record Date Monday November 30, 2020 n Payment Date Monday December 7, 2020 o DRP election date s Tuesday December 1, 2020 17:00:00 r Refer to below for full details of the announcement e p r o F Notification of dividend / distribution 1 / 5 Notification of dividend / distribution Announcement Details Part 1 - Entity and announcement details ",
+        "announcement_id": "02018625",
+        "ticker": "BSN",
+        "published_at": "2018-09-03",
+        "headline": "Net Tangible Asset Backing",
+        "text_head": "BISAN Ltd ABN 75 006 301 800 ASX Announcement 4 September 2018 Disclosure pursuant to ASX Listing Rule 4.12 The net tangible asset backing per Bisan Limited share as at 31 August 2018 is Nil. Adrien Wing Company Secretary a Level 33, 50 Bridge Street, Sydney NSW 2000 Australia Tel: +61 (02) 9233 3308",
+        "table_rows": [],
+        "chars": 301
+      },
+      {
+        "announcement_id": "02179057",
+        "ticker": "GCI",
+        "published_at": "2019-11-28",
+        "headline": "Net Tangible Asset Backing",
+        "text_head": "ARSN 623 308 850 ASX ANNOUNCEMENT 28 November 2019 Daily Net Tangible Asset Backing Please find below information on the Net Tangible Asset (NTA) per unit of Gryphon Capital Income Trust (ASX: GCI) as at the close of business on 27 November 2019: NTA per unit as at 27 November 2019 $2.0132 a All figures are unaudited and approximate. __________________________________________________________________________________________ Authorised for release by One Managed Investment Funds Limited, the responsible entity of Gryphon Capital Income Trust. Responsible Entity One Managed Investment Funds Limited ABN 47 117 400 987 AFSL 297042 Level 11, 20 Hunter Street, Sydney NSW 2000 \u2022 P: +61 2 8277 0000 \u2022",
+        "table_rows": [],
+        "chars": 801
+      },
+      {
+        "announcement_id": "02189357",
+        "ticker": "PIA",
+        "published_at": "2019-12-26",
+        "headline": "NTA at 20.12.19  Pre-tax 130.72  Post-tax 125.30",
+        "text_head": "WEEKLY NTA NTA ANNOUNCEMENT y l n PENGANA INTERNATIONAL EQUITIES LIMITED (ASX: PIA) o NET TANGIBLE ASSET (NTA) BACKING AS AT 20 DECEMBER 2019 e s u Cents per share Net tangible asset value before provision for tax on unrealised income and gains 130.72 l a Provision for tax on unrealised income and gains ( 5.42) Net tangible asset value after provision for tax on unrealised n income and gains 125.30 The net asset value of the Company is unaudited and calculated using last sale price (less realisation costs) to value the investments. o s FOR FURTHER INFORMATION r PLEASE VISIT OUR WEBSITE: e PENGANA.COM p/PIA r o F PENGANA INTERNATIONAL EQUITIES LIMITED CLIENT SERVICE ACN 107 462 966 T: +61 2 8",
+        "table_rows": [],
+        "chars": 963
+      },
+      {
+        "announcement_id": "02200746",
+        "ticker": "TGF",
+        "published_at": "2020-02-10",
+        "headline": "Weekly Estimate of Performance and Market Wrap",
+        "text_head": "Tribeca Global Natural Resources Ltd (ASX:TGF) Weekly Estimate of Performance and Market Wrap \u2013 10 February 2020 Index and Commodity Performance WeeklyEstimateofPerformance Indices Price ($) 5 Day M/M YTD Tribeca Global Natural Resources Limited (ASX Code: TGF) advises that the estimated N. America: return as at 7 February 2020 is: yDJIA 29102.51 3.00 1.82 1.98 Weekly Month to Date S&P 500 3327.71 3.17 2.80 3.00 Nasdaq 100 9401.098 4.56 6.27 7.65 Equity Contribution Estimate -0.57% -0.57% l S&P/TSX 17655.49 1.95 2.84 3.47 n Credit Contribution Estimate TBC TBC Europe: Theestimatedperformanceofthelistedequities(longandshortpositions)componentofTGF\u2019sinvestmentportfoliois FTSE 100 7466.7 2.48 2",
+        "table_rows": [],
+        "chars": 5738
+      },
+      {
+        "announcement_id": "02211939",
+        "ticker": "MXT",
+        "published_at": "2020-03-09",
+        "headline": "Daily Fund Update",
+        "text_head": "The Trust Company (RE Services) Limited ABN: 45 003 278 831, AFSL: 235150 y The Manager Company Announcement Office l Australian Securities Exchange Limited n Level 6, Exchange Centre 20 Bridge Street oSydney NSW 2000 9 March 2020 eDaily NTA Estimate s We advise that the unaudited Net Tangible Asset Backing (NTA) per share of the MCP Master Income Trust is as follows: u Value Date NTA per Unit 6/03/2020 $2.0029 l a Yours Sincerely nMartin Farr The Trust Company (RE Services) Limited As Responsible Entity for the MCP Master Income Trust o About the MCP Master Income Trust The Investment Objective of the MCP Master Income Trust is to provide monthly cash income, low risk of capital loss and po",
+        "table_rows": [],
+        "chars": 1658
+      },
+      {
+        "announcement_id": "02228202",
+        "ticker": "FPC",
+        "published_at": "2020-04-24",
+        "headline": "Weekly NAV",
+        "text_head": "ASX ANNOUNCEMENT 24 April 2020 y Fat Prophets Global Contrarian Fund (ASX Code FPC) Estimated Pre-Tax NTA 22nd April 2020 l nThe estimated NTA per share for the Fat Prophets Global Contrarian Fund as at the 22nd April 2020 is as follows: o Month to date NTA Amount ($) e Pre- Tax NTA (as at 22nd April 2020) 0.8822 Pre- Tax NTA (as at 31st March 2020) 0.7987 s Change in NTA 10.45% uFor the period from the 31st March to 22nd of April the fund recorded an increase in NTA from $0.7987 to $0.8822, a gain of 10.45%. Market outlook l a Stock markets have had a strong run in recent weeks, but the rally near term looks to be running out of steam, as investors begin to recalibrate the full economic imp",
         "table_rows": [
           [
-            "3A.1b Ordinary Dividend/distribution amount per\nsecurity\nAUD\n3A.2 Is the ordinary dividend/distribution franked?\n3A.3 Percentage of ordinary dividend/distribution that is\nfranked\n%\n3A.4 Ordinary dividend/distribution franked amount per 3A.5 Percentage amount of dividend which is unfranked\n+security\n%\nAUD\n3A.6 Ordinary dividend/distribution unfranked amount\nper +security excluding conduit foreign income amount\nAUD\n3A.7 Ordinary dividend/distribution conduit foreign\nincome amount per security\nAUD\nPart 4A - +Dividend reinvestment plan (DRP)\n4A.1 What is the default option if +security holders do not indicate whether they want to participate in the DRP?\nDo not participate in DRP (i.e. cash payment)\n4A.2 Last date and time for lodgement of election 4A.3 DRP discount rate\nnotices to share registry under DRP\n0.0000 %\nTuesday December 1, 2020 17:00:00\n4A.4 Period of calculation of reinvestment price\nStart Date End Date\nSunday November 1, 2020 Monday November 30, 2020\n4A.5 DRP price calculation methodology\nNet asset value of a unit as determined in accordance with the Trust's constitution on the record date.\n4A.6 DRP Price (including any discount): 4A.7 DRP +securities +issue date\nAUD\n4A.8 Will DRP +securities be a new issue? 4A.8a Do DRP +securities rank pari passu from +issue\nYes date?\nYes\n4A.9 Is there a minimum dollar amount or number of +securities required for DRP participation?\n4A.10 Is there a maximum dollar amount or number of +securities required for DRP participation?"
+            "Pre- Tax NTA (as at 22nd April 2020)",
+            "0.8822"
+          ],
+          [
+            "Pre- Tax NTA (as at 31st March 2020)",
+            "0.7987"
+          ],
+          [
+            "Change in NTA",
+            "10.45%"
           ]
         ],
-        "chars": 4759
+        "chars": 2593
       },
       {
-        "announcement_id": "02341976",
-        "ticker": "GC1",
-        "published_at": "2021-02-16",
-        "headline": "Dividend/Distribution - GC1PA",
-        "text_head": "Notification of dividend / distribution Announcement Summary Entity name GLENNON SMALL COMPANIES LIMITED y Security on which the Distribution will be paid l n GC1PA - CNV PREF 5.60% 30-9-30 SEMI CUM EXC RED RES T-3-21 Announcement Type o New announcement Date of this announcement e Tuesday February 16, 2021 s Distribution Amount AUD 0.18410000 u Ex Date Tuesday March 9, 2021 l a Record Date Wednesday March 10, 2021 n Payment Date Wednesday March 31, 2021 o s Refer to below for full details of the announcement r e p r o F Notification of dividend / distribution 1 / 5 Notification of dividend / distribution Announcement Details Part 1 - Entity and announcement details y l 1.1 Name of +Entity n",
+        "announcement_id": "02247586",
+        "ticker": "PCI",
+        "published_at": "2020-06-24",
+        "headline": "Daily Net Tangible Asset Statement",
+        "text_head": "` a www.perpetualincome.com.au",
         "table_rows": [],
-        "chars": 4301
-      },
-      {
-        "announcement_id": "02446910",
-        "ticker": "MEC",
-        "published_at": "2021-11-03",
-        "headline": "Dividend/Distribution - MEC",
-        "text_head": "Notification of dividend / distribution Announcement Summary Entity name y MORPHIC ETHICAL EQUITIES FUND LIMITED l Security on which the Distribution will be paid n MEC - ORDINARY FULLY PAID o Announcement Type New announcement Date of this announcement e 3/11/2021 s Distribution Amount AUD 0.03000000 u Ex Date 29/11/2021 l a Record Date 30/11/2021 n Payment Date o 15/12/2021 DRP election date s Wednesday December 8, 2021 17:00:00 r e Refer to below for full details of the announcement p r o F Notification of dividend / distribution 1 / 6 Notification of dividend / distribution Announcement Details yPart 1 - Entity and announcement details l n 1.1 Name of +Entity MORPHIC ETHICAL EQUITIES FUN",
-        "table_rows": [],
-        "chars": 4422
-      },
-      {
-        "announcement_id": "02585135",
-        "ticker": "TCF",
-        "published_at": "2022-10-20",
-        "headline": "Dividend/Distribution - TCF",
-        "text_head": "Notification of dividend / distribution Announcement Summary Entity name y 360 CAPITAL ENHANCED INCOME FUND l Security on which the Distribution will be paid n TCF - UNITS FULLY PAID o Announcement Type New announcement Date of this announcement e 20/10/2022 s Distribution Amount AUD 0.03000000 u Ex Date 28/10/2022 l a Record Date 31/10/2022 n Payment Date o 7/11/2022 s Additional Information The Responsible Entity has made an election to apply the Attribution Managed Investment Trust (AMIT) regime. r e Refer to below for full details of the announcement p r o F Notification of dividend / distribution 1 / 4 Notification of dividend / distribution Announcement Details yPart 1 - Entity and ann",
-        "table_rows": [],
-        "chars": 4074
-      },
-      {
-        "announcement_id": "02669239",
-        "ticker": "MOT",
-        "published_at": "2023-05-24",
-        "headline": "Dividend/Distribution - MOT",
-        "text_head": "Notification of dividend / distribution Announcement Summary Entity name METRICS INCOME OPPORTUNITIES TRUST Security on which the Distribution will be paid MOT - ORDINARY UNITS FULLY PAID Announcement Type New announcement Date of this announcement 24/5/2023 Distribution Amount AUD 0.01620000 Ex Date 31/5/2023 Record Date 1/6/2023 Payment Date 8/6/2023 DRP election date Friday June 2, 2023 17:00:00 Refer to below for full details of the announcement Notification of dividend / distribution 1 / 6 ylno esu lanosrep roF Notification of dividend / distribution Announcement Details Part 1 - Entity and announcement details 1.1 Name of +Entity METRICS INCOME OPPORTUNITIES TRUST 1.2 Registered Number",
-        "table_rows": [],
-        "chars": 4392
-      },
-      {
-        "announcement_id": "02688082",
-        "ticker": "BKI",
-        "published_at": "2023-07-18",
-        "headline": "Dividend/Distribution - BKI",
-        "text_head": "Notification of dividend / distribution Announcement Summary Entity name BKI INVESTMENT COMPANY LIMITED Security on which the Distribution will be paid BKI - ORDINARY FULLY PAID Announcement Type New announcement Date of this announcement 19/7/2023 Distribution Amount AUD 0.04000000 Ex Date 11/8/2023 Record Date 14/8/2023 Payment Date 29/8/2023 DRP election date Tuesday August 15, 2023 17:00:00 Refer to below for full details of the announcement Notification of dividend / distribution 1 / 5 ylno esu lanosrep roF Notification of dividend / distribution Announcement Details Part 1 - Entity and announcement details 1.1 Name of +Entity BKI INVESTMENT COMPANY LIMITED 1.2 Registered Number Type Re",
-        "table_rows": [],
-        "chars": 4851
+        "chars": 30
       }
     ],
     "share_cancellation": [
@@ -493,9 +260,20 @@
         "ticker": "AWQ",
         "published_at": "2017-11-07",
         "headline": "Form 484 - Cancellation of Buyback shares",
-        "text_head": "08 November 2017 y The Manager ASX Market Announcements l Australian Securities Exchange n Exchange Centre Level 4, 20 Bridge Street o SYDNEY NSW 2000 Subject: On-Market Buyback: Notification of Cancellation of Shares e In accordance with Listing Rule 3.8A, we enclose a copy of Form 484 that has been lodged with ASIC. s u On behalf of the Board of AWQ, l a Tom Bloomfield n Company Secretary o s r e p r o Sydney FLevel 11, 153 Walker Street North Sydney, NSW 2060 Australia +61 2 8083 9800 Brisbane Level 11, 110 Mary Street Brisbane, QLD 4000 Australia +61 7 3182 3200 ACN 602 250 644 info@aavof.com www.aavof.com y l n o e s u l a n o s r e p r o F y l n o e s u l a n o s r e p r o F y l n o e ",
+        "text_head": "08 November 2017 The Manager ASX Market Announcements Australian Securities Exchange Exchange Centre Level 4, 20 Bridge Street SYDNEY NSW 2000 Subject: On-Market Buyback: Notification of Cancellation of Shares In accordance with Listing Rule 3.8A, we enclose a copy of Form 484 that has been lodged with ASIC. On behalf of the Board of AWQ, a Tom Bloomfield Company Secretary Sydney FLevel 11, 153 Walker Street North Sydney, NSW 2060 Australia +61 2 8083 9800 Brisbane Level 11, 110 Mary Street Brisbane, QLD 4000 Australia +61 7 3182 3200 ACN 602 250 644 info@aavof.com www.aavof.com a a a",
         "table_rows": [],
-        "chars": 725
+        "chars": 591
+      }
+    ],
+    "dividend": [
+      {
+        "announcement_id": "02096546",
+        "ticker": "WAA",
+        "published_at": "2019-04-15",
+        "headline": "Update - Dividend/Distribution - WAA",
+        "text_head": "Notification of dividend / distribution Notification of dividend / distribution Update Summary Entity name WAM ACTIVE LIMITED y Security on which the Distribution will be paid lWAA - ORDINARY FULLY PAID n Announcement Type Update to previous announcement o Date of this announcement Monday April 15, 2019 e Reason for the Update Update to Part 4A.6 - DRP Price s u Refer to below for full details of the announcement Announcement Details l a Part 1 - Entity and announcement details n 1.1 Name of +Entity oWAM ACTIVE LIMITED Registration Number s 1.2 Registered Number Type ABN 49126420719 r e 1.3 ASX issuer code WAA p 1.4 The announcement is Update/amendment to previous announcement r 1.4a Reason ",
+        "table_rows": [],
+        "chars": 5291
       }
     ],
     "buyback_daily": [
@@ -504,18 +282,74 @@
         "ticker": "QVE",
         "published_at": "2020-02-24",
         "headline": "Daily share buy-back notice - Appendix 3E",
-        "text_head": "y l n o e s u l a n o s r e p r o F y l n o e s u l a n o s r e p r o F",
+        "text_head": "a a",
         "table_rows": [],
-        "chars": 71
+        "chars": 3
       },
       {
         "announcement_id": "02327744",
         "ticker": "KAT",
         "published_at": "2021-01-03",
         "headline": "Final share buy-back notice - Appendix 3F",
-        "text_head": "Appendix 3F Final share buy-back notice Rule 3.8A Appendix 3F Final share buy-back notice y (except minimum holding buy-back) l n Introduced 1/9/99. Origin: Appendices 7D and 7E. Amended 30/9/2001, 11/01/10 Information and documents given to ASX become ASX\u2019s property and may be made public. o Name of entity ABN/ARSN e KATANA CAPITAL LIMITED 56 116 054 301 s We (the entity) give ASX the following information. u Description of buy-back 1 Type of buy-back On-Market l a Details of all shares/units bought back n 2 Number of shares/units bought 2,789,256 back o s 3 Total consideration paid or $2,299,461 payable for the shares/units r e 4 If buy-back is an on-market buy- highest price: $0.939831 ba",
+        "text_head": "Appendix 3F Final share buy-back notice Rule 3.8A Appendix 3F Final share buy-back notice (except minimum holding buy-back) Introduced 1/9/99. Origin: Appendices 7D and 7E. Amended 30/9/2001, 11/01/10 Information and documents given to ASX become ASX\u2019s property and may be made public. Name of entity ABN/ARSN KATANA CAPITAL LIMITED 56 116 054 301 We (the entity) give ASX the following information. Description of buy-back 1 Type of buy-back On-Market a Details of all shares/units bought back 2 Number of shares/units bought 2,789,256 back 3 Total consideration paid or $2,299,461 payable for the shares/units 4 If buy-back is an on-market buy- highest price: $0.939831 back - highest and lowest pr",
         "table_rows": [],
-        "chars": 1270
+        "chars": 1202
+      }
+    ],
+    "issue": [
+      {
+        "announcement_id": "02419714",
+        "ticker": "WGB",
+        "published_at": "2021-09-09",
+        "headline": "Application for quotation of securities - WGB",
+        "text_head": "Application for quotation of +securities Announcement Summary Entity name WAM GLOBAL LIMITED Announcement Type New announcement Date of this announcement Thursday September 09, 2021 The +securities to be quoted are: +Securities issued, transferred or re-classified as a result of options being exercised or other +convertible securities being converted Total number of +securities to be quoted ASX +security Number of +securities to code Security description be quoted Issue date WGB ORDINARY FULLY PAID 110,232 09/09/2021 a Refer to next page for full details of the announcement Application for quotation of +securities 1 / 6 Application for quotation of +securities Part 1 - Entity and announcemen",
+        "table_rows": [],
+        "chars": 3079
+      },
+      {
+        "announcement_id": "02504962",
+        "ticker": "MFF",
+        "published_at": "2022-03-30",
+        "headline": "Application for quotation of securities - MFF",
+        "text_head": "Application for quotation of +securities Announcement Summary Entity name MFF CAPITAL INVESTMENTS LIMITED Announcement Type New announcement Date of this announcement Thursday March 31, 2022 The +securities to be quoted are: +Securities issued, transferred or re-classified as a result of options being exercised or other +convertible securities being converted Total number of +securities to be quoted ASX +security Number of +securities to code Security description be quoted Issue date MFF ORDINARY FULLY PAID 67 31/03/2022 a Refer to next page for full details of the announcement Application for quotation of +securities 1 / 6 Application for quotation of +securities Part 1 - Entity and announc",
+        "table_rows": [],
+        "chars": 3086
+      },
+      {
+        "announcement_id": "02536846",
+        "ticker": "MGF",
+        "published_at": "2022-06-30",
+        "headline": "Appendix 2A",
+        "text_head": "This appendix is not available as an online form Please fill in and submit as a PDF announcement +Rule 2.7 Appendix 2A Application for quotation of +securities Information or documents not available now must be given to ASX as soon as available. Information y and documents given to ASX become ASX\u2019s property and may be made public. If you are an entity incorporated outside Australia and you are seeking quotation of a new class of l +securities other than CDIs, you will need to obtain and provide an International Securities n Identification Number (ISIN) for that class. Further information on the requirement for the notification of an ISIN is available from the Create Online Forms page. ASX is",
+        "table_rows": [],
+        "chars": 10230
+      },
+      {
+        "announcement_id": "02654283",
+        "ticker": "WLE",
+        "published_at": "2023-04-13",
+        "headline": "Cleansing notice - Share Purchase Plan",
+        "text_head": "a a",
+        "table_rows": [],
+        "chars": 3
+      },
+      {
+        "announcement_id": "02685196",
+        "ticker": "D2O",
+        "published_at": "2023-07-09",
+        "headline": "Application for quotation of securities - D2O",
+        "text_head": "Application for quotation of +securities Announcement Summary Entity name DUXTON WATER LIMITED Announcement Type New announcement Date of this announcement Monday July 10, 2023 The +securities to be quoted are: +Securities issued as part of a transaction or transactions previously announced to the market in an Appendix 3B Total number of +securities to be quoted ASX +security Number of +securities to code Security description be quoted Issue date D2O ORDINARY FULLY PAID 4,833,334 10/07/2023 Refer to next page for full details of the announcement Application for quotation of +securities 1 / 6 ylno esu lanosrep roF Application for quotation of +securities Part 1 - Entity and announcement detai",
+        "table_rows": [],
+        "chars": 2851
+      },
+      {
+        "announcement_id": "02721164",
+        "ticker": "CAM",
+        "published_at": "2023-10-04",
+        "headline": "Application for quotation of securities - CAM",
+        "text_head": "Application for quotation of +securities Announcement Summary Entity name CLIME CAPITAL LIMITED Announcement Type New announcement Date of this announcement Wednesday October 04, 2023 The +securities to be quoted are: +Securities issued as part of a transaction or transactions previously announced to the market in an Appendix 3B Total number of +securities to be quoted ASX +security Number of +securities to code Security description be quoted Issue date CAM ORDINARY FULLY PAID 5,611,300 04/10/2023 Refer to next page for full details of the announcement Application for quotation of +securities 1 / 6 ylno esu lanosrep roF Application for quotation of +securities Part 1 - Entity and announcemen",
+        "table_rows": [],
+        "chars": 2634
       }
     ]
   }
