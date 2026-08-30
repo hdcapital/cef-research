@@ -61,6 +61,9 @@ jobs:
             echo "no changes"
           else
             git commit -m "Probe: parser/unit diagnostics"
-            git pull --rebase origin "${GITHUB_REF_NAME}" || true
-            git push origin "HEAD:${GITHUB_REF_NAME}"
+            for i in 1 2 3 4 5 6; do
+              git pull --rebase --autostash -X theirs origin "${GITHUB_REF_NAME}" || true
+              if git push origin "HEAD:${GITHUB_REF_NAME}"; then break; fi
+              sleep $((RANDOM % 15 + 5))
+            done
           fi

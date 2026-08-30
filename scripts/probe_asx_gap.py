@@ -47,6 +47,33 @@ s = requests.Session()
 s.headers["User-Agent"] = P.UA
 frontier = P.contiguous_frontier(idx) if len(idx) else None
 
+# Is the endpoint down, slow, or refusing? Every sweep has stopped on its
+# first call with a 60s ReadTimeout, so before assuming anything about the
+# sweep logic, establish whether the source answers at all - and whether the
+# Markit host verified earlier still does. This only asks documented public
+# endpoints the project already uses; nothing here works around an access
+# control, and if the ASX is deliberately refusing then the gap cannot be
+# filled from this source and that is the finding.
+out["reachability"] = {}
+MARKIT = ("https://asx.api.markitdigital.com/asx-research/1.0/companies/"
+          "AFI/announcements?access_token=83ff96335c2d45a094df02a206a39ff4"
+          "&page=0&itemsPerPage=5")
+for label, url, tmo in (
+        ("asx1_no_params", P.INDEX_URL, 25),
+        ("asx1_recent", f"{P.INDEX_URL}?end_date={int(time.time() * 1000)}", 25),
+        ("asx1_2024", f"{P.INDEX_URL}?end_date=1719792000000", 25),
+        ("asx_home", "https://www.asx.com.au/", 20),
+        ("markit_afi", MARKIT, 25)):
+    rec = {"url": url[:90]}
+    t0 = time.time()
+    try:
+        r = s.get(url, timeout=tmo, headers={"Accept": "application/json"})
+        rec.update(http=r.status_code, secs=round(time.time() - t0, 1),
+                   bytes=len(r.content), head=r.text[:120])
+    except Exception as exc:  # noqa: BLE001
+        rec.update(error=f"{type(exc).__name__}", secs=round(time.time() - t0, 1))
+    out["reachability"][label] = rec
+
 calls = []
 end_ms = int(time.time() * 1000)
 for i in range(12):                     # a dozen calls is enough to see the shape
