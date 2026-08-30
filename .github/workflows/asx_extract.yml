@@ -15,7 +15,7 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "deterministic | prices | queue | estimate | compare | sync | submit | collect"
+        description: "deterministic | diagnose | prices | queue | estimate | compare | sync | submit | collect"
         default: "deterministic"
       limit:
         description: "documents to process"
@@ -87,7 +87,8 @@ jobs:
           # discarded the status of a run that had succeeded
           for f in reports/build/asx_extract_status.json \
                    reports/build/asx_deterministic_status.json \
-                   reports/build/asx_price_coverage.json; do
+                   reports/build/asx_price_coverage.json \
+                   reports/build/asx_parse_failures.json; do
             [ -f "$f" ] && git add -f "$f"
           done
           if git diff --cached --quiet; then

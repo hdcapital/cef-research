@@ -483,6 +483,66 @@ def run_deterministic(limit: int = 0, deadline_min: float = 300.0) -> dict:
     return stats
 
 
+def diagnose_failures(limit: int = 240, per_family: int = 12) -> dict:
+    """Why the deterministic parsers failed, in the documents' own words.
+
+    A parse rate is not actionable; the TEXT the parser was handed is. This
+    samples failures across families and records what pdfplumber actually
+    extracted, so parser fixes are written against real pages instead of an
+    imagined layout - which is how the NTA parser reached its accuracy in the
+    first place.
+    """
+    import boto3
+
+    s3 = boto3.client("s3", region_name=os.environ.get("AWS_REGION"))
+    idx = router.route_index(pd.read_parquet(INDEX_F))
+    idx = idx[idx["route"] == "deterministic"].copy()
+    idx["announcement_id"] = idx["id"].astype(str)
+    idx["published_at"] = pd.to_datetime(idx["release_date"], utc=True,
+                                         errors="coerce").dt.strftime("%Y-%m-%d")
+    idx = idx[idx["published_at"].notna()].rename(columns={"code": "ticker"})
+    idx["day"] = idx["published_at"]
+    # spread across families and eras rather than taking the newest N: a
+    # sample of last month's filings would miss every legacy layout
+    idx = idx.sort_values("published_at")
+    step = max(1, len(idx) // max(1, limit))
+    sample = idx.iloc[::step].head(limit)
+
+    fails: dict[str, list] = {}
+    counts: dict[str, dict] = {}
+    for rec in sample.to_dict("records"):
+        fam = rec["family"]
+        counts.setdefault(fam, {"tried": 0, "parsed": 0, "failed": 0})
+        counts[fam]["tried"] += 1
+        key = (f"asx/announcements/{rec['ticker']}/"
+               f"{rec['day']}_{rec['announcement_id']}.pdf")
+        try:
+            data = s3.get_object(Bucket=BUCKET, Key=key)["Body"].read()
+            text, tbl = deterministic.pdf_pages(data)
+        except Exception as exc:  # noqa: BLE001
+            counts[fam]["failed"] += 1
+            fails.setdefault(fam, []).append({"headline": rec.get("headline"),
+                                              "error": f"{type(exc).__name__}",
+                                              "text": ""})
+            continue
+        got = deterministic.extract(fam, text, tbl, rec.get("headline") or "")
+        if got:
+            counts[fam]["parsed"] += 1
+            continue
+        counts[fam]["failed"] += 1
+        if len(fails.get(fam, [])) < per_family:
+            fails.setdefault(fam, []).append({
+                "announcement_id": rec["announcement_id"],
+                "ticker": rec["ticker"], "published_at": rec["published_at"],
+                "headline": rec.get("headline"),
+                "text_head": text[:700],
+                "table_rows": [r[:6] for r in tbl[:4]],
+                "chars": len(text)})
+    for fam, c in counts.items():
+        c["parse_rate"] = round(c["parsed"] / max(1, c["tried"]), 4)
+    return {"sampled": int(len(sample)), "by_family": counts, "failures": fails}
+
+
 # ------------------------------------------------------------------- prices
 def run_prices(limit: int = 0) -> dict:
     """Daily price history for every code in the announcement index.
@@ -693,7 +753,7 @@ def main(argv: list[str]) -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("mode", choices=["sync", "submit", "collect", "queue",
                                      "estimate", "compare", "deterministic",
-                                     "prices"])
+                                     "prices", "diagnose"])
     ap.add_argument("--limit", type=int, default=10)
     ap.add_argument("--ticker")
     ap.add_argument("--batch-id")
@@ -709,6 +769,14 @@ def main(argv: list[str]) -> int:
                           "sample": q.head(5)[["announcement_id", "ticker",
                                                "published_at"]].to_dict("records")},
                          indent=2, default=str))
+        return 0
+    if a.mode == "diagnose":
+        out = diagnose_failures(limit=a.limit or 240)
+        Path("reports/build").mkdir(parents=True, exist_ok=True)
+        Path("reports/build/asx_parse_failures.json").write_text(
+            json.dumps(out, indent=2, default=str))
+        print(json.dumps({"sampled": out["sampled"],
+                          "by_family": out["by_family"]}, indent=2))
         return 0
     if a.mode == "prices":
         out = run_prices(limit=a.limit)
