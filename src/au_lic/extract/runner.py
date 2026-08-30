@@ -500,6 +500,44 @@ def run_deterministic(limit: int = 0, deadline_min: float = 300.0) -> dict:
     return stats
 
 
+def run_validate(limit: int = 0) -> dict:
+    """Compare extracted NTA with the exchange's published NTA.
+
+    Reads the facts written by the deterministic pass (from S3 if the local
+    shard files are absent) and the monthly panel, and reports agreement,
+    unit errors, basis gaps and the worst disagreements by name.
+    """
+    from au_lic import panel as AUP
+    from au_lic import validate_nta as V
+
+    frames = [pd.read_parquet(f) for f in
+              sorted(Path("data/asx_extract").glob("facts_det_*.parquet"))]
+    if not frames and BUCKET:
+        import boto3
+        s3 = boto3.client("s3", region_name=os.environ.get("AWS_REGION"))
+        Path("data/asx_extract").mkdir(parents=True, exist_ok=True)
+        for page in s3.get_paginator("list_objects_v2").paginate(
+                Bucket=BUCKET, Prefix="asx/extract/facts_det_"):
+            for o in page.get("Contents", []):
+                dest = Path("data/asx_extract") / Path(o["Key"]).name
+                s3.download_file(BUCKET, o["Key"], str(dest))
+                frames.append(pd.read_parquet(dest))
+    if not frames:
+        return {"error": "no extracted facts found - run deterministic first"}
+    facts = pd.concat(frames, ignore_index=True)
+    nav = facts[facts["section"] == "nav_observations"].copy()
+
+    panel = AUP.build_panel() if hasattr(AUP, "build_panel") else pd.DataFrame()
+    if isinstance(panel, tuple):
+        panel = panel[0]
+    cmp_df = V.compare(nav, panel)
+    out = V.summarise(V.classify(cmp_df), extracted_total=len(nav))
+    Path("reports/build").mkdir(parents=True, exist_ok=True)
+    Path("reports/build/asx_nta_validation.json").write_text(
+        json.dumps(out, indent=2, default=str))
+    return out
+
+
 def diagnose_failures(limit: int = 240, per_family: int = 12) -> dict:
     """Why the deterministic parsers failed, in the documents' own words.
 
@@ -776,7 +814,7 @@ def main(argv: list[str]) -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("mode", choices=["sync", "submit", "collect", "queue",
                                      "estimate", "compare", "deterministic",
-                                     "prices", "diagnose"])
+                                     "prices", "diagnose", "validate"])
     ap.add_argument("--limit", type=int, default=10)
     ap.add_argument("--ticker")
     ap.add_argument("--batch-id")
@@ -791,6 +829,11 @@ def main(argv: list[str]) -> int:
                           "prompt_version": prompt_version(),
                           "sample": q.head(5)[["announcement_id", "ticker",
                                                "published_at"]].to_dict("records")},
+                         indent=2, default=str))
+        return 0
+    if a.mode == "validate":
+        out = run_validate(limit=a.limit)
+        print(json.dumps({k: v for k, v in out.items() if k != "worst"},
                          indent=2, default=str))
         return 0
     if a.mode == "diagnose":
