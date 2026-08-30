@@ -108,6 +108,40 @@ for i in range(12):                     # a dozen calls is enough to see the sha
     calls.append(rec)
 
 out["calls"] = calls
+
+# The market-wide endpoint returns 2000 items per call and covers ONE day,
+# so the 1,023-day gap needs ~1,000 heavy calls - and it times out on most of
+# them, which is a rate limit expressed as a timeout. Hammering it would be
+# working around an access control, so test the per-company endpoint instead:
+# it answered in 0.6s, and we only ever keep ~1% of a market-wide page. Does
+# it paginate back far enough to cover 2024-2025?
+out["markit_pagination"] = {}
+for code in ("AFI", "ARG", "WAM"):
+    pages = []
+    for pg in range(4):
+        u = ("https://asx.api.markitdigital.com/asx-research/1.0/companies/"
+             f"{code}/announcements?access_token=83ff96335c2d45a094df02a206a39ff4"
+             f"&page={pg}&itemsPerPage=50")
+        try:
+            r = s_sess.get(u, timeout=30) if False else requests.get(
+                u, timeout=30, headers={"User-Agent": P.UA})
+            if r.status_code != 200:
+                pages.append({"page": pg, "http": r.status_code}); break
+            body = r.json().get("data", {})
+            items = body.get("items") or body.get("announcements") or []
+            if not items:
+                pages.append({"page": pg, "items": 0, "keys": sorted(body.keys())[:8]})
+                break
+            ds = pd.to_datetime([it.get("documentDate") or it.get("date")
+                                 for it in items], utc=True, errors="coerce").dropna()
+            pages.append({"page": pg, "items": len(items),
+                          "newest": str(ds.max().date()) if len(ds) else None,
+                          "oldest": str(ds.min().date()) if len(ds) else None,
+                          "sample_keys": sorted(items[0].keys())[:10]})
+            time.sleep(1.0)
+        except Exception as exc:  # noqa: BLE001
+            pages.append({"page": pg, "error": f"{type(exc).__name__}"}); break
+    out["markit_pagination"][code] = pages
 if len(calls) > 1 and "days_covered" in calls[0]:
     per = sum(c.get("days_covered", 0) for c in calls if "days_covered" in c)
     n = len([c for c in calls if "days_covered" in c])
