@@ -539,10 +539,15 @@ def test_the_index_has_a_daily_forward_topup_not_only_a_monthly_sweep():
 
     env = next(s["env"] for s in wf["jobs"]["topup"]["steps"]
                if "sample_nta_pdfs" in str(s.get("run", "")))
-    assert env["NTA_SWEEP_MODE"] == "forward", \
-        "the daily job must keep up, never attempt the historical gap"
-    assert int(env["NTA_SWEEP_BUDGET"]) <= 20, \
-        "a keep-up pass is a handful of calls; a large budget here would crawl"
+    # a dispatch may ask for a gapfill crawl, but the SCHEDULED run - which
+    # supplies no inputs - must fall back to keeping up on a small budget,
+    # or the nightly job quietly becomes a throttled thousand-call crawl
+    assert "'forward'" in str(env["NTA_SWEEP_MODE"]), \
+        "the scheduled default must be forward, never the historical gapfill"
+    budget = str(env["NTA_SWEEP_BUDGET"])
+    default_budget = int(budget.split("'")[-2]) if "'" in budget else int(budget)
+    assert default_budget <= 20, \
+        "a keep-up pass is a handful of calls; a large default would crawl"
 
     # and it must land before the archive job, or the archive fetches nothing new
     arch = _yaml.safe_load(Path(".github/workflows/asx_archive.yml").read_text())

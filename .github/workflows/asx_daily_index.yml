@@ -15,6 +15,19 @@ name: asx-daily-index
 
 on:
   workflow_dispatch:
+    inputs:
+      mode:
+        description: "forward (daily keep-up) | gapfill (crawl the 2024-25 hole)"
+        default: "forward"
+      throttle:
+        description: "seconds between index calls (60 for a gapfill crawl)"
+        default: "5"
+      deadline_min:
+        description: "stop the sweep after N minutes (0 = no limit)"
+        default: "0"
+      budget:
+        description: "max index calls this run"
+        default: "12"
   schedule:
     - cron: "30 1 * * *"     # before asx-s3-archive at 02:00, so the archive
                              # sees the same day's new announcements
@@ -44,15 +57,17 @@ jobs:
           AWS_REGION: ${{ secrets.AWS_REGION }}
           S3_BUCKET: ${{ secrets.S3_BUCKET }}
         run: python scripts/sync_state.py pull --groups asx_index
-      - name: Top up the index (forward only)
+      - name: Sweep the index
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
           S3_BUCKET: ${{ secrets.S3_BUCKET }}
-          NTA_SWEEP_MODE: forward
-          NTA_SWEEP_BUDGET: "12"      # a day is ~1 call; 12 covers a long weekend
-          NTA_INDEX_THROTTLE: "5"
+          # scheduled runs keep up; a dispatch can ask for a gapfill crawl
+          NTA_SWEEP_MODE: ${{ github.event.inputs.mode || 'forward' }}
+          NTA_SWEEP_BUDGET: ${{ github.event.inputs.budget || '12' }}
+          NTA_INDEX_THROTTLE: ${{ github.event.inputs.throttle || '5' }}
+          NTA_INDEX_DEADLINE_MIN: ${{ github.event.inputs.deadline_min || '0' }}
           NTA_PDF_BUDGET: "0"         # index only - the archive job fetches PDFs
         run: python scripts/sample_nta_pdfs.py
       - name: Persist index to S3
