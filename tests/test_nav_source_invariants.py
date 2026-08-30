@@ -482,3 +482,16 @@ def test_a_budget_limited_top_pass_persists_where_to_resume():
     src = Path("scripts/sample_nta_pdfs.py").read_text()
     assert 'state["top_cursor_ms"] = end_ms' in src
     assert 'state.get("top_cursor_ms") or int(time.time() * 1000)' in src
+
+
+def test_every_imported_third_party_dependency_is_declared():
+    """boto3 is imported by shipped code, so it belongs in requirements.
+
+    Seven workflows carried `pip install -r requirements.txt boto3` and the
+    eighth did not - so asx.yml's test step died on ModuleNotFoundError while
+    every other workflow passed, and the ASX index gap-fill never ran. A
+    dependency patched per-workflow is a dependency that will be missing from
+    the next workflow someone adds.
+    """
+    req = Path("requirements.txt").read_text()
+    assert "boto3" in req, "boto3 is imported by src/ and scripts/ but undeclared"

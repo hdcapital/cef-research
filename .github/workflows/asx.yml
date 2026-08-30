@@ -79,7 +79,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
           S3_BUCKET: ${{ secrets.S3_BUCKET }}
-        run: pip install boto3 && python scripts/sync_state.py pull --groups asx_index
+        run: python scripts/sync_state.py pull --groups asx_index
       - name: Restore announcements cache
         uses: actions/cache/restore@v4
         with:
