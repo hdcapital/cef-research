@@ -82,13 +82,21 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -f reports/build/asx_extract_status.json \
-            reports/build/asx_deterministic_status.json \
-            reports/build/asx_price_coverage.json || true
+          # add each path separately: `git add -f A B` aborts entirely if
+          # A does not exist, so one absent mode-specific file silently
+          # discarded the status of a run that had succeeded
+          for f in reports/build/asx_extract_status.json \
+                   reports/build/asx_deterministic_status.json \
+                   reports/build/asx_price_coverage.json; do
+            [ -f "$f" ] && git add -f "$f"
+          done
           if git diff --cached --quiet; then
             echo "no changes"
           else
             git commit -m "CI: ASX extraction status ($(date -u +%Y-%m-%dT%H:%MZ))"
-            git pull --rebase -X theirs origin "${GITHUB_REF_NAME}" || true
-            git push origin "HEAD:${GITHUB_REF_NAME}"
+            for i in 1 2 3 4 5 6; do
+              git pull --rebase --autostash -X theirs origin "${GITHUB_REF_NAME}" || true
+              if git push origin "HEAD:${GITHUB_REF_NAME}"; then break; fi
+              sleep $((RANDOM % 15 + 5))
+            done
           fi
