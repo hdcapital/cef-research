@@ -26,32 +26,30 @@
   "reachability": {
     "asx1_no_params": {
       "url": "https://www.asx.com.au/asx/1/announcement/list",
-      "http": 200,
-      "secs": 0.2,
-      "bytes": 259,
-      "head": "{\"result_count\":0,\"total_search_count\":0,\"error_message\":\"Invalid date ranges supplied. End Date must be provided\",\"comp"
+      "error": "ReadTimeout",
+      "secs": 25.2
     },
     "asx1_recent": {
-      "url": "https://www.asx.com.au/asx/1/announcement/list?end_date=1788087984491",
+      "url": "https://www.asx.com.au/asx/1/announcement/list?end_date=1788088395134",
       "error": "ReadTimeout",
-      "secs": 25.0
+      "secs": 25.1
     },
     "asx1_2024": {
       "url": "https://www.asx.com.au/asx/1/announcement/list?end_date=1719792000000",
       "error": "ReadTimeout",
-      "secs": 25.0
+      "secs": 25.1
     },
     "asx_home": {
       "url": "https://www.asx.com.au/",
       "http": 200,
       "secs": 0.2,
-      "bytes": 162386,
+      "bytes": 162387,
       "head": "\n<!DOCTYPE HTML>\n<html lang=\"en\">\n    <head>\n  \n    <meta charset=\"UTF-8\"/>\n    \n    \n    \n    \n    \n    \n    <meta prop"
     },
     "markit_afi": {
       "url": "https://asx.api.markitdigital.com/asx-research/1.0/companies/AFI/announcements?access_toke",
       "http": 200,
-      "secs": 0.6,
+      "secs": 0.5,
       "bytes": 1251,
       "head": "{\"data\":{\"displayName\":\"AUSTRALIAN FOUNDATION INVESTMENT COMPANY LIMITED\",\"issueType\":\"CS\",\"items\":[{\"announcementType\":"
     }
@@ -59,7 +57,7 @@
   "calls": [
     {
       "call": 1,
-      "end_date_ms": 1788088035516,
+      "end_date_ms": 1788088471255,
       "http": 200,
       "items": 2000,
       "newest": "2026-08-28",
@@ -73,6 +71,194 @@
       "error": "ReadTimeout: HTTPSConnectionPool(host='www.asx.com.au', port=443): Read timed out. (read timeout=60)"
     }
   ],
+  "markit_pagination": {
+    "AFI": [
+      {
+        "page": 0,
+        "items": 5,
+        "newest": "2026-08-28",
+        "oldest": "2026-08-27",
+        "sample_keys": [
+          "announcementType",
+          "date",
+          "documentKey",
+          "fileSize",
+          "headline",
+          "isPriceSensitive",
+          "url"
+        ]
+      },
+      {
+        "page": 1,
+        "items": 5,
+        "newest": "2026-08-28",
+        "oldest": "2026-08-27",
+        "sample_keys": [
+          "announcementType",
+          "date",
+          "documentKey",
+          "fileSize",
+          "headline",
+          "isPriceSensitive",
+          "url"
+        ]
+      },
+      {
+        "page": 2,
+        "items": 5,
+        "newest": "2026-08-28",
+        "oldest": "2026-08-27",
+        "sample_keys": [
+          "announcementType",
+          "date",
+          "documentKey",
+          "fileSize",
+          "headline",
+          "isPriceSensitive",
+          "url"
+        ]
+      },
+      {
+        "page": 3,
+        "items": 5,
+        "newest": "2026-08-28",
+        "oldest": "2026-08-27",
+        "sample_keys": [
+          "announcementType",
+          "date",
+          "documentKey",
+          "fileSize",
+          "headline",
+          "isPriceSensitive",
+          "url"
+        ]
+      }
+    ],
+    "ARG": [
+      {
+        "page": 0,
+        "items": 5,
+        "newest": "2026-08-24",
+        "oldest": "2026-08-12",
+        "sample_keys": [
+          "announcementType",
+          "date",
+          "documentKey",
+          "fileSize",
+          "headline",
+          "isPriceSensitive",
+          "url"
+        ]
+      },
+      {
+        "page": 1,
+        "items": 5,
+        "newest": "2026-08-24",
+        "oldest": "2026-08-12",
+        "sample_keys": [
+          "announcementType",
+          "date",
+          "documentKey",
+          "fileSize",
+          "headline",
+          "isPriceSensitive",
+          "url"
+        ]
+      },
+      {
+        "page": 2,
+        "items": 5,
+        "newest": "2026-08-24",
+        "oldest": "2026-08-12",
+        "sample_keys": [
+          "announcementType",
+          "date",
+          "documentKey",
+          "fileSize",
+          "headline",
+          "isPriceSensitive",
+          "url"
+        ]
+      },
+      {
+        "page": 3,
+        "items": 5,
+        "newest": "2026-08-24",
+        "oldest": "2026-08-12",
+        "sample_keys": [
+          "announcementType",
+          "date",
+          "documentKey",
+          "fileSize",
+          "headline",
+          "isPriceSensitive",
+          "url"
+        ]
+      }
+    ],
+    "WAM": [
+      {
+        "page": 0,
+        "items": 5,
+        "newest": "2026-08-27",
+        "oldest": "2026-08-27",
+        "sample_keys": [
+          "announcementType",
+          "date",
+          "documentKey",
+          "fileSize",
+          "headline",
+          "isPriceSensitive",
+          "url"
+        ]
+      },
+      {
+        "page": 1,
+        "items": 5,
+        "newest": "2026-08-27",
+        "oldest": "2026-08-27",
+        "sample_keys": [
+          "announcementType",
+          "date",
+          "documentKey",
+          "fileSize",
+          "headline",
+          "isPriceSensitive",
+          "url"
+        ]
+      },
+      {
+        "page": 2,
+        "items": 5,
+        "newest": "2026-08-27",
+        "oldest": "2026-08-27",
+        "sample_keys": [
+          "announcementType",
+          "date",
+          "documentKey",
+          "fileSize",
+          "headline",
+          "isPriceSensitive",
+          "url"
+        ]
+      },
+      {
+        "page": 3,
+        "items": 5,
+        "newest": "2026-08-27",
+        "oldest": "2026-08-27",
+        "sample_keys": [
+          "announcementType",
+          "date",
+          "documentKey",
+          "fileSize",
+          "headline",
+          "isPriceSensitive",
+          "url"
+        ]
+      }
+    ]
+  },
   "avg_days_per_call": 1.0,
   "gap_days": 1025,
   "calls_needed_estimate": 1025
