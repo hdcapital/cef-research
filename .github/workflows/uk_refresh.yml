@@ -1,0 +1,84 @@
+name: uk-listings-refresh
+
+# Walk the UK announcement listings FORWARD from where the cache stopped.
+#
+# The crawler was written as a one-time backfill: it pages from newest
+# backward, marks each company `done`, and every later run returned
+# immediately. The cache therefore froze at 2022-05-17 while the nightly
+# archive processed it and reported an empty queue - "finished", but with a
+# four-year-old list.
+#
+# A reopened company restarts at page 1 and STOPS at the first announcement
+# already held, so this costs a page or two per fund and cannot refetch the
+# history we already archived. Sharded by a hash of the ticker so the shards
+# take disjoint slices.
+#
+# 6 shards, not 12: the archive and extraction jobs also need runners, and
+# this is a page or two per fund rather than a deep crawl.
+
+on:
+  workflow_dispatch:
+    inputs:
+      shards:
+        description: "parallel shards (keep <= 6 to leave runners for other work)"
+        default: "6"
+      budget_minutes:
+        description: "wall-clock budget per shard"
+        default: "180"
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 6
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5]
+    concurrency:
+      group: uk-refresh-${{ github.ref }}-${{ matrix.shard }}
+      cancel-in-progress: false
+    timeout-minutes: 200
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt && pip install -e .
+      - name: Restore state from S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+        run: python scripts/sync_state.py pull --groups uk_announcements,raw_aic
+      - name: Restore AIC raw cache
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            data/raw
+            data/cache
+            data/manifest.csv
+          key: aic-raw-v1-${{ github.run_id }}
+          restore-keys: |
+            aic-raw-v1-
+      - name: Build entities + panel
+        run: |
+          python -m uk_cef.cli build-entities
+          python -m uk_cef.cli build-panel
+      - name: Refresh listings (forward only)
+        env:
+          SHARD_INDEX: ${{ matrix.shard }}
+          SHARD_COUNT: ${{ github.event.inputs.shards || '6' }}
+        run: python -m uk_cef.cli dividends --budget-minutes "${{ github.event.inputs.budget_minutes || '180' }}"
+      - name: Persist state to S3
+        if: always()
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+        run: python scripts/sync_state.py push --groups uk_announcements

@@ -176,11 +176,62 @@ class InvestegateCrawler:
         return rows
 
     # ----------------------------------------------------------- per company
+
+    REFRESH_AFTER_DAYS = 3
+
+    def _newest_cached(self, ticker: str):
+        """Date of the newest announcement already in this fund's listing."""
+        f = self.listings / f"{ticker}.csv"
+        if not f.exists():
+            return None
+        try:
+            df = pd.read_csv(f, usecols=["date"], dtype=str)
+        except Exception:  # noqa: BLE001
+            return None
+        d = pd.to_datetime(df["date"], errors="coerce").dropna()
+        return d.max() if len(d) else None
+
+    def _known_ids(self, ticker: str) -> set[str]:
+        f = self.listings / f"{ticker}.csv"
+        if not f.exists():
+            return set()
+        try:
+            return set(pd.read_csv(f, usecols=["ann_id"], dtype=str)["ann_id"])
+        except Exception:  # noqa: BLE001
+            return set()
+
+    def _needs_refresh(self, ticker: str) -> bool:
+        newest = self._newest_cached(ticker)
+        if newest is None:
+            return True
+        age = (pd.Timestamp.now('UTC').tz_localize(None) - newest).days
+        return age > self.REFRESH_AFTER_DAYS
+
     def crawl_company(self, security_id: str, ticker: str, names: list[str]) -> str:
         st = self.state.setdefault(ticker, {"security_id": security_id, "status": "pending",
                                             "pages_done": 0, "oldest_date": None})
-        if st["status"] in ("done", "identity_mismatch", "not_found"):
+        # REOPEN a completed company when its newest cached announcement has
+        # aged past the refresh window.
+        #
+        # This crawler was written as a one-time backfill: it pages from
+        # page 1 (newest) backward and marks the company `done`, after which
+        # every later run returned here immediately. Correct for a backfill,
+        # wrong forever after - the listings cache stopped at 2022-05-17 and
+        # the nightly archive dutifully processed a four-year-old index while
+        # reporting an empty queue. Same shape as the ASX index bug: a
+        # keep-up job that was only ever a catch-up job.
+        #
+        # Reopening restarts at page 1 and stops at the first announcement we
+        # already hold, so a refresh costs a page or two per fund and cannot
+        # refetch history.
+        if st["status"] in ("identity_mismatch", "not_found"):
             return st["status"]
+        if st["status"] == "done":
+            if not self._needs_refresh(ticker):
+                return "done"
+            st["status"] = "listing"
+            st["pages_done"] = 0
+            st["reopened"] = True
         self._detect_page_len(ticker)
         listing_path = self.listings / f"{ticker}.csv"
         fields = ["ann_id", "date", "time", "source", "headline", "slug", "url", "category"]
@@ -229,6 +280,28 @@ class InvestegateCrawler:
             ]
             for r_ in own_rows:
                 r_["category"] = classify_headline(r_["headline"]) or ""
+            # A reopened crawl walks forward from page 1 and must stop the
+            # moment it meets announcements already held - otherwise it pages
+            # back to 2001 refetching a history we archived once. Duplicates
+            # are dropped rather than appended, so a refresh is idempotent and
+            # costs a page or two per fund.
+            if st.get("reopened"):
+                known = self._known_ids(ticker)
+                fresh = [r_ for r_ in own_rows if str(r_["ann_id"]) not in known]
+                if not fresh:
+                    st["status"] = "details"
+                    st["reopened"] = False
+                    st["pages_done"] = page
+                    self._save_state()
+                    break
+                if len(fresh) < len(own_rows):
+                    # this page straddles the boundary: take the new ones and
+                    # stop, the rest of history is already ours
+                    own_rows = fresh
+                    st["status"] = "details"
+                    st["reopened"] = False
+                else:
+                    own_rows = fresh
             write_header = not listing_path.exists()
             with open(listing_path, "a", newline="", encoding="utf-8") as fh:
                 w = csv.DictWriter(fh, fieldnames=fields, extrasaction="ignore")

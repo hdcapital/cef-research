@@ -560,11 +560,30 @@ def parse_pdf(s: requests.Session, ann_id: str, url: str, counters: dict) -> dic
 
 
 def main() -> int:
-    panel = pd.read_parquet("data/au_processed/au_monthly_panel.parquet")
-    panel["code"] = panel["security_id"].str.replace("ASX:", "", regex=False)
-    have_nta = panel[panel["nta_derived"].notna()]
-    codes = set(have_nta["code"].unique())
-    print(f"panel codes with any NTA: {len(codes)}")
+    # The code list comes from the REGISTRY, which is committed and always
+    # present, falling back to the panel. Reading the panel first meant a
+    # workflow that does not rebuild it - the daily index top-up - died on
+    # FileNotFoundError before making a single call. Same failure as the idea
+    # scan, same cause: a job assuming an artefact another job happens to
+    # build. The registry is also the correct source: it is the universe, and
+    # a fund the panel never priced still files announcements.
+    codes: set[str] = set()
+    rp = Path("data/universe/registry.parquet")
+    if rp.exists():
+        reg = pd.read_parquet(rp)
+        au = reg[reg["market"] == "AU"]
+        codes = set(au["security_id"].astype(str)
+                    .str.replace("^ASX:", "", regex=True).str.upper())
+        print(f"registry AU codes: {len(codes)}")
+    pp = Path("data/au_processed/au_monthly_panel.parquet")
+    if pp.exists():
+        panel = pd.read_parquet(pp)
+        panel["code"] = panel["security_id"].str.replace("ASX:", "", regex=False)
+        codes |= set(panel.loc[panel["nta_derived"].notna(), "code"].unique())
+    if not codes:
+        print("no AU codes from registry or panel - nothing to sweep")
+        return 0
+    print(f"codes to keep from the sweep: {len(codes)}")
 
     s = requests.Session()
     s.headers["User-Agent"] = UA

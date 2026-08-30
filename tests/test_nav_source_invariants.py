@@ -556,3 +556,19 @@ def test_forward_and_gapfill_stop_at_different_targets():
     src = Path("scripts/sample_nta_pdfs.py").read_text()
     assert 'SWEEP_MODE = os.environ.get("NTA_SWEEP_MODE", "forward")' in src
     assert 'target = frontier if SWEEP_MODE == "gapfill" else newest_held' in src
+
+
+def test_the_index_sweep_does_not_require_the_panel():
+    """A job must not depend on an artefact another job happens to build.
+
+    The daily index top-up died on FileNotFoundError before making a single
+    call, because main() read the AU monthly panel - which that workflow
+    never builds. Identical cause to the idea scan failing for months. The
+    registry is committed, always present, and is the correct source anyway:
+    a fund the panel never priced still files announcements.
+    """
+    src = Path("scripts/sample_nta_pdfs.py").read_text()
+    i_reg = src.index('rp = Path("data/universe/registry.parquet")')
+    i_panel = src.index('pp = Path("data/au_processed/au_monthly_panel.parquet")')
+    assert i_reg < i_panel, "the registry must be consulted before the panel"
+    assert 'if pp.exists():' in src, "a missing panel must not raise"

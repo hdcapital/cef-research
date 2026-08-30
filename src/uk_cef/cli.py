@@ -105,6 +105,20 @@ def cmd_dividends(cfg: dict, args) -> int:
     with_ticker["span"] = with_ticker["last_month"].str.slice(0, 4).astype(int) - \
         with_ticker["first_month"].str.slice(0, 4).astype(int)
     with_ticker = with_ticker.sort_values("span", ascending=False)
+    # Shard by a hash of the TICKER so parallel runs take disjoint slices and
+    # no fund is crawled twice or missed. Hashing (rather than slicing a
+    # sorted list) keeps each shard's work stable if the universe grows.
+    import os
+    import zlib
+    shard = int(os.environ.get("SHARD_INDEX", "0"))
+    shards = max(1, int(os.environ.get("SHARD_COUNT", "1")))
+    if shard >= shards:
+        raise SystemExit(f"SHARD_INDEX {shard} out of range for SHARD_COUNT {shards}")
+    if shards > 1:
+        keep = with_ticker["ticker"].astype(str).map(
+            lambda t: zlib.crc32(t.encode()) % shards == shard)
+        with_ticker = with_ticker[keep]
+        print(f"shard {shard + 1}/{shards}: {len(with_ticker)} funds")
     for _, row in with_ticker.iterrows():
         status = crawler.crawl_company(row["security_id"], row["ticker"], row["names"])
         if status == "budget_exhausted":
