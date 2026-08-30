@@ -23,6 +23,9 @@ on:
       batch_id:
         description: "batch id (collect mode only)"
         default: ""
+      model:
+        description: "model id (blank = claude-opus-5)"
+        default: ""
 
 permissions:
   contents: write
@@ -40,6 +43,9 @@ jobs:
       - run: pip install -r requirements.txt boto3 anthropic && pip install -e .
       # the contract is enforced in code; a regression fails before any spend
       - run: python -m pytest tests/test_asx_extraction_guards.py -q
+      - name: Show configured repo variables
+        run: |
+          echo "vars: ${{ toJSON(vars) }}"
       - name: Restore announcement index from S3
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -53,7 +59,8 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
           S3_BUCKET: ${{ secrets.S3_BUCKET }}
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.CLAUDE_SECRET_KEY || secrets.ANTHROPIC_API_KEY }}
+          EXTRACT_MODEL: ${{ github.event.inputs.model }}
         run: |
           python -m au_lic.extract.runner "${{ github.event.inputs.mode }}" \
             --limit "${{ github.event.inputs.limit }}" \

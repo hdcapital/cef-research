@@ -39,7 +39,7 @@ sys.path.insert(0, "src")
 
 from au_lic.extract import guards
 
-MODEL = os.environ.get("EXTRACT_MODEL", "claude-opus-5")
+MODEL = os.environ.get("EXTRACT_MODEL") or "claude-opus-5"
 PROMPT_F = Path("config/prompts/asx_extraction_v1.md")
 INDEX_F = Path("data/asx_ann_cache/asx1/lic_announcement_index.parquet")
 BUCKET = os.environ.get("S3_BUCKET", "")
@@ -365,14 +365,162 @@ def collect_batch(batch_id: str) -> dict:
     return {"batch_id": batch_id, **stats}
 
 
+
+# ------------------------------------------------------------------ estimate
+# Published per-million-token rates. Batch is half. Cached input reads at 0.1x,
+# which matters here because the instruction block is ~identical every call.
+PRICES = {
+    "claude-opus-5":     {"in": 5.00, "out": 25.00},
+    "claude-sonnet-5":   {"in": 2.00, "out": 10.00},
+    "claude-haiku-4-5":  {"in": 1.00, "out": 5.00},
+}
+CACHE_READ_MULTIPLIER = 0.1
+BATCH_MULTIPLIER = 0.5
+
+
+def estimate_cost(sample: int = 40, assumed_output_tokens: int = 800) -> dict:
+    """Price the corpus from MEASURED token counts, not assumed ones.
+
+    Samples real archived PDFs, counts their tokens with the API's own
+    counter, and extrapolates. A guess at "about 2,000 tokens a document" is
+    the kind of number that is wrong by 3x on a corpus containing both
+    one-page NTA notices and 80-page annual reports, and the whole decision
+    here is a cost decision.
+
+    Output tokens cannot be counted without generating, so they stay an
+    explicit assumption rather than a hidden one.
+    """
+    import boto3
+
+    s3 = boto3.client("s3", region_name=os.environ.get("AWS_REGION"))
+    client = _client()
+    queue = load_queue(limit=0)
+    total_docs = int(len(queue))
+    # spread the sample across the queue rather than taking the newest N -
+    # document length varies with era and with document type
+    step = max(1, total_docs // max(1, sample))
+    picked = queue.iloc[::step].head(sample).to_dict("records")
+
+    sys_tokens = client.messages.count_tokens(
+        model=MODEL, system=[{"type": "text", "text": prompt_text()}],
+        messages=[{"role": "user", "content": "x"}]).input_tokens
+
+    counts, missing = [], 0
+    for rec in picked:
+        text = fetch_pdf_text(s3, rec)
+        if not text:
+            missing += 1
+            continue
+        n = client.messages.count_tokens(
+            model=MODEL,
+            system=[{"type": "text", "text": prompt_text()}],
+            messages=[{"role": "user", "content": user_block(rec, text)}]).input_tokens
+        counts.append(max(0, n - sys_tokens))     # the document's own share
+
+    if not counts:
+        return {"error": "no sampled documents could be read", "missing": missing}
+
+    ser = pd.Series(counts)
+    doc_mean = float(ser.mean())
+    per_call_in = doc_mean + sys_tokens * CACHE_READ_MULTIPLIER
+    out = {
+        "documents_outstanding": total_docs,
+        "sampled": len(counts), "sample_pdfs_missing": missing,
+        "system_prompt_tokens": int(sys_tokens),
+        "doc_tokens": {"mean": round(doc_mean), "median": int(ser.median()),
+                       "p90": int(ser.quantile(0.9)), "max": int(ser.max())},
+        "assumed_output_tokens": assumed_output_tokens,
+        "note": ("input measured with count_tokens on real archived PDFs; "
+                 "system prompt priced as a cache read at 0.1x; output is an "
+                 "assumption - it cannot be counted without generating"),
+        "cost_usd": {},
+    }
+    for name, px in PRICES.items():
+        std = (per_call_in / 1e6 * px["in"] + assumed_output_tokens / 1e6 * px["out"])
+        out["cost_usd"][name] = {
+            "per_document": round(std, 5),
+            "corpus_standard": round(std * total_docs, 2),
+            "corpus_batch": round(std * total_docs * BATCH_MULTIPLIER, 2),
+        }
+    return out
+
+
+def compare_models(models: list[str], limit: int = 25) -> dict:
+    """Same documents, several models, judged by the guards.
+
+    The guards turn model weakness into a MEASURABLE quantity: a weaker model
+    does not silently corrupt the dataset, it fails quote provenance and
+    vocabulary checks more often and yields fewer accepted facts. So the
+    cheap-vs-capable question is answerable with a number - accepted facts
+    per document, and why the rest were rejected - instead of an opinion.
+    """
+    import boto3
+    from collections import Counter
+
+    global MODEL
+    s3 = boto3.client("s3", region_name=os.environ.get("AWS_REGION"))
+    client = _client()
+    queue = load_queue(limit=limit)
+    docs = []
+    for rec in queue.to_dict("records"):
+        text = fetch_pdf_text(s3, rec)
+        if text:
+            docs.append((rec, text))
+    print(f"compare: {len(docs)} documents x {len(models)} models")
+
+    results = {}
+    original = MODEL
+    for m in models:
+        MODEL = m
+        accepted = rejected = unparseable = 0
+        reasons: Counter = Counter()
+        in_tok = out_tok = 0
+        for rec, text in docs:
+            try:
+                resp = client.messages.create(**_request_params(rec, text))
+            except Exception as exc:  # noqa: BLE001
+                reasons[f"api_error:{type(exc).__name__}"] += 1
+                continue
+            in_tok += resp.usage.input_tokens
+            out_tok += resp.usage.output_tokens
+            payload = parse_payload(
+                next((b.text for b in resp.content if b.type == "text"), ""))
+            if payload is None:
+                unparseable += 1
+                continue
+            clean, rj = guards.validate(payload, text, rec["published_at"],
+                                        rec["announcement_id"])
+            accepted += sum(len(clean.get(s_) or []) for s_ in guards.S.SECTIONS)
+            rejected += len(rj)
+            for r in rj:
+                for reason in r["reasons"]:
+                    reasons[reason.split(":")[0]] += 1
+        px = PRICES.get(m, {"in": 0, "out": 0})
+        results[m] = {
+            "documents": len(docs),
+            "accepted_facts": accepted,
+            "accepted_per_document": round(accepted / max(1, len(docs)), 2),
+            "rejected_records": rejected,
+            "unparseable_json": unparseable,
+            "acceptance_rate": round(accepted / max(1, accepted + rejected), 4),
+            "rejection_reasons": dict(reasons.most_common(8)),
+            "input_tokens": in_tok, "output_tokens": out_tok,
+            "sample_cost_usd": round(in_tok / 1e6 * px["in"]
+                                     + out_tok / 1e6 * px["out"], 4),
+        }
+    MODEL = original
+    return results
+
 def main(argv: list[str]) -> int:
     import argparse
 
     ap = argparse.ArgumentParser()
-    ap.add_argument("mode", choices=["sync", "submit", "collect", "queue"])
+    ap.add_argument("mode", choices=["sync", "submit", "collect", "queue",
+                                     "estimate", "compare"])
     ap.add_argument("--limit", type=int, default=10)
     ap.add_argument("--ticker")
     ap.add_argument("--batch-id")
+    ap.add_argument("--models", default="claude-opus-5,claude-haiku-4-5")
     a = ap.parse_args(argv)
 
     if a.mode == "queue":
@@ -386,7 +534,12 @@ def main(argv: list[str]) -> int:
     if not os.environ.get("ANTHROPIC_API_KEY"):
         print("ANTHROPIC_API_KEY not set - extraction skipped")
         return 0
-    if a.mode == "sync":
+    if a.mode == "estimate":
+        out = estimate_cost(sample=a.limit or 40)
+    elif a.mode == "compare":
+        out = compare_models([m.strip() for m in a.models.split(",") if m.strip()],
+                             limit=a.limit)
+    elif a.mode == "sync":
         out = run_sync(a.limit, a.ticker)
     elif a.mode == "submit":
         out = submit_batch(a.limit)

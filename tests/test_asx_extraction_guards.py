@@ -231,3 +231,30 @@ def test_prompt_version_changes_when_the_prompt_changes(tmp_path, monkeypatch):
     p.write_text(Path("config/prompts/asx_extraction_v1.md").read_text() + "\nx\n")
     monkeypatch.setattr(R, "PROMPT_F", p)
     assert R.prompt_version() != before
+
+
+def test_empty_model_env_var_falls_back_to_the_default(monkeypatch):
+    """A workflow input left blank arrives as "", not as unset.
+
+    os.environ.get(k, default) returns "" in that case, so a blank model box
+    in the dispatch form would send an empty model id to the API.
+    """
+    import importlib
+
+    monkeypatch.setenv("EXTRACT_MODEL", "")
+    from au_lic.extract import runner as R
+    importlib.reload(R)
+    assert R.MODEL == "claude-opus-5"
+    monkeypatch.setenv("EXTRACT_MODEL", "claude-haiku-4-5")
+    importlib.reload(R)
+    assert R.MODEL == "claude-haiku-4-5"
+    monkeypatch.delenv("EXTRACT_MODEL")
+    importlib.reload(R)
+
+
+def test_every_selectable_model_has_a_price():
+    """A model that can be chosen but not priced makes the estimate silently wrong."""
+    from au_lic.extract import runner as R
+
+    for m in ("claude-opus-5", "claude-sonnet-5", "claude-haiku-4-5"):
+        assert m in R.PRICES and R.PRICES[m]["in"] > 0 and R.PRICES[m]["out"] > 0
