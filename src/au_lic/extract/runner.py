@@ -527,9 +527,27 @@ def run_validate(limit: int = 0) -> dict:
     facts = pd.concat(frames, ignore_index=True)
     nav = facts[facts["section"] == "nav_observations"].copy()
 
-    panel = AUP.build_panel() if hasattr(AUP, "build_panel") else pd.DataFrame()
-    if isinstance(panel, tuple):
-        panel = panel[0]
+    # The builder takes a config and REBUILDS from raw; the loader reads the
+    # panel that was already built. Calling the builder with no argument
+    # raises TypeError - and would have done so AFTER the full extraction had
+    # run, an hour spent to discover a one-line mistake.
+    import yaml
+    cfg = yaml.safe_load(Path("config/au_default.yaml").read_text()) \
+        if Path("config/au_default.yaml").exists() else None
+    panel = pd.DataFrame()
+    try:
+        if cfg is not None:
+            panel = AUP.load_panel(cfg)
+    except FileNotFoundError:
+        pass
+    if panel.empty:
+        for cand in (Path("data/au_processed/au_monthly_panel.parquet"),):
+            if cand.exists():
+                panel = pd.read_parquet(cand)
+                break
+    if panel.empty:
+        return {"error": "au_monthly_panel.parquet not found - "
+                         "run `python -m au_lic.cli build-panel` first"}
     cmp_df = V.compare(nav, panel)
     out = V.summarise(V.classify(cmp_df), extracted_total=len(nav))
     Path("reports/build").mkdir(parents=True, exist_ok=True)

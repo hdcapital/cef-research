@@ -39,7 +39,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        shard: [0, 1, 2, 3, 4, 5, 6, 7]
+        shard: ${{ github.event.inputs.mode == 'validate' && fromJSON('[0]') || fromJSON('[0,1,2,3,4,5,6,7]') }}
     concurrency:
       group: asx-extract-${{ github.ref }}-${{ matrix.shard }}
       cancel-in-progress: false
@@ -60,6 +60,20 @@ jobs:
           AWS_REGION: ${{ secrets.AWS_REGION }}
           S3_BUCKET: ${{ secrets.S3_BUCKET }}
         run: python scripts/sync_state.py pull --groups asx_index
+      # the validation compares against the exchange's published NTA, which
+      # lives in the monthly panel; building it is cheap and only this mode
+      # needs it
+      - name: Build AU panel (validate mode only)
+        if: github.event.inputs.mode == 'validate'
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+        run: |
+          python scripts/sync_state.py pull --groups raw_asx
+          python -m au_lic.cli download
+          python -m au_lic.cli build-panel
       - name: Extract
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}

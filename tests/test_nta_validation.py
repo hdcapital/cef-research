@@ -100,3 +100,23 @@ def test_nothing_is_overwritten_by_the_check():
     before = ex["nav_per_share"].tolist()
     V.classify(V.compare(ex, _panel([("AFI", "2021-03", 6.12)])))
     assert ex["nav_per_share"].tolist() == before
+
+
+def test_validation_reads_the_built_panel_not_a_rebuild():
+    """build_panel(cfg) takes a config and rebuilds from raw; load_panel reads.
+
+    Calling build_panel() with no argument raises TypeError - and it would
+    have done so AFTER the full extraction had already run, which is an hour
+    to discover a one-line mistake.
+    """
+    import inspect
+
+    from au_lic import panel as AUP
+    from au_lic.extract import runner as R
+
+    assert "cfg" in inspect.signature(AUP.build_panel).parameters
+    src = inspect.getsource(R.run_validate)
+    assert "build_panel()" not in src
+    assert "load_panel" in src
+    # and it fails with a clear instruction rather than a stack trace
+    assert "build-panel" in src
