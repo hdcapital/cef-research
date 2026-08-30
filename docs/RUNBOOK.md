@@ -84,3 +84,68 @@ are separate, append-only, under `asx/`, `uk/` and `nta_live/`.
 
 The repo keeps what benefits from version history: code, config, params, the
 registry, and small analytical outputs. It is not the durability mechanism.
+
+## Known data boundary: ASX announcements stop at 2023-11 (measured 2026-08-30)
+
+The market-wide announcement index covers **2016-10-31 to 2023-11-07** and
+then, after a 2.5-year hole, a handful of rows from 2026-06 onward. 2024 and
+2025 are absent entirely. This is a hard boundary of the free sources, not a
+bug in the pipeline, and it is recorded here so nobody spends another day
+rediscovering it.
+
+### How the hole opened
+
+The top-up sweep stopped once it overlapped the index's GLOBAL maximum date.
+After one budget-limited pass wrote a block of recent announcements, that
+maximum jumped forward to the recent frontier, so the next pass overlapped it
+on its FIRST call and stopped immediately. The more recent data it fetched,
+the sooner it quit — self-sealing, which is why it survived every run.
+
+Fixed (the sweep now targets the top of the *contiguous* block, the inner
+60-call cap is gone, a cursor persists mid-gap, and the index and
+sweep_state live in S3 rather than an evictable Actions cache). The logic is
+sound; the sources are what stop it.
+
+### Why it cannot currently be refilled
+
+Measured, not assumed:
+
+| endpoint | result |
+|---|---|
+| `asx.com.au/asx/1/announcement/list` bare | 200 in 0.2s |
+| same, with any `end_date` | **first call 200 (2000 items, ONE day); every later call ReadTimeout at 25s** |
+| `asx.com.au` home | 200 in 0.2s |
+| Markit `companies/{CODE}/announcements` | 200 in 0.6s, but returns only the **latest 5** announcements |
+
+The site is healthy; the index endpoint answers once and then stops. A
+timeout that appears only after the first request is a **rate limit expressed
+as a timeout**, and this project does not work around rate limits.
+
+The arithmetic that makes it worse: 2000 items covered **one day**. The gap is
+~1,023 days, so a market-wide refill needs ~1,000 heavy calls against an
+endpoint that stops answering after one.
+
+The per-company Markit endpoint ignores `page` (pages 0-3 return identical
+items), ignores `itemsPerPage` (200 returns 5), and carries no pagination or
+total-count metadata. It serves the latest few announcements only. Probing
+stopped there deliberately: guessing parameter names against a third-party API
+is the behaviour that got the other endpoint throttling us.
+
+### What still works for 2024-2026
+
+- **ASX monthly investment-products reports** cover 2024+ and are already
+  archived — that is where the panel's NTA rows for the recent period live.
+- **Yahoo daily prices** cover the whole period.
+
+So the recent period supports a **monthly-resolution** discount study, not the
+daily/weekly one the 2016-2023 announcement data allows. Any result spanning
+the boundary must be read as two different resolutions, and a finding that
+appears only after 2023-11 should be suspected of being an artefact of that
+change before it is believed.
+
+### The option not taken
+
+A deliberately slow market-wide crawl — one call per minute, resumable across
+runs, roughly 17 hours of wall clock — would respect the rate limit and close
+the gap. It is a large commitment of runner time against an endpoint that may
+simply refuse, so it is offered as a decision rather than started.
