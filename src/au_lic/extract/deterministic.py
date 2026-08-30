@@ -197,8 +197,25 @@ def extract_cancellation(text: str, headline: str) -> list[dict]:
              "extractor": "form_484_v1"}]
 
 
+def extract_terminal_value(text: str, headline: str) -> list[dict]:
+    """Scheme consideration, offer price or liquidator distribution.
+
+    Routed as a corporate action (so it also reaches the model for the
+    narrative facts), but the NUMBER is deterministic and is taken here: a
+    stated dollar amount per share does not need a model, and a terminal
+    value is too consequential to leave to one.
+    """
+    from au_lic import terminal as TV
+
+    got = TV.extract_terminal(text, headline)
+    if not got:
+        return []
+    return [{"section": "terminal_value", **got, "extractor": "terminal_v1"}]
+
+
 FAMILY_EXTRACTORS = {
     "nta": lambda text, rows, head: extract_nta(text, rows, head),
+    "corporate_action": lambda text, rows, head: extract_terminal_value(text, head),
     "buyback_daily": lambda text, rows, head: extract_buyback(text, head),
     "dividend": lambda text, rows, head: extract_dividend(text, head),
     "share_cancellation": lambda text, rows, head: extract_cancellation(text, head),
