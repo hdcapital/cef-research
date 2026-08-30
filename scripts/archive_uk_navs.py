@@ -183,14 +183,20 @@ def main() -> int:
             new = pd.concat([old, new], ignore_index=True).drop_duplicates("ann_id")
         new.to_parquet(HIST, index=False)
 
-    parsed_n = int((new["status"] == "parsed").sum()) if len(new) else 0
+    # count THIS run's parses. `new` is the merge of the accumulated history
+    # with this run's rows, so counting parses across it while dividing by
+    # this run's row count produced a "parse rate" of 1.44 - a number above 1
+    # that had been reported all night without meaning anything.
+    parsed_n = sum(1 for r in hist_rows if r.get("status") == "parsed")
     status = {"run_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
               "fetched_this_run": fetched, "failed": failed,
               "archived_total": len(done), "queue_remaining": max(0, len(work) - fetched),
               "history_rows": int(len(new)) if len(new) else
               (int(len(pd.read_parquet(HIST))) if HIST.exists() else 0),
               "parse_rate_this_run": round(parsed_n / max(1, len(hist_rows)), 4)
-              if hist_rows else None}
+              if hist_rows else None,
+              "parse_rate_cumulative": round(
+                  float((new["status"] == "parsed").mean()), 4) if len(new) else None}
     Path("outputs/live").mkdir(parents=True, exist_ok=True)
     Path("outputs/live/uk_nav_archive_status.json" if SHARDS == 1
      else f"outputs/live/uk_nav_archive_status_s{SHARD}.json").write_text(json.dumps(status, indent=2))

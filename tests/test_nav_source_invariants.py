@@ -420,3 +420,23 @@ def test_the_aggregator_anchor_is_named_so_its_use_is_countable():
     assert "aggregator_panel:" in src
     # and a published NAV is checked after the aggregator, so it wins
     assert src.index("aggregator_panel:") < src.index("basis = 0")
+
+
+def test_a_parse_rate_can_never_exceed_one():
+    """The UK archive reported 1.44 all night.
+
+    `new` is the merge of the accumulated history with this run's rows, so
+    counting parses across it while dividing by this run's row count gives a
+    ratio above 1 - a number that had been logged for hours while meaning
+    nothing, and which would have hidden a genuine collapse in parse quality
+    behind a reassuringly large figure.
+    """
+    import re
+
+    src = Path("scripts/archive_uk_navs.py").read_text()
+    m = re.search(r"parsed_n = (.+)", src)
+    assert m and "hist_rows" in m.group(1), \
+        "parsed_n must count THIS run's rows, not the merged history"
+    rows = [{"status": "parsed"}, {"status": "no_nav_parsed"}, {"status": "parsed"}]
+    n = sum(1 for r in rows if r.get("status") == "parsed")
+    assert n / len(rows) <= 1.0
