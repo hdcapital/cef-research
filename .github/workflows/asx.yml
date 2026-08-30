@@ -122,8 +122,11 @@ jobs:
             data/au_manifest.csv
           if-no-files-found: warn
 
+      # was `if: github.event_name == 'push'`, so a dispatched run wrote its
+      # status nowhere and every diagnosis needed log archaeology. A run that
+      # produces a status must commit it however it was started.
       - name: Commit outputs
-        if: github.event_name == 'push'
+        if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

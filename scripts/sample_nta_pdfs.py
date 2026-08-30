@@ -228,6 +228,15 @@ def sweep_index(s: requests.Session, codes: set[str], counters: dict) -> pd.Data
     if not frames:
         return pd.DataFrame(columns=["id", "code", "release_date", "headline", "url"])
     idx = pd.concat(frames, ignore_index=True).drop_duplicates("id")
+    _d = pd.to_datetime(idx["release_date"], utc=True, errors="coerce").dropna()
+    if len(_d):
+        counters["index_span"] = f"{_d.min().date()} -> {_d.max().date()}"
+        counters["index_rows_by_year"] = {
+            str(k): int(v) for k, v in _d.dt.year.value_counts().sort_index().items()}
+        _f = contiguous_frontier(idx)
+        if _f is not None:
+            counters["contiguous_frontier"] = str(_f.date())
+            counters["gap_days_remaining"] = int((_d.max() - _f).days)
     idx.to_parquet(INDEX_F, index=False)
     counters["index_rows"] = len(idx)
     counters["hist_done"] = json.loads(STATE_F.read_text()).get("hist_done", False) \
@@ -587,6 +596,12 @@ def main() -> int:
         "status_counts": out["status"].value_counts().to_dict() if len(out) else {},
         "index_rows": counters.get("index_rows"),
         "index_calls": counters["index_calls"],
+        # the question every sweep run exists to answer
+        "index_span": counters.get("index_span"),
+        "index_rows_by_year": counters.get("index_rows_by_year"),
+        "contiguous_frontier": counters.get("contiguous_frontier"),
+        "top_pass_resuming_at": counters.get("top_pass_resuming_at"),
+        "gap_days_remaining": counters.get("gap_days_remaining"),
         "history_sweep_complete": counters.get("hist_done", False),
         "pdf_fetches": counters["pdf_calls"],
         "sweep_budget_hit": counters.get("sweep_budget_hit", False),
