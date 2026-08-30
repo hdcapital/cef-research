@@ -50,6 +50,15 @@ INDEX_THROTTLE = float(os.environ.get("NTA_INDEX_THROTTLE", "1.5"))
 INDEX_DEADLINE_MIN = float(os.environ.get("NTA_INDEX_DEADLINE_MIN", "0"))  # 0 = off
 MAX_CONSECUTIVE_INDEX_FAILURES = int(
     os.environ.get("NTA_MAX_CONSECUTIVE_FAILURES", "5"))
+# forward = daily keep-up: crawl back only until we overlap the newest row we
+#   already hold, which is a handful of calls and never gets throttled.
+# gapfill = close a historical hole: crawl back to the top of the CONTIGUOUS
+#   block, which is ~1,000 calls and does get throttled.
+# The original code only had the forward behaviour. That is correct for
+# keeping up and wrong for filling a hole, and when a hole opened it silently
+# became the wrong tool - which is how 2024-2025 went missing while every run
+# reported success.
+SWEEP_MODE = os.environ.get("NTA_SWEEP_MODE", "forward")
 EARLIEST = pd.Timestamp("2016-11-01", tz="Australia/Sydney")
 SWEEP_BUDGET = int(os.environ.get("NTA_SWEEP_BUDGET", "800"))   # index calls per run
 PDF_BUDGET = int(os.environ.get("NTA_PDF_BUDGET", "600"))       # new PDFs per run
@@ -166,6 +175,9 @@ def sweep_index(s: requests.Session, codes: set[str], counters: dict) -> pd.Data
     hist_done = state.get("hist_done", False)
     end_ms = state.get("earliest_ms")  # resume point for the history sweep
     frontier = contiguous_frontier(frames[0]) if frames else None
+    newest_held = (pd.to_datetime(frames[0]["release_date"], utc=True,
+                                  errors="coerce").max() if frames else None)
+    counters["sweep_mode"] = SWEEP_MODE
     if hist_done or end_ms is None:
         # the endpoint returns nothing without an end_date (probe 8).
         # Resume a part-finished top pass where it stopped; otherwise start
@@ -234,9 +246,14 @@ def sweep_index(s: requests.Session, codes: set[str], counters: dict) -> pd.Data
             # anywhere - which a previous partial pass may have planted far
             # ahead of the real frontier
             top_pass_calls += 1
-            if frontier is not None and oldest <= frontier:
-                state["top_cursor_ms"] = None       # gap closed
+            # forward mode stops at the newest row already held: it is
+            # keeping up, not repairing. gapfill mode aims at the contiguous
+            # frontier and will crawl through a hole to reach it.
+            target = frontier if SWEEP_MODE == "gapfill" else newest_held
+            if target is not None and oldest <= target:
+                state["top_cursor_ms"] = None
                 STATE_F.write_text(json.dumps(state))
+                counters["reached_target"] = str(target.date())
                 break
             # One control, not two. The 60-call cap here was a second,
             # tighter budget than SWEEP_BUDGET, and 60 calls is a few weeks

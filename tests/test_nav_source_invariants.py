@@ -517,3 +517,42 @@ def test_the_ideas_scan_builds_the_panels_it_reads():
                     if "au_lic.cli build-panel" in str(s.get("run", "")))
     assert build_at < scan_at, "panels must be built before the scan reads them"
     assert "uk_cef.cli build-panel" in runs
+
+
+def test_the_index_has_a_daily_forward_topup_not_only_a_monthly_sweep():
+    """Keeping up and repairing are different jobs with different budgets.
+
+    The index sweep ran MONTHLY while the archive job ran daily, so the
+    archive could only ever fetch PDFs the index already knew about and the
+    index fell behind. That is the mechanism by which 2024-2025 went missing.
+
+    A day of market-wide announcements is about one call, and the endpoint
+    serves the first call of a session reliably - only sustained crawling is
+    throttled. So a daily top-up is both effective and polite, and it means a
+    backward crawl is only ever needed for a hole that already exists.
+    """
+    import yaml as _yaml
+
+    wf = _yaml.safe_load(Path(".github/workflows/asx_daily_index.yml").read_text())
+    crons = [c["cron"] for c in wf[True]["schedule"]]
+    assert any(c.split()[2:] == ["*", "*", "*"] for c in crons), "must run daily"
+
+    env = next(s["env"] for s in wf["jobs"]["topup"]["steps"]
+               if "sample_nta_pdfs" in str(s.get("run", "")))
+    assert env["NTA_SWEEP_MODE"] == "forward", \
+        "the daily job must keep up, never attempt the historical gap"
+    assert int(env["NTA_SWEEP_BUDGET"]) <= 20, \
+        "a keep-up pass is a handful of calls; a large budget here would crawl"
+
+    # and it must land before the archive job, or the archive fetches nothing new
+    arch = _yaml.safe_load(Path(".github/workflows/asx_archive.yml").read_text())
+    topup_h = int(crons[0].split()[1])
+    arch_h = int(arch[True]["schedule"][0]["cron"].split()[1])
+    assert topup_h < arch_h, "the index must be current before the archive runs"
+
+
+def test_forward_and_gapfill_stop_at_different_targets():
+    """Forward stops at the newest row held; gapfill crawls to the frontier."""
+    src = Path("scripts/sample_nta_pdfs.py").read_text()
+    assert 'SWEEP_MODE = os.environ.get("NTA_SWEEP_MODE", "forward")' in src
+    assert 'target = frontier if SWEEP_MODE == "gapfill" else newest_held' in src

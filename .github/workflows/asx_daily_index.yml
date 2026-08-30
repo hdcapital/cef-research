@@ -1,0 +1,84 @@
+name: asx-daily-index
+
+# Keep the ASX announcement index CURRENT so a backward crawl is never
+# needed again.
+#
+# The index sweep used to run monthly, while the archive job ran daily - so
+# the archive could only ever fetch PDFs the index already knew about, and
+# the index fell behind. That is how 2024-2025 went missing.
+#
+# A day of market-wide announcements is about one call, and the endpoint
+# serves the FIRST call of a session reliably; only sustained crawling gets
+# throttled. So a daily top-up of a few calls is both effective and polite,
+# and it means the only thing a backward crawl is ever needed for is the
+# historical hole that already exists.
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "30 1 * * *"     # before asx-s3-archive at 02:00, so the archive
+                             # sees the same day's new announcements
+
+permissions:
+  contents: write
+
+concurrency:
+  group: asx-index-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  topup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt && pip install -e .
+      - name: Restore announcement index from S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+        run: python scripts/sync_state.py pull --groups asx_index
+      - name: Top up the index (forward only)
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+          NTA_SWEEP_MODE: forward
+          NTA_SWEEP_BUDGET: "12"      # a day is ~1 call; 12 covers a long weekend
+          NTA_INDEX_THROTTLE: "5"
+          NTA_PDF_BUDGET: "0"         # index only - the archive job fetches PDFs
+        run: python scripts/sample_nta_pdfs.py
+      - name: Persist index to S3
+        if: always()
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+        run: python scripts/sync_state.py push --groups asx_index
+      - name: Commit index + status
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for f in data/asx_ann_cache/asx1/lic_announcement_index.parquet \
+                   outputs/au/au_nta_pdf_check_summary.json; do
+            [ -f "$f" ] && git add -f "$f"
+          done
+          if git diff --cached --quiet; then
+            echo "no changes"
+          else
+            git commit -m "CI: ASX index top-up ($(date -u +%Y-%m-%dT%H:%MZ))"
+            for i in 1 2 3 4 5 6; do
+              git pull --rebase --autostash -X theirs origin "${GITHUB_REF_NAME}" || true
+              if git push origin "HEAD:${GITHUB_REF_NAME}"; then break; fi
+              sleep $((RANDOM % 15 + 5))
+            done
+          fi
