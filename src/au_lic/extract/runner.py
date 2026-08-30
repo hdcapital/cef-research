@@ -587,6 +587,7 @@ def run_validate(limit: int = 0) -> dict:
         else pd.Series(dtype=str)
     pan_t = (panel["security_id"].astype(str).str.replace("^ASX:", "", regex=True)
              if "security_id" in panel.columns else pd.Series(dtype=str))
+    out["compare_stages"] = getattr(cmp_df, "attrs", {}).get("stages", {})
     out["diagnostics"] = {
         "fact_rows_total": int(len(facts)),
         "nav_rows": int(len(nav)),

@@ -78,6 +78,24 @@ def compare(extracted: pd.DataFrame, panel: pd.DataFrame) -> pd.DataFrame:
     p = p.dropna(subset=["nta_price"])[["ticker", "month", "nta_price"]]
 
     m = e.merge(p, on=["ticker", "month"], how="inner")
+    # Record the pipeline's own shapes. Four rounds of diagnosing this join
+    # instrumented its INPUTS - ticker sets, month ranges, key overlap - and
+    # all of them looked fine (4,511 keys in common) while the merge produced
+    # nothing. The function had to report on itself.
+    m.attrs["stages"] = {
+        "extracted_in": int(len(extracted)),
+        "after_value_dropna": int(len(extracted.dropna(subset=["nav_per_share"]))),
+        "after_month_dropna_and_dedupe": int(len(e)),
+        "panel_in": int(len(panel)),
+        "panel_after_dropna": int(len(p)),
+        "merged": int(len(m)),
+        "e_month_dtype": str(e["month"].dtype),
+        "p_month_dtype": str(p["month"].dtype),
+        "e_key_sample": [f"{a}|{b}" for a, b in
+                         zip(e["ticker"].head(3), e["month"].head(3))],
+        "p_key_sample": [f"{a}|{b}" for a, b in
+                         zip(p["ticker"].head(3), p["month"].head(3))],
+    }
     if m.empty:
         return m
     m["ratio"] = m["nav_per_share"] / m["nta_price"].replace(0, pd.NA)
