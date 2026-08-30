@@ -142,6 +142,43 @@ for code in ("AFI", "ARG", "WAM"):
         except Exception as exc:  # noqa: BLE001
             pages.append({"page": pg, "error": f"{type(exc).__name__}"}); break
     out["markit_pagination"][code] = pages
+
+# `page` is ignored - pages 0-3 returned identical items - so either this
+# endpoint only serves the latest few announcements, or history is reached by
+# a parameter we have not found. Dump the raw response shape once: any
+# pagination metadata in it will say which, and guessing parameter names
+# against a third-party API is how you end up hammering it.
+probe_urls = {
+    "items200": ("https://asx.api.markitdigital.com/asx-research/1.0/companies/"
+                 "AFI/announcements?access_token=83ff96335c2d45a094df02a206a39ff4"
+                 "&page=0&itemsPerPage=200"),
+    "page10": ("https://asx.api.markitdigital.com/asx-research/1.0/companies/"
+               "AFI/announcements?access_token=83ff96335c2d45a094df02a206a39ff4"
+               "&page=10&itemsPerPage=50"),
+}
+out["markit_shape"] = {}
+for label, u in probe_urls.items():
+    try:
+        r = requests.get(u, timeout=30, headers={"User-Agent": P.UA})
+        body = r.json()
+        data = body.get("data", body)
+        items = data.get("items") or data.get("announcements") or []
+        ds = pd.to_datetime([it.get("date") for it in items], utc=True,
+                            errors="coerce").dropna() if items else []
+        out["markit_shape"][label] = {
+            "http": r.status_code,
+            "top_keys": sorted(body.keys()),
+            "data_keys": sorted(data.keys()) if isinstance(data, dict) else None,
+            "n_items": len(items),
+            "span": (f"{ds.min().date()} -> {ds.max().date()}") if len(ds) else None,
+            "pagination_block": {k: v for k, v in data.items()
+                                 if "page" in k.lower() or "count" in k.lower()
+                                 or "total" in k.lower()}
+                                if isinstance(data, dict) else None,
+        }
+        time.sleep(1.5)
+    except Exception as exc:  # noqa: BLE001
+        out["markit_shape"][label] = {"error": f"{type(exc).__name__}: {exc}"}
 if len(calls) > 1 and "days_covered" in calls[0]:
     per = sum(c.get("days_covered", 0) for c in calls if "days_covered" in c)
     n = len([c for c in calls if "days_covered" in c])
