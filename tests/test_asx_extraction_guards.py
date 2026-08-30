@@ -499,3 +499,99 @@ def test_ceasing_to_be_a_holder_is_recorded_without_a_percentage():
     f = D.extract("substantial_holder", "no percentage stated", [],
                   "Ceasing to be a substantial holder")
     assert f and f[0]["direction"] == "ceased"
+
+
+# ------------------------------------------------- parse-rate fixes, from real pages
+def test_vertical_watermark_letters_are_stripped():
+    """"For personal use only" is set vertically and pdfplumber interleaves it.
+
+    Its letters land one at a time INSIDE the sentences the parsers match on
+    ("fully lfranke", "y ASX Release l n"), so it degrades every family at
+    once. Stripping it is the single highest-leverage fix in the corpus.
+    """
+    from au_lic.extract import deterministic as D
+
+    raw = ("y 1 November 2016 l n The Manager o e s Wealth Defender advises "
+           "pre-tax NTA per share as at 28 October 2016 was $0.8623. u")
+    out = D.strip_sidebar(raw)
+    assert "y 1 November" not in out and "l n The Manager" not in out
+    assert "Wealth Defender advises" in out and "$0.8623" in out
+    # ordinary text with single letters is untouched
+    assert D.strip_sidebar("a b c") == "a b c"
+
+
+def test_image_only_pdf_is_not_a_parse_failure():
+    """A scanned PDF needs OCR, not a text model, and must be counted apart.
+
+    Its only extractable text is the watermark. Escalating it to an LLM would
+    read exactly as little and cost money to do so.
+    """
+    from au_lic.extract import deterministic as D
+
+    assert not D.has_text_layer("y l n o e s u l a n o s r e p r o F")
+    assert D.has_text_layer("The net tangible asset backing per share as at "
+                            "31 August 2016 was $1.20, and this figure is "
+                            "unaudited and subject to revision by the board.")
+
+
+@pytest.mark.parametrize("text,value", [
+    # spelled-out label + parenthetical + weekday + colon
+    ("Wealth Defender Equities Limited (ASX: WDE) advises that its estimated "
+     "weekly pre-tax Net Tangible Asset Backing per share (NTA) as at "
+     "Friday, 28 October 2016 was: $0.8623.", 0.8623),
+    # company name between "per" and "share", cents written as a "c" suffix
+    ("The net tangible asset backing per Bisan Limited share as at "
+     "31 August 2016 is 0.0384c.", 0.000384),
+    # spelled-out NAV
+    ("The Company advises that its net asset value per unit as at "
+     "30 June 2021 was $1.2750", 1.2750),
+    # the shape the parser was originally validated on must still work
+    ("pre-tax NTA per share as at 28 October 2016 was $0.8623", 0.8623),
+])
+def test_real_nta_phrasings_parse(text, value):
+    """Every one of these is a real page the parser scored zero on.
+
+    The fix normalises the TEXT into the shape the parser was validated
+    against, rather than re-tuning a parser whose accuracy was earned on a
+    real corpus - changing it to fix an input problem would put that at risk.
+    """
+    from au_lic.extract import deterministic as D
+
+    got = D.extract_nta(text, [], "Net Tangible Asset Backing")
+    assert got, f"still unparsed: {text[:60]}"
+    assert abs(got[0]["nav_per_share"] - value) < 1e-9
+
+
+@pytest.mark.parametrize("text,cents,ex", [
+    ("Notification of dividend / distribution Entity name CARLTON INVESTMENTS "
+     "LIMITED Distribution Amount AUD 0.07000000 Ex Date Wednesday February 28, "
+     "2018 Record Date Thursday March 1, 2018", 7.0, "2018-02-28"),
+    ("ANNOUNCES MAIDEN DIVIDEND 2.5 cents per share fully franked final dividend.",
+     2.5, None),
+    ("Dividend/distribution amount per security 6.5 cents Franked amount 100% "
+     "franked Ex-Date 15/02/2021", 6.5, "2021-02-15"),
+])
+def test_real_dividend_formats_parse(text, cents, ex):
+    """1 of 13 sampled documents parsed before this.
+
+    The original pattern demanded a label like "amount per security" and so
+    matched neither the modern ASX online form ("Distribution Amount AUD
+    0.07000000") nor the older narrative style ("2.5 cents per share").
+    Distributions are what turn a NAV series into a total return, so an 8%
+    parse rate here silently mis-grades every manager.
+    """
+    from au_lic.extract import deterministic as D
+
+    got = D.extract_dividend(text, "Dividend/Distribution")
+    assert got, f"still unparsed: {text[:60]}"
+    assert abs(got[0]["amount_per_share_cents"] - cents) < 1e-6
+    assert got[0]["ex_date"] == ex
+
+
+def test_weekday_prefixed_dates_parse():
+    """"Wednesday February 28, 2018" is the ASX form's own date format."""
+    from au_lic.extract import deterministic as D
+
+    assert D._parse_any_date("Wednesday February 28, 2018") == "2018-02-28"
+    assert D._parse_any_date("15/02/2021") == "2021-02-15"
+    assert D._parse_any_date("28 October 2016") == "2016-10-28"

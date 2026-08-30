@@ -36,6 +36,51 @@ MONEY = r"\$?\s*([0-9][0-9,]*\.?[0-9]*)"
 CENTS = r"([0-9]+\.?[0-9]*)\s*(?:cents|cps|c\b)"
 
 
+# The ASX "For personal use only" watermark is set VERTICALLY, and pdfplumber
+# emits its letters one at a time, interleaved through the real sentences:
+#   "y ASX Release l n ABSOLUTE EQUITY ... o eMonday, 14 August 2017 s"
+# Those stray letters split phrases the parsers match on ("fully lfranke"),
+# and on an image-only PDF they are the ONLY text extracted. This is not one
+# document's quirk - it is on a large share of the corpus, so stripping it is
+# the highest-leverage fix available to every parser at once.
+WATERMARK = "forpersonaluseonly"
+
+
+def strip_sidebar(text: str) -> str:
+    """Remove the interleaved vertical-watermark letters.
+
+    Only fires when the standalone single letters actually spell the
+    watermark (in either direction), so ordinary text containing "a" or "I"
+    is untouched, and a document that simply uses single letters is not
+    mangled.
+    """
+    toks = (text or "").split()
+    idx = [i for i, t in enumerate(toks) if len(t) == 1 and t.isalpha()]
+    if len(idx) < 6:
+        return text
+    joined = "".join(toks[i] for i in idx).lower()
+    rev = WATERMARK[::-1]
+    # containment BOTH ways: a single page often carries only part of the
+    # phrase ("ylnoesu"), and requiring the whole thing missed those - which
+    # is most one-page NTA notices, the highest-volume document in the corpus
+    if not (joined in rev or rev in joined
+            or joined in WATERMARK or WATERMARK in joined):
+        return text
+    drop = set(idx)
+    return " ".join(t for i, t in enumerate(toks)
+                    if i not in drop or t in ("a", "A", "I"))
+
+
+def has_text_layer(text: str, min_chars: int = 120) -> bool:
+    """Is there any real text, or is this a scanned image?
+
+    An image-only PDF is not a parser failure and must not be escalated to a
+    text model, which would read exactly as little from it. It needs OCR, and
+    it needs to be counted separately so the parse rate measures parsing.
+    """
+    return len(strip_sidebar(text or "").strip()) >= min_chars
+
+
 def pdf_pages(data: bytes, max_pages: int = 4) -> tuple[str, list[list[str]]]:
     """(flat text, candidate table rows) from PDF bytes.
 
@@ -58,7 +103,7 @@ def pdf_pages(data: bytes, max_pages: int = 4) -> tuple[str, list[list[str]]]:
                             rows.append([str(c) if c is not None else "" for c in row])
             except Exception:  # noqa: BLE001
                 pass
-    return text, rows
+    return strip_sidebar(text), rows
 
 
 def _asat(text: str, headline: str) -> str | None:
@@ -78,10 +123,45 @@ def _asat(text: str, headline: str) -> str | None:
     return None
 
 
+
+# The validated parser handles "pre-tax NTA per share as at 28 October 2016
+# was $0.8623". Real announcements add three things it was never shown, and
+# each one alone defeats it:
+#   "... Backing per share (NTA) as at Friday, 28 October 2016 was: $0.8623"
+#   "... backing per Bisan Limited share as at 31 August 2016 is 0.0384c"
+# So the TEXT is normalised into the shape the parser was validated on,
+# rather than the parser being rewritten. Its accuracy was earned against a
+# real corpus; re-tuning it here would put that at risk to fix an input
+# problem.
+WEEKDAY = re.compile(r"\b(?:Mon|Tues|Wednes|Thurs|Fri|Satur|Sun)day,?\s+", re.I)
+PARENTHETICAL = re.compile(r"\s*\((?:[^()]{1,30})\)")
+PER_ENTITY_SHARE = re.compile(
+    r"\bper\s+(?:[A-Z][\w&.'\-]*\s+){1,5}(share|unit|security|stapled security)\b")
+CENTS_SUFFIX = re.compile(r"\b([0-9]+\.[0-9]+)\s*c\b(?!\w)")
+
+
+def normalise_nta_text(text: str) -> str:
+    t = PARENTHETICAL.sub(" ", text or "")          # "(NTA)", "(ASX: WDE)"
+    t = WEEKDAY.sub("", t)                           # "Friday, 28 October 2016"
+    t = PER_ENTITY_SHARE.sub(r"per \1", t)           # "per Bisan Limited share"
+    t = re.sub(r"\b(was|is|of)\s*:\s*", r"\1 ", t)   # "was: $0.8623"
+    t = CENTS_SUFFIX.sub(r"\1 cents", t)             # "0.0384c"
+    # The scored label rules key on the ABBREVIATIONS. Announcements that
+    # spell the term out in full - "Net Tangible Asset Backing per share" -
+    # carry the identical meaning and scored zero, which is a large share of
+    # the highest-volume document type in the corpus.
+    t = re.sub(r"\bnet tangible asset(?:s)?(?:\s+backing)?\b", "NTA", t, flags=re.I)
+    t = re.sub(r"\bnet asset value\b", "NAV", t, flags=re.I)
+    return re.sub(r"\s+", " ", t).strip()
+
+
 # ------------------------------------------------------------------ NTA / NAV
 def extract_nta(text: str, rows: list[list[str]], headline: str) -> list[dict]:
     """Stated per-share NTA via the already-validated parser."""
-    got = P.derive_stated({"status": "extracted", "text": text, "rows": rows})
+    clean = normalise_nta_text(text)
+    got = P.derive_stated({"status": "extracted", "text": clean, "rows": rows})
+    if got.get("status") != "parsed" and clean != text:
+        got = P.derive_stated({"status": "extracted", "text": text, "rows": rows})
     if got.get("status") != "parsed" or got.get("stated_raw") is None:
         return []
     unit = got.get("unit")
@@ -89,7 +169,7 @@ def extract_nta(text: str, rows: list[list[str]], headline: str) -> list[dict]:
         return []                        # flagged upstream, never guessed
     val = got["stated_raw"]
     return [{"section": "nav_observations",
-             "valuation_date": _asat(text, headline),
+             "valuation_date": _asat(normalise_nta_text(text), headline),
              "nav_per_share": val / 100.0 if unit == "cents" else val,
              "unit": unit,
              "nav_basis": got.get("basis") or "unknown",
@@ -135,18 +215,46 @@ def extract_buyback(text: str, headline: str) -> list[dict]:
 
 
 # ------------------------------------------------------ Appendix 3A dividends
-DIV_AMT_CENTS = re.compile(
+# The modern ASX online form, which is most of this family:
+#   "Distribution Amount AUD 0.07000000 Ex Date Wednesday February 28, 2018"
+# and the older narrative style:
+#   "2.5 cents per share fully franked final dividend"
+# The original pattern required a label like "amount per security" before the
+# number and matched NEITHER - 1 of 13 sampled documents parsed.
+DIV_AMT_AUD = re.compile(
+    r"(?:distribution|dividend)\s+amount[^0-9A-Z]{0,20}(?:AUD|A\$|\$)?\s*"
+    r"([0-9]+\.[0-9]+)", re.I)
+DIV_AMT_LABELLED = re.compile(
     r"(?:amount per|dividend/?distribution amount|amount of[^.]{0,30}per)"
     r"[^0-9$]{0,60}(?:" + CENTS + r"|\$\s*([0-9]+\.[0-9]+))", re.I)
-FRANK = re.compile(r"frank(?:ed|ing)[^0-9]{0,40}([0-9]{1,3}(?:\.[0-9]+)?)\s*%", re.I)
+DIV_AMT_BARE = re.compile(
+    CENTS + r"\s*per\s+(?:share|security|unit)", re.I)
+FRANK = re.compile(r"([0-9]{1,3}(?:\.[0-9]+)?)\s*%\s*frank|frank(?:ed|ing)"
+                   r"[^0-9%]{0,40}([0-9]{1,3}(?:\.[0-9]+)?)\s*%", re.I)
+FULLY_FRANKED = re.compile(r"fully\s+franked", re.I)
+UNFRANKED = re.compile(r"\bunfranked\b|nil\s+franking|0%\s*franked", re.I)
+# "Ex Date Wednesday February 28, 2018" as well as 28/02/2018 and 28 Feb 2018
+DATE_ANY = (r"((?:(?:Mon|Tues|Wednes|Thurs|Fri|Satur|Sun)day,?\s+)?"
+            r"(?:[0-9]{1,2}[/ -][0-9]{1,2}[/ -][0-9]{2,4}"
+            r"|[0-9]{1,2}\s+[A-Za-z]{3,9},?\s+[0-9]{4}"
+            r"|[A-Za-z]{3,9}\s+[0-9]{1,2},?\s+[0-9]{4}))")
 DATE_LABEL = {
-    "ex_date": re.compile(r"ex[- ]date[^0-9]{0,30}(\d{1,2}[/ ]\w+[/ ]\d{2,4}|"
-                          r"\d{1,2}/\d{1,2}/\d{2,4})", re.I),
-    "record_date": re.compile(r"record date[^0-9]{0,30}(\d{1,2}[/ ]\w+[/ ]\d{2,4}|"
-                              r"\d{1,2}/\d{1,2}/\d{2,4})", re.I),
-    "payment_date": re.compile(r"payment date[^0-9]{0,30}(\d{1,2}[/ ]\w+[/ ]\d{2,4}|"
-                               r"\d{1,2}/\d{1,2}/\d{2,4})", re.I),
+    "ex_date": re.compile(r"ex[\s-]?date[^0-9A-Za-z]{0,10}" + DATE_ANY, re.I),
+    "record_date": re.compile(r"record date[^0-9A-Za-z]{0,10}" + DATE_ANY, re.I),
+    "payment_date": re.compile(r"(?:payment|payable) date[^0-9A-Za-z]{0,10}"
+                               + DATE_ANY, re.I),
 }
+
+
+def _parse_any_date(v: str) -> str | None:
+    v = re.sub(r"^(?:Mon|Tues|Wednes|Thurs|Fri|Satur|Sun)day,?\s+", "", v or "",
+               flags=re.I)
+    for dayfirst in (True, False):
+        try:
+            return pd.to_datetime(v, dayfirst=dayfirst).date().isoformat()
+        except Exception:  # noqa: BLE001
+            continue
+    return None
 
 
 def extract_dividend(text: str, headline: str) -> list[dict]:
@@ -155,29 +263,39 @@ def extract_dividend(text: str, headline: str) -> list[dict]:
     Without these a NAV series is a price return, not a total return, and a
     manager judged on price return alone is judged on the wrong number.
     """
-    m = DIV_AMT_CENTS.search(text)
-    if not m:
-        return []
-    cents = _num(m.group(1))
-    if cents is None and m.group(2):
-        d = _num(m.group(2))
-        cents = d * 100 if d is not None else None
+    cents = None
+    m = DIV_AMT_AUD.search(text)
+    if m:                                  # "Distribution Amount AUD 0.07"
+        v = _num(m.group(1))
+        cents = v * 100 if v is not None else None
+    if cents is None and (m := DIV_AMT_LABELLED.search(text)):
+        cents = _num(m.group(1))
+        if cents is None and m.group(2):
+            d = _num(m.group(2))
+            cents = d * 100 if d is not None else None
+    if cents is None and (m := DIV_AMT_BARE.search(text)):
+        cents = _num(m.group(1))
     if cents is None:
         return []
+
+    franking = None
+    if (fm := FRANK.search(text)):
+        franking = _num(fm.group(1) or fm.group(2))
+    elif FULLY_FRANKED.search(text):
+        franking = 100.0
+    elif UNFRANKED.search(text):
+        franking = 0.0
+
     rec = {"section": "distribution_events",
-           "event_type": ("special_dividend" if re.search(r"special", headline or "", re.I)
+           "event_type": ("special_dividend"
+                          if re.search(r"special", headline or "", re.I)
                           else "ordinary_dividend"),
            "amount_per_share_cents": cents,
-           "franking_pct": _num(m2.group(1)) if (m2 := FRANK.search(text)) else None,
-           "extractor": "appendix_3a_v1"}
+           "franking_pct": franking,
+           "extractor": "dividend_v2"}
     for field, pat in DATE_LABEL.items():
         mm = pat.search(text)
-        rec[field] = None
-        if mm:
-            try:
-                rec[field] = pd.to_datetime(mm.group(1), dayfirst=True).date().isoformat()
-            except Exception:  # noqa: BLE001
-                pass
+        rec[field] = _parse_any_date(mm.group(1)) if mm else None
     return [rec]
 
 
