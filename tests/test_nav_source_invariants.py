@@ -313,3 +313,33 @@ def test_one_broken_ticker_source_does_not_cancel_the_others(monkeypatch, tmp_pa
     assert (out["security_id"] == "SEDOL:AAA").any(), \
         "keyfacts result was discarded because an unrelated source failed"
     assert out.set_index("security_id").loc["SEDOL:AAA", "ticker"] == "GDT"
+
+
+@pytest.mark.parametrize("fname", ["harvest_uk", "harvest_au", "uk_nav_samples"])
+def test_harvester_globals_all_resolve(fname):
+    """A harvester must not reference a name the module never imported.
+
+    harvest_uk used both `requests` and `_t` while neither was imported at
+    module level. It raised NameError on its first target, every night, and
+    the caller's `except Exception` recorded it as a one-line note in a
+    JSON report - so the UK Tier 0 NAV count sat at 0 and looked like
+    "nobody published", which is exactly the confusion the design forbids.
+
+    A NameError inside a crawl loop cannot be caught by tests that only
+    check signatures, so check the names themselves.
+    """
+    import builtins
+
+    from cef_live import harvest_nav
+
+    fn = getattr(harvest_nav, fname)
+    missing = [n for n in fn.__code__.co_names
+               if n not in harvest_nav.__dict__
+               and not hasattr(builtins, n)]
+    # attribute lookups (obj.attr) also land in co_names; keep only names
+    # that are genuinely referenced as globals by the bytecode
+    import dis
+    referenced = {i.argval for i in dis.get_instructions(fn)
+                  if i.opname == "LOAD_GLOBAL"}
+    missing = [n for n in missing if n in referenced]
+    assert not missing, f"{fname} references undefined global(s): {missing}"

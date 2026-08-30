@@ -473,6 +473,16 @@ def nightly(markets: list[str]) -> int:
     print(json.dumps({k: accept[k] for k in
                       ("rows", "basis_counts", "share_with_sigma",
                        "alert_eligible", "snapshot")}, default=str))
+    # A harvester that CRASHED is not a market that published nothing. The
+    # UK Tier 0 error sat in this report as a one-line note for days while
+    # the NAV count read 0, which is indistinguishable from silence unless
+    # the run itself goes red. Outputs are already written above, so other
+    # markets keep their results; only the exit status changes.
+    errs = {k: v for k, v in notes["markets"].items() if k.endswith("_error")}
+    if errs:
+        for k, v in errs.items():
+            print(f"HARVEST FAILURE {k}: {v}")
+        return 1
     return 0
 
 

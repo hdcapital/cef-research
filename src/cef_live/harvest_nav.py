@@ -18,10 +18,13 @@ from __future__ import annotations
 
 import importlib.util
 import re
+import time as _t
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import pandas as pd
+import requests
+from bs4 import BeautifulSoup
 
 _SPEC = importlib.util.spec_from_file_location(
     "nta_parse", Path(__file__).resolve().parents[2] / "scripts" / "sample_nta_pdfs.py")
@@ -418,7 +421,6 @@ def uk_nav_samples(cache_dir: Path, n: int = 5) -> list[dict]:
     reports/build so the value parser is written against real RNS text,
     never guessed."""
     import requests
-    from bs4 import BeautifulSoup
 
     pat = re.compile(r"net asset value", re.I)
     listings = cache_dir / "listings"
@@ -446,7 +448,6 @@ def uk_nav_samples(cache_dir: Path, n: int = 5) -> list[dict]:
     s = requests.Session()
     s.headers["User-Agent"] = P.UA
     out = []
-    import time as _t
     for c in picked:
         _t.sleep(1.5)
         url = c["url"]
