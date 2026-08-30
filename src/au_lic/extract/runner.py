@@ -550,6 +550,30 @@ def run_validate(limit: int = 0) -> dict:
                          "run `python -m au_lic.cli build-panel` first"}
     cmp_df = V.compare(nav, panel)
     out = V.summarise(V.classify(cmp_df), extracted_total=len(nav))
+    # "no fund-month had a value from both sources" is a conclusion, not a
+    # diagnosis. When the join is empty the question is always WHICH SIDE is
+    # empty and on WHAT KEY, so record both sides' shapes and keys.
+    nav_months = pd.to_datetime(nav.get("valuation_date"), errors="coerce") \
+        .dt.to_period("M").astype(str) if "valuation_date" in nav.columns \
+        else pd.Series(dtype=str)
+    pan_t = (panel["security_id"].astype(str).str.replace("^ASX:", "", regex=True)
+             if "security_id" in panel.columns else pd.Series(dtype=str))
+    out["diagnostics"] = {
+        "fact_rows_total": int(len(facts)),
+        "nav_rows": int(len(nav)),
+        "nav_rows_with_valuation_date": int(
+            nav["valuation_date"].notna().sum()) if "valuation_date" in nav.columns else 0,
+        "nav_tickers": int(nav["ticker"].nunique()) if "ticker" in nav.columns else 0,
+        "nav_months_sample": sorted(set(nav_months.dropna()))[:6],
+        "panel_rows": int(len(panel)),
+        "panel_has_nta_price": "nta_price" in panel.columns,
+        "panel_tickers": int(pan_t.nunique()),
+        "panel_months_sample": sorted(
+            set(panel["obs_month"].astype(str)))[:6] if "obs_month" in panel.columns else [],
+        "ticker_overlap": int(len(set(nav.get("ticker", pd.Series(dtype=str))
+                                      .astype(str).str.upper())
+                                  & set(pan_t.str.upper()))),
+    }
     Path("reports/build").mkdir(parents=True, exist_ok=True)
     Path("reports/build/asx_nta_validation.json").write_text(
         json.dumps(out, indent=2, default=str))
