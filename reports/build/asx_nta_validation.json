@@ -1,4 +1,30 @@
 {
   "comparable_observations": 0,
-  "note": "no fund-month had a value from both sources"
+  "note": "no fund-month had a value from both sources",
+  "diagnostics": {
+    "fact_rows_total": 46650,
+    "nav_rows": 26274,
+    "nav_rows_with_valuation_date": 18961,
+    "nav_tickers": 147,
+    "nav_months_sample": [
+      "2005-04",
+      "2008-10",
+      "2009-02",
+      "2009-09",
+      "2009-11",
+      "2010-04"
+    ],
+    "panel_rows": 11830,
+    "panel_has_nta_price": true,
+    "panel_tickers": 172,
+    "panel_months_sample": [
+      "2016-12",
+      "2017-01",
+      "2017-02",
+      "2017-03",
+      "2017-04",
+      "2017-05"
+    ],
+    "ticker_overlap": 147
+  }
 }
