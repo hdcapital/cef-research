@@ -15,8 +15,9 @@
       "2010-04"
     ],
     "nav_month_min": "2005-04",
-    "nav_month_max": "NaT",
+    "nav_month_max": "2023-08",
     "nav_rows_by_year": {
+      "2005": 1,
       "2008": 1,
       "2009": 4,
       "2010": 1,
@@ -27,8 +28,7 @@
       "2020": 3731,
       "2021": 3588,
       "2022": 2571,
-      "2023": 1337,
-      "NaT": 7313
+      "2023": 1337
     },
     "panel_rows": 11830,
     "panel_has_nta_price": true,
@@ -43,6 +43,21 @@
     ],
     "panel_month_min": "2016-12",
     "panel_month_max": "2026-06",
-    "ticker_overlap": 147
+    "ticker_overlap": 147,
+    "nav_rows_with_value": 26274,
+    "nav_key_sample": [
+      "MFF|2023-07",
+      "LRT|2023-07",
+      "LSF|nan",
+      "HM1|nan",
+      "PGF|2023-07"
+    ],
+    "panel_key_sample": [
+      "8EC|2016-12",
+      "8EC|2017-01",
+      "8EC|2017-02",
+      "8EC|2017-03",
+      "8EC|2017-04"
+    ]
   }
 }
