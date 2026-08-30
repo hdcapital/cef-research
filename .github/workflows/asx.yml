@@ -7,6 +7,10 @@ name: asx-backtest
 
 on:
   workflow_dispatch:
+    inputs:
+      sweep_budget:
+        description: "index calls this run (gap fill needs ~750+)"
+        default: "2000"
   schedule:
     - cron: "0 7 16 * *"   # monthly, after mid-month report publication
     - cron: "0 7 4 * *"    # early-month: month-end NTA PDFs still in the
@@ -66,6 +70,16 @@ jobs:
       - name: Backtest
         run: python -m au_lic.cli backtest
 
+      # The announcement index and its sweep state are the authoritative
+      # record of what has been crawled; the Actions cache is evictable and
+      # a lost sweep_state.json restarts the history sweep from scratch.
+      - name: Restore announcement index from S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+        run: pip install boto3 && python scripts/sync_state.py pull --groups asx_index
       - name: Restore announcements cache
         uses: actions/cache/restore@v4
         with:
@@ -78,7 +92,19 @@ jobs:
         run: python -m au_lic.cli announcements --budget-minutes 60
 
       - name: Sampled NTA PDF numeric validation
+        env:
+          # a 2.5-year market-wide gap is ~750 index calls; the old inner cap
+          # of 60 could never close it however large this was
+          NTA_SWEEP_BUDGET: ${{ github.event.inputs.sweep_budget || '2000' }}
         run: python scripts/sample_nta_pdfs.py || true
+      - name: Persist announcement index to S3
+        if: always()
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+        run: python scripts/sync_state.py push --groups asx_index
 
       - name: Save announcements cache
         if: always()

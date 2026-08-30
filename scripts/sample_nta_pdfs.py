@@ -203,13 +203,15 @@ def sweep_index(s: requests.Session, codes: set[str], counters: dict) -> pd.Data
                 state["top_cursor_ms"] = None       # gap closed
                 STATE_F.write_text(json.dumps(state))
                 break
-            if top_pass_calls > 60:
-                # budget hit mid-gap: persist where to resume, or the next
-                # run starts from "now" again and the hole never closes
-                state["top_cursor_ms"] = end_ms
-                STATE_F.write_text(json.dumps(state))
-                counters["top_pass_resuming_at"] = end_ms
-                break
+            # One control, not two. The 60-call cap here was a second,
+            # tighter budget than SWEEP_BUDGET, and 60 calls is a few weeks
+            # of a market-wide index - nowhere near a 2.5-year gap, so the
+            # hole could never close within a run however large the real
+            # budget was. SWEEP_BUDGET now governs; the cursor makes a
+            # part-finished pass resumable.
+            state["top_cursor_ms"] = end_ms
+            STATE_F.write_text(json.dumps(state))
+            counters["top_pass_resuming_at"] = end_ms
         else:
             state = {"hist_done": False, "earliest_ms": end_ms,
                      "code_sig": code_sig}
