@@ -1,6 +1,26 @@
 {
   "comparable_observations": 0,
   "note": "no fund-month had a value from both sources",
+  "compare_stages": {
+    "extracted_in": 26274,
+    "after_value_dropna": 26274,
+    "after_month_dropna_and_dedupe": 4663,
+    "panel_in": 11830,
+    "panel_after_dropna": 2076,
+    "merged": 0,
+    "e_month_dtype": "object",
+    "p_month_dtype": "object",
+    "e_key_sample": [
+      "8EC|2016-10",
+      "8EC|2016-11",
+      "8EC|2016-12"
+    ],
+    "p_key_sample": [
+      "8IH|2024-07",
+      "8IH|2024-08",
+      "8IH|2024-09"
+    ]
+  },
   "diagnostics": {
     "fact_rows_total": 46650,
     "nav_rows": 26274,
