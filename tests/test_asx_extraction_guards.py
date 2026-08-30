@@ -441,3 +441,61 @@ def test_unparseable_document_returns_nothing_so_it_escalates():
 
     assert D.extract("nta", "This page intentionally left blank.", [], "NTA") == []
     assert D.extract("unknown_family", "anything", [], "x") == []
+
+
+def test_every_deterministic_family_has_an_extractor():
+    """A routed family with no extractor escalates 100% of its documents.
+
+    `issue` (3,608 docs) and `substantial_holder` (3,055) were routed
+    deterministic with nothing to parse them - 6,663 documents, 10.7% of the
+    route, guaranteed to escalate to the model. That is not a parser
+    inaccuracy, it is a hole, and it is invisible in an aggregate parse rate.
+    """
+    from au_lic.extract import deterministic as D
+    from au_lic.extract import router as RT
+
+    routed = {fam for fam, route, _ in RT.FAMILIES if route == "deterministic"}
+    missing = sorted(routed - set(D.FAMILY_EXTRACTORS))
+    assert not missing, f"routed deterministic with no extractor: {missing}"
+
+
+def test_issue_extractor_reads_count_and_price():
+    """Share count is the denominator of every per-share number."""
+    from au_lic.extract import deterministic as D
+
+    f = D.extract("issue", "Number of +securities issued 1,250,000 "
+                           "Issue price $1.0450 under the dividend reinvestment plan",
+                  [], "Appendix 2A")
+    assert f[0]["shares_issued"] == 1250000.0
+    assert f[0]["issue_price"] == 1.045
+    assert f[0]["drp"] is True
+
+
+def test_substantial_holder_name_stops_at_the_sentence():
+    """A wrong holder name is worse than none - it reads as a real counterparty.
+
+    The name character class contains ".", so without an explicit stop the
+    capture ran through the following sentence and returned
+    "ement. The voting power is 7.35".
+    """
+    from au_lic.extract import deterministic as D
+
+    f = D.extract("substantial_holder",
+                  "Name of substantial holder: Wilson Asset Management. "
+                  "The voting power is 7.35%", [], "Change in substantial holding")
+    assert f[0]["holder"] == "Wilson Asset Management"
+    assert f[0]["voting_power_pct"] == 7.35
+
+    # no name stated - None, never a fragment of the next sentence
+    g = D.extract("substantial_holder", "The voting power is 5.10% held by an entity",
+                  [], "Change in substantial holding")
+    assert g[0]["holder"] is None and g[0]["voting_power_pct"] == 5.10
+
+
+def test_ceasing_to_be_a_holder_is_recorded_without_a_percentage():
+    """Going to zero is the informative case and states no percentage."""
+    from au_lic.extract import deterministic as D
+
+    f = D.extract("substantial_holder", "no percentage stated", [],
+                  "Ceasing to be a substantial holder")
+    assert f and f[0]["direction"] == "ceased"

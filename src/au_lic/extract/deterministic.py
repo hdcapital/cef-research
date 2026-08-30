@@ -213,12 +213,88 @@ def extract_terminal_value(text: str, headline: str) -> list[dict]:
     return [{"section": "terminal_value", **got, "extractor": "terminal_v1"}]
 
 
+# ------------------------------------------- Appendix 3B / 2A: securities issued
+ISSUED_N = re.compile(
+    r"(?:number of\s+\+?securities?|securities? to be issued|number of\s+\+?shares?"
+    r"|total number of\s+\+?securities)[^0-9]{0,60}([0-9][0-9,]{2,})", re.I)
+ISSUE_PRICE = re.compile(
+    r"(?:issue price|price per\s+\+?security|offer price|application price)"
+    r"[^0-9$]{0,50}(?:\$\s*([0-9]+(?:\.[0-9]+)?)|([0-9]+(?:\.[0-9]+)?)\s*cents)", re.I)
+
+
+def extract_issue(text: str, headline: str) -> list[dict]:
+    """Securities issued and at what price.
+
+    Share count changes the denominator of every per-share number, so an
+    unrecorded issue silently corrupts NAV per share and the discount built
+    on it. DRP issues in particular happen every distribution.
+    """
+    m = ISSUED_N.search(text)
+    n = _num(m.group(1)) if m else None
+    if n is None:
+        return []
+    pm = ISSUE_PRICE.search(text)
+    price = None
+    if pm:
+        price = _num(pm.group(1))
+        if price is None and pm.group(2):
+            c = _num(pm.group(2))
+            price = c / 100.0 if c is not None else None
+    kind = "share_purchase_plan" if re.search(r"\bSPP\b|share purchase plan",
+                                              text, re.I) else (
+        "rights_issue" if re.search(r"rights issue|entitlement", text, re.I) else
+        "placement" if re.search(r"placement", text, re.I) else "other")
+    return [{"section": "capital_structure_events", "event_type": kind,
+             "shares_issued": n, "issue_price": price,
+             "drp": bool(re.search(r"\bDRP\b|dividend reinvestment", text, re.I)),
+             "extractor": "appendix_3b_2a_v1"}]
+
+
+# ------------------------------------- Form 603/604/605: substantial holdings
+HOLDER_PCT = re.compile(
+    r"voting power[^0-9%]{0,80}([0-9]{1,2}(?:\.[0-9]+)?)\s*%", re.I)
+# Requires an explicit separator and stops at a sentence end. Without both,
+# the name class (which contains ".") ran straight through the following
+# sentence and captured "ement. The voting power is 7.35" - a wrong holder
+# name is worse than none, because it reads as a real counterparty.
+HOLDER_NAME = re.compile(
+    r"name of substantial holder\s*(?:\([^)]{0,30}\))?\s*[:\-]\s*"
+    r"([A-Z][^\n.;:]{2,59})", re.I)
+
+
+def extract_substantial_holder(text: str, headline: str) -> list[dict]:
+    """Who holds how much, and which way it moved.
+
+    An activist or a wind-up campaigner accumulating stock is a catalyst in
+    the taxonomy, and the direction is in the headline: becoming, changing,
+    or ceasing.
+    """
+    m = HOLDER_PCT.search(text)
+    pct = _num(m.group(1)) if m else None
+    h = headline or ""
+    if re.search(r"ceasing", h, re.I):
+        direction = "ceased"
+    elif re.search(r"becoming|initial", h, re.I):
+        direction = "became"
+    else:
+        direction = "changed"
+    if pct is None and direction != "ceased":
+        return []
+    nm = HOLDER_NAME.search(text)
+    return [{"section": "other_material_events", "event_type": "substantial_holder",
+             "direction": direction, "voting_power_pct": pct,
+             "holder": nm.group(1).strip() if nm else None,
+             "extractor": "form_60x_v1"}]
+
+
 FAMILY_EXTRACTORS = {
     "nta": lambda text, rows, head: extract_nta(text, rows, head),
     "corporate_action": lambda text, rows, head: extract_terminal_value(text, head),
     "buyback_daily": lambda text, rows, head: extract_buyback(text, head),
     "dividend": lambda text, rows, head: extract_dividend(text, head),
     "share_cancellation": lambda text, rows, head: extract_cancellation(text, head),
+    "issue": lambda text, rows, head: extract_issue(text, head),
+    "substantial_holder": lambda text, rows, head: extract_substantial_holder(text, head),
 }
 
 
