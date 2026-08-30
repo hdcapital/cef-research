@@ -13,16 +13,16 @@ from __future__ import annotations
 
 import argparse
 import json
-import os
 import re
+import os
 from datetime import datetime, timezone
 from pathlib import Path
 
 import pandas as pd
 import yaml
 
-from . import (catalysts, forward_irr, harvest_nav, nta_live, opportunities,
-               prices, tickers, universe, universe_report)
+from . import (catalysts, forward_irr, harvest_nav, liveness, nta_live,
+               opportunities, prices, tickers, universe, universe_report)
 
 
 def _params() -> dict:
@@ -47,6 +47,82 @@ def _snapshot_s3(path: Path, key: str) -> str:
     return f"s3_uploaded:{key}"
 
 
+
+REPORT_HEAD = re.compile(
+    r"annual report|half[\s-]?year(?:ly)? (?:report|result|account)|"
+    r"preliminary final report|appendix 4[de]\b|financial report|"
+    r"statutory accounts|annual financial", re.I)
+
+
+def _liveness_evidence() -> pd.DataFrame:
+    """When each fund last published a NAV, a periodic report, or anything.
+
+    Read from what we already hold - the UK announcement archive, the ASX
+    announcement index, and our own extracted NAV history - so liveness is
+    decided by the funds' own filings rather than by an aggregator's
+    editorial coverage.
+    """
+    rows: dict[str, dict] = {}
+
+    def note(sid, key, when):
+        if not sid or when is None or pd.isna(when):
+            return
+        d = rows.setdefault(str(sid), {"security_id": str(sid)})
+        prev = d.get(key)
+        w = str(pd.Timestamp(when).date())
+        if prev is None or w > prev:
+            d[key] = w
+
+    for market in ("UK", "AU"):
+        own = _own_nav_history(market)
+        if own is not None and len(own):
+            for sid, g in own.groupby("security_id"):
+                note(sid, "last_nav", pd.to_datetime(g["nav_date"],
+                                                     errors="coerce").max())
+
+    # AU: the market-wide announcement index carries every filing with a date
+    idx_f = Path("data/asx_ann_cache/asx1/lic_announcement_index.parquet")
+    if idx_f.exists():
+        idx = pd.read_parquet(idx_f)
+        idx["d"] = pd.to_datetime(idx["release_date"], utc=True, errors="coerce")
+        idx = idx.dropna(subset=["d"])
+        for code, g in idx.groupby("code"):
+            sid = f"ASX:{str(code).upper()}"
+            note(sid, "last_announcement", g["d"].max())
+            rep = g[g["headline"].fillna("").str.contains(REPORT_HEAD)]
+            if len(rep):
+                note(sid, "last_report", rep["d"].max())
+
+    # UK: the Investegate listing cache, keyed by ticker -> security_id
+    cache = Path("data/investegate_cache/listings")
+    tp = Path("config/resolved_tickers.csv")
+    if cache.exists() and tp.exists():
+        t = pd.read_csv(tp)
+        t = t[t["status"] == "verified"]
+        by_ticker = {str(r.ticker).upper(): r.security_id
+                     for r in t.itertuples(index=False) if pd.notna(r.ticker)}
+        for f in cache.glob("*.csv"):
+            sid = by_ticker.get(f.stem.upper())
+            if not sid:
+                continue
+            try:
+                df_ = pd.read_csv(f, dtype=str)
+            except Exception:  # noqa: BLE001
+                continue
+            if "date" not in df_.columns:
+                continue
+            d = pd.to_datetime(df_["date"], errors="coerce").dropna()
+            if len(d):
+                note(sid, "last_announcement", d.max())
+            if "headline" in df_.columns:
+                rep = df_[df_["headline"].fillna("").str.contains(REPORT_HEAD)]
+                dr = pd.to_datetime(rep["date"], errors="coerce").dropna()
+                if len(dr):
+                    note(sid, "last_report", dr.max())
+    return pd.DataFrame(list(rows.values())) if rows else pd.DataFrame(
+        columns=["security_id", "last_nav", "last_report", "last_announcement"])
+
+
 def build_universe() -> int:
     """Registry of every listed vehicle - priced or not, live or dead."""
     import yaml as _yaml
@@ -55,12 +131,28 @@ def build_universe() -> int:
     if p.exists():
         cfg_uk = _yaml.safe_load(p.read_text())
     reg = universe.build(cfg_uk, _params())
-    cand = reg[reg["status"] == "delist_candidate"]
+    # liveness from the funds' own filings; the aggregator's status is kept
+    # alongside as `aggregator_status` so the disagreement is measurable
+    ev = _liveness_evidence()
+    before = reg["status"].value_counts().to_dict()
+    reg = liveness.apply(reg, ev, params=_params())
+    cand = reg[reg["status"] == liveness.STATUS_CANDIDATE]
     summary = {
         "delist_candidates": int(len(cand)),
         "vehicles": int(len(reg)),
         "by_market": reg.groupby("market").size().to_dict(),
         "live": int((reg["status"] == "live").sum()),
+        "live_stale_nav": int((reg["status"] == "live_stale_nav").sum()),
+        "status_before_evidence": before,
+        "evidence_rows": int(len(ev)),
+        "revived_by_own_filings": int(((reg["aggregator_status"] == "delisted")
+                                       & (reg["status"].isin(
+                                           ["live", "live_stale_nav"]))).sum()),
+        "aggregator_said_live_evidence_says_not": int(
+            ((reg["aggregator_status"] == "live")
+             & (reg["status"].isin(["delist_candidate", "delisted"]))).sum()),
+        "by_liveness_reason": reg["liveness_reason"].str.replace(
+            r"_\d+d.*", "", regex=True).value_counts().head(10).to_dict(),
         "delisted": int((reg["status"] == "delisted").sum()),
         "priced_by_source": int(reg["source_prices_it"].sum()),
         "announcements_only": int((reg["nav_route"] == "announcements_only").sum()),
