@@ -103,6 +103,36 @@ def throttled_get(s: requests.Session, url: str, **kw) -> requests.Response:
     return s.get(url, timeout=60, **kw)
 
 
+
+def contiguous_frontier(idx: pd.DataFrame, max_gap_days: int = 45) -> pd.Timestamp | None:
+    """Newest date reachable from the OLDEST record without a long silence.
+
+    The top-up sweep used to stop when it overlapped the index's global
+    maximum date. After one budget-limited pass wrote a block of recent
+    announcements, that maximum jumped to the recent frontier - so the next
+    pass overlapped it on its FIRST call and stopped immediately. The
+    un-swept middle became permanent and the bug sealed itself: the more
+    recent data it fetched, the sooner it stopped.
+
+    The frontier that matters is the top of the CONTIGUOUS block, not the
+    newest row anywhere. A market-wide index has announcements every trading
+    day, so a gap beyond a few weeks is a hole, not a quiet patch.
+    """
+    if idx is None or not len(idx):
+        return None
+    d = pd.to_datetime(idx["release_date"], utc=True, errors="coerce").dropna()
+    if d.empty:
+        return None
+    days = pd.Series(sorted(d.dt.normalize().unique()))
+    if len(days) == 1:
+        return days.iloc[0]
+    gaps = days.diff().dt.days
+    breaks = gaps[gaps > max_gap_days]
+    if breaks.empty:
+        return days.iloc[-1]
+    return days.iloc[breaks.index[0] - 1]
+
+
 def sweep_index(s: requests.Session, codes: set[str], counters: dict) -> pd.DataFrame:
     """Backward sweep of the market-wide announcement index; keep our codes.
 
@@ -127,10 +157,14 @@ def sweep_index(s: requests.Session, codes: set[str], counters: dict) -> pd.Data
     # two frontiers: history (sweep back to EARLIEST once) and the live top
     hist_done = state.get("hist_done", False)
     end_ms = state.get("earliest_ms")  # resume point for the history sweep
+    frontier = contiguous_frontier(frames[0]) if frames else None
     if hist_done or end_ms is None:
-        # the endpoint returns nothing without an end_date (probe 8):
-        # start every pass from "now"; overlap is deduped by id
-        end_ms = int(time.time() * 1000)
+        # the endpoint returns nothing without an end_date (probe 8).
+        # Resume a part-finished top pass where it stopped; otherwise start
+        # from "now". Overlap is deduped by id.
+        end_ms = state.get("top_cursor_ms") or int(time.time() * 1000)
+    if frontier is not None:
+        counters["contiguous_frontier"] = str(frontier.date())
     new_rows: list[dict] = []
     top_pass_calls = 0
     while counters["index_calls"] < SWEEP_BUDGET:
@@ -160,12 +194,21 @@ def sweep_index(s: requests.Session, codes: set[str], counters: dict) -> pd.Data
         oldest = dates.min()
         end_ms = int(oldest.value // 10**6) - 1
         if hist_done:
-            # top-up pass: stop once we overlap what the index already holds
+            # top-up pass: sweep back until it reaches the top of the
+            # CONTIGUOUS block, closing any gap, rather than the newest row
+            # anywhere - which a previous partial pass may have planted far
+            # ahead of the real frontier
             top_pass_calls += 1
-            if frames and oldest < pd.to_datetime(
-                    frames[0]["release_date"], utc=True, errors="coerce").max():
+            if frontier is not None and oldest <= frontier:
+                state["top_cursor_ms"] = None       # gap closed
+                STATE_F.write_text(json.dumps(state))
                 break
             if top_pass_calls > 60:
+                # budget hit mid-gap: persist where to resume, or the next
+                # run starts from "now" again and the hole never closes
+                state["top_cursor_ms"] = end_ms
+                STATE_F.write_text(json.dumps(state))
+                counters["top_pass_resuming_at"] = end_ms
                 break
         else:
             state = {"hist_done": False, "earliest_ms": end_ms,

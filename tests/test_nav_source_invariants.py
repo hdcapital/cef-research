@@ -440,3 +440,45 @@ def test_a_parse_rate_can_never_exceed_one():
     rows = [{"status": "parsed"}, {"status": "no_nav_parsed"}, {"status": "parsed"}]
     n = sum(1 for r in rows if r.get("status") == "parsed")
     assert n / len(rows) <= 1.0
+
+
+def test_the_index_sweep_targets_the_contiguous_frontier_not_the_newest_row():
+    """The ASX index had a 2.5-year hole, and the bug sealed itself.
+
+    The top-up sweep stopped once it overlapped the index's GLOBAL maximum
+    date. After one budget-limited pass wrote a block of recent
+    announcements, that maximum jumped forward to the recent frontier - so
+    the next pass overlapped it on its first call and stopped immediately.
+    The more recent data it fetched, the sooner it stopped, and the un-swept
+    middle became permanent: 2023-11 to 2026-06 missing, which is 2.5 years
+    including the entire recent period the live system reasons about.
+    """
+    import importlib.util
+
+    import pandas as pd
+
+    spec = importlib.util.spec_from_file_location(
+        "nta_parse", "scripts/sample_nta_pdfs.py")
+    P = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(P)
+
+    days = (list(pd.date_range("2016-10-31", "2023-11-15", freq="7D"))
+            + list(pd.date_range("2026-06-01", "2026-08-27", freq="D")))
+    idx = pd.DataFrame({"release_date": [d.isoformat() for d in days]})
+
+    frontier = P.contiguous_frontier(idx)
+    newest = pd.to_datetime(idx["release_date"], utc=True).max()
+    assert frontier.date().isoformat() == "2023-11-13"
+    assert frontier < newest, "the frontier must be the top of the CONTIGUOUS block"
+
+    # an index with no hole has its frontier at the newest row
+    clean = pd.DataFrame({"release_date": [d.isoformat() for d in
+                                           pd.date_range("2024-01-01", "2024-03-01")]})
+    assert P.contiguous_frontier(clean).date().isoformat() == "2024-03-01"
+
+
+def test_a_budget_limited_top_pass_persists_where_to_resume():
+    """Without a cursor the next run restarts from 'now' and the hole never closes."""
+    src = Path("scripts/sample_nta_pdfs.py").read_text()
+    assert 'state["top_cursor_ms"] = end_ms' in src
+    assert 'state.get("top_cursor_ms") or int(time.time() * 1000)' in src
