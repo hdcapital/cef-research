@@ -483,6 +483,52 @@ def run_deterministic(limit: int = 0, deadline_min: float = 300.0) -> dict:
     return stats
 
 
+# ------------------------------------------------------------------- prices
+def run_prices(limit: int = 0) -> dict:
+    """Daily price history for every code in the announcement index.
+
+    Every code, including funds that have since been delisted - they are in
+    the index precisely because the universe is point-in-time. Yahoo drops
+    many delisted tickers, so coverage is measured per code and the missing
+    ones are named. A code with no history is MISSING, never quietly excluded:
+    silently dropping them would compute every AU result on survivors.
+    """
+    import boto3
+
+    from au_lic import prices_history as PH
+
+    idx = pd.read_parquet(INDEX_F)
+    codes = sorted(idx["code"].astype(str).str.upper().unique())
+    if SHARDS > 1:
+        codes = [c for c in codes if zlib.crc32(c.encode()) % SHARDS == SHARD]
+    if limit:
+        codes = codes[:limit]
+    print(f"prices: {len(codes)} codes (shard {SHARD + 1}/{SHARDS})")
+
+    s = PH.session()
+    fetched: dict[str, pd.DataFrame | None] = {}
+    frames = []
+    for c in codes:
+        df = PH.fetch_history(s, c)
+        fetched[c] = df
+        if df is not None:
+            frames.append(df)
+    rep = PH.coverage_report(codes, fetched)
+
+    out = Path("data/asx_prices")
+    out.mkdir(parents=True, exist_ok=True)
+    tag = f"s{SHARD}of{SHARDS}"
+    if frames:
+        allpx = pd.concat(frames, ignore_index=True)
+        allpx.to_parquet(out / f"asx_daily_{tag}.parquet", index=False)
+        rep["price_rows"] = int(len(allpx))
+        if BUCKET:
+            boto3.client("s3", region_name=os.environ.get("AWS_REGION")).upload_file(
+                str(out / f"asx_daily_{tag}.parquet"), BUCKET,
+                f"asx/prices/asx_daily_{tag}.parquet")
+    return rep
+
+
 # ------------------------------------------------------------------ estimate
 # Published per-million-token rates. Batch is half. Cached input reads at 0.1x,
 # which matters here because the instruction block is ~identical every call.
@@ -646,7 +692,8 @@ def main(argv: list[str]) -> int:
 
     ap = argparse.ArgumentParser()
     ap.add_argument("mode", choices=["sync", "submit", "collect", "queue",
-                                     "estimate", "compare", "deterministic"])
+                                     "estimate", "compare", "deterministic",
+                                     "prices"])
     ap.add_argument("--limit", type=int, default=10)
     ap.add_argument("--ticker")
     ap.add_argument("--batch-id")
@@ -662,6 +709,14 @@ def main(argv: list[str]) -> int:
                           "sample": q.head(5)[["announcement_id", "ticker",
                                                "published_at"]].to_dict("records")},
                          indent=2, default=str))
+        return 0
+    if a.mode == "prices":
+        out = run_prices(limit=a.limit)
+        Path("reports/build").mkdir(parents=True, exist_ok=True)
+        Path("reports/build/asx_price_coverage.json").write_text(
+            json.dumps(out, indent=2, default=str))
+        print(json.dumps({k: v for k, v in out.items()
+                          if k != "codes_missing"}, indent=2, default=str))
         return 0
     if a.mode == "deterministic":
         out = run_deterministic(limit=a.limit)
