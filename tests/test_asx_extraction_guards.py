@@ -352,3 +352,19 @@ def test_routing_leaves_a_minority_for_the_model():
     s = RT.summarise(RT.route_index(pd.read_parquet(idx_path)))
     assert s["llm_share"] < 0.33, f"LLM share regressed to {s['llm_share']:.1%}"
     assert s["deterministic_share"] > 0.5
+
+
+def test_an_unpriced_model_reports_as_unpriced_not_as_free(monkeypatch):
+    """A model id from a repo variable may not be in the price table.
+
+    Defaulting a missing price to zero would produce a confident $0.00
+    estimate for exactly the model the run is configured to use - the worst
+    possible place for a silent default.
+    """
+    from au_lic.extract import runner as R
+
+    monkeypatch.setattr(R, "MODEL", "some-model-not-in-the-table")
+    monkeypatch.setattr(R, "PRICES", {"claude-haiku-4-5": {"in": 1.0, "out": 5.0}})
+    priced = dict.fromkeys(list(R.PRICES) + [R.MODEL])
+    assert "some-model-not-in-the-table" in priced
+    assert R.PRICES.get("some-model-not-in-the-table") is None

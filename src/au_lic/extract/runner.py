@@ -449,13 +449,22 @@ def estimate_cost(sample: int = 40, assumed_output_tokens: int = 800) -> dict:
                  "assumption - it cannot be counted without generating"),
         "cost_usd": {},
     }
-    for name, px in PRICES.items():
+    # price every published model, plus whatever the run was actually
+    # configured with - a model the table does not know must report as
+    # unpriced, never as free
+    for name in dict.fromkeys(list(PRICES) + [MODEL]):
+        px = PRICES.get(name)
+        if px is None:
+            out["cost_usd"][name] = {"error": "no published price in PRICES; "
+                                              "add it before trusting a total"}
+            continue
         std = (per_call_in / 1e6 * px["in"] + assumed_output_tokens / 1e6 * px["out"])
         out["cost_usd"][name] = {
             "per_document": round(std, 5),
             "corpus_standard": round(std * total_docs, 2),
             "corpus_batch": round(std * total_docs * BATCH_MULTIPLIER, 2),
         }
+    out["configured_model"] = MODEL
     return out
 
 
@@ -534,7 +543,9 @@ def main(argv: list[str]) -> int:
     ap.add_argument("--limit", type=int, default=10)
     ap.add_argument("--ticker")
     ap.add_argument("--batch-id")
-    ap.add_argument("--models", default="claude-opus-5,claude-haiku-4-5")
+    ap.add_argument("--models",
+                    default=os.environ.get("COMPARE_MODELS")
+                    or "claude-opus-5,claude-haiku-4-5")
     a = ap.parse_args(argv)
 
     if a.mode == "queue":

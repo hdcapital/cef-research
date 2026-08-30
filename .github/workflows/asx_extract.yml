@@ -15,7 +15,7 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "queue | sync | submit | collect"
+        description: "queue | estimate | compare | sync | submit | collect"
         default: "queue"
       limit:
         description: "documents to process"
@@ -23,8 +23,11 @@ on:
       batch_id:
         description: "batch id (collect mode only)"
         default: ""
+      tier:
+        description: "cheap | expensive (uses the repo's CHEAP_MODEL / EXPENSIVE_MODEL)"
+        default: "cheap"
       model:
-        description: "model id (blank = claude-opus-5)"
+        description: "explicit model id, overrides tier (optional)"
         default: ""
 
 permissions:
@@ -57,7 +60,11 @@ jobs:
           AWS_REGION: ${{ secrets.AWS_REGION }}
           S3_BUCKET: ${{ secrets.S3_BUCKET }}
           ANTHROPIC_API_KEY: ${{ secrets.CLAUDE_SECRET_KEY || secrets.ANTHROPIC_API_KEY }}
-          EXTRACT_MODEL: ${{ github.event.inputs.model }}
+          # explicit id wins; otherwise the tier picks one of the repo's
+          # configured model variables. No model id is hardcoded here.
+          EXTRACT_MODEL: ${{ github.event.inputs.model || (github.event.inputs.tier == 'expensive' && vars.EXPENSIVE_MODEL || vars.CHEAP_MODEL) }}
+          # compare mode runs the tiers head to head
+          COMPARE_MODELS: ${{ vars.CHEAP_MODEL }},${{ vars.EXPENSIVE_MODEL }}
         run: |
           python -m au_lic.extract.runner "${{ github.event.inputs.mode }}" \
             --limit "${{ github.event.inputs.limit }}" \
