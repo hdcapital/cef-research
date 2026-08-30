@@ -7,49 +7,49 @@
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 138,
+  "alert_eligible": 122,
   "z_extremes": [
     {
       "security_id": "ASX:AEG",
-      "z_adj": -20.1688,
-      "discount_est": -0.906568,
+      "z_adj": -20.1803,
+      "discount_est": -0.907039,
       "staleness_days": 1043
     },
     {
       "security_id": "ASX:APL",
-      "z_adj": -15.1302,
-      "discount_est": -0.778075,
+      "z_adj": -15.1416,
+      "discount_est": -0.778574,
       "staleness_days": 1260
     },
     {
       "security_id": "ASX:OPH",
-      "z_adj": -4.2694,
-      "discount_est": -0.25415,
+      "z_adj": -4.3731,
+      "discount_est": -0.257777,
       "staleness_days": 44
     },
     {
       "security_id": "ASX:CD1",
-      "z_adj": -3.8078,
-      "discount_est": -0.562257,
+      "z_adj": -3.8761,
+      "discount_est": -0.566007,
       "staleness_days": 44
     },
     {
-      "security_id": "SEDOL:506241",
-      "z_adj": -3.0346,
-      "discount_est": -0.001276,
-      "staleness_days": 21
-    },
-    {
       "security_id": "ASX:PIA",
-      "z_adj": -2.8316,
-      "discount_est": -0.239994,
+      "z_adj": -2.9104,
+      "discount_est": -0.242954,
       "staleness_days": 44
     },
     {
       "security_id": "ASX:MOT",
-      "z_adj": -2.5227,
-      "discount_est": -0.25417,
+      "z_adj": -2.5594,
+      "discount_est": -0.257007,
       "staleness_days": 44
+    },
+    {
+      "security_id": "SEDOL:906409",
+      "z_adj": -2.4186,
+      "discount_est": -0.123434,
+      "staleness_days": 21
     },
     {
       "security_id": "SEDOL:891055",
@@ -64,9 +64,9 @@
       "staleness_days": 630
     },
     {
-      "security_id": "ASX:CAM",
-      "z_adj": -2.2633,
-      "discount_est": -0.193861,
+      "security_id": "ASX:AMH",
+      "z_adj": -2.2788,
+      "discount_est": -0.18495,
       "staleness_days": 44
     }
   ],
@@ -78,9 +78,9 @@
       "factors_daily": true,
       "live_prices": 100
     },
-    "uk_nav_targets": 0,
-    "uk_registry_only_targets": 0,
-    "uk_tier0_error": "name 'requests' is not defined",
+    "uk_nav_targets": 281,
+    "uk_registry_only_targets": 105,
+    "uk_tier0_error": "name '_t' is not defined",
     "uk": {
       "tier0_navs": 0,
       "nav_publishers_found": 178,
