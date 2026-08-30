@@ -187,6 +187,23 @@ def sweep_index(s: requests.Session, codes: set[str], counters: dict) -> pd.Data
         counters["contiguous_frontier"] = str(frontier.date())
     new_rows: list[dict] = []
     top_pass_calls = 0
+
+    def _checkpoint() -> None:
+        """Make what has been crawled so far durable, mid-run.
+
+        The index used to be written only after the loop, so ANY exception
+        threw away the whole run's rows - a JSONDecodeError on one malformed
+        payload discarded 22 minutes of real crawling. Crawled rows are
+        expensive (a throttled endpoint, ~6 days per call); losing them to a
+        later failure is never acceptable, so they are flushed periodically
+        and deduped by id on the way in.
+        """
+        if not new_rows:
+            return
+        cur = pd.concat(frames + [pd.DataFrame(new_rows)],
+                        ignore_index=True).drop_duplicates("id")
+        cur.to_parquet(INDEX_F, index=False)
+
     while counters["index_calls"] < SWEEP_BUDGET:
         if INDEX_DEADLINE_MIN and (time.time() - START) > INDEX_DEADLINE_MIN * 60:
             counters["index_deadline_hit"] = True
@@ -195,6 +212,11 @@ def sweep_index(s: requests.Session, codes: set[str], counters: dict) -> pd.Data
             break
         url = f"{INDEX_URL}?end_date={end_ms}"
         counters["index_calls"] += 1
+        # flush on BOTH passes: the history sweep is the longer of the two,
+        # so checkpointing only the top-up pass would have left the bigger
+        # crawl exposed to exactly the loss this guards against
+        if counters["index_calls"] % 10 == 0:
+            _checkpoint()
         # A timeout used to propagate out of the sweep and end it - one bad
         # call killed a whole run, and `|| true` in the workflow hid it. Now
         # it is counted and the crawl continues, because on a throttled
@@ -209,20 +231,45 @@ def sweep_index(s: requests.Session, codes: set[str], counters: dict) -> pd.Data
             counters["last_index_error"] = f"{type(exc).__name__}"
             state["top_cursor_ms"] = end_ms
             STATE_F.write_text(json.dumps(state))
+            _checkpoint()
             if counters["consecutive_failures"] >= MAX_CONSECUTIVE_INDEX_FAILURES:
                 counters["index_error"] = "consecutive_timeouts"
                 break
             time.sleep(min(120, 15 * counters["consecutive_failures"]))  # back off
             continue
-        counters["consecutive_failures"] = 0
+        # NB: the failure streak is reset after a successful PARSE, not
+        # here. Resetting on transport success alone let a run that got a
+        # 200 with an unusable body every single time loop until the budget
+        # ran out, streak stuck at 1 and the stop condition never reached.
         counters["index_ok"] = counters.get("index_ok", 0) + 1
         if r.status_code != 200:
             counters["index_error"] = f"http_{r.status_code}"
             break
         txt = r.text
         m = re.match(r"^[\w$]+\((.*)\)\s*;?\s*$", txt, re.S)
-        data = json.loads(m.group(1) if m else txt)
-        items = data.get("announcement_data") or []
+        # A malformed or truncated body is the same kind of event as a
+        # timeout - the endpoint under load returning something unusable -
+        # and it must be handled the same way. It was not: json.loads sat
+        # outside the try, so one clipped payload propagated out and ended
+        # the run, which is exactly the failure the transport retry above
+        # was written to prevent. Retry the SAME window; never guess at the
+        # content of a body that did not arrive intact.
+        try:
+            data = json.loads(m.group(1) if m else txt)
+            items = data.get("announcement_data") or []
+        except (json.JSONDecodeError, AttributeError, TypeError) as exc:
+            counters["index_bad_payloads"] = counters.get("index_bad_payloads", 0) + 1
+            counters["consecutive_failures"] = counters.get("consecutive_failures", 0) + 1
+            counters["last_index_error"] = f"{type(exc).__name__}"
+            state["top_cursor_ms"] = end_ms
+            STATE_F.write_text(json.dumps(state))
+            _checkpoint()
+            if counters["consecutive_failures"] >= MAX_CONSECUTIVE_INDEX_FAILURES:
+                counters["index_error"] = "consecutive_bad_payloads"
+                break
+            time.sleep(min(120, 15 * counters["consecutive_failures"]))
+            continue
+        counters["consecutive_failures"] = 0
         if not items:
             break
         for it in items:
