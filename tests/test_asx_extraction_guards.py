@@ -1,0 +1,233 @@
+"""The extraction contract, enforced.
+
+Each test is one rule from config/prompts/asx_extraction_v1.md. The prompt
+asks the model to obey them; these assert the pipeline does not depend on it
+having obeyed.
+"""
+
+from __future__ import annotations
+
+import json
+import sys
+from pathlib import Path
+
+import pytest
+
+sys.path.insert(0, "src")
+
+from au_lic.extract import guards as G
+from au_lic.extract import schema as S
+
+DOC = (
+    "--- PAGE 1 ---\n"
+    "Pre-tax NTA as at 31 March 2021 was $1.27 per share.\n"
+    "Post-tax NTA as at 31 March 2021 was $1.19 per share.\n"
+    "The Board has resolved to commence an on-market buyback of up to 5% of "
+    "issued capital.\n"
+    "Shareholders will vote on winding up the Company at the 2021 AGM.\n"
+)
+PUB = "2021-04-08"
+
+
+def _nav(**over):
+    rec = {"valuation_date": "2021-03-31", "nav_per_share": 1.27, "currency": "AUD",
+           "nav_basis": "pre_tax", "raw_nav_label": "Pre-tax NTA",
+           "cum_or_ex_distribution": None, "audited": None,
+           "source": {"page": 1,
+                      "quote": "Pre-tax NTA as at 31 March 2021 was $1.27 per share."},
+           "confidence": 0.99}
+    rec.update(over)
+    return rec
+
+
+def test_clean_nav_observation_is_accepted():
+    assert G.check_record(_nav(), "nav_observations", DOC, PUB) == []
+
+
+def test_invented_number_is_caught_by_quote_provenance():
+    """The anti-hallucination check: a fabricated value has no real quote.
+
+    A model that invents "$1.42" will also invent the sentence proving it.
+    Since the document is right there, that sentence can be checked - and this
+    is the only check that catches a plausible-looking number in a
+    well-formed record with high confidence.
+    """
+    bad = _nav(nav_per_share=1.42,
+               source={"page": 1,
+                       "quote": "Pre-tax NTA as at 31 March 2021 was $1.42 per share."})
+    assert "quote_not_in_document" in G.check_record(bad, "nav_observations", DOC, PUB)
+
+
+def test_quote_matching_survives_pdf_whitespace_and_smart_punctuation():
+    """Honest quotes must not be rejected by cosmetics.
+
+    pdfplumber breaks lines mid-sentence and models normalise quotes and
+    dashes when copying. If the check were literal it would reject real
+    extractions, the failure rate would look like a model problem, and the
+    fix would be to weaken the check that catches invention.
+    """
+    doc = "Pre-tax NTA as at\n31 March 2021 was $1.27 per  share."
+    rec = _nav(source={"page": 1,
+                       "quote": "Pre-tax NTA as at 31 March 2021 was $1.27 per share."})
+    assert G.check_record(rec, "nav_observations", doc, PUB) == []
+
+
+def test_knowledge_date_after_publication_is_lookahead():
+    """A NAV dated after the announcement was published cannot have been known."""
+    bad = _nav(valuation_date="2021-06-30")
+    reasons = G.check_record(bad, "nav_observations", DOC, PUB)
+    assert any(r.startswith("lookahead:valuation_date") for r in reasons)
+
+
+def test_effective_date_may_be_in_the_future():
+    """Announced 15 March, effective 1 April - both are legitimate facts.
+
+    Only dates recording when something became KNOWN are bounded by
+    published_at. Bounding effective_date too would delete exactly the
+    forward-looking terms the catalyst study needs.
+    """
+    rec = {"catalyst_type": "on_market_buyback", "announcement_date": "2021-04-08",
+           "effective_date": "2021-12-31", "event_stage": "announced",
+           "event_status": "active", "headline_terms": {"maximum_pct": 5.0},
+           "explicit_discount_reference": False, "stated_reason": None,
+           "source": {"page": 1, "quote": "The Board has resolved to commence an "
+                                          "on-market buyback of up to 5% of issued capital."},
+           "confidence": 0.97}
+    assert G.check_record(rec, "catalyst_events", DOC, PUB) == []
+
+
+def test_computed_signals_are_rejected_at_any_depth():
+    """The ABSOLUTE RULE, including inside free-form headline_terms.
+
+    headline_terms is an open object, which is exactly where a discount or a
+    score would slip in unnoticed.
+    """
+    rec = {"catalyst_type": "on_market_buyback", "announcement_date": "2021-04-08",
+           "event_stage": "announced", "event_status": "active",
+           "headline_terms": {"maximum_pct": 5.0, "discount_to_nav": -0.18},
+           "source": {"page": 1, "quote": "The Board has resolved to commence an "
+                                          "on-market buyback of up to 5% of issued capital."},
+           "confidence": 0.97}
+    reasons = G.check_record(rec, "catalyst_events", DOC, PUB)
+    assert any("computed_signal_field" in r and "discount_to_nav" in r for r in reasons)
+
+
+@pytest.mark.parametrize("key", [
+    "discount_z_score", "manager_quality", "catalyst_score", "expected_return",
+    "attractiveness", "future_return", "signal_strength", "recommendation"])
+def test_every_forbidden_signal_name_is_matched(key):
+    assert G.forbidden_keys({"x": {key: 1}}) == [f"x.{key}"]
+
+
+def test_out_of_vocabulary_label_is_rejected_not_adopted():
+    """A new label means the vocabulary drifted, not that a category exists."""
+    bad = _nav(nav_basis="pre_tax_ish")
+    assert any(r.startswith("enum:nav_basis") for r in
+               G.check_record(bad, "nav_observations", DOC, PUB))
+
+
+def test_low_confidence_is_dropped_per_spec():
+    assert any("confidence_below_floor" in r for r in
+               G.check_record(_nav(confidence=0.4), "nav_observations", DOC, PUB))
+
+
+def test_missing_quote_is_rejected():
+    assert "no_source_quote" in G.check_record(
+        _nav(source={"page": 1, "quote": ""}), "nav_observations", DOC, PUB)
+
+
+def test_two_nav_bases_stay_two_observations():
+    """Pre-tax and post-tax must never be merged into one number."""
+    payload = {"nav_observations": [
+        _nav(),
+        _nav(nav_per_share=1.19, nav_basis="post_tax", raw_nav_label="Post-tax NTA",
+             source={"page": 1, "quote": "Post-tax NTA as at 31 March 2021 was "
+                                         "$1.19 per share."}),
+    ]}
+    clean, rejects = G.validate(payload, DOC, PUB, "AN1")
+    assert rejects == []
+    assert len(clean["nav_observations"]) == 2
+    assert {r["nav_basis"] for r in clean["nav_observations"]} == {"pre_tax", "post_tax"}
+
+
+def test_rejections_are_returned_with_reasons_not_silently_dropped():
+    """Absence must be explainable.
+
+    'The quote was not in the document' and 'the fund published nothing' are
+    different facts and must not look the same downstream.
+    """
+    payload = {"nav_observations": [_nav(nav_per_share=9.99,
+                                         source={"page": 1, "quote": "NTA was $9.99."})]}
+    clean, rejects = G.validate(payload, DOC, PUB, "AN1")
+    assert clean["nav_observations"] == []
+    assert len(rejects) == 1
+    assert rejects[0]["announcement_id"] == "AN1"
+    assert "quote_not_in_document" in rejects[0]["reasons"]
+
+
+def test_prompt_enums_and_code_enums_cannot_drift():
+    """Every vocabulary term in the prompt file must exist in the code.
+
+    The prompt is what the model is told; schema.py is what is enforced. If
+    they diverge, valid extractions get rejected as out-of-vocabulary and the
+    cause looks like a model failure.
+    """
+    text = Path("config/prompts/asx_extraction_v1.md").read_text()
+    for name, allowed in (("catalyst_type", S.CATALYST_TYPE),
+                          ("event_stage", S.EVENT_STAGE),
+                          ("nav_basis", S.NAV_BASIS),
+                          ("primary_document_type", S.PRIMARY_DOCUMENT_TYPE)):
+        missing = sorted(v for v in allowed if v not in text)
+        assert not missing, f"{name} values in code but absent from the prompt: {missing}"
+
+
+def test_runner_imports_and_flattens_with_provenance():
+    """The module must actually execute, and every fact row must be traceable.
+
+    A row that cannot be traced back to a prompt version, a model and a source
+    quote is not reproducible, and this dataset exists to be re-derived.
+    """
+    from au_lic.extract import runner as R
+
+    clean = {"announcement": {"primary_document_type": "nta_report"},
+             "quality_control": {"document_parse_quality": "good",
+                                 "requires_manual_review": False},
+             "nav_observations": [_nav()]}
+    rec = {"announcement_id": "12345", "ticker": "AFI", "published_at": PUB}
+    rows = R.flatten(clean, rec, {"input_tokens": 10, "output_tokens": 20})
+    assert len(rows) == 1
+    row = rows[0]
+    assert row["section"] == "nav_observations"
+    assert row["announcement_id"] == "12345" and row["ticker"] == "AFI"
+    assert row["source_quote"].startswith("Pre-tax NTA")
+    assert row["prompt_version"].startswith("v1:")
+    assert row["model"]
+    # the fact itself survives as JSON, not flattened into guessed columns
+    assert json.loads(row["payload"])["nav_per_share"] == 1.27
+
+
+def test_document_with_no_facts_still_produces_a_row():
+    """Silence must be recorded, not absent.
+
+    An announcement that yields nothing is a real observation - it stops the
+    same document being re-extracted forever, and it distinguishes 'read, and
+    contained nothing' from 'never read'.
+    """
+    from au_lic.extract import runner as R
+
+    rows = R.flatten({"announcement": {"primary_document_type": "other"},
+                      "quality_control": {}}, 
+                     {"announcement_id": "9", "ticker": "XYZ", "published_at": PUB}, None)
+    assert len(rows) == 1
+    assert json.loads(rows[0]["payload"])["no_extractable_facts"] is True
+
+
+def test_prompt_version_changes_when_the_prompt_changes(tmp_path, monkeypatch):
+    """Rows extracted under different instructions must be distinguishable."""
+    from au_lic.extract import runner as R
+
+    before = R.prompt_version()
+    p = tmp_path / "prompt.md"
+    p.write_text(Path("config/prompts/asx_extraction_v1.md").read_text() + "\nx\n")
+    monkeypatch.setattr(R, "PROMPT_F", p)
+    assert R.prompt_version() != before

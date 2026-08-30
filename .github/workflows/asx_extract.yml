@@ -1,0 +1,72 @@
+name: asx-extract
+
+# Converts the archived ASX announcement PDFs into point-in-time structured
+# facts (config/prompts/asx_extraction_v1.md). Reads only what the archive
+# already holds - nothing is re-fetched from the ASX.
+#
+# Modes: queue (free, counts what is outstanding), sync (a small sample, for
+# validating the prompt against real documents), submit/collect (the Batches
+# API at half price, for the corpus).
+#
+# Skips cleanly when ANTHROPIC_API_KEY is absent, so the rest of the pipeline
+# is never blocked on it.
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "queue | sync | submit | collect"
+        default: "queue"
+      limit:
+        description: "documents to process"
+        default: "10"
+      batch_id:
+        description: "batch id (collect mode only)"
+        default: ""
+
+permissions:
+  contents: write
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt boto3 anthropic && pip install -e .
+      # the contract is enforced in code; a regression fails before any spend
+      - run: python -m pytest tests/test_asx_extraction_guards.py -q
+      - name: Restore announcement index from S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+        run: python scripts/sync_state.py pull --groups asx_index
+      - name: Extract
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          python -m au_lic.extract.runner "${{ github.event.inputs.mode }}" \
+            --limit "${{ github.event.inputs.limit }}" \
+            ${{ github.event.inputs.batch_id && format('--batch-id {0}', github.event.inputs.batch_id) || '' }}
+      - name: Commit status
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f reports/build/asx_extract_status.json || true
+          if git diff --cached --quiet; then
+            echo "no changes"
+          else
+            git commit -m "CI: ASX extraction status ($(date -u +%Y-%m-%dT%H:%MZ))"
+            git pull --rebase -X theirs origin "${GITHUB_REF_NAME}" || true
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
