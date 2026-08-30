@@ -38,6 +38,7 @@ import pandas as pd
 sys.path.insert(0, "src")
 
 from au_lic.extract import guards
+from au_lic.extract import router
 
 MODEL = os.environ.get("EXTRACT_MODEL") or "claude-opus-5"
 PROMPT_F = Path("config/prompts/asx_extraction_v1.md")
@@ -113,8 +114,17 @@ def parse_payload(text: str) -> dict | None:
 
 
 # ------------------------------------------------------------------ work queue
-def load_queue(limit: int = 0, ticker: str | None = None) -> pd.DataFrame:
+def load_queue(limit: int = 0, ticker: str | None = None,
+               routes: tuple[str, ...] = ("llm", "llm_audit")) -> pd.DataFrame:
+    """Outstanding work, restricted to the routes a model is needed for.
+
+    Default is the LLM routes only. Reading a prescribed ASX form with a
+    frontier model 60,000 times is paying for parsing we can already do.
+    """
     idx = pd.read_parquet(INDEX_F)
+    idx = router.route_index(idx)
+    if routes:
+        idx = idx[idx["route"].isin(routes)]
     idx = idx[idx["url"].notna() & (idx["url"] != "")].copy()
     idx["announcement_id"] = idx["id"].astype(str)
     idx["published_at"] = pd.to_datetime(idx["release_date"], utc=True,
@@ -396,6 +406,7 @@ def estimate_cost(sample: int = 40, assumed_output_tokens: int = 800) -> dict:
     client = _client()
     queue = load_queue(limit=0)
     total_docs = int(len(queue))
+    routing = router.summarise(router.route_index(pd.read_parquet(INDEX_F)))
     # spread the sample across the queue rather than taking the newest N -
     # document length varies with era and with document type
     step = max(1, total_docs // max(1, sample))
@@ -424,6 +435,9 @@ def estimate_cost(sample: int = 40, assumed_output_tokens: int = 800) -> dict:
     doc_mean = float(ser.mean())
     per_call_in = doc_mean + sys_tokens * CACHE_READ_MULTIPLIER
     out = {
+        "routing": {k: routing[k] for k in
+                    ("total", "by_route", "llm_share", "deterministic_share",
+                     "skip_share")},
         "documents_outstanding": total_docs,
         "sampled": len(counts), "sample_pdfs_missing": missing,
         "system_prompt_tokens": int(sys_tokens),

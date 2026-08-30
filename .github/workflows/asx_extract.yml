@@ -43,9 +43,6 @@ jobs:
       - run: pip install -r requirements.txt boto3 anthropic && pip install -e .
       # the contract is enforced in code; a regression fails before any spend
       - run: python -m pytest tests/test_asx_extraction_guards.py -q
-      - name: Show configured repo variables
-        run: |
-          echo "vars: ${{ toJSON(vars) }}"
       - name: Restore announcement index from S3
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}

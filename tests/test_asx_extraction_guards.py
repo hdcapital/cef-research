@@ -258,3 +258,97 @@ def test_every_selectable_model_has_a_price():
 
     for m in ("claude-opus-5", "claude-sonnet-5", "claude-haiku-4-5"):
         assert m in R.PRICES and R.PRICES[m]["in"] > 0 and R.PRICES[m]["out"] > 0
+
+
+# ----------------------------------------------------------------- routing
+def test_a_corporate_action_is_never_skipped():
+    """Skipping a catalyst is the one routing error with no recovery.
+
+    A wrongly-skipped NTA report costs one data point among tens of
+    thousands. A wrongly-skipped wind-up or scheme is the event the whole
+    catalyst study is trying to observe, and nothing downstream can notice it
+    is missing.
+    """
+    from au_lic.extract import router as RT
+
+    for headline in [
+        "Scheme Booklet registered with ASIC",
+        "Proposed wind-up of the Company",
+        "Off-market takeover bid for the Company",
+        "Strategic Review - Update",
+        "Notice of Meeting - Continuation Vote",
+        "Change of Investment Manager",
+        "Internalisation of Management",
+        "Removal from Official List",
+        "Return of Capital to Shareholders",
+        "Section 249D Notice received",
+    ]:
+        family, route = RT.classify(headline)
+        assert route in ("llm", "llm_audit"), f"{headline!r} routed {route} ({family})"
+
+
+def test_an_unrecognised_headline_goes_to_the_model_not_the_bin():
+    """A rule that does not match must never mean 'discard'.
+
+    The safe default has to be the expensive one, or the router silently
+    becomes a filter on the dataset and the gap is invisible.
+    """
+    from au_lic.extract import router as RT
+
+    for headline in ["Something Nobody Has Filed Before", "", "??? 2026 update"]:
+        assert RT.classify(headline)[1] == "llm"
+
+
+def test_high_volume_forms_do_not_reach_the_model():
+    """The forms that dominate the corpus must be parsed, not prompted."""
+    from au_lic.extract import router as RT
+
+    for headline in ["Daily share buy-back notice - Appendix 3E",
+                     "Net Tangible Asset Backing",
+                     "Weekly NTA Update", "Daily Net Tangible Asset Statement",
+                     "Appendix 3A.1 - Dividend/Distribution",
+                     "Form 484 - Cancellation of shares under buyback"]:
+        assert RT.classify(headline)[1] == "deterministic", headline
+    for headline in ["Change of Director's Interest Notice", "Appendix 3Y",
+                     "Corporate Governance Statement", "Trading Halt"]:
+        assert RT.classify(headline)[1] == "skip", headline
+
+
+def test_audit_sample_is_stable_and_drawn_from_the_cheap_route():
+    """The audit sample must be the same documents every run.
+
+    A sample that moves each run cannot produce an error rate comparable
+    across runs, and measuring the deterministic path's error rate is the
+    only thing that turns the saving from faith into evidence.
+    """
+    import pandas as pd
+
+    from au_lic.extract import router as RT
+
+    idx = pd.DataFrame({"id": [str(i) for i in range(4000)],
+                        "headline": ["Net Tangible Asset Backing"] * 4000})
+    a = RT.route_index(idx, audit_rate=0.02)
+    b = RT.route_index(idx, audit_rate=0.02)
+    sel_a = set(a.loc[a["route"] == "llm_audit", "id"])
+    sel_b = set(b.loc[b["route"] == "llm_audit", "id"])
+    assert sel_a == sel_b and 0 < len(sel_a) < 4000
+    # audit rows only ever come from the route being audited
+    assert (a.loc[a["route"] == "llm_audit", "family"] == "nta").all()
+
+
+def test_routing_leaves_a_minority_for_the_model():
+    """Guards the economics: the model must stay the exception.
+
+    Measured on the real index this is ~17%. If a rule change pushes it back
+    over a third, the cost model this design exists for is gone.
+    """
+    import pandas as pd
+
+    from au_lic.extract import router as RT
+
+    idx_path = Path("data/asx_ann_cache/asx1/lic_announcement_index.parquet")
+    if not idx_path.exists():
+        pytest.skip("announcement index not present locally")
+    s = RT.summarise(RT.route_index(pd.read_parquet(idx_path)))
+    assert s["llm_share"] < 0.33, f"LLM share regressed to {s['llm_share']:.1%}"
+    assert s["deterministic_share"] > 0.5
