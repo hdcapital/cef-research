@@ -41,16 +41,21 @@ def test_a_fund_with_no_nav_but_a_recent_report_is_live_on_slow_evidence():
     assert "no_recent_nav" in got["liveness_reason"]
 
 
-def test_the_aggregator_can_hold_a_fund_under_review_but_never_call_it_live():
+def test_the_registry_alone_cannot_assert_a_fund_is_trading():
     """Being listed by the AIC is the weakest evidence there is.
 
-    A file can keep listing a fund for months after it stops filing anything,
-    so the registry's say-so is enough to keep a fund under review and never
-    enough to assert it is trading.
+    A file can keep listing a fund for months after it stops filing anything.
+    With no filings of our own AND no prior aggregator verdict, the fund goes
+    under review - never straight to live.
     """
     got = L.classify({"registry_last_seen": "2026-08"}, as_of=TODAY)
     assert got["status"] == L.STATUS_CANDIDATE
-    assert "registry_listed" in got["liveness_reason"]
+
+    # but where we hold filings and they show only registry listing, the
+    # original rule still applies
+    got2 = L.classify({"registry_last_seen": "2026-08",
+                       "last_announcement": "2020-01-01"}, as_of=TODAY)
+    assert got2["status"] in (L.STATUS_CANDIDATE, L.STATUS_DELISTED)
 
 
 def test_silence_becomes_a_candidate_before_it_becomes_delisted():
@@ -117,3 +122,38 @@ def test_the_universe_build_decides_liveness_from_evidence():
     # and the summary reports the disagreement in both directions
     assert "revived_by_own_filings" in src
     assert "aggregator_said_live_evidence_says_not" in src
+
+
+def test_no_evidence_does_not_demote_a_fund():
+    """Absence of evidence is not evidence of death.
+
+    The first version of this module demoted 222 funds the aggregator called
+    live, purely because we hold no filings for them. Our own collection has
+    a KNOWN 2.5-year hole (the ASX announcement index stops at 2023-11), so
+    every AU fund looked silent since 2023 and would have been written off by
+    a gap in our data rather than by anything about the funds.
+
+    Evidence may PROMOTE - a fund publishing NAVs is alive whatever a file
+    says - but never demote below the aggregator when we have nothing. A
+    wrongly-revived fund shows up as one with no priceable NAV: visible and
+    harmless. A wrongly-delisted one silently leaves the universe.
+    """
+    got = L.classify({"aggregator_status": "live", "registry_last_seen": "2026-07"},
+                     as_of=TODAY)
+    assert got["status"] == L.STATUS_LIVE
+    assert got["evidence_coverage"] == "none"
+    assert "deferring_to_registry" in got["liveness_reason"]
+
+
+def test_evidence_still_promotes_a_fund_the_aggregator_wrote_off():
+    """The asymmetry must not break revival."""
+    got = L.classify({"aggregator_status": "delisted", "last_nav": "2026-08-28"},
+                     as_of=TODAY)
+    assert got["status"] == L.STATUS_LIVE
+
+
+def test_evidence_of_silence_still_demotes():
+    """A fund we DO hold filings for, all of them old, is genuinely quiet."""
+    got = L.classify({"aggregator_status": "live", "last_announcement": "2023-01-01"},
+                     as_of=TODAY)
+    assert got["status"] in (L.STATUS_CANDIDATE, L.STATUS_DELISTED)

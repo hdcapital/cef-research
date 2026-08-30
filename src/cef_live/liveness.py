@@ -114,6 +114,30 @@ def classify(evidence: dict, as_of: date | None = None,
         return {**out, "status": STATUS_CANDIDATE,
                 "liveness_reason": f"filings_but_no_nav_or_report_{age(ann)}d"}
 
+    # NO EVIDENCE AT ALL is not evidence of death.
+    #
+    # This is the same rule the rest of the pipeline enforces - absence means
+    # missing, never zero - and the first version of this module broke it:
+    # 222 funds the aggregator called live were demoted to candidate or
+    # delisted purely because we hold no filings for them. Our evidence has a
+    # KNOWN 2.5-year hole (docs/RUNBOOK.md: the ASX announcement index stops
+    # at 2023-11), so every AU fund looked silent since 2023 and would have
+    # been written off by a gap in our own collection.
+    #
+    # Evidence may therefore PROMOTE a fund - a fund publishing NAVs is alive
+    # whatever a file says - but it may not DEMOTE one below the aggregator
+    # when we simply have nothing for it. That asymmetry is deliberate: a
+    # wrongly-revived fund shows up as a fund with no priceable NAV, which is
+    # visible and harmless; a wrongly-delisted one silently leaves the
+    # universe.
+    if nav is None and rep is None and ann is None:
+        keep = evidence.get("aggregator_status")
+        return {**out,
+                "status": keep if keep in (STATUS_LIVE, STATUS_CANDIDATE,
+                                           STATUS_DELISTED) else STATUS_CANDIDATE,
+                "liveness_reason": "no_own_filings_held_deferring_to_registry",
+                "evidence_coverage": "none"}
+
     # the aggregator is the LAST word, not the first - and only enough to
     # hold a fund under review, never to call it live
     if reg is not None and age(reg) <= p["any_announcement_days"]:
@@ -148,6 +172,7 @@ def apply(registry: pd.DataFrame, evidence: pd.DataFrame,
     for r in reg.to_dict("records"):
         e = dict(ev.get(r["security_id"], {}))
         e.setdefault("registry_last_seen", r.get("last_seen"))
+        e["aggregator_status"] = r.get("status")
         e["manual"] = bool(r.get("manual_entry", False))
         rows.append(classify(e, as_of=as_of, params=params))
     got = pd.DataFrame(rows, index=reg.index)
