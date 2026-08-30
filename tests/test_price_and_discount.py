@@ -80,3 +80,84 @@ def test_raw_and_adjusted_are_separate_columns():
     src = inspect.getsource(PH.fetch_history)
     assert '"close_raw"' in src and '"close_adj"' in src
     assert '"price":' not in src
+
+
+# ------------------------------------------------------------ delisted funds
+def test_recycled_asx_code_cannot_splice_two_companies():
+    """ASX codes are reassigned after a delisting.
+
+    A code freed in 2015 is routinely reissued to an unrelated company, and
+    Yahoo serves ONE continuous series across both. Splicing a dead LIC to a
+    mining company's later prices fabricates a return series with no gap and
+    no error - nothing downstream could ever detect it. This is the single
+    most dangerous way to "solve" delisted pricing.
+    """
+    px = pd.DataFrame({"date": pd.date_range("2014-01-01", "2020-12-31", freq="D"),
+                       "close_raw": 1.0, "ticker": "XYZ"})
+    kept, status = PH.guard_ticker_reuse(px, last_announcement="2015-06-30")
+    assert status == "truncated_probable_reuse"
+    assert kept["date"].max() <= pd.Timestamp("2015-10-28")
+    assert len(kept) < len(px)
+
+
+def test_a_still_listed_fund_keeps_its_history():
+    px = pd.DataFrame({"date": pd.date_range("2024-01-01", "2024-03-01", freq="D"),
+                       "close_raw": 1.0, "ticker": "AFI"})
+    kept, status = PH.guard_ticker_reuse(px, last_announcement="2024-02-28")
+    assert status in ("ok", "truncated") and len(kept) == len(px)
+
+
+def test_monthly_reports_price_funds_that_no_longer_exist():
+    """The point-in-time snapshots are the survivorship-free backbone.
+
+    A fund listed in March 2019 stays in the March 2019 file forever. Cheap
+    funds are disproportionately the ones that die, so a panel built only on
+    survivors flatters precisely the strategy being tested.
+    """
+    panel = pd.DataFrame([
+        {"security_id": "ASX:DEAD", "obs_month": "2019-03", "share_price": 0.72},
+        {"security_id": "ASX:DEAD", "obs_month": "2019-04", "share_price": 0.70},
+        {"security_id": "ASX:AFI", "obs_month": "2019-03", "share_price": 6.10},
+    ])
+    out = PH.prices_from_monthly_reports(panel)
+    dead = out[out["ticker"] == "DEAD"]
+    assert len(dead) == 2
+    assert dead["date"].min() == pd.Timestamp("2019-03-31")
+    assert (dead["price_source"] == "asx_monthly_report").all()
+
+
+def test_buyback_notices_give_traded_prices_from_the_funds_own_filings():
+    """Survivorship-free, and densest exactly where discounts are widest."""
+    import json
+
+    facts = pd.DataFrame([
+        {"ticker": "DEAD", "published_at": "2019-05-02", "family": "buyback_daily",
+         "payload": json.dumps({"price": 0.685, "event_type": "buyback_execution"})},
+        {"ticker": "DEAD", "published_at": "2019-05-03", "family": "nta",
+         "payload": json.dumps({"nav_per_share": 0.9})},
+    ])
+    out = PH.prices_from_buybacks(facts)
+    assert len(out) == 1
+    assert out.iloc[0]["close_raw"] == 0.685
+    assert out.iloc[0]["price_source"] == "appendix_3e_traded"
+
+
+def test_assembled_panel_prefers_exchange_close_and_labels_every_row():
+    """A finding that survives only on month-end prints is a weaker claim.
+
+    Keeping price_source on every row is what makes that re-checkable
+    instead of buried.
+    """
+    d = pd.Timestamp("2019-03-31")
+    yahoo = pd.DataFrame([{"ticker": "AAA", "date": d, "close_raw": 1.01,
+                           "price_source": "yahoo:AAA.AX"}])
+    monthly = pd.DataFrame([{"ticker": "AAA", "date": d, "close_raw": 1.00,
+                             "price_source": "asx_monthly_report"},
+                            {"ticker": "DEAD", "date": d, "close_raw": 0.72,
+                             "price_source": "asx_monthly_report"}])
+    out = PH.assemble_price_panel(yahoo, monthly)
+    assert len(out) == 2
+    aaa = out[out["ticker"] == "AAA"].iloc[0]
+    assert aaa["close_raw"] == 1.01 and aaa["price_source"].startswith("yahoo")
+    assert set(out["price_source"]) >= {"asx_monthly_report"}
+    assert out["price_source"].notna().all()

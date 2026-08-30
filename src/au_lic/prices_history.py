@@ -149,3 +149,126 @@ def coverage_report(codes: list[str], fetched: dict[str, pd.DataFrame | None]) -
             "coverage": round(len(have) / max(1, len(codes)), 4),
             "codes_missing": missing[:200], "missing_count": len(missing),
             "spans_sample": dict(list(spans.items())[:10])}
+
+
+# ----------------------------------------------------------- delisted funds
+# A delisted fund's price history is the hardest part of this dataset to get
+# for free, and it is also the part that decides whether a discount study is
+# honest: cheap funds are disproportionately the ones that die, so a panel
+# built only on survivors flatters exactly the strategy being tested.
+#
+# Three survivorship-free sources, all already in the archive, plus Yahoo
+# where it can be trusted:
+#
+#   1. the ASX monthly investment-products reports. These are POINT-IN-TIME
+#      snapshots: a fund listed in March 2019 is in the March 2019 file
+#      forever, whatever happened to it later. Month-end share price for
+#      every fund that existed that month, from 2017.
+#   2. Appendix 3E daily buyback notices - a real traded price, from the
+#      fund's own filing, on every day it bought stock. Discounted funds buy
+#      back heavily, so coverage is best exactly where it matters most.
+#   3. scheme booklets, takeover documents and wind-up notices, which state
+#      VWAPs, offer prices and final NTA at the end of a fund's life.
+#
+# Yahoo is used where it still serves the code AND passes the reuse check
+# below.
+
+REUSE_GRACE_DAYS = 120
+
+
+def guard_ticker_reuse(px: pd.DataFrame, last_announcement: str | pd.Timestamp,
+                       grace_days: int = REUSE_GRACE_DAYS) -> tuple[pd.DataFrame, str]:
+    """Drop price history that cannot belong to this fund.
+
+    ASX codes are RECYCLED. A three-letter code freed by a 2015 delisting is
+    routinely reassigned to an unrelated company, and Yahoo will happily
+    serve one continuous series spanning both. Splicing a dead LIC to a
+    mining company's later prices would produce a fabricated return series
+    that looks completely ordinary - no gap, no error, nothing downstream
+    could detect it.
+
+    So history is truncated at the fund's last announcement plus a grace
+    window (delisting formalities and final distributions trail the last
+    substantive filing). Anything after that belongs to whoever holds the
+    code now.
+    """
+    if px is None or px.empty:
+        return px, "empty"
+    last = pd.to_datetime(last_announcement, errors="coerce")
+    if pd.isna(last):
+        return px, "no_last_announcement"
+    cutoff = last + pd.Timedelta(days=grace_days)
+    out = px[pd.to_datetime(px["date"]) <= cutoff]
+    dropped = len(px) - len(out)
+    if dropped == 0:
+        return out, "ok"
+    # a large tail after a fund stopped filing is a reused code, not a fund
+    # that quietly kept trading
+    status = "truncated_probable_reuse" if dropped > 250 else "truncated"
+    return out, status
+
+
+def prices_from_monthly_reports(panel: pd.DataFrame) -> pd.DataFrame:
+    """Month-end price per fund from the point-in-time ASX report snapshots.
+
+    Survivorship-free by construction: the file for a given month lists the
+    funds that existed that month, and it is never rewritten.
+    """
+    if panel is None or panel.empty or "share_price" not in panel.columns:
+        return pd.DataFrame(columns=["ticker", "date", "close_raw", "price_source"])
+    p = panel[["security_id", "obs_month", "share_price"]].dropna(
+        subset=["share_price"]).copy()
+    p["ticker"] = p["security_id"].astype(str).str.replace("^ASX:", "", regex=True)
+    p["date"] = pd.PeriodIndex(p["obs_month"], freq="M").to_timestamp(how="end").normalize()
+    p["close_raw"] = p["share_price"].astype(float)
+    p["price_source"] = "asx_monthly_report"
+    return p[["ticker", "date", "close_raw", "price_source"]]
+
+
+def prices_from_buybacks(facts: pd.DataFrame) -> pd.DataFrame:
+    """Traded prices from the fund's own Appendix 3E notices."""
+    if facts is None or facts.empty:
+        return pd.DataFrame(columns=["ticker", "date", "close_raw", "price_source"])
+    import json as _json
+
+    rows = []
+    for r in facts.itertuples(index=False):
+        if getattr(r, "family", None) != "buyback_daily":
+            continue
+        try:
+            payload = _json.loads(r.payload)
+        except Exception:  # noqa: BLE001
+            continue
+        price = payload.get("price")
+        if price is None:
+            continue
+        rows.append({"ticker": str(r.ticker).upper(),
+                     "date": pd.to_datetime(r.published_at, errors="coerce"),
+                     "close_raw": float(price),
+                     "price_source": "appendix_3e_traded"})
+    return pd.DataFrame(rows).dropna(subset=["date"])
+
+
+PRICE_PRIORITY = ["yahoo", "asx_monthly_report", "appendix_3e_traded"]
+
+
+def assemble_price_panel(*frames: pd.DataFrame) -> pd.DataFrame:
+    """One price per (ticker, date), best available source, always labelled.
+
+    Priority is exchange close, then the ASX's own published month-end, then
+    a traded print from a buyback notice. Every row keeps price_source so a
+    result can be re-run on the daily-only subset and compared - a finding
+    that only survives on month-end prints is a different, weaker claim, and
+    the panel has to make that checkable rather than hide it.
+    """
+    frames = [f for f in frames if f is not None and len(f)]
+    if not frames:
+        return pd.DataFrame(columns=["ticker", "date", "close_raw", "price_source"])
+    allpx = pd.concat(frames, ignore_index=True)
+    allpx["date"] = pd.to_datetime(allpx["date"]).dt.normalize()
+    allpx["_rank"] = allpx["price_source"].map(
+        lambda s: next((i for i, p in enumerate(PRICE_PRIORITY)
+                        if str(s).startswith(p)), len(PRICE_PRIORITY)))
+    allpx = allpx.sort_values(["ticker", "date", "_rank"])
+    allpx = allpx.drop_duplicates(["ticker", "date"], keep="first")
+    return allpx.drop(columns="_rank").reset_index(drop=True)
