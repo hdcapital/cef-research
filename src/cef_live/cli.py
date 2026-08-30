@@ -109,6 +109,69 @@ def build_universe() -> int:
     return 0
 
 
+
+def _registry_for(market: str) -> pd.DataFrame:
+    """Live funds for one market - the universe, from identity alone."""
+    rp = Path("data/universe/registry.parquet")
+    if not rp.exists():
+        return pd.DataFrame()
+    reg = pd.read_parquet(rp)
+    return reg[(reg["market"] == market)
+               & (reg["status"].isin(["live", "delist_candidate"]))].copy()
+
+
+def _own_nav_history(market: str) -> pd.DataFrame:
+    """NAV observations WE extracted, from the funds' own announcements.
+
+    UK: the Investegate NAV archive. AU: the deterministic pass over the
+    archived ASX PDFs. This is what replaces the aggregator as the source of
+    value - the aggregator only ever says who exists.
+    """
+    frames = []
+    if market == "UK":
+        for f in sorted(Path("data").glob("uk_nav_history*.parquet")):
+            try:
+                h = pd.read_parquet(f)
+            except Exception:  # noqa: BLE001
+                continue
+            h = h[h.get("status").eq("parsed")] if "status" in h.columns else h
+            if not {"ticker", "nav_cum_pence"} <= set(h.columns):
+                continue
+            frames.append(pd.DataFrame({
+                "ticker": h["ticker"].astype(str).str.upper(),
+                "nav_date": h.get("nav_date", h.get("ann_date")),
+                "nav_value": pd.to_numeric(h["nav_cum_pence"], errors="coerce") / 100.0,
+            }))
+        if not frames:
+            return pd.DataFrame()
+        out = pd.concat(frames, ignore_index=True).dropna(subset=["nav_value"])
+        tp = Path("config/resolved_tickers.csv")
+        if not tp.exists():
+            return pd.DataFrame()
+        t = pd.read_csv(tp)
+        t = t[t["status"] == "verified"][["security_id", "ticker"]]
+        t["ticker"] = t["ticker"].astype(str).str.upper()
+        return out.merge(t, on="ticker", how="inner")[
+            ["security_id", "nav_date", "nav_value"]]
+
+    for f in sorted(Path("data/asx_extract").glob("facts_det_*.parquet")):
+        try:
+            h = pd.read_parquet(f)
+        except Exception:  # noqa: BLE001
+            continue
+        h = h[h["section"] == "nav_observations"]
+        if not len(h):
+            continue
+        frames.append(pd.DataFrame({
+            "security_id": "ASX:" + h["ticker"].astype(str).str.upper(),
+            "nav_date": h["valuation_date"],
+            "nav_value": pd.to_numeric(h["nav_per_share"], errors="coerce"),
+        }))
+    if not frames:
+        return pd.DataFrame()
+    return pd.concat(frames, ignore_index=True).dropna(subset=["nav_value"])
+
+
 def resolve_tickers(budget: int = 400) -> int:
     """Resolve Investegate/Yahoo tickers for live registry funds with none."""
     reg = pd.read_parquet("data/universe/registry.parquet")
@@ -300,7 +363,10 @@ def nightly(markets: list[str]) -> int:
 
     if "au" in markets:
         panel = pd.read_parquet("data/au_processed/au_monthly_panel.parquet")
-        codes = set(panel["security_id"].str.replace("ASX:", "", regex=False))
+        au_reg = _registry_for("AU")
+        # every live fund is priced, not just the ones the aggregator covered
+        codes = set(panel["security_id"].str.replace("ASX:", "", regex=False)) | \
+            set(au_reg["security_id"].astype(str).str.replace("ASX:", "", regex=False))
         tier0 = harvest_nav.harvest_au(codes)
         mf = prices.monthly_factor_returns(ysess, "AU")
         df = prices.daily_factor_returns(ysess, "AU")
@@ -313,7 +379,8 @@ def nightly(markets: list[str]) -> int:
         t = nta_live.build_table(
             panel, "AU", ret_col="nta_total_return", nav_col="nta_derived",
             price_col="share_price", params=params, tier0=tier0,
-            market_factors=mf, daily_factors=df, live_prices=live_px)
+            market_factors=mf, daily_factors=df, live_prices=live_px,
+            registry=au_reg, own_nav_history=_own_nav_history("AU"))
         tables.append(t)
         if len(tier0):
             Path("data/nta_live").mkdir(parents=True, exist_ok=True)
@@ -335,12 +402,26 @@ def nightly(markets: list[str]) -> int:
                 ucfg = _yaml.safe_load(Path("config/default.yaml").read_text())
                 tmap = build_ticker_map(ucfg)
                 tmap = tmap[tmap["ticker"].notna()]
-                # live universe only: funds present in the last panel month
-                last_m = panel["obs_month"].max()
-                alive = set(panel.loc[panel["obs_month"] == last_m, "security_id"])
+                # The live universe is the REGISTRY, not "whoever appeared in
+                # the aggregator's last monthly file". Keying on the panel
+                # meant the 108 funds the AIC never priced were never even
+                # sent to the price feed, so they could not have had a
+                # discount however good the NAV harvest got.
+                uk_reg = _registry_for("UK")
+                alive = set(uk_reg["security_id"].astype(str))
                 syms = {r.security_id: f"{r.ticker}.L"
                         for r in tmap.itertuples(index=False)
-                        if r.security_id in alive}
+                        if not alive or r.security_id in alive}
+                # every live fund with a verified ticker gets priced, including
+                # those the MIR ticker map never covered
+                tp = Path("config/resolved_tickers.csv")
+                if tp.exists():
+                    rt = pd.read_csv(tp)
+                    rt = rt[(rt["status"] == "verified") & rt["ticker"].notna()]
+                    for r in rt.itertuples(index=False):
+                        if r.security_id in alive:
+                            syms.setdefault(r.security_id,
+                                            f"{str(r.ticker).upper()}.L")
                 live_px = prices.latest_prices(ysess, syms)
             except Exception as exc:  # noqa: BLE001
                 notes["markets"].setdefault("uk", {})
@@ -392,7 +473,9 @@ def nightly(markets: list[str]) -> int:
             t = nta_live.build_table(
                 panel, "UK", ret_col="nav_total_return", nav_col=nav_col,
                 price_col=price_col, params=params, tier0=uk_tier0,
-                market_factors=mf, daily_factors=df, live_prices=live_px)
+                market_factors=mf, daily_factors=df, live_prices=live_px,
+                registry=_registry_for("UK"),
+                own_nav_history=_own_nav_history("UK"))
             tables.append(t)
             if len(census):
                 notes["markets"]["uk"] = {

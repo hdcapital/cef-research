@@ -365,3 +365,58 @@ def test_nan_name_does_not_crash_the_catalyst_digest():
     # the trap itself, documented so it is not reintroduced
     assert (float("nan") or "fallback") != "fallback"
     assert math.isnan(float("nan") or "fallback")
+
+
+def test_a_fund_the_aggregator_never_priced_still_gets_a_row():
+    """The registry defines the universe; the aggregator only says who exists.
+
+    Keying the live table on the research panel meant a fund the AIC never
+    priced had no row for a harvested NAV to attach to. 113 tradeable funds -
+    HICL, TRIG, INPP, Pershing Square, Syncona, 24 VCTs, the whole offshore
+    and alternatives cohort - had their NAVs fetched every night and dropped,
+    because the table was keyed on an aggregator's past coverage rather than
+    on the fund's existence. That is the cohort whose discounts blew out
+    after 2022, so its absence points the same way as the hypothesis.
+    """
+    import pandas as pd
+    import yaml
+
+    from cef_live import nta_live
+
+    params = yaml.safe_load(Path("config/params.yaml").read_text())
+    panel = pd.DataFrame(columns=["security_id", "obs_month", "sector",
+                                  "nav_per_share", "share_price",
+                                  "nav_total_return", "discount"])
+    registry = pd.DataFrame([{"security_id": "SEDOL:HICL", "market": "UK",
+                              "status": "live", "name": "HICL Infrastructure"}])
+    tier0 = pd.DataFrame([{"security_id": "SEDOL:HICL", "nav_date": "2026-08-29",
+                           "nav_value": 1.60, "source": "announcement:rns123"}])
+    live_px = pd.DataFrame([{"security_id": "SEDOL:HICL", "price": 1.20,
+                             "price_source": "yahoo:HICL.L",
+                             "price_date": "2026-08-29"}])
+    out = nta_live.build_table(panel, "UK", ret_col="nav_total_return",
+                               nav_col="nav_per_share", price_col="share_price",
+                               params=params, tier0=tier0, live_prices=live_px,
+                               registry=registry)
+    assert len(out) == 1, "a fund with no aggregator history got no row"
+    r = out.iloc[0]
+    assert r["basis"] == 0                      # priced on its OWN published NAV
+    assert abs(r["discount_est"] - (-0.25)) < 1e-9
+    assert "yahoo" in str(r["price_asof"])      # priced from the feed
+
+
+def test_the_aggregator_anchor_is_named_so_its_use_is_countable():
+    """Falling back to the aggregator is allowed; hiding it is not.
+
+    Labelling the anchor `aggregator_panel:` is what makes "how many funds
+    still depend on the source we are moving off" a measurement rather than
+    an assumption.
+    """
+    import inspect
+
+    from cef_live import nta_live
+
+    src = inspect.getsource(nta_live.build_table)
+    assert "aggregator_panel:" in src
+    # and a published NAV is checked after the aggregator, so it wins
+    assert src.index("aggregator_panel:") < src.index("basis = 0")

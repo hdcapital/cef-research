@@ -38,8 +38,33 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
                 daily_factors: pd.DataFrame | None = None,
                 market_factors: pd.DataFrame | None = None,
                 live_prices: pd.DataFrame | None = None,
+                registry: pd.DataFrame | None = None,
+                own_nav_history: pd.DataFrame | None = None,
                 today: date | None = None) -> pd.DataFrame:
-    """Build the live table for one market from its research panel.
+    """Build the live table for one market, keyed on the REGISTRY.
+
+    The aggregator files (AIC MIR, ASX monthly reports) say who exists. They
+    do not price this table. Iterating the research panel meant a fund the
+    aggregator never priced had no row for a harvested NAV to attach to, so
+    113 tradeable funds - the whole offshore and alternatives cohort, HICL,
+    TRIG, INPP, Pershing Square, Syncona, and 24 VCTs - had their NAVs
+    fetched every night and then dropped, because the table was keyed on an
+    aggregator's past coverage rather than on the fund's existence.
+
+    So the universe is the registry, price comes from the live feed, and the
+    NAV anchor is sourced in this order:
+
+      1. a NAV the fund itself published (Tier 0, from its announcements)
+      2. our own extracted NAV history
+      3. the aggregator panel - LAST, and labelled `aggregator_panel:` so
+         the number of funds still depending on it is countable rather than
+         assumed
+
+    registry: live funds for this market (security_id required). When given,
+      it defines the universe; the panel supplies history only.
+    own_nav_history: security_id, nav_date, nav_value from our own
+      extraction - the UK announcement archive and the ASX deterministic
+      pass.
 
     tier0: optional DataFrame (security_id, nav_date, nav_value, source)
       of issuer-published high-frequency NAVs from the harvester.
@@ -54,30 +79,80 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
     live = params["live_nta"]
     zp = live["z_adjustment"]
 
-    models = F.fit_fund_models(panel, ret_col, params, market_factors)
-    models = models.set_index("security_id")
+    # Factor models are fitted from panel history. A market whose panel is
+    # empty or lacks the fitting columns must still produce a table - those
+    # funds get basis 3 (no model) rather than the whole run raising.
+    need = {"security_id", "obs_month", "sector", ret_col}
+    if len(panel) and need <= set(panel.columns):
+        models = F.fit_fund_models(panel, ret_col, params, market_factors)
+        models = models.set_index("security_id")
+    else:
+        models = pd.DataFrame(columns=["betas", "factors", "sigma_1m"]).set_index(
+            pd.Index([], name="security_id"))
+
+    panel_by_sid = {sid: g[g[nav_col].notna()] for sid, g
+                    in panel.sort_values("obs_month").groupby("security_id")} \
+        if len(panel) else {}
+    # the universe is the registry when one is supplied; the panel only ever
+    # ADDS history for funds it happens to cover
+    if registry is not None and len(registry):
+        universe = list(dict.fromkeys(
+            list(registry["security_id"].astype(str))
+            + [s_ for s_ in panel_by_sid]))
+    else:
+        universe = list(panel_by_sid)
+
+    own = own_nav_history
+    if own is not None and len(own):
+        own = own.copy()
+        own["nav_date"] = pd.to_datetime(own["nav_date"], errors="coerce")
+        own = own.dropna(subset=["nav_date", "nav_value"])
+
+    reg_meta = {}
+    if registry is not None and len(registry):
+        cols = [c for c in ("name", "sector", "currency", "is_vct")
+                if c in registry.columns]
+        reg_meta = {str(r["security_id"]): {c: r[c] for c in cols}
+                    for _, r in registry.iterrows()}
 
     rows = []
-    for sid, g in panel.sort_values("obs_month").groupby("security_id"):
-        g = g[g[nav_col].notna()]
-        if g.empty:
-            continue
-        last = g.iloc[-1]
-        anchor_val = float(last[nav_col])
-        anchor_date = pd.Period(last["obs_month"], freq="M").to_timestamp(how="end")
-        anchor_source = f"monthly_panel:{last['obs_month']}"
-
-        # Tier 0 overrides the anchor when a fresher published NAV exists
+    for sid in universe:
+        meta = reg_meta.get(sid, {})
+        g = panel_by_sid.get(sid, panel.iloc[0:0])
+        anchor_val = anchor_date = None
+        anchor_source = None
         basis = None
-        if tier0 is not None:
+        last = g.iloc[-1] if len(g) else None
+
+        # 3. aggregator LAST, and named so its use is countable
+        if last is not None and pd.notna(last[nav_col]):
+            anchor_val = float(last[nav_col])
+            anchor_date = pd.Period(last["obs_month"], freq="M").to_timestamp(how="end")
+            anchor_source = f"aggregator_panel:{last['obs_month']}"
+
+        # 2. our own extracted NAV history beats the aggregator
+        if own is not None and len(own):
+            o = own[own["security_id"] == sid]
+            if len(o):
+                o = o.sort_values("nav_date").iloc[-1]
+                if anchor_date is None or pd.Timestamp(o["nav_date"]) > anchor_date:
+                    anchor_val = float(o["nav_value"])
+                    anchor_date = pd.Timestamp(o["nav_date"])
+                    anchor_source = f"own_nav_history:{o['nav_date'].date()}"
+
+        # 1. a NAV the fund itself published wins outright
+        if tier0 is not None and len(tier0):
             t0 = tier0[tier0["security_id"] == sid]
             if len(t0):
                 t0 = t0.sort_values("nav_date").iloc[-1]
-                if pd.Timestamp(t0["nav_date"]) > anchor_date:
+                if anchor_date is None or pd.Timestamp(t0["nav_date"]) >= anchor_date:
                     anchor_val = float(t0["nav_value"])
                     anchor_date = pd.Timestamp(t0["nav_date"])
                     anchor_source = str(t0["source"])
                     basis = 0
+
+        if anchor_val is None or anchor_date is None:
+            continue          # no NAV from any source - absent, and visibly so
 
         staleness = max(0, _busdays_since(anchor_date, today))
         m = models.loc[sid] if sid in models.index else None
@@ -104,8 +179,9 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
 
         # price: live feed when available (probe-verified adapter), else
         # the last panel price - the source is always recorded
-        price = float(last[price_col]) if pd.notna(last[price_col]) else np.nan
-        price_asof = anchor_source
+        price = float(last[price_col]) if last is not None \
+            and pd.notna(last[price_col]) else np.nan
+        price_asof = f"aggregator_panel" if pd.notna(price) else "none"
         if live_prices is not None and len(live_prices):
             lp = live_prices[live_prices["security_id"] == sid]
             if len(lp):
@@ -140,12 +216,26 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
         # definition so the two populations stay distinguishable.
         rows.append({
             "security_id": sid, "market": market,
-            "name": last.get("company_name", ""),
-            "sector": last.get("sector"),
-            "currency": last.get("currency"),
-            "is_vct": bool(last.get("is_vct", False)),
-            "non_sterling": bool(last.get("non_gbx_quote", False)),
-            "research_eligible": bool(last.get("eligible", True)),
+            # identity comes from the REGISTRY, falling back to the panel.
+            # A registry-only fund has no panel row at all, so reading these
+            # from `last` raised KeyError and the fund vanished again - the
+            # same failure one layer down.
+            "name": meta.get("name") or (last.get("company_name", "")
+                                         if last is not None else ""),
+            "sector": meta.get("sector") or (last.get("sector")
+                                             if last is not None else None),
+            "currency": meta.get("currency") or (last.get("currency")
+                                                 if last is not None else None),
+            "is_vct": bool(meta.get("is_vct", False)
+                           or (last.get("is_vct", False)
+                               if last is not None else False)),
+            "non_sterling": bool(last.get("non_gbx_quote", False))
+                             if last is not None else False,
+            # a registry-only fund has no panel eligibility flag; it is
+            # eligible until something says otherwise, which is the whole
+            # point of moving the universe off the aggregator
+            "research_eligible": bool(last.get("eligible", True))
+                                 if last is not None else True,
             "nav_anchor": anchor_val, "anchor_date": anchor_date.date().isoformat(),
             "anchor_source": anchor_source,
             "nta_est": round(nta_est, 6), "est_note": est_note,
