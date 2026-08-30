@@ -6,6 +6,10 @@ name: probe-aic-archive
 
 on:
   workflow_dispatch:
+    inputs:
+      script:
+        description: "probe script to run"
+        default: "scripts/probe_ticker_sources.py"
   push:
     branches:
       - "claude/**"
@@ -47,7 +51,7 @@ jobs:
             aic-raw-v1-
       - name: Run diagnostic script
         run: |
-          python scripts/probe_ticker_sources.py
+          python "${{ github.event.inputs.script || 'scripts/probe_ticker_sources.py' }}"
       - name: Commit probe results
         run: |
           git config user.name "github-actions[bot]"
