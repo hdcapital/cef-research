@@ -68,7 +68,12 @@ def compare(extracted: pd.DataFrame, panel: pd.DataFrame) -> pd.DataFrame:
     p = panel.copy()
     if "nta_price" not in p.columns:
         return pd.DataFrame()
-    p["ticker"] = p["security_id"].astype(str).str.replace("^ASX:", "", regex=True)
+    # BOTH sides upper-cased. The extracted side was upper-cased and this one
+    # was not, so any case difference made every key miss - and the
+    # diagnostic, which upper-cased both, reported a 147-of-147 overlap that
+    # the join itself could never see.
+    p["ticker"] = (p["security_id"].astype(str)
+                   .str.replace(r"(?i)^ASX:", "", regex=True).str.upper())
     p["month"] = p["obs_month"].astype(str)
     p = p.dropna(subset=["nta_price"])[["ticker", "month", "nta_price"]]
 

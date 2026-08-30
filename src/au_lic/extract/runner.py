@@ -553,8 +553,10 @@ def run_validate(limit: int = 0) -> dict:
     # "no fund-month had a value from both sources" is a conclusion, not a
     # diagnosis. When the join is empty the question is always WHICH SIDE is
     # empty and on WHAT KEY, so record both sides' shapes and keys.
-    nav_months = pd.to_datetime(nav.get("valuation_date"), errors="coerce") \
-        .dt.to_period("M").astype(str) if "valuation_date" in nav.columns \
+    # use the same helper the join uses, or the diagnostic lies in the same
+    # way the join did: nav_month_max came back as the STRING "NaT", which
+    # sorts after every digit
+    nav_months = V._month(nav["valuation_date"]) if "valuation_date" in nav.columns \
         else pd.Series(dtype=str)
     pan_t = (panel["security_id"].astype(str).str.replace("^ASX:", "", regex=True)
              if "security_id" in panel.columns else pd.Series(dtype=str))
@@ -579,6 +581,16 @@ def run_validate(limit: int = 0) -> dict:
         "ticker_overlap": int(len(set(nav.get("ticker", pd.Series(dtype=str))
                                       .astype(str).str.upper())
                                   & set(pan_t.str.upper()))),
+        "nav_rows_with_value": int(nav["nav_per_share"].notna().sum())
+                               if "nav_per_share" in nav.columns else 0,
+        # the actual keys, verbatim and un-normalised: every empty-join
+        # diagnosis so far has been guesswork because these were missing
+        "nav_key_sample": [f"{a}|{b}" for a, b in zip(
+            nav.get("ticker", pd.Series(dtype=str)).astype(str).head(5),
+            nav_months.head(5).astype(str))],
+        "panel_key_sample": [f"{a}|{b}" for a, b in zip(
+            pan_t.head(5), panel["obs_month"].astype(str).head(5))]
+            if "obs_month" in panel.columns else [],
     }
     Path("reports/build").mkdir(parents=True, exist_ok=True)
     Path("reports/build/asx_nta_validation.json").write_text(

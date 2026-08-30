@@ -6,6 +6,7 @@ from __future__ import annotations
 import sys
 
 import pandas as pd
+import pytest
 
 sys.path.insert(0, "src")
 
@@ -135,3 +136,19 @@ def test_undated_navs_do_not_become_a_month_called_NaT():
     assert keys.tolist()[0] == "2021-03"
     assert keys.isna().sum() == 2
     assert "NaT" not in set(keys.dropna())
+
+
+@pytest.mark.parametrize("security_id", ["ASX:AFI", "asx:afi", "AFI", "Asx:Afi"])
+def test_the_join_key_is_normalised_on_both_sides(security_id):
+    """The extracted side was upper-cased and the panel side was not.
+
+    Any case difference made every key miss - and the diagnostic, which
+    upper-cased both before comparing, cheerfully reported a 147-of-147
+    ticker overlap that the join itself could never see. A diagnostic that
+    normalises differently from the code it is diagnosing is worse than none.
+    """
+    ex = pd.DataFrame([{"ticker": "AFI", "valuation_date": "2021-03-31",
+                        "nav_per_share": 6.12}])
+    pan = pd.DataFrame([{"security_id": security_id, "obs_month": "2021-03",
+                         "nta_price": 6.12}])
+    assert len(V.compare(ex, pan)) == 1, f"{security_id} failed to join"
