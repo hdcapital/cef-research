@@ -1,59 +1,60 @@
-ticker,label,unit,months_supporting,months_clean,first_month,last_month,is_rule
-ACQ,capital sirca microcap acc index companies universe asx,cents,1,1,2025-03,2025-03,False
-AIQ,cents per unit closing aud usd cents per unit,dollars,1,1,2025-01,2025-01,False
-ALI,nta per share nta per share,dollars,1,1,2024-09,2024-09,False
-AMH,share as at pre tax nta per share,dollars,2,2,2024-09,2026-01,False
-AMH,pre tax nta per share,dollars,2,2,2024-09,2026-01,False
-ARG,and approximate pre tax nta per share,dollars,3,3,2025-09,2026-05,True
-ARG,j uly j uly pre tax nta per share,dollars,1,1,2025-07,2025-07,False
-ARG,nta per share nta per share,dollars,1,1,2024-09,2024-09,False
-CD3,as at was per unit was,dollars,1,1,2025-07,2025-07,False
-DJW,share as at pre tax nta per share,dollars,2,2,2025-03,2025-09,False
-DJW,pre tax nta per share,dollars,2,2,2025-03,2025-09,False
-DJW,as at before tax after tax,dollars,1,1,2025-03,2025-03,False
-DN1,per unit of the dominion income trust was,dollars,1,1,2025-07,2025-07,False
-FGX,s p asx all ordinaries accumulation index by cents,cents,1,1,2026-06,2026-06,False
-FGX,month end share price research ratings portfolio performance m,dollars,1,1,2026-06,2026-06,False
-FGX,in line with the s p asx all ordinaries,cents,1,1,2026-02,2026-02,False
-GCI,on nta per unit as at,dollars,11,11,2024-10,2026-06,True
-GCI,macquarie tower farrer place sydney nsw p f,dollars,3,3,2024-09,2025-02,True
-GCI,governor macquarie tower farrer place sydney nsw p,dollars,3,3,2024-09,2025-02,True
-GCI,on nta per unit as at mach,dollars,1,1,2026-03,2026-03,False
-GCI,rate distribution cap unit m distribution nta unit m,dollars,1,1,2025-09,2025-09,False
-GVF,share staude capital global value nta before tax,dollars,1,1,2025-02,2025-02,False
-HM1,pre tax nta post current tax nta,dollars,1,1,2025-08,2025-08,False
-KKC,time current nta estimate previous nta estimate,dollars,1,1,2024-10,2024-10,False
-KKC,previous nta estimate,dollars,1,1,2024-10,2024-10,False
-LF1,fund was as follows nta per unit,dollars,3,3,2025-12,2026-06,True
-LF1,nta per unit,dollars,3,3,2025-12,2026-06,True
-LRT,unit of the trust as at was,dollars,2,2,2025-11,2026-05,False
-LSF,ordinary share nta before tax nta after tax,dollars,2,2,2025-01,2025-02,False
-LSF,nta after tax,dollars,2,2,2025-01,2025-02,False
-LSF,per ordinary share f f nta before tax,dollars,1,1,2025-12,2025-12,False
-MEC,noted below dollars per share estimated nta pre tax,dollars,1,1,2026-02,2026-02,False
-MFF,weekly nta per share as at was,dollars,2,2,2024-08,2025-11,False
-MFF,monthly nta per share as at was,dollars,1,1,2025-11,2025-11,False
-MIR,share as at pre tax nta per share,dollars,1,1,2025-11,2025-11,False
-MIR,pre tax nta per share,dollars,1,1,2025-11,2025-11,False
-MOT,is as follows value date nta per unit,dollars,15,15,2024-07,2026-04,True
-MXT,is as follows value date nta per unit,dollars,12,12,2024-07,2026-06,True
-MXT,limited level exchange centre bridge street sydney nsw,dollars,3,3,2024-09,2025-12,True
-OPH,prior value date nav per unit month end,dollars,2,2,2025-08,2026-05,False
-OPH,is as follows value date nav per unit,dollars,1,1,2024-10,2024-10,False
-PAI,pre tax nta per share as at was,dollars,1,1,2024-10,2024-10,False
-PIC,was nta per ordinary share nta before tax,dollars,2,2,2025-07,2026-03,False
-PIC,nta before tax,dollars,2,2,2025-07,2026-03,False
-PIC,ordinary share nta before tax nta after tax,dollars,1,1,2026-03,2026-03,False
-PIC,nta after tax,dollars,1,1,2026-03,2026-03,False
-PL8,as at nta per share pre tax nta,dollars,1,1,2024-09,2024-09,False
-REV,is as follows value date nta per unit,dollars,4,4,2026-01,2026-06,True
-REV,please contact revolution private credit income trust on,dollars,3,3,2026-02,2026-06,True
-RF1,nav per unit of regal investment fund was,dollars,2,2,2024-09,2026-05,False
-RG8,ordinary share for regal asian investments limited was,dollars,2,2,2026-01,2026-02,False
-RG8,applicable fees and charges the nta value of,dollars,1,1,2026-02,2026-02,False
-SB2,post tax nta share price discount to nta,dollars,1,1,2024-12,2024-12,False
-TCF,as follows value date nav per unit,dollars,3,3,2025-09,2026-04,True
-TCF,unit price unit nav unit price unit nav,dollars,3,3,2025-03,2025-05,True
-TCF,price unit nav commercial unit price unit nav,dollars,1,1,2025-08,2025-08,False
-TVL,m total nav nta per share a m,dollars,1,1,2025-02,2025-02,False
-TVL,nta a m a m nta per share,dollars,1,1,2025-02,2025-02,False
+ticker,label,unit,months_supporting,months_clean,first_month,last_month,has_nav_vocab,is_rule
+ACQ,capital sirca microcap acc index companies universe asx,cents,1,1,2025-03,2025-03,False,False
+AIQ,cents per unit closing aud usd cents per unit,dollars,1,1,2025-01,2025-01,False,False
+ALI,nta per share nta per share,dollars,1,1,2024-09,2024-09,True,False
+AMH,pre tax nta per share,dollars,2,2,2024-09,2026-01,True,False
+AMH,share as at pre tax nta per share,dollars,2,2,2024-09,2026-01,True,False
+ARG,and approximate pre tax nta per share,dollars,3,3,2025-09,2026-05,True,True
+ARG,j uly j uly pre tax nta per share,dollars,1,1,2025-07,2025-07,True,False
+ARG,nta per share nta per share,dollars,1,1,2024-09,2024-09,True,False
+CD2,ylno esu lanosrep rof cd quarterly nta movement,dollars,1,1,2025-08,2025-08,True,False
+CD3,as at was per unit was,dollars,1,1,2025-07,2025-07,False,False
+DJW,pre tax nta per share,dollars,2,2,2025-03,2025-09,True,False
+DJW,share as at pre tax nta per share,dollars,2,2,2025-03,2025-09,True,False
+DJW,as at before tax after tax,dollars,1,1,2025-03,2025-03,False,False
+DN1,per unit of the dominion income trust was,dollars,1,1,2025-07,2025-07,False,False
+FGX,month end share price research ratings portfolio performance m,dollars,1,1,2026-06,2026-06,False,False
+FGX,s p asx all ordinaries accumulation index by cents,cents,1,1,2026-06,2026-06,False,False
+FGX,in line with the s p asx all ordinaries,cents,1,1,2026-02,2026-02,False,False
+GCI,on nta per unit as at,dollars,11,11,2024-10,2026-06,True,True
+GCI,macquarie tower farrer place sydney nsw p f,dollars,3,3,2024-09,2025-02,False,False
+GCI,governor macquarie tower farrer place sydney nsw p,dollars,3,3,2024-09,2025-02,False,False
+GCI,on nta per unit as at mach,dollars,1,1,2026-03,2026-03,True,False
+GCI,rate distribution cap unit m distribution nta unit m,dollars,1,1,2025-09,2025-09,True,False
+GVF,share staude capital global value nta before tax,dollars,1,1,2025-02,2025-02,True,False
+HM1,pre tax nta post current tax nta,dollars,1,1,2025-08,2025-08,True,False
+KKC,time current nta estimate previous nta estimate,dollars,1,1,2024-10,2024-10,True,False
+KKC,previous nta estimate,dollars,1,1,2024-10,2024-10,True,False
+LF1,fund was as follows nta per unit,dollars,3,3,2025-12,2026-06,True,True
+LF1,nta per unit,dollars,3,3,2025-12,2026-06,True,True
+LRT,unit of the trust as at was,dollars,2,2,2025-11,2026-05,False,False
+LSF,nta after tax,dollars,2,2,2025-01,2025-02,True,False
+LSF,ordinary share nta before tax nta after tax,dollars,2,2,2025-01,2025-02,True,False
+LSF,per ordinary share f f nta before tax,dollars,1,1,2025-12,2025-12,True,False
+MEC,noted below dollars per share estimated nta pre tax,dollars,1,1,2026-02,2026-02,True,False
+MFF,weekly nta per share as at was,dollars,2,2,2024-08,2025-11,True,False
+MFF,monthly nta per share as at was,dollars,1,1,2025-11,2025-11,True,False
+MIR,pre tax nta per share,dollars,1,1,2025-11,2025-11,True,False
+MIR,share as at pre tax nta per share,dollars,1,1,2025-11,2025-11,True,False
+MOT,is as follows value date nta per unit,dollars,15,15,2024-07,2026-04,True,True
+MXT,is as follows value date nta per unit,dollars,12,12,2024-07,2026-06,True,True
+MXT,limited level exchange centre bridge street sydney nsw,dollars,3,3,2024-09,2025-12,False,False
+OPH,prior value date nav per unit month end,dollars,2,2,2025-08,2026-05,True,False
+OPH,is as follows value date nav per unit,dollars,1,1,2024-10,2024-10,True,False
+PAI,pre tax nta per share as at was,dollars,1,1,2024-10,2024-10,True,False
+PIC,was nta per ordinary share nta before tax,dollars,2,2,2025-07,2026-03,True,False
+PIC,nta before tax,dollars,2,2,2025-07,2026-03,True,False
+PIC,nta after tax,dollars,1,1,2026-03,2026-03,True,False
+PIC,ordinary share nta before tax nta after tax,dollars,1,1,2026-03,2026-03,True,False
+PL8,as at nta per share pre tax nta,dollars,1,1,2024-09,2024-09,True,False
+REV,is as follows value date nta per unit,dollars,4,4,2026-01,2026-06,True,True
+REV,please contact revolution private credit income trust on,dollars,3,3,2026-02,2026-06,False,False
+RF1,nav per unit of regal investment fund was,dollars,2,2,2024-09,2026-05,True,False
+RG8,ordinary share for regal asian investments limited was,dollars,2,2,2026-01,2026-02,False,False
+RG8,applicable fees and charges the nta value of,dollars,1,1,2026-02,2026-02,True,False
+SB2,post tax nta share price discount to nta,dollars,1,1,2024-12,2024-12,True,False
+TCF,as follows value date nav per unit,dollars,3,3,2025-09,2026-04,True,True
+TCF,unit price unit nav unit price unit nav,dollars,3,3,2025-03,2025-05,True,True
+TCF,price unit nav commercial unit price unit nav,dollars,1,1,2025-08,2025-08,True,False
+TVL,nta a m a m nta per share,dollars,1,1,2025-02,2025-02,True,False
+TVL,m total nav nta per share a m,dollars,1,1,2025-02,2025-02,True,False

@@ -2,13 +2,13 @@
   "documents": 1082,
   "no_pdf": 0,
   "unreadable": 0,
-  "with_evidence": 204,
-  "no_label_matched": 878,
+  "with_evidence": 1082,
+  "no_label_matched": 0,
   "fund_months_with_truth": 2076,
-  "observations": 244,
-  "funds_with_evidence": 49,
-  "labels_seen": 58,
-  "labels_promoted_to_rules": 13,
+  "observations": 1122,
+  "funds_with_evidence": 92,
+  "labels_seen": 59,
+  "labels_promoted_to_rules": 9,
   "funds_covered_by_a_rule": 7,
   "holdout_funds": 32,
   "learn_funds": 60,
@@ -21,6 +21,7 @@
       "months_clean": 3,
       "first_month": "2025-09",
       "last_month": "2026-05",
+      "has_nav_vocab": true,
       "is_rule": true
     },
     {
@@ -31,26 +32,7 @@
       "months_clean": 11,
       "first_month": "2024-10",
       "last_month": "2026-06",
-      "is_rule": true
-    },
-    {
-      "ticker": "GCI",
-      "label": "macquarie tower farrer place sydney nsw p f",
-      "unit": "dollars",
-      "months_supporting": 3,
-      "months_clean": 3,
-      "first_month": "2024-09",
-      "last_month": "2025-02",
-      "is_rule": true
-    },
-    {
-      "ticker": "GCI",
-      "label": "governor macquarie tower farrer place sydney nsw p",
-      "unit": "dollars",
-      "months_supporting": 3,
-      "months_clean": 3,
-      "first_month": "2024-09",
-      "last_month": "2025-02",
+      "has_nav_vocab": true,
       "is_rule": true
     },
     {
@@ -61,6 +43,7 @@
       "months_clean": 3,
       "first_month": "2025-12",
       "last_month": "2026-06",
+      "has_nav_vocab": true,
       "is_rule": true
     },
     {
@@ -71,6 +54,7 @@
       "months_clean": 3,
       "first_month": "2025-12",
       "last_month": "2026-06",
+      "has_nav_vocab": true,
       "is_rule": true
     },
     {
@@ -81,6 +65,7 @@
       "months_clean": 15,
       "first_month": "2024-07",
       "last_month": "2026-04",
+      "has_nav_vocab": true,
       "is_rule": true
     },
     {
@@ -91,16 +76,7 @@
       "months_clean": 12,
       "first_month": "2024-07",
       "last_month": "2026-06",
-      "is_rule": true
-    },
-    {
-      "ticker": "MXT",
-      "label": "limited level exchange centre bridge street sydney nsw",
-      "unit": "dollars",
-      "months_supporting": 3,
-      "months_clean": 3,
-      "first_month": "2024-09",
-      "last_month": "2025-12",
+      "has_nav_vocab": true,
       "is_rule": true
     },
     {
@@ -111,16 +87,7 @@
       "months_clean": 4,
       "first_month": "2026-01",
       "last_month": "2026-06",
-      "is_rule": true
-    },
-    {
-      "ticker": "REV",
-      "label": "please contact revolution private credit income trust on",
-      "unit": "dollars",
-      "months_supporting": 3,
-      "months_clean": 3,
-      "first_month": "2026-02",
-      "last_month": "2026-06",
+      "has_nav_vocab": true,
       "is_rule": true
     },
     {
@@ -131,6 +98,7 @@
       "months_clean": 3,
       "first_month": "2025-09",
       "last_month": "2026-04",
+      "has_nav_vocab": true,
       "is_rule": true
     },
     {
@@ -141,6 +109,7 @@
       "months_clean": 3,
       "first_month": "2025-03",
       "last_month": "2025-05",
+      "has_nav_vocab": true,
       "is_rule": true
     }
   ],
