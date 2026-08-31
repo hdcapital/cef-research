@@ -1,0 +1,208 @@
+{
+  "summary": {
+    "UK": {
+      "universe": {
+        "registry_total": 944,
+        "registry_labelled_live": 281,
+        "liveness_adjusted_live": 309,
+        "research_eligible": 586,
+        "monitoring_eligible": 239,
+        "excluded": 705
+      },
+      "prices": {
+        "fresh": 144,
+        "fresh_pct": 60.3,
+        "stale": 0,
+        "stale_pct": 0.0,
+        "fallback_historical_panel": 24,
+        "fallback_pct": 10.0,
+        "no_price": 71,
+        "no_price_pct": 29.7,
+        "unresolved_ticker": 0
+      },
+      "nav": {
+        "fresh_published": 106,
+        "fresh_published_pct": 44.4,
+        "modelled_rolled_forward": 51,
+        "modelled_rolled_forward_pct": 21.3,
+        "stale": 34,
+        "stale_pct": 14.2,
+        "no_usable_nav": 71,
+        "no_usable_nav_pct": 29.7,
+        "announcement_held_but_unparsed": 33,
+        "announcement_held_but_unparsed_pct": 13.8,
+        "parser_failure_recorded": 33,
+        "parser_failure_recorded_pct": 13.8
+      },
+      "signal": {
+        "usable_price": 144,
+        "usable_price_pct": 60.3,
+        "usable_nav": 138,
+        "usable_nav_pct": 57.7,
+        "normalised_units": 166,
+        "valid_discount": 132,
+        "valid_discount_pct": 55.2,
+        "zscore_history": 155,
+        "zscore_history_pct": 64.9,
+        "signal_ready": 99,
+        "signal_ready_pct": 41.4
+      },
+      "status": {
+        "GREEN": 99,
+        "AMBER": 33,
+        "RED": 107
+      },
+      "excluded_by_reason": {
+        "not_live:delisted": 340,
+        "vct_excluded_by_research_policy": 235,
+        "split_capital_excluded_by_research_policy|non_ordinary_share_class": 68,
+        "non_ordinary_share_class": 26,
+        "non_sterling_quote": 18,
+        "split_capital_excluded_by_research_policy": 8,
+        "not_live:delist_candidate": 7,
+        "vct_excluded_by_research_policy|non_ordinary_share_class": 3
+      }
+    },
+    "ASX": {
+      "universe": {
+        "registry_total": 172,
+        "registry_labelled_live": 95,
+        "liveness_adjusted_live": 112,
+        "research_eligible": 168,
+        "monitoring_eligible": 108,
+        "excluded": 64
+      },
+      "prices": {
+        "fresh": 98,
+        "fresh_pct": 90.7,
+        "stale": 0,
+        "stale_pct": 0.0,
+        "fallback_historical_panel": 9,
+        "fallback_pct": 8.3,
+        "no_price": 1,
+        "no_price_pct": 0.9,
+        "unresolved_ticker": 0
+      },
+      "nav": {
+        "fresh_published": 6,
+        "fresh_published_pct": 5.6,
+        "modelled_rolled_forward": 82,
+        "modelled_rolled_forward_pct": 75.9,
+        "stale": 101,
+        "stale_pct": 93.5,
+        "no_usable_nav": 1,
+        "no_usable_nav_pct": 0.9,
+        "announcement_held_but_unparsed": 100,
+        "announcement_held_but_unparsed_pct": 92.6,
+        "parser_failure_recorded": 0,
+        "parser_failure_recorded_pct": 0.0
+      },
+      "signal": {
+        "usable_price": 98,
+        "usable_price_pct": 90.7,
+        "usable_nav": 89,
+        "usable_nav_pct": 82.4,
+        "normalised_units": 103,
+        "valid_discount": 89,
+        "valid_discount_pct": 82.4,
+        "zscore_history": 91,
+        "zscore_history_pct": 84.3,
+        "signal_ready": 5,
+        "signal_ready_pct": 4.6
+      },
+      "status": {
+        "GREEN": 5,
+        "AMBER": 84,
+        "RED": 19
+      },
+      "excluded_by_reason": {
+        "not_live:delisted": 58,
+        "benchmark_index_not_a_fund": 4,
+        "not_live:delist_candidate": 2
+      }
+    },
+    "COMBINED": {
+      "universe": {
+        "registry_total": 1116,
+        "registry_labelled_live": 376,
+        "liveness_adjusted_live": 421,
+        "research_eligible": 754,
+        "monitoring_eligible": 347,
+        "excluded": 769
+      },
+      "prices": {
+        "fresh": 242,
+        "fresh_pct": 69.7,
+        "stale": 0,
+        "stale_pct": 0.0,
+        "fallback_historical_panel": 33,
+        "fallback_pct": 9.5,
+        "no_price": 72,
+        "no_price_pct": 20.7,
+        "unresolved_ticker": 0
+      },
+      "nav": {
+        "fresh_published": 112,
+        "fresh_published_pct": 32.3,
+        "modelled_rolled_forward": 133,
+        "modelled_rolled_forward_pct": 38.3,
+        "stale": 135,
+        "stale_pct": 38.9,
+        "no_usable_nav": 72,
+        "no_usable_nav_pct": 20.7,
+        "announcement_held_but_unparsed": 133,
+        "announcement_held_but_unparsed_pct": 38.3,
+        "parser_failure_recorded": 33,
+        "parser_failure_recorded_pct": 9.5
+      },
+      "signal": {
+        "usable_price": 242,
+        "usable_price_pct": 69.7,
+        "usable_nav": 227,
+        "usable_nav_pct": 65.4,
+        "normalised_units": 269,
+        "valid_discount": 221,
+        "valid_discount_pct": 63.7,
+        "zscore_history": 246,
+        "zscore_history_pct": 70.9,
+        "signal_ready": 104,
+        "signal_ready_pct": 30.0
+      },
+      "status": {
+        "GREEN": 104,
+        "AMBER": 117,
+        "RED": 126
+      },
+      "excluded_by_reason": {
+        "not_live:delisted": 398,
+        "vct_excluded_by_research_policy": 235,
+        "split_capital_excluded_by_research_policy|non_ordinary_share_class": 68,
+        "non_ordinary_share_class": 26,
+        "non_sterling_quote": 18,
+        "not_live:delist_candidate": 9,
+        "split_capital_excluded_by_research_policy": 8,
+        "benchmark_index_not_a_fund": 4,
+        "vct_excluded_by_research_policy|non_ordinary_share_class": 3
+      }
+    }
+  },
+  "meta": {
+    "generated_at": "2026-08-31T05:57:29+00:00",
+    "as_of": "2026-08-31",
+    "thresholds": {
+      "price": {
+        "fresh_days": 5,
+        "stale_days": 30
+      },
+      "nav": {
+        "fresh_days": 35,
+        "amber_days": 120
+      },
+      "zscore": {
+        "min_months": 24
+      }
+    },
+    "live_table_rows": 641,
+    "registry_rows": 1116
+  }
+}

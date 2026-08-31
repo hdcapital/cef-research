@@ -41,6 +41,59 @@ Solar's Frankfurt line ahead of London. A wrong ticker staples another
 company's share price onto this fund's NAV, so an unverifiable candidate is
 recorded `unresolved` rather than accepted.
 
+## Live coverage audit (on demand)
+
+```bash
+python -m cef_live.coverage_audit            # audit stored data
+python -m cef_live.coverage_audit --refresh  # refresh first, then audit
+```
+
+Manual only - no cron, no nightly hook, no push trigger. The workflow
+`.github/workflows/live-coverage-audit.yml` is `workflow_dispatch`-only and
+a test fails if a schedule is ever added to it.
+
+Outputs: `outputs/live_coverage/` (CSV, XLSX, Markdown, JSON).
+
+Read it top-down:
+
+1. **Denominators** - `registry_total` -> `registry_labelled_live` ->
+   `liveness_adjusted_live` -> `research_eligible` -> `monitoring_eligible`.
+   Every percentage below is over `monitoring_eligible`.
+2. **Per-market coverage** - price freshness, NAV provenance, and the
+   conjunction that matters: `signal_ready`.
+3. **Why coverage is missing** - the ranked failure table, and
+   `coverage_failures.csv` for the fund-level work list with a recommended
+   fix on every row.
+
+Verdicts: GREEN = signal-ready; AMBER = monitorable with a stated
+qualification; RED = no reliable live signal; EXCLUDED = outside the
+monitoring universe, with the reason kept.
+
+What it will not do: rescale a suspicious number, fill a missing
+observation, call a historical panel price current, or report an unparsed
+NAV announcement as "no NAV published". Those distinctions are the report.
+
+### Liveness is persisted
+
+`python -m cef_live.cli universe` now writes the evidence-based status back
+to `data/universe/registry.parquet`. It previously computed it, printed a
+summary, and discarded it - so every downstream reader used the
+aggregator's status instead. Both are kept: `status` (evidence) and
+`aggregator_status` (the file's view), plus `live_status_source`.
+
+`live_stale_nav` is ALIVE. It means "trading, but no NAV fresh enough to
+carry a discount" - a data-coverage statement, not a listing one. Any
+filter written as `status == "live"` drops those funds from the priced
+universe; use `liveness.LIVE_STATUSES` / `TRACKED_STATUSES`.
+
+### Canonical units
+
+`src/cef_live/units.py` states them once: UK NAV and price are both **GBX
+(pence)**; AU NAV and price are both **AUD (dollars)**. Conversions are
+explicit and only applied when the source unit is stated. A UK NAV read as
+pounds and divided into a pence share price is the bug that produced
+premiums of 80x-5,000x; the fix is at the reader, never at the output.
+
 ## Schedules
 
 | Job | When | Purpose |

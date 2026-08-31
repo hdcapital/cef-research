@@ -332,7 +332,11 @@ def resolve(registry: pd.DataFrame, budget: int = 400) -> pd.DataFrame:
     # only skip funds already VERIFIED; unresolved ones are retried
     known = set(cache.loc[cache["status"] == "verified", "security_id"])
 
-    need = registry[(registry["status"] == "live")
+    # every ALIVE fund needs a ticker, `live_stale_nav` included - that
+    # status means "trading, NAV not fresh", and an unresolved ticker is one
+    # of the reasons its NAV is not fresh
+    from .liveness import LIVE_STATUSES
+    need = registry[registry["status"].isin(LIVE_STATUSES)
                     & (registry["market"] == "UK")
                     & (~registry["security_id"].isin(known))]
     if not len(need):

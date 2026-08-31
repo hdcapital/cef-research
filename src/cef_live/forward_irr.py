@@ -24,6 +24,14 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
+# Each market's panel names its NAV/NTA total-return CAGR columns
+# differently, and each market's history belongs only to its own funds.
+# Running the UK panel against the combined live table gave every ASX LIC a
+# NaN growth input - so no IRR, so gate 3 could never pass in Australia -
+# while looking like a single tidy call.
+CAGR_COLS = {"UK": ("nav_tr_cagr_5y", "nav_tr_cagr_3y"),
+             "AU": ("nta_tr_cagr_5y", "nta_tr_cagr_3y")}
+
 
 def _irr(price: float, nav0: float, g: float, d_now: float, d_term: float,
          dist_yield: float, years: int = 5) -> float | None:
@@ -121,3 +129,26 @@ def build(live: pd.DataFrame, panel_hist: pd.DataFrame, params: dict,
             rec["irr_central"] = rec["irr_own_median"]
         rows.append(rec)
     return pd.DataFrame(rows)
+
+
+def build_by_market(live: pd.DataFrame, panels: dict[str, pd.DataFrame],
+                    params: dict) -> pd.DataFrame:
+    """Forward IRR per fund, each market against ITS OWN panel.
+
+    panels: {market: monthly panel}. A market with no panel gets no IRR
+    rows - absence, never another market's numbers.
+    """
+    out = []
+    for mkt, panel in (panels or {}).items():
+        if panel is None or not len(panel):
+            continue
+        sub = live[live["market"] == mkt] if "market" in live.columns else live
+        if not len(sub):
+            continue
+        c5, c3 = CAGR_COLS.get(mkt, ("nav_tr_cagr_5y", "nav_tr_cagr_3y"))
+        if "discount" not in panel.columns:
+            continue
+        out.append(build(sub, panel, params, nav_cagr_col=c5, nav_cagr_3y=c3))
+    if not out:
+        return pd.DataFrame(columns=["security_id", "irr_central"])
+    return pd.concat(out, ignore_index=True)

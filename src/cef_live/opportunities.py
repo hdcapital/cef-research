@@ -33,8 +33,16 @@ def universe_trailing_tr(hist: pd.DataFrame, years: int = 5) -> float | None:
     Computed from the panel rather than hard-coded so the hurdle tracks the
     regime. Returns None when the panel cannot support it; the caller then
     has no gate 3 rather than a guessed one.
+
+    ONE MARKET AT A TIME. Passing a combined frame would compare an
+    Australian LIC against a UK hurdle; callers pass each market's own
+    panel and get that market's own hurdle (see cli._hurdle_by_market).
+    The AU panel names its CAGR columns ``nta_tr_cagr_*`` and the UK one
+    ``nav_tr_cagr_*``; both are recognised, because looking for only the UK
+    spelling returned None for AU and silently disabled gate 3 there.
     """
-    for col in ("nav_tr_cagr_5y", "nav_tr_cagr_3y"):
+    for col in ("nav_tr_cagr_5y", "nav_tr_cagr_3y",
+                "nta_tr_cagr_5y", "nta_tr_cagr_3y"):
         if col in hist.columns:
             v = hist.sort_values("obs_month").groupby("security_id")[col].last()
             v = v.dropna()
@@ -45,18 +53,37 @@ def universe_trailing_tr(hist: pd.DataFrame, years: int = 5) -> float | None:
 
 def evaluate(live: pd.DataFrame, cats: pd.DataFrame | None,
              irr: pd.DataFrame | None, params: dict,
-             hurdle_base: float | None,
+             hurdle_base: float | dict | None,
              catalyst_window_days: int = 30) -> pd.DataFrame:
-    """One row per fund with a live catalyst OR a qualifying dislocation."""
+    """One row per fund with a live catalyst OR a qualifying dislocation.
+
+    hurdle_base: a single trailing-universe return, or a {market: return}
+    mapping so each market is judged against its own universe. A UK number
+    applied to Australian funds is not a hurdle, it is a different market's
+    hurdle.
+    """
     op = params["opportunity"]
     z_thr = float(op["z_threshold"])
     max_stale = int(op["max_staleness_days"])
     max_basis = int(op["max_basis"])
     excess = float(op["irr_hurdle_excess_pp"]) / 100.0
     need_watch = int(op["watch_gates_required"])
-    hurdle = None if hurdle_base is None else hurdle_base + excess
+
+    def _hurdle_for(mkt) -> float | None:
+        base = hurdle_base.get(mkt) if isinstance(hurdle_base, dict) else hurdle_base
+        return None if base is None else float(base) + excess
 
     df = live.copy()
+    # A vehicle the research policy excludes cannot produce an idea. The
+    # research that justifies acting on a discount z-score was run on a
+    # population without VCTs, split-capital classes or non-sterling lines,
+    # so a verdict on one of those has nothing behind it. Excluded rows are
+    # dropped from SCORING, never from the live table they came from.
+    if "research_eligible" in df.columns:
+        n_before = len(df)
+        df = df[df["research_eligible"].fillna(True).astype(bool)]
+        if len(df) < n_before:
+            print(f"research-eligibility filter: {n_before} -> {len(df)} scored")
     if irr is not None and len(irr):
         df = df.merge(irr, on="security_id", how="left")
     else:
@@ -85,6 +112,7 @@ def evaluate(live: pd.DataFrame, cats: pd.DataFrame | None,
                   and pd.notna(basis) and basis <= max_basis)
         g2 = bool(pd.notna(getattr(r, "catalyst_class", np.nan)))
         irr_v = getattr(r, "irr_central", np.nan)
+        hurdle = _hurdle_for(getattr(r, "market", None))
         g3 = bool(hurdle is not None and pd.notna(irr_v) and irr_v >= hurdle)
 
         passed = int(g1) + int(g2) + int(g3)

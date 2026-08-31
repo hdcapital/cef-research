@@ -26,6 +26,7 @@ import numpy as np
 import pandas as pd
 
 from . import factors as F
+from . import units as U
 
 
 def _busdays_since(anchor: pd.Timestamp, today: date) -> int:
@@ -110,7 +111,8 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
 
     reg_meta = {}
     if registry is not None and len(registry):
-        cols = [c for c in ("name", "sector", "currency", "is_vct")
+        cols = [c for c in ("name", "sector", "currency", "is_vct",
+                            "research_eligible", "status", "isin")
                 if c in registry.columns]
         reg_meta = {str(r["security_id"]): {c: r[c] for c in cols}
                     for _, r in registry.iterrows()}
@@ -122,6 +124,10 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
         anchor_val = anchor_date = None
         anchor_source = None
         basis = None
+        # every NAV source states the unit it is in; the canonical one for
+        # the market is the default, and units.normalise does any conversion
+        # explicitly rather than by convention
+        nav_unit = U.CANONICAL_UNIT.get(market, "")
         last = g.iloc[-1] if len(g) else None
 
         # 3. aggregator LAST, and named so its use is countable
@@ -136,7 +142,10 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
             if len(o):
                 o = o.sort_values("nav_date").iloc[-1]
                 if anchor_date is None or pd.Timestamp(o["nav_date"]) > anchor_date:
-                    anchor_val = float(o["nav_value"])
+                    val, unit, _note = U.normalise(
+                        market, o["nav_value"], o.get("nav_unit"))
+                    anchor_val = float(val)
+                    nav_unit = unit
                     anchor_date = pd.Timestamp(o["nav_date"])
                     anchor_source = f"own_nav_history:{o['nav_date'].date()}"
 
@@ -146,23 +155,36 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
             if len(t0):
                 t0 = t0.sort_values("nav_date").iloc[-1]
                 if anchor_date is None or pd.Timestamp(t0["nav_date"]) >= anchor_date:
-                    anchor_val = float(t0["nav_value"])
+                    # harvest_au already reduces cents to dollars and records
+                    # `unit`; harvest_uk returns pence. Either way the unit is
+                    # stated, converted here if needed, and carried on the row.
+                    val, unit, _note = U.normalise(
+                        market, t0["nav_value"],
+                        t0["unit"] if "unit" in t0.index else None)
+                    anchor_val = float(val)
+                    nav_unit = unit
                     anchor_date = pd.Timestamp(t0["nav_date"])
                     anchor_source = str(t0["source"])
                     basis = 0
 
-        if anchor_val is None or anchor_date is None:
-            continue          # no NAV from any source - absent, and visibly so
+        # A fund with NO NAV from any source used to be dropped here. That
+        # hid it twice over: it left the table with no row, so its FETCHED
+        # PRICE was thrown away too, and "we hold no NAV for this fund"
+        # became indistinguishable from "this fund does not exist". The row
+        # is now kept with the NAV fields empty - absence recorded, never
+        # filled - which is what makes the coverage denominator honest.
+        has_nav = anchor_val is not None and anchor_date is not None
 
-        staleness = max(0, _busdays_since(anchor_date, today))
+        staleness = (max(0, _busdays_since(anchor_date, today)) if has_nav
+                     else np.nan)
         m = models.loc[sid] if sid in models.index else None
         has_model = m is not None and m["betas"] is not None
 
         nta_est = anchor_val
-        est_note = "anchor_carry"
-        if basis is None:
+        est_note = "anchor_carry" if has_nav else "no_nav_from_any_source"
+        if basis is None and has_nav:
             basis = 1 if has_model else 3
-        if basis == 1 and daily_factors is not None and has_model:
+        if has_nav and basis == 1 and daily_factors is not None and has_model:
             fac_cols = m["factors"].split("|")
             betas = m["betas"]
             df = daily_factors[daily_factors.index > anchor_date]
@@ -174,20 +196,40 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
                 est_note = "factor_rollforward"
 
         sigma = float(m["sigma_1m"]) if m is not None and pd.notna(m["sigma_1m"]) else np.nan
-        est_error = sigma * np.sqrt(max(staleness, 1) / live["est_error"]["trading_days_per_month"]) \
-            if pd.notna(sigma) else np.nan
+        est_error = sigma * np.sqrt(
+            max(staleness, 1) / live["est_error"]["trading_days_per_month"]) \
+            if pd.notna(sigma) and has_nav else np.nan
 
         # price: live feed when available (probe-verified adapter), else
-        # the last panel price - the source is always recorded
-        price = float(last[price_col]) if last is not None \
+        # the last panel price - the source is always recorded.
+        #
+        # The panel price is kept in its OWN column even when the live feed
+        # supplies one, so "we fell back to a month-old aggregator print"
+        # is a fact a reader can see rather than infer from a string, and so
+        # a live quote can be sanity-checked against the fund's own history.
+        panel_price = float(last[price_col]) if last is not None \
             and pd.notna(last[price_col]) else np.nan
-        price_asof = f"aggregator_panel" if pd.notna(price) else "none"
+        panel_month = str(last["obs_month"]) if last is not None \
+            and pd.notna(panel_price) else None
+        price = panel_price
+        price_ccy = None
+        price_date = panel_month
+        price_source = "aggregator_panel" if pd.notna(price) else "none"
+        price_is_fallback = bool(pd.notna(price))
+        price_asof = "aggregator_panel" if pd.notna(price) else "none"
         if live_prices is not None and len(live_prices):
             lp = live_prices[live_prices["security_id"] == sid]
             if len(lp):
                 price = float(lp["price"].iloc[0])
-                price_asof = f"{lp['price_source'].iloc[0]}@{lp['price_date'].iloc[0]}"
-        discount_est = price / nta_est - 1.0 if pd.notna(price) and nta_est else np.nan
+                price_source = str(lp["price_source"].iloc[0])
+                price_date = str(lp["price_date"].iloc[0])
+                price_ccy = (str(lp["price_ccy"].iloc[0])
+                             if "price_ccy" in lp.columns
+                             and pd.notna(lp["price_ccy"].iloc[0]) else None)
+                price_is_fallback = False
+                price_asof = f"{price_source}@{price_date}"
+        discount_est = (price / nta_est - 1.0
+                        if pd.notna(price) and has_nav and nta_est else np.nan)
 
         # own-history z on published discounts (validated spec)
         hist = g.tail(zp["window_months"])
@@ -208,6 +250,11 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
                     if pd.notna(est_error) and abs(discount_est - mu) <= \
                             zp["error_sanity_k"] * est_error:
                         z_adj = np.nan
+
+        research_ok = bool(
+            meta["research_eligible"] if "research_eligible" in meta
+            and pd.notna(meta.get("research_eligible"))
+            else (last.get("eligible", True) if last is not None else True))
 
         # vehicle-type flags travel WITH the row rather than removing it:
         # the live universe is deliberately wider than the backtest's, which
@@ -231,27 +278,43 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
                                if last is not None else False)),
             "non_sterling": bool(last.get("non_gbx_quote", False))
                              if last is not None else False,
-            # a registry-only fund has no panel eligibility flag; it is
-            # eligible until something says otherwise, which is the whole
-            # point of moving the universe off the aggregator
-            "research_eligible": bool(last.get("eligible", True))
-                                 if last is not None else True,
-            "nav_anchor": anchor_val, "anchor_date": anchor_date.date().isoformat(),
+            # Research eligibility comes from the REGISTRY's vehicle flags
+            # when they are supplied (eligibility.classify writes them), and
+            # from the panel otherwise. Defaulting a registry-only fund to
+            # True is what let VCTs and ZDP lines - which the research
+            # universe excludes by pre-specified policy - become
+            # alert_eligible: 15 rows, 4 of them VCTs, on the last run.
+            "research_eligible": research_ok,
+            "nav_anchor": anchor_val if has_nav else np.nan,
+            "anchor_date": anchor_date.date().isoformat() if has_nav else None,
             "anchor_source": anchor_source,
-            "nta_est": round(nta_est, 6), "est_note": est_note,
+            "nta_est": round(nta_est, 6) if has_nav else np.nan,
+            "est_note": est_note,
             "basis": basis, "staleness_days": staleness,
+            "has_nav": has_nav,
             "sigma_1m": round(sigma, 6) if pd.notna(sigma) else np.nan,
             "sigma_source": m["sigma_source"] if m is not None else None,
             "est_error": round(est_error, 6) if pd.notna(est_error) else np.nan,
             "price": price, "price_asof": price_asof,
+            "price_source": price_source, "price_date": price_date,
+            "price_ccy": price_ccy,
+            "price_is_fallback": price_is_fallback,
+            "price_panel": panel_price, "price_panel_month": panel_month,
+            "nav_unit": nav_unit,
             "discount_est": round(discount_est, 6) if pd.notna(discount_est) else np.nan,
             "disc_mu_36m": round(mu, 6) if pd.notna(mu) else np.nan,
             "disc_sigma_36m": round(sd, 6) if pd.notna(sd) else np.nan,
             "z_adj": round(z_adj, 4) if pd.notna(z_adj) else np.nan,
+            # A vehicle the research universe excludes may be MONITORED but
+            # must never be alerted on: the discount-z evidence was
+            # established on a population that excluded VCTs, split-capital
+            # classes and non-sterling lines, so a signal on one of those is
+            # a signal with no research behind it.
             "alert_eligible": bool(
                 pd.notna(z_adj)
                 and staleness <= live["staleness"]["max_days_for_alerting"]
-                and basis <= 2),
+                and basis <= 2
+                and research_ok),
             "model_factors": m["factors"] if has_model else None,
             "updated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         })

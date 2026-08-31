@@ -100,7 +100,7 @@ def build(registry: pd.DataFrame, live: pd.DataFrame,
     out_path.parent.mkdir(parents=True, exist_ok=True)
     with pd.ExcelWriter(out_path, engine="openpyxl") as xl:
         sheet.to_excel(xl, sheet_name="Universe", index=False)
-        live_only = sheet[sheet["Listing status"] == "live"] \
+        live_only = sheet[sheet["Listing status"].isin(("live", "live_stale_nav"))] \
             if "Listing status" in sheet.columns else sheet
         live_only.to_excel(xl, sheet_name="Live only", index=False)
         if cats is not None and len(cats):
@@ -126,7 +126,7 @@ def build(registry: pd.DataFrame, live: pd.DataFrame,
 
     summary = {
         "rows": int(len(sheet)),
-        "live": int((sheet["Listing status"] == "live").sum())
+        "live": int(sheet["Listing status"].isin(("live", "live_stale_nav")).sum())
                 if "Listing status" in sheet.columns else None,
         "with_price": int(sheet["Last price"].notna().sum())
                       if "Last price" in sheet.columns else 0,
