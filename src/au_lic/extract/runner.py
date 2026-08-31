@@ -532,7 +532,7 @@ def run_deterministic(limit: int = 0, deadline_min: float = 300.0) -> dict:
                          "payload": json.dumps(f, default=str),
                          **{k: f.get(k) for k in
                             ("section", "valuation_date", "nav_per_share",
-                             "nav_basis", "extractor")}})
+                             "nav_basis", "extractor", "raw_nav_label")}})
         stats["parsed"] += 1
         done.add(rec["announcement_id"])
 
@@ -562,6 +562,133 @@ def run_deterministic(limit: int = 0, deadline_min: float = 300.0) -> dict:
     stats["parse_rate_text_bearing"] = round(stats["parsed"] / readable, 4)
     return stats
 
+
+
+def run_label_discovery(limit: int = 0, deadline_min: float = 300.0) -> dict:
+    """Discover which label carries each fund's NTA, using the exchange.
+
+    Reads only fund-months where we hold BOTH the fund's announcement and the
+    exchange's published NTA, so the right answer is known and the label that
+    carries it can be identified rather than guessed. See
+    au_lic.extract.label_discovery for why this is supervision and not
+    overfitting - the short version is that it learns the label, demands the
+    label repeat across months, and reports its result on funds it never
+    learned from.
+
+    Writes outputs/au/au_nta_label_rules.csv (the auditable rule table) and
+    reports/build/asx_label_discovery.json. It changes no parser: applying a
+    discovered rule is a separate decision, made by a person reading the
+    table.
+    """
+    import boto3
+
+    from . import label_discovery as LD
+
+    panel_p = Path("data/au_processed/au_monthly_panel.parquet")
+    if not panel_p.exists():
+        print("no AU monthly panel - the exchange NTA is the whole point of "
+              "this mode, so there is nothing to learn from")
+        return {"status": "no_panel"}
+    panel = pd.read_parquet(panel_p)
+    if "nta_price" not in panel.columns:
+        print(f"panel has no nta_price column; has {list(panel.columns)[:12]}")
+        return {"status": "panel_has_no_nta"}
+    panel = panel[panel["nta_price"].notna()].copy()
+    panel["ticker"] = (panel["security_id"].astype(str)
+                       .str.replace("^ASX:", "", regex=True).str.upper())
+    panel["month"] = panel["obs_month"].astype(str).str.slice(0, 7)
+    truth = {(r.ticker, r.month): float(r.nta_price)
+             for r in panel.itertuples(index=False)}
+    print(f"exchange NTA available for {len(truth):,} fund-months")
+
+    idx = router.route_index(_load_index_union())
+    idx = idx[idx["family"] == "nta"].copy()
+    idx["announcement_id"] = idx["id"].astype(str)
+    idx["ticker"] = idx["code"].astype(str).str.upper()
+    pub = pd.to_datetime(idx["release_date"], utc=True, errors="coerce")
+    idx["day"] = pub.dt.strftime("%Y-%m-%d")
+    # An NTA announced in April reports MARCH. Joining on the publication
+    # month would look up the wrong month's answer and manufacture
+    # disagreement on every correctly parsed document.
+    idx["val_month"] = (pub - pd.offsets.MonthBegin(1)).dt.strftime("%Y-%m")
+    idx = idx[idx["day"].notna() & idx["val_month"].notna()]
+    idx["k"] = list(zip(idx["ticker"], idx["val_month"]))
+    idx = idx[idx["k"].isin(truth.keys())]
+    if SHARDS > 1:
+        idx = idx[idx["announcement_id"].map(
+            lambda i: zlib.crc32(i.encode()) % SHARDS == SHARD)]
+    idx = idx.sort_values("day", ascending=False)
+    if limit:
+        idx = idx.head(limit)
+    print(f"{len(idx)} announcements have a known answer (shard {SHARD + 1}/{SHARDS})")
+
+    split = LD.holdout_split(sorted(set(idx["ticker"])))
+    s3 = boto3.client("s3", region_name=os.environ.get("AWS_REGION"))
+    obs: list[dict] = []
+    started = time.time()
+    stats = {"documents": 0, "no_pdf": 0, "unreadable": 0,
+             "with_evidence": 0, "no_label_matched": 0}
+    for rec in idx.to_dict("records"):
+        if (time.time() - started) > deadline_min * 60:
+            print("deadline reached - stopping cleanly")
+            break
+        stats["documents"] += 1
+        key = f"asx/announcements/{rec['ticker']}/{rec['day']}_{rec['announcement_id']}.pdf"
+        try:
+            data = s3.get_object(Bucket=BUCKET, Key=key)["Body"].read()
+        except Exception:  # noqa: BLE001
+            stats["no_pdf"] += 1
+            continue
+        try:
+            text, tbl = deterministic.pdf_pages(data)
+        except Exception:  # noqa: BLE001
+            stats["unreadable"] += 1
+            continue
+        found = LD.observe(rec["ticker"], rec["val_month"],
+                           deterministic.normalise_nta_text(text), tbl,
+                           truth[(rec["ticker"], rec["val_month"])])
+        if found:
+            stats["with_evidence"] += 1
+            for f in found:
+                f["split"] = split.get(rec["ticker"], "learn")
+                f["announcement_id"] = rec["announcement_id"]
+            obs.extend(found)
+        else:
+            # the document does not contain the exchange's figure anywhere:
+            # a real disagreement between the two sources, not a parse bug
+            stats["no_label_matched"] += 1
+
+    o = pd.DataFrame(obs)
+    learn = o[o["split"] == "learn"] if len(o) else o
+    rules = LD.discover(learn)
+    Path("outputs/au").mkdir(parents=True, exist_ok=True)
+    tag = "" if SHARDS == 1 else f"_s{SHARD}of{SHARDS}"
+    if len(rules):
+        rules.to_csv(f"outputs/au/au_nta_label_rules{tag}.csv", index=False)
+    if len(o):
+        o.to_csv(f"outputs/au/au_nta_label_evidence{tag}.csv", index=False)
+
+    firm = rules[rules["is_rule"]] if len(rules) else rules
+    out = {**stats,
+           "fund_months_with_truth": len(truth),
+           "observations": int(len(o)),
+           "funds_with_evidence": int(o["ticker"].nunique()) if len(o) else 0,
+           "labels_seen": int(len(rules)),
+           "labels_promoted_to_rules": int(len(firm)),
+           "funds_covered_by_a_rule": int(firm["ticker"].nunique()) if len(firm) else 0,
+           "holdout_funds": sum(1 for v in split.values() if v == "holdout"),
+           "learn_funds": sum(1 for v in split.values() if v == "learn"),
+           "top_rules": (firm.head(20).to_dict("records") if len(firm) else []),
+           "note": ("rules are learned ONLY from the learn split; the holdout "
+                    "funds exist so agreement can be measured without "
+                    "circularity. No parser is changed by this mode."),
+           }
+    Path("reports/build").mkdir(parents=True, exist_ok=True)
+    Path(f"reports/build/asx_label_discovery{tag}.json").write_text(
+        json.dumps(out, indent=2, default=str))
+    print(json.dumps({k: v for k, v in out.items() if k != "top_rules"},
+                     indent=2, default=str))
+    return out
 
 
 def _key_overlap_diag(nav, nav_months, pan_t, panel) -> dict:
@@ -961,7 +1088,8 @@ def main(argv: list[str]) -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("mode", choices=["sync", "submit", "collect", "queue",
                                      "estimate", "compare", "deterministic",
-                                     "prices", "diagnose", "validate"])
+                                     "prices", "diagnose", "validate",
+                                     "labels"])
     ap.add_argument("--limit", type=int, default=10)
     ap.add_argument("--ticker")
     ap.add_argument("--batch-id")
@@ -1001,6 +1129,8 @@ def main(argv: list[str]) -> int:
         return 0
     if a.mode == "deterministic":
         out = run_deterministic(limit=a.limit)
+    elif a.mode == "labels":
+        out = run_label_discovery(limit=a.limit)
         Path("reports/build").mkdir(parents=True, exist_ok=True)
         # per-shard filename: all eight shards wrote the SAME path, so the
         # committed status was whichever shard happened to finish last and
