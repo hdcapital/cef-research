@@ -9,6 +9,12 @@ name: uk-nav-archive
 
 on:
   workflow_dispatch:
+    inputs:
+      mode:
+        description: "crawl (fetch new announcements) | reparse (re-run the parser over the text already archived in S3 - free, no fetching)"
+        type: choice
+        options: [crawl, reparse]
+        default: crawl
   schedule:
     - cron: "0 3 * * *"     # nightly, after the ASX archive window opens
   push:
@@ -68,6 +74,10 @@ jobs:
           S3_BUCKET: ${{ secrets.S3_BUCKET }}
           SHARD_INDEX: ${{ matrix.shard }}
           SHARD_COUNT: "12"
+          # a scheduled run always crawls; `reparse` is the manual step to
+          # run after a change to harvest_nav.UK_RULES, and needs no fetching
+          # because the archived payloads carry the announcement text
+          UK_NAV_MODE: ${{ inputs.mode || 'crawl' }}
         run: python scripts/archive_uk_navs.py
       - name: Persist state to S3
         if: always()

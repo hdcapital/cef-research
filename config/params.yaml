@@ -62,6 +62,20 @@ forward_irr:
   distributions: trailing_12m_held_flat
   sensitivities: [own_median, own_median_minus_5pp, zero]
 
+# On-demand coverage audit (python -m cef_live.coverage_audit).
+# Thresholds are stated here rather than in code so "fresh" means one
+# thing across the report and can be argued with. They are diagnostic
+# thresholds, not strategy parameters - nothing trades off them.
+coverage_audit:
+  price:
+    fresh_days: 5           # calendar days; a Friday close is fresh on Monday
+    stale_days: 30          # beyond this a quote cannot support a live discount
+  nav:
+    fresh_days: 35          # a monthly NAV publisher is still fresh at 35 days
+    amber_days: 120         # matches universe.liveness.nav_days
+  zscore:
+    min_months: 24          # mirrors live_nta.z_adjustment.min_months
+
 ledger:
   entry: next_session_open
   exit_z: -0.5

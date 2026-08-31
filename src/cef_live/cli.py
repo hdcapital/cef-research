@@ -53,6 +53,15 @@ REPORT_HEAD = re.compile(
     r"preliminary final report|appendix 4[de]\b|financial report|"
     r"statutory accounts|annual financial", re.I)
 
+# An ASX headline that IS a published NTA/NAV statement. Liveness asks
+# whether the fund published a NAV, not whether we managed to parse the PDF
+# it published it in - conflating the two made 106 currently-reporting LICs
+# read as `live_stale_nav` (alive on an Appendix 4E) while they were filing
+# daily NTA statements the whole time. The parse result stays a separate,
+# and separately reported, fact.
+NAV_HEAD = re.compile(
+    r"net tangible asset|\bNTA\b|net asset value|\bNAV\b|fund update", re.I)
+
 
 def _liveness_evidence() -> pd.DataFrame:
     """When each fund last published a NAV, a periodic report, or anything.
@@ -92,6 +101,40 @@ def _liveness_evidence() -> pd.DataFrame:
             rep = g[g["headline"].fillna("").str.contains(REPORT_HEAD)]
             if len(rep):
                 note(sid, "last_report", rep["d"].max())
+            # a published NTA statement is a published NAV, whether or not
+            # the PDF behind it parsed
+            nav = g[g["headline"].fillna("").str.contains(NAV_HEAD)]
+            if len(nav):
+                note(sid, "last_nav", nav["d"].max())
+
+    # UK: the committed NAV announcement archive. Every row in it is a
+    # "Net Asset Value(s)" RNS (scripts/archive_uk_navs.py filters on that
+    # headline), so its date is evidence the fund PUBLISHED a NAV - whether
+    # or not our parser got a number out of the page. Counting only parsed
+    # rows conflated "the fund went quiet" with "our regex missed", and put
+    # Personal Assets, Law Debenture, Temple Bar and Fidelity China - all
+    # filing NAVs within the last week - into the delisting review queue.
+    # Parse success is a coverage fact and is reported as one, separately.
+    # Unlike the crawler cache below this archive is in the repository, so
+    # liveness does not silently degrade when an ephemeral CI cache misses.
+    tp0 = Path("config/resolved_tickers.csv")
+    if tp0.exists():
+        t0 = pd.read_csv(tp0)
+        t0 = t0[t0["status"] == "verified"]
+        by_tk = {str(r.ticker).upper(): r.security_id
+                 for r in t0.itertuples(index=False) if pd.notna(r.ticker)}
+        for f in sorted(Path("data").glob("uk_nav_history*.parquet")):
+            try:
+                h = pd.read_parquet(f, columns=["ticker", "ann_date"])
+            except Exception:  # noqa: BLE001
+                continue
+            h["ticker"] = h["ticker"].astype(str).str.upper()
+            h["d"] = pd.to_datetime(h["ann_date"], errors="coerce")
+            for tk, g in h.dropna(subset=["d"]).groupby("ticker"):
+                sid = by_tk.get(tk)
+                if sid:
+                    note(sid, "last_announcement", g["d"].max())
+                    note(sid, "last_nav", g["d"].max())
 
     # UK: the Investegate listing cache, keyed by ticker -> security_id
     cache = Path("data/investegate_cache/listings")
@@ -136,6 +179,19 @@ def build_universe() -> int:
     ev = _liveness_evidence()
     before = reg["status"].value_counts().to_dict()
     reg = liveness.apply(reg, ev, params=_params())
+
+    # PERSIST it. universe.build() writes the registry with the AGGREGATOR's
+    # status; this function then computed a better one from the funds' own
+    # filings and wrote only a summary JSON, so every downstream reader -
+    # _registry_for, the NAV harvest target set, the idea scan's universe
+    # filter, the spreadsheet - kept reading the aggregator's answer. The
+    # improved liveness existed and was measured nightly, and nothing used
+    # it. Writing it back is the whole point of computing it.
+    out = Path("data/universe")
+    out.mkdir(parents=True, exist_ok=True)
+    reg.to_parquet(out / "registry.parquet", index=False)
+    reg.to_csv(out / "registry.csv", index=False)
+
     cand = reg[reg["status"] == liveness.STATUS_CANDIDATE]
     summary = {
         "delist_candidates": int(len(cand)),
@@ -145,6 +201,8 @@ def build_universe() -> int:
         "live_stale_nav": int((reg["status"] == "live_stale_nav").sum()),
         "status_before_evidence": before,
         "evidence_rows": int(len(ev)),
+        "persisted_to": "data/universe/registry.parquet",
+        "live_status_source": reg["live_status_source"].value_counts().to_dict(),
         "revived_by_own_filings": int(((reg["aggregator_status"] == "delisted")
                                        & (reg["status"].isin(
                                            ["live", "live_stale_nav"]))).sum()),
@@ -202,14 +260,52 @@ def build_universe() -> int:
 
 
 
+PANEL_PATHS = {"UK": "data/processed/monthly_panel.parquet",
+               "AU": "data/au_processed/au_monthly_panel.parquet"}
+
+
+def panel_for(market: str) -> pd.DataFrame | None:
+    """The monthly research panel for ONE market, or None.
+
+    UK securities carry UK history and AU securities carry AU history.
+    Reading `data/processed/monthly_panel.parquet` and calling it "the
+    panel" gave every ASX LIC a NaN growth input and judged it against a
+    UK trailing-return hurdle - a silent cross-market join that no column
+    in the output revealed.
+    """
+    f = Path(PANEL_PATHS.get(market, ""))
+    if not f.exists():
+        return None
+    try:
+        panel = pd.read_parquet(f)
+    except Exception:  # noqa: BLE001
+        return None
+    if "discount" not in panel.columns:
+        for px, nav in (("share_price", "nav_per_share"),
+                        ("share_price", "nta_derived"), ("price", "nav")):
+            if {px, nav} <= set(panel.columns):
+                panel["discount"] = panel[px] / panel[nav] - 1.0
+                break
+    panel["market"] = market
+    return panel
+
+
+def panels_by_market(markets=("UK", "AU")) -> dict[str, pd.DataFrame]:
+    got = {m: panel_for(m) for m in markets}
+    return {m: p for m, p in got.items() if p is not None and len(p)}
+
+
 def _registry_for(market: str) -> pd.DataFrame:
     """Live funds for one market - the universe, from identity alone."""
     rp = Path("data/universe/registry.parquet")
     if not rp.exists():
         return pd.DataFrame()
     reg = pd.read_parquet(rp)
+    # `live_stale_nav` is alive - it means "trading, NAV not fresh yet".
+    # Once liveness is persisted, omitting it here would drop 100+ funds
+    # out of the priced universe for a data-coverage reason.
     return reg[(reg["market"] == market)
-               & (reg["status"].isin(["live", "delist_candidate"]))].copy()
+               & (reg["status"].isin(liveness.TRACKED_STATUSES))].copy()
 
 
 def _own_nav_history(market: str) -> pd.DataFrame:
@@ -229,19 +325,23 @@ def _own_nav_history(market: str) -> pd.DataFrame:
             h = h[h.get("status").eq("parsed")] if "status" in h.columns else h
             if not {"ticker", "nav_cum_pence"} <= set(h.columns):
                 continue
+            # PENCE, not pounds. The UK canonical NAV unit is GBX
+            # (units.CANONICAL_UNIT["UK"]) - the unit Yahoo quotes London
+            # shares in, and the unit the AIC panel's nav_col and the Tier 0
+            # harvest already carry. Dividing by 100 here put this one anchor
+            # in a different unit from the price it is divided by: the 20
+            # funds anchored this way carried discount_est between +79 and
+            # +5649 (premiums of 7,990% to 564,900%) in the committed table -
+            # nonsense large enough to be obvious in isolation and easy to
+            # miss in a 641-row file. The unit is fixed at the source and now
+            # STATED on the frame, so units.normalise does any conversion
+            # once and explicitly. tests/test_uk_daily_discount.py asserts
+            # the unit stays shared.
             frames.append(pd.DataFrame({
                 "ticker": h["ticker"].astype(str).str.upper(),
                 "nav_date": h.get("nav_date", h.get("ann_date")),
-                # PENCE, not pounds. Every other UK figure in the live table
-                # is pence - the AIC panel's nav_col, the tier 0 harvest, and
-                # the price - so dividing by 100 here put this one anchor in a
-                # different unit from the price it is divided by. The 20 funds
-                # anchored this way carried discount_est between +79 and +5649
-                # (premiums of 7,990% to 564,900%) in the committed table:
-                # nonsense large enough to be obvious in isolation and easy to
-                # miss in a 641-row file. tests/test_uk_daily_discount.py
-                # asserts the unit stays shared.
                 "nav_value": pd.to_numeric(h["nav_cum_pence"], errors="coerce"),
+                "nav_unit": "GBX",
             }))
         if not frames:
             return pd.DataFrame()
@@ -253,24 +353,16 @@ def _own_nav_history(market: str) -> pd.DataFrame:
         t = t[t["status"] == "verified"][["security_id", "ticker"]]
         t["ticker"] = t["ticker"].astype(str).str.upper()
         return out.merge(t, on="ticker", how="inner")[
-            ["security_id", "nav_date", "nav_value"]]
+            ["security_id", "nav_date", "nav_value", "nav_unit"]]
 
-    for f in sorted(Path("data/asx_extract").glob("facts_det_*.parquet")):
-        try:
-            h = pd.read_parquet(f)
-        except Exception:  # noqa: BLE001
-            continue
-        h = h[h["section"] == "nav_observations"]
-        if not len(h):
-            continue
-        frames.append(pd.DataFrame({
-            "security_id": "ASX:" + h["ticker"].astype(str).str.upper(),
-            "nav_date": h["valuation_date"],
-            "nav_value": pd.to_numeric(h["nav_per_share"], errors="coerce"),
-        }))
-    if not frames:
-        return pd.DataFrame()
-    return pd.concat(frames, ignore_index=True).dropna(subset=["nav_value"])
+    # AU: the deterministic pass over the archived ASX PDFs. Its output is
+    # written to data/asx_extract AND uploaded to S3; a CI runner has only
+    # the S3 copy, so the loader restores it when the local cache is empty.
+    # Reading only the local directory meant this tier was always empty on a
+    # runner and every ASX fund fell back to the aggregator's monthly print.
+    from au_lic.extract import facts as AUF
+    own = AUF.nav_observations()
+    return own if len(own) else pd.DataFrame()
 
 
 def resolve_tickers(budget: int = 400) -> int:
@@ -282,10 +374,11 @@ def resolve_tickers(budget: int = 400) -> int:
         cfg_uk = yaml.safe_load(p.read_text())
     tickers.seed_known(reg, cfg_uk)      # free: already-verified identifiers
     out = tickers.resolve(reg, budget=budget)
-    live_uk = reg[(reg["status"] == "live") & (reg["market"] == "UK")]
+    alive = reg["status"].isin(liveness.LIVE_STATUSES)
+    live_uk = reg[alive & (reg["market"] == "UK")]
     got = out[out["status"] == "verified"]
     # the cohort that actually matters: funds with NO other NAV source
-    ao = reg[(reg["status"] == "live") & (reg["market"] == "UK")
+    ao = reg[alive & (reg["market"] == "UK")
              & (reg["nav_route"] == "announcements_only")]
     ao_got = ao.merge(got[["security_id", "ticker"]], on="security_id", how="inner")
     ao_missing = ao[~ao["security_id"].isin(set(got["security_id"]))]
@@ -312,16 +405,14 @@ def universe_sheet() -> int:
     """Build the universe spreadsheet and email it."""
     reg = pd.read_parquet("data/universe/registry.parquet")
     live = pd.read_parquet("data/nta_live/latest.parquet")
-    hist = None
-    hp = Path("data/processed/monthly_panel.parquet")
-    if hp.exists():
-        hist = pd.read_parquet(hp)
-        if "discount" not in hist.columns and {"share_price", "nav_per_share"} <= set(hist.columns):
-            hist["discount"] = hist["share_price"] / hist["nav_per_share"] - 1.0
+    panels = panels_by_market()
+    # the sheet's historical discount stats are per market; concatenating
+    # keeps every security joined to its OWN market's history
+    hist = pd.concat(panels.values(), ignore_index=True) if panels else None
     irr = None
-    if hist is not None:
+    if panels:
         try:
-            irr = forward_irr.build(live, hist, _params())
+            irr = forward_irr.build_by_market(live, panels, _params())
             Path("data/forward_irr").mkdir(parents=True, exist_ok=True)
             irr.to_parquet("data/forward_irr/latest.parquet", index=False)
         except Exception as exc:  # noqa: BLE001
@@ -382,16 +473,17 @@ def ideas() -> int:
     if ip.exists():
         irr = pd.read_parquet(ip)
 
-    hurdle_base = None
-    hp = Path("data/processed/monthly_panel.parquet")
-    if hp.exists():
-        hurdle_base = opportunities.universe_trailing_tr(pd.read_parquet(hp))
+    # one hurdle PER MARKET, from that market's own panel
+    hurdle_base = {m: opportunities.universe_trailing_tr(pan)
+                   for m, pan in panels_by_market().items()}
+    hurdle_base = {m: v for m, v in hurdle_base.items() if v is not None} or None
 
     # a fund that may no longer exist must not generate an idea
     rp = Path("data/universe/registry.parquet")
     if rp.exists():
         reg = pd.read_parquet(rp)
-        keep = set(reg.loc[reg["status"] == "live", "security_id"])
+        keep = set(reg.loc[reg["status"].isin(liveness.LIVE_STATUSES),
+                           "security_id"])
         before = len(live)
         live = live[live["security_id"].isin(keep)]
         print(f"universe filter: {before} -> {len(live)} live funds evaluated")
@@ -406,11 +498,12 @@ def ideas() -> int:
 
     opps = verdicts[verdicts["verdict"] == "OPPORTUNITY"] if len(verdicts) else verdicts
     watch = verdicts[verdicts["verdict"] == "WATCH"] if len(verdicts) else verdicts
+    excess = params["opportunity"]["irr_hurdle_excess_pp"] / 100.0
     summary = {"evaluated": int(len(live)), "opportunities": int(len(opps)),
                "watch": int(len(watch)), "ledger_rows": rows,
-               "hurdle_base": hurdle_base,
-               "hurdle": None if hurdle_base is None else round(
-                   hurdle_base + params["opportunity"]["irr_hurdle_excess_pp"] / 100.0, 4)}
+               "hurdle_base_by_market": hurdle_base,
+               "hurdle_by_market": None if not hurdle_base else
+               {m: round(v + excess, 4) for m, v in hurdle_base.items()}}
     Path("reports/build").mkdir(parents=True, exist_ok=True)
     Path("reports/build/ideas.json").write_text(json.dumps(summary, indent=2, default=str))
     print(json.dumps(summary, indent=2, default=str))
@@ -438,8 +531,10 @@ def ideas() -> int:
             body.append(_fmt(opps, f"{len(opps)} OPPORTUNITY - all three gates:"))
         if len(watch):
             body.append(_fmt(watch.head(12), f"\n{len(watch)} WATCH - two of three:"))
-        body.append(f"\n\nHurdle: trailing universe return "
-                    f"{'n/a' if hurdle_base is None else f'{hurdle_base:.1%}'} + "
+        hb = ("n/a" if not hurdle_base else
+              ", ".join(f"{m} {v:.1%}" for m, v in sorted(hurdle_base.items())))
+        body.append(f"\n\nHurdle: trailing universe return per market "
+                    f"({hb}) + "
                     f"{params['opportunity']['irr_hurdle_excess_pp']:.0f}pp.")
         body.append("Every verdict above is recorded in the paper-trade ledger "
                     "at signal time, whether or not you act on it.")
@@ -463,10 +558,22 @@ def nightly(markets: list[str]) -> int:
     ysess = prices.session()
 
     if "au" in markets:
-        panel = pd.read_parquet("data/au_processed/au_monthly_panel.parquet")
+        # A missing panel must not raise before anything has been attempted.
+        # The registry is the universe; the panel only ADDS history, so an
+        # absent panel costs factor models and z-scores, not the whole run -
+        # the same rule the index sweep already follows.
+        ap = Path("data/au_processed/au_monthly_panel.parquet")
+        if not ap.exists():
+            notes["markets"]["au"] = "panel_missing_history_unavailable"
+            panel = pd.DataFrame(columns=["security_id", "obs_month", "sector",
+                                          "nta_total_return", "nta_derived",
+                                          "share_price"])
+        else:
+            panel = pd.read_parquet(ap)
         au_reg = _registry_for("AU")
         # every live fund is priced, not just the ones the aggregator covered
-        codes = set(panel["security_id"].str.replace("ASX:", "", regex=False)) | \
+        codes = set(panel["security_id"].astype(str)
+                    .str.replace("ASX:", "", regex=False)) | \
             set(au_reg["security_id"].astype(str).str.replace("ASX:", "", regex=False))
         tier0 = harvest_nav.harvest_au(codes)
         mf = prices.monthly_factor_returns(ysess, "AU")
@@ -547,7 +654,11 @@ def nightly(markets: list[str]) -> int:
                     rt = rt[rt["status"] == "verified"]
                     # EVERY live UK fund with a ticker - the registry gives
                     # identity, the fund's own announcements give the NAV
-                    need = rg[(rg["status"] == "live") & (rg["market"] == "UK")]
+                    # every ALIVE fund is a NAV target - `live_stale_nav`
+                    # most of all, since a stale NAV is precisely what a
+                    # fresh harvest is meant to replace
+                    need = rg[rg["status"].isin(liveness.LIVE_STATUSES)
+                              & (rg["market"] == "UK")]
                     m = need.merge(rt[["security_id", "ticker"]],
                                    on="security_id", how="inner")
                     tmap = pd.concat([
@@ -605,6 +716,30 @@ def nightly(markets: list[str]) -> int:
     if not tables:
         print("no market tables built"); return 1
     out = pd.concat(tables, ignore_index=True)
+
+    # A run over ONE market must not delete the other market's rows.
+    # `nightly --markets au` rewrote latest.parquet with AU alone, so every
+    # UK fund vanished from the live table until the next full run - a
+    # single-market refresh silently emptying half the monitoring universe.
+    # Rows for markets this run did not rebuild are carried forward with
+    # their ORIGINAL updated_at, so their age is visible and nothing is
+    # presented as fresher than it is.
+    prev_f = Path("data/nta_live/latest.parquet")
+    carried = 0
+    if prev_f.exists():
+        try:
+            prev = pd.read_parquet(prev_f)
+            built = set(out["market"].unique())
+            keep = prev[~prev["market"].isin(built)]
+            if len(keep):
+                out = pd.concat([out, keep], ignore_index=True)
+                carried = int(len(keep))
+                print(f"carried forward {carried} row(s) for markets not "
+                      f"rebuilt this run: {sorted(set(keep['market']))}")
+        except Exception as exc:  # noqa: BLE001
+            print(f"could not read previous live table ({exc}); "
+                  "writing this run's markets only")
+    notes["carried_forward_rows"] = carried
     Path("data/nta_live").mkdir(parents=True, exist_ok=True)
     out.to_parquet("data/nta_live/latest.parquet", index=False)
     Path("outputs/live").mkdir(parents=True, exist_ok=True)
@@ -613,12 +748,18 @@ def nightly(markets: list[str]) -> int:
                                      f"nta_live/{today.isoformat()}.parquet")
 
     # ---- Phase 1 acceptance metrics ----
-    basis_counts = out["basis"].value_counts().to_dict()
-    covered = float((out["basis"] <= 3).mean())
+    basis_counts = out["basis"].value_counts(dropna=False).to_dict()
+    # rows with NO NAV from any source are now kept (so their price and the
+    # gap are both visible); the basis-coverage share is over the rows that
+    # HAVE a NAV, which is what it always meant
+    with_nav = out[out["basis"].notna()]
+    covered = float((with_nav["basis"] <= 3).mean()) if len(with_nav) else 0.0
     sig_ok = out["sigma_1m"].notna().mean()
     accept = {
         "rows": int(len(out)),
-        "basis_counts": {str(k): int(v) for k, v in sorted(basis_counts.items())},
+        "rows_with_nav": int(len(with_nav)),
+        "rows_without_nav": int(len(out) - len(with_nav)),
+        "basis_counts": {str(k): int(v) for k, v in basis_counts.items()},
         "share_basis_le3_labelled": round(covered, 4),
         "share_with_sigma": round(float(sig_ok), 4),
         "alert_eligible": int(out["alert_eligible"].sum()),

@@ -32,7 +32,7 @@ existing did not stop having existed.
 
 from __future__ import annotations
 
-from datetime import date, datetime, timedelta
+from datetime import date, datetime
 
 import pandas as pd
 
@@ -54,6 +54,15 @@ STATUS_LIVE = "live"
 STATUS_LIVE_STALE = "live_stale_nav"
 STATUS_CANDIDATE = "delist_candidate"
 STATUS_DELISTED = "delisted"
+
+# A fund is ALIVE on either live status. `live_stale_nav` means "trading,
+# but no NAV fresh enough to carry a discount yet" - it is a data-coverage
+# statement, not a listing one, so filtering it out of the monitored
+# universe would hide exactly the funds the coverage audit exists to count.
+LIVE_STATUSES = (STATUS_LIVE, STATUS_LIVE_STALE)
+# What the pipeline still fetches for: alive, plus the funds under review.
+# Nothing is dropped on suspicion alone.
+TRACKED_STATUSES = (STATUS_LIVE, STATUS_LIVE_STALE, STATUS_CANDIDATE)
 
 
 def _d(v) -> date | None:
@@ -98,21 +107,35 @@ def classify(evidence: dict, as_of: date | None = None,
     # a fund the user added by hand is tracked because they said so; its
     # absence from a file is the reason it is listed there
     if evidence.get("manual"):
-        return {**out, "status": STATUS_LIVE, "liveness_reason": "manual_entry"}
+        return {**out, "status": STATUS_LIVE, "liveness_reason": "manual_entry",
+                "live_status_source": "manual_entry"}
 
     if nav is not None and age(nav) <= p["nav_days"]:
         return {**out, "status": STATUS_LIVE,
-                "liveness_reason": f"nav_{age(nav)}d_old"}
+                "liveness_reason": f"nav_{age(nav)}d_old",
+                "live_status_source": "own_nav_announcement"}
 
     if rep is not None and age(rep) <= p["report_days"]:
         # alive on slow evidence: trackable, but it cannot carry a discount
         # until a NAV arrives, and the label says so
         return {**out, "status": STATUS_LIVE_STALE,
-                "liveness_reason": f"periodic_report_{age(rep)}d_old_no_recent_nav"}
+                "liveness_reason": f"periodic_report_{age(rep)}d_old_no_recent_nav",
+                "live_status_source": "own_periodic_report"}
+
+    # A NAV older than nav_days is still a NAV. Without this branch an
+    # eighteen-month-old ANNUAL REPORT made a fund live_stale_nav while a
+    # seven-month-old NAV made it a delisting candidate - the ladder
+    # inverted, so quarterly and semi-annual NAV publishers (Greencoat UK
+    # Wind among them) were queued for review while trading normally.
+    if nav is not None and age(nav) <= p["report_days"]:
+        return {**out, "status": STATUS_LIVE_STALE,
+                "liveness_reason": f"nav_{age(nav)}d_old_beyond_fresh_window",
+                "live_status_source": "own_nav_announcement_stale"}
 
     if ann is not None and age(ann) <= p["any_announcement_days"]:
         return {**out, "status": STATUS_CANDIDATE,
-                "liveness_reason": f"filings_but_no_nav_or_report_{age(ann)}d"}
+                "liveness_reason": f"filings_but_no_nav_or_report_{age(ann)}d",
+                "live_status_source": "own_announcement_only"}
 
     # NO EVIDENCE AT ALL is not evidence of death.
     #
@@ -136,24 +159,29 @@ def classify(evidence: dict, as_of: date | None = None,
                 "status": keep if keep in (STATUS_LIVE, STATUS_CANDIDATE,
                                            STATUS_DELISTED) else STATUS_CANDIDATE,
                 "liveness_reason": "no_own_filings_held_deferring_to_registry",
+                "live_status_source": "registry_deferral_no_own_filings",
                 "evidence_coverage": "none"}
 
     # the aggregator is the LAST word, not the first - and only enough to
     # hold a fund under review, never to call it live
     if reg is not None and age(reg) <= p["any_announcement_days"]:
         return {**out, "status": STATUS_CANDIDATE,
-                "liveness_reason": f"registry_listed_{age(reg)}d_no_own_filings"}
+                "liveness_reason": f"registry_listed_{age(reg)}d_no_own_filings",
+                "live_status_source": "registry_last_seen"}
 
     newest = max([d_ for d_ in (nav, rep, ann, reg) if d_ is not None],
                  default=None)
     if newest is None:
         return {**out, "status": STATUS_CANDIDATE,
-                "liveness_reason": "no_evidence_of_any_kind"}
+                "liveness_reason": "no_evidence_of_any_kind",
+                "live_status_source": "no_evidence"}
     if age(newest) > p["any_announcement_days"] + p["review_grace_days"]:
         return {**out, "status": STATUS_DELISTED,
-                "liveness_reason": f"silent_{age(newest)}d"}
+                "liveness_reason": f"silent_{age(newest)}d",
+                "live_status_source": "silence_beyond_grace"}
     return {**out, "status": STATUS_CANDIDATE,
-            "liveness_reason": f"silent_{age(newest)}d_within_grace"}
+            "liveness_reason": f"silent_{age(newest)}d_within_grace",
+            "live_status_source": "silence_within_grace"}
 
 
 def apply(registry: pd.DataFrame, evidence: pd.DataFrame,
@@ -172,11 +200,21 @@ def apply(registry: pd.DataFrame, evidence: pd.DataFrame,
     for r in reg.to_dict("records"):
         e = dict(ev.get(r["security_id"], {}))
         e.setdefault("registry_last_seen", r.get("last_seen"))
-        e["aggregator_status"] = r.get("status")
+        # defer to the AGGREGATOR's verdict, not to our own previous one:
+        # on a re-run over a persisted registry, `status` already holds the
+        # evidence-based answer
+        agg = r.get("aggregator_status")
+        e["aggregator_status"] = agg if isinstance(agg, str) and agg else r.get("status")
         e["manual"] = bool(r.get("manual_entry", False))
         rows.append(classify(e, as_of=as_of, params=params))
     got = pd.DataFrame(rows, index=reg.index)
-    reg["aggregator_status"] = reg.get("status")     # kept for comparison
+    # The aggregator's own verdict is kept so the disagreement stays
+    # measurable. Once the evidence-based status is PERSISTED back into the
+    # registry, re-applying would otherwise overwrite the aggregator column
+    # with our own previous answer and the comparison would quietly become
+    # a comparison of the model with itself.
+    if "aggregator_status" not in reg.columns:
+        reg["aggregator_status"] = reg.get("status")
     for c in got.columns:
         reg[c] = got[c]
     return reg

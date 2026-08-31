@@ -1,0 +1,158 @@
+name: live-coverage-audit
+
+# On-demand ONLY. There is deliberately no `schedule:` block and no `push:`
+# trigger: this is a diagnostic you run when you want to know where coverage
+# stands, not another nightly job whose output nobody reads. If a future
+# change adds a schedule here, tests/test_coverage_audit.py fails.
+
+on:
+  workflow_dispatch:
+    inputs:
+      refresh_data:
+        description: "Refresh prices and NAVs before auditing (slow, ~30 min)"
+        type: boolean
+        default: false
+      markets:
+        description: "Markets to refresh when refresh_data is true"
+        type: string
+        default: "au,uk"
+      email_report:
+        description: "Email the spreadsheet and summary (optional)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: coverage-audit-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install -e .
+
+      - name: Tests relevant to the audit
+        run: |
+          python -m pytest tests/test_coverage_audit.py \
+                           tests/test_coverage_regressions.py \
+                           tests/test_liveness.py \
+                           tests/test_nav_source_invariants.py -q
+
+      # Optional: restore the caches the refresh needs. Skipped entirely when
+      # refresh_data is false, so the default run audits committed state only.
+      - name: Restore state from S3
+        if: ${{ inputs.refresh_data }}
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+        run: python scripts/sync_state.py pull --groups raw_aic,raw_asx,uk_announcements,asx_index,tickers
+      - name: Restore AIC raw cache
+        if: ${{ inputs.refresh_data }}
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            data/raw
+            data/cache
+            data/manifest.csv
+          key: aic-raw-v1-${{ github.run_id }}
+          restore-keys: |
+            aic-raw-v1-
+      - name: Restore ASX raw cache
+        if: ${{ inputs.refresh_data }}
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            data/raw/asx
+            data/cache/asx
+            data/au_manifest.csv
+          key: asx-raw-v1-${{ github.run_id }}
+          restore-keys: |
+            asx-raw-v1-
+      - name: Restore announcements cache
+        if: ${{ inputs.refresh_data }}
+        uses: actions/cache/restore@v4
+        with:
+          path: data/asx_ann_cache
+          key: asx-ann-v1-${{ github.run_id }}
+          restore-keys: |
+            asx-ann-v1-
+      - name: Restore Investegate cache
+        if: ${{ inputs.refresh_data }}
+        uses: actions/cache/restore@v4
+        with:
+          path: data/investegate_cache
+          key: investegate-v1-${{ github.run_id }}
+          restore-keys: |
+            investegate-v1-
+
+      # The panels are what carry each market's own history (z-scores, factor
+      # models). Without them the audit still runs - and says so - but the
+      # z-score denominators are understated, so a refresh run builds them.
+      - name: Build research panels
+        if: ${{ inputs.refresh_data }}
+        continue-on-error: true
+        run: |
+          python -m uk_cef.cli build-entities
+          python -m uk_cef.cli build-panel
+          python -m au_lic.cli download
+          python -m au_lic.cli build-panel
+
+      - name: Rebuild registry with persisted liveness
+        if: ${{ inputs.refresh_data }}
+        continue-on-error: true
+        run: python -m cef_live.cli universe
+
+      - name: Coverage audit
+        env:
+          # S3 carries the extracted ASX NAV facts, which the audit restores
+          # when data/asx_extract is empty (a fresh runner always is)
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+          # only used when the optional email step below is enabled
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          ALERT_EMAIL_TO: ${{ secrets.ALERT_EMAIL_TO }}
+        run: |
+          if [ "${{ inputs.refresh_data }}" = "true" ]; then
+            python -m cef_live.coverage_audit --refresh --markets "${{ inputs.markets }}"
+          else
+            python -m cef_live.coverage_audit
+          fi
+
+      - name: Email the report (optional)
+        if: ${{ inputs.email_report }}
+        env:
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          ALERT_EMAIL_TO: ${{ secrets.ALERT_EMAIL_TO }}
+        run: python -m cef_live.coverage_audit --email-only
+
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: live-coverage-audit
+          path: |
+            outputs/live_coverage/coverage_audit.csv
+            outputs/live_coverage/coverage_audit.xlsx
+            outputs/live_coverage/coverage_summary.md
+            outputs/live_coverage/coverage_summary.json
+            outputs/live_coverage/coverage_failures.csv
+          if-no-files-found: error
+          retention-days: 30

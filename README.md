@@ -137,6 +137,79 @@ python -m uk_cef.cli report        # charts + outputs/report.md
 python -m uk_cef.cli run-all
 ```
 
+## Live Coverage Audit
+
+**Purpose.** Answer, with hard numbers, one question: *for every genuinely
+live fund we intend to monitor, do we currently hold a usable price,
+NAV/NTA, discount and signal dataset — and if not, exactly why not?* It is a
+diagnostic read-across of the existing system (registry, liveness,
+eligibility, NAV harvesters, price layer, live NTA table). It builds nothing
+new, fetches nothing on its own, and fixes nothing.
+
+**Manual / on-demand only.** There is no cron, no nightly hook, and no push
+trigger. It runs when you ask it to, and only then.
+
+```bash
+# audit whatever is already stored locally
+python -m cef_live.coverage_audit
+
+# refresh prices and NAVs through the EXISTING nightly refresh first,
+# then audit (slow; a failing provider is recorded, not fatal)
+python -m cef_live.coverage_audit --refresh --markets au,uk
+```
+
+Outputs land in `outputs/live_coverage/`:
+
+| File | Contents |
+|---|---|
+| `coverage_audit.csv` | one row per registry vehicle, every coverage fact |
+| `coverage_audit.xlsx` | Summary, All Funds, UK, ASX, Red Issues, Parser Failures, Ticker Issues, Unit Warnings, Excluded, Failure Ranking |
+| `coverage_summary.md` | denominators, per-market coverage tables, ranked failure causes, RED list |
+| `coverage_failures.csv` | every issue on every failing fund, with the recommended fix |
+| `coverage_summary.json` | the same summary, machine-readable |
+
+**Verdicts** (assigned deterministically in `classify_coverage`, never by a
+model):
+
+- **GREEN** — a fresh, credible price and a published NAV in consistent
+  units, plus enough of the fund's own discount history to z-score. A live
+  signal can be produced. `signal_ready` is exactly this set.
+- **AMBER** — monitorable with a stated qualification: a rolled-forward or
+  somewhat stale NAV, a somewhat stale price, an extreme but not impossible
+  discount, an ASX monthly-report NTA rather than an announcement, or too
+  little history to z-score.
+- **RED** — no reliable live signal is possible: no current price, an
+  unresolved ticker, only a historical panel price, no usable NAV, a NAV
+  announcement that exists but did not parse, or a suspected unit mismatch.
+- **EXCLUDED** — outside the intended monitoring universe (research-policy
+  exclusions, or not currently live). Excluded vehicles keep their rows and
+  their reason; nothing is deleted to improve a percentage.
+
+**Denominators.** Five are reported separately, because a coverage
+percentage means nothing without saying which one it is over:
+
+| Denominator | Meaning |
+|---|---|
+| `registry_total` | every vehicle the registry has ever listed |
+| `registry_labelled_live` | what the AIC/ASX file still lists (aggregator view) |
+| `liveness_adjusted_live` | what the funds' own filings say is alive (`liveness.py`) |
+| `research_eligible` | what the research policy would hold — no VCTs, no split-capital or ZDP lines, sterling UK quotes, no benchmark index series |
+| `monitoring_eligible` | alive **and** research-eligible — the audit's denominator |
+
+A stale historical panel price is never presented as a current market
+price, an unparsed NAV announcement is never reported as "no NAV", and a
+questionable number is flagged (`unit_check_status`, `blocking_issue`,
+`recommended_fix`) rather than rescaled.
+
+### Improving coverage
+
+The audit's `blocking_issue` and `recommended_fix` columns are the work
+list. Two of the fixes are jobs rather than code changes:
+
+| Symptom in the audit | What to run |
+|---|---|
+| `NAV announcement held but no value parsed` (UK) | `uk-nav-archive` with `mode: reparse` — re-runs the current parser over the announcement text already archived in S3, no crawling |
+| `ASX monthly report NTA (no announcement route)` | `asx-extract` in `deterministic` mode — the PDFs are archived daily to S3; the extraction that turns them into NAV values is dispatch-only and last ran before the announcement index was repaired |
 ## Live layer: the UK daily discount panel
 
 Separate from the month-end backtest above, `python -m cef_live.cli uk-daily`
@@ -162,6 +235,13 @@ See **docs/RUNBOOK.md** for the pence/pounds and publication-date traps this
 is built around, and for the measured coverage boundary.
 
 ## GitHub Actions
+
+`.github/workflows/live-coverage-audit.yml` runs the coverage audit on
+**`workflow_dispatch` only** — inputs: `refresh_data`, `markets`,
+`email_report` — installs dependencies, runs the audit's tests, optionally
+refreshes data, and uploads the report files as artifacts. It has no
+`schedule:` block, and `tests/test_coverage_audit.py` fails if one is added
+here or if the audit is bolted onto another scheduled workflow.
 
 `.github/workflows/backtest.yml` runs the whole pipeline (tests → discover →
 download (cached between runs) → panel → validate → backtest → report),
