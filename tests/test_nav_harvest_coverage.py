@@ -209,7 +209,9 @@ def test_the_asx_harvest_states_the_unit_and_does_not_convert_twice():
     src = inspect.getsource(H.harvest_au)
     assert "val / 100.0 if unit ==" not in src, (
         "the harvester converts, and the normaliser will convert again")
-    assert '"nav_value": val,' in src
+    assert '"unit": "dollars"' in src, (
+        "the emitted unit must describe the value as emitted, so the next "
+        "normaliser is a no-op rather than a second conversion")
 
     from cef_live import units as U
     # the contract the harvester now relies on
@@ -378,3 +380,153 @@ def test_an_asx_nav_the_extractor_read_is_not_reported_as_a_parser_failure():
     assert 'o.get("own_nav_date")' in tail, (
         "the extracted-facts date must count as a parsed NAV for ASX")
     assert 'last_parsed = max(' in tail
+
+
+# ------------------------------------------ ASX: one extractor, one conversion
+
+def test_the_asx_harvest_uses_the_same_extractor_as_the_archive():
+    """Two parsers for one corpus is two things to keep in step, and the
+    one with the lower hit rate was feeding the live table.
+
+    The archive's deterministic pass reads ~72% of the documents it is
+    given; this harvest read far fewer of the SAME documents, because it
+    called the scored parser directly and skipped what the extractor does
+    first: normalise_nta_text, which repairs the run-together text
+    pdfplumber produces for these layouts, and a retry on the raw text.
+    """
+    src = inspect.getsource(H._nta_from_document)
+    assert "extract_nta" in src and "deterministic" in src
+    assert "_nta_from_document(" in inspect.getsource(H.harvest_au), (
+        "the harvest must delegate to the shared extractor, not parse inline")
+    assert "P.derive_stated(P.parse_pdf(" not in inspect.getsource(H.harvest_au)
+
+    doc = {"status": "extracted", "rows": [],
+           "text": "Net Tangible Asset Backing The pre-tax NTA per share as "
+                   "at 31 July 2026 was $2.0590 per share."}
+    got = H._nta_from_document(doc, "Net Tangible Asset Backing")
+    assert got["nav_per_share"] == pytest.approx(2.059)
+    assert got["unit_source"] == "dollars"
+    assert got["valuation_date"] == "2026-07-31", "the as-at date comes from the document"
+    assert got["extractor"]
+
+
+def test_a_cents_nta_is_reduced_once_and_the_source_unit_is_kept():
+    """It used to be converted here AND labelled "cents", so the next
+    normaliser divided by 100 a second time."""
+    doc = {"status": "extracted", "rows": [],
+           "text": "NTA per unit 125.10 cents as at 21 August 2026"}
+    got = H._nta_from_document(doc, "Monthly NTA")
+    assert got["nav_per_share"] == pytest.approx(1.251), "cents -> dollars, once"
+    assert got["unit_source"] == "cents", "the unit it was STATED in is kept"
+
+    src = inspect.getsource(H.harvest_au)
+    assert '"unit": "dollars"' in src, "the emitted unit must describe the value"
+    assert "unit_source=" in src, "provenance of the source unit is recorded"
+
+
+def test_a_document_that_yields_nothing_yields_nothing():
+    assert H._nta_from_document(
+        {"status": "extracted", "text": "no valuation here", "rows": []}, "x") is None
+
+
+# ----------------------------------- UK: template families, and their guards
+
+def test_the_was_n_pence_family_parses_across_issuers():
+    """The largest remaining cluster, and all of it defeated the fallback
+    for one reason: `net asset value[^0-9]{0,220}?` cannot cross the DATE
+    between the label and the number.
+    """
+    cases = [
+        ("Estimated NAV at 31 March 2026 was 864.9 pence per share", 864.9),
+        ("its unaudited net asset value (\"NAV\") per share at 28 February "
+         "2026 was 177.47 pence (31 January 2026: 175.35 pence per share)", 177.47),
+        ("The Company announces its Net Asset Value per ordinary share as at "
+         "28 August 2026 was estimated to be 199.66 pence.", 199.66),
+        ("This results in a NAV per Ordinary Share of 111.0 pence", 111.0),
+        ("The NAV for SEQI increased to 101.66p from the prior month's NAV "
+         "of 101.10p per share", 101.66),
+        ("unaudited NAV as at 30 June 2016 was GBP252.9 million or 97.1 pence "
+         "per share", 97.1),
+        ("Net Asset Value (pence): 261.09", 261.09),
+    ]
+    for text, want in cases:
+        got = H.parse_uk_nav_text(text)
+        assert got.get("nav_cum_pence") == pytest.approx(want), (
+            f"{text[:60]!r} -> {got.get('nav_cum_pence')}, expected {want}")
+
+
+def test_a_number_beside_a_dividend_is_not_a_nav():
+    """Gore Street came back at 1.9p and NextEnergy at 1.79p - both the
+    quarterly distribution, against real NAVs near 100p. The looser rules
+    reached them because the arithmetic ABOUT a NAV sits one clause away
+    from the NAV.
+    """
+    text = ("As at 30 September 2019, the estimated NAV increased to 95.5 "
+            "pence per share, representing an uplift of 1.9 pence per share")
+    assert H.parse_uk_nav_text(text).get("nav_cum_pence") == pytest.approx(95.5)
+
+    text2 = ("SEQI's NAV increased to 100.81 per share from 100.11 per share "
+             "which arose primarily through: Interest income net of expenses "
+             "of 0.42p; an increase of 0.08p in ...")
+    got = H.parse_uk_nav_text(text2).get("nav_cum_pence")
+    assert got is None or got > 20, f"read an expense line as a NAV: {got}"
+
+
+def test_a_document_that_declares_a_foreign_per_share_unit_is_refused():
+    """Schiehallion heads its table "(US cents per ordinary share)" and
+    prints "Cum NAV* 161.54cents", while separately carrying a legend
+    explaining what a pence NAV would mean. Reading anything out of that as
+    pence is the unit bug in its most direct form.
+    """
+    text = ("The Schiehallion Fund Limited (MNTN) Net Asset Value as at close "
+            "of business on 31 October 2025 (US cents per ordinary share) "
+            "Cum NAV* 161.54cents Ex NAV 162.38cents. Cum Par NAV: Net asset "
+            "value per share in pence, including income, with debt at par value.")
+    got = H.parse_uk_nav_text(text)
+    assert got.get("unit_declared_foreign") is True
+    # the value may still be READ - by the currency rules, which record the
+    # unit it is in. What must never happen is a foreign figure entering the
+    # PENCE field unlabelled.
+    assert got.get("nav_ccy") not in (None, "GBX"), (
+        f"a US-cents NAV was recorded as sterling: {got}")
+
+
+def test_the_extra_guards_apply_only_to_the_loose_rules():
+    """Applying them to the precise rules cost 37 correctly-parsed funds:
+    "ex-dividend" and "cents" appear in the ordinary prose of a perfectly
+    good sterling NAV announcement."""
+    src = inspect.getsource(H.parse_uk_nav_text)
+    assert "loose=prio >= 4" in src
+    # a labelled row survives a nearby dividend mention
+    text = ("Pence per share Cum Income Ex Income CT UK High Income Trust PLC "
+            "LEI: 213800B7D5D7RVZZPV45 121.04 119.84 ex-dividend")
+    assert H.parse_uk_nav_text(text).get("nav_cum_pence") == pytest.approx(121.04)
+
+
+def test_the_uk_parser_recovers_most_of_the_recorded_failures_plausibly():
+    """Measured against the archive's own committed failure samples.
+
+    Coverage is only half of it: every value that survives has to be a
+    plausible NAV. An earlier pass reached 61% by also reading expense
+    lines, dividends and a US-cents NAV, which is worse than reading none.
+    """
+    import glob
+    samples = []
+    for f in sorted(glob.glob("reports/build/uk_nav_parse_failures_s*.json")):
+        j = json.loads(Path(f).read_text())
+        for k in ("samples", "fail_samples", "failures"):
+            if isinstance(j, dict) and k in j:
+                samples += j[k]
+    if len(samples) < 100:
+        pytest.skip("failure samples not present")
+    got = [H.parse_uk_nav_text(s.get("text_head") or "") for s in samples]
+    vals = [g["nav_cum_pence"] for g in got if "nav_cum_pence" in g]
+    assert len(vals) / len(samples) >= 0.45, (
+        f"recovery fell to {len(vals) / len(samples):.1%} of recorded failures")
+    # plausibility applies to the STERLING ones: a foreign NAV is recorded in
+    # its own currency and is not a pence figure to sanity-check
+    pence = [g["nav_cum_pence"] for g in got
+             if "nav_cum_pence" in g and g.get("nav_ccy", "GBX") == "GBX"]
+    assert min(pence) >= 20.0, (
+        f"a recovered sterling NAV of {min(pence)}p is not a UK trust's NAV")
+    assert max(pence) <= 100_000.0

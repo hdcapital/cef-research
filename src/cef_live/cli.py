@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import logging
 import re
 import os
 from datetime import datetime, timezone
@@ -24,6 +25,9 @@ import yaml
 from . import (catalysts, forward_irr, harvest_nav, identity, liveness,
                nta_live, opportunities, prices, tickers, universe,
                universe_report)
+
+
+log = logging.getLogger(__name__)
 
 
 def _params() -> dict:
@@ -370,6 +374,18 @@ def _own_nav_history(market: str) -> pd.DataFrame:
         except Exception:  # noqa: BLE001
             panel = None
         if panel is not None and len(panel):
+            # A fund quoting USD or CAD cannot be divided into a pence price.
+            # The panel records the unit each announcement stated; taking
+            # nav_pence without reading nav_ccy would put a $1.91 NAV into a
+            # pence column against a 200p price - the unit bug, arriving
+            # through a column that exists precisely to prevent it.
+            if "nav_ccy" in panel.columns:
+                ccy = panel["nav_ccy"].fillna("GBX").astype(str).str.upper()
+                foreign = int((~ccy.isin(("GBX", "GBP", "GBP_PENCE", "STG"))).sum())
+                if foreign:
+                    log.info("UK NAV panel: %d non-sterling observation(s) "
+                             "excluded from the pence anchor", foreign)
+                panel = panel[ccy.isin(("GBX", "GBP", "GBP_PENCE", "STG"))]
             frames.append(pd.DataFrame({
                 "ticker": panel["ticker"].astype(str).str.upper(),
                 "nav_date": panel["nav_date"],
@@ -384,6 +400,9 @@ def _own_nav_history(market: str) -> pd.DataFrame:
             h = h[h.get("status").eq("parsed")] if "status" in h.columns else h
             if not {"ticker", "nav_cum_pence"} <= set(h.columns):
                 continue
+            if "nav_ccy" in h.columns:            # same rule for the shards
+                h = h[h["nav_ccy"].fillna("GBX").astype(str).str.upper().isin(
+                    ("GBX", "GBP", "GBP_PENCE", "STG"))]
             # PENCE, not pounds. The UK canonical NAV unit is GBX
             # (units.CANONICAL_UNIT["UK"]) - the unit Yahoo quotes London
             # shares in, and the unit the AIC panel's nav_col and the Tier 0
