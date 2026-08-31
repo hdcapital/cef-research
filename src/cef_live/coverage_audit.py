@@ -567,7 +567,19 @@ def build_rows(reg: pd.DataFrame, live: pd.DataFrame, params: dict,
             a = asx_ann.loc[sid].to_dict() if len(asx_ann) and sid in asx_ann.index else {}
             last_ann = a.get("last_nta_announcement")
             a = {**a, "last_ann_status": None}     # ASX index records no status
-            last_parsed = (nav_date if basis == 0 else None)
+            # "when did we last get a VALUE out of one of this fund's
+            # announcements" is the deterministic extract as much as it is
+            # Tier 0. Counting only Tier 0 reported 46 ASX funds as
+            # "announcement held, never parsed" while the extractor had in
+            # fact read them - a parser failure that was ours to claim, not
+            # theirs, and one that would have sent someone to fix a parser
+            # that already worked.
+            last_parsed = max(
+                [x for x in (nav_date if basis == 0 else None,
+                             o.get("own_nav_date"),
+                             (pd.Timestamp(t0["nav_date"]).date().isoformat()
+                              if t0.get("nav_date") is not None else None))
+                 if x], default=None)
             parse_rate = None
             ann_count = a.get("nta_announcements_90d")
         unparsed = bool(last_ann and (not last_parsed or str(last_parsed) < str(last_ann)))
