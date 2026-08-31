@@ -1,0 +1,48 @@
+name: uk-ticker-reresolution
+
+# Re-resolve live UK funds whose Investegate page cannot be found, by
+# joining the ISIN we already hold to the London listing's current code via
+# OpenFIGI, then verifying each candidate against Investegate's own company
+# page before it is written. Dispatch-only: it edits a committed config file
+# and should run when someone asks, not on a timer.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  resolve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    concurrency:
+      group: uk-tickers-${{ github.ref }}
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt && pip install -e .
+      - name: Re-resolve tickers
+        run: python scripts/resolve_missing_uk_tickers.py
+      - name: Commit verified overrides
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for p in config/investegate_tickers.csv outputs/uk_ticker_reresolution.csv; do
+            [ -e "$p" ] && git add -f "$p" || true
+          done
+          if git diff --cached --quiet; then
+            echo "no changes"
+          else
+            git commit -m "CI: UK ticker re-resolution ($(date -u +%Y-%m-%dT%H:%MZ))"
+            for i in 1 2 3 4 5 6; do
+              git pull --rebase --autostash -X theirs origin "${GITHUB_REF_NAME}" || true
+              if git push origin "HEAD:${GITHUB_REF_NAME}"; then break; fi
+              sleep $((RANDOM % 15 + 5))
+            done
+          fi
