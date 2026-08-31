@@ -108,6 +108,34 @@ announcements), the rule list reads 174 - up from 136. The one it refuses
 is a euro-denominated fund, which is the correct answer: a cents figure in
 a pence column is the unit bug again.
 
+### Two failure shapes worth recognising
+
+Both were found by taking a single fund from the coverage audit's RED list
+and asking why, and both turned out to be one line of pattern or one
+constant - not missing data.
+
+**A fund whose NAV we never even asked for.** Achilles (AIC) published a NAV
+on 7 August; the harvest ran on the 30th with a 7-day window and reported
+`no_recent_nav`. A week-long window can only see a fund that publishes at
+least weekly, and monthly/quarterly publishers are most of the offshore,
+property and infrastructure cohort. Achilles also listed in 2025, after the
+crawl that built the listing cache, so it had no listing index either - and
+the archive job's queue IS that cache. Both are now closed: the Tier 0
+window is 45 days, and every listing page the harvest fetches is written
+back to the cache it was missing from.
+
+**A fund whose NAV we hold and cannot see.** Underwood Capital (UWC)
+publishes its monthly NTA as "UWC Investment Portfolio Performance July
+2026". The announcement was indexed on 12 August with a working PDF link
+and was never fetched, because the headline contains none of NTA, net
+tangible, net asset, NAV or fund update. Australian Leaders (ALF) publishes
+under the same shape.
+
+The general lesson: when a fund is RED, check the reach before the data.
+`reports/build/uk_tier0_debug.json` and `reports/build/asx_tier0_debug.json`
+carry the funnel - candidates, codes with a candidate, attempted, parsed -
+so "we never asked" is distinguishable from "we asked and it failed".
+
 ### Where the extracted ASX NAV facts live
 
 `python -m au_lic.extract.runner deterministic` writes

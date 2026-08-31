@@ -15,6 +15,7 @@ import json
 import sys
 from pathlib import Path
 
+import pandas as pd
 import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
@@ -247,3 +248,78 @@ def test_one_loader_decides_where_the_extracted_facts_live():
     assert "AUF.load()" in src
     assert "asx/extract/facts_det_" not in src, (
         "run_validate keeps its own copy of the S3 path")
+
+
+# ---------------------------------------------- the two funds that prompted this
+
+def test_a_monthly_uk_publisher_is_inside_the_tier_0_window():
+    """Achilles published a NAV on 7 August and was invisible on the 30th.
+
+    A 7-day window can only ever see a fund that publishes at least weekly.
+    215 of 368 targets came back `no_recent_nav` on the last run, and for
+    most of them the reason was their publication cadence, not silence -
+    monthly and quarterly publishers are most of the offshore, property and
+    infrastructure cohort this harvester exists to reach.
+    """
+    look = inspect.signature(H.harvest_uk).parameters["lookback_days"].default
+    assert look >= 35, (
+        f"a {look}-day Tier 0 window cannot see a monthly NAV publisher")
+
+
+def test_the_listing_page_we_fetched_is_written_back_to_the_archive_queue(tmp_path):
+    """A fund with no listing index can never have its NAV archived.
+
+    The archive job's queue IS data/investegate_cache/listings. Achilles
+    listed in 2025, after the historical dividends crawl that built that
+    cache, so it had no listing file, therefore no archived announcements,
+    therefore no NAV history - for want of a file whose contents the Tier 0
+    harvest was already downloading every night.
+    """
+    assert "write_listing_cache" in inspect.signature(H.harvest_uk).parameters
+    src = inspect.getsource(H.harvest_uk)
+    assert "listing_rows.setdefault" in src, (
+        "the listing rows must be collected as the page is parsed")
+
+    cache = tmp_path / "listings"
+    n = H._write_listing_cache({"AIC": [
+        {"ann_id": "9740001", "date": "2026-08-07",
+         "headline": "Net Asset Value(s)", "url": "https://x/9740001"}]}, cache)
+    assert n == 1
+    got = pd.read_csv(cache / "AIC.csv", dtype=str)
+    assert set(got.columns) >= {"ann_id", "date", "headline", "url"}, (
+        "the archive job reads exactly these columns")
+    assert got["ann_id"].tolist() == ["9740001"]
+
+    # a second pass ADDS; it never truncates the deep history a full crawl built
+    H._write_listing_cache({"AIC": [
+        {"ann_id": "9750002", "date": "2026-08-28",
+         "headline": "Net Asset Value(s)", "url": "https://x/9750002"}]}, cache)
+    got = pd.read_csv(cache / "AIC.csv", dtype=str)
+    assert set(got["ann_id"]) == {"9740001", "9750002"}
+
+
+def test_an_asx_nta_published_as_portfolio_performance_is_still_fetched():
+    """UWC's July NTA was indexed on 12 August and never fetched.
+
+    "UWC Investment Portfolio Performance July 2026" contains none of NTA,
+    net tangible, net asset, NAV or fund update - so the fund's monthly NAV
+    sat in the announcement index, with a working PDF link, entirely
+    invisible. Australian Leaders publishes under the same shape.
+    """
+    for head in ("UWC Investment Portfolio Performance July 2026",
+                 "Monthly Portfolio Performance Update - July 2026",
+                 "Portfolio Update - July 2026",
+                 "Quarterly Portfolio Disclosure as at 30 June 2026"):
+        assert H.AU_NAV_HEAD.search(head), f"{head!r} would not be fetched"
+    for head in ("Update - Notification of buy-back - UWC",
+                 "FY26 UWC Appendix 4E and Annual Report",
+                 "Change of Director's Interest Notice"):
+        assert not H.AU_NAV_HEAD.search(head)
+
+
+def test_liveness_and_the_harvester_share_one_nta_headline_pattern():
+    """Two lists of "headlines that carry an NTA" would drift, and the fund
+    in the gap would be live-but-unpriceable for a reason no column explains.
+    """
+    from cef_live import cli
+    assert cli.NAV_HEAD is H.AU_NAV_HEAD
