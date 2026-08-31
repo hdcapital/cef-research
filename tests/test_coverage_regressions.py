@@ -638,3 +638,34 @@ def test_the_asx_monthly_report_is_a_fallback_not_a_default():
     assert r2["basis"] == 0 and r2["nav_anchor"] == pytest.approx(1.20)
     assert "asx_ann" in str(r2["anchor_source"])
     assert r2["anchor_date"] == "2026-08-28"
+
+
+def test_a_month_end_panel_price_can_never_alert():
+    """European Opportunities Trust cleared every gate on a JULY panel
+    price and reached z = +2.15, alert_eligible.
+
+    Every other check was about the number rather than about what the
+    number IS: the price was positive, the NAV positive, the units
+    consistent, the discount computed. None of that makes a month-end
+    aggregator print a current market price, and a discount against one is
+    not a current discount. The audit's usable_price already drew this
+    line; the row-level gate now draws it in the same place.
+    """
+    params = _params()
+    months = pd.period_range("2019-01", "2026-07", freq="M").astype(str)
+    panel = pd.DataFrame([
+        {"security_id": "EOT", "obs_month": m, "sector": "S",
+         "nav_total_return": 0.004, "nav_per_share": 991.4,
+         "share_price": 937.0 + (i % 9), "company_name": "EOT",
+         "discount": -0.05 + (i % 9) / 100.0} for i, m in enumerate(months)])
+    registry = pd.DataFrame([{"security_id": "EOT", "market": "UK",
+                              "status": "live", "name": "EOT",
+                              "research_eligible": True, "identity_ok": True}])
+    out = nta_live.build_table(panel, "UK", "nav_total_return", "nav_per_share",
+                               "share_price", params, live_prices=None,
+                               registry=registry, today=TODAY)
+    r = out.iloc[0]
+    assert r["price_is_fallback"], "the fixture must exercise the fallback path"
+    assert not r["data_quality_ok"]
+    assert r["data_quality_reason"] == "stale_panel_price_only"
+    assert not r["alert_eligible"], "a month-end panel price alerted"
