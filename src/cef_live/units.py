@@ -36,9 +36,30 @@ CANONICAL_UNIT = {"UK": "GBX", "AU": "AUD"}
 
 # source-unit labels we recognise, mapped to the multiplier that takes them
 # to the market's canonical unit
+# EVERY STERLING CURRENCY LABEL MEANS PENCE HERE, and none of them causes a
+# conversion. That is not laziness, it is the only safe reading:
+#
+#   * Yahoo labels London lines "GBp" - lowercase p, pence. Case is the ONLY
+#     thing separating it from "GBP", and a case-insensitive lookup collapses
+#     them. This module did exactly that and multiplied 271 correctly-quoted
+#     UK prices by 100 the first night real currency metadata reached it:
+#     AVI Global went in at 265.5p and came out at 26,550, a 9,265% premium.
+#     The module written to prevent unit errors committed one, in the one
+#     direction it had no check for - because it TRUSTED a label instead of
+#     flagging it.
+#   * uk_cef/panel.py records the same hazard from the other side: "sterling
+#     labels vary by vintage: GBX (pence), GBP/GBp/STG (same sterling quotes
+#     - some 2012/2023 files label pence prices 'GBP')". So in this system's
+#     own sources, a GBP label on a UK quote is a pence figure.
+#
+# A value genuinely in pounds is therefore caught by scale_diagnosis as a
+# ~100x gap and REPORTED, never silently rescaled. Only unambiguous words -
+# "pounds", "£" - convert, because those are descriptions rather than
+# currency codes that two conventions disagree about.
 _UK_UNITS = {
-    "gbx": 1.0, "gbp_pence": 1.0, "pence": 1.0, "p": 1.0, "pennies": 1.0,
-    "gbp": 100.0, "pounds": 100.0, "sterling": 100.0, "£": 100.0,
+    "gbx": 1.0, "gbp": 1.0, "gbp_pence": 1.0, "stg": 1.0,
+    "pence": 1.0, "p": 1.0, "pennies": 1.0,
+    "pounds": 100.0, "£": 100.0,
 }
 _AU_UNITS = {
     "aud": 1.0, "dollars": 1.0, "a$": 1.0, "$": 1.0, "aux": 1.0,
@@ -91,10 +112,12 @@ def unit_metadata_conflict(market: str, price_ccy: str | None) -> str | None:
         return None
     c = price_ccy.strip()
     if market == "UK":
-        if c.lower() in ("gbx", "gbp_pence") or c == "GBp":
+        if c.lower() in ("gbx", "gbp_pence", "stg") or c == "GBp":
             return None
-        if c.upper() == "GBP":
-            return "quote_currency_GBP_but_canonical_is_pence"
+        if c == "GBP":
+            # ambiguous, not wrong: this repo's own sources use GBP for
+            # pence quotes. Reported so a reader can check, never converted.
+            return "quote_currency_GBP_is_ambiguous_read_as_pence"
         return f"quote_currency_{c}_not_sterling"
     if market == "AU":
         if c.upper() in ("AUD", "A$"):
