@@ -1,0 +1,97 @@
+name: uk-index-gap
+
+# Index the live UK funds whose announcements were never listed.
+#
+# The listings crawl was seeded from the AIC panel's ELIGIBLE universe, which
+# is defined by the aggregator publishing a price and a NAV - exactly the test
+# the infrastructure, renewables, property and private-equity trusts fail. So
+# 105 live non-VCT funds were never indexed, never archived, and have no NAV
+# history: HICL, Tritax Big Box, 3i Infrastructure, BH Macro, Gresham House
+# Energy Storage, Bluefield Solar. Not a long tail.
+#
+# This is the missing first link. It indexes WHICH announcements those funds
+# published, not the bodies - roughly an order of magnitude cheaper per fund,
+# and all the NAV archiver needs to queue them. The chain then completes with
+# machinery that already exists:
+#
+#     uk-index-gap  ->  uk-nav-archive  ->  uk-daily (nav stage)
+#
+# Identity is verified against each page's own H1 before a row is stored:
+# Investegate reuses tickers, and a wrong page would staple another company's
+# announcements to this fund.
+#
+# 6 shards, hashed by ticker so they take disjoint slices, matching the other
+# UK jobs so they can share runners.
+
+on:
+  workflow_dispatch:
+    inputs:
+      shards:
+        description: "parallel shards (keep <= 6 to leave runners for other work)"
+        default: "6"
+      budget_minutes:
+        description: "wall-clock budget per shard"
+        default: "300"
+      include_vct:
+        description: "also index the 45 live VCTs"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  index:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 6
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5]
+    concurrency:
+      group: uk-index-gap-${{ matrix.shard }}
+      cancel-in-progress: false
+    timeout-minutes: 340
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+      S3_BUCKET: ${{ secrets.S3_BUCKET }}
+      SHARD_INDEX: ${{ matrix.shard }}
+      SHARD_COUNT: ${{ github.event.inputs.shards || '6' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt && pip install -e .
+
+      - name: Restore state from S3
+        run: python scripts/sync_state.py pull --groups uk_announcements,tickers,uk_daily
+
+      - name: Index the never-listed funds
+        run: |
+          python -m cef_live.cli uk-index-gap \
+            --budget-minutes "${{ github.event.inputs.budget_minutes || '300' }}" \
+            ${{ github.event.inputs.include_vct == 'true' && '--include-vct' || '' }}
+
+      - name: Persist the listings index to S3
+        if: always()
+        run: python scripts/sync_state.py push --groups uk_announcements
+
+      - name: Commit the per-shard report
+        if: always()
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A outputs/live/uk_index_gap_*.csv reports/build/uk_index_gap_*.json || true
+          if git diff --cached --quiet; then
+            echo "no change"
+          else
+            git commit -m "CI: UK index gap shard ${{ matrix.shard }} ($(date -u +%Y-%m-%dT%H:%MZ))"
+            for i in 1 2 3 4; do
+              git pull --rebase origin main && git push origin HEAD:main && break
+              sleep $((2 ** i))
+            done
+          fi

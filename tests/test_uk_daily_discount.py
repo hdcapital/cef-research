@@ -8,6 +8,7 @@ it produces a plausible percentage rather than an error.
 from __future__ import annotations
 
 import inspect
+import pathlib
 import sys
 
 import pandas as pd
@@ -279,3 +280,37 @@ def test_snapshot_navs_are_read_as_pence_not_converted():
     """
     src = inspect.getsource(NAV.extract_from_snapshots)
     assert "* 100.0" not in src
+
+
+# ------------------------------------------------------------ the index gap
+def test_listings_only_leaves_a_fund_resumable_not_done():
+    """Indexing without bodies must not mark the fund finished.
+
+    The listings-only pass exists to make indexing ~105 never-listed funds a
+    job that completes. If it set status `done`, a later full crawl would
+    skip those funds forever and their dividend and catalyst bodies would
+    never be fetched - the cheap job silently cancelling the thorough one.
+    """
+    from uk_cef.data_sources import investegate
+
+    src = inspect.getsource(investegate.InvestegateCrawler.crawl_company)
+    i_only = src.index('if st["status"] == "details" and self.listings_only:')
+    i_full = src.index('if st["status"] == "details":', i_only + 10)
+    assert i_only < i_full, "the listings-only guard must precede the details phase"
+    guard = src[i_only:i_full]
+    assert '"done"' not in guard, "listings-only must leave the fund at `details`"
+
+
+def test_index_gap_targets_only_funds_with_no_index():
+    """A fund that HAS an index is the archiver's queue, not this job's."""
+    from cef_live import uk_index_gap
+
+    uni = pd.DataFrame([
+        {"ticker": "AAA", "name": "A", "sector": "s", "nav_route": "announcements_only",
+         "is_vct": False, "security_id": "1"},
+        {"ticker": "BBB", "name": "B", "sector": "s", "nav_route": "registry",
+         "is_vct": False, "security_id": "2"},
+    ])
+    panel = _nav("BBB", ["2021-01-04"], ["2021-01-04"], [100.0])
+    out = uk_index_gap.targets(uni, panel, cache_dir=pathlib.Path("/nonexistent"))
+    assert set(out["ticker"]) == {"AAA"}, "a fund with NAV history must not be re-crawled"

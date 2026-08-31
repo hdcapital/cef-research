@@ -695,6 +695,13 @@ def main() -> int:
     ud.add_argument("--exclude-vct", action="store_true")
     ud.add_argument("--shard", type=int, default=int(os.environ.get("SHARD_INDEX", "0")))
     ud.add_argument("--shards", type=int, default=int(os.environ.get("SHARD_COUNT", "1")))
+    ig = sub.add_parser("uk-index-gap",
+                        help="index live UK funds whose announcements were never listed")
+    ig.add_argument("--budget-minutes", type=float, default=300.0)
+    ig.add_argument("--include-vct", action="store_true")
+    ig.add_argument("--limit", type=int, default=0)
+    ig.add_argument("--shard", type=int, default=int(os.environ.get("SHARD_INDEX", "0")))
+    ig.add_argument("--shards", type=int, default=int(os.environ.get("SHARD_COUNT", "1")))
     args = ap.parse_args()
     if args.cmd == "universe":
         return build_universe()
@@ -706,6 +713,11 @@ def main() -> int:
         return ideas()
     if args.cmd == "nightly":
         return nightly([m.strip() for m in args.markets.split(",") if m.strip()])
+    if args.cmd == "uk-index-gap":
+        from . import uk_index_gap
+        return uk_index_gap.run(budget_minutes=args.budget_minutes,
+                                shard=args.shard, shards=args.shards,
+                                include_vct=args.include_vct, limit=args.limit)
     if args.cmd == "uk-daily":
         from . import uk_daily
         return uk_daily.run(
