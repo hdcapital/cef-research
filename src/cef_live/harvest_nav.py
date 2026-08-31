@@ -16,6 +16,7 @@ the incremental crawler extension (see docs/RUNBOOK.md).
 
 from __future__ import annotations
 
+import collections
 import importlib.util
 import re
 import time as _t
@@ -144,9 +145,25 @@ def _asx_pretax_per_share(text: str) -> float | None:
 
 def _note_failure(stats: dict, code: str, headline: str, url: str,
                   status: str | None, text: str) -> None:
-    """Record one unreadable document, capped so the report stays readable."""
+    """Record one unreadable document: per CODE, and always the outcome.
+
+    The first version of this kept the first 40 failures it saw, which
+    sounds neutral and is not. The loop runs newest-first across every
+    fund, so the sample fills up with whoever announced in the last few
+    days - and the funds this diagnostic exists for are the MONTHLY
+    reporters, whose one announcement is two or three weeks old and
+    therefore always arrives after the cap. Underwood Capital's failure was
+    dropped that way: 52 documents failed, 24 codes were sampled, and the
+    one fund the instrumentation was added for was not among them.
+
+    So the outcome is now recorded for EVERY code (a short string, cheap),
+    and the text sample is kept once per code rather than first-come.
+    """
+    stats.setdefault("by_code", {})[code] = status or "unknown"
     samples = stats.setdefault("fail_samples", [])
-    if len(samples) >= 40:
+    if any(x.get("code") == code for x in samples):
+        return                      # one sample per fund, not forty per week
+    if len(samples) >= 60:
         return
     samples.append({"code": code, "headline": (headline or "")[:120],
                     "url": url, "status": status, "text_head": text})
@@ -322,6 +339,7 @@ def harvest_au(codes: set[str], lookback_days: int = 45,
             stats["ambiguous_unit"] += 1
             continue                      # flagged, never guessed
         stats["parsed"] += 1
+        stats.setdefault("by_code", {})[code] = "parsed"
         done.add(code)
         if got.get("valuation_date"):
             asat = pd.Timestamp(got["valuation_date"])
@@ -339,6 +357,12 @@ def harvest_au(codes: set[str], lookback_days: int = 45,
                      "source": f"asx_ann:{r.id}", "headline": head[:120]})
 
     stats["codes_parsed"] = len(done)
+    seen_codes = {str(r.code) for r in cands}
+    for c in sorted(str(x) for x in codes):
+        stats.setdefault("by_code", {}).setdefault(
+            c, "no_candidate_in_window" if c not in seen_codes else "not_attempted")
+    stats["by_outcome"] = dict(sorted(collections.Counter(
+        stats.get("by_code", {}).values()).items()))
     try:
         import json as _json
         Path("reports/build").mkdir(parents=True, exist_ok=True)
