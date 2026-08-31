@@ -1,5 +1,5 @@
 {
-  "run_at": "2026-08-31T07:48:38+00:00",
+  "run_at": "2026-08-31T08:36:08+00:00",
   "stages": [
     "nav",
     "prices",
@@ -8,66 +8,9 @@
   "live_funds_addressed": 271,
   "bucket": true,
   "nav": {
-    "held_rows": 450389,
-    "seed_rows": 596718,
-    "reparse_candidates": 188418,
-    "archive": {
-      "archive_objects": 722002,
-      "queued": 191452,
-      "read": 191452,
-      "parsed": 75819,
-      "unparsed": 115633,
-      "read_failed": 0,
-      "deadline_hit": false
-    },
-    "snapshots": {
-      "snapshots": 4,
-      "rows": 106,
-      "read_failed": 0
-    },
-    "raw_rows": 1238665,
-    "unparsed_rows": 304051,
-    "panel_rows": 458069,
-    "panel_funds": 205,
-    "quality": {
-      "observations_compared": 446971,
-      "median_abs_change": 0.00537,
-      "p90_abs_change": 0.018305,
-      "big_move_rate": 0.010627,
-      "jump_reversal_rate": 0.00210752,
-      "big_move_rate_labelled_basis": 0.003663,
-      "big_move_rate_cum_assumed": 0.041371,
-      "cum_assumed_share_of_panel": 0.1902,
-      "funds_unreliable_nav_series": 7
-    }
-  },
-  "prices": {
-    "held_bars": 1146007,
-    "panel_bars": 1156446,
-    "funds_with_prices": 282,
-    "funds_no_history": 4
-  },
-  "discount": {
-    "panel_rows": 1116334,
-    "funds": 282,
-    "days_with_discount": 631887,
-    "days_with_fresh_discount": 531267,
-    "funds_usable_today": 137,
-    "first_date": "2007-01-02",
-    "last_date": "2026-08-27",
-    "funds_no_nav": 107,
-    "unit_status": {
-      "ok": 162,
-      "assumed_from_currency": 67,
-      "unresolved_no_nav_no_currency": 14,
-      "assumed_from_currency_thin_overlap": 11,
-      "unresolved_scale": 7,
-      "unreliable_nav_series": 7,
-      "unresolved_dispersed": 7,
-      "rescaled_x100": 4,
-      "rescaled_x0.01": 3
-    },
-    "unreliable_nav_funds": [
+    "held_rows": 458069,
+    "seed_rows": 599654,
+    "reparse_unreliable_funds": [
       "CGI",
       "IGC",
       "MAJE",
@@ -76,19 +19,80 @@
       "VNH",
       "VOF"
     ],
+    "reparse_candidates": 191679,
+    "archive": {
+      "archive_objects": 722057,
+      "queued": 191832,
+      "read": 191832,
+      "parsed": 91477,
+      "unparsed": 100355,
+      "read_failed": 0,
+      "deadline_hit": false
+    },
+    "snapshots": {
+      "snapshots": 4,
+      "rows": 106,
+      "read_failed": 0
+    },
+    "raw_rows": 1249661,
+    "unparsed_rows": 291490,
+    "panel_rows": 472899,
+    "panel_funds": 207,
+    "quality": {
+      "observations_compared": 460629,
+      "median_abs_change": 0.005382,
+      "p90_abs_change": 0.018334,
+      "big_move_rate": 0.010449,
+      "jump_reversal_rate": 0.00207325,
+      "big_move_rate_labelled_basis": 0.003648,
+      "big_move_rate_cum_assumed": 0.041577,
+      "cum_assumed_share_of_panel": 0.1842,
+      "funds_unreliable_nav_series": 1
+    }
+  },
+  "prices": {
+    "held_bars": 1156446,
+    "panel_bars": 1156446,
+    "funds_with_prices": 282,
+    "funds_no_history": 4
+  },
+  "discount": {
+    "panel_rows": 1116334,
+    "funds": 282,
+    "days_with_discount": 651629,
+    "days_with_fresh_discount": 547941,
+    "funds_usable_today": 143,
+    "first_date": "2007-01-02",
+    "last_date": "2026-08-27",
+    "funds_no_nav": 102,
+    "unit_status": {
+      "ok": 169,
+      "assumed_from_currency": 66,
+      "unresolved_no_nav_no_currency": 13,
+      "assumed_from_currency_thin_overlap": 11,
+      "unresolved_dispersed": 7,
+      "currency_mismatch": 5,
+      "unresolved_scale": 5,
+      "rescaled_x0.01": 3,
+      "rescaled_x100": 2,
+      "unreliable_nav_series": 1
+    },
+    "unreliable_nav_funds": [
+      "MAJE"
+    ],
     "nav_readiness": {
-      "archived": 193,
-      "indexed_not_archived": 42,
+      "archived": 195,
+      "indexed_not_archived": 40,
       "indexed_no_nav_announcements": 31,
       "no_listing_index": 5
     },
     "funds_split_adjusted": 43,
     "frequency_mix": {
       "daily": 138,
-      "single_observation": 18,
+      "single_observation": 19,
       "quarterly": 15,
-      "monthly": 11,
-      "semiannual": 10,
+      "monthly": 13,
+      "semiannual": 9,
       "adhoc": 7,
       "weekly": 6
     }
