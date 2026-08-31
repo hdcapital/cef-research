@@ -40,10 +40,13 @@ def test_pence_and_pounds_are_different_units_and_the_gap_is_detected():
     assert got["suspected_scale_factor"] == 100.0
     assert got["extreme_discount_flag"]
 
-    # and the conversion itself, when the unit IS stated, is explicit
-    v, unit, note = units.normalise("UK", 1.13, "GBP")
+    # and the conversion itself, when the unit is stated UNAMBIGUOUSLY, is
+    # explicit. "GBP" is NOT such a unit - Yahoo and the AIC both use it for
+    # pence quotes - so only the word converts. See
+    # test_a_sterling_currency_label_never_rescales_a_uk_price.
+    v, unit, note = units.normalise("UK", 1.13, "pounds")
     assert v == pytest.approx(113.0) and unit == "GBX"
-    assert note == "converted_x100_from_gbp"
+    assert note == "converted_x100_from_pounds"
     assert units.normalise("UK", 113.0, "GBX")[0] == 113.0
     # an unstated unit is assumed canonical and SAYS so - never silently
     assert units.normalise("UK", 113.0, None)[2] == "unit_unstated_assumed_canonical"
@@ -71,8 +74,8 @@ def test_an_80_percent_discount_is_flagged_without_being_called_a_unit_error():
 
 
 def test_a_quote_currency_that_contradicts_the_market_is_reported():
-    assert units.unit_metadata_conflict("UK", "GBP") == \
-        "quote_currency_GBP_but_canonical_is_pence"
+    # GBP is ambiguous rather than wrong - reported, never acted on
+    assert "ambiguous" in units.unit_metadata_conflict("UK", "GBP")
     assert units.unit_metadata_conflict("UK", "GBp") is None
     assert units.unit_metadata_conflict("AU", "USD").startswith("quote_currency_USD")
     assert units.unit_metadata_conflict("AU", "AUD") is None
@@ -398,3 +401,42 @@ def test_the_audit_is_manual_only():
             trig = doc[True] if True in doc else doc.get("on", {})
             assert "schedule" not in (trig or {}), (
                 f"{f.name} would run the coverage audit on a schedule")
+
+
+def test_a_sterling_currency_label_never_rescales_a_uk_price():
+    """GBp and GBP differ only by case, and this module lowercased both.
+
+    Yahoo labels London lines "GBp" - pence. A case-insensitive lookup
+    collapsed that into "gbp" and multiplied by 100, so the first audit run
+    with real currency metadata put AVI Global in at 265.5p and reported it
+    at 26,550 against a 280.51p NAV: a 9,265% premium, on 271 UK funds at
+    once, produced by the module built to prevent exactly this.
+
+    uk_cef/panel.py records the same hazard from the other side - some AIC
+    vintages label pence prices "GBP" - so no sterling label can be trusted
+    to mean pounds. A value that really is in pounds is caught by
+    scale_diagnosis as a ~100x gap and reported, not silently rescaled.
+    """
+    for label in ("GBp", "GBP", "GBX", "gbx", "STG", "pence", "p", None, ""):
+        value, unit, _ = units.normalise("UK", 265.5, label)
+        assert value == pytest.approx(265.5), (
+            f"a {label!r} label rescaled a pence price to {value}")
+        assert unit == "GBX"
+
+    # the real pairs from the live table, which must read as ordinary discounts
+    for price, nav, lo, hi in ((265.5, 280.51, -0.10, 0.0),   # AVI Global
+                               (395.5, 419.0, -0.10, 0.0),    # 3i Infrastructure
+                               (453.0, 501.6, -0.15, 0.0)):   # Aberdeen Asia Focus
+        px, _, _ = units.normalise("UK", price, "GBp")
+        d = units.discount(px, nav)
+        assert lo <= d <= hi, f"{price}/{nav} gave {d:+.2%}"
+        assert units.scale_diagnosis(px, nav)["unit_check_status"] == "ok"
+
+    # an explicit WORD still converts - it is a description, not a code two
+    # conventions disagree about
+    assert units.normalise("UK", 2.655, "pounds")[0] == pytest.approx(265.5)
+
+    # and a genuinely foreign quote is never read as pence
+    assert units.unit_metadata_conflict("UK", "USD").startswith("quote_currency_USD")
+    assert units.unit_metadata_conflict("UK", "GBp") is None
+    assert "ambiguous" in units.unit_metadata_conflict("UK", "GBP")

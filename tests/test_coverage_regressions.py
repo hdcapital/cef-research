@@ -146,8 +146,10 @@ def test_the_live_table_normalises_a_nav_through_the_stated_unit():
     px = pd.DataFrame([{"security_id": "S1", "price": 452.0,
                         "price_source": "yahoo:T.L", "price_date": "2026-08-28",
                         "price_ccy": "GBp"}])
+    # "pounds", not "GBP": a GBP label means PENCE in this system's sources,
+    # so only the unambiguous word may trigger a conversion
     own = pd.DataFrame([{"security_id": "S1", "nav_date": "2026-08-28",
-                         "nav_value": 4.60, "nav_unit": "GBP"}])
+                         "nav_value": 4.60, "nav_unit": "pounds"}])
     out = nta_live.build_table(pd.DataFrame(columns=["security_id", "obs_month",
                                                      "sector", "nav_total_return",
                                                      "nav_per_share", "share_price"]),
