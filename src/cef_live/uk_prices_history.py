@@ -75,7 +75,15 @@ def load_overrides(path: str | Path = OVERRIDES) -> dict[str, str]:
     p = Path(path)
     if not p.exists():
         return {}
-    df = pd.read_csv(p, comment="#")
+    try:
+        df = pd.read_csv(p, comment="#")
+    except pd.errors.EmptyDataError:
+        # No overrides yet is the NORMAL state - the default {TIDM}.L is
+        # right for nearly every London line, so this file is a header and
+        # a comment block until a fund needs one. A comment-only file has no
+        # columns to parse, and letting that raise took the whole price
+        # stage down on its first CI run.
+        return {}
     if not {"ticker", "yahoo_symbol"} <= set(df.columns):
         return {}
     return dict(zip(df["ticker"].astype(str).str.upper(),

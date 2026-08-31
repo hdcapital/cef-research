@@ -70,6 +70,7 @@ def stage_nav(universe: pd.DataFrame, bucket: str, *, deadline_min: float,
     else:
         stats["archive"] = "s3_skipped_no_bucket"
 
+    frames = [f for f in frames if len(f)]
     raw = pd.concat(frames, ignore_index=True) if frames else pd.DataFrame(
         columns=NAV.COLUMNS)
     stats["raw_rows"] = int(len(raw))

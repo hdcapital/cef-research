@@ -314,3 +314,22 @@ def test_index_gap_targets_only_funds_with_no_index():
     panel = _nav("BBB", ["2021-01-04"], ["2021-01-04"], [100.0])
     out = uk_index_gap.targets(uni, panel, cache_dir=pathlib.Path("/nonexistent"))
     assert set(out["ticker"]) == {"AAA"}, "a fund with NAV history must not be re-crawled"
+
+
+def test_a_comment_only_symbol_override_file_is_not_an_error(tmp_path):
+    """Having no overrides is the normal state, not a failure.
+
+    The default {TIDM}.L is right for nearly every London line, so this file
+    is a header and a comment block until some fund needs an entry. pandas
+    raises EmptyDataError on a file with no parseable columns, and letting
+    that propagate took the entire price stage down on its first CI run -
+    after the NAV stage had already done its work.
+    """
+    p = tmp_path / "syms.csv"
+    p.write_text("# nothing verified yet\n")
+    assert PH.load_overrides(p) == {}
+    assert PH.load_overrides(tmp_path / "absent.csv") == {}
+    p.write_text("ticker,yahoo_symbol\nATST,ALW.L\n")
+    assert PH.load_overrides(p) == {"ATST": "ALW.L"}
+    assert PH.yahoo_symbol("ATST", PH.load_overrides(p)) == "ALW.L"
+    assert PH.yahoo_symbol("CTY", {}) == "CTY.L"
