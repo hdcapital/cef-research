@@ -99,7 +99,7 @@ jobs:
           else
             git commit -m "CI: UK NAV history shard ${{ matrix.shard }} ($(date -u +%Y-%m-%dT%H:%MZ))"
           for i in 1 2 3 4 5 6; do
-            git pull --rebase -X theirs origin "${GITHUB_REF_NAME}" || true
+            git pull --rebase --autostash -X theirs origin "${GITHUB_REF_NAME}" || true
             if git push origin "HEAD:${GITHUB_REF_NAME}"; then break; fi
             sleep $((RANDOM % 15 + 5))
           done
