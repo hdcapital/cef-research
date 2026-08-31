@@ -314,10 +314,12 @@ def reconcile_units(nav: pd.DataFrame, px: pd.DataFrame,
         n["date"] = pd.to_datetime(n["date"])
         n = n.sort_values("date")
 
+    nav_by_ticker = {tk: g for tk, g in n.groupby("ticker", sort=False)} if len(n) else {}
+
     rows = []
     for tk, g in px.groupby("ticker"):
         ccy = str(g["price_ccy"].iloc[-1]) if "price_ccy" in g.columns else ""
-        ng = n[n["ticker"] == tk] if len(n) else n
+        ng = nav_by_ticker.get(tk, n.iloc[0:0])
         if not len(ng):
             # no NAV to reconcile against: fall back to the quote currency,
             # which is right for the great majority and is labelled as an

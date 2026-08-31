@@ -99,9 +99,15 @@ def build(nav: pd.DataFrame, px: pd.DataFrame,
         limits = {r.ticker: staleness_limit(r.median_gap_days)
                   for r in frequency.itertuples(index=False)}
 
+    # Index the NAV side ONCE. Re-filtering `n["ticker"] == ticker` inside the
+    # loop rescans all ~375k NAV rows for every one of ~290 funds - a hundred
+    # million row comparisons to answer a question a single groupby answers
+    # once, on a job that is meant to run every evening.
+    nav_by_ticker = {tk: g for tk, g in n.groupby("ticker", sort=False)}
+
     out = []
     for ticker, pg in p.groupby("ticker"):
-        ng = n[n["ticker"] == ticker]
+        ng = nav_by_ticker.get(ticker, n.iloc[0:0])
         left = pg[["date", "ticker", "close_raw", "price_pence", "price_ccy",
                    "price_scale", "price_unit_status",
                    "price_source"]].sort_values("date")
