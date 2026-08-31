@@ -577,3 +577,57 @@ def test_the_index_sweep_does_not_require_the_panel():
     i_panel = src.index('pp = Path("data/au_processed/au_monthly_panel.parquet")')
     assert i_reg < i_panel, "the registry must be consulted before the panel"
     assert 'if pp.exists():' in src, "a missing panel must not raise"
+
+
+# --- the ASX chain must be scheduled end to end -------------------------
+#
+# Index (01:30) and archive (02:00) ran nightly while extraction was
+# dispatch-only, so PDFs the archive had already pulled down sat unparsed
+# until someone remembered to press the button. A manual step in an
+# otherwise automatic chain is how the index fell two and a half years
+# behind, and the same shape had opened again one stage further down.
+
+def _wf(name: str) -> dict:
+    import yaml
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    # `on:` is the YAML 1.1 boolean True, so it is read back as a key of True
+    return yaml.safe_load((root / ".github" / "workflows" / name).read_text())
+
+
+def _on(wf: dict) -> dict:
+    return wf.get("on", wf.get(True, {})) or {}
+
+
+def test_asx_extraction_is_scheduled():
+    on = _on(_wf("asx_extract.yml"))
+    assert "schedule" in on, "extraction is dispatch-only again"
+    assert on["schedule"], "empty schedule"
+
+
+def test_asx_extraction_runs_after_the_archive():
+    """Extraction reads what the archive holds, so it must land after it."""
+    def hour(name):
+        sched = _on(_wf(name))["schedule"]
+        return int(str(sched[0]["cron"]).split()[1])
+    assert hour("asx_extract.yml") > hour("asx_archive.yml"), \
+        "extraction would run before the archive it reads from"
+
+
+def test_scheduled_extraction_cannot_spend():
+    """A scheduled run must default to the deterministic pass.
+
+    Nothing in the nightly path may reach a model-backed mode: those cost
+    money per document and the corpus is tens of thousands of documents.
+    The defaults are asserted rather than the dispatch inputs, because it
+    is the input-less scheduled run that decides what happens unattended.
+    """
+    import re
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    text = (root / ".github" / "workflows" / "asx_extract.yml").read_text()
+    m = re.search(r"au_lic\.extract\.runner \"\$\{\{([^}]+)\}\}\"", text)
+    assert m, "could not find the runner invocation"
+    expr = m.group(1)
+    assert "'deterministic'" in expr, \
+        f"scheduled run does not default to deterministic: {expr.strip()}"
