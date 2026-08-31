@@ -21,8 +21,9 @@ from pathlib import Path
 import pandas as pd
 import yaml
 
-from . import (catalysts, forward_irr, harvest_nav, liveness, nta_live,
-               opportunities, prices, tickers, universe, universe_report)
+from . import (catalysts, forward_irr, harvest_nav, identity, liveness,
+               nta_live, opportunities, prices, tickers, universe,
+               universe_report)
 
 
 def _params() -> dict:
@@ -298,6 +299,39 @@ def panels_by_market(markets=("UK", "AU")) -> dict[str, pd.DataFrame]:
     return {m: p for m, p in got.items() if p is not None and len(p)}
 
 
+def _verified_tickers() -> pd.DataFrame:
+    frames = []
+    for f, status in ((Path("config/resolved_tickers.csv"), "status"),
+                      (Path("config/investegate_tickers.csv"), None)):
+        if not f.exists():
+            continue
+        try:
+            t = pd.read_csv(f, comment="#")
+        except Exception:  # noqa: BLE001
+            continue
+        if status and status in t.columns:
+            t = t[t[status] == "verified"]
+        if {"security_id", "ticker"} <= set(t.columns):
+            frames.append(t[["security_id", "ticker"]])
+    if not frames:
+        return pd.DataFrame(columns=["security_id", "ticker"])
+    return pd.concat(frames, ignore_index=True).dropna(
+        subset=["ticker"]).drop_duplicates("security_id", keep="first")
+
+
+def _with_identity(reg: pd.DataFrame) -> pd.DataFrame:
+    """Registry plus ticker identity - who a ticker's live quote belongs to.
+
+    A ticker is a lease, not an identity: CIP was CIP Merchant Capital
+    until 2022 and is Channel Islands Property now. Resolving this BEFORE
+    the price layer is the only reliable place to stop a reused ticker,
+    because a wrong price is indistinguishable from a right one once it has
+    been fetched.
+    """
+    return identity.resolve(reg, _verified_tickers(),
+                            live_statuses=tuple(liveness.LIVE_STATUSES))
+
+
 def _registry_for(market: str) -> pd.DataFrame:
     """Live funds for one market - the universe, from identity alone."""
     rp = Path("data/universe/registry.parquet")
@@ -307,8 +341,9 @@ def _registry_for(market: str) -> pd.DataFrame:
     # `live_stale_nav` is alive - it means "trading, NAV not fresh yet".
     # Once liveness is persisted, omitting it here would drop 100+ funds
     # out of the priced universe for a data-coverage reason.
-    return reg[(reg["market"] == market)
-               & (reg["status"].isin(liveness.TRACKED_STATUSES))].copy()
+    out = reg[(reg["market"] == market)
+              & (reg["status"].isin(liveness.TRACKED_STATUSES))].copy()
+    return _with_identity(out)
 
 
 def _own_nav_history(market: str) -> pd.DataFrame:
@@ -602,7 +637,14 @@ def nightly(markets: list[str]) -> int:
         tier0 = harvest_nav.harvest_au(codes)
         mf = prices.monthly_factor_returns(ysess, "AU")
         df = prices.daily_factor_returns(ysess, "AU")
-        syms = {f"ASX:{c}": f"{c}.AX" for c in sorted(codes)}
+        # only ask for a quote where the code is unambiguously this
+        # security's; a superseded or conflicted holder is never fetched
+        syms = identity.priceable_symbols(au_reg, ".AX")
+        for c in sorted(codes):
+            syms.setdefault(f"ASX:{c}", f"{c}.AX")
+        blocked = set(au_reg.loc[~au_reg["identity_ok"], "security_id"].astype(str))
+        syms = {k: v for k, v in syms.items() if k not in blocked}
+        notes["markets"]["au_identity_blocked"] = len(blocked)
         live_px = prices.latest_prices(ysess, syms)
         notes["markets"]["au"] = {"tier0_navs": int(len(tier0)),
                                   "factors_monthly": mf is not None,
@@ -640,7 +682,10 @@ def nightly(markets: list[str]) -> int:
                 # sent to the price feed, so they could not have had a
                 # discount however good the NAV harvest got.
                 uk_reg = _registry_for("UK")
-                alive = set(uk_reg["security_id"].astype(str))
+                blocked_uk = set(
+                    uk_reg.loc[~uk_reg["identity_ok"], "security_id"].astype(str))
+                notes["markets"]["uk_identity_blocked"] = len(blocked_uk)
+                alive = set(uk_reg["security_id"].astype(str)) - blocked_uk
                 syms = {r.security_id: f"{r.ticker}.L"
                         for r in tmap.itertuples(index=False)
                         if not alive or r.security_id in alive}

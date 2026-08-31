@@ -47,7 +47,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
           S3_BUCKET: ${{ secrets.S3_BUCKET }}
-        run: python scripts/sync_state.py pull --groups uk_announcements,asx_index,tickers
+        run: python scripts/sync_state.py pull --groups uk_announcements,asx_index,tickers,uk_daily
       # architectural invariants: the registry is identity-only and every
       # addressable fund is a NAV target. A regression fails the run.
       - run: python -m pytest tests/test_nav_source_invariants.py -q
