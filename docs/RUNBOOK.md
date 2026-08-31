@@ -402,22 +402,38 @@ which is the size of a NAV *basis* difference - cum vs ex income, debt at
 fair value vs par - rather than a parse error. A fuller comparison needs the
 AIC panel rebuilt, which the backtest workflow does.
 
-### Coverage, as measured by the first full run (2026-08-31)
+### Coverage, as measured (2026-08-31, run 8)
 
 | | |
 |---|---|
-| live UK funds addressed | 288 |
-| funds with a daily price series | 279 (Yahoo serves 9 nothing) |
-| daily price bars | 1,146,007 |
-| funds with NAV history | 147 |
-| daily discount panel | 1,106,399 fund-days, 2007-01-02 to 2026-08-27 |
-| fund-days carrying a discount | 444,228 |
-| ...against a NAV fresh by that fund's cadence | 337,816 |
+| live UK funds addressed | 271 |
+| funds with a daily price series | 282 (Yahoo serves 4 nothing) |
+| daily price bars | 1,156,446 |
+| NAV panel | 472,899 observations across 207 funds |
+| daily discount panel | 1,116,334 fund-days, 2007-01-02 to 2026-08-27 |
+| fund-days carrying a discount | 651,629 |
+| ...against a NAV fresh by that fund's cadence | 547,941 |
+| funds with a discount series | 169 |
+| ...with history back to 2008 or earlier | 87 |
+| ...with NAV into 2026 | 146 |
+| funds usable today | 143 |
+| median discount today | -6.1% |
 
-Of the 114 funds with any discount, 90 have NAV into 2026 and contribute
-318,974 of the fresh fund-days. The 21 whose NAV stops before 2025
-contribute almost none - the staleness rule doing its job rather than
-quietly pricing them off a three-year-old number.
+Publication cadence, measured per fund over its own last two years: 138
+daily, 15 quarterly, 13 monthly, 9 semiannual, 6 weekly, 7 ad hoc, 19 with a
+single observation. The daily publishers supply 475,022 of the 547,941 fresh
+fund-days; the quarterly and monthly cohort supplies 49,352, which is the
+whole point of making the staleness rule relative to each fund's own gap
+rather than to one number.
+
+Unit outcomes across 282 priced funds: 169 reconcile directly, 66 are taken
+from the quote currency where no NAV overlaps, 5 are refused as a currency
+mismatch, 5 more as an unresolvable scale, 7 as too dispersed, and 1 for an
+incoherent NAV series. 43 funds needed split adjustment.
+
+`nav_readiness` is now 195 archived, 40 indexed and awaiting the archiver,
+31 that publish no NAV RNS at all, and 5 with no listing index - against 135
+unindexed before the gap was closed.
 
 ### The gap, and what closing it found
 
