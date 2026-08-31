@@ -42,8 +42,8 @@ def _write_csv(df: pd.DataFrame, path: Path) -> None:
 
 
 def stage_nav(universe: pd.DataFrame, bucket: str, *, deadline_min: float,
-              shard: int = 0, shards: int = 1,
-              use_snapshots: bool = True) -> tuple[pd.DataFrame, dict]:
+              shard: int = 0, shards: int = 1, use_snapshots: bool = True,
+              reparse_unparsed: bool = False) -> tuple[pd.DataFrame, dict]:
     """Build/extend the NAV panel from S3 (plus the committed seed)."""
     tickers = set(universe["ticker"])
     sid_to_ticker = dict(zip(universe["security_id"], universe["ticker"]))
@@ -55,6 +55,15 @@ def stage_nav(universe: pd.DataFrame, bucket: str, *, deadline_min: float,
     frames = [f for f in (held, seed) if len(f)]
     if bucket:
         skip = NAV.known_ann_ids() | set(seed["ann_id"].astype(str))
+        if reparse_unparsed:
+            # Re-read the announcements no parser has yet got a NAV out of.
+            # A stored `no_nav_parsed` is the verdict of the rules that ran
+            # at archive time, and the rule list keeps growing, so this is
+            # how a parser improvement reaches a decade of history. The text
+            # is in the bucket; the publisher is not asked for anything.
+            retry = NAV.unparsed_ann_ids(tickers=tickers)
+            skip -= retry
+            stats["reparse_candidates"] = len(retry)
         arch, s1 = NAV.extract_from_archive(
             bucket, tickers=tickers, skip_ann_ids=skip,
             deadline_min=deadline_min, shard=shard, shards=shards)
@@ -160,7 +169,8 @@ def stage_discount(universe: pd.DataFrame, nav: pd.DataFrame,
 
 def run(stages: tuple[str, ...] = ("nav", "prices", "discount"),
         deadline_min: float = 240.0, full_prices: bool = False,
-        include_vct: bool = True, shard: int = 0, shards: int = 1) -> int:
+        include_vct: bool = True, shard: int = 0, shards: int = 1,
+        reparse_unparsed: bool = False) -> int:
     bucket = os.environ.get("S3_BUCKET", "")
     universe = NAV.live_universe(include_vct=include_vct)
     status: dict = {
@@ -176,7 +186,8 @@ def run(stages: tuple[str, ...] = ("nav", "prices", "discount"),
     if "nav" in stages:
         nav, status["nav"] = stage_nav(universe, bucket,
                                        deadline_min=deadline_min,
-                                       shard=shard, shards=shards)
+                                       shard=shard, shards=shards,
+                                       reparse_unparsed=reparse_unparsed)
     else:
         nav = NAV.read_panel()
 

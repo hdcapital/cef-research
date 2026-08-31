@@ -312,6 +312,23 @@ def extract_from_snapshots(bucket: str, tickers: set[str] | None = None,
 
 
 # ------------------------------------------------------------ legacy seed
+def unparsed_ann_ids(data_dir: str | Path = "data",
+                     tickers: set[str] | None = None) -> set[str]:
+    """Announcements held in the seed that no parser has yet read a NAV from.
+
+    These are the rows worth re-reading when the rule list grows. The list
+    went from ~40 rules to 68 on 2026-08-31, and a stored `no_nav_parsed` is
+    a verdict of the parser that ran at archive time, not a property of the
+    announcement - so 167,347 rows that failed under the old rules may well
+    be real observations under the new ones. Nothing is re-fetched from
+    Investegate: the text is already in the bucket.
+    """
+    df = extract_from_committed(data_dir, tickers)
+    if not len(df):
+        return set()
+    return set(df.loc[df["quality"] != "parsed", "ann_id"].astype(str))
+
+
 def extract_from_committed(data_dir: str | Path = "data",
                            tickers: set[str] | None = None) -> pd.DataFrame:
     """The already-extracted history committed to the repo.

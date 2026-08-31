@@ -447,3 +447,28 @@ def test_unreliability_is_measured_from_the_series_itself():
     bad = NAV.unreliable_nav_series(q)
     assert bad.tolist() == [True, False, False], \
         "a fund with too few observations must not be condemned on them"
+
+
+def test_reparse_targets_exactly_the_announcements_with_no_nav_yet():
+    """A stored `no_nav_parsed` is a parser verdict, not a fact about the RNS.
+
+    The rule list went from ~40 rules to 68 on 2026-08-31. Rows that failed
+    under the old rules are the ones a growing parser should be re-read
+    against - and only those, since re-reading the whole archive would be
+    695,303 pointless S3 gets to confirm what is already known.
+    """
+    import tempfile
+    with tempfile.TemporaryDirectory() as td:
+        d = pathlib.Path(td)
+        pd.DataFrame({
+            "ticker": ["AAA", "AAA", "BBB"],
+            "ann_id": ["1", "2", "3"],
+            "ann_date": ["2021-01-04"] * 3,
+            "nav_date": ["2021-01-04"] * 3,
+            "nav_cum_pence": [100.0, None, None],
+            "nav_ex_pence": [None, None, None],
+            "cum_assumed": [False, False, False],
+            "status": ["parsed", "no_nav_parsed", "no_nav_parsed"],
+        }).to_parquet(d / "uk_nav_history_test.parquet", index=False)
+        assert NAV.unparsed_ann_ids(d) == {"2", "3"}
+        assert NAV.unparsed_ann_ids(d, tickers={"AAA"}) == {"2"}
