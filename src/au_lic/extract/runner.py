@@ -396,11 +396,34 @@ def run_deterministic(limit: int = 0, deadline_min: float = 300.0) -> dict:
 
     s3 = boto3.client("s3", region_name=os.environ.get("AWS_REGION"))
     done = read_manifest(DET_MANIFEST_PREFIX)
-    idx = router.route_index(pd.read_parquet(INDEX_F))
+    raw = pd.read_parquet(INDEX_F)
+    # The index this reads is restored from S3 and can differ from the
+    # committed copy. All eight shards died here with KeyError:
+    # 'published_at' on a frame that carries that column when built from the
+    # committed index, so what the runner ACTUALLY received is worth stating
+    # rather than inferring from a traceback.
+    print(f"index: {len(raw)} rows, columns={list(raw.columns)}, "
+          f"dtypes={ {c: str(t) for c, t in raw.dtypes.items()} }")
+    missing = {"id", "code", "release_date", "headline"} - set(raw.columns)
+    if missing:
+        raise SystemExit(
+            f"announcement index is missing required column(s) {sorted(missing)}; "
+            f"it has {list(raw.columns)}. The S3 copy and the committed copy "
+            "have diverged - do not guess a mapping, fix the source.")
+    if raw.columns.duplicated().any():
+        dupes = sorted(raw.columns[raw.columns.duplicated()])
+        raise SystemExit(f"announcement index has duplicate columns {dupes}; "
+                         "idx[col] would return a frame, not a series.")
+    idx = router.route_index(raw)
     idx = idx[idx["route"] == "deterministic"].copy()
     idx["announcement_id"] = idx["id"].astype(str)
-    idx["published_at"] = pd.to_datetime(idx["release_date"], utc=True,
-                                         errors="coerce").dt.strftime("%Y-%m-%d")
+    # build the column explicitly so an empty or object-dtype date column
+    # cannot leave it undefined further down
+    _pub = pd.to_datetime(idx["release_date"], utc=True, errors="coerce")
+    idx["published_at"] = pd.Series(_pub, index=idx.index).dt.strftime("%Y-%m-%d") \
+        if len(idx) else pd.Series([], dtype="object", index=idx.index)
+    if "published_at" not in idx.columns:  # belt and braces; see above
+        raise SystemExit("published_at could not be derived from release_date")
     idx = idx[idx["published_at"].notna() & ~idx["announcement_id"].isin(done)]
     idx = idx.rename(columns={"code": "ticker"})
     idx["day"] = idx["published_at"]
