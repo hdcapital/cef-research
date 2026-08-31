@@ -1,0 +1,111 @@
+name: uk-daily-discount
+
+# Daily NAV/NTA -> price -> discount panel for the UK funds still listed.
+#
+# NAV comes out of S3 (the archived RNS text of each fund's own "Net Asset
+# Value(s)" announcement, plus the nightly live snapshots), so this job makes
+# no request to the publisher for history. Prices come from Yahoo, one small
+# request per fund per day. Both stages are incremental against what is
+# already held, so the ordinary run is minutes and the first run - or a run
+# after the archive grows - simply does more of the same work.
+#
+# 18:40 UTC: after the 16:30 London close has settled and after the evening
+# RNS window in which most trusts publish the day's NAV. Weekdays only; a
+# bank holiday costs one cheap no-op run rather than a missing day.
+
+on:
+  schedule:
+    - cron: "40 18 * * 1-5"
+  workflow_dispatch:
+    inputs:
+      stages:
+        description: "nav,prices,discount (comma list)"
+        default: "nav,prices,discount"
+      deadline_minutes:
+        description: "wall-clock budget per stage"
+        default: "240"
+      full_prices:
+        description: "refetch every fund's whole price history"
+        type: boolean
+        default: false
+      diagnose_gaps:
+        description: "also pull the listings index, to say WHY each short history is short"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: uk-daily-discount
+  cancel-in-progress: false
+
+jobs:
+  panel:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+      S3_BUCKET: ${{ secrets.S3_BUCKET }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt && pip install -e .
+
+      - name: Restore panels from S3
+        run: python scripts/sync_state.py pull --groups uk_daily,tickers
+
+      # The listings index is large and only needed to tell an unindexed fund
+      # from an unarchived one, so it is pulled on request rather than nightly.
+      # Without it uk_nav_archive_readiness.csv says so, instead of guessing.
+      - name: Restore the listings index (gap diagnosis only)
+        if: github.event.inputs.diagnose_gaps == 'true'
+        run: python scripts/sync_state.py pull --groups uk_announcements
+
+      - name: Tests (the invariants this panel depends on)
+        run: python -m pytest tests/test_uk_daily_discount.py tests/test_nav_source_invariants.py -q
+
+      - name: Build the panel
+        run: |
+          python -m cef_live.cli uk-daily \
+            --stages "${{ github.event.inputs.stages || 'nav,prices,discount' }}" \
+            --deadline-min "${{ github.event.inputs.deadline_minutes || '240' }}" \
+            ${{ github.event.inputs.full_prices == 'true' && '--full-prices' || '' }}
+
+      - name: Persist panels to S3
+        if: always()
+        run: python scripts/sync_state.py push --groups uk_daily
+
+      - name: Commit the daily deliverables
+        if: always()
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A outputs/live/uk_*.csv outputs/live/uk_daily_status.json || true
+          if git diff --cached --quiet; then
+            echo "no change"
+          else
+            git commit -m "CI: UK daily discount panel ($(date -u +%Y-%m-%dT%H:%MZ))"
+            for i in 1 2 3 4; do
+              git pull --rebase origin "${GITHUB_REF_NAME}" && \
+                git push origin "HEAD:${GITHUB_REF_NAME}" && break
+              sleep $((2 ** i))
+            done
+          fi
+
+      - name: Upload the full panels as an artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: uk-daily-panels
+          path: |
+            data/uk/**/*.parquet
+            outputs/live/uk_*.csv
+            outputs/live/uk_daily_status.json
+          if-no-files-found: warn
+          retention-days: 14

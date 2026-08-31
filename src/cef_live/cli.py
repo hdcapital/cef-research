@@ -232,7 +232,16 @@ def _own_nav_history(market: str) -> pd.DataFrame:
             frames.append(pd.DataFrame({
                 "ticker": h["ticker"].astype(str).str.upper(),
                 "nav_date": h.get("nav_date", h.get("ann_date")),
-                "nav_value": pd.to_numeric(h["nav_cum_pence"], errors="coerce") / 100.0,
+                # PENCE, not pounds. Every other UK figure in the live table
+                # is pence - the AIC panel's nav_col, the tier 0 harvest, and
+                # the price - so dividing by 100 here put this one anchor in a
+                # different unit from the price it is divided by. The 20 funds
+                # anchored this way carried discount_est between +79 and +5649
+                # (premiums of 7,990% to 564,900%) in the committed table:
+                # nonsense large enough to be obvious in isolation and easy to
+                # miss in a 641-row file. tests/test_uk_daily_discount.py
+                # asserts the unit stays shared.
+                "nav_value": pd.to_numeric(h["nav_cum_pence"], errors="coerce"),
             }))
         if not frames:
             return pd.DataFrame()
@@ -676,6 +685,16 @@ def main() -> int:
     rt.add_argument("--budget", type=int, default=400)
     sub.add_parser("universe-sheet")
     sub.add_parser("ideas")
+    ud = sub.add_parser("uk-daily", help="daily UK NAV/price/discount panel")
+    ud.add_argument("--stages", default="nav,prices,discount",
+                    help="comma list of nav,prices,discount")
+    ud.add_argument("--deadline-min", type=float, default=240.0,
+                    help="wall-clock budget per stage")
+    ud.add_argument("--full-prices", action="store_true",
+                    help="refetch every fund's whole price history")
+    ud.add_argument("--exclude-vct", action="store_true")
+    ud.add_argument("--shard", type=int, default=int(os.environ.get("SHARD_INDEX", "0")))
+    ud.add_argument("--shards", type=int, default=int(os.environ.get("SHARD_COUNT", "1")))
     args = ap.parse_args()
     if args.cmd == "universe":
         return build_universe()
@@ -687,6 +706,13 @@ def main() -> int:
         return ideas()
     if args.cmd == "nightly":
         return nightly([m.strip() for m in args.markets.split(",") if m.strip()])
+    if args.cmd == "uk-daily":
+        from . import uk_daily
+        return uk_daily.run(
+            stages=tuple(s.strip() for s in args.stages.split(",") if s.strip()),
+            deadline_min=args.deadline_min, full_prices=args.full_prices,
+            include_vct=not args.exclude_vct,
+            shard=args.shard, shards=args.shards)
     return 1
 
 

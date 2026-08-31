@@ -40,6 +40,7 @@ GROUPS: dict[str, list[str]] = {
     "raw_aic": ["data/raw/aic", "data/manifest.csv"],
     "raw_asx": ["data/raw/asx", "data/au_manifest.csv"],
     "tickers": ["config/resolved_tickers.csv"],
+    "uk_daily": ["data/uk"],
 }
 
 

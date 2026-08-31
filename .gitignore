@@ -8,6 +8,13 @@ data/investegate_cache/
 # (Small derived CSVs under outputs/ ARE committed for auditability.)
 data/processed/*.parquet
 
+# The UK daily NAV/price/discount panels. Working state, not the repo's job:
+# a daily job rewriting a 25MB parquet would add ~9GB of git history a year.
+# S3 holds them (sync_state.py group `uk_daily`), the committed
+# data/uk_nav_history*.parquet shards seed a bucket-less rebuild, and the
+# small per-fund deliverables under outputs/live/ ARE committed.
+data/uk/
+
 # Python
 __pycache__/
 *.pyc
