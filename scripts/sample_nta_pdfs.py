@@ -150,6 +150,44 @@ def contiguous_frontier(idx: pd.DataFrame, max_gap_days: int = 45) -> pd.Timesta
     return days.iloc[breaks.index[0] - 1]
 
 
+def _load_existing_index() -> list[pd.DataFrame]:
+    """Every copy of the index we hold, unioned - never just one of them.
+
+    The index lives in TWO places: committed in git, and in S3. The workflow
+    restores from S3 over the checkout, then commits the result back to git.
+    So whenever S3 was behind git - which happens whenever a run crawled,
+    committed, and then failed before its S3 push, exactly what the crashed
+    22:51 run did - the next run silently reverted git to S3's older content
+    and 4,269 real 2025 announcements were deleted by a job whose logs said
+    it had added rows.
+
+    The index is append-only and keyed by a unique id, so the only safe
+    reading of two disagreeing copies is their union. Replacing is never
+    correct, in either direction.
+    """
+    frames: list[pd.DataFrame] = []
+    if INDEX_F.exists():
+        try:
+            frames.append(pd.read_parquet(INDEX_F))
+        except Exception as exc:  # noqa: BLE001
+            print(f"on-disk index unreadable ({exc})")
+    # the committed copy, which the S3 restore has just written over
+    try:
+        import subprocess
+        r = subprocess.run(["git", "show", f"HEAD:{INDEX_F.as_posix()}"],
+                           capture_output=True, timeout=120)
+        if r.returncode == 0 and r.stdout:
+            import io
+            frames.append(pd.read_parquet(io.BytesIO(r.stdout)))
+    except Exception as exc:  # noqa: BLE001
+        print(f"committed index unavailable ({exc}); using on-disk copy only")
+    if len(frames) > 1:
+        merged = pd.concat(frames, ignore_index=True).drop_duplicates("id")
+        print(f"index: unioned {[len(f) for f in frames]} -> {len(merged):,} rows")
+        return [merged]
+    return frames
+
+
 def sweep_index(s: requests.Session, codes: set[str], counters: dict) -> pd.DataFrame:
     """Backward sweep of the market-wide announcement index; keep our codes.
 
@@ -160,7 +198,7 @@ def sweep_index(s: requests.Session, codes: set[str], counters: dict) -> pd.Data
     no announcements and therefore no Tier 0 NAV.
     """
     import hashlib
-    frames = [pd.read_parquet(INDEX_F)] if INDEX_F.exists() else []
+    frames = _load_existing_index()
     state = json.loads(STATE_F.read_text()) if STATE_F.exists() else {}
     code_sig = hashlib.md5(",".join(sorted(codes)).encode()).hexdigest()[:12]
     if state.get("code_sig") and state["code_sig"] != code_sig:

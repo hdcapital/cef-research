@@ -115,3 +115,57 @@ def test_consecutive_bad_payloads_still_stop_the_run(tmp_path, monkeypatch):
     mod.sweep_index(object(), {"AAA"}, counters)
     assert counters["index_error"] == "consecutive_bad_payloads"
     assert counters["index_calls"] <= mod.MAX_CONSECUTIVE_INDEX_FAILURES + 1
+
+
+def test_index_unions_the_committed_copy_instead_of_replacing_it(
+        tmp_path, monkeypatch):
+    """S3 being behind git must never delete committed rows.
+
+    The workflow restores the index from S3 over the git checkout and then
+    commits the result back. When S3 was stale - which is what a run that
+    crawled, committed, then died before its S3 push leaves behind - the
+    next run reverted git to S3's content and silently deleted 4,269 real
+    2025 announcements while reporting that it had ADDED rows.
+    """
+    import io
+    import subprocess as sp
+
+    mod = _load(tmp_path, monkeypatch)
+    mod.INDEX_F.parent.mkdir(parents=True, exist_ok=True)
+    # what S3 restored: missing the 2025 rows
+    on_disk = pd.DataFrame({"id": ["a", "b"], "code": ["AAA"] * 2,
+                            "release_date": ["2024-01-01T00:00:00+0000"] * 2,
+                            "headline": ["x"] * 2, "url": ["u"] * 2})
+    on_disk.to_parquet(mod.INDEX_F, index=False)
+    # what git holds: the 2025 rows the last run committed
+    committed = pd.DataFrame({"id": ["b", "c"], "code": ["AAA"] * 2,
+                              "release_date": ["2025-06-01T00:00:00+0000"] * 2,
+                              "headline": ["x"] * 2, "url": ["u"] * 2})
+    buf = io.BytesIO()
+    committed.to_parquet(buf, index=False)
+    blob = buf.getvalue()
+
+    class _R:
+        returncode, stdout = 0, blob
+    monkeypatch.setattr(sp, "run", lambda *_a, **_k: _R())
+
+    frames = mod._load_existing_index()
+    assert len(frames) == 1
+    ids = set(frames[0]["id"])
+    assert ids == {"a", "b", "c"}, f"lost committed rows: {ids}"
+
+
+def test_index_load_survives_git_being_unavailable(tmp_path, monkeypatch):
+    """No git (a fresh clone, a detached blob) must not lose the disk copy."""
+    import subprocess as sp
+    mod = _load(tmp_path, monkeypatch)
+    mod.INDEX_F.parent.mkdir(parents=True, exist_ok=True)
+    pd.DataFrame({"id": ["a"], "code": ["AAA"],
+                  "release_date": ["2024-01-01T00:00:00+0000"],
+                  "headline": ["x"], "url": ["u"]}).to_parquet(mod.INDEX_F, index=False)
+
+    def boom(*_a, **_k):
+        raise OSError("no git here")
+    monkeypatch.setattr(sp, "run", boom)
+    frames = mod._load_existing_index()
+    assert len(frames) == 1 and set(frames[0]["id"]) == {"a"}
