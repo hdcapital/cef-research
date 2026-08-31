@@ -197,3 +197,49 @@ def test_deterministic_mode_still_writes_and_returns(tmp_path, monkeypatch):
     got = json.loads((tmp_path / "reports" / "build"
                       / "asx_deterministic_status.json").read_text())
     assert got["documents"] == 3, "deterministic no longer records its own run"
+
+
+# ------------------------------------------------------ vocabulary clause
+def test_a_stable_address_is_not_a_nav_label():
+    """The real one: GCI's registered office sits before the NTA every month.
+
+    It repeats as faithfully as the true label does, so repetition alone
+    promoted it. Repetition proves the POSITION is stable; it cannot prove
+    the label means anything.
+    """
+    df = pd.DataFrame(_obs("GCI", ["2025-03", "2025-04", "2025-05"],
+                           "governor macquarie tower farrer place sydney nsw p"))
+    out = LD.discover(df)
+    assert bool(out.loc[0, "has_nav_vocab"]) is False
+    assert bool(out.loc[0, "is_rule"]) is False
+    assert out.loc[0, "months_clean"] == 3, "support is still reported for review"
+
+
+@pytest.mark.parametrize("label,ok", [
+    ("pre tax nta per share", True),
+    ("nta before tax", True),
+    ("nav per unit", True),
+    ("net tangible assets per share", True),
+    ("asset backing per share", True),
+    ("limited level exchange centre bridge street sydney nsw", False),
+    ("per unit of the dominion income trust was", False),
+    ("dividend per share", False),
+])
+def test_the_vocabulary_clause_separates_labels_from_neighbours(label, ok):
+    assert LD.looks_like_nav_label(label) is ok
+
+
+def test_evidence_aggregates_across_shards_before_the_bar_is_applied():
+    """Sharding fragments the very repetition the bar measures.
+
+    Discovery shards by announcement id, so a fund's six months of evidence
+    land roughly one per shard. Applying the three-month bar inside a shard
+    tested it against an eighth of the fund's history: 88 funds had evidence
+    and only 21 cleared it. Merged, 32 do.
+    """
+    per_shard = [pd.DataFrame(_obs("AFI", [m], "pre tax nta per share"))
+                 for m in ("2025-03", "2025-04", "2025-05")]
+    assert all(not LD.discover(s).loc[0, "is_rule"] for s in per_shard), \
+        "a single month should never clear the bar on its own"
+    merged = LD.discover(pd.concat(per_shard, ignore_index=True))
+    assert bool(merged.loc[0, "is_rule"]) is True

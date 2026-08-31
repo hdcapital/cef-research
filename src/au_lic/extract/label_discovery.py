@@ -171,6 +171,22 @@ def observe(ticker: str, month: str, text: str, rows, truth: float) -> list[dict
             for lab, unit in uniq]
 
 
+# A label that repeats is not automatically a NAV label. The first run
+# promoted "governor macquarie tower farrer place sydney nsw p" - a
+# registered-office address that sits in front of the same figure on every
+# issue, so it repeats as faithfully as the real label does. Repetition
+# proves position is stable; it cannot prove meaning. Requiring the
+# vocabulary makes the rule say something about NTA rather than about
+# layout alone, and a fund that genuinely labels it otherwise still appears
+# in the table with its support, for a person to promote deliberately.
+NAV_VOCAB = re.compile(
+    r"\b(nta|nav|net tangible|net asset|asset backing|backing per)\b", re.I)
+
+
+def looks_like_nav_label(label: str) -> bool:
+    return bool(NAV_VOCAB.search(label or ""))
+
+
 def discover(observations: pd.DataFrame,
              min_months: int = MIN_SUPPORTING_MONTHS) -> pd.DataFrame:
     """Aggregate per-fund evidence into candidate label rules.
@@ -180,7 +196,7 @@ def discover(observations: pd.DataFrame,
     was not ambiguous.
     """
     cols = ["ticker", "label", "unit", "months_supporting", "months_clean",
-            "first_month", "last_month", "is_rule"]
+            "first_month", "last_month", "has_nav_vocab", "is_rule"]
     if observations is None or not len(observations):
         return pd.DataFrame(columns=cols)
     agg: dict[tuple, dict] = defaultdict(
@@ -198,9 +214,12 @@ def discover(observations: pd.DataFrame,
             "months_supporting": len(months),
             "months_clean": len(v["clean"]),
             "first_month": months[0], "last_month": months[-1],
+            "has_nav_vocab": looks_like_nav_label(lab),
             # the bar is on UNAMBIGUOUS months: three coincidences in three
-            # crowded documents is not a layout
-            "is_rule": len(v["clean"]) >= min_months,
+            # crowded documents is not a layout. The vocabulary clause stops
+            # a stable-but-meaningless neighbour (an address) qualifying.
+            "is_rule": (len(v["clean"]) >= min_months
+                        and looks_like_nav_label(lab)),
         })
     out = pd.DataFrame(rows, columns=cols)
     return out.sort_values(["ticker", "months_clean", "months_supporting"],
