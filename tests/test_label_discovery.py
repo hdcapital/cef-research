@@ -150,3 +150,50 @@ def test_adding_funds_does_not_move_existing_ones():
     base = LD.holdout_split(["AAA", "BBB", "CCC"])
     grown = LD.holdout_split(["AAA", "BBB", "CCC", "DDD", "EEE"])
     assert all(grown[k] == v for k, v in base.items())
+
+
+# ------------------------------------------------- mode isolation in main()
+def test_labels_mode_does_not_overwrite_the_deterministic_status(tmp_path, monkeypatch):
+    """A mode that writes another mode's status file destroys its record.
+
+    The first version of the labels mode fell through into the deterministic
+    block and wrote {"status": "no_panel"} over a committed status recording
+    7,536 processed documents. That is precisely how a status file ends up
+    lying about a run that succeeded - the failure that cost most of a night
+    to trace, reintroduced in a new place.
+    """
+    import importlib
+    import json
+
+    monkeypatch.chdir(tmp_path)
+    (tmp_path / "reports" / "build").mkdir(parents=True)
+    keep = {"documents": 7536, "parsed": 5812}
+    det = tmp_path / "reports" / "build" / "asx_deterministic_status.json"
+    det.write_text(json.dumps(keep))
+
+    runner = importlib.import_module("au_lic.extract.runner")
+    monkeypatch.setattr(runner, "run_label_discovery",
+                        lambda **_k: {"status": "no_panel"})
+    runner.main(["labels", "--limit", "1"])
+
+    assert json.loads(det.read_text()) == keep, \
+        "labels mode overwrote the deterministic status"
+
+
+def test_deterministic_mode_still_writes_and_returns(tmp_path, monkeypatch):
+    """The fall-through also broke deterministic: it lost its own return."""
+    import importlib
+    import json
+
+    monkeypatch.chdir(tmp_path)
+    (tmp_path / "reports" / "build").mkdir(parents=True)
+    runner = importlib.import_module("au_lic.extract.runner")
+    monkeypatch.setattr(runner, "run_deterministic",
+                        lambda **_k: {"documents": 3, "parsed": 2})
+    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    rc = runner.main(["deterministic", "--limit", "1"])
+
+    assert rc == 0
+    got = json.loads((tmp_path / "reports" / "build"
+                      / "asx_deterministic_status.json").read_text())
+    assert got["documents"] == 3, "deterministic no longer records its own run"

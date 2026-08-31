@@ -1127,10 +1127,17 @@ def main(argv: list[str]) -> int:
         print(json.dumps({k: v for k, v in out.items()
                           if k != "codes_missing"}, indent=2, default=str))
         return 0
+    if a.mode == "labels":
+        # writes its own outputs (asx_label_discovery*.json and the rule
+        # table) inside run_label_discovery. It must NOT reach the
+        # deterministic status write below: a mode that overwrites another
+        # mode's record destroys the only evidence of what that run did,
+        # which is how a status file ends up lying about a job that
+        # succeeded.
+        run_label_discovery(limit=a.limit)
+        return 0
     if a.mode == "deterministic":
         out = run_deterministic(limit=a.limit)
-    elif a.mode == "labels":
-        out = run_label_discovery(limit=a.limit)
         Path("reports/build").mkdir(parents=True, exist_ok=True)
         # per-shard filename: all eight shards wrote the SAME path, so the
         # committed status was whichever shard happened to finish last and
