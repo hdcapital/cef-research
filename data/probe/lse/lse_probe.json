@@ -1,0 +1,44 @@
+{
+  "base": "https://www.londonstockexchange.com",
+  "user_agent": "uk-cef-research/0.1 (academic closed-end-fund research; contact: danielconorsims@gmail.com; ~1 req/3s)",
+  "robots": {
+    "url": "https://www.londonstockexchange.com/robots.txt",
+    "status": 200,
+    "bytes": 254,
+    "content_type": "text/plain",
+    "server": "AmazonS3",
+    "looks_like_challenge": false,
+    "head": "User-agent: *\nDisallow: /en-gb/\nDisallow: /lsecws/\nDisallow: /LSECWS/\nDisallow: /important-update-introducing-sparklive-and-changes-your-account\nDisallow: /important-update-transition-to-sparklive\n\nSitemap: https://www.londonstockexchange.com/sitemap.xml"
+  },
+  "robots_text": "User-agent: *\nDisallow: /en-gb/\nDisallow: /lsecws/\nDisallow: /LSECWS/\nDisallow: /important-update-introducing-sparklive-and-changes-your-account\nDisallow: /important-update-transition-to-sparklive\n\nSitemap: https://www.londonstockexchange.com/sitemap.xml",
+  "robots_allows": {
+    "/stock/CTY/x/company-page": true,
+    "/stock/SLPE/x/company-page": true,
+    "/stock/": true
+  },
+  "pages": [
+    {
+      "url": "https://www.londonstockexchange.com/stock/CTY/x/company-page",
+      "status": 200,
+      "bytes": 54995,
+      "content_type": "text/html; charset=utf-8",
+      "server": "nginx",
+      "looks_like_challenge": false,
+      "head": "<!DOCTYPE html><html lang=\"en\" data-critters-container><head><!-- FE commit hash: f3c96f7ad --><!-- Release number: 1.113.0 -->\n    <meta charset=\"utf-8\">\n    <title>London Stock Exchange | London Stock Exchange</title>\n    <base href=\"/\">\n    <meta name=\"viewport\" content>\n    <meta name=\"msvalidate.01\" content=\"1703499E93B0477E0BC3380E8DB64303\">\n    <meta name=\"format-detection\" content=\"telepho",
+      "contains": {
+        "fund_name_city_of_london": false,
+        "ticker_CTY": true,
+        "any_price_pattern": true,
+        "words_recent_trades": false,
+        "references_lsecws": false,
+        "script_tags": 28,
+        "total_bytes": 54995
+      }
+    }
+  ],
+  "terms_candidates": [
+    "https://www.londonstockexchange.com/terms-and-conditions",
+    "https://www.londonstockexchange.com/legal",
+    "https://www.londonstockexchange.com/disclaimer"
+  ]
+}
