@@ -81,7 +81,7 @@ def has_text_layer(text: str, min_chars: int = 120) -> bool:
     return len(strip_sidebar(text or "").strip()) >= min_chars
 
 
-def pdf_pages(data: bytes, max_pages: int = 4) -> tuple[str, list[list[str]]]:
+def pdf_pages(data: bytes, max_pages: int = 8) -> tuple[str, list[list[str]]]:
     """(flat text, candidate table rows) from PDF bytes.
 
     Mirrors the extraction the validated parser was tuned against - same page

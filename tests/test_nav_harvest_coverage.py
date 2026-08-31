@@ -567,3 +567,89 @@ def test_an_unreadable_asx_document_is_recorded_with_enough_to_fix_it():
     assert len(stats["fail_samples"]) == 40, "the sample list must stay bounded"
     assert set(stats["fail_samples"][0]) == {"code", "headline", "url",
                                              "status", "text_head"}
+
+
+# ---------------------------------------- the monthly-report NTA (UWC)
+
+# Real text from UWC's "Investment Portfolio Performance July 2026"
+# (announcement 03124447, released 2026-08-12), page 4. Two things make it
+# hard, and neither is the number: the pre/post-tax qualifier FOLLOWS the
+# numbers instead of preceding the label, and two-column page furniture
+# lands in between.
+UWC_PAGE4 = (
+    "Key Metrics as at 31-Jul-26 30-Jun-26 Net Asset Value - pre tax $m 21.3 "
+    "21.1 a) undervalued, well-managed growth companies, often Investee "
+    "Porfolio (ex cash) $m 19.7 20.1 founder-led, that are off the radar of "
+    "the broader Cash and cash equivalents $m 1.7 1.1 investment community; "
+    "Net Tangible Asset per share - $ 0.1047 0.1033 b) undervalued securities "
+    "where HD seeks to realise value; pre-tax (issued pursuant to LR 4.12) "
+    "Net Tangible Asset per share - $ 0.0966 0.0946 and post tax (issued "
+    "pursuant to LR 4.12) c) situations that are dependent on a specific "
+    "corporate event")
+
+# page 1 of the same document: a covering note, no numbers at all
+UWC_PAGE1 = (
+    "Underwood Capital Limited Level 57 25 Martin Place Sydney NSW Australia "
+    "2000 www.uwcl.com.au 12 August 2026 UWC Investment Portfolio Performance "
+    "- July 2026 Underwood Capital Limited (ASX: UWC) is an Australian-listed "
+    "specialist investment company. UWC is pleased to provide the portfolio "
+    "performance for July 2026 which includes the disclosure pursuant to "
+    "Listing Rule 4.12.")
+
+
+def test_the_monthly_report_nta_is_read_pre_tax_and_current_month():
+    """UWC's July NTA, from the document itself.
+
+    Three ways to get this wrong and all three were live:
+
+      0.1033  last month's pre-tax figure - the column beside the one we
+              want, and what the live table actually held
+      0.0966  this month's POST-tax figure - what the generic parser
+              returned, because it is the later of two identical labels
+      None    what the harvest got, because it read two pages of a
+              seven-page document and the table is on page four
+    """
+    got = H._asx_pretax_per_share(UWC_PAGE4)
+    assert got == pytest.approx(0.1047), (
+        f"expected the current pre-tax NTA 0.1047, got {got}")
+
+    doc = {"status": "extracted", "text": UWC_PAGE1 + " " + UWC_PAGE4, "rows": []}
+    res = H._nta_from_document(doc, "UWC Investment Portfolio Performance July 2026")
+    assert res["nav_per_share"] == pytest.approx(0.1047)
+    assert res["nav_basis"] == "pre_tax", "the basis must be stated, not assumed"
+    assert res["extractor"] == "asx_monthly_pretax_v1"
+
+    # and the two pages the harvest used to read contain no NTA at all
+    assert H._nta_from_document(
+        {"status": "extracted", "text": UWC_PAGE1, "rows": []}, "x") is None
+
+
+def test_the_pdf_reader_goes_past_the_cover_letter():
+    """A monthly report puts its NTA behind the cover letter and the
+    disclaimer. UWC's is on page 4 of 7; the reader took two pages."""
+    src = Path("scripts/sample_nta_pdfs.py").read_text()
+    assert "pages = pdf.pages[:2]" not in src, "a two-page read misses page four"
+    assert "PDF_PAGES" in src
+    import re as _re
+    m = _re.search(r'NTA_PDF_PAGES", "(\d+)"', src)
+    assert m and int(m.group(1)) >= 6, "the default must reach a monthly report's table"
+
+    from au_lic.extract import deterministic as D
+    assert inspect.signature(D.pdf_pages).parameters["max_pages"].default >= 6
+
+
+def test_the_column_order_is_read_from_the_header_not_assumed():
+    """"as at 31-Jul-26 30-Jun-26" says newest first. A document that says
+    the opposite must not yield last month's number wearing today's date -
+    the same trap Law Debenture set on the UK side."""
+    reversed_header = UWC_PAGE4.replace("as at 31-Jul-26 30-Jun-26",
+                                        "as at 30-Jun-26 31-Jul-26")
+    assert H._asx_pretax_per_share(reversed_header) == pytest.approx(0.1033), (
+        "the header says oldest-first, so the LAST column is the current one")
+
+
+def test_a_post_tax_only_document_is_not_read_as_pre_tax():
+    """Absence beats a basis we did not verify."""
+    post_only = ("Key Metrics as at 31-Jul-26 30-Jun-26 Net Tangible Asset per "
+                 "share - $ 0.0966 0.0946 and post tax (issued pursuant to LR 4.12)")
+    assert H._asx_pretax_per_share(post_only) is None

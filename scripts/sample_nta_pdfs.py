@@ -62,6 +62,8 @@ SWEEP_MODE = os.environ.get("NTA_SWEEP_MODE", "forward")
 EARLIEST = pd.Timestamp("2016-11-01", tz="Australia/Sydney")
 SWEEP_BUDGET = int(os.environ.get("NTA_SWEEP_BUDGET", "800"))   # index calls per run
 PDF_BUDGET = int(os.environ.get("NTA_PDF_BUDGET", "600"))       # new PDFs per run
+# how deep to read into one document before giving up on finding an NTA
+PDF_PAGES = int(os.environ.get("NTA_PDF_PAGES", "8"))
 DEADLINE_MIN = int(os.environ.get("NTA_DEADLINE_MIN", "180"))   # wall-clock cap
 START = time.time()
 
@@ -617,7 +619,15 @@ def parse_pdf(s: requests.Session, ann_id: str, url: str, counters: dict) -> dic
     signal.alarm(60)
     try:
         with pdfplumber.open(io.BytesIO(r.content)) as pdf:
-            pages = pdf.pages[:2]
+            # A MONTHLY REPORT PUTS ITS NTA BEHIND THE COVER LETTER.
+            # Underwood Capital's July statement is 7 pages: page 1 is a
+            # covering note, pages 2-3 are the disclaimer, and the NTA per
+            # share first appears on page 4. Reading two pages found
+            # nothing, every month, for the whole monthly-report family -
+            # Metrics, WAM, Future Generation, Cadence and the rest.
+            # Bounded by NTA_PDF_PAGES so a long prospectus cannot turn one
+            # document into a crawl.
+            pages = pdf.pages[:PDF_PAGES]
             text = re.sub(r"\s+", " ", " ".join((p.extract_text() or "") for p in pages))
             rows = []
             for p in pages:
