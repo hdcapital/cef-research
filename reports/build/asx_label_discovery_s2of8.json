@@ -2,14 +2,14 @@
   "documents": 1060,
   "no_pdf": 0,
   "unreadable": 0,
-  "with_evidence": 206,
-  "no_label_matched": 854,
+  "with_evidence": 1060,
+  "no_label_matched": 0,
   "fund_months_with_truth": 2076,
-  "observations": 269,
-  "funds_with_evidence": 54,
+  "observations": 1123,
+  "funds_with_evidence": 92,
   "labels_seen": 69,
-  "labels_promoted_to_rules": 13,
-  "funds_covered_by_a_rule": 9,
+  "labels_promoted_to_rules": 9,
+  "funds_covered_by_a_rule": 8,
   "holdout_funds": 31,
   "learn_funds": 61,
   "top_rules": [
@@ -21,16 +21,7 @@
       "months_clean": 3,
       "first_month": "2025-08",
       "last_month": "2026-06",
-      "is_rule": true
-    },
-    {
-      "ticker": "DN1",
-      "label": "per unit of the dominion income trust was",
-      "unit": "dollars",
-      "months_supporting": 3,
-      "months_clean": 3,
-      "first_month": "2025-10",
-      "last_month": "2026-01",
+      "has_nav_vocab": true,
       "is_rule": true
     },
     {
@@ -41,26 +32,7 @@
       "months_clean": 12,
       "first_month": "2024-07",
       "last_month": "2026-05",
-      "is_rule": true
-    },
-    {
-      "ticker": "GCI",
-      "label": "governor macquarie tower farrer place sydney nsw p",
-      "unit": "dollars",
-      "months_supporting": 3,
-      "months_clean": 3,
-      "first_month": "2024-09",
-      "last_month": "2025-02",
-      "is_rule": true
-    },
-    {
-      "ticker": "GCI",
-      "label": "macquarie tower farrer place sydney nsw p f",
-      "unit": "dollars",
-      "months_supporting": 3,
-      "months_clean": 3,
-      "first_month": "2024-09",
-      "last_month": "2025-02",
+      "has_nav_vocab": true,
       "is_rule": true
     },
     {
@@ -71,6 +43,7 @@
       "months_clean": 5,
       "first_month": "2024-07",
       "last_month": "2025-10",
+      "has_nav_vocab": true,
       "is_rule": true
     },
     {
@@ -81,6 +54,7 @@
       "months_clean": 14,
       "first_month": "2024-07",
       "last_month": "2026-05",
+      "has_nav_vocab": true,
       "is_rule": true
     },
     {
@@ -91,16 +65,7 @@
       "months_clean": 12,
       "first_month": "2024-08",
       "last_month": "2026-05",
-      "is_rule": true
-    },
-    {
-      "ticker": "PIC",
-      "label": "was nta per ordinary share nta before tax",
-      "unit": "dollars",
-      "months_supporting": 7,
-      "months_clean": 7,
-      "first_month": "2025-02",
-      "last_month": "2026-06",
+      "has_nav_vocab": true,
       "is_rule": true
     },
     {
@@ -111,16 +76,18 @@
       "months_clean": 7,
       "first_month": "2025-02",
       "last_month": "2026-06",
+      "has_nav_vocab": true,
       "is_rule": true
     },
     {
-      "ticker": "REV",
-      "label": "please contact revolution private credit income trust on",
+      "ticker": "PIC",
+      "label": "was nta per ordinary share nta before tax",
       "unit": "dollars",
-      "months_supporting": 4,
-      "months_clean": 4,
-      "first_month": "2025-11",
+      "months_supporting": 7,
+      "months_clean": 7,
+      "first_month": "2025-02",
       "last_month": "2026-06",
+      "has_nav_vocab": true,
       "is_rule": true
     },
     {
@@ -131,6 +98,7 @@
       "months_clean": 4,
       "first_month": "2025-09",
       "last_month": "2026-04",
+      "has_nav_vocab": true,
       "is_rule": true
     },
     {
@@ -141,6 +109,7 @@
       "months_clean": 3,
       "first_month": "2025-04",
       "last_month": "2026-03",
+      "has_nav_vocab": true,
       "is_rule": true
     }
   ],
