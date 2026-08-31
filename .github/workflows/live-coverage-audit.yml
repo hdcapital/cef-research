@@ -29,7 +29,12 @@ on:
         default: false
 
 permissions:
-  contents: read
+  # write, to COMMIT THE REPORT. The audit remains read-only about pipeline
+  # state - it pushes no S3 group and rebuilds no store - but a report that
+  # exists only as a 30-day Actions artifact is a report nobody can diff,
+  # link to, or read from a machine that is not a browser. outputs/ is where
+  # this repo keeps its derived deliverables for exactly that reason.
+  contents: write
 
 concurrency:
   group: coverage-audit-${{ github.ref }}
@@ -158,6 +163,23 @@ jobs:
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           ALERT_EMAIL_TO: ${{ secrets.ALERT_EMAIL_TO }}
         run: python -m cef_live.coverage_audit --email-only
+
+      - name: Commit the report
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f outputs/live_coverage/ || true
+          if git diff --cached --quiet; then
+            echo "no change"
+          else
+            git commit -m "CI: live coverage audit ($(date -u +%Y-%m-%dT%H:%MZ))"
+            for i in 1 2 3 4; do
+              git pull --rebase --autostash -X theirs origin "${GITHUB_REF_NAME}" || true
+              if git push origin "HEAD:${GITHUB_REF_NAME}"; then break; fi
+              sleep $((RANDOM % 10 + 4))
+            done
+          fi
 
       - name: Upload coverage report
         if: always()
