@@ -573,3 +573,68 @@ def test_the_nightly_restores_the_uk_daily_nav_panel_it_reads():
         assert pulls, f"{wf} restores no state at all"
         assert any("uk_daily" in p for p in pulls), (
             f"{wf} reads data/uk/nav but never restores it")
+
+
+def test_an_amber_row_may_be_watched_but_never_called_an_opportunity():
+    """Three gates on a rolled-forward NAV is a real observation, not
+    something to act on. OPPORTUNITY is reserved for a row whose data is
+    fully sound - which is what alert_eligible already means on the row.
+    """
+    base = {"market": "UK", "research_eligible": True, "data_quality_ok": True,
+            "identity_ok": True, "z_adj": -3.0, "staleness_days": 1,
+            "basis": 0, "discount_est": -0.30}
+    live = pd.DataFrame([
+        {**base, "security_id": "CLEAN", "name": "Clean", "alert_eligible": True},
+        {**base, "security_id": "AMBER", "name": "Rolled forward",
+         "basis": 1, "alert_eligible": False}])
+    irr = pd.DataFrame([{"security_id": s, "irr_central": 0.40}
+                        for s in ("CLEAN", "AMBER")])
+    cats = pd.DataFrame([
+        {"security_id": s, "catalyst_class": "tender", "weight": 1.0,
+         "date": pd.Timestamp.utcnow().date().isoformat(), "headline": "h"}
+        for s in ("CLEAN", "AMBER")])
+    got = opportunities.evaluate(live, cats, irr, _params(),
+                                 hurdle_base={"UK": 0.05}).set_index("security_id")
+    assert got.loc["CLEAN", "verdict"] == "OPPORTUNITY"
+    assert got.loc["AMBER", "gates_passed"] == 3, "it really does clear all three"
+    assert got.loc["AMBER", "verdict"] == "WATCH", (
+        "a degraded row was promoted to OPPORTUNITY")
+    assert not got.loc["AMBER", "data_fully_sound"]
+
+
+def test_the_asx_monthly_report_is_a_fallback_not_a_default():
+    """A fund-specific NTA announcement must win on date, and the monthly
+    investment-products report must be used only where nothing newer
+    exists. All 44 funds anchored on the June report had a newer indexed
+    NTA announcement, several from the day of the audit.
+    """
+    params = _params()
+    months = pd.period_range("2024-01", "2026-06", freq="M").astype(str)
+    panel = pd.DataFrame([
+        {"security_id": "ASX:X", "obs_month": m, "sector": "S",
+         "nta_total_return": 0.004, "nta_derived": 1.00,
+         "share_price": 0.95, "company_name": "X", "discount": -0.05}
+        for m in months])
+    registry = pd.DataFrame([{"security_id": "ASX:X", "market": "AU",
+                              "status": "live", "name": "X",
+                              "research_eligible": True, "identity_ok": True}])
+
+    # no announcement: the monthly report legitimately carries the NTA
+    out = nta_live.build_table(panel, "AU", "nta_total_return", "nta_derived",
+                               "share_price", params, registry=registry,
+                               today=TODAY)
+    r = out[out["security_id"] == "ASX:X"].iloc[0]
+    assert str(r["anchor_source"]).startswith("aggregator_panel"), (
+        "with nothing newer, the monthly report is the right source")
+
+    # a newer fund-specific NTA wins outright, and says so
+    tier0 = pd.DataFrame([{"security_id": "ASX:X", "nav_date": "2026-08-28",
+                           "nav_value": 1.20, "unit": "dollars",
+                           "source": "asx_ann:03133390"}])
+    out2 = nta_live.build_table(panel, "AU", "nta_total_return", "nta_derived",
+                                "share_price", params, tier0=tier0,
+                                registry=registry, today=TODAY)
+    r2 = out2[out2["security_id"] == "ASX:X"].iloc[0]
+    assert r2["basis"] == 0 and r2["nav_anchor"] == pytest.approx(1.20)
+    assert "asx_ann" in str(r2["anchor_source"])
+    assert r2["anchor_date"] == "2026-08-28"

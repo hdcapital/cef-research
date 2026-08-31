@@ -132,7 +132,15 @@ def evaluate(live: pd.DataFrame, cats: pd.DataFrame | None,
         g3 = bool(hurdle is not None and pd.notna(irr_v) and irr_v >= hurdle)
 
         passed = int(g1) + int(g2) + int(g3)
-        if passed == 3:
+        # OPPORTUNITY is reserved for a row whose DATA is fully sound.
+        # alert_eligible is that verdict, computed on the row itself: a
+        # current z-score, a NAV inside the staleness cap, basis <= 2, and
+        # the data-quality, identity and research gates all clear. A row
+        # that clears three gates on a rolled-forward or somewhat stale NAV
+        # is a real observation and may be WATCHed - it is not something to
+        # act on, and calling it an opportunity would say it was.
+        clean = bool(getattr(r, "alert_eligible", True))
+        if passed == 3 and clean:
             verdict = "OPPORTUNITY"
         elif passed >= need_watch:
             verdict = "WATCH"
@@ -146,6 +154,7 @@ def evaluate(live: pd.DataFrame, cats: pd.DataFrame | None,
             "market": getattr(r, "market", ""), "verdict": verdict,
             "gates_passed": passed,
             "gate1_dislocation": g1, "gate2_catalyst": g2, "gate3_return": g3,
+            "data_fully_sound": clean,
             "z_adj": None if pd.isna(z) else round(float(z), 2),
             "discount_est": None if pd.isna(getattr(r, "discount_est", np.nan))
                             else round(float(r.discount_est), 4),
