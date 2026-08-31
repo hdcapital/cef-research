@@ -278,13 +278,23 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
         # different units, all three alert_eligible.
         diag = U.scale_diagnosis(price, nta_est if has_nav else None)
         nav_positive = bool(has_nav and pd.notna(anchor_val) and anchor_val > 0)
+        # A MONTH-END AGGREGATOR PRINT IS NOT A CURRENT MARKET PRICE, and a
+        # discount computed against one is not a current discount. European
+        # Opportunities Trust came through the first gated run on a July
+        # panel price with z = +2.15 and alert_eligible True: every other
+        # check passed, because every other check was about the NUMBER
+        # rather than about what the number is. This is the same distinction
+        # the audit's usable_price already makes, now made once, here, where
+        # the alert is decided.
         dq_ok = bool(nav_positive
                      and pd.notna(price) and price > 0
+                     and not price_is_fallback
                      and pd.notna(discount_est)
                      and diag["unit_check_status"] in ("ok", "extreme"))
         dq_reason = "" if dq_ok else (
             "nav_not_positive" if not nav_positive else
             "no_price" if not (pd.notna(price) and price > 0) else
+            "stale_panel_price_only" if price_is_fallback else
             "no_discount" if not pd.notna(discount_est) else
             f"unit_{diag['unit_check_status']}")
         identity_ok = bool(meta.get("identity_ok", True))
