@@ -79,6 +79,10 @@ def get(s: requests.Session, url: str) -> requests.Response:
     return s.get(url, timeout=60)
 
 
+def status_run_at() -> str:
+    return datetime.now(timezone.utc).isoformat(timespec="seconds")
+
+
 def main() -> int:
     from bs4 import BeautifulSoup
 
@@ -127,6 +131,17 @@ def main() -> int:
     print(f"queue: {len(work)} NAV announcements to fetch (newest first, "
           f"shard {SHARD + 1}/{SHARDS})")
 
+    # Parse failures are evidence, not noise. The 2026-08-31 round fetched
+    # 9,057 announcements from the newly indexed alternatives and emerging-
+    # market cohort and parsed 13.2% of them: the rule list was written
+    # against the conventional trusts' RNS layouts and has never seen these.
+    # Writing regexes for them from imagination is exactly how a parser
+    # starts inventing NAVs, so a sample of the text that did NOT parse is
+    # kept per ticker for the next rule-writing pass to work from.
+    fail_samples: dict[str, dict] = {}
+    FAIL_PER_TICKER = 2
+    FAIL_TICKERS = 60
+
     hist_rows = []
     sess = requests.Session()
     sess.headers["User-Agent"] = UA
@@ -162,6 +177,13 @@ def main() -> int:
                "cum_assumed": bool(parsed.get("cum_assumed", False)),
                "status": "parsed" if "nav_cum_pence" in parsed else "no_nav_parsed"}
         hist_rows.append(rec)
+        if rec["status"] != "parsed" and len(fail_samples) < FAIL_TICKERS * FAIL_PER_TICKER:
+            k = f"{w['ticker']}:{w['ann_id']}"
+            seen_for_ticker = sum(1 for x in fail_samples if x.startswith(w["ticker"] + ":"))
+            if seen_for_ticker < FAIL_PER_TICKER:
+                fail_samples[k] = {"ticker": w["ticker"], "ann_id": w["ann_id"],
+                                   "date": w["date"], "url": url,
+                                   "text_head": body[:4000]}
         if s3 is not None:
             key = f"uk/nav_announcements/{w['ticker']}/{w['date']}_{w['ann_id']}.json.gz"
             payload = gzip.compress(json.dumps({**rec, "url": url, "text": body}).encode())
@@ -197,6 +219,14 @@ def main() -> int:
               if hist_rows else None,
               "parse_rate_cumulative": round(
                   float((new["status"] == "parsed").mean()), 4) if len(new) else None}
+    if fail_samples:
+        Path("reports/build").mkdir(parents=True, exist_ok=True)
+        Path("reports/build/uk_nav_parse_failures"
+             f"{'' if SHARDS == 1 else f'_s{SHARD}'}.json").write_text(
+            json.dumps({"run_at": status_run_at(), "shard": f"{SHARD}of{SHARDS}",
+                        "parse_rate_this_run": round(
+                            parsed_n / max(1, len(hist_rows)), 4) if hist_rows else None,
+                        "samples": list(fail_samples.values())}, indent=1))
     Path("outputs/live").mkdir(parents=True, exist_ok=True)
     Path("outputs/live/uk_nav_archive_status.json" if SHARDS == 1
      else f"outputs/live/uk_nav_archive_status_s{SHARD}.json").write_text(json.dumps(status, indent=2))

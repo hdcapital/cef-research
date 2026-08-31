@@ -82,7 +82,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -f data/uk_nav_history*.parquet outputs/live/uk_nav_archive_status*.json
+          git add -f data/uk_nav_history*.parquet outputs/live/uk_nav_archive_status*.json \
+                     reports/build/uk_nav_parse_failures*.json
           if git diff --cached --quiet; then
             echo "no changes"
           else
