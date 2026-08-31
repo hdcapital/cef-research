@@ -1,0 +1,188 @@
+{
+  "documents": 1115,
+  "no_pdf": 0,
+  "unreadable": 0,
+  "with_evidence": 216,
+  "no_label_matched": 899,
+  "fund_months_with_truth": 2076,
+  "observations": 288,
+  "funds_with_evidence": 54,
+  "labels_seen": 79,
+  "labels_promoted_to_rules": 17,
+  "funds_covered_by_a_rule": 10,
+  "holdout_funds": 31,
+  "learn_funds": 60,
+  "top_rules": [
+    {
+      "ticker": "AFI",
+      "label": "pre tax nta per share",
+      "unit": "dollars",
+      "months_supporting": 3,
+      "months_clean": 3,
+      "first_month": "2025-03",
+      "last_month": "2026-02",
+      "is_rule": true
+    },
+    {
+      "ticker": "AFI",
+      "label": "share as at pre tax nta per share",
+      "unit": "dollars",
+      "months_supporting": 3,
+      "months_clean": 3,
+      "first_month": "2025-03",
+      "last_month": "2026-02",
+      "is_rule": true
+    },
+    {
+      "ticker": "AMH",
+      "label": "pre tax nta per share",
+      "unit": "dollars",
+      "months_supporting": 4,
+      "months_clean": 4,
+      "first_month": "2024-10",
+      "last_month": "2026-02",
+      "is_rule": true
+    },
+    {
+      "ticker": "AMH",
+      "label": "share as at pre tax nta per share",
+      "unit": "dollars",
+      "months_supporting": 4,
+      "months_clean": 4,
+      "first_month": "2024-10",
+      "last_month": "2026-02",
+      "is_rule": true
+    },
+    {
+      "ticker": "DJW",
+      "label": "pre tax nta per share",
+      "unit": "dollars",
+      "months_supporting": 3,
+      "months_clean": 3,
+      "first_month": "2025-09",
+      "last_month": "2025-11",
+      "is_rule": true
+    },
+    {
+      "ticker": "DJW",
+      "label": "share as at pre tax nta per share",
+      "unit": "dollars",
+      "months_supporting": 3,
+      "months_clean": 3,
+      "first_month": "2025-09",
+      "last_month": "2025-11",
+      "is_rule": true
+    },
+    {
+      "ticker": "GCI",
+      "label": "on nta per unit as at",
+      "unit": "dollars",
+      "months_supporting": 9,
+      "months_clean": 9,
+      "first_month": "2024-08",
+      "last_month": "2026-06",
+      "is_rule": true
+    },
+    {
+      "ticker": "GCI",
+      "label": "macquarie tower farrer place sydney nsw p f",
+      "unit": "dollars",
+      "months_supporting": 3,
+      "months_clean": 3,
+      "first_month": "2024-09",
+      "last_month": "2025-02",
+      "is_rule": true
+    },
+    {
+      "ticker": "GCI",
+      "label": "governor macquarie tower farrer place sydney nsw p",
+      "unit": "dollars",
+      "months_supporting": 3,
+      "months_clean": 3,
+      "first_month": "2024-09",
+      "last_month": "2025-02",
+      "is_rule": true
+    },
+    {
+      "ticker": "HM1",
+      "label": "nta per share pre tax nta",
+      "unit": "dollars",
+      "months_supporting": 3,
+      "months_clean": 3,
+      "first_month": "2025-05",
+      "last_month": "2026-01",
+      "is_rule": true
+    },
+    {
+      "ticker": "MOT",
+      "label": "is as follows value date nta per unit",
+      "unit": "dollars",
+      "months_supporting": 17,
+      "months_clean": 17,
+      "first_month": "2024-07",
+      "last_month": "2026-05",
+      "is_rule": true
+    },
+    {
+      "ticker": "MXT",
+      "label": "is as follows value date nta per unit",
+      "unit": "dollars",
+      "months_supporting": 15,
+      "months_clean": 15,
+      "first_month": "2024-07",
+      "last_month": "2026-06",
+      "is_rule": true
+    },
+    {
+      "ticker": "PCX",
+      "label": "nav as at cents per unit nav",
+      "unit": "cents",
+      "months_supporting": 3,
+      "months_clean": 3,
+      "first_month": "2025-12",
+      "last_month": "2026-06",
+      "is_rule": true
+    },
+    {
+      "ticker": "PCX",
+      "label": "net asset value",
+      "unit": "cents",
+      "months_supporting": 3,
+      "months_clean": 3,
+      "first_month": "2025-12",
+      "last_month": "2026-06",
+      "is_rule": true
+    },
+    {
+      "ticker": "PIC",
+      "label": "was nta per ordinary share nta before tax",
+      "unit": "dollars",
+      "months_supporting": 8,
+      "months_clean": 8,
+      "first_month": "2024-08",
+      "last_month": "2026-04",
+      "is_rule": true
+    },
+    {
+      "ticker": "PIC",
+      "label": "nta before tax",
+      "unit": "dollars",
+      "months_supporting": 8,
+      "months_clean": 8,
+      "first_month": "2024-08",
+      "last_month": "2026-04",
+      "is_rule": true
+    },
+    {
+      "ticker": "RG8",
+      "label": "ordinary share for regal asian investments limited was",
+      "unit": "dollars",
+      "months_supporting": 4,
+      "months_clean": 4,
+      "first_month": "2024-09",
+      "last_month": "2026-05",
+      "is_rule": true
+    }
+  ],
+  "note": "rules are learned ONLY from the learn split; the holdout funds exist so agreement can be measured without circularity. No parser is changed by this mode."
+}
