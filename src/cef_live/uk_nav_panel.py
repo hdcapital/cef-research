@@ -334,6 +334,29 @@ def unparsed_ann_ids(data_dir: str | Path = "data",
     return set(df.loc[df["quality"] != "parsed", "ann_id"].astype(str))
 
 
+def ann_ids_for(tickers: set[str], data_dir: str | Path = "data") -> set[str]:
+    """Every announcement held for these funds, whatever its stored verdict.
+
+    The complement of `unparsed_ann_ids`, and needed for the same reason
+    from the other side. A parser improvement reaches a `no_nav_parsed` row
+    by re-reading it; it never reaches a row the OLD parser answered
+    WRONGLY, because that row is stored `parsed` and is skipped forever.
+
+    Measured on 2026-08-31: the reparse recovered 75,819 observations, and
+    seven funds came out with a median change between consecutive
+    publications above 15% - VNH, VOF, CGI, IGC, RMMC among them. Their
+    announcements quote GBP per share and Canadian dollars, the fallback rule
+    took whatever number sat nearest the label, and every one of those rows
+    is stored `parsed`. So the reliability measurement is used as the trigger
+    to re-read them: the panel says which funds the parser got wrong, and
+    those are exactly the funds worth asking again about.
+    """
+    df = extract_from_committed(data_dir)
+    if not len(df):
+        return set()
+    return set(df.loc[df["ticker"].isin(tickers), "ann_id"].astype(str))
+
+
 def extract_from_committed(data_dir: str | Path = "data",
                            tickers: set[str] | None = None) -> pd.DataFrame:
     """The already-extracted history committed to the repo.

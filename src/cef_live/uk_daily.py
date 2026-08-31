@@ -62,6 +62,16 @@ def stage_nav(universe: pd.DataFrame, bucket: str, *, deadline_min: float,
             # how a parser improvement reaches a decade of history. The text
             # is in the bucket; the publisher is not asked for anything.
             retry = NAV.unparsed_ann_ids(tickers=tickers)
+            # ...and the funds the panel measures as having an incoherent NAV
+            # series. Those rows are stored `parsed`, so nothing else would
+            # ever ask about them again - yet they are precisely the ones the
+            # parser answered wrongly.
+            if len(held):
+                q, _ = NAV.quality_report(held)
+                bad = set(q.loc[~q["reliable"], "ticker"]) if len(q) else set()
+                if bad:
+                    retry |= NAV.ann_ids_for(bad)
+                    stats["reparse_unreliable_funds"] = sorted(bad)
             skip -= retry
             stats["reparse_candidates"] = len(retry)
         arch, s1 = NAV.extract_from_archive(

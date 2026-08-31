@@ -545,3 +545,29 @@ def test_matching_currencies_still_reconcile():
     units = PH.reconcile_units(nav, px, nav_ccy={"AAA": "GBX"})
     assert units.iloc[0]["price_unit_status"] == "ok"
     assert DISC.build(nav, px, units=units)["discount"].median() == pytest.approx(-0.10)
+
+
+def test_a_wrongly_parsed_fund_is_re_read_not_left_alone():
+    """A parser improvement reaches `no_nav_parsed` rows but not wrong ones.
+
+    A row the old parser answered WRONGLY is stored `parsed` and skipped
+    forever. The reliability measurement is the only thing that knows which
+    funds those are, so it is used as the trigger: VNH, VOF, CGI, IGC and
+    RMMC quote GBP per share or Canadian dollars, the fallback took whatever
+    number sat nearest the label, and every one of those rows looked fine.
+    """
+    import tempfile
+    with tempfile.TemporaryDirectory() as td:
+        d = pathlib.Path(td)
+        pd.DataFrame({
+            "ticker": ["BAD", "BAD", "GOOD"],
+            "ann_id": ["1", "2", "3"],
+            "ann_date": ["2021-01-04"] * 3,
+            "nav_date": ["2021-01-04"] * 3,
+            "nav_cum_pence": [100.0, 900.0, 100.0],
+            "nav_ex_pence": [None, None, None],
+            "cum_assumed": [True, True, False],
+            "status": ["parsed"] * 3,
+        }).to_parquet(d / "uk_nav_history_t.parquet", index=False)
+        assert NAV.ann_ids_for({"BAD"}, d) == {"1", "2"}
+        assert NAV.unparsed_ann_ids(d) == set(), "these are all stored parsed"
