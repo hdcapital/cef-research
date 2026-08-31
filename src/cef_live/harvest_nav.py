@@ -47,7 +47,13 @@ BAD = re.compile(r"amendment|amended|correction|withdraw", re.I)
 # for this error to run in.
 AU_NAV_HEAD = re.compile(
     r"\bNTA\b|net tangible|net asset|\bNAV\b|fund update|"
-    r"monthly (?:report|update|investment)|investment update", re.I)
+    r"monthly (?:report|update|investment)|investment update|"
+    # Underwood Capital publishes its monthly NTA as "UWC Investment
+    # Portfolio Performance July 2026", and Australian Leaders as "Monthly
+    # Portfolio Performance Update". Neither headline contains any of the
+    # words above, so both funds' monthly NAV was indexed, sitting in the
+    # announcement index with a working PDF link, and never fetched.
+    r"portfolio performance|portfolio (?:update|disclosure|valuation)", re.I)
 
 
 DOTTED_DATE = re.compile(r"\b(\d{1,2})[./](\d{1,2})[./](20\d\d)\b")
@@ -479,9 +485,10 @@ def parse_uk_nav_text(text: str) -> dict:
 
 
 def harvest_uk(ticker_map: pd.DataFrame, census: pd.DataFrame,
-               lookback_days: int = 7, budget: int = 0,
+               lookback_days: int = 45, budget: int = 0,
                extra_targets: dict[str, str] | None = None,
-               deadline_min: float = 60.0) -> pd.DataFrame:
+               deadline_min: float = 60.0,
+               write_listing_cache: bool = True) -> pd.DataFrame:
     """Published NAV for EVERY fund we can address, from its own RNS page.
 
     The registry (AIC/ASX files) is used for identity only. Every live fund
@@ -492,6 +499,21 @@ def harvest_uk(ticker_map: pd.DataFrame, census: pd.DataFrame,
 
     Returns (navs, announcement rows); the announcement rows feed the
     catalyst scan from the same fetched pages.
+
+    lookback_days - 45, not 7. A week-long window can only ever see a fund
+    that publishes at least weekly. 215 of 368 targets came back
+    `no_recent_nav` on the last run, and the reason for most of them was
+    their publication cadence, not their silence: Achilles Investment
+    Company published a NAV on 7 August and was invisible to a harvest run
+    on the 30th. Monthly and quarterly publishers are most of the offshore,
+    property and infrastructure cohort this module exists to reach.
+
+    write_listing_cache - every listing page fetched here is written back to
+    data/investegate_cache/listings/{ticker}.csv. The NAV archive job builds
+    its queue from that cache, so a fund the historical dividends crawl
+    never paged - anything that listed recently, Achilles among them - had
+    no listing index, therefore no archived announcements, therefore no NAV
+    history, for want of a file we were already downloading the contents of.
     """
     tick2sid = dict(zip(ticker_map["ticker"], ticker_map["security_id"]))
     if extra_targets:
@@ -527,6 +549,9 @@ def harvest_uk(ticker_map: pd.DataFrame, census: pd.DataFrame,
     # are on the same page, so collecting them costs no extra requests
     cat_cutoff = (datetime.now(timezone.utc) - timedelta(days=45)).date().isoformat()
     ann_rows: list[dict] = []
+    # everything the listing page shows, keyed by ticker, for the cache the
+    # archive job reads
+    listing_rows: dict[str, list[dict]] = {}
     for tk in targets:
         if (_t.time() - started) > deadline_min * 60:
             stats["deadline_reached_after"] = len(rows)
@@ -556,6 +581,10 @@ def harvest_uk(ticker_map: pd.DataFrame, census: pd.DataFrame,
             except Exception:  # noqa: BLE001
                 continue
             href = a["href"]
+            url_ = ("https://www.investegate.co.uk" + href) if href.startswith("/") else href
+            listing_rows.setdefault(tk, []).append({
+                "ann_id": url_.rsplit("/", 1)[-1], "date": d,
+                "headline": head, "url": url_})
             if d >= cat_cutoff:
                 ann_rows.append({
                     "security_id": tick2sid[tk], "date": d, "headline": head,
@@ -596,6 +625,8 @@ def harvest_uk(ticker_map: pd.DataFrame, census: pd.DataFrame,
                      "cum_assumed": got.get("cum_assumed", False),
                      "source": f"investegate:{best['url'].rsplit('/', 1)[-1]}",
                      "headline": best["headline"][:120]})
+    if write_listing_cache and listing_rows:
+        stats["listing_cache_written"] = _write_listing_cache(listing_rows)
     try:
         Path("reports/build").mkdir(parents=True, exist_ok=True)
         import json as _json
@@ -605,6 +636,35 @@ def harvest_uk(ticker_map: pd.DataFrame, census: pd.DataFrame,
     except Exception:  # noqa: BLE001
         pass
     return pd.DataFrame(rows), ann_rows
+
+
+def _write_listing_cache(by_ticker: dict[str, list[dict]],
+                         cache_dir: Path | None = None) -> int:
+    """Merge freshly-seen listing rows into the Investegate listing cache.
+
+    The archive job's queue IS this cache, so a fund missing from it can
+    never have its announcements archived however well the rest of the
+    pipeline works. Existing rows are kept - this only ever ADDS, so the
+    deep history a full crawl built is never truncated by a 45-day view.
+    """
+    cache = cache_dir or Path("data/investegate_cache/listings")
+    cache.mkdir(parents=True, exist_ok=True)
+    written = 0
+    for tk, rows_ in by_ticker.items():
+        if not rows_:
+            continue
+        new = pd.DataFrame(rows_)
+        f = cache / f"{tk}.csv"
+        if f.exists():
+            try:
+                old = pd.read_csv(f, dtype=str)
+                new = pd.concat([old, new.astype(str)], ignore_index=True)
+            except Exception:  # noqa: BLE001
+                pass
+        new = new.drop_duplicates(subset=["ann_id"], keep="first")
+        new.to_csv(f, index=False)
+        written += 1
+    return written
 
 
 def uk_nav_samples(cache_dir: Path, n: int = 5) -> list[dict]:

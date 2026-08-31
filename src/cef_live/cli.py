@@ -59,8 +59,11 @@ REPORT_HEAD = re.compile(
 # read as `live_stale_nav` (alive on an Appendix 4E) while they were filing
 # daily NTA statements the whole time. The parse result stays a separate,
 # and separately reported, fact.
-NAV_HEAD = re.compile(
-    r"net tangible asset|\bNTA\b|net asset value|\bNAV\b|fund update", re.I)
+#
+# It is the harvester's pattern, not a second copy of it: two lists of
+# "headlines that carry an NTA" would drift, and the fund that fell in the
+# gap would be live-but-unpriceable for a reason no column explains.
+NAV_HEAD = harvest_nav.AU_NAV_HEAD
 
 
 def _liveness_evidence() -> pd.DataFrame:
