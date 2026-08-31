@@ -20,7 +20,11 @@ __pycache__/
 *.pyc
 *.egg-info/
 .eggs/
-build/
+# Root-anchored: a bare `build/` also matches reports/build/, which is
+# where every workflow writes its diagnostics. That silently discarded
+# the uk-index-gap status JSON and would have discarded the NAV parse
+# failure samples too - the evidence a later rule-writing pass needs.
+/build/
 dist/
 .venv/
 venv/
