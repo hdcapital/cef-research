@@ -319,7 +319,14 @@ def uk_nav_archive_facts() -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-ASX_NTA = re.compile(r"net tangible asset|\bNTA\b|net asset value|\bNAV\b", re.I)
+# THE HARVESTER'S PATTERN, not a third copy of it. This was a third copy,
+# and it drifted the moment the harvester's was widened: Underwood Capital
+# publishes its monthly NTA as "UWC Investment Portfolio Performance July
+# 2026", which the harvester and the liveness classifier both recognise -
+# the audit's own row says `nav_19d_old` - while this narrower pattern
+# reported "no NAV announcement held" for the same fund on the same day.
+# The report contradicted itself and pointed away from the real problem.
+from .harvest_nav import AU_NAV_HEAD as ASX_NTA
 ASX_MONTHLY = re.compile(r"monthly (?:report|update|nta|investment)|"
                          r"fund update|investment update", re.I)
 
