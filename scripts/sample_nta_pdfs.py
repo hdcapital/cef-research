@@ -64,6 +64,16 @@ SWEEP_BUDGET = int(os.environ.get("NTA_SWEEP_BUDGET", "800"))   # index calls pe
 PDF_BUDGET = int(os.environ.get("NTA_PDF_BUDGET", "600"))       # new PDFs per run
 # how deep to read into one document before giving up on finding an NTA
 PDF_PAGES = int(os.environ.get("NTA_PDF_PAGES", "8"))
+# ...and how much of what those pages contain to keep. This is DERIVED from
+# the page budget rather than set beside it, because the two bounds have to
+# move together: 20,000 characters never bound anything while the reader
+# took two pages, and would have started clipping the moment it took eight.
+# UWC's seven-page July statement is 15,371 characters with its NTA table at
+# character 5,684, so a longer monthly report would have lost the table to a
+# bound chosen for a smaller read - the same silent truncation as the page
+# cap, one layer down.
+PDF_TEXT_CHARS = int(os.environ.get("NTA_PDF_TEXT_CHARS", str(PDF_PAGES * 8000)))
+PDF_TABLE_ROWS = int(os.environ.get("NTA_PDF_TABLE_ROWS", str(PDF_PAGES * 20)))
 DEADLINE_MIN = int(os.environ.get("NTA_DEADLINE_MIN", "180"))   # wall-clock cap
 START = time.time()
 
@@ -649,7 +659,8 @@ def parse_pdf(s: requests.Session, ann_id: str, url: str, counters: dict) -> dic
         res = {"status": "no_text_layer"}
         cf.write_text(json.dumps(res))
         return res
-    res = {"status": "extracted", "text": text[:20000], "rows": rows[:40]}
+    res = {"status": "extracted", "text": text[:PDF_TEXT_CHARS],
+           "rows": rows[:PDF_TABLE_ROWS]}
     cf.write_text(json.dumps(res))
     return res
 

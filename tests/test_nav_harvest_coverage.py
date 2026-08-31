@@ -653,3 +653,47 @@ def test_a_post_tax_only_document_is_not_read_as_pre_tax():
     post_only = ("Key Metrics as at 31-Jul-26 30-Jun-26 Net Tangible Asset per "
                  "share - $ 0.0966 0.0946 and post tax (issued pursuant to LR 4.12)")
     assert H._asx_pretax_per_share(post_only) is None
+
+
+def test_the_text_budget_scales_with_the_page_budget():
+    """Two bounds of the same shape, one layer apart.
+
+    20,000 characters never bound anything while the reader took two pages,
+    and would have started clipping the moment it took eight. UWC's
+    seven-page statement is 15,371 characters with its NTA table at
+    character 5,684; a longer monthly report would have lost the table to a
+    bound chosen for a smaller read. Deriving one from the other is what
+    stops them drifting apart again.
+    """
+    src = Path("scripts/sample_nta_pdfs.py").read_text()
+    assert "text[:20000]" not in src, "a fixed text cap can outlive its page cap"
+    assert "PDF_TEXT_CHARS" in src and "PDF_PAGES * " in src
+
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(
+        "_nta_budget", "scripts/sample_nta_pdfs.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    # room for every page the reader is allowed to open
+    assert mod.PDF_TEXT_CHARS >= mod.PDF_PAGES * 4000, (
+        f"{mod.PDF_TEXT_CHARS} characters cannot hold {mod.PDF_PAGES} pages")
+    assert mod.PDF_TEXT_CHARS >= 30_000
+
+
+def test_every_pdf_reader_goes_deep_enough_for_a_monthly_report():
+    """Three readers open these PDFs; the page cap was in two of them."""
+    from au_lic.extract import deterministic as D
+    assert inspect.signature(D.pdf_pages).parameters["max_pages"].default >= 6
+
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(
+        "_nta_budget2", "scripts/sample_nta_pdfs.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    assert mod.PDF_PAGES >= 6
+
+    # the third reader (the model path) takes every page and always did
+    runner = Path("src/au_lic/extract/runner.py").read_text()
+    i = runner.index("def pdf_to_text(")
+    assert "pdf.pages[:" not in runner[i:i + 500], (
+        "the model path must keep reading whole documents")
