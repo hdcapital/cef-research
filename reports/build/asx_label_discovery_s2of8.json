@@ -1,0 +1,148 @@
+{
+  "documents": 1060,
+  "no_pdf": 0,
+  "unreadable": 0,
+  "with_evidence": 206,
+  "no_label_matched": 854,
+  "fund_months_with_truth": 2076,
+  "observations": 269,
+  "funds_with_evidence": 54,
+  "labels_seen": 69,
+  "labels_promoted_to_rules": 13,
+  "funds_covered_by_a_rule": 9,
+  "holdout_funds": 31,
+  "learn_funds": 61,
+  "top_rules": [
+    {
+      "ticker": "ARG",
+      "label": "and approximate pre tax nta per share",
+      "unit": "dollars",
+      "months_supporting": 3,
+      "months_clean": 3,
+      "first_month": "2025-08",
+      "last_month": "2026-06",
+      "is_rule": true
+    },
+    {
+      "ticker": "DN1",
+      "label": "per unit of the dominion income trust was",
+      "unit": "dollars",
+      "months_supporting": 3,
+      "months_clean": 3,
+      "first_month": "2025-10",
+      "last_month": "2026-01",
+      "is_rule": true
+    },
+    {
+      "ticker": "GCI",
+      "label": "on nta per unit as at",
+      "unit": "dollars",
+      "months_supporting": 12,
+      "months_clean": 12,
+      "first_month": "2024-07",
+      "last_month": "2026-05",
+      "is_rule": true
+    },
+    {
+      "ticker": "GCI",
+      "label": "governor macquarie tower farrer place sydney nsw p",
+      "unit": "dollars",
+      "months_supporting": 3,
+      "months_clean": 3,
+      "first_month": "2024-09",
+      "last_month": "2025-02",
+      "is_rule": true
+    },
+    {
+      "ticker": "GCI",
+      "label": "macquarie tower farrer place sydney nsw p f",
+      "unit": "dollars",
+      "months_supporting": 3,
+      "months_clean": 3,
+      "first_month": "2024-09",
+      "last_month": "2025-02",
+      "is_rule": true
+    },
+    {
+      "ticker": "LSF",
+      "label": "were nta per ordinary share nta before tax",
+      "unit": "dollars",
+      "months_supporting": 5,
+      "months_clean": 5,
+      "first_month": "2024-07",
+      "last_month": "2025-10",
+      "is_rule": true
+    },
+    {
+      "ticker": "MOT",
+      "label": "is as follows value date nta per unit",
+      "unit": "dollars",
+      "months_supporting": 14,
+      "months_clean": 14,
+      "first_month": "2024-07",
+      "last_month": "2026-05",
+      "is_rule": true
+    },
+    {
+      "ticker": "MXT",
+      "label": "is as follows value date nta per unit",
+      "unit": "dollars",
+      "months_supporting": 12,
+      "months_clean": 12,
+      "first_month": "2024-08",
+      "last_month": "2026-05",
+      "is_rule": true
+    },
+    {
+      "ticker": "PIC",
+      "label": "was nta per ordinary share nta before tax",
+      "unit": "dollars",
+      "months_supporting": 7,
+      "months_clean": 7,
+      "first_month": "2025-02",
+      "last_month": "2026-06",
+      "is_rule": true
+    },
+    {
+      "ticker": "PIC",
+      "label": "nta before tax",
+      "unit": "dollars",
+      "months_supporting": 7,
+      "months_clean": 7,
+      "first_month": "2025-02",
+      "last_month": "2026-06",
+      "is_rule": true
+    },
+    {
+      "ticker": "REV",
+      "label": "please contact revolution private credit income trust on",
+      "unit": "dollars",
+      "months_supporting": 4,
+      "months_clean": 4,
+      "first_month": "2025-11",
+      "last_month": "2026-06",
+      "is_rule": true
+    },
+    {
+      "ticker": "REV",
+      "label": "is as follows value date nta per unit",
+      "unit": "dollars",
+      "months_supporting": 4,
+      "months_clean": 4,
+      "first_month": "2025-09",
+      "last_month": "2026-04",
+      "is_rule": true
+    },
+    {
+      "ticker": "TCF",
+      "label": "as follows value date nav per unit",
+      "unit": "dollars",
+      "months_supporting": 3,
+      "months_clean": 3,
+      "first_month": "2025-04",
+      "last_month": "2026-03",
+      "is_rule": true
+    }
+  ],
+  "note": "rules are learned ONLY from the learn split; the holdout funds exist so agreement can be measured without circularity. No parser is changed by this mode."
+}
