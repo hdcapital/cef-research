@@ -562,11 +562,13 @@ def test_an_unreadable_asx_document_is_recorded_with_enough_to_fix_it():
         "a scan with no text layer is not a failed fetch - no text parser "
         "will ever read it, and the two need different fixes")
     stats = {}
-    for i in range(45):
+    for i in range(80):
         H._note_failure(stats, f"C{i}", "Monthly Report", "u", "no_nta_parsed", "x" * 5000)
-    assert len(stats["fail_samples"]) == 40, "the sample list must stay bounded"
+    assert len(stats["fail_samples"]) == 60, "the sample list must stay bounded"
     assert set(stats["fail_samples"][0]) == {"code", "headline", "url",
                                              "status", "text_head"}
+    # ...but the OUTCOME is kept for every code, cap or no cap
+    assert len(stats["by_code"]) == 80
 
 
 # ---------------------------------------- the monthly-report NTA (UWC)
@@ -697,3 +699,41 @@ def test_every_pdf_reader_goes_deep_enough_for_a_monthly_report():
     i = runner.index("def pdf_to_text(")
     assert "pdf.pages[:" not in runner[i:i + 500], (
         "the model path must keep reading whole documents")
+
+
+def test_the_asx_failure_sample_is_not_biased_against_monthly_reporters():
+    """Keeping "the first 40 failures" sounds neutral and is not.
+
+    The loop runs newest-first across every fund, so a first-come sample
+    fills with whoever announced in the last few days - and the funds this
+    diagnostic exists for are the MONTHLY reporters, whose one announcement
+    is two or three weeks old and therefore always arrives after the cap.
+    Underwood Capital was dropped exactly that way: 52 documents failed, 24
+    codes were sampled, and the one fund the instrumentation had been added
+    for was not among them.
+    """
+    stats = {}
+    # forty recent failures, then the monthly reporter's, as the loop sees them
+    for i in range(40):
+        H._note_failure(stats, f"DAILY{i}", "Daily NTA", "u", "no_nta_parsed", "x")
+    H._note_failure(stats, "UWC", "UWC Investment Portfolio Performance July 2026",
+                    "u", "no_nta_parsed", "the document text")
+
+    assert stats["by_code"]["UWC"] == "no_nta_parsed", (
+        "every code's outcome must be recorded, whatever the sample cap")
+    codes = [s["code"] for s in stats["fail_samples"]]
+    assert len(codes) == len(set(codes)), "one text sample per fund, not per document"
+
+    # a repeat for the same fund does not consume another slot
+    before = len(stats["fail_samples"])
+    H._note_failure(stats, "UWC", "again", "u", "no_nta_parsed", "more text")
+    assert len(stats["fail_samples"]) == before
+
+
+def test_every_asx_code_gets_an_outcome_not_only_the_failures():
+    """"We never asked" and "we asked and it failed" need different fixes,
+    and a funnel of counts cannot tell them apart for a named fund."""
+    src = inspect.getsource(H.harvest_au)
+    assert 'stats.setdefault("by_code", {})[code] = "parsed"' in src
+    assert '"no_candidate_in_window"' in src
+    assert '"by_outcome"' in src
