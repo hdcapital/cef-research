@@ -537,21 +537,12 @@ def run_validate(limit: int = 0) -> dict:
     from au_lic import panel as AUP
     from au_lic import validate_nta as V
 
-    frames = [pd.read_parquet(f) for f in
-              sorted(Path("data/asx_extract").glob("facts_det_*.parquet"))]
-    if not frames and BUCKET:
-        import boto3
-        s3 = boto3.client("s3", region_name=os.environ.get("AWS_REGION"))
-        Path("data/asx_extract").mkdir(parents=True, exist_ok=True)
-        for page in s3.get_paginator("list_objects_v2").paginate(
-                Bucket=BUCKET, Prefix="asx/extract/facts_det_"):
-            for o in page.get("Contents", []):
-                dest = Path("data/asx_extract") / Path(o["Key"]).name
-                s3.download_file(BUCKET, o["Key"], str(dest))
-                frames.append(pd.read_parquet(dest))
-    if not frames:
+    # one loader for "where the extracted facts live", shared with
+    # cef_live so the nightly and this validation cannot disagree about it
+    from au_lic.extract import facts as AUF
+    facts = AUF.load()
+    if not len(facts):
         return {"error": "no extracted facts found - run deterministic first"}
-    facts = pd.concat(frames, ignore_index=True)
     nav = facts[facts["section"] == "nav_observations"].copy()
 
     # The builder takes a config and REBUILDS from raw; the loader reads the

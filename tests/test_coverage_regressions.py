@@ -128,7 +128,10 @@ def test_uk_nav_history_is_read_in_pence_not_pounds():
     src = inspect.getsource(cli._own_nav_history)
     assert 'pd.to_numeric(h["nav_cum_pence"], errors="coerce") / 100.0' not in src
     assert '"nav_unit": "GBX"' in src, "the UK NAV unit must be stated on the frame"
-    assert '"nav_unit": "AUD"' in src, "the AU NAV unit must be stated on the frame"
+
+    from au_lic.extract import facts as AUF
+    assert '"nav_unit": "AUD"' in inspect.getsource(AUF.nav_observations), (
+        "the AU NAV unit must be stated on the frame")
 
     from cef_live import units
     assert units.CANONICAL_UNIT["UK"] == "GBX"

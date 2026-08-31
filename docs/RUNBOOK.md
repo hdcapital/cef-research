@@ -86,6 +86,49 @@ carry a discount" - a data-coverage statement, not a listing one. Any
 filter written as `status == "live"` drops those funds from the priced
 universe; use `liveness.LIVE_STATUSES` / `TRACKED_STATUSES`.
 
+### After changing the UK NAV parser
+
+The crawl skips any announcement already in the S3 manifest, which is right
+for fetching and wrong for parsing: an announcement recorded
+`no_nav_parsed` would never be revisited, so a better rule list could not
+reach the funds it was written for. The archived payload keeps the
+announcement TEXT, so re-parsing costs nothing:
+
+```
+Actions -> uk-nav-archive -> Run workflow -> mode: reparse
+```
+
+It reads the objects back from S3, re-runs `harvest_nav.parse_uk_nav_text`,
+and writes `data/uk_nav_history_reparse_s*.parquet`, which
+`_own_nav_history` picks up alongside the crawl shards (rows are
+deduplicated on `ann_id`, with the parsed outcome winning).
+
+Measured on the committed corpus (`data/uk_nav_corpus.json.gz`, 175 real
+announcements), the rule list reads 174 - up from 136. The one it refuses
+is a euro-denominated fund, which is the correct answer: a cents figure in
+a pence column is the unit bug again.
+
+### Where the extracted ASX NAV facts live
+
+`python -m au_lic.extract.runner deterministic` writes
+`data/asx_extract/facts_det_*.parquet` AND uploads each shard to
+`s3://$S3_BUCKET/asx/extract/`. **S3 is the system of record**; the local
+directory is a cache a fresh runner does not have.
+
+`au_lic.extract.facts.load()` restores from S3 when the cache is empty, and
+both `cef_live.cli._own_nav_history("AU")` and the extraction runner's own
+validation go through it. Before that, the nightly restored every other
+state group but not this one, so the "our own extracted NAV history" tier
+was always empty for Australia and every ASX fund fell back to the
+aggregator's monthly print - with 26,274 extracted NAV observations across
+147 tickers sitting in the bucket.
+
+The extracted facts currently stop at **2023-08**, because the announcement
+index had a hole from 2023-11 until the daily forward top-up repaired it
+and `asx-extract` is dispatch-only. To bring the extracted NAV history up
+to date, re-run `asx-extract` in `deterministic` mode over the repaired
+index; the PDFs are already archived daily to S3 by `asx-s3-archive`.
+
 ### Canonical units
 
 `src/cef_live/units.py` states them once: UK NAV and price are both **GBX

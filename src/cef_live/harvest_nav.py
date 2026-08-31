@@ -35,6 +35,20 @@ _SPEC.loader.exec_module(P)
 # month, or an explicit daily/weekly update. Amendments still excluded.
 BAD = re.compile(r"amendment|amended|correction|withdraw", re.I)
 
+# Headlines that may carry a published NTA. Deliberately WIDER than the
+# archive sweep's NTA_HEAD: several of the largest LIC families never use
+# the words "NTA" in a headline. Metrics publishes its NTA inside a "Daily
+# Fund Update"; the WAM and Future Generation funds publish theirs inside a
+# "Monthly Report" or "Investment Update". Measured against the live index
+# over 45 days: NTA_HEAD reaches 79 of the 108 monitored ASX funds, this
+# pattern reaches 91 - the twelve it adds are WAM, WAX, WAR, WAA, WMI, WMA,
+# WGB, FGX, FGG, MOT, MRE and MXT. A document that turns out to carry no
+# NTA simply fails to parse and is recorded, which is the cheap direction
+# for this error to run in.
+AU_NAV_HEAD = re.compile(
+    r"\bNTA\b|net tangible|net asset|\bNAV\b|fund update|"
+    r"monthly (?:report|update|investment)|investment update", re.I)
+
 
 DOTTED_DATE = re.compile(r"\b(\d{1,2})[./](\d{1,2})[./](20\d\d)\b")
 
@@ -56,19 +70,43 @@ def _asat_date(head: str) -> pd.Timestamp | None:
     return None
 
 
-def harvest_au(codes: set[str], lookback_days: int = 14,
-               pdf_budget: int = 200) -> pd.DataFrame:
-    """Published NAVs from recent AU NTA announcements.
+AU_COLS = ["security_id", "nav_date", "nav_value", "unit", "basis_note",
+           "source", "headline"]
+
+
+def harvest_au(codes: set[str], lookback_days: int = 45,
+               pdf_budget: int = 0, max_attempts_per_code: int = 3,
+               deadline_min: float = 45.0) -> pd.DataFrame:
+    """The newest published NTA per fund, from its own ASX announcements.
 
     Returns DataFrame: security_id, nav_date, nav_value, unit, basis_note,
-    source (announcement id), headline. Only successfully parsed,
-    unambiguous values are returned - everything else is left absent.
+    source (announcement id), headline. ``nav_value`` is the value AS
+    STATED in the document and ``unit`` says what unit that is - the
+    conversion to the market's canonical unit is units.normalise's job, so
+    it happens exactly once. (It previously happened here as well, which
+    made a cents-labelled row a dollars value wearing a cents label: the
+    next normaliser would have divided it by 100 again.)
+
+    Only successfully parsed, unambiguous values are returned; everything
+    else is left absent and counted in the funnel written to
+    reports/build/asx_tier0_debug.json.
+
+    Two things decide how much of the universe this reaches:
+
+    lookback_days - many LICs publish an NTA MONTHLY. A 14-day window saw
+      an NTA for only 40 of the 108 monitored funds; 30 days sees 79 and
+      45 days adds none beyond that but tolerates a late filing.
+
+    one fetch per fund - the loop used to re-parse the same fund's daily
+      statement for every day in the window, so a 200-document budget was
+      spent on 7 funds' back-catalogue. Only the NEWEST value per fund is
+      wanted, so a fund is dropped from the queue as soon as one parses,
+      and the whole addressable universe costs about one fetch each.
     """
     import requests
 
     if not P.INDEX_F.exists():
-        return pd.DataFrame(columns=["security_id", "nav_date", "nav_value",
-                                     "unit", "basis_note", "source", "headline"])
+        return pd.DataFrame(columns=AU_COLS)
     idx = pd.read_parquet(P.INDEX_F)
     idx = idx[idx["code"].isin(codes) & idx["url"].notna()]
     idx["release"] = pd.to_datetime(idx["release_date"], utc=True, errors="coerce")
@@ -78,36 +116,79 @@ def harvest_au(codes: set[str], lookback_days: int = 14,
     s = requests.Session()
     s.headers["User-Agent"] = P.UA
     counters = {"pdf_calls": 0}
+    started = _t.time()
+    stats = {"lookback_days": lookback_days, "codes_requested": len(codes),
+             "index_rows_in_window": int(len(idx)), "candidates": 0,
+             "codes_with_a_candidate": 0, "attempted": 0, "parsed": 0,
+             "parse_failed": 0, "ambiguous_unit": 0, "no_date": 0,
+             "codes_parsed": 0, "budget_reached": False,
+             "deadline_reached": False}
+    done: set[str] = set()
+    attempts: dict[str, int] = {}
     rows = []
-    for r in idx.sort_values("release", ascending=False).itertuples(index=False):
-        head = r.headline or ""
-        if not P.NTA_HEAD.search(head) or BAD.search(head):
+
+    cands = [r for r in idx.sort_values("release", ascending=False)
+             .itertuples(index=False)
+             if AU_NAV_HEAD.search(r.headline or "")
+             and not BAD.search(r.headline or "")]
+    stats["candidates"] = len(cands)
+    stats["codes_with_a_candidate"] = len({r.code for r in cands})
+
+    for r in cands:
+        code = str(r.code)
+        if code in done:
+            continue                      # newest value already in hand
+        if attempts.get(code, 0) >= max_attempts_per_code:
             continue
+        head = r.headline or ""
         asat = _asat_date(head)
         if asat is None:
-            # daily/weekly updates often carry no as-at in the headline;
-            # use the release date as the observation date, labelled so
-            if not re.search(r"daily|weekly|\bNTA\b|net tangible|\bNAV\b", head, re.I):
+            # daily/weekly/monthly updates often carry no as-at in the
+            # headline; use the release date as the observation date,
+            # labelled so the reader knows which it is
+            if not re.search(r"daily|weekly|monthly|\bNTA\b|net tangible|"
+                             r"\bNAV\b|fund update|investment update",
+                             head, re.I):
+                stats["no_date"] += 1
                 continue
             asat = pd.Timestamp(r.release.date())
             date_src = "release_date"
         else:
             date_src = "as_at_headline"
-        if counters["pdf_calls"] >= pdf_budget:
+        if pdf_budget and counters["pdf_calls"] >= pdf_budget:
+            stats["budget_reached"] = True
             break
+        if (_t.time() - started) > deadline_min * 60:
+            stats["deadline_reached"] = True
+            break
+        attempts[code] = attempts.get(code, 0) + 1
+        stats["attempted"] += 1
         res = P.derive_stated(P.parse_pdf(s, str(r.id), r.url, counters))
         if res.get("status") != "parsed":
+            stats["parse_failed"] += 1
             continue
         val, unit = res["stated_raw"], res.get("unit")
         if unit == "ambiguous":
+            stats["ambiguous_unit"] += 1
             continue                      # flagged, never guessed
-        rows.append({"security_id": f"ASX:{r.code}",
+        stats["parsed"] += 1
+        done.add(code)
+        rows.append({"security_id": f"ASX:{code}",
                      "nav_date": asat.date().isoformat(),
-                     "nav_value": val / 100.0 if unit == "cents" else val,
+                     "nav_value": val,          # AS STATED, in `unit`
                      "unit": unit,
                      "basis_note": res.get("basis", "pre_tax") + f"|{date_src}",
                      "source": f"asx_ann:{r.id}", "headline": head[:120]})
-    return pd.DataFrame(rows)
+
+    stats["codes_parsed"] = len(done)
+    try:
+        import json as _json
+        Path("reports/build").mkdir(parents=True, exist_ok=True)
+        Path("reports/build/asx_tier0_debug.json").write_text(
+            _json.dumps(stats, indent=1))
+    except Exception:  # noqa: BLE001
+        pass
+    return pd.DataFrame(rows, columns=AU_COLS)
 
 
 def uk_frequency_census(cache_dir: Path) -> pd.DataFrame:
@@ -162,6 +243,12 @@ UK_ASAT = re.compile(r"(?:as at|at)\s+(?:(?:the\s+)?close of business on\s+)?"
 UK_PNUM = r"(?:=\s*)?([0-9][0-9,]*(?:\.[0-9]+)?)"
 UK_PENCE = UK_PNUM + r"\s*p(?:ence)?\b"
 UK_ZDP = re.compile(r"zero dividend|preference share", re.I)
+# "per Ordinary Share of 1p" is the share's NOMINAL value, not its NAV. The
+# plain fallback grabbed it for Chelverton Growth and recorded a 1p NAV
+# against a 30p share price - a 2,900% premium that came from a company-law
+# formality sitting one clause before the number we wanted.
+UK_NOMINAL = re.compile(r"(?:ordinary\s+|preference\s+|\beach\s+)?shares?\s+of\s*$|"
+                        r"nominal\s+value\s+of\s*$|par\s+value\s+of\s*$", re.I)
 
 # Ordered rule list, written against the committed corpus
 # (data/uk_nav_corpus.json.gz). Each entry: (kind, priority, regex).
@@ -185,10 +272,12 @@ UK_RULES = [
     ("cum", 2, _R(r"(?:Undiluted|Diluted)?\s*Including Income\s+" + UK_PENCE, re.I)),
     ("ex", 2, _R(r"(?:Undiluted|Diluted)?\s*Excluding Income\s+" + UK_PENCE, re.I)),
     # Aberforth style bare labels: "Including ALL Revenue = 1,973.49p"
+    # the "to <date>" clause is optional and its spacing varies: "20 th May
+    # 2025" (Miton) and "25 th Jun 2026" (DIVI) both appear
     ("cum", 2, _R(r"\bincluding\s+(?:all\s+|current\s+(?:year|period)\s+)?revenue"
-                  r"(?:\s+to\s+\d{1,2}\s+\w{3,9}\s+\d{4})?\s*=?\s*" + UK_PENCE, re.I)),
+                  r"(?:\s+to\s+\d{1,2}\s*(?:st|nd|rd|th)?\s+\w{3,9}\s+\d{4})?[^0-9]{0,20}" + UK_PENCE, re.I)),
     ("ex", 2, _R(r"\bexcluding\s+(?:all\s+|current\s+(?:year|period)\s+)?revenue"
-                 r"(?:\s+to\s+\d{1,2}\s+\w{3,9}\s+\d{4})?\s*=?\s*" + UK_PENCE, re.I)),
+                 r"(?:\s+to\s+\d{1,2}\s*(?:st|nd|rd|th)?\s+\w{3,9}\s+\d{4})?[^0-9]{0,20}" + UK_PENCE, re.I)),
     # bare income labels: "Cum Income 443.57p" / "EX Income 439.95p"
     ("cum", 2, _R(r"\b(?:cum|incl?\.?)[- ]income\b[^0-9]{0,25}" + UK_PENCE, re.I)),
     ("ex", 2, _R(r"\bex[- ]income\b[^0-9]{0,25}" + UK_PENCE, re.I)),
@@ -200,8 +289,8 @@ UK_RULES = [
     ("ex", 2, _R(r"\b(?:XD\s+)?Ex\s+Par\s+NAV\s+" + UK_PENCE, re.I)),
     # JPMorgan all-caps: "THE NAV PER SHARE IN PENCE, INCLUDING INCOME WITH
     # DEBT AT FAIR VALUE: 1,247.58" (no p suffix; decimal required)
-    ("cum", 0, _R(r"INCLUDING INCOME[, ]+WITH DEBT AT FAIR VALUE:?\s*([0-9][0-9,]*\.[0-9]+)", re.I)),
-    ("ex", 0, _R(r"EXCLUDING INCOME[, ]+WITH DEBT AT FAIR VALUE:?\s*([0-9][0-9,]*\.[0-9]+)", re.I)),
+    ("cum", 0, _R(r"INCLUDING INCOME[, ]+WITH DEBT AT FAIR VALUE:?[^0-9]{0,120}?([0-9][0-9,]*\.[0-9]+)", re.I)),
+    ("ex", 0, _R(r"EXCLUDING INCOME[, ]+WITH DEBT AT FAIR VALUE:?[^0-9]{0,120}?([0-9][0-9,]*\.[0-9]+)", re.I)),
     ("cum", 3, _R(r"INCLUDING INCOME\s+WITH DEBT AT PAR(?:\s+VALUE)?:?\s*([0-9][0-9,]*\.[0-9]+)", re.I)),
     # Brunner prose: "based on the market value of ... debt ..., the
     # cum-income net asset value per ordinary share was 1745.2p"
@@ -233,6 +322,106 @@ UK_RULES = [
                  r"\s+capital\s+only", re.I)),
     # BEMO: "Including current period revenue to 26 August 2026 991.15 pence"
     # (covered by the Aberforth-style rule via the optional date group)
+
+    # ---------------------------------------------------------------
+    # Layouts added 2026-08-31 after measuring the parser against the
+    # committed corpus (data/uk_nav_corpus.json.gz): 39 of 175 real
+    # announcements produced no value, and the funds behind them were not
+    # obscure - Fidelity, CQS, Columbia Threadneedle, Personal Assets,
+    # Law Debenture, Temple Bar, Templeton, Witan. Every rule below is
+    # anchored on wording taken from one of those documents.
+    #
+    # The generic fallback is NOT relaxed to reach them. It used to be
+    # `net asset value[^0-9]{0,220}?`, which cannot cross the date in
+    # "as at 28 August 2026 was 199.66 pence" - but widening it to allow
+    # digits would let it wander into a multi-class table and staple the
+    # sterling class's NAV onto the dollar class's ticker (BH Macro and
+    # CVC publish exactly that layout). A wrong NAV is worse than none,
+    # so the reach comes from anchored rules instead.
+
+    # "Cum Income ... Ex Income" tables. Column order is NOT fixed: Witan
+    # and Temple Bar put cum first, Law Debenture puts ex first, so the
+    # header order is matched, never assumed.
+    ("cum", 1, _R(r"Cum Income[^0-9]{0,40}?Ex[- ]?(?:Income|dividend)[\s\S]{0,300}?"
+                  r"at fair value\s+([0-9][0-9,]*\.[0-9]+)\s+[0-9]", re.I)),
+    ("ex", 1, _R(r"Cum Income[^0-9]{0,40}?Ex[- ]?(?:Income|dividend)[\s\S]{0,300}?"
+                 r"at fair value\s+[0-9][0-9,]*\.[0-9]+\s+([0-9][0-9,]*\.[0-9]+)", re.I)),
+    ("cum", 2, _R(r"Excluding Income \(pence\)\s*Including Income \(pence\)"
+                  r"[\s\S]{0,300}?debt at fair value\s+[0-9][0-9,]*\.[0-9]+\s+"
+                  r"([0-9][0-9,]*\.[0-9]+)", re.I)),
+    ("ex", 2, _R(r"Excluding Income \(pence\)\s*Including Income \(pence\)"
+                 r"[\s\S]{0,300}?debt at fair value\s+([0-9][0-9,]*\.[0-9]+)", re.I)),
+    # Columbia Threadneedle / European Assets: "Cum Income Ex Income <name>
+    # LEI: <alphanumeric> 121.04 119.84" (an LEI carries digits but never a
+    # decimal point, so requiring one keeps the match on the values)
+    ("cum", 3, _R(r"Cum Income\s+Ex[- ]?Income[\s\S]{0,260}?"
+                  r"([0-9][0-9,]*\.[0-9]{2})(?:\s+(?:[0-9][0-9,]*\.[0-9]{2}|-))", re.I)),
+    ("ex", 3, _R(r"Cum Income\s+Ex[- ]?Income[\s\S]{0,260}?"
+                 r"[0-9][0-9,]*\.[0-9]{2}\s+([0-9][0-9,]*\.[0-9]{2})", re.I)),
+    # Momentum: the header words interleave - "Cum Ex Income Income"
+    ("cum", 3, _R(r"\bCum\s+Ex\s+Income\s+Income\s+([0-9][0-9,]*\.[0-9]{2})", re.I)),
+    ("ex", 3, _R(r"\bCum\s+Ex\s+Income\s+Income\s+[0-9][0-9,]*\.[0-9]{2}\s+"
+                 r"([0-9][0-9,]*\.[0-9]{2})", re.I)),
+
+    # Juniper / PR Newswire prose: "The unaudited cum-income net asset
+    # values ... were: 555.50 pence per share" (Personal Assets, Montanaro,
+    # Strategic Equity, Templeton)
+    ("cum", 2, _R(r"cum[- ]income net asset value[\s\S]{0,220}?" + UK_PENCE, re.I)),
+    ("ex", 2, _R(r"ex[- ]income (?:net asset value|NAV)[\s\S]{0,220}?" + UK_PENCE, re.I)),
+
+    # "Including income: 407.52 pence per share" (Global Opportunities, STS)
+    ("cum", 2, _R(r"\bIncluding income:?\s*" + UK_PENCE, re.I)),
+    ("ex", 2, _R(r"\bExcluding income:?\s*" + UK_PENCE, re.I)),
+    # value-first variants: "350.07p per ordinary share including income"
+    ("cum", 3, _R(UK_PENCE + r"\s+per\s+(?:ordinary\s+)?share[, ]{0,3}"
+                  r"(?:\()?including\s+income", re.I)),
+    ("ex", 3, _R(UK_PENCE + r"\s+per\s+(?:ordinary\s+)?share[, ]{0,3}"
+                 r"(?:\()?excluding\s+income", re.I)),
+    # Fidelity daily: "net asset value (unaudited) ... was: 281.80p"
+    ("cum", 3, _R(r"net asset value\s*\(unaudited\)[\s\S]{0,200}?" + UK_PENCE, re.I)),
+    # Geiger / Golden Prospect: "NAV per share - undiluted, bid basis 130.62 pence"
+    ("cum", 2, _R(r"NAV per share\s*[-\u2013]\s*undiluted[^0-9]{0,40}" + UK_PENCE, re.I)),
+    ("ex", 4, _R(r"NAV per share\s*[-\u2013]\s*(?:fully\s+)?diluted[^0-9]{0,40}" + UK_PENCE, re.I)),
+    # Chelverton / CQS New City / Downing: "Per Ordinary share (bid price) -
+    # including unaudited current period revenue* 155.92p"
+    ("cum", 2, _R(r"Per Ordinary share\s*\([^)]{0,25}\)\s*[-\u2013]\s*including"
+                  r"[^0-9]{0,70}" + UK_PENCE, re.I)),
+    ("ex", 2, _R(r"Per Ordinary share\s*\([^)]{0,25}\)\s*[-\u2013]\s*excluding"
+                 r"[^0-9]{0,70}" + UK_PENCE, re.I)),
+    # The Investment Company: "Per Ordinary Share: 78.5p"; Chelverton Growth
+    # writes the same row without the colon ("Per Ordinary Share 55.03p")
+    ("cum", 3, _R(r"Per Ordinary Share:?\s*" + UK_PENCE, re.I)),
+    # CQS Natural Resources: "was 421.52 pence, including unaudited current
+    # period revenue"
+    ("cum", 2, _R(UK_PENCE + r"[, ]{0,3}including unaudited current period revenue", re.I)),
+    # Lindsell Train: "Net Asset Value (inclusive of accumulated income) ...
+    # 21 August 2026 698.83p per Ordinary share"
+    ("cum", 3, _R(r"Net Asset Value \(inclusive of accumulated income\)"
+                  r"[\s\S]{0,300}?" + UK_PENCE, re.I)),
+    # Majedie mid-month estimate
+    ("cum", 3, _R(r"net asset value estimate per share[\s\S]{0,180}?" + UK_PENCE, re.I)),
+    # SVM: "net asset value per share of the following Investment Trust ...
+    # 96.29p"
+    ("cum", 3, _R(r"net asset value per share of the following[\s\S]{0,220}?"
+                  + UK_PENCE, re.I)),
+    # Scottish Oriental: "3xx.xx pence per share (including income)"
+    ("cum", 3, _R(UK_PENCE + r"\s+per share\s*\(including income", re.I)),
+    ("ex", 3, _R(UK_PENCE + r"\s+per share\s*\(excluding income", re.I)),
+    # Hydrogen Capital Growth: "quarterly NAV per share of the Company
+    # (the "31 December NAV") was 30.54 pence"
+    ("cum_assumed", 5, _R(r"NAV per share[\s\S]{0,140}?" + UK_PENCE, re.I)),
+
+    # "capital only" is the ex-income basis stated in words: Allianz
+    # Technology writes "the capital only net asset value per ordinary share
+    # was 742.94p", Mid-Wynd writes "Capital only: 810.14p"
+    ("ex", 3, _R(r"capital[- ]only net asset value[\s\S]{0,140}?" + UK_PENCE, re.I)),
+    ("ex", 3, _R(r"\bCapital only:?\s*" + UK_PENCE, re.I)),
+
+    # Greencoat: "unaudited Net Asset Value as of 31 December 2025 is
+    # GBP2,939.1 million (136.1 pence per share)"
+    ("cum_assumed", 4, _R(r"Net Asset Value[\s\S]{0,140}?\(" + UK_PENCE
+                          + r"\s+per share\)", re.I)),
+
     # plain fallback: "net asset value ... 123.45p"
     ("cum_assumed", 9, _R(r"net asset value[^0-9]{0,220}?" + UK_PENCE, re.I)),
 ]
@@ -250,8 +439,11 @@ def parse_uk_nav_text(text: str) -> dict:
     """
     def hits(pat):
         for m in pat.finditer(text):
-            if UK_ZDP.search(text[max(0, m.start() - 90):m.start()]):
+            before = text[max(0, m.start() - 90):m.start()]
+            if UK_ZDP.search(before):
                 continue
+            if UK_NOMINAL.search(before[-30:]):
+                continue          # a nominal/par value, not a NAV
             yield float(m.group(1).replace(",", ""))
 
     asat = None

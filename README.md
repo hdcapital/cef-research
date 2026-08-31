@@ -201,6 +201,16 @@ price, an unparsed NAV announcement is never reported as "no NAV", and a
 questionable number is flagged (`unit_check_status`, `blocking_issue`,
 `recommended_fix`) rather than rescaled.
 
+### Improving coverage
+
+The audit's `blocking_issue` and `recommended_fix` columns are the work
+list. Two of the fixes are jobs rather than code changes:
+
+| Symptom in the audit | What to run |
+|---|---|
+| `NAV announcement held but no value parsed` (UK) | `uk-nav-archive` with `mode: reparse` — re-runs the current parser over the announcement text already archived in S3, no crawling |
+| `ASX monthly report NTA (no announcement route)` | `asx-extract` in `deterministic` mode — the PDFs are archived daily to S3; the extraction that turns them into NAV values is dispatch-only and last ran before the announcement index was repaired |
+
 ## GitHub Actions
 
 `.github/workflows/live-coverage-audit.yml` runs the coverage audit on

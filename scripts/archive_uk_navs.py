@@ -19,6 +19,21 @@ Unparsed pages are recorded with status - never guessed. Budgets:
 UK_NAV_DEADLINE_MIN (default 300) bounds the run; UK_NAV_BUDGET is an
 optional item cap, unset by default.
 Newest-first means the most decision-relevant history lands first.
+
+RE-PARSE MODE (`--reparse`, or UK_NAV_MODE=reparse)
+---------------------------------------------------
+The fetch queue skips any announcement already in the manifest, which is
+right for crawling and wrong for PARSING: an announcement recorded
+`no_nav_parsed` would never be looked at again, so improving the parser
+could not reach the funds it was improved for. 33 UK funds - the Fidelity,
+CQS and Columbia Threadneedle families among them - sat at a 2-26% parse
+rate for exactly that reason.
+
+The archived payload keeps the announcement TEXT, so a re-parse needs no
+crawling at all: this mode reads the objects back from S3, re-runs the
+current parser over the stored text, and rewrites the history rows. It is
+free, it is idempotent, and it is the step to run after any change to
+harvest_nav.UK_RULES.
 """
 
 from __future__ import annotations
@@ -204,5 +219,83 @@ def main() -> int:
     return 0
 
 
+def reparse() -> int:
+    """Re-run the current parser over the announcement text already in S3.
+
+    No page is fetched. Every archived object carries the body text it was
+    parsed from, so this is the cheap half of a parser fix: the expensive
+    half (the crawl) has already been paid for.
+    """
+    if not BUCKET:
+        print("S3_BUCKET unset - nothing to re-parse "
+              "(the archived announcement text lives in S3)")
+        return 0
+    import boto3
+    s3 = boto3.client("s3", region_name=os.environ.get("AWS_REGION"))
+    rows, seen, unreadable = [], 0, 0
+    before = {"parsed": 0, "no_nav_parsed": 0}
+    paginator = s3.get_paginator("list_objects_v2")
+    for page in paginator.paginate(Bucket=BUCKET, Prefix="uk/nav_announcements/"):
+        for o in page.get("Contents", []):
+            key = o["Key"]
+            if not key.endswith(".json.gz"):
+                continue          # manifest objects are plain json
+            if SHARDS > 1:
+                import zlib
+                if zlib.crc32(key.encode()) % SHARDS != SHARD:
+                    continue
+            if (time.time() - START) > DEADLINE_MIN * 60:
+                print("deadline reached - stopping cleanly")
+                break
+            try:
+                body = s3.get_object(Bucket=BUCKET, Key=key)["Body"].read()
+                rec = json.loads(gzip.decompress(body))
+            except Exception:  # noqa: BLE001
+                unreadable += 1
+                continue
+            seen += 1
+            before[rec.get("status", "no_nav_parsed")] = \
+                before.get(rec.get("status", "no_nav_parsed"), 0) + 1
+            text = rec.get("text") or ""
+            if not text:
+                unreadable += 1
+                continue
+            got = parse_uk_nav_text(text)
+            rows.append({
+                "ticker": rec.get("ticker"), "ann_id": rec.get("ann_id"),
+                "ann_date": rec.get("ann_date", ""),
+                "nav_date": got.get("asat", rec.get("ann_date", "")),
+                "nav_cum_pence": got.get("nav_cum_pence"),
+                "nav_ex_pence": got.get("nav_ex_pence"),
+                "cum_assumed": bool(got.get("cum_assumed", False)),
+                "status": "parsed" if "nav_cum_pence" in got else "no_nav_parsed"})
+
+    out = Path("data/uk_nav_history_reparse.parquet" if SHARDS == 1
+               else f"data/uk_nav_history_reparse_s{SHARD}of{SHARDS}.parquet")
+    new = pd.DataFrame(rows)
+    if len(new):
+        new = new.drop_duplicates("ann_id", keep="last")
+        new.to_parquet(out, index=False)
+    after_parsed = int((new["status"] == "parsed").sum()) if len(new) else 0
+    status = {"run_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+              "mode": "reparse", "objects_seen": seen, "unreadable": unreadable,
+              "rows_written": int(len(new)),
+              "parsed_before": before.get("parsed", 0),
+              "parsed_after": after_parsed,
+              "parse_rate_before": round(before.get("parsed", 0) / max(1, seen), 4),
+              "parse_rate_after": round(after_parsed / max(1, len(new)), 4)
+              if len(new) else None,
+              "output": str(out)}
+    Path("outputs/live").mkdir(parents=True, exist_ok=True)
+    Path("outputs/live/uk_nav_reparse_status.json" if SHARDS == 1
+         else f"outputs/live/uk_nav_reparse_status_s{SHARD}.json").write_text(
+        json.dumps(status, indent=2))
+    print(json.dumps(status, indent=2))
+    return 0
+
+
 if __name__ == "__main__":
+    mode = os.environ.get("UK_NAV_MODE", "")
+    if "--reparse" in sys.argv or mode == "reparse":
+        sys.exit(reparse())
     sys.exit(main())

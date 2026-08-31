@@ -215,62 +215,66 @@ def uk_nav_archive_facts() -> pd.DataFrame:
     announcement (scripts/archive_uk_navs.py filters on that headline), so
     the archive answers two different questions that must not be merged:
     when did the fund last PUBLISH a NAV, and when did we last PARSE one.
+
+    The shards overlap - a re-parse run (archive_uk_navs.py --reparse)
+    writes a second row for an announcement the original crawl already
+    recorded - so rows are deduplicated on ann_id with the PARSED outcome
+    winning. Counting both would report a fund's announcements twice and
+    would leave a superseded failure standing next to its own fix.
     """
     tick = load_tickers()
     by_tk = {str(r.ticker).upper(): r.security_id
              for r in tick.itertuples(index=False)}
 
-    def _blank(sid: str) -> dict:
-        return {"security_id": sid, "nav_ann_count": 0, "nav_ann_parsed": 0,
-                "last_nav_announcement": None, "last_parsed_nav_date": None,
-                "last_ann_status": None}
-
-    rows: dict[str, dict] = {}
+    frames = []
     for f in sorted(Path("data").glob("uk_nav_history*.parquet")):
         try:
             h = pd.read_parquet(f)
         except Exception:  # noqa: BLE001
             continue
-        if "ticker" not in h.columns or "ann_date" not in h.columns:
+        if not {"ticker", "ann_date"} <= set(h.columns):
             continue
-        h = h.copy()
-        h["ticker"] = h["ticker"].astype(str).str.upper()
-        h["d"] = pd.to_datetime(h["ann_date"], errors="coerce")
-        h = h.dropna(subset=["d"])
-        parsed = h[h.get("status").eq("parsed")] if "status" in h.columns else h
-        for tk, g in h.groupby("ticker"):
-            sid = by_tk.get(tk)
-            if not sid:
-                continue
-            r = rows.setdefault(sid, _blank(sid))
-            r["nav_ann_count"] += int(len(g))
-            newest = g["d"].max().date().isoformat()
-            if r["last_nav_announcement"] is None or newest >= r["last_nav_announcement"]:
-                r["last_nav_announcement"] = newest
-                # the archive records, per announcement, whether a value came
-                # out of it: "we tried and failed" is a different fact from
-                # "we never fetched it", and only one of them is a parser bug
-                st = g[g["d"] == g["d"].max()].get("status")
-                r["last_ann_status"] = (str(st.iloc[0]) if st is not None
-                                        and len(st) else None)
-        for tk, g in parsed.groupby("ticker"):
-            sid = by_tk.get(tk)
-            if not sid:
-                continue
-            r = rows.setdefault(sid, _blank(sid))
-            r["nav_ann_parsed"] += int(len(g))
-            r["last_parsed_nav_date"] = max(
-                [x for x in (r["last_parsed_nav_date"],
-                             g["d"].max().date().isoformat()) if x])
-    out = pd.DataFrame(list(rows.values()))
-    if not len(out):
+        keep = h[[c for c in ("ticker", "ann_id", "ann_date", "status")
+                  if c in h.columns]].copy()
+        if "ann_id" not in keep.columns:
+            keep["ann_id"] = None
+        if "status" not in keep.columns:
+            keep["status"] = "parsed"
+        frames.append(keep)
+    if not frames:
         return pd.DataFrame(columns=["security_id", "nav_ann_count",
                                      "nav_ann_parsed", "last_nav_announcement",
                                      "last_parsed_nav_date", "last_ann_status",
                                      "nav_parse_rate"])
-    out["nav_parse_rate"] = (out["nav_ann_parsed"] /
-                             out["nav_ann_count"].replace(0, np.nan)).round(4)
-    return out
+
+    h = pd.concat(frames, ignore_index=True)
+    h["ticker"] = h["ticker"].astype(str).str.upper()
+    h["d"] = pd.to_datetime(h["ann_date"], errors="coerce")
+    h = h.dropna(subset=["d"])
+    h["security_id"] = h["ticker"].map(by_tk)
+    h = h.dropna(subset=["security_id"])
+    # a re-parse supersedes the original attempt for the same announcement
+    h["_ok"] = (h["status"] == "parsed").astype(int)
+    keyed = h[h["ann_id"].notna()].sort_values("_ok").drop_duplicates(
+        "ann_id", keep="last")
+    unkeyed = h[h["ann_id"].isna()]
+    h = pd.concat([keyed, unkeyed], ignore_index=True)
+
+    rows = []
+    for sid, g in h.groupby("security_id"):
+        parsed = g[g["status"] == "parsed"]
+        newest = g.sort_values("d").iloc[-1]
+        rows.append({
+            "security_id": sid,
+            "nav_ann_count": int(len(g)),
+            "nav_ann_parsed": int(len(parsed)),
+            "last_nav_announcement": newest["d"].date().isoformat(),
+            "last_parsed_nav_date": (parsed["d"].max().date().isoformat()
+                                     if len(parsed) else None),
+            "last_ann_status": str(newest["status"]),
+            "nav_parse_rate": round(len(parsed) / len(g), 4) if len(g) else None,
+        })
+    return pd.DataFrame(rows)
 
 
 ASX_NTA = re.compile(r"net tangible asset|\bNTA\b|net asset value|\bNAV\b", re.I)

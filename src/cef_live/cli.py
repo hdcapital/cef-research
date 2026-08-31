@@ -349,23 +349,14 @@ def _own_nav_history(market: str) -> pd.DataFrame:
         return out.merge(t, on="ticker", how="inner")[
             ["security_id", "nav_date", "nav_value", "nav_unit"]]
 
-    for f in sorted(Path("data/asx_extract").glob("facts_det_*.parquet")):
-        try:
-            h = pd.read_parquet(f)
-        except Exception:  # noqa: BLE001
-            continue
-        h = h[h["section"] == "nav_observations"]
-        if not len(h):
-            continue
-        frames.append(pd.DataFrame({
-            "security_id": "ASX:" + h["ticker"].astype(str).str.upper(),
-            "nav_date": h["valuation_date"],
-            "nav_value": pd.to_numeric(h["nav_per_share"], errors="coerce"),
-            "nav_unit": "AUD",
-        }))
-    if not frames:
-        return pd.DataFrame()
-    return pd.concat(frames, ignore_index=True).dropna(subset=["nav_value"])
+    # AU: the deterministic pass over the archived ASX PDFs. Its output is
+    # written to data/asx_extract AND uploaded to S3; a CI runner has only
+    # the S3 copy, so the loader restores it when the local cache is empty.
+    # Reading only the local directory meant this tier was always empty on a
+    # runner and every ASX fund fell back to the aggregator's monthly print.
+    from au_lic.extract import facts as AUF
+    own = AUF.nav_observations()
+    return own if len(own) else pd.DataFrame()
 
 
 def resolve_tickers(budget: int = 400) -> int:
