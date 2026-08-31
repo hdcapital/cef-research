@@ -660,11 +660,18 @@ def main() -> int:
         codes = set(au["security_id"].astype(str)
                     .str.replace("^ASX:", "", regex=True).str.upper())
         print(f"registry AU codes: {len(codes)}")
+    # The PDF cross-check compares a PDF's stated NTA against the panel's
+    # derived one, so it needs the panel - but the SWEEP does not, and
+    # making the whole job depend on the panel is what killed three earlier
+    # runs. The panel stays optional: absent, the sweep still runs and the
+    # cross-check is skipped rather than crashing after the crawl is done.
+    have_nta = None
     pp = Path("data/au_processed/au_monthly_panel.parquet")
     if pp.exists():
         panel = pd.read_parquet(pp)
         panel["code"] = panel["security_id"].str.replace("ASX:", "", regex=False)
         codes |= set(panel.loc[panel["nta_derived"].notna(), "code"].unique())
+        have_nta = panel[panel["nta_derived"].notna()]
     if not codes:
         print("no AU codes from registry or panel - nothing to sweep")
         return 0
@@ -678,6 +685,14 @@ def main() -> int:
     print(f"index rows for our codes: {len(idx)} "
           f"(hist_done={counters.get('hist_done')}, calls={counters['index_calls']})")
     cands = pick_candidates(idx)
+
+    if have_nta is None:
+        # the crawl is the valuable part and it has already succeeded and
+        # been persisted; exiting 0 here keeps the workflow green so the
+        # commit step is not treated as cleanup after a failure
+        print("no AU monthly panel - skipping the PDF cross-check "
+              "(the sweep above is complete and saved)")
+        return 0
 
     rows = []
     for code, grp in cands.groupby("code"):
