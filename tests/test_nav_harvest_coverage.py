@@ -360,3 +360,21 @@ def test_a_reparsed_nav_reaches_the_live_table_and_the_audit(monkeypatch, tmp_pa
     src = inspect.getsource(cli._own_nav_history)
     assert "uk_nav_panel" in src and "nav_pence" in src
     assert '"nav_unit": "GBX"' in src
+
+
+def test_an_asx_nav_the_extractor_read_is_not_reported_as_a_parser_failure():
+    """46 ASX funds read "announcement held, never parsed" while the
+    deterministic extractor had in fact read them.
+
+    The audit's ASX branch took `last_parsed` from Tier 0 alone, so a fund
+    whose NAV came from data/asx_extract counted as unparsed. That is a
+    parser failure claimed against a parser that worked, and it would have
+    sent someone to fix it.
+    """
+    from cef_live import coverage_audit as CA
+    src = inspect.getsource(CA.build_rows)
+    i = src.index('last_ann = a.get("last_nta_announcement")')
+    tail = src[i:i + 1400]
+    assert 'o.get("own_nav_date")' in tail, (
+        "the extracted-facts date must count as a parsed NAV for ASX")
+    assert 'last_parsed = max(' in tail
