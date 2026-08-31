@@ -2,14 +2,14 @@
   "documents": 1057,
   "no_pdf": 0,
   "unreadable": 0,
-  "with_evidence": 230,
-  "no_label_matched": 827,
+  "with_evidence": 1057,
+  "no_label_matched": 0,
   "fund_months_with_truth": 2076,
-  "observations": 307,
-  "funds_with_evidence": 53,
+  "observations": 1134,
+  "funds_with_evidence": 89,
   "labels_seen": 75,
-  "labels_promoted_to_rules": 19,
-  "funds_covered_by_a_rule": 12,
+  "labels_promoted_to_rules": 16,
+  "funds_covered_by_a_rule": 10,
   "holdout_funds": 30,
   "learn_funds": 59,
   "top_rules": [
@@ -21,6 +21,7 @@
       "months_clean": 3,
       "first_month": "2024-11",
       "last_month": "2025-08",
+      "has_nav_vocab": true,
       "is_rule": true
     },
     {
@@ -31,16 +32,7 @@
       "months_clean": 3,
       "first_month": "2024-11",
       "last_month": "2025-08",
-      "is_rule": true
-    },
-    {
-      "ticker": "DN1",
-      "label": "per unit of the dominion income trust was",
-      "unit": "dollars",
-      "months_supporting": 3,
-      "months_clean": 3,
-      "first_month": "2025-05",
-      "last_month": "2026-02",
+      "has_nav_vocab": true,
       "is_rule": true
     },
     {
@@ -51,16 +43,7 @@
       "months_clean": 10,
       "first_month": "2024-10",
       "last_month": "2026-06",
-      "is_rule": true
-    },
-    {
-      "ticker": "KKC",
-      "label": "current nta estimate",
-      "unit": "dollars",
-      "months_supporting": 7,
-      "months_clean": 4,
-      "first_month": "2024-07",
-      "last_month": "2026-05",
+      "has_nav_vocab": true,
       "is_rule": true
     },
     {
@@ -71,6 +54,7 @@
       "months_clean": 4,
       "first_month": "2024-07",
       "last_month": "2026-05",
+      "has_nav_vocab": true,
       "is_rule": true
     },
     {
@@ -81,6 +65,18 @@
       "months_clean": 4,
       "first_month": "2024-07",
       "last_month": "2026-05",
+      "has_nav_vocab": true,
+      "is_rule": true
+    },
+    {
+      "ticker": "KKC",
+      "label": "current nta estimate",
+      "unit": "dollars",
+      "months_supporting": 7,
+      "months_clean": 4,
+      "first_month": "2024-07",
+      "last_month": "2026-05",
+      "has_nav_vocab": true,
       "is_rule": true
     },
     {
@@ -91,6 +87,7 @@
       "months_clean": 3,
       "first_month": "2025-09",
       "last_month": "2026-04",
+      "has_nav_vocab": true,
       "is_rule": true
     },
     {
@@ -101,6 +98,7 @@
       "months_clean": 16,
       "first_month": "2024-07",
       "last_month": "2026-05",
+      "has_nav_vocab": true,
       "is_rule": true
     },
     {
@@ -111,6 +109,7 @@
       "months_clean": 13,
       "first_month": "2024-09",
       "last_month": "2026-04",
+      "has_nav_vocab": true,
       "is_rule": true
     },
     {
@@ -121,16 +120,7 @@
       "months_clean": 4,
       "first_month": "2025-04",
       "last_month": "2026-04",
-      "is_rule": true
-    },
-    {
-      "ticker": "PGF",
-      "label": "nta before tax accruals",
-      "unit": "dollars",
-      "months_supporting": 3,
-      "months_clean": 3,
-      "first_month": "2025-05",
-      "last_month": "2026-01",
+      "has_nav_vocab": true,
       "is_rule": true
     },
     {
@@ -141,16 +131,18 @@
       "months_clean": 3,
       "first_month": "2025-05",
       "last_month": "2026-01",
+      "has_nav_vocab": true,
       "is_rule": true
     },
     {
-      "ticker": "PIC",
-      "label": "nta before tax",
+      "ticker": "PGF",
+      "label": "nta before tax accruals",
       "unit": "dollars",
-      "months_supporting": 6,
-      "months_clean": 6,
-      "first_month": "2024-08",
-      "last_month": "2026-06",
+      "months_supporting": 3,
+      "months_clean": 3,
+      "first_month": "2025-05",
+      "last_month": "2026-01",
+      "has_nav_vocab": true,
       "is_rule": true
     },
     {
@@ -161,16 +153,18 @@
       "months_clean": 6,
       "first_month": "2024-08",
       "last_month": "2026-06",
+      "has_nav_vocab": true,
       "is_rule": true
     },
     {
-      "ticker": "REV",
-      "label": "please contact revolution private credit income trust on",
+      "ticker": "PIC",
+      "label": "nta before tax",
       "unit": "dollars",
-      "months_supporting": 3,
-      "months_clean": 3,
-      "first_month": "2025-11",
+      "months_supporting": 6,
+      "months_clean": 6,
+      "first_month": "2024-08",
       "last_month": "2026-06",
+      "has_nav_vocab": true,
       "is_rule": true
     },
     {
@@ -181,16 +175,7 @@
       "months_clean": 3,
       "first_month": "2025-12",
       "last_month": "2026-06",
-      "is_rule": true
-    },
-    {
-      "ticker": "RG8",
-      "label": "ordinary share for regal asian investments limited was",
-      "unit": "dollars",
-      "months_supporting": 3,
-      "months_clean": 3,
-      "first_month": "2024-11",
-      "last_month": "2026-04",
+      "has_nav_vocab": true,
       "is_rule": true
     },
     {
@@ -201,6 +186,7 @@
       "months_clean": 4,
       "first_month": "2025-02",
       "last_month": "2026-02",
+      "has_nav_vocab": true,
       "is_rule": true
     }
   ],
