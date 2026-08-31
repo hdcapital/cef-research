@@ -1,16 +1,16 @@
 {
   "rows": 1116,
-  "rows_with_nav": 702,
-  "rows_without_nav": 414,
+  "rows_with_nav": 713,
+  "rows_without_nav": 403,
   "basis_counts": {
-    "nan": 414,
-    "3.0": 274,
-    "1.0": 219,
-    "0.0": 209
+    "nan": 403,
+    "3.0": 285,
+    "1.0": 222,
+    "0.0": 206
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 146,
+  "alert_eligible": 141,
   "z_extremes": [
     {
       "security_id": "SEDOL:BDHXP96",
@@ -38,8 +38,8 @@
     },
     {
       "security_id": "ASX:AEG",
-      "z_adj": -20.2798,
-      "discount_est": -0.911112,
+      "z_adj": -20.2802,
+      "discount_est": -0.911125,
       "staleness_days": 1043.0
     },
     {
@@ -56,9 +56,9 @@
     },
     {
       "security_id": "SEDOL:B01WL23",
-      "z_adj": -15.6555,
-      "discount_est": -0.995368,
-      "staleness_days": 2717.0
+      "z_adj": -15.5747,
+      "discount_est": -0.990942,
+      "staleness_days": 130.0
     },
     {
       "security_id": "SEDOL:B6X5T17",
@@ -68,8 +68,8 @@
     },
     {
       "security_id": "ASX:APL",
-      "z_adj": -15.1405,
-      "discount_est": -0.778523,
+      "z_adj": -15.1387,
+      "discount_est": -0.778447,
       "staleness_days": 1260.0
     }
   ],
@@ -82,8 +82,8 @@
       "factors_daily": true,
       "live_prices": 100
     },
-    "uk_identity_blocked": 28,
-    "uk_nav_targets": 297,
+    "uk_identity_blocked": 30,
+    "uk_nav_targets": 298,
     "uk_registry_only_targets": 90,
     "uk": {
       "tier0_navs": 170,
@@ -92,10 +92,10 @@
     }
   },
   "catalysts": {
-    "catalysts": 72,
+    "catalysts": 117,
     "funds": 65,
     "by_class": {
-      "discount_control": 46,
+      "discount_control": 91,
       "substantial_holder": 19,
       "tender_offer": 6,
       "liquidation_wind_down": 1

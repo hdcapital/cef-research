@@ -5,44 +5,44 @@
     "AU": 172,
     "UK": 944
   },
-  "live": 298,
-  "live_stale_nav": 100,
+  "live": 318,
+  "live_stale_nav": 81,
   "status_before_evidence": {
     "delisted": 731,
     "live": 376,
     "delist_candidate": 9
   },
-  "evidence_rows": 547,
+  "evidence_rows": 548,
   "persisted_to": "data/universe/registry.parquet",
   "live_status_source": {
-    "registry_deferral_no_own_filings": 569,
-    "own_nav_announcement": 285,
-    "own_periodic_report": 87,
-    "silence_beyond_grace": 85,
+    "registry_deferral_no_own_filings": 568,
+    "own_nav_announcement": 306,
+    "silence_beyond_grace": 84,
     "own_announcement_only": 73,
+    "own_periodic_report": 68,
     "own_nav_announcement_stale": 13,
     "registry_last_seen": 3,
     "silence_within_grace": 1
   },
-  "revived_by_own_filings": 39,
+  "revived_by_own_filings": 40,
   "aggregator_said_live_evidence_says_not": 25,
   "by_liveness_reason": {
-    "no_own_filings_held_deferring_to_registry": 569,
-    "nav": 298,
-    "periodic_report": 87,
-    "silent": 86,
+    "no_own_filings_held_deferring_to_registry": 568,
+    "nav": 319,
+    "silent": 85,
     "filings_but_no_nav_or_report": 73,
+    "periodic_report": 68,
     "registry_listed": 3
   },
-  "delisted": 640,
+  "delisted": 639,
   "priced_by_source": 638,
   "announcements_only": 478,
-  "live_announcements_only": 49,
+  "live_announcements_only": 64,
   "offshore": 195,
   "vct": 228,
   "live_by_domicile": {
-    "GB": 156,
-    "null": 98,
+    "GB": 175,
+    "null": 99,
     "GG": 23,
     "BM": 10,
     "JE": 7,
@@ -97,11 +97,38 @@
       "months_listed": 227
     },
     {
+      "security_id": "SEDOL:BKV46W4",
+      "name": "Blackfinch Spring VCT",
+      "sector": "VCT",
+      "domicile": "GB",
+      "isin": "GB00BKV46W45",
+      "first_seen": "2023-10",
+      "months_listed": 34
+    },
+    {
       "security_id": "NAME:british and american|ordinary share",
       "name": "British & American",
       "sector": "Global Equity Income",
       "domicile": "GB",
       "isin": "GB0000653112",
+      "first_seen": "2007-01",
+      "months_listed": 235
+    },
+    {
+      "security_id": "SEDOL:140315",
+      "name": "British Smaller Companies VCT",
+      "sector": "VCT",
+      "domicile": "GB",
+      "isin": "GB0001403152",
+      "first_seen": "2007-01",
+      "months_listed": 235
+    },
+    {
+      "security_id": "SEDOL:500179",
+      "name": "British Smaller Companies VCT 2",
+      "sector": "VCT",
+      "domicile": "GB",
+      "isin": "GB0005001796",
       "first_seen": "2007-01",
       "months_listed": 235
     },
@@ -113,6 +140,15 @@
       "isin": "JE00B9G79F59",
       "first_seen": "2013-06",
       "months_listed": 158
+    },
+    {
+      "security_id": "SEDOL:B631ZQ2",
+      "name": "Calculus VCT",
+      "sector": "VCT",
+      "domicile": "GB",
+      "isin": "GB00BYQPF348",
+      "first_seen": "2016-11",
+      "months_listed": 117
     },
     {
       "security_id": "SEDOL:5825107",
@@ -169,6 +205,15 @@
       "months_listed": 113
     },
     {
+      "security_id": "SEDOL:B07YBS9",
+      "name": "Foresight Enterprise VCT",
+      "sector": "VCT",
+      "domicile": "GB",
+      "isin": "GB00B07YBS95",
+      "first_seen": "2007-01",
+      "months_listed": 235
+    },
+    {
       "security_id": "SEDOL:BJL5FH8",
       "name": "Foresight Environmental Infrastructure",
       "sector": "Renewable Energy Infrastructure",
@@ -185,6 +230,15 @@
       "isin": "JE00BD3QJR55",
       "first_seen": "2014-03",
       "months_listed": 118
+    },
+    {
+      "security_id": "SEDOL:B1M27S7",
+      "name": "Foresight VCT",
+      "sector": "VCT",
+      "domicile": "GB",
+      "isin": "GB00B68K3716",
+      "first_seen": "2007-01",
+      "months_listed": 235
     },
     {
       "security_id": "SEDOL:B28XHD6",
@@ -223,6 +277,33 @@
       "months_listed": 219
     },
     {
+      "security_id": "SEDOL:412285",
+      "name": "Maven Income and Growth VCT",
+      "sector": "VCT",
+      "domicile": "GB",
+      "isin": "GB0004122858",
+      "first_seen": "2007-01",
+      "months_listed": 228
+    },
+    {
+      "security_id": "SEDOL:3115376",
+      "name": "Maven Income and Growth VCT 3",
+      "sector": "VCT",
+      "domicile": "GB",
+      "isin": "GB0031153769",
+      "first_seen": "2007-01",
+      "months_listed": 235
+    },
+    {
+      "security_id": "SEDOL:B043QW8",
+      "name": "Maven Income and Growth VCT 4",
+      "sector": "VCT",
+      "domicile": "GB",
+      "isin": "GB00B043QW84",
+      "first_seen": "2007-01",
+      "months_listed": 205
+    },
+    {
       "security_id": "SEDOL:B1ZBD49",
       "name": "Neuberger Private Equity Partners",
       "sector": "Private Equity",
@@ -230,6 +311,33 @@
       "isin": "GG00B1ZBD492",
       "first_seen": "2014-07",
       "months_listed": 145
+    },
+    {
+      "security_id": "SEDOL:535643",
+      "name": "Northern 2 VCT",
+      "sector": "VCT",
+      "domicile": "GB",
+      "isin": "GB0005356430",
+      "first_seen": "2007-01",
+      "months_listed": 235
+    },
+    {
+      "security_id": "SEDOL:3115202",
+      "name": "Northern 3 VCT",
+      "sector": "VCT",
+      "domicile": "GB",
+      "isin": "GB0031152027",
+      "first_seen": "2007-01",
+      "months_listed": 235
+    },
+    {
+      "security_id": "SEDOL:645070",
+      "name": "Northern Venture Trust",
+      "sector": "VCT",
+      "domicile": "GB",
+      "isin": "GB0006450703",
+      "first_seen": "2007-01",
+      "months_listed": 235
     },
     {
       "security_id": "SEDOL:BJM0293",
@@ -277,6 +385,15 @@
       "months_listed": 43
     },
     {
+      "security_id": "SEDOL:BL690L8",
+      "name": "PXN Growth VCT",
+      "sector": "VCT",
+      "domicile": "GB",
+      "isin": "GB00BL690L89",
+      "first_seen": "2026-02",
+      "months_listed": 6
+    },
+    {
       "security_id": "SEDOL:BLNNFL8",
       "name": "Pantheon Infrastructure",
       "sector": "Infrastructure",
@@ -284,6 +401,15 @@
       "isin": "GB00BLNNFL88",
       "first_seen": "2021-11",
       "months_listed": 56
+    },
+    {
+      "security_id": "SEDOL:BQVC9S7",
+      "name": "Pembroke VCT B shares",
+      "sector": "VCT",
+      "domicile": "GB",
+      "isin": "GB00BQVC9S79",
+      "first_seen": "2018-10",
+      "months_listed": 54
     },
     {
       "security_id": "SEDOL:BPFJTF4",
@@ -448,6 +574,15 @@
       "months_listed": 134
     },
     {
+      "security_id": "SEDOL:BFXW773",
+      "name": "Ventus VCT D shares",
+      "sector": "VCT Specialist: Environmental",
+      "domicile": "GB",
+      "isin": "GB00BFXW7734",
+      "first_seen": "2014-04",
+      "months_listed": 90
+    },
+    {
       "security_id": "SEDOL:BJQZ9H1",
       "name": "VietNam Holding",
       "sector": "Country Specialist",
@@ -494,28 +629,29 @@
     }
   ],
   "live_announcements_only_by_sector": {
+    "VCT": 17,
     "Flexible Investment": 5,
     "UK Smaller Companies": 5,
     "Renewable Energy Infrastructure": 5,
     "Australian Indices": 4,
     "Debt - Structured Finance": 3,
-    "VCT": 3,
     "Country Specialist": 3,
     "Hedge Funds": 2,
-    "Private Equity": 2,
     "Split Capital Trust": 2,
-    "Debt - Loans & Bonds": 2,
+    "Private Equity": 2,
     "North America": 2,
+    "Debt - Loans & Bonds": 2,
     "Global Equity Income": 1,
-    "Equity - Global Strategy": 1,
     "Global Emerging Markets": 1,
-    "India / Indian Subcontinent": 1,
+    "Equity - Global Strategy": 1,
     "Property - Rest of World": 1,
-    "VCT AIM Quoted": 1,
+    "India / Indian Subcontinent": 1,
     "Infrastructure": 1,
     "Property - UK Commercial": 1,
+    "VCT AIM Quoted": 1,
     "Property - UK Healthcare": 1,
     "Debt - Direct Lending": 1,
+    "VCT Specialist: Environmental": 1,
     "Property - Europe": 1
   }
 }
