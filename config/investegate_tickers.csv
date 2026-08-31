@@ -1,5 +1,7 @@
-security_id,ticker,note,verified_by,verified_date
 # Manually verified TIDMs for securities whose ticker is not in any AIC file
 # (mostly trusts that died before the AIC added ISIN/TIDM columns in 2019).
-# Verify against contemporaneous sources before adding - never guess:
-# a wrong ticker maps another company's dividends onto the trust.
+security_id,ticker,note,verified_by,verified_date
+SEDOL:3216473,JEMA,"renamed; OpenFIGI ISIN join, Investegate H1 verified",openfigi+investegate_h1,2026-08-31
+SEDOL:848471,VIP,"renamed; OpenFIGI ISIN join, Investegate H1 verified",openfigi+investegate_h1,2026-08-31
+SEDOL:3047468,PPET,"renamed; OpenFIGI ISIN join, Investegate H1 verified",openfigi+investegate_h1,2026-08-31
+SEDOL:BGJYPP4,CHRY,"renamed; OpenFIGI ISIN join, Investegate H1 verified",openfigi+investegate_h1,2026-08-31
