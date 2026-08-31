@@ -20,15 +20,19 @@ name: uk-index-gap
 # Investegate reuses tickers, and a wrong page would staple another company's
 # announcements to this fund.
 #
-# 6 shards, hashed by ticker so they take disjoint slices, matching the other
-# UK jobs so they can share runners.
+# ONE job, deliberately. The first run used 6 sharded runners and finished in
+# under 12 minutes - but a state group is a single S3 tarball, so each shard
+# pushed its own slice and the last to finish overwrote the rest. All six
+# reported success; the archiver's queue then held 9,057 NAV announcements,
+# exactly shard 4's total, out of the 34,287 the six had actually indexed.
+# sync_state now merges on push, which narrows that race but does not close
+# it, and the honest fix for a job whose parts must not lose each other's
+# work is not to split it. ~105 funds at a page or two each fits the budget
+# with room to spare.
 
 on:
   workflow_dispatch:
     inputs:
-      shards:
-        description: "parallel shards (keep <= 6 to leave runners for other work)"
-        default: "6"
       budget_minutes:
         description: "wall-clock budget per shard"
         default: "300"
@@ -43,13 +47,8 @@ permissions:
 jobs:
   index:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      max-parallel: 6
-      matrix:
-        shard: [0, 1, 2, 3, 4, 5]
     concurrency:
-      group: uk-index-gap-${{ matrix.shard }}
+      group: uk-index-gap
       cancel-in-progress: false
     timeout-minutes: 340
     env:
@@ -57,8 +56,8 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_REGION: ${{ secrets.AWS_REGION }}
       S3_BUCKET: ${{ secrets.S3_BUCKET }}
-      SHARD_INDEX: ${{ matrix.shard }}
-      SHARD_COUNT: ${{ github.event.inputs.shards || '6' }}
+      SHARD_INDEX: "0"
+      SHARD_COUNT: "1"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -89,7 +88,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "no change"
           else
-            git commit -m "CI: UK index gap shard ${{ matrix.shard }} ($(date -u +%Y-%m-%dT%H:%MZ))"
+            git commit -m "CI: UK index gap ($(date -u +%Y-%m-%dT%H:%MZ))"
             for i in 1 2 3 4; do
               git pull --rebase origin main && git push origin HEAD:main && break
               sleep $((2 ** i))

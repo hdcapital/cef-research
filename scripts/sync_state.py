@@ -65,12 +65,53 @@ def _dir_hash(paths: list[str]) -> str:
     return h.hexdigest()[:16]
 
 
+def _merge_from_s3(s3, name: str) -> int:
+    """Restore any file this runner does NOT have, before tarring the group.
+
+    A group is one tarball, so a push REPLACES it. When several sharded jobs
+    push the same group, each one uploads its own slice and the last to
+    finish silently deletes the others' work. Measured on 2026-08-31: six
+    uk-index-gap shards indexed 34,287 NAV announcements between them and
+    the archiver's queue then contained 9,057 - exactly shard 4's total,
+    because shard 4 pushed last. The other five shards' 25,230 were gone,
+    with every job reporting success.
+
+    So a push now starts by restoring whatever the bucket holds that this
+    runner lacks. Local files win (this run's work is newer); remote-only
+    files survive. Shards touch disjoint per-ticker files, so the union is
+    exactly right for them.
+
+    This narrows the race rather than closing it - two pushes seconds apart
+    can still both read the old copy. A job whose shards must not lose each
+    other's work should be one job, and uk-index-gap now is.
+    """
+    key = f"{PREFIX}{name}.tar.gz"
+    restored = 0
+    try:
+        with tempfile.NamedTemporaryFile(suffix=".tar.gz", delete=False) as tmp:
+            s3.download_file(BUCKET, key, tmp.name)
+            with tarfile.open(tmp.name, "r:gz") as tar:
+                for m in tar.getmembers():
+                    if not m.isfile() or Path(m.name).exists():
+                        continue
+                    tar.extract(m, ".")
+                    restored += 1
+        Path(tmp.name).unlink(missing_ok=True)
+    except Exception:  # noqa: BLE001
+        return 0
+    return restored
+
+
 def push(groups: list[str]) -> int:
     if not BUCKET:
         print("S3_BUCKET unset - nothing to push")
         return 0
     s3 = _client()
     for name in groups:
+        if [p for p in GROUPS[name] if Path(p).exists()]:
+            n = _merge_from_s3(s3, name)
+            if n:
+                print(f"  {name}: merged {n} file(s) held only in S3")
         paths = [p for p in GROUPS[name] if Path(p).exists()]
         if not paths:
             print(f"  {name}: nothing on disk, skipped")
