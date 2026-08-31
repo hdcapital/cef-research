@@ -57,16 +57,25 @@ jobs:
                            tests/test_liveness.py \
                            tests/test_nav_source_invariants.py -q
 
-      # Optional: restore the caches the refresh needs. Skipped entirely when
-      # refresh_data is false, so the default run audits committed state only.
+      # S3 state is READ on every run, refresh or not. Two of the stores the
+      # audit reads live only in S3 - the UK daily NAV panel (data/uk/nav,
+      # state group uk_daily) and the extracted ASX NAV facts - so auditing
+      # committed state alone would report funds as having no NAV route when
+      # the NAV is sitting in the bucket. Reading is not refreshing: nothing
+      # here fetches from a publisher or writes state back.
       - name: Restore state from S3
-        if: ${{ inputs.refresh_data }}
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
           S3_BUCKET: ${{ secrets.S3_BUCKET }}
-        run: python scripts/sync_state.py pull --groups raw_aic,raw_asx,uk_announcements,asx_index,tickers
+        run: |
+          # a group that is absent or unreadable must not fail the audit
+          python scripts/sync_state.py pull \
+            --groups uk_daily,tickers,uk_announcements,asx_index || true
+          if [ "${{ inputs.refresh_data }}" = "true" ]; then
+            python scripts/sync_state.py pull --groups raw_aic,raw_asx || true
+          fi
       - name: Restore AIC raw cache
         if: ${{ inputs.refresh_data }}
         uses: actions/cache/restore@v4
