@@ -97,16 +97,32 @@ def run(budget_minutes: float = 300.0, shard: int = 0, shards: int = 1,
     # what the crawl actually produced, counted from the index it wrote
     import re
     pat = re.compile(r"net asset value", re.I)
+    # A fund can be fully indexed and still publish no "Net Asset Value(s)"
+    # RNS - UK REITs and several private-equity vehicles state EPRA NTA
+    # inside their interim and annual results instead. That is a different
+    # source, not a failed crawl, and the difference decides whether the fix
+    # is "fetch the announcements" or "parse the results". So for any fund
+    # with no NAV announcement, the headlines it DOES publish are recorded:
+    # the explanation becomes a measurement rather than an inference.
+    alt = re.compile(r"half[- ]?year|interim|annual (?:report|result)|"
+                     r"final result|net tangible|nta\b|epra", re.I)
     for row in results:
         f = crawler.listings / f"{row['ticker']}.csv"
         row["rows_indexed"] = 0
         row["nav_announcements"] = 0
+        row["top_headlines"] = None
+        row["nav_bearing_reports"] = 0
         if f.exists():
             try:
                 d = pd.read_csv(f, dtype=str)
+                head = d["headline"].fillna("")
                 row["rows_indexed"] = int(len(d))
-                row["nav_announcements"] = int(
-                    d["headline"].fillna("").str.contains(pat).sum())
+                row["nav_announcements"] = int(head.str.contains(pat).sum())
+                if row["nav_announcements"] == 0 and len(d):
+                    row["nav_bearing_reports"] = int(head.str.contains(alt).sum())
+                    row["top_headlines"] = " | ".join(
+                        f"{h}({n})" for h, n in
+                        head.str.slice(0, 45).value_counts().head(5).items())
             except Exception:  # noqa: BLE001
                 pass
 
@@ -119,6 +135,9 @@ def run(budget_minutes: float = 300.0, shard: int = 0, shards: int = 1,
         "status_counts": res["status"].value_counts().to_dict() if len(res) else {},
         "funds_now_indexed": int((res["nav_announcements"] > 0).sum()) if len(res) else 0,
         "nav_announcements_found": int(res["nav_announcements"].sum()) if len(res) else 0,
+        "indexed_but_no_nav_rns": int(((res["rows_indexed"] > 0)
+                                       & (res["nav_announcements"] == 0)).sum())
+        if len(res) else 0,
         "requests_made": crawler.requests_made,
     }
     REPORT.parent.mkdir(parents=True, exist_ok=True)
