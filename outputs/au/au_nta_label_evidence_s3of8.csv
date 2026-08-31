@@ -1,318 +1,1138 @@
-ticker,month,label,unit,truth,n_matching_labels,split,announcement_id
-PIC,2026-06,was nta per ordinary share nta before tax,dollars,1.207,2,learn,03110440
-PIC,2026-06,nta before tax,dollars,1.207,2,learn,03110440
-PCI,2026-06,at close of business on nta per unit,dollars,1.099,1,holdout,03108290
-PCI,2026-06,at close of business on nta per unit,dollars,1.099,1,holdout,03105841
-PCI,2026-06,at close of business on nta per unit,dollars,1.099,1,holdout,03105443
-PCI,2026-06,at close of business on nta per unit,dollars,1.099,1,holdout,03104606
-PCI,2026-06,at close of business on nta per unit,dollars,1.099,1,holdout,03104149
-PCI,2026-06,at close of business on nta per unit,dollars,1.099,1,holdout,03103602
-MFF,2026-06,a percentage of investment assets was approximately at,dollars,4.991,1,learn,03102320
-GCI,2026-06,on nta per unit as at,dollars,2.0051,1,learn,03102278
-PL8,2026-06,as at nta per share pre tax nta,dollars,1.144,1,learn,03102135
-LSF,2026-06,per ordinary share f f nta before tax,dollars,4.317,1,learn,03100939
-WQG,2026-05,below net tangible assets nta before tax,dollars,2.03,2,learn,03100028
-WQG,2026-05,nta before tax,dollars,2.03,2,learn,03100028
-PCI,2026-05,at close of business on nta per unit,dollars,1.096,1,holdout,03099707
-MIR,2026-05,share as at pre tax nta per share,dollars,2.76,2,learn,03099586
-MIR,2026-05,pre tax nta per share,dollars,2.76,2,learn,03099586
-BKI,2026-05,per share as at below pre tax nta,dollars,2.04,1,holdout,03099497
-GCI,2026-05,on nta per unit as at,dollars,2.0186,1,learn,03098604
-KIT,2026-05,is as follows value date nta per unit,dollars,2.0047,1,learn,03098066
-GCI,2026-05,on nta per unit as at,dollars,2.0186,1,learn,03097639
-MXT,2026-05,is as follows value date nta per unit,dollars,2.0148,1,learn,03097742
-GCI,2026-05,on nta per unit as at,dollars,2.0186,1,learn,03097224
-KKC,2026-05,previous nta estimate,dollars,2.3236,2,learn,03097078
-KKC,2026-05,time current nta estimate previous nta estimate,dollars,2.3236,2,learn,03097078
-KKC,2026-05,current nta estimate,dollars,2.3236,4,learn,03094757
-KKC,2026-05,previous nta estimate,dollars,2.3236,4,learn,03094757
-KKC,2026-05,of day value us time current nta estimate,dollars,2.3236,4,learn,03094757
-KKC,2026-05,time current nta estimate previous nta estimate,dollars,2.3236,4,learn,03094757
-KKC,2026-05,current nta estimate,dollars,2.3236,2,learn,03093808
-KKC,2026-05,of value day us time current nta estimate,dollars,2.3236,2,learn,03093808
-OEQ,2026-05,nta m m pre tax nta backing per share,dollars,0.4101,2,holdout,03093062
-OEQ,2026-05,nta m m post tax nta backing per share,dollars,0.4101,2,holdout,03093062
-MOT,2026-05,is as follows value date nta per unit,dollars,2.1615,1,learn,03092667
-MOT,2026-05,is as follows value date nta per unit,dollars,2.1615,1,learn,03092175
-MOT,2026-05,is as follows value date nta per unit,dollars,2.1615,1,learn,03091721
-KKC,2026-05,previous nta estimate,dollars,2.3236,2,learn,03091517
-KKC,2026-05,time current nta estimate previous nta estimate,dollars,2.3236,2,learn,03091517
-KKC,2026-05,current nta estimate,dollars,2.3236,2,learn,03089798
-KKC,2026-05,of value day us time current nta estimate,dollars,2.3236,2,learn,03089798
-PIC,2026-04,was nta per ordinary share nta before tax,dollars,1.174,2,learn,03088982
-PIC,2026-04,nta before tax,dollars,1.174,2,learn,03088982
-KIT,2026-04,is as follows value date nta per unit,dollars,2.0098,1,learn,03085242
-TCF,2026-04,price unit nav commercial unit price unit nav,dollars,5.939,1,learn,03082322
-PIC,2026-04,ordinary share nta before tax nta after tax,dollars,1.174,2,learn,03082026
-PIC,2026-04,nta after tax,dollars,1.174,2,learn,03082026
-MOT,2026-04,is as follows value date nta per unit,dollars,2.1585,1,learn,03081027
-REV,2026-04,is as follows value date nta per unit,dollars,2.0126,1,learn,03080414
-MOT,2026-04,is as follows value date nta per unit,dollars,2.1585,1,learn,03079233
-LRT,2026-03,unit of the trust as at was,dollars,2.5833,1,learn,03078944
-PIC,2026-03,ordinary share nta before tax nta after tax,dollars,1.135,2,learn,03077966
-PIC,2026-03,nta after tax,dollars,1.135,2,learn,03077966
-MXT,2026-03,is as follows value date nta per unit,dollars,2.0133,1,learn,03077399
-AMH,2026-03,share as at pre tax nta per share,dollars,1.02,2,learn,03077187
-AMH,2026-03,pre tax nta per share,dollars,1.02,2,learn,03077187
-BTI,2026-03,capital fund focused on nta share at pre tax,dollars,1.66,1,holdout,03069606
-MOT,2026-03,is as follows value date nta per unit,dollars,2.1581,1,learn,03069418
-GCI,2026-03,on nta per unit as at,dollars,2.0068,1,learn,03069322
-MIR,2026-02,share as at pre tax nta per share,dollars,3.06,2,learn,03067166
-MIR,2026-02,pre tax nta per share,dollars,3.06,2,learn,03067166
-HM1,2026-02,nta per share pre tax nta,dollars,3.33,1,learn,03067089
-REV,2026-02,please contact revolution private credit income trust on,dollars,2.0,1,learn,03064888
-SEC,2026-02,as at nta per share pre tax nta,dollars,2.524,1,holdout,03063659
-MXT,2026-02,is as follows value date nta per unit,dollars,2.0002,1,learn,03061222
-MOT,2026-02,is as follows value date nta per unit,dollars,2.1579,1,learn,03061215
-CAM,2026-02,nta before tax nta after tax,dollars,0.83,2,holdout,03059678
-CAM,2026-02,nta after tax,dollars,0.83,2,holdout,03059678
-GCI,2026-02,on nta per unit as at,dollars,2.0089,1,learn,03059180
-MXT,2026-02,is as follows value date nta per unit,dollars,2.0002,1,learn,03059175
-MOT,2026-02,is as follows value date nta per unit,dollars,2.1579,1,learn,03058263
-MXT,2026-02,is as follows value date nta per unit,dollars,2.0002,1,learn,03057220
-PCI,2026-02,at close of business on nta per unit,dollars,1.099,1,holdout,03057166
-AMH,2026-02,com amcil cm mpms mufg com page of,dollars,1.11,1,learn,03056768
-MXT,2026-01,is as follows value date nta per unit,dollars,2.0136,1,learn,03055053
-LSF,2026-01,per ordinary share f f nta before tax,dollars,4.3933,1,learn,03053244
-ARG,2026-01,and approximate pre tax nta per share,dollars,10.54,1,learn,03050969
-FPC,2026-01,to solid start with estimated pre tax nta reaching,dollars,2.0882,1,learn,03050433
-PCI,2026-01,at close of business on nta per unit,dollars,1.099,1,holdout,03049769
-ALI,2026-01,nta per share nta per share,dollars,2.62,1,learn,03049284
-PCI,2026-01,at close of business on nta per unit,dollars,1.099,1,holdout,03048277
-AFI,2026-01,bank westpac banking corporation csl macquarie group wesfarmers,dollars,8.0,2,learn,03047907
-AFI,2026-01,com afi cm mpms mufg com page of,dollars,8.0,2,learn,03047907
-MEC,2025-12,noted below dollars per share estimated nta pre tax,dollars,1.3483,1,learn,03044277
-SEC,2025-12,as at nta per share pre tax nta,dollars,2.616,1,holdout,03041518
-BKI,2025-12,per share as at below pre tax nta,dollars,1.96,1,holdout,03041042
-MOT,2025-12,is as follows value date nta per unit,dollars,2.1553,1,learn,03038398
-AFI,2025-12,as at before tax after tax,dollars,7.9,1,learn,03038131
-LSX,2025-12,legacy investments australian investments total value before tax,cents,1.051,3,holdout,03037449
-LSX,2025-12,the unaudited nta of lion as is,cents,1.051,3,holdout,03037449
-LSX,2025-12,nta per share as at before tax,cents,1.051,3,holdout,03037449
-QRI,2025-12,is as follows value date nta per unit,dollars,1.6002,1,holdout,03036583
-TCF,2025-11,as follows value date nav per unit,dollars,5.936,1,learn,03035521
-DUI,2025-11,is as below weekly pre tax nta per share,dollars,6.37,1,holdout,03035360
-RF1,2025-11,nav per unit of regal investment fund was,dollars,3.76,1,learn,03034992
-HM1,2025-11,nta per share pre tax nta,dollars,3.71,1,learn,03034656
-MXT,2025-11,is as follows value date nta per unit,dollars,2.013,1,learn,03034069
-GCI,2025-11,on nta per unit as at,dollars,2.0207,1,learn,03030279
-WQG,2025-11,below net tangible assets nta before tax,dollars,2.132,2,learn,03027636
-WQG,2025-11,nta before tax,dollars,2.132,2,learn,03027636
-MOT,2025-11,is as follows value date nta per unit,dollars,2.1529,1,learn,03027288
-AFI,2025-11,share as at pre tax nta per share,dollars,7.91,2,learn,03027124
-AFI,2025-11,pre tax nta per share,dollars,7.91,2,learn,03027124
-WHF,2025-11,westpac banking corporation nab national australia bank limited,dollars,6.4,1,holdout,03024457
-MOT,2025-11,is as follows value date nta per unit,dollars,2.1529,1,learn,03023909
-MOT,2025-11,is as follows value date nta per unit,dollars,2.1529,1,learn,03023267
-NCC,2025-11,portfolio update as at fully franked dividends,cents,0.5,1,holdout,03023556
-DJW,2025-11,share as at pre tax nta per share,dollars,3.37,2,learn,03023079
-DJW,2025-11,pre tax nta per share,dollars,3.37,2,learn,03023079
-SEC,2025-10,at estimated nta per share pre tax nta,dollars,2.699,1,holdout,03019686
-SEC,2025-10,at estimated nta per share pre tax nta,dollars,2.699,1,holdout,03014600
-CD1,2025-10,nta value after tax as at was,dollars,0.77,3,holdout,03009741
-CD1,2025-10,unaudited nta value before tax at of,dollars,0.77,3,holdout,03009741
-CD1,2025-10,unit fund inception last months since inception return,dollars,0.77,3,holdout,03009741
-GC1,2025-10,total fy fy,dollars,0.82,1,holdout,03009516
-GCI,2025-10,on nta per unit as at,dollars,2.0102,1,learn,03007657
-MXT,2025-10,is as follows value date nta per unit,dollars,2.0004,1,learn,03006508
-GCI,2025-10,on nta per unit as at,dollars,2.0102,1,learn,03006486
-DJW,2025-09,as at before tax after tax,dollars,3.36,1,learn,03004318
-PIC,2025-09,was nta per ordinary share nta before tax,dollars,1.276,2,learn,03001985
-PIC,2025-09,nta before tax,dollars,1.276,2,learn,03001985
-MOT,2025-09,is as follows value date nta per unit,dollars,2.1485,1,learn,02995345
-PCI,2025-09,at close of business on nta per unit,dollars,1.096,1,holdout,02994085
-QRI,2025-09,is as follows value date nta per unit,dollars,1.5997,1,holdout,02993519
-GCI,2025-09,on nta per unit as at,dollars,2.0105,1,learn,02993060
-PCI,2025-09,at close of business on nta per unit,dollars,1.096,1,holdout,02993036
-MOT,2025-09,is as follows value date nta per unit,dollars,2.1485,1,learn,02992500
-GCI,2025-09,on nta per unit as at,dollars,2.0105,1,learn,02992439
-GCI,2025-09,on nta per unit as at,dollars,2.0105,1,learn,02990641
-VG1,2025-08,all applicable fees and charges the nta of,dollars,2.05,2,learn,02989209
-VG1,2025-08,share for vgi partners global investments limited was,dollars,2.05,2,learn,02989209
-SEC,2025-08,at estimated nta per share pre tax nta,dollars,2.664,1,holdout,02985855
-LSF,2025-08,were nta per ordinary share nta before tax,dollars,3.5263,1,learn,02983074
-GCI,2025-08,rate distribution cap unit m distribution nta unit m,dollars,2.0095,1,learn,02982045
-MOT,2025-08,is as follows value date nta per unit,dollars,2.1467,1,learn,02979556
-GCI,2025-08,on nta per unit as at,dollars,2.0095,1,learn,02979024
-MXT,2025-08,is as follows value date nta per unit,dollars,2.0005,1,learn,02979093
-PCI,2025-08,at close of business on nta per unit,dollars,1.096,1,holdout,02978455
-DN1,2025-08,per unit of the dominion income trust was,dollars,100.28,1,learn,02978420
-CD1,2025-08,inception per unit cd nta per unit,dollars,0.87,2,holdout,02978048
-CD1,2025-08,paid since inception per unit cd nta,dollars,0.87,2,holdout,02978048
-DUI,2025-08,is as below weekly pre tax nta per share,dollars,6.53,1,holdout,02976819
-MOT,2025-08,is as follows value date nta per unit,dollars,2.1467,1,learn,02976647
-MFF,2025-07,monthly nta per share as at was,dollars,5.132,1,learn,02976103
-PCI,2025-07,at close of business on nta per unit,dollars,1.096,1,holdout,02975898
-SEC,2025-07,at estimated nta per share pre tax nta,dollars,2.525,1,holdout,02975575
-MOT,2025-07,is as follows value date nta per unit,dollars,2.1463,1,learn,02968745
-LSF,2025-07,were nta per ordinary share nta before tax,dollars,3.3228,1,learn,02968417
-TCF,2025-07,unit price unit nav unit price unit nav,dollars,5.938,1,learn,02967744
-MOT,2025-07,is as follows value date nta per unit,dollars,2.1463,1,learn,02967875
-MOT,2025-07,is as follows value date nta per unit,dollars,2.1463,1,learn,02966892
-PCI,2025-07,at close of business on nta per unit,dollars,1.096,1,holdout,02966141
-MOT,2025-07,is as follows value date nta per unit,dollars,2.1463,1,learn,02966272
-BKI,2025-07,and a total mer of only arb corporation,dollars,2.0,7,holdout,02965542
-BKI,2025-07,group telstra group limited macquarie group transurban group,dollars,2.0,7,holdout,02965542
-BKI,2025-07,dividend of cps was up on last year,dollars,2.0,7,holdout,02965542
-BKI,2025-07,e mail info bkilimited com au phone amanda wong,dollars,2.0,7,holdout,02965542
-BKI,2025-07,external active management fee of goodman group limited,dollars,2.0,7,holdout,02965542
-BKI,2025-07,this document bki nta and monthly report,dollars,2.0,7,holdout,02965542
-BKI,2025-07,bkilimited com au e mail info bkilimited com au,dollars,2.0,7,holdout,02965542
-SEC,2025-06,as at nta per share pre tax nta,dollars,2.411,1,holdout,02963994
-RG8,2025-06,ordinary share for regal asian investments limited was,dollars,2.41,1,learn,02963502
-OPH,2025-06,is as follows value date nav per unit,dollars,3.5759,1,learn,02963360
-DJW,2025-06,share as at pre tax nta per share,dollars,3.4,2,learn,02958677
-DJW,2025-06,pre tax nta per share,dollars,3.4,2,learn,02958677
-FGG,2025-06,before tax before tax since inception cum dividend ex dividend,cents,1.7124,1,holdout,02958420
-PCI,2025-06,at close of business on nta per unit,dollars,1.096,1,holdout,02958184
-GCI,2025-06,on nta per unit as at,dollars,2.0068,1,learn,02954836
-DJW,2025-06,com djerri cm mpms mufg com page of,dollars,3.4,1,learn,02954965
-RG8,2025-05,ordinary share for regal asian investments limited was,dollars,2.22,1,learn,02954280
-SEC,2025-05,at estimated nta per share pre tax nta,dollars,2.467,1,holdout,02954057
-GCI,2025-05,on nta per unit as at,dollars,2.0192,1,learn,02952834
-GCI,2025-05,on nta per unit as at,dollars,2.0192,1,learn,02952398
-TGF,2025-05,at tgfinvestors tribecaip com au or by calling,dollars,2.0036,2,holdout,02951945
-TGF,2025-05,sydney nsw australia raffles place singapore abn t,dollars,2.0036,2,holdout,02951945
-KKC,2025-05,current nta estimate,dollars,2.432,2,learn,02950871
-KKC,2025-05,end of day us time current nta estimate,dollars,2.432,2,learn,02950871
-QRI,2025-05,deployment unit price vs nav annualised return deployment,dollars,1.6007,2,holdout,02949072
-QRI,2025-05,distribution on month end unit price m m,dollars,1.6007,2,holdout,02949072
-QRI,2025-05,is as follows value date nta per unit,dollars,1.6007,1,holdout,02948294
-MOT,2025-05,is as follows value date nta per unit,dollars,2.1449,1,learn,02947489
-QRI,2025-05,is as follows value date nta per unit,dollars,1.6007,1,holdout,02945977
-WLE,2025-05,australian companies nta nta fully franked dividend paid,cents,1.2795,1,holdout,02945341
-MOT,2025-05,is as follows value date nta per unit,dollars,2.1449,1,learn,02945030
-MXT,2025-05,limited level exchange centre bridge street sydney nsw,dollars,2.0002,2,learn,02944462
-MXT,2025-05,is as follows value date nta per unit,dollars,2.0002,2,learn,02944462
-LRT,2025-04,unit of the trust as at as,dollars,1.6143,1,learn,02944237
-PCI,2025-04,at close of business on nta per unit,dollars,1.091,1,holdout,02943114
-MXT,2025-04,is as follows value date nta per unit,dollars,2.0133,1,learn,02941585
-MXT,2025-04,is as follows value date nta per unit,dollars,2.0133,1,learn,02940884
-CAM,2025-04,total portfolio including cash an easy way to,dollars,0.75,2,holdout,02937964
-CAM,2025-04,limited nta nta before tax,dollars,0.75,2,holdout,02937964
-PCI,2025-04,at close of business on nta per unit,dollars,1.091,1,holdout,02937828
-NAC,2025-04,nta share price of holdings inception dividend yield,dollars,0.61,1,holdout,02937037
-KKC,2025-04,previous nta estimate,dollars,2.4183,2,learn,02936529
-KKC,2025-04,time current nta estimate previous nta estimate,dollars,2.4183,2,learn,02936529
-DUI,2025-04,ordinary shares at was per share,dollars,6.17,1,holdout,02935018
-KKC,2025-04,current nta estimate,dollars,2.4183,4,learn,02934938
-KKC,2025-04,previous nta estimate,dollars,2.4183,4,learn,02934938
-KKC,2025-04,end of day us time current nta estimate,dollars,2.4183,4,learn,02934938
-KKC,2025-04,time current nta estimate previous nta estimate,dollars,2.4183,4,learn,02934938
-MXT,2025-03,is as follows value date nta per unit,dollars,2.0002,1,learn,02932978
-PIC,2025-03,was nta per ordinary share nta before tax,dollars,1.173,2,learn,02932888
-PIC,2025-03,nta before tax,dollars,1.173,2,learn,02932888
-GCI,2025-03,rate distribution cap unit m distribution nta unit m,dollars,2.013,1,learn,02926410
-GCI,2025-02,governor macquarie tower farrer place sydney nsw p,dollars,2.0027,2,learn,02919383
-GCI,2025-02,macquarie tower farrer place sydney nsw p f,dollars,2.0027,2,learn,02919383
-GCI,2025-02,governor macquarie tower farrer place sydney nsw p,dollars,2.0027,2,learn,02917905
-GCI,2025-02,macquarie tower farrer place sydney nsw p f,dollars,2.0027,2,learn,02917905
-MXT,2025-02,is as follows value date nta per unit,dollars,2.0002,1,learn,02917310
-GCI,2025-02,governor macquarie tower farrer place sydney nsw p,dollars,2.0027,2,learn,02917327
-GCI,2025-02,macquarie tower farrer place sydney nsw p f,dollars,2.0027,2,learn,02917327
-GCI,2025-02,governor macquarie tower farrer place sydney nsw p,dollars,2.0027,2,learn,02916176
-GCI,2025-02,macquarie tower farrer place sydney nsw p f,dollars,2.0027,2,learn,02916176
-PAI,2025-02,pre tax nta per share as at was,dollars,1.1487,1,learn,02915514
-GCI,2025-02,governor macquarie tower farrer place sydney nsw p,dollars,2.0027,2,learn,02915018
-GCI,2025-02,macquarie tower farrer place sydney nsw p f,dollars,2.0027,2,learn,02915018
-MXT,2025-02,is as follows value date nta per unit,dollars,2.0002,1,learn,02914469
-MXT,2025-02,is as follows value date nta per unit,dollars,2.0002,1,learn,02913100
-PIC,2025-02,was nta per ordinary share nta before tax,dollars,1.29,2,learn,02912747
-PIC,2025-02,nta before tax,dollars,1.29,2,learn,02912747
-MOT,2025-02,is as follows value date nta per unit,dollars,2.142,1,learn,02911591
-MXT,2025-02,is as follows value date nta per unit,dollars,2.0002,1,learn,02911727
-MXT,2025-02,is as follows value date nta per unit,dollars,2.0002,1,learn,02911198
-MOT,2025-02,is as follows value date nta per unit,dollars,2.142,1,learn,02910431
-PIC,2025-02,was nta per ordinary share nta before tax,dollars,1.29,2,learn,02910380
-PIC,2025-02,nta before tax,dollars,1.29,2,learn,02910380
-LSF,2025-01,ordinary share nta before tax nta after tax,dollars,2.9439,2,learn,02907359
-LSF,2025-01,nta after tax,dollars,2.9439,2,learn,02907359
-LSF,2025-01,ordinary share nta before tax nta after tax,dollars,2.9439,2,learn,02905523
-LSF,2025-01,nta after tax,dollars,2.9439,2,learn,02905523
-GCI,2025-01,governor macquarie tower farrer place sydney nsw p,dollars,2.002,2,learn,02903900
-GCI,2025-01,macquarie tower farrer place sydney nsw p f,dollars,2.002,2,learn,02903900
-GCI,2025-01,governor macquarie tower farrer place sydney nsw p,dollars,2.002,2,learn,02903498
-GCI,2025-01,macquarie tower farrer place sydney nsw p f,dollars,2.002,2,learn,02903498
-BTI,2025-01,at bailador provides exposure to a portfolio,dollars,1.85,2,holdout,02903329
-BTI,2025-01,nta per share at close of was,dollars,1.85,2,holdout,02903329
-GCI,2025-01,governor macquarie tower farrer place sydney nsw p,dollars,2.002,2,learn,02903137
-GCI,2025-01,macquarie tower farrer place sydney nsw p f,dollars,2.002,2,learn,02903137
-MXT,2025-01,is as follows value date nta per unit,dollars,2.0002,1,learn,02902808
-ALI,2025-01,and approximate pre tax nta per share,dollars,2.64,1,learn,02902202
-AMH,2025-01,at before tax after tax,dollars,1.37,1,learn,02901591
-WQG,2024-12,below net tangible assets nta before tax,dollars,1.927,2,learn,02900004
-WQG,2024-12,nta before tax,dollars,1.927,2,learn,02900004
-KAT,2024-12,per share after tax as at was,dollars,1.337,2,learn,02894791
-KAT,2024-12,nta backing per share after tax,dollars,1.337,2,learn,02894791
-PCI,2024-12,at close of business on nta per unit,dollars,1.099,1,holdout,02893411
-MXT,2024-12,is as follows value date nta per unit,dollars,2.001,1,learn,02891545
-GCI,2024-12,on nta per unit as at,dollars,2.01,1,learn,02890988
-PCI,2024-12,at close of business on nta per unit,dollars,1.099,1,holdout,02890941
-VG1,2024-11,share for vgi partners global investments limited was,dollars,2.02,1,learn,02890117
-PGF,2024-11,nta before tax accruals,dollars,2.1478,2,learn,02890108
-PGF,2024-11,share gross dividend yield nta before tax accruals,dollars,2.1478,2,learn,02890108
-SEC,2024-11,at estimated nta per share pre tax nta,dollars,2.394,1,holdout,02889783
-MXT,2024-11,is as follows value date nta per unit,dollars,2.0002,1,learn,02880382
-CD1,2024-11,x years fund x years fund x years,dollars,0.98,1,holdout,02878774
-MXT,2024-10,is as follows value date nta per unit,dollars,2.0002,1,learn,02877298
-AMH,2024-10,as at before tax after tax,dollars,1.3,2,learn,02877335
-AMH,2024-10,staples as percentage of total portfolio value energy,dollars,1.3,2,learn,02877335
-PIC,2024-10,ordinary share nta before tax nta after tax,dollars,1.266,2,learn,02868996
-PIC,2024-10,nta after tax,dollars,1.266,2,learn,02868996
-PIC,2024-10,ordinary share nta before tax nta after tax,dollars,1.266,2,learn,02867224
-PIC,2024-10,nta after tax,dollars,1.266,2,learn,02867224
-PCI,2024-10,at close of business on nta per unit,dollars,1.099,1,holdout,02867073
-ACQ,2024-10,includes dividends nta after taxes and before taxes,dollars,1.1021,2,learn,02866440
-ACQ,2024-10,returns both nta after taxes including taxes on,dollars,1.1021,2,learn,02866440
-PCI,2024-10,at close of business on nta per unit,dollars,1.099,1,holdout,02865904
-NAC,2024-10,return fy fy,dollars,0.44,1,holdout,02865677
-PCI,2024-10,at close of business on nta per unit,dollars,1.099,1,holdout,02864982
-GCI,2024-10,on nta per unit as at,dollars,2.0117,1,learn,02864872
-MXT,2024-10,is as follows value date nta per unit,dollars,2.0002,1,learn,02863791
-MOT,2024-10,is as follows value date nta per unit,dollars,2.1417,1,learn,02863083
-PCI,2024-10,at close of business on nta per unit,dollars,1.099,1,holdout,02863076
-GCI,2024-10,on nta per unit as at,dollars,2.0117,1,learn,02862395
-HCF,2024-10,month nta per share before deferred tax on,dollars,1.049,1,holdout,02862826
-MXT,2024-10,limited level exchange centre bridge street sydney nsw,dollars,2.0002,2,learn,02862554
-MXT,2024-10,is as follows value date nta per unit,dollars,2.0002,2,learn,02862554
-MOT,2024-10,is as follows value date nta per unit,dollars,2.1417,1,learn,02862487
-PMC,2024-09,pre tax nta per share as at was,dollars,1.5229,1,learn,02861846
-PCI,2024-09,at close of business on nta per unit,dollars,1.098,1,holdout,02860585
-CAM,2024-09,for the week ended nta before tax,dollars,0.83,3,holdout,02860629
-CAM,2024-09,pre tax unaudited nta as at was,dollars,0.83,3,holdout,02860629
-CAM,2024-09,nta before tax,dollars,0.83,3,holdout,02860629
-OPH,2024-09,is as follows value date nav per unit,dollars,3.0685,1,learn,02860306
-GCI,2024-09,governor macquarie tower farrer place sydney nsw p,dollars,2.0022,2,learn,02859654
-GCI,2024-09,macquarie tower farrer place sydney nsw p f,dollars,2.0022,2,learn,02859654
-GCI,2024-09,governor macquarie tower farrer place sydney nsw p,dollars,2.0022,2,learn,02858818
-GCI,2024-09,macquarie tower farrer place sydney nsw p f,dollars,2.0022,2,learn,02858818
-GCI,2024-09,governor macquarie tower farrer place sydney nsw p,dollars,2.0022,2,learn,02856260
-GCI,2024-09,macquarie tower farrer place sydney nsw p f,dollars,2.0022,2,learn,02856260
-QRI,2024-09,deployment unit price vs nav annualised return deployment,dollars,1.6006,2,holdout,02855152
-QRI,2024-09,distribution on month end unit price m m,dollars,1.6006,2,holdout,02855152
-PIC,2024-09,was nta per ordinary share nta before tax,dollars,1.304,2,learn,02853584
-PIC,2024-09,nta before tax,dollars,1.304,2,learn,02853584
-MOT,2024-09,is as follows value date nta per unit,dollars,2.1423,1,learn,02852942
-MOT,2024-09,is as follows value date nta per unit,dollars,2.1423,1,learn,02851473
-GCI,2024-09,governor macquarie tower farrer place sydney nsw p,dollars,2.0022,2,learn,02851394
-GCI,2024-09,macquarie tower farrer place sydney nsw p f,dollars,2.0022,2,learn,02851394
-MOT,2024-09,is as follows value date nta per unit,dollars,2.1423,1,learn,02850790
-GCI,2024-09,governor macquarie tower farrer place sydney nsw p,dollars,2.0022,2,learn,02849578
-GCI,2024-09,macquarie tower farrer place sydney nsw p f,dollars,2.0022,2,learn,02849578
-MOT,2024-09,is as follows value date nta per unit,dollars,2.1423,1,learn,02849133
-GCI,2024-08,on nta per unit as at,dollars,2.0228,1,learn,02844830
-PCX,2024-08,nav as at cents per unit nav,cents,2.0002,3,learn,02839512
-PCX,2024-08,net asset value,cents,2.0002,3,learn,02839512
-PCX,2024-08,visit our website pengana com pcx client service t,dollars,2.0002,3,learn,02839512
-MOT,2024-08,is as follows value date nta per unit,dollars,2.1411,1,learn,02837197
-MOT,2024-08,is as follows value date nta per unit,dollars,2.1411,1,learn,02836799
-MOT,2024-08,is as follows value date nta per unit,dollars,2.1411,1,learn,02836346
-MXT,2024-08,limited level exchange centre bridge street sydney nsw,dollars,2.001,2,learn,02835836
-MXT,2024-08,is as follows value date nta per unit,dollars,2.001,2,learn,02835836
-MFF,2024-07,monthly nta per share as at was,dollars,4.43,1,learn,02835512
-LSF,2024-07,were nta per ordinary share nta before tax,dollars,3.2558,1,learn,02829801
-KKC,2024-07,current nta estimate,dollars,2.4727,2,learn,02828556
-KKC,2024-07,end of day us time current nta estimate,dollars,2.4727,2,learn,02828556
-PGF,2024-07,nta before tax accruals,dollars,2.2024,2,learn,02828537
-PGF,2024-07,share gross dividend yield nta before tax accruals,dollars,2.2024,2,learn,02828537
-GCI,2024-07,on nta per unit as at,dollars,2.008,1,learn,02825497
+ticker,month,label,unit,truth,n_matching_labels,matched,split,announcement_id,nearest_label,nearest_value,nearest_unit,nearest_ratio
+PIC,2026-06,was nta per ordinary share nta before tax,dollars,1.207,2,True,learn,03110440,,,,
+PIC,2026-06,nta before tax,dollars,1.207,2,True,learn,03110440,,,,
+WQG,2026-06,,,2.178,0,False,learn,03109504,nta before tax,2.12,dollars,0.9733700642791553
+LGF,2026-06,,,1.7534,0,False,holdout,03110000,were nta per ordinary share nta before tax,1.7604,dollars,1.003992243640926
+MXT,2026-06,,,2.0016,0,False,learn,03108937,is as follows value date nta per unit,2.0115,dollars,1.0049460431654675
+TGF,2026-06,,,3.486,0,False,holdout,03108900,estimated nta pre tax,3.31,dollars,0.9495123350545037
+SET,2026-06,,,1.985,0,False,learn,03108554,at estimated nta per share pre tax nta,1.973,dollars,0.9939546599496222
+FPC,2026-06,,,1.6887,0,False,learn,03108424,fund as at th amount pre tax nta,1.6994,dollars,1.0063362349736484
+AIQ,2026-06,,,1.5212,0,False,learn,03108360,entity one managed investment funds limited management fee,1.5,dollars,0.986063633973179
+PCI,2026-06,at close of business on nta per unit,dollars,1.099,1,True,holdout,03108290,,,,
+MOT,2026-06,,,2.1458,0,False,learn,03107936,is as follows value date nta per unit,2.1677,dollars,1.0102059837822723
+PIC,2026-06,,,1.207,0,False,learn,03107412,nta before tax,1.2,dollars,0.9942004971002485
+GCI,2026-06,,,2.0051,0,False,learn,03107323,governor macquarie tower farrer place sydney nsw p,2.0,dollars,0.9974564859607999
+PIA,2026-06,,,1.3778,0,False,holdout,03107101,and before tax on unrealised gains and losses,1.3565,cents,0.9845405719262593
+CIN,2026-06,,,45.82,0,False,learn,03106400,,,,
+RF1,2026-06,,,3.67,0,False,learn,03106312,nav per unit of regal investment fund was,3.72,dollars,1.013623978201635
+PCI,2026-06,at close of business on nta per unit,dollars,1.099,1,True,holdout,03105841,,,,
+MXT,2026-06,,,2.0016,0,False,learn,03105912,is as follows value date nta per unit,2.0078,dollars,1.003097521982414
+SEC,2026-06,,,2.238,0,False,holdout,03105967,at estimated nta per share pre tax nta,2.315,dollars,1.0344057193923146
+PIC,2026-06,,,1.207,0,False,learn,03106040,nta after tax,1.202,dollars,0.9958574979287489
+LSF,2026-06,,,4.317,0,False,learn,03105675,taxes l long short fund limited phone acn,4.18,cents,0.9682649988417882
+PCI,2026-06,at close of business on nta per unit,dollars,1.099,1,True,holdout,03105443,,,,
+LSF,2026-06,,,4.317,0,False,learn,03105277,per ordinary share f f nta before tax,4.4477,dollars,1.0302756543896225
+PCI,2026-06,at close of business on nta per unit,dollars,1.099,1,True,holdout,03104606,,,,
+WQG,2026-06,,,2.178,0,False,learn,03104479,nta before tax,2.02,dollars,0.9274563820018366
+PIC,2026-06,,,1.207,0,False,learn,03104238,nta after tax,1.203,dollars,0.9966859983429992
+CIN,2026-06,,,45.82,0,False,learn,03104156,,,,
+PCI,2026-06,at close of business on nta per unit,dollars,1.099,1,True,holdout,03104149,,,,
+RF1,2026-06,,,3.67,0,False,learn,03103959,nav per unit of regal investment fund was,3.66,dollars,0.9972752043596731
+WAM,2026-06,,,1.222,0,False,learn,03103550,the australian nta nta dividend paid cents,1.2085,cents,0.9889525368248772
+PCI,2026-06,at close of business on nta per unit,dollars,1.099,1,True,holdout,03103602,,,,
+TVL,2026-06,,,0.108,0,False,learn,03103718,had an asset backing of m equating to,0.107,cents,0.9907407407407407
+SB2,2026-06,,,0.815,0,False,learn,03103724,pre tax post tax dividends sb investment report,0.813,dollars,0.9975460122699387
+FPC,2026-06,,,1.6887,0,False,learn,03103798,post tax nta,1.6832,dollars,0.9967430567892461
+TOP,2026-06,,,0.959,0,False,holdout,03103497,before tax after tax million capitalisation,0.94,cents,0.9801876955161627
+NCC,2026-06,,,0.47,0,False,holdout,03102977,fy fy fy fy fy fy fy fy,0.46,dollars,0.9787234042553192
+GCI,2026-06,,,2.0051,0,False,learn,03102760,on nta per unit as at,2.0096,dollars,1.0022442770934117
+CAM,2026-06,,,0.8225,0,False,holdout,03102743,nta after tax,0.825,dollars,1.0030395136778114
+LSF,2026-06,,,4.317,0,False,learn,03102491,per ordinary share f f nta before tax,4.3049,dollars,0.9971971276349316
+MFF,2026-06,a percentage of investment assets was approximately at,dollars,4.991,1,True,learn,03102320,,,,
+GCI,2026-06,on nta per unit as at,dollars,2.0051,1,True,learn,03102278,,,,
+MIR,2026-06,,,2.82,0,False,learn,03102196,pre tax nta per share,2.76,dollars,0.9787234042553191
+PL8,2026-06,as at nta per share pre tax nta,dollars,1.144,1,True,learn,03102135,,,,
+LSF,2026-06,,,4.317,0,False,learn,03102013,per ordinary share f f nta before tax,4.2789,dollars,0.9911744266851981
+SEC,2026-06,,,2.238,0,False,holdout,03101574,at estimated nta per share pre tax nta,2.287,dollars,1.0218945487042002
+BTI,2026-06,,,1.76,0,False,holdout,03101389,experience bailador provides exposure to a portfolio of,1.8,dollars,1.0227272727272727
+DJW,2026-06,,,3.22,0,False,learn,03101067,com djerri cm mpms mufg com page of,3.21,dollars,0.9968944099378881
+LSF,2026-06,per ordinary share f f nta before tax,dollars,4.317,1,True,learn,03100939,,,,
+WQG,2026-05,below net tangible assets nta before tax,dollars,2.03,2,True,learn,03100028,,,,
+WQG,2026-05,nta before tax,dollars,2.03,2,True,learn,03100028,,,,
+PCI,2026-05,at close of business on nta per unit,dollars,1.096,1,True,holdout,03099707,,,,
+MIR,2026-05,pre tax nta per share,dollars,2.76,2,True,learn,03099586,,,,
+MIR,2026-05,share as at pre tax nta per share,dollars,2.76,2,True,learn,03099586,,,,
+BKI,2026-05,per share as at below pre tax nta,dollars,2.04,1,True,holdout,03099497,,,,
+PIC,2026-05,,,1.201,0,False,learn,03099228,nta before tax,1.185,dollars,0.9866777685262281
+FPC,2026-05,,,1.8485,0,False,learn,03098898,fund as at th amount pre tax nta,1.8357,dollars,0.9930754665945362
+GCI,2026-05,on nta per unit as at,dollars,2.0186,1,True,learn,03098604,,,,
+PIC,2026-05,,,1.201,0,False,learn,03098168,nta before tax,1.176,dollars,0.9791840133222314
+KIT,2026-05,is as follows value date nta per unit,dollars,2.0047,1,True,learn,03098066,,,,
+GCI,2026-05,on nta per unit as at,dollars,2.0186,1,True,learn,03097639,,,,
+MXT,2026-05,is as follows value date nta per unit,dollars,2.0148,1,True,learn,03097742,,,,
+LSF,2026-05,,,4.3778,0,False,learn,03097831,taxes l long short fund limited phone acn,4.18,cents,0.9548174882361004
+GLS,2026-05,,,1.69,0,False,learn,03097908,ordinary share nta before tax nta after tax,1.6017,dollars,0.9477514792899407
+MXT,2026-05,,,2.0148,0,False,learn,03097251,is as follows value date nta per unit,2.0107,dollars,0.997965058566607
+GCI,2026-05,on nta per unit as at,dollars,2.0186,1,True,learn,03097224,,,,
+AMH,2026-05,,,1.05,0,False,learn,03097176,pre tax nta per share,1.03,dollars,0.9809523809523809
+AUI,2026-05,,,13.46,0,False,holdout,03097465,is as below weekly pre tax nta per share,13.39,dollars,0.9947994056463596
+RG8,2026-05,,,3.31,0,False,learn,03097086,ordinary share for regal asian investments limited was,3.27,dollars,0.9879154078549849
+KKC,2026-05,time current nta estimate previous nta estimate,dollars,2.3236,2,True,learn,03097078,,,,
+KKC,2026-05,previous nta estimate,dollars,2.3236,2,True,learn,03097078,,,,
+FPC,2026-05,,,1.8485,0,False,learn,03096837,fund as at th amount pre tax nta,1.8233,dollars,0.9863673248579929
+MEC,2026-05,,,1.5624,0,False,learn,03096352,noted below dollars per share estimated nta pre tax,1.5371,dollars,0.9838069636456732
+MOT,2026-05,,,2.1615,0,False,learn,03095965,is as follows value date nta per unit,2.1669,dollars,1.002498265093685
+MIR,2026-05,,,2.76,0,False,learn,03094748,pre tax nta per share,2.72,dollars,0.9855072463768118
+PGF,2026-05,,,2.857,0,False,learn,03094736,nta before tax accruals,2.77,dollars,0.9695484774238712
+KKC,2026-05,current nta estimate,dollars,2.3236,4,True,learn,03094757,,,,
+KKC,2026-05,of day value us time current nta estimate,dollars,2.3236,4,True,learn,03094757,,,,
+KKC,2026-05,time current nta estimate previous nta estimate,dollars,2.3236,4,True,learn,03094757,,,,
+KKC,2026-05,previous nta estimate,dollars,2.3236,4,True,learn,03094757,,,,
+DJW,2026-05,,,3.14,0,False,learn,03094795,pre tax nta per share,3.12,dollars,0.9936305732484076
+GCI,2026-05,,,2.0186,0,False,learn,03094397,on nta per unit as at,2.0122,dollars,0.9968294857822252
+FPC,2026-05,,,1.8485,0,False,learn,03094196,pre tax nta,1.8173,dollars,0.9831214498241817
+SET,2026-05,,,1.991,0,False,learn,03094121,at estimated nta per share pre tax nta,2.0,dollars,1.0045203415369162
+OPH,2026-05,,,3.1142,0,False,learn,03093992,p a y m m fund return benchmark,3.1,dollars,0.995440241474536
+FGX,2026-05,,,1.3924,0,False,learn,03093862,brings the month investment portfolio performance to,1.4072,cents,1.010629129560471
+KKC,2026-05,current nta estimate,dollars,2.3236,2,True,learn,03093808,,,,
+KKC,2026-05,of value day us time current nta estimate,dollars,2.3236,2,True,learn,03093808,,,,
+LSF,2026-05,,,4.3778,0,False,learn,03093711,per ordinary share f f nta before tax,4.2467,dollars,0.9700534515053223
+PIC,2026-05,,,1.201,0,False,learn,03093186,nta before tax,1.181,dollars,0.9833472106577852
+HM1,2026-05,,,3.52,0,False,learn,03093097,in global securities based on the pre tax nta,3.31,dollars,0.9403409090909091
+OEQ,2026-05,nta m m pre tax nta backing per share,dollars,0.4101,2,True,holdout,03093062,,,,
+OEQ,2026-05,nta m m post tax nta backing per share,dollars,0.4101,2,True,holdout,03093062,,,,
+AFI,2026-05,,,7.76,0,False,learn,03092577,pre tax nta per share,7.74,dollars,0.9974226804123711
+PL8,2026-05,,,1.145,0,False,learn,03092596,as at nta per share pre tax nta,1.132,dollars,0.9886462882096069
+MOT,2026-05,is as follows value date nta per unit,dollars,2.1615,1,True,learn,03092667,,,,
+GCI,2026-05,,,2.0186,0,False,learn,03092673,on nta per unit as at,2.0097,dollars,0.995591003665907
+PE1,2026-05,,,1.628,0,False,learn,03092923,net asset value,1.6222,cents,0.9964373464373466
+RG8,2026-05,,,3.31,0,False,learn,03092521,ordinary share for regal asian investments limited was,3.38,dollars,1.0211480362537764
+PGF,2026-05,,,2.857,0,False,learn,03092498,nta before tax accruals,2.79,dollars,0.9765488274413721
+LSF,2026-05,,,4.3778,0,False,learn,03092407,per ordinary share f f nta before tax,4.1878,dollars,0.9565992050801774
+GC1,2026-05,,,0.72,0,False,holdout,03092271,nta as at are as follows nta,0.6961,dollars,0.9668055555555557
+CD2,2026-05,ylno esu lanosrep rof cd quarterly nta movement,dollars,0.6,1,True,learn,03092180,,,,
+MOT,2026-05,is as follows value date nta per unit,dollars,2.1615,1,True,learn,03092175,,,,
+SEC,2026-05,,,2.271,0,False,holdout,03092137,at estimated nta per share pre tax nta,2.277,dollars,1.0026420079260239
+MOT,2026-05,is as follows value date nta per unit,dollars,2.1615,1,True,learn,03091721,,,,
+KKC,2026-05,time current nta estimate previous nta estimate,dollars,2.3236,2,True,learn,03091517,,,,
+KKC,2026-05,previous nta estimate,dollars,2.3236,2,True,learn,03091517,,,,
+SET,2026-05,,,1.991,0,False,learn,03091239,at estimated nta per share pre tax nta,2.0,dollars,1.0045203415369162
+MRE,2026-05,,,2.4886,0,False,learn,03091232,nta per unit set value date post tax,2.4689,dollars,0.9920839025958371
+KIT,2026-05,,,2.0047,0,False,learn,03090547,any queries please contact kapstream investment trust on,2.0,dollars,0.9976555095525514
+GCI,2026-05,,,2.0186,0,False,learn,03090511,on nta per unit as at,2.0069,dollars,0.9942039036956305
+WMX,2026-05,,,1.6841,0,False,learn,03091010,the shares will trade ex dividend on,1.6613,cents,0.9864616115432576
+WLE,2026-05,,,1.3155,0,False,holdout,03090979,reserved zenith disclaimer the zenith investment partners abn,1.32,cents,1.0034207525655645
+GLS,2026-05,,,1.69,0,False,learn,03090378,ordinary share nta before tax nta after tax,1.6404,dollars,0.9706508875739646
+CIN,2026-05,,,45.19,0,False,learn,03090040,,,,
+RG8,2026-05,,,3.31,0,False,learn,03089857,ordinary share for regal asian investments limited was,3.24,dollars,0.9788519637462236
+OPH,2026-05,,,3.1142,0,False,learn,03089848,company limited ophir asset management pty ltd abn,3.0,dollars,0.9633292659430994
+KKC,2026-05,current nta estimate,dollars,2.3236,2,True,learn,03089798,,,,
+KKC,2026-05,of value day us time current nta estimate,dollars,2.3236,2,True,learn,03089798,,,,
+MFF,2026-04,,,4.816,0,False,learn,03089531,x a p r il j u n,5.0,dollars,1.0382059800664452
+FPC,2026-04,,,1.8173,0,False,learn,03089261,fund as at th amount pre tax nta,1.8476,dollars,1.0166730864469267
+PIC,2026-04,was nta per ordinary share nta before tax,dollars,1.174,2,True,learn,03088982,,,,
+PIC,2026-04,nta before tax,dollars,1.174,2,True,learn,03088982,,,,
+MXT,2026-04,,,2.0009,0,False,learn,03088690,is as follows value date nta per unit,2.0139,dollars,1.006497076315658
+LSF,2026-04,,,4.1052,0,False,learn,03088135,per ordinary share f f nta before tax,4.1417,dollars,1.00889116242814
+KKC,2026-04,,,2.312,0,False,learn,03088320,current nta estimate,2.3323,dollars,1.008780276816609
+ALI,2026-04,,,2.69,0,False,learn,03087108,are unaudited and approximate pre tax nta per share,2.65,dollars,0.9851301115241635
+PIC,2026-04,,,1.174,0,False,learn,03087197,nta after tax,1.179,dollars,1.0042589437819422
+GCI,2026-04,,,2.0064,0,False,learn,03087155,governor macquarie tower farrer place sydney nsw p,2.0,dollars,0.996810207336523
+MOT,2026-04,,,2.1585,0,False,learn,03086566,is as follows value date nta per unit,2.1674,dollars,1.0041232337271253
+OPH,2026-04,,,2.9334,0,False,learn,03086814,is as follows value date nav per unit,2.9732,dollars,1.0135678734574214
+LSF,2026-04,,,4.1052,0,False,learn,03086402,taxes l long short fund limited phone acn,4.18,cents,1.0182207931404073
+SET,2026-04,,,1.951,0,False,learn,03085798,at estimated nta per share pre tax nta,1.978,dollars,1.0138390568939004
+KKC,2026-04,,,2.312,0,False,learn,03085525,previous nta estimate,2.3272,dollars,1.0065743944636678
+KIT,2026-04,is as follows value date nta per unit,dollars,2.0098,1,True,learn,03085242,,,,
+PCI,2026-04,,,1.096,0,False,holdout,03085190,at close of business on nta per unit,1.1,dollars,1.0036496350364963
+SEC,2026-04,,,2.263,0,False,holdout,03084851,at estimated nta per share pre tax nta,2.325,dollars,1.0273972602739727
+GCI,2026-04,,,2.0064,0,False,learn,03084743,governor macquarie tower farrer place sydney nsw p,2.0,dollars,0.996810207336523
+SET,2026-04,,,1.951,0,False,learn,03084426,at estimated nta per share pre tax nta,2.0,dollars,1.0251153254741159
+BKI,2026-04,,,2.01,0,False,holdout,03084093,per share as at below pre tax nta,2.03,dollars,1.0099502487562189
+KKC,2026-04,,,2.312,0,False,learn,03084072,previous nta estimate,2.3216,dollars,1.0041522491349482
+PGF,2026-04,,,2.7606,0,False,learn,03084206,nta before tax accruals,2.83,dollars,1.0251394624357024
+AFI,2026-04,,,7.69,0,False,learn,03084219,pre tax nta per share,7.89,dollars,1.0260078023407022
+PL8,2026-04,,,1.132,0,False,learn,03083897,nta per share pre tax nta post tax nta,1.163,dollars,1.027385159010601
+MXT,2026-04,,,2.0009,0,False,learn,03083401,is as follows value date nta per unit,2.0072,dollars,1.0031485831375881
+PCI,2026-04,,,1.096,0,False,holdout,03083351,at close of business on nta per unit,1.099,dollars,1.0027372262773722
+SEC,2026-04,,,2.263,0,False,holdout,03083076,at estimated nta per share pre tax nta,2.303,dollars,1.0176756517896597
+REV,2026-04,,,2.0126,0,False,learn,03082858,is as follows value date nta per unit,2.0066,dollars,0.9970187816754448
+FPC,2026-04,,,1.8173,0,False,learn,03082805,street sydney invest fatprophets com au nsw ph,1.77,cents,0.9739723766026523
+ACQ,2026-04,,,1.2258,0,False,learn,03082407,acq as at nta before all taxes,1.193,dollars,0.9732419644313918
+TCF,2026-04,price unit nav commercial unit price unit nav,dollars,5.939,1,True,learn,03082322,,,,
+TGF,2026-04,,,3.4772,0,False,holdout,03082315,fytd,3.46,dollars,0.9950534913148511
+PIC,2026-04,ordinary share nta before tax nta after tax,dollars,1.174,2,True,learn,03082026,,,,
+PIC,2026-04,nta after tax,dollars,1.174,2,True,learn,03082026,,,,
+LRT,2026-04,,,2.6918,0,False,learn,03082180,unit of the trust as at was,2.737,dollars,1.0167917378705698
+HM1,2026-04,,,3.31,0,False,learn,03081804,nta per share pre tax nta,3.23,dollars,0.9758308157099698
+SEC,2026-04,,,2.263,0,False,holdout,03081181,nta per share pre tax nta post tax nta,2.256,dollars,0.9969067609368095
+PIC,2026-04,,,1.174,0,False,learn,03081052,nta before tax,1.192,dollars,1.0153321976149916
+MOT,2026-04,is as follows value date nta per unit,dollars,2.1585,1,True,learn,03081027,,,,
+MRE,2026-04,,,2.4775,0,False,learn,03080526,previously published nta per unit set post tax,2.3723,dollars,0.9575378405650858
+ARG,2026-04,,,10.44,0,False,learn,03080428,nta per share nta per share,10.24,dollars,0.9808429118773947
+REV,2026-04,is as follows value date nta per unit,dollars,2.0126,1,True,learn,03080414,,,,
+WLE,2026-04,,,1.3469,0,False,holdout,03080198,assets investment portfolio performance month end share price bn,1.355,dollars,1.006013809488455
+ALI,2026-04,,,2.69,0,False,learn,03080082,and approximate pre tax nta per share,2.73,dollars,1.0148698884758365
+FSI,2026-04,,,1.541,0,False,holdout,03079805,estimated tax on unrealised gains unrealised gains,1.4709999999999999,cents,0.9545749513303049
+PGF,2026-04,,,2.7606,0,False,learn,03079692,nta before tax accruals,2.66,dollars,0.9635586466710135
+RG1,2026-04,,,2.57,0,False,learn,03079678,share for regal partners global investments limited was,2.45,dollars,0.9533073929961091
+LSF,2026-04,,,4.1052,0,False,learn,03079625,taxes l long short fund limited phone acn,4.18,cents,1.0182207931404073
+MOT,2026-04,is as follows value date nta per unit,dollars,2.1585,1,True,learn,03079233,,,,
+LRT,2026-03,unit of the trust as at was,dollars,2.5833,1,True,learn,03078944,,,,
+PIC,2026-03,ordinary share nta before tax nta after tax,dollars,1.135,2,True,learn,03077966,,,,
+PIC,2026-03,nta after tax,dollars,1.135,2,True,learn,03077966,,,,
+MXT,2026-03,is as follows value date nta per unit,dollars,2.0133,1,True,learn,03077399,,,,
+AMH,2026-03,pre tax nta per share,dollars,1.02,2,True,learn,03077187,,,,
+AMH,2026-03,share as at pre tax nta per share,dollars,1.02,2,True,learn,03077187,,,,
+KKC,2026-03,,,2.31,0,False,learn,03077113,previous nta estimate,2.3213,dollars,1.0048917748917747
+GCI,2026-03,,,2.0068,0,False,learn,03075783,governor macquarie tower farrer place sydney nsw p,2.0,dollars,0.9966115208291807
+PIA,2026-03,,,1.2617,0,False,holdout,03075568,and before tax on unrealised gains and losses,1.2405,cents,0.9831972735198541
+PCI,2026-03,,,1.094,0,False,holdout,03075322,at close of business on nta per unit,1.102,dollars,1.0073126142595978
+MEC,2026-03,,,1.3002,0,False,learn,03075271,noted below dollars per share estimated nta pre tax,1.321,dollars,1.0159975388401783
+DUI,2026-03,,,6.14,0,False,holdout,03075114,is as below weekly pre tax nta per share,6.08,dollars,0.9902280130293161
+PIC,2026-03,,,1.135,0,False,learn,03074973,nta after tax,1.127,dollars,0.9929515418502203
+MFF,2026-03,,,4.585,0,False,learn,03074931,are after allowing for monthly tax of approximately,5.0,dollars,1.0905125408942202
+RF1,2026-03,,,3.55,0,False,learn,03074770,nav per unit of regal investment fund was,3.49,dollars,0.9830985915492959
+DJW,2026-03,,,3.17,0,False,learn,03074791,pre tax nta per share,3.15,dollars,0.9936908517350158
+FPC,2026-03,,,1.7641,0,False,learn,03074504,street sydney invest fatprophets com au nsw ph,1.77,cents,1.0033444816053512
+PCI,2026-03,,,1.094,0,False,holdout,03073935,at close of business on nta per unit,1.101,dollars,1.006398537477148
+GCI,2026-03,,,2.0068,0,False,learn,03073963,governor macquarie tower farrer place sydney nsw p,2.0,dollars,0.9966115208291807
+MOT,2026-03,,,2.1581,0,False,learn,03073580,is as follows value date nta per unit,2.1636,dollars,1.0025485380658914
+PGF,2026-03,,,2.6161,0,False,learn,03072347,nta before tax accruals,2.67,dollars,1.020603187951531
+SEC,2026-03,,,2.271,0,False,holdout,03072048,at estimated nta per share pre tax nta,2.348,dollars,1.0339057683839719
+TVL,2026-03,,,0.112,0,False,learn,03071620,prior month nta m m nta per share,0.11,dollars,0.9821428571428571
+MXT,2026-03,,,2.0133,0,False,learn,03071365,is as follows value date nta per unit,2.005,dollars,0.9958774151889931
+WAA,2026-03,,,1.0077,0,False,holdout,03071236,asx waa mispricing opportunities in the australian,1.0206,cents,1.012801428996725
+LSF,2026-03,,,3.8617,0,False,learn,03071111,nta before tax f f nta after tax,3.7295,dollars,0.9657663723230702
+PE1,2026-03,,,1.7,0,False,learn,03070605,net asset value,1.6436000000000002,cents,0.9668235294117649
+SEC,2026-03,,,2.271,0,False,holdout,03070484,at estimated nta per share pre tax nta,2.39,dollars,1.0523998238661383
+REV,2026-03,,,2.0133,0,False,learn,03070272,is as follows value date nta per unit,2.0,dollars,0.9933939303630854
+MXT,2026-03,,,2.0133,0,False,learn,03069853,is as follows value date nta per unit,2.0029,dollars,0.9948343515621119
+PIC,2026-03,,,1.135,0,False,learn,03069870,tax is and the nta after tax is,1.18,dollars,1.0396475770925109
+MFF,2026-03,,,4.585,0,False,learn,03069885,advises itsgroup weeklynta per share asat approximates,4.72,dollars,1.0294438386041438
+AMH,2026-03,,,1.02,0,False,learn,03070169,company secretary amcil limited abn share registrar level,1.01,cents,0.9901960784313726
+BEL,2026-03,,,0.00934,0,False,learn,03069975,limited lel materials other listed securities various various,0.01,dollars,1.0706638115631693
+BKI,2026-03,,,2.0,0,False,holdout,03069686,per share as at below pre tax nta,2.01,dollars,1.005
+RG1,2026-03,,,2.45,0,False,learn,03069667,share for regal partners global investments limited was,2.49,dollars,1.0163265306122449
+BTI,2026-03,capital fund focused on nta share at pre tax,dollars,1.66,1,True,holdout,03069606,,,,
+MOT,2026-03,is as follows value date nta per unit,dollars,2.1581,1,True,learn,03069418,,,,
+GCI,2026-03,on nta per unit as at,dollars,2.0068,1,True,learn,03069322,,,,
+AUI,2026-03,,,12.9,0,False,holdout,03069064,of cents per share payable on,13.39,dollars,1.037984496124031
+MEC,2026-03,,,1.3002,0,False,learn,03068661,per share estimated nta pre tax estimated nta post tax,1.3342,dollars,1.026149823104138
+SEC,2026-03,,,2.271,0,False,holdout,03068481,nta per share pre tax nta post tax nta,2.431,dollars,1.0704535446939676
+PIC,2026-03,,,1.135,0,False,learn,03068379,tax is and the nta after tax is,1.19,dollars,1.0484581497797356
+PCI,2026-03,,,1.094,0,False,holdout,03067306,at close of business on nta per unit,1.099,dollars,1.0045703839122486
+AUI,2026-03,,,12.9,0,False,holdout,03067511,is as below weekly pre tax nta per share,13.74,dollars,1.0651162790697675
+GCI,2026-03,,,2.0068,0,False,learn,03067344,arsn asx announcement,2.0,dollars,0.9966115208291807
+MIR,2026-02,pre tax nta per share,dollars,3.06,2,True,learn,03067166,,,,
+MIR,2026-02,share as at pre tax nta per share,dollars,3.06,2,True,learn,03067166,,,,
+HM1,2026-02,nta per share pre tax nta,dollars,3.33,1,True,learn,03067089,,,,
+LSF,2026-02,,,4.3304,0,False,learn,03067068,per ordinary share f f nta before tax,4.3011,dollars,0.9932338813966377
+SEC,2026-02,,,2.524,0,False,holdout,03065091,at estimated nta per share pre tax nta,2.483,dollars,0.9837559429477021
+REV,2026-02,please contact revolution private credit income trust on,dollars,2.0,1,True,learn,03064888,,,,
+ALI,2026-02,,,2.75,0,False,learn,03063887,unaudited and approximate pre tax nta per share,2.76,dollars,1.0036363636363637
+WQG,2026-02,,,2.013,0,False,learn,03063851,nta before tax,2.018,dollars,1.0024838549428712
+SEC,2026-02,as at nta per share pre tax nta,dollars,2.524,1,True,holdout,03063659,,,,
+PCI,2026-02,,,1.099,0,False,holdout,03063470,at close of business on nta per unit,1.104,dollars,1.0045495905368518
+TGF,2026-02,,,4.0498,0,False,holdout,03063453,com sydney nsw australia raffles place singapore abn,4.18,cents,1.0321497357894216
+HM1,2026-02,,,3.33,0,False,learn,03063168,pre tax nta post current tax nta,3.32,dollars,0.996996996996997
+AFI,2026-02,,,8.1,0,False,learn,03063341,pre tax nta per share,8.02,dollars,0.9901234567901235
+MOT,2026-02,,,2.1579,0,False,learn,03062798,is as follows value date nta per unit,2.1629,dollars,1.0023170675193476
+MOT,2026-02,,,2.1579,0,False,learn,03062358,is as follows value date nta per unit,2.1625,dollars,1.0021317021177998
+GCI,2026-02,,,2.0089,0,False,learn,03062275,on nta per unit as at,2.0161,dollars,1.0035840509731693
+LSF,2026-02,,,4.3304,0,False,learn,03061985,per ordinary share f f nta before tax,4.2538,dollars,0.9823111029004249
+MXT,2026-02,is as follows value date nta per unit,dollars,2.0002,1,True,learn,03061222,,,,
+MOT,2026-02,is as follows value date nta per unit,dollars,2.1579,1,True,learn,03061215,,,,
+MFF,2026-02,,,4.728,0,False,learn,03060775,weekly nta mff advisesitsgroup weeklynta pershareasatfriday approximates,4.834,dollars,1.022419627749577
+AFI,2026-02,,,8.1,0,False,learn,03060632,pre tax nta per share,7.86,dollars,0.9703703703703704
+DJW,2026-02,,,3.34,0,False,learn,03060574,pre tax nta per share,3.24,dollars,0.970059880239521
+RF1,2026-02,,,3.74,0,False,learn,03060501,nav per unit of regal investment fund was,3.61,dollars,0.9652406417112298
+LSF,2026-02,,,4.3304,0,False,learn,03060446,per ordinary share f f nta before tax,4.2704,dollars,0.9861444670238316
+WGB,2026-02,,,2.1979,0,False,holdout,03060067,the world s most compelling undervalued growth companies,2.2533000000000003,cents,1.025205878338414
+CD3,2026-02,,,1.53,0,False,learn,03060019,inception year nta return last months since inception,1.56,dollars,1.0196078431372548
+GCI,2026-02,,,2.0089,0,False,learn,03060099,on nta per unit as at,2.0137,dollars,1.0023893673154463
+PCI,2026-02,,,1.099,0,False,holdout,03059606,at close of business on nta per unit,1.103,dollars,1.0036396724294814
+CAM,2026-02,nta before tax nta after tax,dollars,0.83,2,True,holdout,03059678,,,,
+CAM,2026-02,nta after tax,dollars,0.83,2,True,holdout,03059678,,,,
+GCI,2026-02,on nta per unit as at,dollars,2.0089,1,True,learn,03059180,,,,
+MXT,2026-02,is as follows value date nta per unit,dollars,2.0002,1,True,learn,03059175,,,,
+BTI,2026-02,,,1.81,0,False,holdout,03058978,experience bailador provides exposure to a portfolio of,1.8,dollars,0.994475138121547
+WAX,2026-02,,,0.9001,0,False,learn,03058584,compelling undervalued growth opportunities in the australian,0.9747,cents,1.0828796800355516
+BEL,2026-02,,,0.0165,0,False,learn,03058393,change pre tax nta backing per share,0.0166,cents,1.006060606060606
+MOT,2026-02,is as follows value date nta per unit,dollars,2.1579,1,True,learn,03058263,,,,
+CDO,2026-02,,,2.788,0,False,learn,03058192,cdo s franked and gross yields were approximately,3.0,dollars,1.0760401721664277
+RG8,2026-02,,,3.51,0,False,learn,03058003,ordinary share for regal asian investments limited was,3.35,dollars,0.9544159544159545
+SEC,2026-02,,,2.524,0,False,holdout,03057660,nta per share pre tax nta post tax nta,2.478,dollars,0.9817749603803487
+MEC,2026-02,,,1.3561,0,False,learn,03057234,per share estimated nta pre tax estimated nta post tax,1.3315,dollars,0.9818597448565739
+MXT,2026-02,is as follows value date nta per unit,dollars,2.0002,1,True,learn,03057220,,,,
+PCI,2026-02,at close of business on nta per unit,dollars,1.099,1,True,holdout,03057166,,,,
+MRE,2026-02,,,2.4553,0,False,learn,03056754,nta per unit set value date post tax,2.4182,dollars,0.9848898301633203
+AMH,2026-02,com amcil cm mpms mufg com page of,dollars,1.11,1,True,learn,03056768,,,,
+MIR,2026-02,,,3.06,0,False,learn,03056247,portfolio macquarie technology group als arb corporation resmed,3.1,dollars,1.0130718954248366
+MXT,2026-01,is as follows value date nta per unit,dollars,2.0136,1,True,learn,03055053,,,,
+LSF,2026-01,per ordinary share f f nta before tax,dollars,4.3933,1,True,learn,03053244,,,,
+RF1,2026-01,,,3.75,0,False,learn,03052938,nav per unit of regal investment fund was,3.86,dollars,1.0293333333333332
+OPH,2026-01,,,3.4007,0,False,learn,03052836,is as follows value date nav per unit,3.5522,dollars,1.0445496515423296
+PL8,2026-01,,,1.171,0,False,learn,03052578,as at nta per share pre tax nta,1.178,dollars,1.0059777967549102
+PL8,2026-01,,,1.171,0,False,learn,03052519,a reliable indicator of future performance pre tax nta,1.161,dollars,0.9914602903501281
+MOT,2026-01,,,2.168,0,False,learn,03052462,is as follows value date nta per unit,2.1626,dollars,0.9975092250922508
+SEC,2026-01,,,2.582,0,False,holdout,03052171,spheria emerging companies limited level,2.64,cents,1.0224632068164214
+MXT,2026-01,,,2.0136,0,False,learn,03052060,is as follows value date nta per unit,2.0094,dollars,0.9979141835518475
+LSF,2026-01,,,4.3933,0,False,learn,03051861,per ordinary share f f nta before tax,4.3401,dollars,0.9878906516741401
+MOT,2026-01,,,2.168,0,False,learn,03051688,is as follows value date nta per unit,2.1622,dollars,0.9973247232472323
+TGF,2026-01,,,3.928,0,False,holdout,03050934,estimated nta pre tax,3.81,dollars,0.969959266802444
+ARG,2026-01,and approximate pre tax nta per share,dollars,10.54,1,True,learn,03050969,,,,
+LSF,2026-01,,,4.3933,0,False,learn,03051153,per ordinary share f f nta before tax,4.3045,dollars,0.9797874035463091
+WQG,2026-01,,,2.023,0,False,learn,03051185,growth limited t abn w associateglobal com level,2.0,dollars,0.9886307464162135
+RF1,2026-01,,,3.75,0,False,learn,03050867,nav per unit of regal investment fund was,3.82,dollars,1.0186666666666666
+FPC,2026-01,to solid start with estimated pre tax nta reaching,dollars,2.0882,1,True,learn,03050433,,,,
+KKC,2026-01,,,2.3568,0,False,learn,03050086,previous nta estimate,2.3676,dollars,1.004582484725051
+LSF,2026-01,,,4.3933,0,False,learn,03050006,were nta per ordinary share nta before tax,4.2158,dollars,0.9595975690255616
+FGG,2026-01,,,1.6931,0,False,holdout,03049870,the future generation global investment portfolio in,1.736,cents,1.0253381371448822
+BHD,2026-01,,,0.2731,0,False,holdout,03049826,in cents is cents nta before tax,0.2668,cents,0.9769315269132185
+PCI,2026-01,at close of business on nta per unit,dollars,1.099,1,True,holdout,03049769,,,,
+PIC,2026-01,,,1.301,0,False,learn,03049451,nta before tax,1.313,dollars,1.0092236740968485
+ALI,2026-01,nta per share nta per share,dollars,2.62,1,True,learn,03049284,,,,
+ALI,2026-01,,,2.62,0,False,learn,03049246,approximate pre tax nta per share share price,2.54,dollars,0.9694656488549618
+MFF,2026-01,,,5.077,0,False,learn,03049156,weekly nta per share as at approximates,5.396,dollars,1.0628323813275555
+ARG,2026-01,,,10.54,0,False,learn,03048999,and approximate pre tax nta per share,10.37,dollars,0.9838709677419355
+GC1,2026-01,,,0.71,0,False,holdout,03048758,as at are as follows nta nta,0.7281,dollars,1.0254929577464789
+PCI,2026-01,at close of business on nta per unit,dollars,1.099,1,True,holdout,03048277,,,,
+RYD,2026-01,,,2.1682,0,False,holdout,03048263,nta pre tax,2.2476,dollars,1.0366202379854255
+ECP,2026-01,,,1.306,0,False,learn,03048307,tax on on unrealised gains unrealised gains,1.361,cents,1.042113323124043
+SEC,2026-01,,,2.582,0,False,holdout,03048289,as at nta per share pre tax nta,2.624,dollars,1.0162664601084432
+AUI,2026-01,,,13.39,0,False,holdout,03048504,the company s ordinary shares at was,13.11,dollars,0.9790888722927557
+KKC,2026-01,,,2.3568,0,False,learn,03048216,current nta estimate,2.3625,dollars,1.002418533604888
+LSF,2026-01,,,4.3933,0,False,learn,03048119,taxes l long short fund limited phone acn,4.18,cents,0.9514487970318439
+AFI,2026-01,bank westpac banking corporation csl macquarie group wesfarmers,dollars,8.0,2,True,learn,03047907,,,,
+AFI,2026-01,com afi cm mpms mufg com page of,dollars,8.0,2,True,learn,03047907,,,,
+LRT,2026-01,,,3.1103,0,False,learn,03047367,lowell resources fund c lowell accounting services phone,3.0,dollars,0.9645371829084011
+LSF,2026-01,,,4.3933,0,False,learn,03047288,taxes l long short fund limited phone acn,4.18,cents,0.9514487970318439
+PIC,2026-01,,,1.301,0,False,learn,03046810,nta before tax,1.296,dollars,0.9961568024596466
+MEC,2026-01,,,1.3517,0,False,learn,03046768,noted below dollars per share estimated nta pre tax,1.363,dollars,1.0083598431604646
+GCI,2026-01,,,2.01,0,False,learn,03046666,arsn asx announcement,2.0,dollars,0.9950248756218907
+MXT,2025-12,,,2.0004,0,False,learn,03046444,is as follows value date nta per unit,2.0134,dollars,1.006498700259948
+QRI,2025-12,,,1.6002,0,False,holdout,03046264,is as follows value date nta per unit,1.6088,dollars,1.0053743282089738
+LRT,2025-12,,,2.855,0,False,learn,03046010,unit of the trust as at was,2.8308,dollars,0.9915236427320491
+DUI,2025-12,,,6.38,0,False,holdout,03045975,is as below weekly pre tax nta per share,6.4,dollars,1.0031347962382446
+PCI,2025-12,,,1.098,0,False,holdout,03044808,at close of business on nta per unit,1.102,dollars,1.0036429872495447
+WQG,2025-12,,,2.064,0,False,learn,03044661,nta before tax,2.088,dollars,1.0116279069767442
+MOT,2025-12,,,2.1553,0,False,learn,03044330,is as follows value date nta per unit,2.1613,dollars,1.0027838351969565
+MEC,2025-12,noted below dollars per share estimated nta pre tax,dollars,1.3483,1,True,learn,03044277,,,,
+DJW,2025-12,,,3.35,0,False,learn,03044192,pre tax nta per share,3.33,dollars,0.9940298507462687
+BKI,2025-12,,,1.96,0,False,holdout,03044106,per share as at below pre tax nta,1.94,dollars,0.9897959183673469
+LSF,2025-12,,,3.9987,0,False,learn,03043968,per ordinary share f f nta before tax,3.906,dollars,0.9768174656763449
+PCI,2025-12,,,1.098,0,False,holdout,03043549,at close of business on nta per unit,1.101,dollars,1.0027322404371584
+FPC,2025-12,,,1.9461,0,False,learn,03043411,fund as at th amount pre tax nta,1.9106,dollars,0.9817583885720159
+PIA,2025-12,,,1.4072,0,False,holdout,03042133,and before tax on unrealised gains and losses,1.4043,cents,0.997939169982945
+SEC,2025-12,as at nta per share pre tax nta,dollars,2.616,1,True,holdout,03041518,,,,
+PIC,2025-12,,,1.296,0,False,learn,03041371,nta before tax,1.266,dollars,0.9768518518518519
+LRT,2025-12,,,2.855,0,False,learn,03041669,lowell resources fund c lowell accounting services phone,3.0,dollars,1.0507880910683012
+MIR,2025-12,,,3.27,0,False,learn,03041061,pre tax nta per share,3.25,dollars,0.9938837920489296
+BKI,2025-12,per share as at below pre tax nta,dollars,1.96,1,True,holdout,03041042,,,,
+RG8,2025-12,,,3.27,0,False,learn,03041014,ordinary share for regal asian investments limited was,3.08,dollars,0.9418960244648318
+ECL,2025-12,,,3.7512,0,False,learn,03040581,cents as at nta before all taxes,3.7874,cents,1.0096502452548517
+TVL,2025-12,,,0.112,0,False,learn,03040632,had an asset backing of m equating to,0.11599999999999999,cents,1.0357142857142856
+CD2,2025-12,,,1.1,0,False,learn,03040557,as at was per unit was,1.131,dollars,1.028181818181818
+SB2,2025-12,,,1.046,0,False,learn,03040162,pre tax post tax dividends sb investment report,1.052,dollars,1.005736137667304
+LSF,2025-12,,,3.9987,0,False,learn,03039811,were nta per ordinary share nta before tax,3.8649,dollars,0.9665391252156951
+GLS,2025-12,,,1.654,0,False,learn,03038978,price current dividend yield pre tax nta post tax nta,1.6346,dollars,0.9882708585247885
+ALI,2025-12,,,2.62,0,False,learn,03038739,and approximate pre tax nta per share,2.65,dollars,1.0114503816793892
+MOT,2025-12,is as follows value date nta per unit,dollars,2.1553,1,True,learn,03038398,,,,
+TGF,2025-12,,,3.4153,0,False,holdout,03038313,estimated nta pre tax,2.93,dollars,0.8579041372646621
+WAM,2025-12,,,1.4907,0,False,learn,03038221,compelling undervalued growth opportunities in the australian,1.5413999999999999,cents,1.034010867377742
+RG8,2025-12,,,3.27,0,False,learn,03038202,ordinary share for regal asian investments limited was,3.0,dollars,0.9174311926605504
+AFI,2025-12,as at before tax after tax,dollars,7.9,1,True,learn,03038131,,,,
+SEC,2025-12,,,2.616,0,False,holdout,03037896,spheria emerging companies limited level,2.64,cents,1.0091743119266054
+SEC,2025-12,,,2.616,0,False,holdout,03037727,spheria emerging companies limited level,2.64,cents,1.0091743119266054
+FPC,2025-12,,,1.9461,0,False,learn,03037629,at rd amount pre tax nta pre tax nta,1.8907,dollars,0.97153280920816
+LSX,2025-12,legacy investments australian investments total value before tax,cents,1.051,3,True,holdout,03037449,,,,
+LSX,2025-12,nta per share as at before tax,cents,1.051,3,True,holdout,03037449,,,,
+LSX,2025-12,the unaudited nta of lion as is,cents,1.051,3,True,holdout,03037449,,,,
+AMH,2025-12,,,1.12,0,False,learn,03036852,as at before tax after tax,1.16,dollars,1.0357142857142856
+QRI,2025-12,is as follows value date nta per unit,dollars,1.6002,1,True,holdout,03036583,,,,
+FSI,2025-12,,,2.04,0,False,holdout,03036520,investments limited level corporate centre one tel abn,2.0,dollars,0.9803921568627451
+TCF,2025-11,as follows value date nav per unit,dollars,5.936,1,True,learn,03035521,,,,
+DUI,2025-11,is as below weekly pre tax nta per share,dollars,6.37,1,True,holdout,03035360,,,,
+RF1,2025-11,nav per unit of regal investment fund was,dollars,3.76,1,True,learn,03034992,,,,
+HM1,2025-11,nta per share pre tax nta,dollars,3.71,1,True,learn,03034656,,,,
+MXT,2025-11,is as follows value date nta per unit,dollars,2.013,1,True,learn,03034069,,,,
+PL8,2025-11,,,1.155,0,False,learn,03034429,as at nta per share pre tax nta,1.129,dollars,0.9774891774891775
+MOT,2025-11,,,2.1529,0,False,learn,03031000,is as follows value date nta per unit,2.1592,dollars,1.0029262854754053
+CIN,2025-11,,,45.2,0,False,learn,03030983,,,,
+AIQ,2025-11,,,1.6725,0,False,learn,03030962,to long term while nta per unit aud,1.6614,dollars,0.9933632286995515
+PCI,2025-11,,,1.097,0,False,holdout,03030934,at close of business on nta per unit,1.101,dollars,1.0036463081130356
+AFI,2025-11,,,7.91,0,False,learn,03030867,pre tax nta per share,7.75,dollars,0.9797724399494311
+GCI,2025-11,on nta per unit as at,dollars,2.0207,1,True,learn,03030279,,,,
+PIC,2025-11,,,1.265,0,False,learn,03029686,perpetual equity investment company limited abn level,1.23,cents,0.9723320158102767
+PCI,2025-11,,,1.097,0,False,holdout,03028533,at close of business on nta per unit,1.101,dollars,1.0036463081130356
+ARG,2025-11,,,10.35,0,False,learn,03027203,approximate n ovember pre tax nta per share,10.39,dollars,1.003864734299517
+WQG,2025-11,below net tangible assets nta before tax,dollars,2.132,2,True,learn,03027636,,,,
+WQG,2025-11,nta before tax,dollars,2.132,2,True,learn,03027636,,,,
+MOT,2025-11,is as follows value date nta per unit,dollars,2.1529,1,True,learn,03027288,,,,
+ALI,2025-11,,,2.73,0,False,learn,03027657,and approximate pre tax nta per share,2.7,dollars,0.989010989010989
+RF1,2025-11,,,3.76,0,False,learn,03027009,nav per unit of regal investment fund was,3.7,dollars,0.9840425531914895
+AFI,2025-11,pre tax nta per share,dollars,7.91,2,True,learn,03027124,,,,
+AFI,2025-11,share as at pre tax nta per share,dollars,7.91,2,True,learn,03027124,,,,
+LSF,2025-11,,,3.8756,0,False,learn,03026929,were nta per ordinary share nta before tax,3.7155,dollars,0.9586902673134483
+PL8,2025-11,,,1.155,0,False,learn,03026789,nta per share pre tax nta post tax nta,1.158,dollars,1.0025974025974025
+BHD,2025-11,,,0.2655,0,False,holdout,03025805,in cents is cents nta before tax,0.2701,cents,1.0173258003766479
+AIQ,2025-11,,,1.6725,0,False,learn,03025137,address po box r royal exchange nsw,1.6614,dollars,0.9933632286995515
+WAR,2025-11,,,1.2666,0,False,holdout,03025053,opportunities nta nta fully franked dividend paid cents,1.2719,cents,1.0041844307595138
+MXT,2025-11,,,2.013,0,False,learn,03024504,is as follows value date nta per unit,2.005,dollars,0.9960258320914058
+WHF,2025-11,westpac banking corporation nab national australia bank limited,dollars,6.4,1,True,holdout,03024457,,,,
+CDM,2025-11,,,0.866,0,False,learn,03024387,website we also encourage you to visit our,0.52,cents,0.6004618937644342
+MOT,2025-11,is as follows value date nta per unit,dollars,2.1529,1,True,learn,03023909,,,,
+PCX,2025-11,,,2.0134,0,False,learn,03024221,net asset value,2.0081,cents,0.9973676368332176
+SEC,2025-11,,,2.653,0,False,holdout,03024131,spheria emerging companies limited level,2.64,cents,0.9950998869204675
+GCI,2025-11,,,2.0207,0,False,learn,03023921,on nta per unit as at,2.0135,dollars,0.9964368783094967
+PCI,2025-11,,,1.097,0,False,holdout,03023872,at close of business on nta per unit,1.1,dollars,1.0027347310847767
+MOT,2025-11,is as follows value date nta per unit,dollars,2.1529,1,True,learn,03023267,,,,
+NCC,2025-11,portfolio update as at fully franked dividends,cents,0.5,1,True,holdout,03023556,,,,
+LSF,2025-11,,,3.8756,0,False,learn,03023542,taxes l long short fund limited phone acn,4.18,cents,1.0785426772628754
+DJW,2025-11,pre tax nta per share,dollars,3.37,2,True,learn,03023079,,,,
+DJW,2025-11,share as at pre tax nta per share,dollars,3.37,2,True,learn,03023079,,,,
+PIC,2025-11,,,1.265,0,False,learn,03022621,nta before tax,1.251,dollars,0.9889328063241106
+MEC,2025-11,,,1.3468,0,False,learn,03022476,per share estimated nta pre tax estimated nta post tax,1.343,dollars,0.9971784971784972
+LSX,2025-11,,,1.049,0,False,holdout,03021947,nta per share as at before tax,1.02,cents,0.9723546234509057
+PL8,2025-11,,,1.155,0,False,learn,03021828,nta per share pre tax nta post tax nta,1.168,dollars,1.011255411255411
+LSF,2025-11,,,3.8756,0,False,learn,03021551,were nta per ordinary share nta before tax,3.6056,dollars,0.9303333677366086
+ECP,2025-11,,,1.481,0,False,learn,03021365,on unrealised gains unrealised gains at cents,1.632,cents,1.101958136394328
+MXT,2025-11,,,2.013,0,False,learn,03020761,is as follows value date nta per unit,2.0017,dollars,0.9943864878291109
+LSF,2025-11,,,3.8756,0,False,learn,03020501,were nta per ordinary share nta before tax,3.6125,dollars,0.932113737227784
+AUI,2025-11,,,13.06,0,False,holdout,03020484,is as below weekly pre tax nta per share,13.34,dollars,1.021439509954058
+DUI,2025-11,,,6.37,0,False,holdout,03020490,is as below weekly pre tax nta per share,6.49,dollars,1.0188383045525904
+MXT,2025-11,,,2.013,0,False,learn,03020245,is as follows value date nta per unit,2.0004,dollars,0.9937406855439642
+WMX,2025-11,,,1.59,0,False,learn,03020078,share the wam income maximiser investment portfolio increased,1.6,dollars,1.0062893081761006
+SEC,2025-10,at estimated nta per share pre tax nta,dollars,2.699,1,True,holdout,03019686,,,,
+PCI,2025-10,,,1.0821,0,False,holdout,03019290,at close of business on nta per unit,1.097,dollars,1.0137695222253025
+GCI,2025-10,,,2.0102,0,False,learn,03017615,governor macquarie tower farrer place sydney nsw p,2.0,dollars,0.9949258780220872
+LSF,2025-10,,,3.6145,0,False,learn,03017187,were nta per ordinary share nta before tax,3.5635,dollars,0.9858901646147461
+LSF,2025-10,,,3.6145,0,False,learn,03015554,were nta per ordinary share nta before tax,3.5165,dollars,0.9728869829851985
+SEC,2025-10,at estimated nta per share pre tax nta,dollars,2.699,1,True,holdout,03014600,,,,
+MEC,2025-10,,,1.3835,0,False,learn,03014307,noted below dollars per share estimated nta pre tax,1.3934,dollars,1.0071557643657392
+DUI,2025-10,,,6.49,0,False,holdout,03012724,is as below weekly pre tax nta per share,6.59,dollars,1.0154083204930662
+HM1,2025-10,,,3.93,0,False,learn,03012081,asx announcements asx limited exchange centre level,4.0,dollars,1.0178117048346056
+PIC,2025-10,,,1.278,0,False,learn,03011823,nta before tax,1.286,dollars,1.0062597809076683
+FPC,2025-10,,,1.813,0,False,learn,03011435,street sydney invest fatprophets com au nsw ph,1.77,cents,0.9762824048538334
+PCI,2025-10,,,1.0821,0,False,holdout,03010920,at close of business on nta per unit,1.1,dollars,1.0165419092505315
+FPC,2025-10,,,1.813,0,False,learn,03009631,street sydney invest fatprophets com au nsw ph,1.77,cents,0.9762824048538334
+WAA,2025-10,,,1.0604,0,False,holdout,03009625,events zenith disclaimer the zenith investment partners abn,1.03,cents,0.971331572991324
+CD1,2025-10,unaudited nta value before tax at of,dollars,0.77,3,True,holdout,03009741,,,,
+CD1,2025-10,unit fund inception last months since inception return,dollars,0.77,3,True,holdout,03009741,,,,
+CD1,2025-10,nta value after tax as at was,dollars,0.77,3,True,holdout,03009741,,,,
+MXT,2025-10,,,2.0004,0,False,learn,03009667,is as follows value date nta per unit,2.0056,dollars,1.002599480103979
+ECL,2025-10,,,3.7968,0,False,learn,03009678,cents as at nta before all taxes,3.8091000000000004,cents,1.003239570164349
+GC1,2025-10,total fy fy,dollars,0.82,1,True,holdout,03009516,,,,
+KKC,2025-10,,,2.4168,0,False,learn,03009418,at close of business nta per unit,2.4408,dollars,1.0099304865938432
+AIQ,2025-10,,,1.6614,0,False,learn,03009395,at as at nta per unit,1.6527,dollars,0.9947634525099315
+IBC,2025-10,,,0.583,0,False,learn,03009360,purposes nta per ordinary share month end,0.31,cents,0.5317324185248714
+MFF,2025-10,,,5.293,0,False,learn,03009128,weekly nta per share as at was,5.093,dollars,0.9622142452295485
+RYD,2025-10,,,2.1061,0,False,holdout,03008834,total return fy fy fy fy,2.15,dollars,1.020844214424766
+PGF,2025-10,,,2.6724,0,False,learn,03008747,nta before tax accruals,2.6,dollars,0.972908247268373
+FPC,2025-10,,,1.813,0,False,learn,03007979,street sydney invest fatprophets com au nsw ph,1.77,cents,0.9762824048538334
+GCI,2025-10,on nta per unit as at,dollars,2.0102,1,True,learn,03007657,,,,
+ALI,2025-10,,,2.64,0,False,learn,03007040,weekly nta,3.0,dollars,1.1363636363636362
+BEL,2025-10,,,0.0137,0,False,learn,03007241,other listed securities cash net other assets nta,0.0159,cents,1.1605839416058394
+SNC,2025-10,,,1.0045,0,False,learn,03007107,basis after investment management fees and brokerage,1.0,dollars,0.9955201592832256
+MXT,2025-10,is as follows value date nta per unit,dollars,2.0004,1,True,learn,03006508,,,,
+GCI,2025-10,on nta per unit as at,dollars,2.0102,1,True,learn,03006486,,,,
+8IH,2025-10,,,0.0456,0,False,learn,03006375,per share as of is s a,0.0439,dollars,0.9627192982456141
+AUI,2025-10,,,13.34,0,False,holdout,03006090,is as below weekly pre tax nta per share,13.49,dollars,1.0112443778110944
+LSF,2025-10,,,3.6145,0,False,learn,03004841,were nta per ordinary share nta before tax,3.5881,dollars,0.9926960852123391
+DJW,2025-09,as at before tax after tax,dollars,3.36,1,True,learn,03004318,,,,
+MFF,2025-09,,,5.231,0,False,learn,03002001,chapter pre tax nta after accounting provision for dividend,5.209,dollars,0.9957943031925062
+TGF,2025-09,,,2.4926,0,False,holdout,03001786,estimated nta pre tax,2.5,dollars,1.0029687876113296
+MXT,2025-09,,,2.0002,0,False,learn,03001894,is as follows value date nta per unit,2.011,dollars,1.0053994600539946
+PIC,2025-09,was nta per ordinary share nta before tax,dollars,1.276,2,True,learn,03001985,,,,
+PIC,2025-09,nta before tax,dollars,1.276,2,True,learn,03001985,,,,
+SEC,2025-09,,,2.63,0,False,holdout,03002060,as at nta per share pre tax nta,2.622,dollars,0.996958174904943
+PGF,2025-09,,,2.6479,0,False,learn,03001655,nta before tax accruals,2.64,dollars,0.9970165036443975
+LSF,2025-09,,,3.5881,0,False,learn,03001454,were nta per ordinary share nta before tax,3.5795,dollars,0.9976031883169365
+GCI,2025-09,,,2.0105,0,False,learn,03000183,on nta per unit as at,2.0203,dollars,1.0048744093509079
+CIN,2025-09,,,44.88,0,False,learn,02998259,,,,
+BKI,2025-09,,,1.96,0,False,holdout,02998032,per share as at below pre tax nta,1.98,dollars,1.010204081632653
+MOT,2025-09,,,2.1485,0,False,learn,02997651,is as follows value date nta per unit,2.1533,dollars,1.0022341168256925
+MOT,2025-09,,,2.1485,0,False,learn,02996979,is as follows value date nta per unit,2.153,dollars,1.0020944845240867
+QRI,2025-09,,,1.5997,0,False,holdout,02996166,is as follows value date nta per unit,1.6047,dollars,1.003125586047384
+GCI,2025-09,,,2.0105,0,False,learn,02995324,on nta per unit as at,2.0155,dollars,1.0024869435463815
+CIN,2025-09,,,44.88,0,False,learn,02995282,,,,
+TGF,2025-09,,,2.4926,0,False,holdout,02995289,estimated nta pre tax,2.25,dollars,0.9026719088501967
+MOT,2025-09,is as follows value date nta per unit,dollars,2.1485,1,True,learn,02995345,,,,
+CAM,2025-09,,,0.8,0,False,holdout,02995460,after tax nta before tax,0.79,dollars,0.9875
+GC1,2025-09,,,0.83,0,False,holdout,02994864,nta share price cash weighting number of holdings,0.84,dollars,1.0120481927710843
+WMA,2025-09,,,1.1827,0,False,learn,02994535,asx wma unique opportunities beyond traditional assets,1.1745,cents,0.9930667117612243
+WAA,2025-09,,,1.0015,0,False,holdout,02994502,in future periods before tax dividend highlights cents,1.0170000000000001,cents,1.015476784822766
+MXT,2025-09,,,2.0002,0,False,learn,02994137,is as follows value date nta per unit,2.0046,dollars,1.0021997800219977
+PCI,2025-09,at close of business on nta per unit,dollars,1.096,1,True,holdout,02994085,,,,
+QRI,2025-09,is as follows value date nta per unit,dollars,1.5997,1,True,holdout,02993519,,,,
+KKC,2025-09,,,2.4408,0,False,learn,02993952,at close of business nta per unit,2.4262,dollars,0.9940183546378237
+WQG,2025-09,,,2.225,0,False,learn,02993663,years years inception years inception portfolio benchmark value,2.19,dollars,0.9842696629213482
+GCI,2025-09,on nta per unit as at,dollars,2.0105,1,True,learn,02993060,,,,
+PCI,2025-09,at close of business on nta per unit,dollars,1.096,1,True,holdout,02993036,,,,
+WQG,2025-09,,,2.225,0,False,learn,02992845,nta before tax,2.069,dollars,0.9298876404494382
+AUI,2025-09,,,13.33,0,False,holdout,02992757,is as below weekly pre tax nta per share,13.45,dollars,1.0090022505626406
+MOT,2025-09,is as follows value date nta per unit,dollars,2.1485,1,True,learn,02992500,,,,
+GCI,2025-09,on nta per unit as at,dollars,2.0105,1,True,learn,02992439,,,,
+DJW,2025-09,,,3.36,0,False,learn,02992383,pre tax nta per share,3.42,dollars,1.0178571428571428
+RG8,2025-09,,,2.92,0,False,learn,02992231,ordinary share for regal asian investments limited was,2.57,dollars,0.8801369863013698
+VG1,2025-09,,,2.23,0,False,learn,02992219,share for vgi partners global investments limited was,2.07,dollars,0.9282511210762331
+BKI,2025-09,,,1.96,0,False,holdout,02992196,dividends of cps was up on last year,2.0,dollars,1.0204081632653061
+SNC,2025-09,,,1.0409,0,False,learn,02991831,basis after investment management fees and brokerage,1.0,dollars,0.9607070804111827
+GFL,2025-09,,,5.07,0,False,learn,02991806,,,,
+LSF,2025-09,,,3.5881,0,False,learn,02991465,were nta per ordinary share nta before tax,3.4975,dollars,0.9747498676179595
+DJW,2025-09,,,3.36,0,False,learn,02990655,before tax after tax ex div,3.34,dollars,0.9940476190476191
+LSX,2025-09,,,1.142,0,False,holdout,02990926,tax deferred tax liability total value capitalisation,1.239,cents,1.0849387040280212
+GCI,2025-09,on nta per unit as at,dollars,2.0105,1,True,learn,02990641,,,,
+VG1,2025-08,all applicable fees and charges the nta of,dollars,2.05,2,True,learn,02989209,,,,
+VG1,2025-08,share for vgi partners global investments limited was,dollars,2.05,2,True,learn,02989209,,,,
+PL8,2025-08,,,1.21,0,False,learn,02989034,as at nta per share pre tax nta,1.204,dollars,0.9950413223140496
+KKC,2025-08,,,2.4262,0,False,learn,02987406,previous nta estimate,2.4412,dollars,1.0061825076250925
+PIC,2025-08,,,1.352,0,False,learn,02986564,nta before tax,1.339,dollars,0.9903846153846153
+SEC,2025-08,,,2.664,0,False,holdout,02986738,spheria emerging companies limited level,2.64,cents,0.990990990990991
+AIQ,2025-08,,,1.8037,0,False,learn,02986532,special investments net cash incl fortress pe funds,1.8,dollars,0.9979486610855464
+SEC,2025-08,at estimated nta per share pre tax nta,dollars,2.664,1,True,holdout,02985855,,,,
+WQG,2025-08,,,2.085,0,False,learn,02985263,nta before tax,2.102,dollars,1.0081534772182255
+RF1,2025-08,,,3.44,0,False,learn,02984606,nav per unit of regal investment fund was,3.43,dollars,0.9970930232558141
+GC1,2025-08,,,0.84,0,False,holdout,02984246,nta as at are as follows nta,0.8358,dollars,0.995
+LSF,2025-08,were nta per ordinary share nta before tax,dollars,3.5263,1,True,learn,02983074,,,,
+QRI,2025-08,,,1.6006,0,False,holdout,02982470,is as follows value date nta per unit,1.6049,dollars,1.002686492565288
+PCI,2025-08,,,1.096,0,False,holdout,02982072,at close of business on nta per unit,1.1,dollars,1.0036496350364963
+GCI,2025-08,rate distribution cap unit m distribution nta unit m,dollars,2.0095,1,True,learn,02982045,,,,
+MEC,2025-08,,,1.3227,0,False,learn,02982177,noted below dollars per share estimated nta pre tax,1.3002,dollars,0.9829893399863915
+BKI,2025-08,,,2.02,0,False,holdout,02981459,payment of the fy interim dividend pre tax nta,1.99,dollars,0.9851485148514851
+AMH,2025-08,,,1.24,0,False,learn,02981368,pre tax nta per share,1.28,dollars,1.032258064516129
+GC1,2025-08,,,0.84,0,False,holdout,02981050,nta as at are as follows nta,0.8476,dollars,1.0090476190476192
+WAA,2025-08,,,1.0073,0,False,holdout,02980402,nta is after the provision for tax of,1.0,dollars,0.9927529038022436
+FPC,2025-08,,,1.6925,0,False,learn,02980688,fund as at th amount pre tax nta,1.7024,dollars,1.0058493353028064
+CD3,2025-08,,,1.83,0,False,learn,02980507,as at was per unit was,1.811,dollars,0.9896174863387978
+GC1,2025-08,,,0.84,0,False,holdout,02980489,total fy fy,0.82,dollars,0.9761904761904762
+IBC,2025-08,,,0.589,0,False,learn,02979982,comparative purposes nta per ordinary share month end,0.31,cents,0.5263157894736842
+PCI,2025-08,,,1.096,0,False,holdout,02979940,at close of business on nta per unit,1.099,dollars,1.0027372262773722
+MOT,2025-08,is as follows value date nta per unit,dollars,2.1467,1,True,learn,02979556,,,,
+WAX,2025-08,,,1.1301,0,False,learn,02979851,growth opportunities in the australian cents,1.0884,cents,0.9631006105654366
+GCI,2025-08,on nta per unit as at,dollars,2.0095,1,True,learn,02979024,,,,
+MXT,2025-08,is as follows value date nta per unit,dollars,2.0005,1,True,learn,02979093,,,,
+RF1,2025-08,,,3.44,0,False,learn,02978843,nav per unit of regal investment fund was,3.4,dollars,0.9883720930232558
+HM1,2025-08,,,3.89,0,False,learn,02978779,nta per share pre tax nta,3.86,dollars,0.9922879177377891
+PCI,2025-08,at close of business on nta per unit,dollars,1.096,1,True,holdout,02978455,,,,
+DN1,2025-08,per unit of the dominion income trust was,dollars,100.28,1,True,learn,02978420,,,,
+CD1,2025-08,x x x x x x x x,dollars,0.87,5,True,holdout,02978048,,,,
+CD1,2025-08,ylno esu lanosrep rof cd quarterly nta movement,dollars,0.87,5,True,holdout,02978048,,,,
+CD1,2025-08,to the nta as illustrated below nta,dollars,0.87,5,True,holdout,02978048,,,,
+CD1,2025-08,paid since inception per unit cd nta,dollars,0.87,5,True,holdout,02978048,,,,
+CD1,2025-08,inception per unit cd nta per unit,dollars,0.87,5,True,holdout,02978048,,,,
+PMC,2025-08,,,1.5309,0,False,learn,02978339,pre tax nta per share as at was,1.5623,dollars,1.0205108106342675
+PIC,2025-08,,,1.352,0,False,learn,02977641,nta before tax,1.31,dollars,0.9689349112426036
+MIR,2025-08,,,3.42,0,False,learn,02977352,group arb corporation temple webster group resmed als,3.4,dollars,0.9941520467836257
+LSF,2025-08,,,3.5263,0,False,learn,02977295,were nta per ordinary share nta before tax,3.301,dollars,0.9361086691432947
+DUI,2025-08,is as below weekly pre tax nta per share,dollars,6.53,1,True,holdout,02976819,,,,
+MOT,2025-08,is as follows value date nta per unit,dollars,2.1467,1,True,learn,02976647,,,,
+LRT,2025-08,,,2.0952,0,False,learn,02976941,unit of the trust as at was,1.8664,dollars,0.8907980145093547
+DJW,2025-08,,,3.44,0,False,learn,02976433,pre tax nta per share,3.47,dollars,1.0087209302325582
+RF1,2025-08,,,3.44,0,False,learn,02976354,nav per unit of regal investment fund was,3.36,dollars,0.9767441860465116
+PL8,2025-07,,,1.173,0,False,learn,02976188,as at nta per share pre tax nta,1.164,dollars,0.9923273657289001
+MFF,2025-07,monthly nta per share as at was,dollars,5.132,1,True,learn,02976103,,,,
+FPC,2025-07,,,1.5825,0,False,learn,02975963,fund as at th amount pre tax nta,1.5952,dollars,1.0080252764612954
+PCI,2025-07,at close of business on nta per unit,dollars,1.096,1,True,holdout,02975898,,,,
+LSF,2025-07,,,3.3228,0,False,learn,02975715,were nta per ordinary share nta before tax,3.3904,dollars,1.0203442879499218
+SEC,2025-07,at estimated nta per share pre tax nta,dollars,2.525,1,True,holdout,02975575,,,,
+MOT,2025-07,,,2.1463,0,False,learn,02975376,is as follows value date nta per unit,2.1555,dollars,1.0042864464427153
+QRI,2025-07,,,1.6003,0,False,holdout,02974214,is as follows value date nta per unit,1.6086,dollars,1.005186527526089
+MOT,2025-07,,,2.1463,0,False,learn,02973961,is as follows value date nta per unit,2.155,dollars,1.0040534873969156
+PMC,2025-07,,,1.5735,0,False,learn,02973942,pre tax nta per share as at was,1.5835,dollars,1.0063552589768032
+GCI,2025-07,,,2.0095,0,False,learn,02973885,on nta per unit as at,2.0187,dollars,1.00457825329684
+ALI,2025-07,,,2.68,0,False,learn,02973797,pre tax nta per share share price,2.32,dollars,0.8656716417910446
+DUI,2025-07,,,6.59,0,False,holdout,02973596,is as below weekly pre tax nta per share,6.49,dollars,0.9848254931714719
+MOT,2025-07,,,2.1463,0,False,learn,02973418,is as follows value date nta per unit,2.1538,dollars,1.0034943856869962
+HM1,2025-07,,,3.89,0,False,learn,02973085,nta per share pre tax nta,3.88,dollars,0.9974293059125964
+PGF,2025-07,,,2.539,0,False,learn,02973100,nta before tax accruals,2.56,dollars,1.0082709728239465
+SEC,2025-07,,,2.525,0,False,holdout,02972931,at estimated nta per share pre tax nta,2.551,dollars,1.0102970297029703
+MXT,2025-07,,,2.0001,0,False,learn,02972393,is as follows value date nta per unit,2.0093,dollars,1.0045997700114995
+MOT,2025-07,,,2.1463,0,False,learn,02971966,is as follows value date nta per unit,2.1524,dollars,1.0028421003587569
+PIC,2025-07,,,1.302,0,False,learn,02971951,nta before tax,1.306,dollars,1.0030721966205838
+MEC,2025-07,,,1.2916,0,False,learn,02971746,noted below dollars per share estimated nta pre tax,1.2627,dollars,0.977624651594921
+PMC,2025-07,,,1.5735,0,False,learn,02971553,pre tax nta per share as at was,1.558,dollars,0.9901493485859549
+MOT,2025-07,,,2.1463,0,False,learn,02971526,is as follows value date nta per unit,2.1518,dollars,1.0025625495037973
+ALI,2025-07,,,2.68,0,False,learn,02971428,pre tax nta per share share price,2.32,dollars,0.8656716417910446
+SEC,2025-07,,,2.525,0,False,holdout,02971198,as at nta per share pre tax nta,2.538,dollars,1.0051485148514852
+PCI,2025-07,,,1.096,0,False,holdout,02971082,at close of business on nta per unit,1.1,dollars,1.0036496350364963
+MXT,2025-07,,,2.0001,0,False,learn,02970645,is as follows value date nta per unit,2.0074,dollars,1.0036498175091244
+PL8,2025-07,,,1.173,0,False,learn,02970763,as at nta per share pre tax nta,1.157,dollars,0.9863597612958227
+SEC,2025-07,,,2.525,0,False,holdout,02970375,at estimated nta per share pre tax nta,2.483,dollars,0.9833663366336635
+MOT,2025-07,,,2.1463,0,False,learn,02969902,is as follows value date nta per unit,2.1507,dollars,1.0020500396030378
+MXT,2025-07,,,2.0001,0,False,learn,02969537,is as follows value date nta per unit,2.0061,dollars,1.0029998500074995
+WMA,2025-07,,,1.1588,0,False,learn,02969007,asx wma unique opportunities beyond traditional assets,1.173,cents,1.0122540559199171
+WAA,2025-07,,,0.9432,0,False,holdout,02968965,the company in future periods dividend highlights cents,1.0170000000000001,cents,1.0782442748091603
+PCI,2025-07,,,1.096,0,False,holdout,02968602,at close of business on nta per unit,1.099,dollars,1.0027372262773722
+OEQ,2025-07,,,0.4186,0,False,holdout,02968798,consolidated consolidated nta pre tax nta backing per share,0.4129,dollars,0.9863831820353559
+MOT,2025-07,is as follows value date nta per unit,dollars,2.1463,1,True,learn,02968745,,,,
+LSF,2025-07,were nta per ordinary share nta before tax,dollars,3.3228,1,True,learn,02968417,,,,
+PCI,2025-07,,,1.096,0,False,holdout,02968190,at close of business on nta per unit,1.099,dollars,1.0027372262773722
+NAC,2025-07,,,0.71,0,False,holdout,02968462,share price of holdings since inception dividend yield,0.72,dollars,1.0140845070422535
+TCF,2025-07,unit price unit nav unit price unit nav,dollars,5.938,1,True,learn,02967744,,,,
+MOT,2025-07,is as follows value date nta per unit,dollars,2.1463,1,True,learn,02967875,,,,
+8IH,2025-07,,,0.0422,0,False,learn,02967371,per share as of is s a,0.0415,dollars,0.9834123222748815
+PIA,2025-07,,,1.4576,0,False,holdout,02967662,pia pengana international equities limited pengana com pia acn,1.07,cents,0.7340834248079035
+OPH,2025-07,,,3.4171,0,False,learn,02967712,bn nav as at amount unit price,3.58,dollars,1.0476720025752833
+WGB,2025-07,,,2.572,0,False,holdout,02967153,ex dividend on nta nta tax paid cents,2.6054000000000004,cents,1.01298600311042
+LRT,2025-07,,,1.8464,0,False,learn,02967126,unit of the trust as at was,1.8031,dollars,0.9765489601386481
+ALI,2025-07,,,2.68,0,False,learn,02967105,pre tax nta per share share price,2.3,dollars,0.8582089552238805
+MOT,2025-07,is as follows value date nta per unit,dollars,2.1463,1,True,learn,02966892,,,,
+HM1,2025-07,,,3.89,0,False,learn,02966515,asx announcements asx limited exchange centre level,4.0,dollars,1.0282776349614395
+AMH,2025-07,,,1.32,0,False,learn,02966595,company secretary amcil limited abn share registrar level,1.01,cents,0.7651515151515151
+PGF,2025-07,,,2.539,0,False,learn,02966536,nta before tax accruals,2.5,dollars,0.9846396218983852
+FPC,2025-07,,,1.5825,0,False,learn,02966266,fund as at nd amount pre tax nta,1.5622,dollars,0.9871721958925751
+PCI,2025-07,at close of business on nta per unit,dollars,1.096,1,True,holdout,02966141,,,,
+MOT,2025-07,is as follows value date nta per unit,dollars,2.1463,1,True,learn,02966272,,,,
+BKI,2025-07,e mail info bkilimited com au phone amanda wong,dollars,2.0,7,True,holdout,02965542,,,,
+BKI,2025-07,external active management fee of goodman group limited,dollars,2.0,7,True,holdout,02965542,,,,
+BKI,2025-07,dividend of cps was up on last year,dollars,2.0,7,True,holdout,02965542,,,,
+BKI,2025-07,group telstra group limited macquarie group transurban group,dollars,2.0,7,True,holdout,02965542,,,,
+BKI,2025-07,and a total mer of only arb corporation,dollars,2.0,7,True,holdout,02965542,,,,
+BKI,2025-07,bkilimited com au e mail info bkilimited com au,dollars,2.0,7,True,holdout,02965542,,,,
+BKI,2025-07,this document bki nta and monthly report,dollars,2.0,7,True,holdout,02965542,,,,
+SEC,2025-06,as at nta per share pre tax nta,dollars,2.411,1,True,holdout,02963994,,,,
+RG8,2025-06,ordinary share for regal asian investments limited was,dollars,2.41,1,True,learn,02963502,,,,
+KKC,2025-06,,,2.4517,0,False,learn,02963381,current nta estimate,2.4434,dollars,0.9966145939552147
+OPH,2025-06,is as follows value date nav per unit,dollars,3.5759,1,True,learn,02963360,,,,
+MEC,2025-06,,,1.2946,0,False,learn,02963047,noted below dollars per share estimated nta pre tax,1.23,dollars,0.9501004171172563
+GC1,2025-06,,,0.84,0,False,holdout,02963039,nta as at are as follows nta,0.82,dollars,0.9761904761904762
+MOT,2025-06,,,2.1428,0,False,learn,02962546,is as follows value date nta per unit,2.1555,dollars,1.005926824715326
+PIC,2025-06,,,1.289,0,False,learn,02962495,nta before tax,1.277,dollars,0.9906904577191621
+PIC,2025-06,,,1.289,0,False,learn,02962008,nta before tax,1.273,dollars,0.9875872769588828
+PIA,2025-06,,,1.4131,0,False,holdout,02961746,pia pengana international equities limited pengana com pia acn,1.07,cents,0.7572004812115208
+WQG,2025-06,,,2.025,0,False,learn,02961325,growth limited t abn w associateglobal com level,2.0,dollars,0.9876543209876544
+AFI,2025-06,,,8.33,0,False,learn,02960865,pre tax nta per share,8.26,dollars,0.9915966386554621
+SEC,2025-06,,,2.411,0,False,holdout,02960630,at estimated nta per share pre tax nta,2.39,dollars,0.9912899211945251
+PIC,2025-06,,,1.289,0,False,learn,02960148,nta before tax,1.27,dollars,0.9852598913886734
+PCI,2025-06,,,1.096,0,False,holdout,02960065,at close of business on nta per unit,1.099,dollars,1.0027372262773722
+KKC,2025-06,,,2.4517,0,False,learn,02959916,previous nta estimate,2.4397,dollars,0.9951054370436839
+LSF,2025-06,,,3.2473,0,False,learn,02959898,were nta per ordinary share nta before tax,3.1394,dollars,0.9667723955285931
+MXT,2025-06,,,2.0,0,False,learn,02959743,is as follows value date nta per unit,2.0069,dollars,1.00345
+MOT,2025-06,,,2.1428,0,False,learn,02959308,is as follows value date nta per unit,2.1511,dollars,1.0038734366249769
+MOT,2025-06,,,2.1428,0,False,learn,02958874,is as follows value date nta per unit,2.1501,dollars,1.003406757513534
+BKI,2025-06,,,1.96,0,False,holdout,02958718,per share as at below pre tax nta,1.94,dollars,0.9897959183673469
+AMH,2025-06,,,1.29,0,False,learn,02958635,pre tax nta per share,1.27,dollars,0.9844961240310077
+DJW,2025-06,pre tax nta per share,dollars,3.4,2,True,learn,02958677,,,,
+DJW,2025-06,share as at pre tax nta per share,dollars,3.4,2,True,learn,02958677,,,,
+FGG,2025-06,before tax before tax since inception cum dividend ex dividend,cents,1.7124,1,True,holdout,02958420,,,,
+TEK,2025-06,,,0.238,0,False,holdout,02958358,deployment the current on share buyback expires on,0.23,cents,0.9663865546218489
+ECL,2025-06,,,3.9163,0,False,learn,02958332,all taxes nta after providing for all taxes,3.9319,cents,1.0039833516329189
+CAM,2025-06,,,0.773,0,False,holdout,02958305,month nta nta before tax,0.765,dollars,0.9896507115135834
+PCI,2025-06,at close of business on nta per unit,dollars,1.096,1,True,holdout,02958184,,,,
+PE1,2025-06,,,1.6623,0,False,learn,02957697,net asset value,1.6784999999999999,cents,1.0097455332972387
+SEC,2025-06,,,2.411,0,False,holdout,02957482,at estimated nta per share pre tax nta,2.459,dollars,1.0199087515553713
+RYD,2025-06,,,1.6273,0,False,holdout,02956886,nta pre tax,1.5794,dollars,0.9705647391384502
+ALI,2025-06,,,2.61,0,False,learn,02957126,unaudited and approximate pre tax nta per share,2.0,dollars,0.7662835249042146
+OPH,2025-06,,,3.5759,0,False,learn,02956920,bn nav as at amount unit price,3.59,dollars,1.0039430632847675
+VG1,2025-06,,,2.06,0,False,learn,02956670,level gateway macquarie place sydney nsw australia t,2.0,dollars,0.970873786407767
+OPH,2025-06,,,3.5759,0,False,learn,02956626,is as follows value date nav per unit,3.6035,dollars,1.0077183366425235
+CDM,2025-06,,,0.803,0,False,learn,02956169,moves the current portfolio can be purchased for,0.76,cents,0.9464508094645081
+BTI,2025-06,,,1.79,0,False,holdout,02956025,exposure to a portfolio of information technology companies,1.8,dollars,1.005586592178771
+LSF,2025-06,,,3.2473,0,False,learn,02956012,were nta per ordinary share nta before tax,3.0069,dollars,0.925969266775475
+BEL,2025-06,,,0.65,0,False,learn,02955813,limited lel materials other listed securities various various,0.7,dollars,1.0769230769230769
+FSI,2025-06,,,2.481,0,False,holdout,02955715,,,,
+AUI,2025-06,,,12.98,0,False,holdout,02956108,the company s ordinary shares at was,12.72,dollars,0.9799691833590138
+PIA,2025-06,,,1.4131,0,False,holdout,02955665,pia pengana international equities limited pengana com pia acn,1.07,cents,0.7572004812115208
+GCI,2025-06,on nta per unit as at,dollars,2.0068,1,True,learn,02954836,,,,
+MRE,2025-06,,,2.164543,0,False,learn,02955140,nta per unit set value date post tax,2.1209,dollars,0.9798373143892266
+LSF,2025-06,,,3.2473,0,False,learn,02955072,were nta per ordinary share nta before tax,3.0107,dollars,0.9271394697133002
+DJW,2025-06,com djerri cm mpms mufg com page of,dollars,3.4,1,True,learn,02954965,,,,
+CAM,2025-06,,,0.773,0,False,holdout,02954370,nta before tax,0.775,dollars,1.0025873221216042
+RG8,2025-05,ordinary share for regal asian investments limited was,dollars,2.22,1,True,learn,02954280,,,,
+MIR,2025-05,,,3.35,0,False,learn,02954237,pre tax nta per share,3.32,dollars,0.9910447761194029
+SEC,2025-05,at estimated nta per share pre tax nta,dollars,2.467,1,True,holdout,02954057,,,,
+PIC,2025-05,,,1.257,0,False,learn,02953914,nta before tax,1.254,dollars,0.9976133651551313
+GCI,2025-05,on nta per unit as at,dollars,2.0192,1,True,learn,02952834,,,,
+MXT,2025-05,,,2.0002,0,False,learn,02952481,is as follows value date nta per unit,2.0118,dollars,1.0057994200579943
+PIC,2025-05,,,1.257,0,False,learn,02952457,nta before tax,1.244,dollars,0.9896579156722356
+GCI,2025-05,on nta per unit as at,dollars,2.0192,1,True,learn,02952398,,,,
+DUI,2025-05,,,6.31,0,False,holdout,02952192,is as below weekly pre tax nta per share,6.26,dollars,0.9920760697305864
+PIC,2025-05,,,1.257,0,False,learn,02952041,nta before tax,1.245,dollars,0.9904534606205252
+TGF,2025-05,at tgfinvestors tribecaip com au or by calling,dollars,2.0036,2,True,holdout,02951945,,,,
+TGF,2025-05,sydney nsw australia raffles place singapore abn t,dollars,2.0036,2,True,holdout,02951945,,,,
+OPH,2025-05,,,3.5869,0,False,learn,02951373,genesis minerals ltd materials gmd life inc software,3.6,cents,1.0036521787616048
+KKC,2025-05,current nta estimate,dollars,2.432,2,True,learn,02950871,,,,
+KKC,2025-05,end of day us time current nta estimate,dollars,2.432,2,True,learn,02950871,,,,
+GCI,2025-05,,,2.0192,0,False,learn,02950588,on nta per unit as at,2.0151,dollars,0.9979694928684627
+LSF,2025-05,,,3.0107,0,False,learn,02950337,all taxes l long short fund limited phone,3.0,dollars,0.996446009233733
+MXT,2025-05,,,2.0002,0,False,learn,02950174,is as follows value date nta per unit,2.009,dollars,1.0043995600439957
+DUI,2025-05,,,6.31,0,False,holdout,02949845,is as below weekly pre tax nta per share,6.29,dollars,0.9968304278922346
+KKC,2025-05,,,2.432,0,False,learn,02949447,current nta estimate,2.4383,dollars,1.0025904605263158
+OPH,2025-05,,,3.5869,0,False,learn,02949411,is as follows value date nav per unit,3.4124,dollars,0.95135074855725
+QRI,2025-05,deployment unit price vs nav annualised return deployment,dollars,1.6007,2,True,holdout,02949072,,,,
+QRI,2025-05,distribution on month end unit price m m,dollars,1.6007,2,True,holdout,02949072,,,,
+PIC,2025-05,,,1.257,0,False,learn,02948779,nta before tax,1.25,dollars,0.9944311853619731
+QRI,2025-05,is as follows value date nta per unit,dollars,1.6007,1,True,holdout,02948294,,,,
+CD2,2025-05,,,1.2,0,False,learn,02948242,unit fund inception last months since inception return,1.35,dollars,1.1250000000000002
+LSF,2025-05,,,3.0107,0,False,learn,02948441,all taxes l long short fund limited phone,3.0,dollars,0.996446009233733
+GCI,2025-05,,,2.0192,0,False,learn,02948237,on nta per unit as at,2.0125,dollars,0.996681854199683
+WHF,2025-05,,,6.5,0,False,holdout,02948165,national aust bank anz anz group holdings nta,6.33,dollars,0.9738461538461538
+AIQ,2025-05,,,1.8977,0,False,learn,02948152,at as at nta per unit,1.8811,dollars,0.9912525688991938
+CAM,2025-05,,,0.765,0,False,holdout,02948519,limited nta nta before tax,0.763,dollars,0.9973856209150327
+SB2,2025-05,,,1.029,0,False,learn,02948127,name price chg revenue growth betr entertainment ltd,1.02,dollars,0.991253644314869
+GCI,2025-05,,,2.0192,0,False,learn,02947823,on nta per unit as at,2.0122,dollars,0.9965332805071315
+LSF,2025-05,,,3.0107,0,False,learn,02947566,all taxes l long short fund limited phone,3.0,dollars,0.996446009233733
+MOT,2025-05,is as follows value date nta per unit,dollars,2.1449,1,True,learn,02947489,,,,
+NGE,2025-05,,,1.38,0,False,holdout,02947482,nta per share after tax,1.385,dollars,1.0036231884057971
+GCI,2025-05,,,2.0192,0,False,learn,02947416,on nta per unit as at,2.0109,dollars,0.9958894611727416
+ARG,2025-05,,,10.27,0,False,learn,02947402,and approximate pre tax nta per share,10.05,dollars,0.9785783836416749
+BKI,2025-05,,,1.91,0,False,holdout,02947281,per share as at below pre tax nta,1.88,dollars,0.9842931937172775
+GCI,2025-05,,,2.0192,0,False,learn,02946867,on nta per unit as at,2.0105,dollars,0.9956913629160062
+SNC,2025-05,,,0.9479,0,False,learn,02946794,investments limited nta before tax nta after tax,0.9379,dollars,0.9894503639624432
+LSF,2025-05,,,3.0107,0,False,learn,02946685,all taxes l long short fund limited phone,3.0,dollars,0.996446009233733
+QRI,2025-05,is as follows value date nta per unit,dollars,1.6007,1,True,holdout,02945977,,,,
+CD2,2025-05,ylno esu lanosrep rof cd quarterly nta movement,dollars,1.2,2,True,learn,02945940,,,,
+CD2,2025-05,nta as illustrated below nta per unit,dollars,1.2,2,True,learn,02945940,,,,
+PIC,2025-05,,,1.257,0,False,learn,02946108,perpetual equity investment company limited abn level,1.23,cents,0.9785202863961815
+KKC,2025-05,,,2.432,0,False,learn,02946335,current nta estimate,2.4252,dollars,0.997203947368421
+WLE,2025-05,australian companies nta nta fully franked dividend paid,cents,1.2795,1,True,holdout,02945341,,,,
+AUI,2025-05,,,12.72,0,False,holdout,02945196,is as below weekly pre tax nta per share,12.44,dollars,0.9779874213836477
+SEC,2025-05,,,2.467,0,False,holdout,02945072,as at nta per share pre tax nta,2.406,dollars,0.9752736116740981
+MOT,2025-05,is as follows value date nta per unit,dollars,2.1449,1,True,learn,02945030,,,,
+ARG,2025-05,,,10.27,0,False,learn,02944952,and approximate pre tax nta per share,10.02,dollars,0.9756572541382668
+GVF,2025-05,,,1.3389,0,False,learn,02944843,per share at the end of was,1.3089,dollars,0.9775935469415191
+BKI,2025-05,,,1.91,0,False,holdout,02944822,per share as at below pre tax nta,1.87,dollars,0.9790575916230367
+OPH,2025-05,,,3.5869,0,False,learn,02944751,is as follows value date nav per unit,3.2695,dollars,0.9115113329058518
+MXT,2025-05,limited level exchange centre bridge street sydney nsw,dollars,2.0002,2,True,learn,02944462,,,,
+MXT,2025-05,is as follows value date nta per unit,dollars,2.0002,2,True,learn,02944462,,,,
+LRT,2025-04,unit of the trust as at as,dollars,1.6143,1,True,learn,02944237,,,,
+MXT,2025-04,,,2.0133,0,False,learn,02944048,is as follows value date nta per unit,2.0006,dollars,0.9936919485421943
+KKC,2025-04,,,2.4183,0,False,learn,02943703,previous nta estimate,2.4282,dollars,1.004093784890212
+SEC,2025-04,,,2.406,0,False,holdout,02943516,at estimated nta per share pre tax nta,2.396,dollars,0.995843724023275
+PCI,2025-04,at close of business on nta per unit,dollars,1.091,1,True,holdout,02943114,,,,
+SEC,2025-04,,,2.406,0,False,holdout,02942992,as at nta per share pre tax nta,2.352,dollars,0.9775561097256856
+PMC,2025-04,,,1.4579,0,False,learn,02942235,pre tax nta per share as at was,1.4352,dollars,0.9844296590987036
+GCI,2025-04,,,2.0075,0,False,learn,02942173,holiday in brisbane on the nta for,2.0,dollars,0.9962640099626402
+ALI,2025-04,,,2.64,0,False,learn,02942020,pre tax nta per share share price,2.31,dollars,0.875
+WQG,2025-04,,,1.837,0,False,learn,02941907,nta before tax,1.805,dollars,0.9825802939575394
+SEC,2025-04,,,2.406,0,False,holdout,02941660,at estimated nta per share pre tax nta,2.37,dollars,0.9850374064837905
+MXT,2025-04,is as follows value date nta per unit,dollars,2.0133,1,True,learn,02941585,,,,
+AMH,2025-04,,,1.21,0,False,learn,02941331,pre tax nta per share,1.18,dollars,0.9752066115702479
+RF1,2025-04,,,2.99,0,False,learn,02941241,nav per unit of regal investment fund was,2.95,dollars,0.9866220735785953
+MXT,2025-04,is as follows value date nta per unit,dollars,2.0133,1,True,learn,02940884,,,,
+LSF,2025-04,,,2.8069,0,False,learn,02940583,nta after tax,2.7696,dollars,0.9867113185364637
+GCI,2025-04,,,2.0075,0,False,learn,02940375,governor macquarie tower farrer place sydney nsw p,2.0,dollars,0.9962640099626402
+TGF,2025-04,,,1.8449,0,False,holdout,02939902,estimated nta pre tax,1.82,dollars,0.9865033335140116
+DJW,2025-04,,,3.32,0,False,learn,02939845,pre tax nta per share,3.19,dollars,0.960843373493976
+PIC,2025-04,,,1.218,0,False,learn,02939528,perpetual equity investment company limited abn level,1.23,cents,1.0098522167487685
+MEC,2025-04,,,1.1393,0,False,learn,02938971,per share estimated nta pre tax estimated nta post tax,1.087,dollars,0.9540946195032037
+GCI,2025-04,,,2.0075,0,False,learn,02938476,governor macquarie tower farrer place sydney nsw p,2.0,dollars,0.9962640099626402
+MXT,2025-04,,,2.0133,0,False,learn,02938462,is as follows value date nta per unit,2.0061,dollars,0.9964237818506928
+PMC,2025-04,,,1.4579,0,False,learn,02938455,pre tax nta per share as at was,1.4256,dollars,0.9778448453254681
+FPC,2025-04,,,1.4018,0,False,learn,02937991,post tax nta,1.4177,dollars,1.011342559566272
+CD3,2025-04,,,1.83,0,False,learn,02937970,as at was per unit was,1.821,dollars,0.9950819672131147
+CAM,2025-04,total portfolio including cash an easy way to,dollars,0.75,2,True,holdout,02937964,,,,
+CAM,2025-04,limited nta nta before tax,dollars,0.75,2,True,holdout,02937964,,,,
+PCI,2025-04,at close of business on nta per unit,dollars,1.091,1,True,holdout,02937828,,,,
+DJW,2025-04,,,3.32,0,False,learn,02937773,pre tax nta per share,3.16,dollars,0.9518072289156627
+NAC,2025-04,nta share price of holdings inception dividend yield,dollars,0.61,1,True,holdout,02937037,,,,
+KAT,2025-04,,,1.274,0,False,learn,02936908,after tax nta backing per share before tax,1.265,dollars,0.9929356357927785
+PIC,2025-04,,,1.218,0,False,learn,02936831,perpetual equity investment company limited abn level,1.23,cents,1.0098522167487685
+TEK,2025-04,,,0.229,0,False,holdout,02936737,deployment the current on share buyback expires on,0.23,cents,1.0043668122270741
+LSF,2025-04,,,2.8069,0,False,learn,02936490,nta after tax,2.6504,dollars,0.9442445402401225
+WQG,2025-04,,,1.837,0,False,learn,02936251,management tax share price inception date a,1.832,dollars,0.9972781709308656
+KKC,2025-04,time current nta estimate previous nta estimate,dollars,2.4183,2,True,learn,02936529,,,,
+KKC,2025-04,previous nta estimate,dollars,2.4183,2,True,learn,02936529,,,,
+CDM,2025-04,,,0.773,0,False,learn,02935743,at the time of writing this newsletter of,0.635,dollars,0.8214747736093143
+LSF,2025-04,,,2.8069,0,False,learn,02935963,nta after tax,2.6933,dollars,0.9595283052477821
+LSF,2025-04,,,2.8069,0,False,learn,02935470,were nta per ordinary share nta before tax,2.7972,dollars,0.9965442302896433
+PAI,2025-04,,,1.0794,0,False,learn,02935278,post tax nta maximum franked dividend cps management fee,1.1,dollars,1.0190846766722255
+GCI,2025-04,,,2.0075,0,False,learn,02935121,on nta per unit as at,2.012,dollars,1.002241594022416
+WQG,2025-04,,,1.837,0,False,learn,02935542,nta before tax,1.745,dollars,0.9499183451279261
+RF1,2025-04,,,2.99,0,False,learn,02934946,nav per unit of regal investment fund was,2.86,dollars,0.9565217391304347
+DUI,2025-04,ordinary shares at was per share,dollars,6.17,1,True,holdout,02935018,,,,
+MIR,2025-04,,,3.1236,0,False,learn,02935024,mir share price asx closing price on,3.16,dollars,1.011653220642848
+WGB,2025-04,,,2.5668,0,False,holdout,02935013,special dividend nta nta tax paid nta cents,2.5825,cents,1.0061165653732274
+KKC,2025-04,current nta estimate,dollars,2.4183,4,True,learn,02934938,,,,
+KKC,2025-04,time current nta estimate previous nta estimate,dollars,2.4183,4,True,learn,02934938,,,,
+KKC,2025-04,end of day us time current nta estimate,dollars,2.4183,4,True,learn,02934938,,,,
+KKC,2025-04,previous nta estimate,dollars,2.4183,4,True,learn,02934938,,,,
+PL8,2025-04,,,1.109,0,False,learn,02934488,nta per share pre tax nta post tax nta,1.101,dollars,0.9927862939585211
+DJW,2025-04,,,3.32,0,False,learn,02934391,bank materials coles group other financials macquarie group,3.3,dollars,0.9939759036144579
+LSF,2025-03,,,2.8857,0,False,learn,02933114,nta after tax,2.9168,dollars,1.0107772810756488
+MXT,2025-03,is as follows value date nta per unit,dollars,2.0002,1,True,learn,02932978,,,,
+PIC,2025-03,was nta per ordinary share nta before tax,dollars,1.173,2,True,learn,02932888,,,,
+PIC,2025-03,nta before tax,dollars,1.173,2,True,learn,02932888,,,,
+GCI,2025-03,,,2.013,0,False,learn,02932112,on nta per unit as at,2.0257,dollars,1.0063089915548933
+PGF,2025-03,,,2.2585,0,False,learn,02931854,nta before tax accruals,2.27,dollars,1.0050918751383662
+MIR,2025-03,,,3.12,0,False,learn,02932034,pre tax nta per share,3.14,dollars,1.0064102564102564
+AMH,2025-03,,,1.18,0,False,learn,02931972,pre tax nta per share,1.2,dollars,1.0169491525423728
+PIC,2025-03,,,1.173,0,False,learn,02931021,nta after tax,1.193,dollars,1.0170502983802217
+LSF,2025-03,,,2.8857,0,False,learn,02929851,nta after tax,2.9699,dollars,1.0291783622691202
+PCI,2025-03,,,1.095,0,False,holdout,02929575,at close of business on nta per unit,1.104,dollars,1.0082191780821919
+PIC,2025-03,,,1.173,0,False,learn,02929652,nta after tax,1.187,dollars,1.011935208866155
+ALI,2025-03,,,2.7,0,False,learn,02929893,and approximate pre tax nta per share share price,3.0,dollars,1.111111111111111
+MIR,2025-03,,,3.12,0,False,learn,02929485,pre tax nta per share,3.2,dollars,1.0256410256410258
+RG8,2025-03,,,2.15,0,False,learn,02929383,regal asian investments limited abn,2.19,cents,1.0186046511627906
+MXT,2025-03,,,2.0002,0,False,learn,02928441,is as follows value date nta per unit,2.0076,dollars,1.0036996300369962
+PCI,2025-03,,,1.095,0,False,holdout,02927676,at close of business on nta per unit,1.103,dollars,1.0073059360730594
+AFI,2025-03,,,7.68,0,False,learn,02927158,pre tax nta per share,7.66,dollars,0.9973958333333334
+AIQ,2025-03,,,1.8219,0,False,learn,02926501,governor macquarie tower farrer place sydney nsw p,2.0,dollars,1.0977550908392337
+PCI,2025-03,,,1.095,0,False,holdout,02926484,at close of business on nta per unit,1.103,dollars,1.0073059360730594
+GCI,2025-03,rate distribution cap unit m distribution nta unit m,dollars,2.013,1,True,learn,02926410,,,,
+GCI,2025-03,,,2.013,0,False,learn,02925898,on nta per unit as at,2.0181,dollars,1.0025335320417288
+SEC,2025-03,,,2.417,0,False,holdout,02925580,at estimated nta per share pre tax nta,2.406,dollars,0.9954489035995037
+WAA,2025-03,,,0.7869,0,False,holdout,02925225,asx waa mispricing opportunities in the australian,0.8278,cents,1.0519761087812936
+PIA,2025-03,,,1.3563,0,False,holdout,02925135,pia pengana international equities limited pengana com pia acn,1.07,cents,0.7889110078891101
+LSF,2025-03,,,2.8857,0,False,learn,02925098,nta after tax,2.9035,dollars,1.0061683473680563
+PIC,2025-03,,,1.173,0,False,learn,02924408,tax is and the nta after tax is,1.19,dollars,1.0144927536231882
+SEC,2025-03,,,2.417,0,False,holdout,02924391,at estimated nta per share pre tax nta,2.474,dollars,1.0235829540753
+TOP,2025-03,,,92.1,0,False,holdout,02924766,prepared by thorney management services pty ltd abn,88.0,dollars,0.9554831704668839
+WAX,2025-03,,,1.0974,0,False,learn,02924689,compelling undervalued growth opportunities in the australian,1.1576,cents,1.0548569345726262
+DUI,2025-03,,,5.98,0,False,holdout,02924592,investment limited level collins street melbourne vic abn,6.0,dollars,1.0033444816053512
+RF1,2025-03,,,3.03,0,False,learn,02924223,nav per unit of regal investment fund was,3.25,dollars,1.0726072607260726
+HCF,2025-03,,,0.836,0,False,holdout,02922167,per share before deferred tax on unrealised gains,0.873,dollars,1.0442583732057418
+RF1,2025-03,,,3.03,0,False,learn,02921657,limited exchange centre level bridge street sydney nsw,3.0,dollars,0.9900990099009902
+LSF,2025-02,,,2.9227,0,False,learn,02920520,were nta per ordinary share nta before tax,2.8564,dollars,0.9773154959455298
+MOT,2025-02,,,2.142,0,False,learn,02920226,is as follows value date nta per unit,2.1527,dollars,1.0049953314659197
+GCI,2025-02,governor macquarie tower farrer place sydney nsw p,dollars,2.0027,2,True,learn,02919383,,,,
+GCI,2025-02,macquarie tower farrer place sydney nsw p f,dollars,2.0027,2,True,learn,02919383,,,,
+PCI,2025-02,,,1.1,0,False,holdout,02919334,at close of business on nta per unit,1.106,dollars,1.0054545454545454
+AIQ,2025-02,,,1.6038,0,False,learn,02918550,to long term while nta per unit aud,1.6085,dollars,1.0029305399675772
+GCI,2025-02,governor macquarie tower farrer place sydney nsw p,dollars,2.0027,2,True,learn,02917905,,,,
+GCI,2025-02,macquarie tower farrer place sydney nsw p f,dollars,2.0027,2,True,learn,02917905,,,,
+RF1,2025-02,,,3.36,0,False,learn,02917683,nav per unit of regal investment fund was,3.44,dollars,1.0238095238095237
+MXT,2025-02,is as follows value date nta per unit,dollars,2.0002,1,True,learn,02917310,,,,
+GCI,2025-02,governor macquarie tower farrer place sydney nsw p,dollars,2.0027,2,True,learn,02917327,,,,
+GCI,2025-02,macquarie tower farrer place sydney nsw p f,dollars,2.0027,2,True,learn,02917327,,,,
+SEC,2025-02,,,2.477,0,False,holdout,02916251,at estimated nta per share pre tax nta,2.554,dollars,1.0310859911182881
+GCI,2025-02,governor macquarie tower farrer place sydney nsw p,dollars,2.0027,2,True,learn,02916176,,,,
+GCI,2025-02,macquarie tower farrer place sydney nsw p f,dollars,2.0027,2,True,learn,02916176,,,,
+PAI,2025-02,pre tax nta per share as at was,dollars,1.1487,1,True,learn,02915514,,,,
+ALI,2025-02,,,2.67,0,False,learn,02915267,and approximate pre tax nta per share,2.63,dollars,0.9850187265917603
+SEC,2025-02,,,2.477,0,False,holdout,02915154,nta per share pre tax nta post tax nta,2.438,dollars,0.9842551473556723
+CAM,2025-02,,,0.763,0,False,holdout,02915030,nta before tax,0.78,dollars,1.0222804718217562
+ARG,2025-02,,,9.94,0,False,learn,02915024,and approximate pre tax nta per share,10.12,dollars,1.0181086519114688
+GCI,2025-02,governor macquarie tower farrer place sydney nsw p,dollars,2.0027,2,True,learn,02915018,,,,
+GCI,2025-02,macquarie tower farrer place sydney nsw p f,dollars,2.0027,2,True,learn,02915018,,,,
+PGF,2025-02,,,2.35,0,False,learn,02914938,nta before tax accruals,2.32,dollars,0.9872340425531914
+MXT,2025-02,is as follows value date nta per unit,dollars,2.0002,1,True,learn,02914469,,,,
+FGX,2025-02,,,1.4004,0,False,learn,02914586,,,,
+FPC,2025-02,,,1.3285,0,False,learn,02914525,pre tax nta,1.3383,dollars,1.0073767406849832
+GC1,2025-02,,,0.81,0,False,holdout,02914462,nta as at are as follows nta,0.8121,dollars,1.0025925925925925
+LSF,2025-02,,,2.9227,0,False,learn,02913805,nta after tax,2.9554,dollars,1.0111882848051459
+PIA,2025-02,,,1.4195,0,False,holdout,02913290,pia pengana international equities limited pengana com pia acn,1.07,cents,0.753786544557943
+MXT,2025-02,is as follows value date nta per unit,dollars,2.0002,1,True,learn,02913100,,,,
+TGF,2025-02,,,1.8715,0,False,holdout,02912590,at tgfinvestors tribecaip com au or by calling,2.0,dollars,1.0686615014694096
+LSF,2025-02,,,2.9227,0,False,learn,02912876,nta after tax,2.9332,dollars,1.003592568515414
+MEC,2025-02,,,1.19,0,False,learn,02912739,per share estimated nta pre tax estimated nta post tax,1.1734,dollars,0.9860504201680673
+PMC,2025-02,,,1.5758,0,False,learn,02912753,current share price current dividend yield pre tax nta,1.5472,dollars,0.9818504886406904
+PIC,2025-02,was nta per ordinary share nta before tax,dollars,1.29,2,True,learn,02912747,,,,
+PIC,2025-02,nta before tax,dollars,1.29,2,True,learn,02912747,,,,
+AMH,2025-02,,,1.26,0,False,learn,02912460,pre tax nta per share,1.35,dollars,1.0714285714285714
+GC1,2025-02,,,0.81,0,False,holdout,02912062,nta as at are as follows nta,0.8183,dollars,1.010246913580247
+MOT,2025-02,is as follows value date nta per unit,dollars,2.142,1,True,learn,02911591,,,,
+BTI,2025-02,,,1.73,0,False,holdout,02911913,at bailador provides exposure to a portfolio,1.67,dollars,0.9653179190751445
+MXT,2025-02,is as follows value date nta per unit,dollars,2.0002,1,True,learn,02911727,,,,
+WGB,2025-02,,,2.6917,0,False,holdout,02911511,geographical exposure intu us intuit inc united states,2.7,dollars,1.0030835531448528
+MXT,2025-02,is as follows value date nta per unit,dollars,2.0002,1,True,learn,02911198,,,,
+LSF,2025-02,,,2.9227,0,False,learn,02911367,were nta per ordinary share nta before tax,2.8967,dollars,0.9911041160570706
+WQG,2025-02,,,1.983,0,False,learn,02910666,com wcm global growth limited abn t level,2.0,dollars,1.0085728693898133
+MOT,2025-02,is as follows value date nta per unit,dollars,2.142,1,True,learn,02910431,,,,
+PIC,2025-02,was nta per ordinary share nta before tax,dollars,1.29,2,True,learn,02910380,,,,
+PIC,2025-02,nta before tax,dollars,1.29,2,True,learn,02910380,,,,
+MIR,2025-02,,,3.34,0,False,learn,02910122,mir share price asx closing price on,3.37,dollars,1.0089820359281438
+AFI,2025-02,,,8.04,0,False,learn,02910101,afi share price asx closing price on,7.59,dollars,0.9440298507462688
+RG8,2025-02,,,2.39,0,False,learn,02910084,ordinary share for regal asian investments limited was,2.56,dollars,1.0711297071129706
+HM1,2025-02,,,3.69,0,False,learn,02910071,pre tax nta post current tax nta,3.77,dollars,1.0216802168021681
+FPC,2025-01,,,1.3383,0,False,learn,02909542,fund as at th amount pre tax nta,1.3044,dollars,0.9746693566464918
+MXT,2025-01,,,2.0002,0,False,learn,02908724,is as follows value date nta per unit,2.013,dollars,1.0063993600639936
+PCI,2025-01,,,1.1,0,False,holdout,02908772,at close of business on nta per unit,1.106,dollars,1.0054545454545454
+LSF,2025-01,,,2.9439,0,False,learn,02908385,nta after tax,2.9295,dollars,0.9951085295016814
+MFF,2025-01,,,5.392,0,False,learn,02907719,weekly nta per share as at was,5.259,dollars,0.975333827893175
+ALI,2025-01,,,2.64,0,False,learn,02907744,and approximate pre tax nta per share,2.62,dollars,0.9924242424242424
+MIR,2025-01,,,3.47,0,False,learn,02907603,street melbourne victoria mufg corporate limited telephone,3.46,cents,0.9971181556195965
+LSF,2025-01,ordinary share nta before tax nta after tax,dollars,2.9439,2,True,learn,02907359,,,,
+LSF,2025-01,nta after tax,dollars,2.9439,2,True,learn,02907359,,,,
+PGF,2025-01,,,2.2662,0,False,learn,02907496,nta before tax accruals,2.25,dollars,0.9928514694201748
+GC1,2025-01,,,0.83,0,False,holdout,02907229,nta as at are as follows nta,0.8104,dollars,0.9763855421686748
+SEC,2025-01,,,2.484,0,False,holdout,02907310,at estimated nta per share pre tax nta,2.437,dollars,0.9810789049919484
+SEC,2025-01,,,2.484,0,False,holdout,02906873,at estimated nta per share pre tax nta,2.445,dollars,0.9842995169082125
+SEC,2025-01,,,2.484,0,False,holdout,02906515,at estimated nta per share pre tax nta,2.441,dollars,0.9826892109500804
+SEC,2025-01,,,2.484,0,False,holdout,02906213,at estimated nta per share pre tax nta,2.466,dollars,0.9927536231884059
+PCI,2025-01,,,1.1,0,False,holdout,02906073,at close of business on nta per unit,1.104,dollars,1.0036363636363637
+PIC,2025-01,,,1.289,0,False,learn,02905818,nta before tax,1.278,dollars,0.9914662529092321
+ARG,2025-01,,,10.37,0,False,learn,02905760,and approximate pre tax nta per share,10.13,dollars,0.9768563162970108
+DUI,2025-01,,,6.41,0,False,holdout,02905935,is as below weekly pre tax nta per share,6.27,dollars,0.9781591263650545
+OPH,2025-01,,,3.4484,0,False,learn,02905633,is as follows value date nav per unit,3.274,dollars,0.9494258206704559
+LSF,2025-01,ordinary share nta before tax nta after tax,dollars,2.9439,2,True,learn,02905523,,,,
+LSF,2025-01,nta after tax,dollars,2.9439,2,True,learn,02905523,,,,
+QRI,2025-01,,,1.5962,0,False,holdout,02905286,yam nuj luj gua pes tco von ced,1.6,dollars,1.0023806540533768
+PCI,2025-01,,,1.1,0,False,holdout,02904984,at close of business on nta per unit,1.103,dollars,1.0027272727272727
+LSF,2025-01,,,2.9439,0,False,learn,02904857,were nta per ordinary share nta before tax,2.8988,dollars,0.9846801861476272
+KKC,2025-01,,,2.46,0,False,learn,02904874,previous nta estimate,2.4495,dollars,0.9957317073170732
+CD2,2025-01,,,1.34,0,False,learn,02904305,as at was per unit was,1.371,dollars,1.0231343283582088
+CDM,2025-01,,,0.793,0,False,learn,02904311,website we also encourage you to visit our,0.52,cents,0.6557377049180327
+GCI,2025-01,governor macquarie tower farrer place sydney nsw p,dollars,2.002,2,True,learn,02903900,,,,
+GCI,2025-01,macquarie tower farrer place sydney nsw p f,dollars,2.002,2,True,learn,02903900,,,,
+GCI,2025-01,governor macquarie tower farrer place sydney nsw p,dollars,2.002,2,True,learn,02903498,,,,
+GCI,2025-01,macquarie tower farrer place sydney nsw p f,dollars,2.002,2,True,learn,02903498,,,,
+BTI,2025-01,nta per share at close of was,dollars,1.85,3,True,holdout,02903329,,,,
+BTI,2025-01,end nosto cash other nav net asset,dollars,1.85,3,True,holdout,02903329,,,,
+BTI,2025-01,at bailador provides exposure to a portfolio,dollars,1.85,3,True,holdout,02903329,,,,
+GCI,2025-01,governor macquarie tower farrer place sydney nsw p,dollars,2.002,2,True,learn,02903137,,,,
+GCI,2025-01,macquarie tower farrer place sydney nsw p f,dollars,2.002,2,True,learn,02903137,,,,
+WAR,2025-01,,,1.2747,0,False,holdout,02903348,war discounted asset opportunities the special fully franked,1.2557,cents,0.9850945320467561
+MXT,2025-01,is as follows value date nta per unit,dollars,2.0002,1,True,learn,02902808,,,,
+ALI,2025-01,and approximate pre tax nta per share,dollars,2.64,1,True,learn,02902202,,,,
+MEC,2025-01,,,1.2074,0,False,learn,02902282,noted below dollars per share estimated nta pre tax,1.1963,dollars,0.9908066920655954
+AFI,2025-01,,,8.55,0,False,learn,02901889,foundation investment company limited abn share registrar telephone,8.57,cents,1.0023391812865496
+RG8,2025-01,,,2.56,0,False,learn,02901816,ordinary share for regal asian investments limited was,2.33,dollars,0.91015625
+AMH,2025-01,at before tax after tax,dollars,1.37,1,True,learn,02901591,,,,
+PMC,2025-01,,,1.5472,0,False,learn,02901269,pre tax nta per share as at was,1.5415,dollars,0.9963159255429164
+MFF,2025-01,,,5.392,0,False,learn,02901373,monthly nta per share as at was,5.084,dollars,0.9428783382789316
+MEC,2024-12,,,1.1936,0,False,learn,02900995,noted below dollars per share estimated nta pre tax,1.1814,dollars,0.9897788203753352
+MXT,2024-12,,,2.001,0,False,learn,02901009,is as follows value date nta per unit,2.0133,dollars,1.0061469265367318
+PIC,2024-12,,,1.273,0,False,learn,02900763,nta before tax,1.281,dollars,1.0062843676355067
+PCI,2024-12,,,1.099,0,False,holdout,02900716,at close of business on nta per unit,1.106,dollars,1.0063694267515924
+SEC,2024-12,,,2.409,0,False,holdout,02900810,as at nta per share pre tax nta,2.425,dollars,1.0066417600664177
+BKI,2024-12,,,1.87,0,False,holdout,02900576,per share as at below pre tax nta,1.89,dollars,1.0106951871657752
+LSF,2024-12,,,2.9417,0,False,learn,02900588,were nta per ordinary share nta before tax,2.9227,dollars,0.9935411496753578
+RF1,2024-12,,,3.48,0,False,learn,02900607,nav per unit of regal investment fund was,3.43,dollars,0.9856321839080461
+AUI,2024-12,,,12.15,0,False,holdout,02899923,is as below weekly pre tax nta per share,11.98,dollars,0.9860082304526749
+WQG,2024-12,below net tangible assets nta before tax,dollars,1.927,2,True,learn,02900004,,,,
+WQG,2024-12,nta before tax,dollars,1.927,2,True,learn,02900004,,,,
+GCI,2024-12,,,2.01,0,False,learn,02899085,on nta per unit as at,2.0184,dollars,1.004179104477612
+MEC,2024-12,,,1.1936,0,False,learn,02897570,per share estimated nta pre tax estimated nta post tax,1.1825,dollars,0.9907004021447722
+PCI,2024-12,,,1.099,0,False,holdout,02897591,at close of business on nta per unit,1.104,dollars,1.0045495905368518
+LSF,2024-12,,,2.9417,0,False,learn,02896059,all taxes l long short fund limited phone,3.0,dollars,1.0198184723119286
+VG1,2024-12,,,2.01,0,False,learn,02896090,level gateway macquarie place sydney nsw australia t,2.0,dollars,0.9950248756218907
+AMH,2024-12,,,1.33,0,False,learn,02896157,pre tax nta per share,1.34,dollars,1.0075187969924813
+PL8,2024-12,,,1.113,0,False,learn,02895980,nta per share pre tax nta post tax nta,1.141,dollars,1.0251572327044025
+KKC,2024-12,,,2.4716,0,False,learn,02894919,at close of business nta per unit,2.4517,dollars,0.9919485353617091
+LSF,2024-12,,,2.9417,0,False,learn,02894869,all taxes l long short fund limited phone,3.0,dollars,1.0198184723119286
+KAT,2024-12,nta backing per share after tax,dollars,1.337,2,True,learn,02894791,,,,
+KAT,2024-12,per share after tax as at was,dollars,1.337,2,True,learn,02894791,,,,
+WAR,2024-12,,,1.2557,0,False,holdout,02894398,war discounted asset opportunities nta nta dividend payable,1.2588,cents,1.0024687425340446
+NSC,2024-12,,,0.48,0,False,holdout,02894318,share price of holdings since inception dividend yield,0.47,dollars,0.9791666666666666
+TEK,2024-12,,,0.258,0,False,holdout,02894144,tax asx code tek structure listed investment,0.257,cents,0.9961240310077519
+PCI,2024-12,at close of business on nta per unit,dollars,1.099,1,True,holdout,02893411,,,,
+TGF,2024-12,,,1.8123,0,False,holdout,02893405,estimated nta pre tax,1.97,dollars,1.0870164983722341
+AMH,2024-12,,,1.33,0,False,learn,02893334,pre tax nta per share,1.36,dollars,1.0225563909774436
+AFI,2024-12,,,8.24,0,False,learn,02893355,pre tax nta per share,8.45,dollars,1.0254854368932038
+SEC,2024-12,,,2.409,0,False,holdout,02892420,at estimated nta per share pre tax nta,2.414,dollars,1.0020755500207557
+MXT,2024-12,is as follows value date nta per unit,dollars,2.001,1,True,learn,02891545,,,,
+LSF,2024-12,,,2.9417,0,False,learn,02891260,nta after tax,2.9869,dollars,1.015365264982833
+SEC,2024-12,,,2.409,0,False,holdout,02891257,as at nta per share pre tax nta,2.394,dollars,0.9937733499377336
+GCI,2024-12,on nta per unit as at,dollars,2.01,1,True,learn,02890988,,,,
+PCI,2024-12,at close of business on nta per unit,dollars,1.099,1,True,holdout,02890941,,,,
+AMH,2024-12,,,1.33,0,False,learn,02890899,at before tax after tax,1.3,dollars,0.9774436090225563
+LRT,2024-12,,,1.2807,0,False,learn,02890806,unit of the trust as at as,1.298,dollars,1.0135082376825175
+VG1,2024-11,share for vgi partners global investments limited was,dollars,2.02,1,True,learn,02890117,,,,
+PGF,2024-11,share gross dividend yield nta before tax accruals,dollars,2.1478,2,True,learn,02890108,,,,
+PGF,2024-11,nta before tax accruals,dollars,2.1478,2,True,learn,02890108,,,,
+SEC,2024-11,at estimated nta per share pre tax nta,dollars,2.394,1,True,holdout,02889783,,,,
+PIC,2024-11,,,1.313,0,False,learn,02888758,nta before tax,1.306,dollars,0.9946686976389948
+GCI,2024-11,,,2.022,0,False,learn,02887882,floating rate nta net return cap unit m,2.03,dollars,1.0039564787339268
+SEC,2024-11,,,2.394,0,False,holdout,02887386,at estimated nta per share pre tax nta,2.371,dollars,0.990392648287385
+PIC,2024-11,,,1.313,0,False,learn,02886618,nta before tax,1.303,dollars,0.9923838537699924
+PIC,2024-11,,,1.313,0,False,learn,02885839,nta before tax,1.285,dollars,0.9786747905559786
+MOT,2024-11,,,2.1422,0,False,learn,02885091,is as follows value date nta per unit,2.1483,dollars,1.0028475399122398
+MXT,2024-11,,,2.0002,0,False,learn,02884330,is as follows value date nta per unit,2.008,dollars,1.003899610038996
+GCI,2024-11,,,2.022,0,False,learn,02883736,on nta per unit as at,2.017,dollars,0.9975272007912958
+GCI,2024-11,,,2.022,0,False,learn,02883098,on nta per unit as at,2.0157,dollars,0.9968842729970326
+LSF,2024-11,,,3.0312,0,False,learn,02883432,were nta per ordinary share nta before tax,3.0136,dollars,0.9941937186592767
+PIC,2024-11,,,1.313,0,False,learn,02882159,nta before tax,1.282,dollars,0.9763899466869764
+PGF,2024-11,,,2.1478,0,False,learn,02881731,net tangible assets before tax accruals,2.16,dollars,1.005680230933979
+KKC,2024-11,,,2.4517,0,False,learn,02881295,at close of business nta per unit,2.4629,dollars,1.0045682587592282
+QRI,2024-11,,,1.6016,0,False,holdout,02881365,is as follows value date nta per unit,1.6052,dollars,1.0022477522477522
+TEK,2024-11,,,0.257,0,False,holdout,02880427,previous month before tax after tax,0.254,cents,0.9883268482490273
+MFF,2024-11,,,4.854,0,False,learn,02880396,weekly nta per share as at was,4.775,dollars,0.9837247630819943
+MXT,2024-11,is as follows value date nta per unit,dollars,2.0002,1,True,learn,02880382,,,,
+TVL,2024-11,,,0.12,0,False,learn,02880611,nta a m a m nta per share,0.119,dollars,0.9916666666666667
+HM1,2024-11,,,3.62,0,False,learn,02880086,estimated nta per ordinary share pre tax nta,3.47,dollars,0.9585635359116023
+BKI,2024-11,,,1.91,0,False,holdout,02880099,per share as at below pre tax nta,1.87,dollars,0.9790575916230367
+AFI,2024-11,,,8.48,0,False,learn,02880230,foundation investment company limited abn share registrar telephone,8.57,cents,1.0106132075471699
+PIC,2024-11,,,1.313,0,False,learn,02879848,nta before tax,1.283,dollars,0.9771515613099772
+MEC,2024-11,,,1.2188,0,False,learn,02879200,noted below dollars per share estimated nta pre tax,1.1514,dollars,0.9446997046275024
+DUI,2024-11,,,6.25,0,False,holdout,02879519,of australia ltd bhp group ltd transurban group,6.1,dollars,0.976
+CD1,2024-11,x years fund x years fund x years,dollars,0.98,1,True,holdout,02878774,,,,
+LSF,2024-11,,,3.0312,0,False,learn,02879015,nta after tax,3.0456,dollars,1.004750593824228
+GCI,2024-11,,,2.022,0,False,learn,02878722,on nta per unit as at,2.0128,dollars,0.9954500494559843
+WLE,2024-11,,,1.4036,0,False,holdout,02878610,cents,1.4155000000000002,cents,1.0084781989170706
+WQG,2024-11,,,2.005,0,False,learn,02878140,com wcm global growth limited abn t level,2.0,dollars,0.9975062344139651
+ALI,2024-11,,,2.7,0,False,learn,02878093,and approximate pre tax nta per share,2.63,dollars,0.974074074074074
+PIC,2024-11,,,1.313,0,False,learn,02877934,nta before tax,1.261,dollars,0.9603960396039604
+HM1,2024-11,,,3.62,0,False,learn,02877611,estimated nta per ordinary share pre tax nta,3.36,dollars,0.9281767955801105
+PGF,2024-11,,,2.1478,0,False,learn,02877647,nta before tax accruals,2.18,dollars,1.0149920849241083
+MXT,2024-10,is as follows value date nta per unit,dollars,2.0002,1,True,learn,02877298,,,,
+AMH,2024-10,as at before tax after tax,dollars,1.3,2,True,learn,02877335,,,,
+AMH,2024-10,staples as percentage of total portfolio value energy,dollars,1.3,2,True,learn,02877335,,,,
+MOT,2024-10,,,2.1417,0,False,learn,02876346,is as follows value date nta per unit,2.1543,dollars,1.0058831769155343
+MXT,2024-10,,,2.0002,0,False,learn,02875256,is as follows value date nta per unit,2.0124,dollars,1.0060993900609938
+MXT,2024-10,,,2.0002,0,False,learn,02874447,is as follows value date nta per unit,2.0119,dollars,1.005849415058494
+BKI,2024-10,,,1.86,0,False,holdout,02873448,per share as at below pre tax nta,1.87,dollars,1.0053763440860215
+LSF,2024-10,,,3.1483,0,False,learn,02873192,were nta per ordinary share nta before tax,3.1588,dollars,1.003335133246514
+MXT,2024-10,,,2.0002,0,False,learn,02872720,is as follows value date nta per unit,2.0102,dollars,1.0049995000499952
+PIC,2024-10,,,1.266,0,False,learn,02872156,nta before tax,1.277,dollars,1.0086887835703
+GCI,2024-10,,,2.0117,0,False,learn,02871486,on nta per unit as at,2.022,dollars,1.005120047720833
+MXT,2024-10,,,2.0002,0,False,learn,02870863,is as follows value date nta per unit,2.0091,dollars,1.0044495550444956
+ARG,2024-10,,,9.88,0,False,learn,02870283,and approximate pre tax nta per share,10.02,dollars,1.0141700404858298
+MOT,2024-10,,,2.1417,0,False,learn,02870276,is as follows value date nta per unit,2.1499,dollars,1.0038287341831256
+PIC,2024-10,ordinary share nta before tax nta after tax,dollars,1.266,2,True,learn,02868996,,,,
+PIC,2024-10,nta after tax,dollars,1.266,2,True,learn,02868996,,,,
+KKC,2024-10,,,2.4629,0,False,learn,02868659,previous nta estimate,2.4817,dollars,1.0076332778431931
+PCI,2024-10,,,1.099,0,False,holdout,02867714,at close of business on nta per unit,1.102,dollars,1.0027297543221112
+PAI,2024-10,,,1.1266,0,False,learn,02867700,pre tax nta per share as at was,1.1347,dollars,1.0071897745428724
+SEC,2024-10,,,2.395,0,False,holdout,02867410,nta per share pre tax nta post tax nta,2.384,dollars,0.9954070981210855
+PIC,2024-10,ordinary share nta before tax nta after tax,dollars,1.266,2,True,learn,02867224,,,,
+PIC,2024-10,nta after tax,dollars,1.266,2,True,learn,02867224,,,,
+PCI,2024-10,at close of business on nta per unit,dollars,1.099,1,True,holdout,02867073,,,,
+WMA,2024-10,,,1.219,0,False,learn,02866856,cents,1.1845999999999999,cents,0.9717801476620179
+AFI,2024-10,,,8.17,0,False,learn,02866894,pre tax nta per share,8.27,dollars,1.0122399020807833
+ACQ,2024-10,includes dividends nta after taxes and before taxes,dollars,1.1021,2,True,learn,02866440,,,,
+ACQ,2024-10,returns both nta after taxes including taxes on,dollars,1.1021,2,True,learn,02866440,,,,
+PAI,2024-10,,,1.1266,0,False,learn,02866641,post tax nta maximum franked dividend cps management fee,1.1,dollars,0.976389135451802
+PE1,2024-10,,,1.5766,0,False,learn,02866229,net asset value,1.4963,cents,0.9490676138525942
+PCI,2024-10,at close of business on nta per unit,dollars,1.099,1,True,holdout,02865904,,,,
+TCF,2024-10,,,5.942,0,False,learn,02865793,net asset value per unit,5.97,dollars,1.004712218108381
+NAC,2024-10,return fy fy,dollars,0.44,1,True,holdout,02865677,,,,
+PMC,2024-10,,,1.5357,0,False,learn,02865483,current share price current dividend yield pre tax nta,1.5229,dollars,0.9916650387445464
+PCI,2024-10,at close of business on nta per unit,dollars,1.099,1,True,holdout,02864982,,,,
+MFF,2024-10,,,4.55,0,False,learn,02864909,weekly nta per share as at was,4.492,dollars,0.9872527472527473
+GCI,2024-10,on nta per unit as at,dollars,2.0117,1,True,learn,02864872,,,,
+DJW,2024-10,,,3.38,0,False,learn,02864308,pre tax nta per share,3.45,dollars,1.0207100591715976
+LRT,2024-10,,,1.4116,0,False,learn,02864652,unit of the trust as at as,1.4027,dollars,0.9936950977614055
+KKC,2024-10,,,2.4629,0,False,learn,02864633,current nta estimate,2.4503,dollars,0.994884079743392
+AFI,2024-10,,,8.17,0,False,learn,02864244,pre tax nta per share,8.21,dollars,1.0048959608323134
+RG8,2024-10,,,2.44,0,False,learn,02864168,ordinary share for regal asian investments limited was,2.57,dollars,1.0532786885245902
+GC1,2024-10,,,0.7582,0,False,holdout,02864018,nta as at are as follows nta,0.7368,dollars,0.9717752571880771
+MXT,2024-10,is as follows value date nta per unit,dollars,2.0002,1,True,learn,02863791,,,,
+MOT,2024-10,is as follows value date nta per unit,dollars,2.1417,1,True,learn,02863083,,,,
+PCI,2024-10,at close of business on nta per unit,dollars,1.099,1,True,holdout,02863076,,,,
+GCI,2024-10,on nta per unit as at,dollars,2.0117,1,True,learn,02862395,,,,
+HCF,2024-10,month nta per share before deferred tax on,dollars,1.049,1,True,holdout,02862826,,,,
+MEC,2024-10,,,1.1514,0,False,learn,02862596,noted below dollars per share estimated nta pre tax,1.1265,dollars,0.9783741532047943
+MXT,2024-10,limited level exchange centre bridge street sydney nsw,dollars,2.0002,2,True,learn,02862554,,,,
+MXT,2024-10,is as follows value date nta per unit,dollars,2.0002,2,True,learn,02862554,,,,
+MOT,2024-10,is as follows value date nta per unit,dollars,2.1417,1,True,learn,02862487,,,,
+PMC,2024-09,pre tax nta per share as at was,dollars,1.5229,1,True,learn,02861846,,,,
+DUI,2024-09,,,6.03,0,False,holdout,02861555,is as below weekly pre tax nta per share,6.01,dollars,0.9966832504145936
+PCI,2024-09,at close of business on nta per unit,dollars,1.098,1,True,holdout,02860585,,,,
+CAM,2024-09,pre tax unaudited nta as at was,dollars,0.83,3,True,holdout,02860629,,,,
+CAM,2024-09,for the week ended nta before tax,dollars,0.83,3,True,holdout,02860629,,,,
+CAM,2024-09,nta before tax,dollars,0.83,3,True,holdout,02860629,,,,
+OPH,2024-09,is as follows value date nav per unit,dollars,3.0685,1,True,learn,02860306,,,,
+GCI,2024-09,governor macquarie tower farrer place sydney nsw p,dollars,2.0022,2,True,learn,02859654,,,,
+GCI,2024-09,macquarie tower farrer place sydney nsw p f,dollars,2.0022,2,True,learn,02859654,,,,
+LSF,2024-09,,,3.17,0,False,learn,02859364,were nta per ordinary share nta before tax,3.1306,dollars,0.987570977917981
+GCI,2024-09,governor macquarie tower farrer place sydney nsw p,dollars,2.0022,2,True,learn,02858818,,,,
+GCI,2024-09,macquarie tower farrer place sydney nsw p f,dollars,2.0022,2,True,learn,02858818,,,,
+MOT,2024-09,,,2.1423,0,False,learn,02858109,is as follows value date nta per unit,2.151,dollars,1.0040610558745273
+PIA,2024-09,,,1.295,0,False,holdout,02857873,tax on unrealised gains losses nta value after tax,1.2905000000000002,cents,0.9965250965250967
+LSF,2024-09,,,3.17,0,False,learn,02857850,were nta per ordinary share nta before tax,3.069,dollars,0.9681388012618296
+SEC,2024-09,,,2.407,0,False,holdout,02857742,at estimated nta per share pre tax nta,2.322,dollars,0.9646863315330286
+PIC,2024-09,,,1.304,0,False,learn,02857092,nta before tax,1.285,dollars,0.9854294478527607
+MOT,2024-09,,,2.1423,0,False,learn,02856964,is as follows value date nta per unit,2.1495,dollars,1.003360873827195
+OPH,2024-09,,,3.0685,0,False,learn,02856725,is as follows value date nav per unit,3.0091,dollars,0.9806420074955191
+GCI,2024-09,governor macquarie tower farrer place sydney nsw p,dollars,2.0022,2,True,learn,02856260,,,,
+GCI,2024-09,macquarie tower farrer place sydney nsw p f,dollars,2.0022,2,True,learn,02856260,,,,
+PIC,2024-09,,,1.304,0,False,learn,02855730,nta before tax,1.282,dollars,0.9831288343558282
+MXT,2024-09,,,2.0001,0,False,learn,02855718,is as follows value date nta per unit,2.0085,dollars,1.0041997900104995
+AIQ,2024-09,,,1.5126,0,False,learn,02855713,entity one managed investment funds limited management fee,1.5,dollars,0.9916699722332408
+PIA,2024-09,,,1.295,0,False,holdout,02854824,and before tax on unrealised gains and losses,1.2997,cents,1.0036293436293438
+MXT,2024-09,,,2.0001,0,False,learn,02855127,is as follows value date nta per unit,2.008,dollars,1.0039498025098743
+QRI,2024-09,deployment unit price vs nav annualised return deployment,dollars,1.6006,2,True,holdout,02855152,,,,
+QRI,2024-09,distribution on month end unit price m m,dollars,1.6006,2,True,holdout,02855152,,,,
+KKC,2024-09,,,2.4751,0,False,learn,02855469,current nta estimate,2.4569,dollars,0.9926467617470002
+PIC,2024-09,,,1.304,0,False,learn,02854665,nta before tax,1.275,dollars,0.9777607361963189
+MOT,2024-09,,,2.1423,0,False,learn,02854580,is as follows value date nta per unit,2.1479,dollars,1.0026140129767072
+MFF,2024-09,,,4.383,0,False,learn,02854135,weekly nta per share as at was,4.413,dollars,1.0068446269678304
+AFI,2024-09,,,8.33,0,False,learn,02853931,pre tax nta per share,8.25,dollars,0.9903961584633854
+RF1,2024-09,,,3.45,0,False,learn,02853883,nav per unit of regal investment fund was,3.28,dollars,0.9507246376811593
+HM1,2024-09,,,3.28,0,False,learn,02853758,estimated nta per ordinary share pre tax nta,3.21,dollars,0.978658536585366
+PIC,2024-09,was nta per ordinary share nta before tax,dollars,1.304,2,True,learn,02853584,,,,
+PIC,2024-09,nta before tax,dollars,1.304,2,True,learn,02853584,,,,
+CD3,2024-09,,,1.71,0,False,learn,02853552,unit fund inception last months since inception return,1.73,dollars,1.0116959064327486
+PCI,2024-09,,,1.098,0,False,holdout,02853415,perpetual credit income trust arsn angel place level,1.23,cents,1.1202185792349726
+CDO,2024-09,,,2.03,0,False,learn,02853565,for more information contact cadence opportunities fund on,2.0,dollars,0.9852216748768474
+SEC,2024-09,,,2.407,0,False,holdout,02853076,at estimated nta per share pre tax nta,2.302,dollars,0.9563772330702119
+GC1,2024-09,,,0.75,0,False,holdout,02853008,total fy fy fy fy fy fy fy,0.74,dollars,0.9866666666666667
+MOT,2024-09,is as follows value date nta per unit,dollars,2.1423,1,True,learn,02852942,,,,
+PCI,2024-09,,,1.098,0,False,holdout,02852914,perpetual credit income trust arsn angel place level,1.23,cents,1.1202185792349726
+LSF,2024-09,,,3.17,0,False,learn,02852650,all taxes l long short fund limited phone,3.0,dollars,0.9463722397476341
+SNC,2024-09,,,0.9294,0,False,learn,02852769,period snc s voting power in ccil was,0.915,cents,0.9845061329890252
+NGE,2024-09,,,1.31,0,False,holdout,02852788,asx ticker nge nta per share before tax,1.305,dollars,0.9961832061068702
+NAC,2024-09,,,0.45,0,False,holdout,02852180,return fy fy,0.44,dollars,0.9777777777777777
+LSF,2024-09,,,3.17,0,False,learn,02852161,all taxes l long short fund limited phone,3.0,dollars,0.9463722397476341
+PIC,2024-09,,,1.304,0,False,learn,02851974,nta before tax,1.293,dollars,0.991564417177914
+AUI,2024-09,,,12.28,0,False,holdout,02851796,is as below weekly pre tax nta per share,11.99,dollars,0.976384364820847
+MOT,2024-09,is as follows value date nta per unit,dollars,2.1423,1,True,learn,02851473,,,,
+GCI,2024-09,governor macquarie tower farrer place sydney nsw p,dollars,2.0022,2,True,learn,02851394,,,,
+GCI,2024-09,macquarie tower farrer place sydney nsw p f,dollars,2.0022,2,True,learn,02851394,,,,
+HM1,2024-09,,,3.28,0,False,learn,02851291,on the highest conviction ideas from pre tax nta,3.24,dollars,0.9878048780487806
+PAI,2024-09,,,1.1195,0,False,learn,02851270,post tax nta maximum franked dividend cps management fee,1.1,dollars,0.9825815096025012
+DJW,2024-09,,,3.47,0,False,learn,02851253,pre tax nta per share,3.38,dollars,0.9740634005763688
+HM1,2024-09,,,3.28,0,False,learn,02851065,estimated nta per ordinary share pre tax nta,3.18,dollars,0.9695121951219513
+MOT,2024-09,is as follows value date nta per unit,dollars,2.1423,1,True,learn,02850790,,,,
+MIR,2024-09,,,3.37,0,False,learn,02850553,portfolio macquarie technology group arb corporation gentrack group,3.4,dollars,1.0089020771513353
+BKI,2024-09,,,1.91,0,False,holdout,02850475,a total mer of only tpg telecom limited,1.9,dollars,0.9947643979057592
+KKC,2024-09,,,2.4751,0,False,learn,02850021,previous nta estimate,2.4655,dollars,0.9961213688335826
+GCI,2024-09,governor macquarie tower farrer place sydney nsw p,dollars,2.0022,2,True,learn,02849578,,,,
+GCI,2024-09,macquarie tower farrer place sydney nsw p f,dollars,2.0022,2,True,learn,02849578,,,,
+LSF,2024-09,,,3.17,0,False,learn,02849347,were nta per ordinary share nta before tax,3.094,dollars,0.97602523659306
+MOT,2024-09,is as follows value date nta per unit,dollars,2.1423,1,True,learn,02849133,,,,
+WQG,2024-09,,,1.753,0,False,learn,02848902,nta before tax,1.78,dollars,1.015402167712493
+PCI,2024-08,,,1.099,0,False,holdout,02847490,perpetual credit income trust arsn angel place level,1.23,cents,1.1191992720655142
+PIC,2024-08,,,1.313,0,False,learn,02846676,nta before tax,1.303,dollars,0.9923838537699924
+SEC,2024-08,,,2.342,0,False,holdout,02845036,at estimated nta per share pre tax nta,2.322,dollars,0.9914602903501281
+GCI,2024-08,on nta per unit as at,dollars,2.0228,1,True,learn,02844830,,,,
+LSF,2024-08,,,3.094,0,False,learn,02844397,were nta per ordinary share nta before tax,3.0808,dollars,0.9957336780866193
+PAI,2024-08,,,0.9951,0,False,learn,02844715,pre tax nta per share as at was,0.999,dollars,1.0039192041000904
+OPH,2024-08,,,2.9898,0,False,learn,02843764,company limited ophir asset management pty ltd abn,3.0,dollars,1.0034115994380897
+MEC,2024-08,,,1.1277,0,False,learn,02842194,noted below dollars per share estimated nta pre tax,1.1025,dollars,0.9776536312849163
+GCI,2024-08,,,2.0228,0,False,learn,02842161,on nta per unit as at,2.0186,dollars,0.997923670160174
+QRI,2024-08,,,1.6007,0,False,holdout,02842053,is as follows value date nta per unit,1.6081,dollars,1.0046229774473667
+SEC,2024-08,,,2.342,0,False,holdout,02842284,at estimated nta per share pre tax nta,2.301,dollars,0.9824935952177626
+PAI,2024-08,,,0.9951,0,False,learn,02841406,pre tax nta per share as at was,1.0175,dollars,1.0225103004723144
+BKI,2024-08,,,1.85,0,False,holdout,02840868,payment of the fy interim dividend pre tax nta,1.86,dollars,1.0054054054054054
+PCX,2024-08,visit our website pengana com pcx client service t,dollars,2.0002,3,True,learn,02839512,,,,
+PCX,2024-08,net asset value,cents,2.0002,3,True,learn,02839512,,,,
+PCX,2024-08,nav as at cents per unit nav,cents,2.0002,3,True,learn,02839512,,,,
+PIC,2024-08,,,1.313,0,False,learn,02839200,nta after tax,1.304,dollars,0.9931454683929932
+WQG,2024-08,,,1.78,0,False,learn,02838996,management tax share price inception date a,1.77,dollars,0.9943820224719101
+ALI,2024-08,,,2.53,0,False,learn,02838916,share nta per share after unrealised tax provision,2.5,dollars,0.9881422924901186
+PE1,2024-08,,,1.5239,0,False,learn,02839152,net asset value,1.5943,cents,1.0461972570378635
+DUI,2024-08,,,6.03,0,False,holdout,02838701,investment limited level collins street melbourne vic abn,6.0,dollars,0.9950248756218905
+ALI,2024-08,,,2.53,0,False,learn,02838684,share nta per share after unrealised tax provision,2.52,dollars,0.9960474308300397
+MEC,2024-08,,,1.1277,0,False,learn,02838580,noted below dollars per share estimated nta pre tax,1.0972,dollars,0.9729537997694423
+GC1,2024-08,,,0.72,0,False,holdout,02838135,as at are as follows nta nta,0.6847,dollars,0.9509722222222222
+GCI,2024-08,,,2.0228,0,False,learn,02838007,on nta per unit as at,2.0118,dollars,0.9945619932766462
+WAM,2024-08,,,1.5374,0,False,learn,02837471,kreyp noertwinsg season caret up with solid fill,1.2,dollars,0.7805385716144139
+MOT,2024-08,is as follows value date nta per unit,dollars,2.1411,1,True,learn,02837197,,,,
+PIC,2024-08,,,1.313,0,False,learn,02836814,nta before tax,1.316,dollars,1.0022848438690024
+MOT,2024-08,is as follows value date nta per unit,dollars,2.1411,1,True,learn,02836799,,,,
+LSF,2024-08,,,3.094,0,False,learn,02836518,nta after tax,3.0666,dollars,0.9911441499676795
+MOT,2024-08,is as follows value date nta per unit,dollars,2.1411,1,True,learn,02836346,,,,
+PIC,2024-08,,,1.313,0,False,learn,02835971,nta after tax,1.293,dollars,0.9847677075399848
+MXT,2024-08,limited level exchange centre bridge street sydney nsw,dollars,2.001,2,True,learn,02835836,,,,
+MXT,2024-08,is as follows value date nta per unit,dollars,2.001,2,True,learn,02835836,,,,
+LSF,2024-07,,,3.2558,0,False,learn,02835609,were nta per ordinary share nta before tax,3.2162,dollars,0.987837090730389
+MFF,2024-07,monthly nta per share as at was,dollars,4.43,1,True,learn,02835512,,,,
+NSC,2024-07,,,0.63,0,False,holdout,02835249,naos small cap opportunities company limited abn,0.47,cents,0.7460317460317459
+LSF,2024-07,,,3.2558,0,False,learn,02835138,were nta per ordinary share nta before tax,3.1953,dollars,0.9814177775047608
+MXT,2024-07,,,2.0001,0,False,learn,02833808,is as follows value date nta per unit,2.0123,dollars,1.0060996950152492
+GCI,2024-07,,,2.008,0,False,learn,02833770,governor macquarie tower farrer place sydney nsw p,2.0,dollars,0.9960159362549801
+DUI,2024-07,,,6.11,0,False,holdout,02833533,investment limited level collins street melbourne vic abn,6.0,dollars,0.9819967266775776
+AUI,2024-07,,,12.23,0,False,holdout,02833527,is as below weekly pre tax nta per share,11.96,dollars,0.9779231398201145
+RG8,2024-07,,,2.26,0,False,learn,02832885,regal asian investments limited abn,2.19,cents,0.9690265486725664
+GC1,2024-07,,,0.7,0,False,holdout,02832734,nta as at are as follows nta,0.6984,dollars,0.9977142857142858
+MOT,2024-07,,,2.1409,0,False,learn,02832619,is as follows value date nta per unit,2.1516,dollars,1.0049978980802468
+MOT,2024-07,,,2.1409,0,False,learn,02831721,is as follows value date nta per unit,2.1505,dollars,1.0044840954738663
+CAM,2024-07,,,0.835,0,False,holdout,02830854,nta before tax,0.815,dollars,0.9760479041916167
+PGF,2024-07,,,2.2024,0,False,learn,02830674,nta before tax accruals,2.18,dollars,0.9898292771521977
+GC1,2024-07,,,0.7,0,False,holdout,02830526,nta as at are as follows nta,0.6962,dollars,0.9945714285714287
+PIC,2024-07,,,1.349,0,False,learn,02830437,nta before tax,1.337,dollars,0.9911045218680504
+LSF,2024-07,,,3.2558,0,False,learn,02830145,were nta per ordinary share nta before tax,3.2467,dollars,0.9972049880213774
+LSF,2024-07,were nta per ordinary share nta before tax,dollars,3.2558,1,True,learn,02829801,,,,
+MOT,2024-07,,,2.1409,0,False,learn,02829133,is as follows value date nta per unit,2.1472,dollars,1.002942687654725
+MXT,2024-07,,,2.0001,0,False,learn,02828671,is as follows value date nta per unit,2.0051,dollars,1.0024998750062497
+KKC,2024-07,current nta estimate,dollars,2.4727,2,True,learn,02828556,,,,
+KKC,2024-07,end of day us time current nta estimate,dollars,2.4727,2,True,learn,02828556,,,,
+PGF,2024-07,share gross dividend yield nta before tax accruals,dollars,2.2024,2,True,learn,02828537,,,,
+PGF,2024-07,nta before tax accruals,dollars,2.2024,2,True,learn,02828537,,,,
+8IH,2024-07,,,24.2469,0,False,learn,02827920,ih monthly nta per share period ending,20.24,cents,0.8347458850409742
+PCI,2024-07,,,1.107,0,False,holdout,02827761,perpetual credit income trust arsn angel place level,1.23,cents,1.1111111111111112
+ALI,2024-07,,,2.56,0,False,learn,02827749,nta per share nta per share,2.43,dollars,0.94921875
+BTI,2024-07,,,1.77,0,False,holdout,02827581,by an experienced team with demonstrated sector expertise,1.8,dollars,1.0169491525423728
+NGE,2024-07,,,1.305,0,False,holdout,02827522,asx ticker nge nta per share before tax,1.325,dollars,1.0153256704980842
+SEC,2024-07,,,2.344,0,False,holdout,02826880,nta per share pre tax nta post tax nta,2.236,dollars,0.953924914675768
+SEC,2024-07,,,2.344,0,False,holdout,02826153,at estimated nta per share pre tax nta,2.211,dollars,0.943259385665529
+FPC,2024-07,,,1.244,0,False,learn,02825730,fund as at rd amount pre tax nta,1.2561,dollars,1.009726688102894
+GCI,2024-07,on nta per unit as at,dollars,2.008,1,True,learn,02825497,,,,
+PIC,2024-07,,,1.349,0,False,learn,02825036,nta before tax,1.307,dollars,0.9688658265381764
+ECP,2024-07,,,1.76,0,False,learn,02824893,unrealised gains at cents cents at,1.7309999999999999,cents,0.9835227272727272
+KKC,2024-07,,,2.4727,0,False,learn,02825256,previous nta estimate,2.4805,dollars,1.003154446556396
+PIC,2024-07,,,1.349,0,False,learn,02824500,nta before tax,1.311,dollars,0.9718309859154929
