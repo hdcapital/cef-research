@@ -44,7 +44,7 @@ def test_a_large_but_credible_move_still_passes():
 
 def test_no_prior_history_is_not_evidence_of_a_bad_parse():
     out = nav_continuity(5.00, T("2026-08-24"), [])
-    assert out["ok"] is True and out["reason"] == "no_prior_nav"
+    assert out["ok"] is True and out["reason"] == "no_recent_prior_nav"
 
 
 def test_only_observations_strictly_before_the_anchor_count():
@@ -62,7 +62,7 @@ def test_the_most_recent_prior_is_the_comparison():
 def test_bad_values_are_ignored_rather_than_compared():
     prior = [(T("2026-06-30"), 0.0), (T("2026-05-31"), None),
              (T("2026-04-30"), float("nan"))]
-    assert nav_continuity(5.00, T("2026-08-24"), prior)["reason"] == "no_prior_nav"
+    assert nav_continuity(5.00, T("2026-08-24"), prior)["reason"] == "no_recent_prior_nav"
 
 
 def test_a_missing_anchor_is_not_a_continuity_failure():
@@ -103,3 +103,26 @@ def test_a_stale_two_month_old_comparator_is_still_usable():
     prior = [(T("2026-06-30"), 2.75)]
     assert nav_continuity(5.00, T("2026-08-24"), prior)["ok"] is False
     assert nav_continuity(2.80, T("2026-08-24"), prior)["ok"] is True
+
+
+def test_an_ancient_comparator_is_not_a_continuity_check():
+    """Zero Preference Growth was quarantined on a 2008 panel print.
+
+    Over eighteen years a NAV legitimately moves far more than 35%, so a
+    comparator that old carries no information about whether TODAY's anchor
+    was parsed correctly.
+    """
+    out = nav_continuity(1.73, T("2026-08-24"), [(T("2008-07-31"), 2.97)])
+    assert out["ok"] is True and out["reason"] == "no_recent_prior_nav"
+
+
+def test_a_recent_comparator_is_still_used():
+    out = nav_continuity(5.00, T("2026-08-24"), [(T("2026-06-30"), 2.75)])
+    assert out["ok"] is False and out["prev"] == 2.75
+
+
+def test_the_most_recent_IN_WINDOW_prior_wins():
+    """An ancient value must not be preferred just because it is closer in value."""
+    prior = [(T("2008-07-31"), 5.10), (T("2026-06-30"), 2.75)]
+    out = nav_continuity(5.00, T("2026-08-24"), prior)
+    assert out["prev"] == 2.75 and out["ok"] is False

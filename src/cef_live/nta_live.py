@@ -49,6 +49,14 @@ def _busdays_since(anchor: pd.Timestamp, today: date) -> int:
 # distribution, a crash - so this quarantines the row from ALERTING and
 # records why; it never deletes the observation or "corrects" the number.
 NAV_JUMP_ALERT_LIMIT = 0.35
+# A continuity check compares CONSECUTIVE observations. Comparing a 2026
+# anchor against a 2008 panel print is not continuity, it is noise: NAVs
+# legitimately move far more than 35% over eighteen years, and the first run
+# quarantined Zero Preference Growth, M&G Equity and US Special
+# Opportunities on comparators from 2008-2010. The panel lags by a month or
+# two in normal operation, so 400 days is generous while still excluding a
+# comparator too old to mean anything.
+NAV_PRIOR_MAX_AGE_DAYS = 400
 
 
 def nav_continuity(anchor_val, anchor_date, prior) -> dict:
@@ -64,9 +72,13 @@ def nav_continuity(anchor_val, anchor_date, prior) -> dict:
     usable = [(d, v) for d, v in prior
               if d is not None and v is not None and pd.notna(v) and v > 0
               and (anchor_date is None
-                   or pd.Timestamp(d) < pd.Timestamp(anchor_date))]
+                   or pd.Timestamp(d) < pd.Timestamp(anchor_date))
+              and (anchor_date is None
+                   or (pd.Timestamp(anchor_date) - pd.Timestamp(d)).days
+                   <= NAV_PRIOR_MAX_AGE_DAYS)]
     if not usable:
-        return {"ok": True, "reason": "no_prior_nav", "prev": None, "jump": None}
+        return {"ok": True, "reason": "no_recent_prior_nav",
+                "prev": None, "jump": None}
     _d, prev = max(usable, key=lambda t: pd.Timestamp(t[0]))
     jump = abs(float(anchor_val) - float(prev)) / float(prev)
     if jump > NAV_JUMP_ALERT_LIMIT:
