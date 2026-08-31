@@ -249,3 +249,33 @@ def test_a_fund_that_trades_without_a_nav_keeps_its_rows():
     assert len(b) == 1
     assert pd.isna(b.iloc[0]["discount"])
     assert b.iloc[0]["quality"] == "no_nav_published_yet"
+
+
+# ------------------------------------------------- unit invariant, UK table
+def test_uk_own_nav_history_is_pence_like_every_other_uk_figure():
+    """NAV and the price it is divided by must share a unit.
+
+    Every UK figure in the live table is pence - the AIC panel's NAV column,
+    the tier 0 harvest, and the price. `_own_nav_history` divided its UK NAV
+    by 100, putting one anchor source in pounds. The 20 funds anchored that
+    way carried discount_est between +79 and +5649 in the committed table:
+    premiums of 7,990% to 564,900%, obvious in isolation and easy to miss in
+    a 641-row file. AU is dollars on both sides and must not be touched.
+    """
+    from cef_live import cli
+    src = inspect.getsource(cli._own_nav_history)
+    uk_half = src.split("for f in sorted(Path(\"data/asx_extract\")")[0]
+    assert "nav_cum_pence" in uk_half
+    assert "/ 100.0" not in uk_half, \
+        "UK NAV must stay in pence - the price it is compared against is"
+
+
+def test_snapshot_navs_are_read_as_pence_not_converted():
+    """The mirror-image mistake, in the reader rather than the writer.
+
+    The nightly snapshots are the ONLY NAV history the announcements_only
+    cohort has, so a x100 there would be wrong in exactly the place where no
+    other source exists to contradict it.
+    """
+    src = inspect.getsource(NAV.extract_from_snapshots)
+    assert "* 100.0" not in src

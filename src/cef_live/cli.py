@@ -232,7 +232,16 @@ def _own_nav_history(market: str) -> pd.DataFrame:
             frames.append(pd.DataFrame({
                 "ticker": h["ticker"].astype(str).str.upper(),
                 "nav_date": h.get("nav_date", h.get("ann_date")),
-                "nav_value": pd.to_numeric(h["nav_cum_pence"], errors="coerce") / 100.0,
+                # PENCE, not pounds. Every other UK figure in the live table
+                # is pence - the AIC panel's nav_col, the tier 0 harvest, and
+                # the price - so dividing by 100 here put this one anchor in a
+                # different unit from the price it is divided by. The 20 funds
+                # anchored this way carried discount_est between +79 and +5649
+                # (premiums of 7,990% to 564,900%) in the committed table:
+                # nonsense large enough to be obvious in isolation and easy to
+                # miss in a 641-row file. tests/test_uk_daily_discount.py
+                # asserts the unit stays shared.
+                "nav_value": pd.to_numeric(h["nav_cum_pence"], errors="coerce"),
             }))
         if not frames:
             return pd.DataFrame()

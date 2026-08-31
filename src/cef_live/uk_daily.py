@@ -79,6 +79,10 @@ def stage_nav(universe: pd.DataFrame, bucket: str, *, deadline_min: float,
     stats["panel_rows"] = int(len(panel))
     stats["panel_funds"] = int(panel["ticker"].nunique()) if len(panel) else 0
     NAV.write_panel(panel)
+    per_fund, summary = NAV.quality_report(panel)
+    if len(per_fund):
+        _write_csv(per_fund, OUT_DIR / "uk_nav_quality.csv")
+    stats["quality"] = summary
     return panel, stats
 
 

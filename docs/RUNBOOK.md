@@ -192,6 +192,7 @@ deliverables under `outputs/live/`:
 | `uk_nav_frequency.csv` | fund: measured publication cadence |
 | `uk_price_unit_reconciliation.csv` | fund: the scale applied and the evidence for it |
 | `uk_nav_archive_readiness.csv` | fund: why a short history is short |
+| `uk_nav_quality.csv` | fund: how much its NAV series can be trusted |
 
 ### Two traps this panel is built around
 
@@ -219,6 +220,41 @@ tradable. So the limit is 3× that fund's own median publication gap, floored
 at 14 days, and `discount` (the market's own convention: price against the
 last published NAV, however old) sits alongside `discount_fresh` (the
 stricter reading) with `nav_age_days` and `nav_stale` between them.
+
+### How much the extracted NAV can be trusted
+
+A parser that picks the wrong number off a page does not fail loudly - it
+returns a number, and a series of plausible numbers is exactly what a
+discount panel cannot detect. But a mis-parse has a signature: a large move
+between consecutive publications that immediately REVERSES, because the next
+announcement goes back to reading the right line. A real NAV move does not
+come back the next day.
+
+Measured over the panel as committed (367,008 consecutive-publication pairs,
+2026-08-31):
+
+| | |
+|---|---|
+| median change between publications | 0.54% |
+| 90th percentile | 1.8% |
+| moves > 25% | 0.85% |
+| jump-and-reverse (likely mis-parse) | 0.065% |
+
+That is what fund NAVs look like. **The finding that matters when using the
+panel**: rows flagged `cum_assumed` - the parser's plain fallback, used where
+an announcement states no income basis - move > 25% at **3.55%** against
+**0.083%** for rows matched by a labelled rule. A 43x higher rate. They are
+23% of the panel. They are kept, because they are real observations, and
+they are flagged on every row so an analysis that cannot tolerate them can
+drop them with one filter.
+
+An external check is thinner: only three points in the committed data are
+independently comparable against the AIC's own published NAV (the rest of
+the aggregator-anchored funds are outside our extracted history). HGEN
+matched exactly; EOT and ATY differed by +4.1% and -3.4% on the same date,
+which is the size of a NAV *basis* difference - cum vs ex income, debt at
+fair value vs par - rather than a parse error. A fuller comparison needs the
+AIC panel rebuilt, which the backtest workflow does.
 
 ### Known boundary: 150 live funds have no archived NAV history
 

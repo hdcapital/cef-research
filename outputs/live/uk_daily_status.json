@@ -1,0 +1,27 @@
+{
+  "run_at": "2026-08-31T05:25:51+00:00",
+  "stages": [
+    "nav"
+  ],
+  "live_funds_addressed": 288,
+  "bucket": false,
+  "nav": {
+    "held_rows": 375408,
+    "seed_rows": 578379,
+    "archive": "s3_skipped_no_bucket",
+    "raw_rows": 953787,
+    "unparsed_rows": 167347,
+    "panel_rows": 375408,
+    "panel_funds": 138,
+    "quality": {
+      "observations_compared": 367008,
+      "median_abs_change": 0.005407,
+      "p90_abs_change": 0.018074,
+      "big_move_rate": 0.008518,
+      "jump_reversal_rate": 0.00064576,
+      "big_move_rate_labelled_basis": 0.00083,
+      "big_move_rate_cum_assumed": 0.035517,
+      "cum_assumed_share_of_panel": 0.2259
+    }
+  }
+}
