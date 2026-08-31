@@ -82,7 +82,18 @@ def nav_continuity(anchor_val, anchor_date, prior) -> dict:
     _d, prev = max(usable, key=lambda t: pd.Timestamp(t[0]))
     jump = abs(float(anchor_val) - float(prev)) / float(prev)
     if jump > NAV_JUMP_ALERT_LIMIT:
-        return {"ok": False, "reason": f"nav_jump_{jump:.0%}_vs_prior",
+        # Distinguish the two causes, because they need different fixes. A
+        # ratio near 100 (or 1/100) is a pence-vs-pounds mismatch, not a
+        # NAV that moved: the panel is not reliably canonical either -
+        # Lindsell Train's print of 7.09 is pounds against a 698.83 pence
+        # anchor. Both are quarantined, since a number we cannot trust must
+        # not alert, but calling a unit bug a "jump" would send anyone
+        # looking at it in the wrong direction.
+        ratio = float(anchor_val) / float(prev)
+        unit_like = (70 <= ratio <= 130) or (1 / 130 <= ratio <= 1 / 70)
+        return {"ok": False,
+                "reason": (f"nav_unit_mismatch_{ratio:.0f}x_vs_prior" if unit_like
+                           else f"nav_jump_{jump:.0%}_vs_prior"),
                 "prev": float(prev), "jump": float(jump)}
     return {"ok": True, "reason": "", "prev": float(prev), "jump": float(jump)}
 

@@ -126,3 +126,20 @@ def test_the_most_recent_IN_WINDOW_prior_wins():
     prior = [(T("2008-07-31"), 5.10), (T("2026-06-30"), 2.75)]
     out = nav_continuity(5.00, T("2026-08-24"), prior)
     assert out["prev"] == 2.75 and out["ok"] is False
+
+
+def test_a_pence_pounds_mismatch_is_named_as_one():
+    """Lindsell Train: 698.83 pence against a 7.09 panel print in pounds.
+
+    Both causes quarantine the row - a number we cannot trust must not
+    alert - but calling a unit bug a 'jump' points whoever reads it in the
+    wrong direction.
+    """
+    out = nav_continuity(698.83, T("2026-08-24"), [(T("2026-06-30"), 7.09)])
+    assert out["ok"] is False
+    assert out["reason"].startswith("nav_unit_mismatch")
+
+
+def test_a_real_jump_is_still_called_a_jump():
+    out = nav_continuity(5.00, T("2026-08-24"), [(T("2026-06-30"), 2.75)])
+    assert out["ok"] is False and out["reason"].startswith("nav_jump")
