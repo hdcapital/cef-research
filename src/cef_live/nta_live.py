@@ -324,26 +324,36 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
         # sources are used: the aggregator panel is monthly and lags, so a
         # month-end print is not the right predecessor for a fresh
         # announcement, and mixing the two would fire on ordinary staleness.
+        # The comparator is the AGGREGATOR PANEL only, and deliberately so.
+        # Our own sources do not agree on units: normalise() passes an
+        # unstated unit through untouched while labelling it canonical, so a
+        # UK NAV held in pounds and one held in pence both come back tagged
+        # GBX. Comparing across them fired on 32 funds - RIT at 3106 against
+        # 39, HICL at 158.20 against 1.20 - every one a unit artefact rather
+        # than a bad parse, while ALI, the fund this check exists for, had no
+        # own-source predecessor at all and sailed through.
+        #
+        # The panel is monthly and lags, but it is in the market's canonical
+        # unit by construction and it is INDEPENDENT of our parser, which is
+        # what makes it able to contradict it. A two-month-old NAV is a
+        # perfectly good comparator against a 35% threshold: NAVs do not
+        # ordinarily move that far in two months.
         _prior = []
-        if own is not None and len(own):
-            _o = own[own["security_id"] == sid]
-            for _, _r in _o.iterrows():
-                try:
-                    _v, _u, _ = U.normalise(market, _r["nav_value"], _r.get("nav_unit"))
-                    _prior.append((pd.Timestamp(_r["nav_date"]), float(_v)))
-                except Exception:  # noqa: BLE001
-                    continue
-        if tier0 is not None and len(tier0):
-            _t = tier0[tier0["security_id"] == sid]
-            for _, _r in _t.iterrows():
-                try:
-                    _v, _u, _ = U.normalise(
-                        market, _r["nav_value"],
-                        _r["unit"] if "unit" in _r.index else None)
-                    _prior.append((pd.Timestamp(_r["nav_date"]), float(_v)))
-                except Exception:  # noqa: BLE001
-                    continue
-        cont = nav_continuity(anchor_val if has_nav else None, anchor_date, _prior)
+        if len(g):
+            for _, _r in g.iterrows():
+                _v = _r.get(nav_col)
+                if pd.notna(_v):
+                    try:
+                        _prior.append((pd.Period(_r["obs_month"], freq="M")
+                                       .to_timestamp(how="end"), float(_v)))
+                    except Exception:  # noqa: BLE001
+                        continue
+        # an anchor carrying a non-canonical unit is not comparable to the
+        # panel; skip rather than manufacture a jump
+        cont = (nav_continuity(anchor_val if has_nav else None, anchor_date, _prior)
+                if nav_unit == U.CANONICAL_UNIT.get(market, "")
+                else {"ok": True, "reason": "unit_not_canonical",
+                      "prev": None, "jump": None})
         nav_positive = bool(has_nav and pd.notna(anchor_val) and anchor_val > 0)
         # A MONTH-END AGGREGATOR PRINT IS NOT A CURRENT MARKET PRICE, and a
         # discount computed against one is not a current discount. European

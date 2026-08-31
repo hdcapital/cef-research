@@ -77,3 +77,29 @@ def test_the_threshold_is_where_it_is_documented(jump, expect_ok):
     prev = 2.00
     assert nav_continuity(prev * (1 + jump), T("2026-07-31"),
                           [(T("2026-06-30"), prev)])["ok"] is expect_ok
+
+
+def test_the_comparator_must_not_mix_units():
+    """A pounds-vs-pence pair is a unit bug, not a discontinuity.
+
+    The first version of this guard compared the anchor against our own
+    extracted history, where normalise() passes an unstated unit through
+    untouched while labelling it canonical - so a NAV held in pounds and one
+    held in pence both come back tagged GBX. It quarantined 32 funds on that
+    artefact (RIT at 3106 against 39, HICL at 158.20 against 1.20) while
+    missing ALI entirely. The comparator is now the aggregator panel, which
+    is canonical by construction; this pins the arithmetic that made those
+    false alarms so obvious in hindsight.
+    """
+    prior_pounds = [(T("2026-06-30"), 39.00)]     # pounds
+    anchor_pence = 3106.0                          # pence: the SAME value
+    out = nav_continuity(anchor_pence, T("2026-08-24"), prior_pounds)
+    assert out["ok"] is False, "sanity: mixed units do look like a huge jump"
+    # ...which is exactly why the caller must only pass canonical-unit priors.
+
+
+def test_a_stale_two_month_old_comparator_is_still_usable():
+    """The panel lags, and that is fine against a 35% threshold."""
+    prior = [(T("2026-06-30"), 2.75)]
+    assert nav_continuity(5.00, T("2026-08-24"), prior)["ok"] is False
+    assert nav_continuity(2.80, T("2026-08-24"), prior)["ok"] is True
