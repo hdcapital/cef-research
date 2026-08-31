@@ -1,0 +1,11 @@
+# Yahoo symbols for UK fund TIDMs where the default {TIDM}.L is wrong.
+#
+# The default is right for the overwhelming majority of London lines, so this
+# file stays short. Add a row only when outputs/live/uk_price_fetch_report.csv
+# records status=no_history for a fund that is demonstrably still trading,
+# and only after the candidate symbol has been checked to be the SAME company:
+# a wrong symbol staples another company's share price onto this fund's NAV,
+# and nothing downstream can detect it - the discount just quietly becomes
+# fiction. Record who checked it and when.
+#
+# ticker,yahoo_symbol,verified_by,verified_date,note

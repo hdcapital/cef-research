@@ -137,6 +137,30 @@ python -m uk_cef.cli report        # charts + outputs/report.md
 python -m uk_cef.cli run-all
 ```
 
+## Live layer: the UK daily discount panel
+
+Separate from the month-end backtest above, `python -m cef_live.cli uk-daily`
+maintains a **daily** panel for the UK funds that are still listed:
+
+* **NAV/NTA at each fund's own frequency**, re-parsed out of the S3 archive of
+  its own "Net Asset Value(s)" RNS announcements (and the nightly live
+  snapshots), back to 2007 — daily for most conventional trusts, monthly or
+  quarterly for much of the property and infrastructure cohort. Frequency is
+  measured per fund, not assumed.
+* **Daily closing price**, raw close only. Yahoo's adjusted close is
+  retro-adjusted for dividends paid *after* the date, so a discount built on
+  it changes whenever the fund next pays out.
+* **Daily discount**, `close / last published NAV − 1`, joined as-of on the
+  **publication** date rather than the valuation date, with a staleness flag
+  scaled to each fund's own publication cadence.
+
+Three idempotent, incremental stages (`--stages nav,prices,discount`) so the
+`uk-daily-discount` workflow can re-run it every weekday evening for a few
+hundred requests. Panels live in S3 (`data/uk/**`, state group `uk_daily`);
+the small per-fund deliverables are committed under `outputs/live/`.
+See **docs/RUNBOOK.md** for the pence/pounds and publication-date traps this
+is built around, and for the measured coverage boundary.
+
 ## GitHub Actions
 
 `.github/workflows/backtest.yml` runs the whole pipeline (tests → discover →
