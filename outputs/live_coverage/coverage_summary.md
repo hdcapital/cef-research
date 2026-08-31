@@ -1,6 +1,6 @@
 # Live fund coverage audit
 
-Generated 2026-08-31T06:28:52+00:00 (as at 2026-08-31).
+Generated 2026-08-31T06:34:27+00:00 (as at 2026-08-31).
 
 Run on demand only - this report has no schedule.
 
@@ -10,43 +10,43 @@ Run on demand only - this report has no schedule.
 |---|--:|--:|--:|
 | Registry universe (all vehicles ever listed) | 944 | 172 | 1116 |
 | Registry-labelled live (aggregator) | 281 | 95 | 376 |
-| Liveness-adjusted live (own filings) | 309 | 112 | 421 |
+| Liveness-adjusted live (own filings) | 306 | 112 | 418 |
 | Research eligible | 586 | 168 | 754 |
-| Monitoring eligible (audit denominator) | 239 | 108 | 347 |
-| Excluded | 705 | 64 | 769 |
+| Monitoring eligible (audit denominator) | 234 | 108 | 342 |
+| Excluded | 710 | 64 | 774 |
 
 ## UK
 
 ```
-Monitoring-eligible funds:     239
-Fresh price:                   144 / 60.3%
-Usable price:                  144 / 60.3%
-Usable NAV:                    138 / 57.7%
-Valid current discount:        132 / 55.2%
-Valid z-score history:         155 / 64.9%
-Fully signal-ready:             99 / 41.4%
+Monitoring-eligible funds:     234
+Fresh price:                   144 / 61.5%
+Usable price:                  144 / 61.5%
+Usable NAV:                    138 / 59.0%
+Valid current discount:        133 / 56.8%
+Valid z-score history:         154 / 65.8%
+Fully signal-ready:             99 / 42.3%
 
-GREEN 99   AMBER 33   RED 107
+GREEN 99   AMBER 34   RED 101
 ```
 
 | Price | n | % |
 |---|--:|--:|
-| Fresh | 144 | 60.3% |
+| Fresh | 144 | 61.5% |
 | Stale | 0 | 0.0% |
-| Historical panel fallback | 24 | 10.0% |
-| No price | 71 | 29.7% |
+| Historical panel fallback | 23 | 9.8% |
+| No price | 67 | 28.6% |
 | Unresolved ticker | 0 | |
 
 NAV rows below are independent flags, not a partition: a NAV can be both modelled and stale, and a fund with a usable monthly NAV can still have an unparsed announcement.
 
 | NAV | n | % |
 |---|--:|--:|
-| Fresh directly published | 106 | 44.4% |
-| Modelled / rolled forward | 51 | 21.3% |
-| Stale | 34 | 14.2% |
-| No usable NAV | 71 | 29.7% |
-| NAV announcement held but no value parsed | 33 | 13.8% |
-| ...of which the parser ran and failed | 33 | 13.8% |
+| Fresh directly published | 106 | 45.3% |
+| Modelled / rolled forward | 50 | 21.4% |
+| Stale | 33 | 14.1% |
+| No usable NAV | 67 | 28.6% |
+| NAV announcement held but no value parsed | 42 | 17.9% |
+| ...of which the parser ran and failed | 42 | 17.9% |
 
 ## ASX
 
@@ -84,51 +84,51 @@ NAV rows below are independent flags, not a partition: a NAV can be both modelle
 ## COMBINED
 
 ```
-Monitoring-eligible funds:     347
-Fresh price:                   242 / 69.7%
-Usable price:                  242 / 69.7%
-Usable NAV:                    227 / 65.4%
-Valid current discount:        221 / 63.7%
-Valid z-score history:         246 / 70.9%
-Fully signal-ready:            104 / 30.0%
+Monitoring-eligible funds:     342
+Fresh price:                   242 / 70.8%
+Usable price:                  242 / 70.8%
+Usable NAV:                    227 / 66.4%
+Valid current discount:        222 / 64.9%
+Valid z-score history:         245 / 71.6%
+Fully signal-ready:            104 / 30.4%
 
-GREEN 104   AMBER 117   RED 126
+GREEN 104   AMBER 118   RED 120
 ```
 
 | Price | n | % |
 |---|--:|--:|
-| Fresh | 242 | 69.7% |
+| Fresh | 242 | 70.8% |
 | Stale | 0 | 0.0% |
-| Historical panel fallback | 33 | 9.5% |
-| No price | 72 | 20.7% |
+| Historical panel fallback | 32 | 9.4% |
+| No price | 68 | 19.9% |
 | Unresolved ticker | 0 | |
 
 NAV rows below are independent flags, not a partition: a NAV can be both modelled and stale, and a fund with a usable monthly NAV can still have an unparsed announcement.
 
 | NAV | n | % |
 |---|--:|--:|
-| Fresh directly published | 112 | 32.3% |
-| Modelled / rolled forward | 133 | 38.3% |
-| Stale | 135 | 38.9% |
-| No usable NAV | 72 | 20.7% |
-| NAV announcement held but no value parsed | 133 | 38.3% |
-| ...of which the parser ran and failed | 33 | 9.5% |
+| Fresh directly published | 112 | 32.7% |
+| Modelled / rolled forward | 132 | 38.6% |
+| Stale | 134 | 39.2% |
+| No usable NAV | 68 | 19.9% |
+| NAV announcement held but no value parsed | 142 | 41.5% |
+| ...of which the parser ran and failed | 42 | 12.3% |
 
 ## Why coverage is missing
 
 | Issue | UK | ASX | Total |
 |---|--:|--:|--:|
-| Rolled-forward (modelled) NAV | 27 | 71 | 98 |
+| Rolled-forward (modelled) NAV | 28 | 71 | 99 |
 | Somewhat stale NAV | 3 | 83 | 86 |
 | ASX monthly report NTA (no announcement route) | 0 | 83 | 83 |
-| Live but absent from the live table | 71 | 1 | 72 |
-| No usable NAV | 71 | 0 | 71 |
-| NAV older than the amber window | 30 | 18 | 48 |
-| Stale historical panel price only | 24 | 9 | 33 |
+| Live but absent from the live table | 67 | 1 | 68 |
+| No usable NAV | 59 | 0 | 59 |
+| NAV older than the amber window | 29 | 18 | 47 |
+| Stale historical panel price only | 23 | 9 | 32 |
 | Aggregator NAV only (no own route) | 28 | 0 | 28 |
 | Insufficient z-score history | 4 | 12 | 16 |
-| Suspected unit mismatch | 2 | 4 | 6 |
-| NAV announcement found but unparsed | 0 | 1 | 1 |
+| NAV announcement found but unparsed | 8 | 1 | 9 |
+| Suspected unit mismatch | 1 | 4 | 5 |
 
 ## RED funds
 
@@ -160,7 +160,6 @@ NAV rows below are independent flags, not a partition: a NAV can be both modelle
 | UK | BSRT | Baker Steel Resources Trust | Live but absent from the live table | no row in data/nta_live/latest.parquet: the table was built when a fund with no NAV anchor was dropped outright, which discarded its price too. nta_live now keeps the row - re-run the nightly (or this audit with --refresh) and the price, if there is one, will appear |
 | UK | BRLA | BlackRock Latin American | Stale historical panel price only | the live price feed returned nothing for this symbol - verify the Yahoo symbol and re-run; never present the panel price as today's |
 | UK | THRG | BlackRock Throgmorton Trust | Stale historical panel price only | the live price feed returned nothing for this symbol - verify the Yahoo symbol and re-run; never present the panel price as today's |
-| UK | BSIF | Bluefield Solar Income Fund | Live but absent from the live table | no row in data/nta_live/latest.parquet: the table was built when a fund with no NAV anchor was dropped outright, which discarded its price too. nta_live now keeps the row - re-run the nightly (or this audit with --refresh) and the price, if there is one, will appear |
 | UK | BAF | British & American | Live but absent from the live table | no row in data/nta_live/latest.parquet: the table was built when a fund with no NAV anchor was dropped outright, which discarded its price too. nta_live now keeps the row - re-run the nightly (or this audit with --refresh) and the price, if there is one, will appear |
 | UK | CTPE | CT Private Equity Trust | Live but absent from the live table | no row in data/nta_live/latest.parquet: the table was built when a fund with no NAV anchor was dropped outright, which discarded its price too. nta_live now keeps the row - re-run the nightly (or this audit with --refresh) and the price, if there is one, will appear |
 | UK | CVCE | CVC Income & Growth | Live but absent from the live table | no row in data/nta_live/latest.parquet: the table was built when a fund with no NAV anchor was dropped outright, which discarded its price too. nta_live now keeps the row - re-run the nightly (or this audit with --refresh) and the price, if there is one, will appear |
@@ -200,7 +199,6 @@ NAV rows below are independent flags, not a partition: a NAV can be both modelle
 | UK | LBOW | ICG-Longbow Senior Secured UK Property Debt Invest | Live but absent from the live table | no row in data/nta_live/latest.parquet: the table was built when a fund with no NAV anchor was dropped outright, which discarded its price too. nta_live now keeps the row - re-run the nightly (or this audit with --refresh) and the price, if there is one, will appear |
 | UK | IGC | India Capital Growth Fund | Live but absent from the live table | no row in data/nta_live/latest.parquet: the table was built when a fund with no NAV anchor was dropped outright, which discarded its price too. nta_live now keeps the row - re-run the nightly (or this audit with --refresh) and the price, if there is one, will appear |
 | UK | INPP | International Public Partnerships | Live but absent from the live table | no row in data/nta_live/latest.parquet: the table was built when a fund with no NAV anchor was dropped outright, which discarded its price too. nta_live now keeps the row - re-run the nightly (or this audit with --refresh) and the price, if there is one, will appear |
-| UK | JPEL | JPEL Private Equity | Live but absent from the live table | no row in data/nta_live/latest.parquet: the table was built when a fund with no NAV anchor was dropped outright, which discarded its price too. nta_live now keeps the row - re-run the nightly (or this audit with --refresh) and the price, if there is one, will appear |
 | UK | JEMA | JPMorgan Emerging Europe, Middle East & Africa | Stale historical panel price only | the live price feed returned nothing for this symbol - verify the Yahoo symbol and re-run; never present the panel price as today's |
 | UK | JARA | JPMorgan Global Core Real Assets | NAV older than the amber window | the newest NAV we hold is older than the amber window - re-run the NAV harvest for this fund and check its publication frequency |
 | UK | JGC | Jupiter Green Investment Trust | Stale historical panel price only | the live price feed returned nothing for this symbol - verify the Yahoo symbol and re-run; never present the panel price as today's |
@@ -212,7 +210,6 @@ NAV rows below are independent flags, not a partition: a NAV can be both modelle
 | UK | MHN | Menhaden Resource Efficiency | Stale historical panel price only | the live price feed returned nothing for this symbol - verify the Yahoo symbol and re-run; never present the panel price as today's |
 | UK | MINI | Miton UK Microcap Trust | Stale historical panel price only | the live price feed returned nothing for this symbol - verify the Yahoo symbol and re-run; never present the panel price as today's |
 | UK | GROW | Molten Ventures | Live but absent from the live table | no row in data/nta_live/latest.parquet: the table was built when a fund with no NAV anchor was dropped outright, which discarded its price too. nta_live now keeps the row - re-run the nightly (or this audit with --refresh) and the price, if there is one, will appear |
-| UK | MTU | Montanaro UK Smaller Companies | Suspected unit mismatch | do NOT rescale the output - find which side is wrong (NAV parse or quote currency) and fix the source reader |
 | UK | NBPE | Neuberger Private Equity Partners | Live but absent from the live table | no row in data/nta_live/latest.parquet: the table was built when a fund with no NAV anchor was dropped outright, which discarded its price too. nta_live now keeps the row - re-run the nightly (or this audit with --refresh) and the price, if there is one, will appear |
 | UK | NESF | NextEnergy Solar Fund | Live but absent from the live table | no row in data/nta_live/latest.parquet: the table was built when a fund with no NAV anchor was dropped outright, which discarded its price too. nta_live now keeps the row - re-run the nightly (or this audit with --refresh) and the price, if there is one, will appear |
 | UK | NAS | North Atlantic Smaller Companies | Stale historical panel price only | the live price feed returned nothing for this symbol - verify the Yahoo symbol and re-run; never present the panel price as today's |
@@ -232,13 +229,11 @@ NAV rows below are independent flags, not a partition: a NAV can be both modelle
 | UK | RGL | Regional REIT | Live but absent from the live table | no row in data/nta_live/latest.parquet: the table was built when a fund with no NAV anchor was dropped outright, which discarded its price too. nta_live now keeps the row - re-run the nightly (or this audit with --refresh) and the price, if there is one, will appear |
 | UK | TRIG | Renewables Infrastructure Group | Live but absent from the live table | no row in data/nta_live/latest.parquet: the table was built when a fund with no NAV anchor was dropped outright, which discarded its price too. nta_live now keeps the row - re-run the nightly (or this audit with --refresh) and the price, if there is one, will appear |
 | UK | RESI | Residential Secure Income REIT | Live but absent from the live table | no row in data/nta_live/latest.parquet: the table was built when a fund with no NAV anchor was dropped outright, which discarded its price too. nta_live now keeps the row - re-run the nightly (or this audit with --refresh) and the price, if there is one, will appear |
-| UK | RIII | Rights & Issues Investment Trust | Live but absent from the live table | no row in data/nta_live/latest.parquet: the table was built when a fund with no NAV anchor was dropped outright, which discarded its price too. nta_live now keeps the row - re-run the nightly (or this audit with --refresh) and the price, if there is one, will appear |
 | UK | RMMC | River UK Micro Cap | Live but absent from the live table | no row in data/nta_live/latest.parquet: the table was built when a fund with no NAV anchor was dropped outright, which discarded its price too. nta_live now keeps the row - re-run the nightly (or this audit with --refresh) and the price, if there is one, will appear |
 | UK | RSE | Riverstone Energy | Live but absent from the live table | no row in data/nta_live/latest.parquet: the table was built when a fund with no NAV anchor was dropped outright, which discarded its price too. nta_live now keeps the row - re-run the nightly (or this audit with --refresh) and the price, if there is one, will appear |
 | UK | RICA | Ruffer Investment Company | Live but absent from the live table | no row in data/nta_live/latest.parquet: the table was built when a fund with no NAV anchor was dropped outright, which discarded its price too. nta_live now keeps the row - re-run the nightly (or this audit with --refresh) and the price, if there is one, will appear |
 | UK | SEIT | SDCL Efficiency Income | Live but absent from the live table | no row in data/nta_live/latest.parquet: the table was built when a fund with no NAV anchor was dropped outright, which discarded its price too. nta_live now keeps the row - re-run the nightly (or this audit with --refresh) and the price, if there is one, will appear |
 | UK | SVM | SVM UK Emerging Fund | Stale historical panel price only | the live price feed returned nothing for this symbol - verify the Yahoo symbol and re-run; never present the panel price as today's |
-| UK | SERE | Schroder European Real Estate | Live but absent from the live table | no row in data/nta_live/latest.parquet: the table was built when a fund with no NAV anchor was dropped outright, which discarded its price too. nta_live now keeps the row - re-run the nightly (or this audit with --refresh) and the price, if there is one, will appear |
 | UK | SREI | Schroder Real Estate | Live but absent from the live table | no row in data/nta_live/latest.parquet: the table was built when a fund with no NAV anchor was dropped outright, which discarded its price too. nta_live now keeps the row - re-run the nightly (or this audit with --refresh) and the price, if there is one, will appear |
 | UK | SEQI | Sequoia Economic Infrastructure Income | Live but absent from the live table | no row in data/nta_live/latest.parquet: the table was built when a fund with no NAV anchor was dropped outright, which discarded its price too. nta_live now keeps the row - re-run the nightly (or this audit with --refresh) and the price, if there is one, will appear |
 | UK | SHRS | Shires Income | Stale historical panel price only | the live price feed returned nothing for this symbol - verify the Yahoo symbol and re-run; never present the panel price as today's |
@@ -253,7 +248,6 @@ NAV rows below are independent flags, not a partition: a NAV can be both modelle
 | UK | USF | US Solar Fund | Live but absent from the live table | no row in data/nta_live/latest.parquet: the table was built when a fund with no NAV anchor was dropped outright, which discarded its price too. nta_live now keeps the row - re-run the nightly (or this audit with --refresh) and the price, if there is one, will appear |
 | UK | ENRG | VH Global Energy Infrastructure | Live but absent from the live table | no row in data/nta_live/latest.parquet: the table was built when a fund with no NAV anchor was dropped outright, which discarded its price too. nta_live now keeps the row - re-run the nightly (or this audit with --refresh) and the price, if there is one, will appear |
 | UK | VSL | VPC Specialty Lending Investments | Live but absent from the live table | no row in data/nta_live/latest.parquet: the table was built when a fund with no NAV anchor was dropped outright, which discarded its price too. nta_live now keeps the row - re-run the nightly (or this audit with --refresh) and the price, if there is one, will appear |
-| UK | VIP | Value and Indexed Property Income Trust | Stale historical panel price only | the live price feed returned nothing for this symbol - verify the Yahoo symbol and re-run; never present the panel price as today's |
 | UK | VNH | VietNam Holding | Live but absent from the live table | no row in data/nta_live/latest.parquet: the table was built when a fund with no NAV anchor was dropped outright, which discarded its price too. nta_live now keeps the row - re-run the nightly (or this audit with --refresh) and the price, if there is one, will appear |
 | UK | VEIL | Vietnam Enterprise Investments | Live but absent from the live table | no row in data/nta_live/latest.parquet: the table was built when a fund with no NAV anchor was dropped outright, which discarded its price too. nta_live now keeps the row - re-run the nightly (or this audit with --refresh) and the price, if there is one, will appear |
 | UK | VOF | VinaCapital Vietnam Opportunity | Live but absent from the live table | no row in data/nta_live/latest.parquet: the table was built when a fund with no NAV anchor was dropped outright, which discarded its price too. nta_live now keeps the row - re-run the nightly (or this audit with --refresh) and the price, if there is one, will appear |
@@ -263,7 +257,7 @@ NAV rows below are independent flags, not a partition: a NAV can be both modelle
 
 ## Excluded vehicles
 
-769 vehicles are outside the monitoring universe. They keep their rows in the Excluded tab with the reason; none is deleted.
+774 vehicles are outside the monitoring universe. They keep their rows in the Excluded tab with the reason; none is deleted.
 
 | Reason | n |
 |---|--:|
@@ -272,7 +266,7 @@ NAV rows below are independent flags, not a partition: a NAV can be both modelle
 | split_capital_excluded_by_research_policy|non_ordinary_share_class | 68 |
 | non_ordinary_share_class | 26 |
 | non_sterling_quote | 18 |
-| not_live:delist_candidate | 9 |
+| not_live:delist_candidate | 14 |
 | split_capital_excluded_by_research_policy | 8 |
 | benchmark_index_not_a_fund | 4 |
 | vct_excluded_by_research_policy|non_ordinary_share_class | 3 |

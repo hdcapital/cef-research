@@ -210,6 +210,29 @@ list. Two of the fixes are jobs rather than code changes:
 |---|---|
 | `NAV announcement held but no value parsed` (UK) | `uk-nav-archive` with `mode: reparse` — re-runs the current parser over the announcement text already archived in S3, no crawling |
 | `ASX monthly report NTA (no announcement route)` | `asx-extract` in `deterministic` mode — the PDFs are archived daily to S3; the extraction that turns them into NAV values is dispatch-only and last ran before the announcement index was repaired |
+## Live layer: the UK daily discount panel
+
+Separate from the month-end backtest above, `python -m cef_live.cli uk-daily`
+maintains a **daily** panel for the UK funds that are still listed:
+
+* **NAV/NTA at each fund's own frequency**, re-parsed out of the S3 archive of
+  its own "Net Asset Value(s)" RNS announcements (and the nightly live
+  snapshots), back to 2007 — daily for most conventional trusts, monthly or
+  quarterly for much of the property and infrastructure cohort. Frequency is
+  measured per fund, not assumed.
+* **Daily closing price**, raw close only. Yahoo's adjusted close is
+  retro-adjusted for dividends paid *after* the date, so a discount built on
+  it changes whenever the fund next pays out.
+* **Daily discount**, `close / last published NAV − 1`, joined as-of on the
+  **publication** date rather than the valuation date, with a staleness flag
+  scaled to each fund's own publication cadence.
+
+Three idempotent, incremental stages (`--stages nav,prices,discount`) so the
+`uk-daily-discount` workflow can re-run it every weekday evening for a few
+hundred requests. Panels live in S3 (`data/uk/**`, state group `uk_daily`);
+the small per-fund deliverables are committed under `outputs/live/`.
+See **docs/RUNBOOK.md** for the pence/pounds and publication-date traps this
+is built around, and for the measured coverage boundary.
 
 ## GitHub Actions
 

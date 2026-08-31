@@ -169,3 +169,36 @@ def test_index_load_survives_git_being_unavailable(tmp_path, monkeypatch):
     monkeypatch.setattr(sp, "run", boom)
     frames = mod._load_existing_index()
     assert len(frames) == 1 and set(frames[0]["id"]) == {"a"}
+
+
+def test_main_has_no_undefined_names():
+    """The sweep succeeded, then main() died on NameError: have_nta.
+
+    Three separate runs have now been lost to main() referencing something
+    it does not have - twice a panel it never built, once a variable left
+    behind when the panel was made optional. Compiling the module catches
+    syntax, not this, so the names main() reads are checked directly.
+    """
+    import dis
+    import importlib.util
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[1]
+    spec = importlib.util.spec_from_file_location(
+        "sweepmain", root / "scripts" / "sample_nta_pdfs.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+
+    fn = mod.main
+    loaded = {i.argval for i in dis.get_instructions(fn)
+              if i.opname == "LOAD_GLOBAL"}
+    known = set(dir(mod)) | set(dir(__builtins__)) | set(vars(__builtins__)) \
+        if hasattr(__builtins__, "__dict__") else set(dir(mod))
+    import builtins
+    known = set(dir(mod)) | set(dir(builtins))
+    missing = {n for n in loaded if n not in known}
+    assert not missing, f"main() reads undefined global(s): {missing}"
+
+    # a local read before assignment is the have_nta case exactly
+    names = fn.__code__.co_varnames
+    assert "have_nta" in names, "have_nta must be a local main() defines"

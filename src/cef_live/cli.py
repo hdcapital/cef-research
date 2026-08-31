@@ -325,12 +325,18 @@ def _own_nav_history(market: str) -> pd.DataFrame:
             h = h[h.get("status").eq("parsed")] if "status" in h.columns else h
             if not {"ticker", "nav_cum_pence"} <= set(h.columns):
                 continue
-            # UK canonical NAV unit is PENCE (units.CANONICAL_UNIT["UK"]),
-            # the same unit Yahoo quotes London shares in and the same unit
-            # the AIC panel and the Tier 0 harvester carry. Dividing by 100
-            # here put pounds into a pence column, so every fund whose
-            # anchor came from this path priced at an 80x-5,000x premium.
-            # The unit is fixed at the source, not patched downstream.
+            # PENCE, not pounds. The UK canonical NAV unit is GBX
+            # (units.CANONICAL_UNIT["UK"]) - the unit Yahoo quotes London
+            # shares in, and the unit the AIC panel's nav_col and the Tier 0
+            # harvest already carry. Dividing by 100 here put this one anchor
+            # in a different unit from the price it is divided by: the 20
+            # funds anchored this way carried discount_est between +79 and
+            # +5649 (premiums of 7,990% to 564,900%) in the committed table -
+            # nonsense large enough to be obvious in isolation and easy to
+            # miss in a 641-row file. The unit is fixed at the source and now
+            # STATED on the frame, so units.normalise does any conversion
+            # once and explicitly. tests/test_uk_daily_discount.py asserts
+            # the unit stays shared.
             frames.append(pd.DataFrame({
                 "ticker": h["ticker"].astype(str).str.upper(),
                 "nav_date": h.get("nav_date", h.get("ann_date")),
@@ -820,6 +826,23 @@ def main() -> int:
     rt.add_argument("--budget", type=int, default=400)
     sub.add_parser("universe-sheet")
     sub.add_parser("ideas")
+    ud = sub.add_parser("uk-daily", help="daily UK NAV/price/discount panel")
+    ud.add_argument("--stages", default="nav,prices,discount",
+                    help="comma list of nav,prices,discount")
+    ud.add_argument("--deadline-min", type=float, default=240.0,
+                    help="wall-clock budget per stage")
+    ud.add_argument("--full-prices", action="store_true",
+                    help="refetch every fund's whole price history")
+    ud.add_argument("--exclude-vct", action="store_true")
+    ud.add_argument("--shard", type=int, default=int(os.environ.get("SHARD_INDEX", "0")))
+    ud.add_argument("--shards", type=int, default=int(os.environ.get("SHARD_COUNT", "1")))
+    ig = sub.add_parser("uk-index-gap",
+                        help="index live UK funds whose announcements were never listed")
+    ig.add_argument("--budget-minutes", type=float, default=300.0)
+    ig.add_argument("--include-vct", action="store_true")
+    ig.add_argument("--limit", type=int, default=0)
+    ig.add_argument("--shard", type=int, default=int(os.environ.get("SHARD_INDEX", "0")))
+    ig.add_argument("--shards", type=int, default=int(os.environ.get("SHARD_COUNT", "1")))
     args = ap.parse_args()
     if args.cmd == "universe":
         return build_universe()
@@ -831,6 +854,18 @@ def main() -> int:
         return ideas()
     if args.cmd == "nightly":
         return nightly([m.strip() for m in args.markets.split(",") if m.strip()])
+    if args.cmd == "uk-index-gap":
+        from . import uk_index_gap
+        return uk_index_gap.run(budget_minutes=args.budget_minutes,
+                                shard=args.shard, shards=args.shards,
+                                include_vct=args.include_vct, limit=args.limit)
+    if args.cmd == "uk-daily":
+        from . import uk_daily
+        return uk_daily.run(
+            stages=tuple(s.strip() for s in args.stages.split(",") if s.strip()),
+            deadline_min=args.deadline_min, full_prices=args.full_prices,
+            include_vct=not args.exclude_vct,
+            shard=args.shard, shards=args.shards)
     return 1
 
 

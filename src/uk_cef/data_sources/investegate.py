@@ -75,7 +75,7 @@ def _tokens_compatible(a: str, b: str) -> bool:
 
 class InvestegateCrawler:
     def __init__(self, cache_dir: str | Path = "data/investegate_cache",
-                 budget_minutes: float = 250.0):
+                 budget_minutes: float = 250.0, listings_only: bool = False):
         self.cache = Path(cache_dir)
         self.listings = self.cache / "listings"
         self.details = self.cache / "details"
@@ -89,6 +89,14 @@ class InvestegateCrawler:
         self._last = 0.0
         self.page_len_param: str | None = self.state.get("__page_len_param")
         self.requests_made = 0
+        # Listings-only mode indexes WHICH announcements a fund has made
+        # without fetching each dividend/catalyst body. That index is all the
+        # NAV archiver needs, and it is roughly an order of magnitude cheaper
+        # per fund - which is what makes indexing the ~150 never-indexed live
+        # funds a job that finishes. The company is left at status `details`,
+        # not `done`, so a later full crawl picks the bodies up from exactly
+        # where this stopped rather than believing the fund is finished.
+        self.listings_only = listings_only
 
     # ------------------------------------------------------------------ http
     def _fetch(self, url: str) -> requests.Response | None:
@@ -316,6 +324,9 @@ class InvestegateCrawler:
             if not rows or (dates and max(dates) < CUTOFF_DATE):
                 st["status"] = "details"
         # ------------------------------------------------------- detail phase
+        if st["status"] == "details" and self.listings_only:
+            self._save_state()
+            return st["status"]
         if st["status"] == "details":
             done = st.setdefault("details_done", [])
             done_set = set(done)

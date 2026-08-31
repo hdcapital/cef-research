@@ -4,53 +4,53 @@
       "universe": {
         "registry_total": 944,
         "registry_labelled_live": 281,
-        "liveness_adjusted_live": 309,
+        "liveness_adjusted_live": 306,
         "research_eligible": 586,
-        "monitoring_eligible": 239,
-        "excluded": 705
+        "monitoring_eligible": 234,
+        "excluded": 710
       },
       "prices": {
         "fresh": 144,
-        "fresh_pct": 60.3,
+        "fresh_pct": 61.5,
         "stale": 0,
         "stale_pct": 0.0,
-        "fallback_historical_panel": 24,
-        "fallback_pct": 10.0,
-        "no_price": 71,
-        "no_price_pct": 29.7,
+        "fallback_historical_panel": 23,
+        "fallback_pct": 9.8,
+        "no_price": 67,
+        "no_price_pct": 28.6,
         "unresolved_ticker": 0
       },
       "nav": {
         "fresh_published": 106,
-        "fresh_published_pct": 44.4,
-        "modelled_rolled_forward": 51,
-        "modelled_rolled_forward_pct": 21.3,
-        "stale": 34,
-        "stale_pct": 14.2,
-        "no_usable_nav": 71,
-        "no_usable_nav_pct": 29.7,
-        "announcement_held_but_unparsed": 33,
-        "announcement_held_but_unparsed_pct": 13.8,
-        "parser_failure_recorded": 33,
-        "parser_failure_recorded_pct": 13.8
+        "fresh_published_pct": 45.3,
+        "modelled_rolled_forward": 50,
+        "modelled_rolled_forward_pct": 21.4,
+        "stale": 33,
+        "stale_pct": 14.1,
+        "no_usable_nav": 67,
+        "no_usable_nav_pct": 28.6,
+        "announcement_held_but_unparsed": 42,
+        "announcement_held_but_unparsed_pct": 17.9,
+        "parser_failure_recorded": 42,
+        "parser_failure_recorded_pct": 17.9
       },
       "signal": {
         "usable_price": 144,
-        "usable_price_pct": 60.3,
+        "usable_price_pct": 61.5,
         "usable_nav": 138,
-        "usable_nav_pct": 57.7,
+        "usable_nav_pct": 59.0,
         "normalised_units": 166,
-        "valid_discount": 132,
-        "valid_discount_pct": 55.2,
-        "zscore_history": 155,
-        "zscore_history_pct": 64.9,
+        "valid_discount": 133,
+        "valid_discount_pct": 56.8,
+        "zscore_history": 154,
+        "zscore_history_pct": 65.8,
         "signal_ready": 99,
-        "signal_ready_pct": 41.4
+        "signal_ready_pct": 42.3
       },
       "status": {
         "GREEN": 99,
-        "AMBER": 33,
-        "RED": 107
+        "AMBER": 34,
+        "RED": 101
       },
       "excluded_by_reason": {
         "not_live:delisted": 340,
@@ -58,8 +58,8 @@
         "split_capital_excluded_by_research_policy|non_ordinary_share_class": 68,
         "non_ordinary_share_class": 26,
         "non_sterling_quote": 18,
+        "not_live:delist_candidate": 12,
         "split_capital_excluded_by_research_policy": 8,
-        "not_live:delist_candidate": 7,
         "vct_excluded_by_research_policy|non_ordinary_share_class": 3
       }
     },
@@ -125,53 +125,53 @@
       "universe": {
         "registry_total": 1116,
         "registry_labelled_live": 376,
-        "liveness_adjusted_live": 421,
+        "liveness_adjusted_live": 418,
         "research_eligible": 754,
-        "monitoring_eligible": 347,
-        "excluded": 769
+        "monitoring_eligible": 342,
+        "excluded": 774
       },
       "prices": {
         "fresh": 242,
-        "fresh_pct": 69.7,
+        "fresh_pct": 70.8,
         "stale": 0,
         "stale_pct": 0.0,
-        "fallback_historical_panel": 33,
-        "fallback_pct": 9.5,
-        "no_price": 72,
-        "no_price_pct": 20.7,
+        "fallback_historical_panel": 32,
+        "fallback_pct": 9.4,
+        "no_price": 68,
+        "no_price_pct": 19.9,
         "unresolved_ticker": 0
       },
       "nav": {
         "fresh_published": 112,
-        "fresh_published_pct": 32.3,
-        "modelled_rolled_forward": 133,
-        "modelled_rolled_forward_pct": 38.3,
-        "stale": 135,
-        "stale_pct": 38.9,
-        "no_usable_nav": 72,
-        "no_usable_nav_pct": 20.7,
-        "announcement_held_but_unparsed": 133,
-        "announcement_held_but_unparsed_pct": 38.3,
-        "parser_failure_recorded": 33,
-        "parser_failure_recorded_pct": 9.5
+        "fresh_published_pct": 32.7,
+        "modelled_rolled_forward": 132,
+        "modelled_rolled_forward_pct": 38.6,
+        "stale": 134,
+        "stale_pct": 39.2,
+        "no_usable_nav": 68,
+        "no_usable_nav_pct": 19.9,
+        "announcement_held_but_unparsed": 142,
+        "announcement_held_but_unparsed_pct": 41.5,
+        "parser_failure_recorded": 42,
+        "parser_failure_recorded_pct": 12.3
       },
       "signal": {
         "usable_price": 242,
-        "usable_price_pct": 69.7,
+        "usable_price_pct": 70.8,
         "usable_nav": 227,
-        "usable_nav_pct": 65.4,
+        "usable_nav_pct": 66.4,
         "normalised_units": 269,
-        "valid_discount": 221,
-        "valid_discount_pct": 63.7,
-        "zscore_history": 246,
-        "zscore_history_pct": 70.9,
+        "valid_discount": 222,
+        "valid_discount_pct": 64.9,
+        "zscore_history": 245,
+        "zscore_history_pct": 71.6,
         "signal_ready": 104,
-        "signal_ready_pct": 30.0
+        "signal_ready_pct": 30.4
       },
       "status": {
         "GREEN": 104,
-        "AMBER": 117,
-        "RED": 126
+        "AMBER": 118,
+        "RED": 120
       },
       "excluded_by_reason": {
         "not_live:delisted": 398,
@@ -179,7 +179,7 @@
         "split_capital_excluded_by_research_policy|non_ordinary_share_class": 68,
         "non_ordinary_share_class": 26,
         "non_sterling_quote": 18,
-        "not_live:delist_candidate": 9,
+        "not_live:delist_candidate": 14,
         "split_capital_excluded_by_research_policy": 8,
         "benchmark_index_not_a_fund": 4,
         "vct_excluded_by_research_policy|non_ordinary_share_class": 3
@@ -187,7 +187,7 @@
     }
   },
   "meta": {
-    "generated_at": "2026-08-31T06:28:52+00:00",
+    "generated_at": "2026-08-31T06:34:27+00:00",
     "as_of": "2026-08-31",
     "thresholds": {
       "price": {

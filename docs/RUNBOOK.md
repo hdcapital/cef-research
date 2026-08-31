@@ -144,6 +144,7 @@ premiums of 80x-5,000x; the fix is at the reader, never at the output.
 | `cef-ideas` | 07:20 London, 09:10 Sydney | Pre-open scan: announcements -> catalysts -> gates -> email |
 | `cef-live-nightly` | 21:00 UTC weekdays | Registry, tickers, NAV, IRR, universe spreadsheet |
 | `asx-s3-archive` / `uk-nav-archive` | daily, 6 shards | Raw document archive to S3 |
+| `uk-daily-discount` | 18:40 UTC weekdays | UK NAV (from S3) + daily close -> daily discount panel |
 
 ## Failure modes
 
@@ -169,6 +170,7 @@ unacceptable for a 750k-fetch announcement index.
 | `asx_pdf_extract` | parsed PDF text | ~700 downloads + parsing |
 | `raw_aic` / `raw_asx` | source archive files | a decade of downloads |
 | `tickers` | resolved ticker map | verification passes |
+| `uk_daily` | UK NAV / price / discount panels | ~500k archive reads + ~300 price histories |
 
 Each group is one tarball at `s3://$S3_BUCKET/state/<group>.tar.gz`, versioned
 by content hash so an unchanged group is not re-uploaded. Every workflow pulls
@@ -245,3 +247,175 @@ A deliberately slow market-wide crawl — one call per minute, resumable across
 runs, roughly 17 hours of wall clock — would respect the rate limit and close
 the gap. It is a large commitment of runner time against an endpoint that may
 simply refuse, so it is offered as a decision rather than started.
+
+## The UK daily discount panel
+
+`python -m cef_live.cli uk-daily` builds, for every UK fund still listed:
+its published NAV history at whatever frequency that fund supplies it, its
+daily closing price, and the daily discount of one to the other. The
+`uk-daily-discount` workflow runs it at 18:40 UTC on weekdays — after the
+London close has settled and after the evening RNS window in which most
+trusts publish the day's NAV.
+
+Three idempotent stages, each runnable alone with `--stages`:
+
+| stage | source | incremental because |
+|---|---|---|
+| `nav` | S3 `uk/nav_announcements/**` + `nta_live/*.parquet` | the archive key carries the ann_id, so what is still to read is a set subtraction against the panel — no cursor to corrupt |
+| `prices` | Yahoo chart API, one request per fund | a held fund is topped up over a 30-day tail; only a new fund costs a full history |
+| `discount` | the two above | pure computation |
+
+An ordinary evening is ~300 requests and a couple of MB of new parquet. A
+run on an empty checkout with bucket credentials rebuilds from 2007.
+
+**NAV values are never re-read from Investegate here.** The archived
+announcement TEXT is re-parsed out of S3, so parser improvements propagate
+to a decade of history at zero cost to the publisher — and a row stored as
+`no_nav_parsed` under an older rule list becomes a real observation under
+today's.
+
+### Where the panels live
+
+`data/uk/{nav,prices,discount}/{YYYY}.parquet`, gitignored, synced as the
+S3 state group `uk_daily`. A daily job rewriting a 25MB parquet in git
+would add ~9GB of history a year, so the repo keeps only the small per-fund
+deliverables under `outputs/live/`:
+
+| file | one row per |
+|---|---|
+| `uk_discount_latest.csv` | fund, today: price, NAV, age, discount, z |
+| `uk_discount_coverage.csv` | fund: span, days with a discount, unit status, which store its NAV came from |
+| `uk_nav_frequency.csv` | fund: measured publication cadence |
+| `uk_price_unit_reconciliation.csv` | fund: the scale applied and the evidence for it |
+| `uk_discount_today.csv` | fund, today, restricted to rows an analyst can act on |
+| `uk_nav_archive_readiness.csv` | fund: why a short history is short |
+| `uk_nav_quality.csv` | fund: how much its NAV series can be trusted |
+| `uk_index_gap_s*of6.csv` | fund: what the gap crawl indexed, or why it could not |
+
+### Four traps this panel is built around
+
+Every one of these produces a plausible percentage rather than an error,
+which is why each is named in code and asserted by test. Three were found by
+running the thing, not by reading it.
+
+**The pence/pounds trap.** Yahoo's metadata lies. The round-2 probe recorded
+`BSIF.L` at `1.0227` labelled `GBp` for a trust that trades near 102p.
+Believing the label divides 1.02p by a 110p NAV: a -99% discount on a
+healthy fund. So units are reconciled against each fund's own NAV and a x100
+correction is applied only where the ratio clusters tightly at 1/100.
+
+**The publication-date trap.** A 30 June NAV announced on 15 July was not
+knowable on 1 July. The as-of join is backward on the publication date; the
+valuation date is carried only to measure how old the NAV was.
+
+**The split trap.** Yahoo's `close` is retro-adjusted for splits; a
+published NAV is not. A trust that subdivided 10-for-1 in 2021 has its whole
+pre-2021 price history divided by ten, while its 2015 RNS states pence per
+share on the 2015 share count. The first full run measured this on 17 live
+trusts - Bankers, Caledonia, Temple Bar, Polar Capital Technology, Lowland,
+Murray International, Alliance Witan - whose price/NAV came back near 0.10,
+or near 170 for consolidations. Untreated it produces a fund that sits at a
+91% discount for years and re-rates to 10% overnight on the day of the
+split: an artefact shaped exactly like a real re-rating. Splits are read
+from the same chart response that serves the bars and MERGED with the held
+set, because a tail-mode fetch only sees splits inside its own window.
+
+**The fitted-to-noise trap**, which hid inside the first one. The unit
+reconciliation wanted to rescale twelve funds by 100. Every one of them -
+NCYF, CHI, CMPG, CMPI, CYN, GCL, GPM, MTE, PNL, SST, STS, MAJE - has
+`cum_assumed_share` 1.0 and a median change between CONSECUTIVE publications
+of 26-33%, against 0.54% for the panel. The parser's unlabelled fallback was
+matching whatever number sat nearest the words "net asset value", and it was
+a different number each time. A scale fitted to that makes a bad NAV look
+coherent: CQS New City High Yield was priced at 5060p against an 8879p
+"NAV", for a trust that trades near 50p.
+
+Reliability is therefore measured from the series itself
+(`unreliable_nav_series`: median change > 15% over at least 10
+observations), and the verdict is used twice - no scale is fitted to an
+unreliable series, and the panel withdraws its discount. The rows and the
+published numbers stay, because deleting them would hide the problem rather
+than state it.
+
+### How much the extracted NAV can be trusted
+
+A parser that picks the wrong number off a page does not fail loudly - it
+returns a number, and a series of plausible numbers is exactly what a
+discount panel cannot detect. But a mis-parse has a signature: a large move
+between consecutive publications that immediately REVERSES, because the next
+announcement goes back to reading the right line. A real NAV move does not
+come back the next day.
+
+Measured over the panel as committed (367,008 consecutive-publication pairs,
+2026-08-31):
+
+| | |
+|---|---|
+| median change between publications | 0.54% |
+| 90th percentile | 1.8% |
+| moves > 25% | 0.85% |
+| jump-and-reverse (likely mis-parse) | 0.065% |
+
+That is what fund NAVs look like. **The finding that matters when using the
+panel**: rows flagged `cum_assumed` - the parser's plain fallback, used where
+an announcement states no income basis - move > 25% at **3.55%** against
+**0.083%** for rows matched by a labelled rule. A 43x higher rate. They are
+23% of the panel. They are kept, because they are real observations, and
+they are flagged on every row so an analysis that cannot tolerate them can
+drop them with one filter. Twelve funds sourced ENTIRELY from that fallback
+are excluded from carrying a discount at all - see the fitted-to-noise trap
+above; `uk_nav_quality.csv` names them and shows the measurement.
+
+An external check is thinner: only three points in the committed data are
+independently comparable against the AIC's own published NAV (the rest of
+the aggregator-anchored funds are outside our extracted history). HGEN
+matched exactly; EOT and ATY differed by +4.1% and -3.4% on the same date,
+which is the size of a NAV *basis* difference - cum vs ex income, debt at
+fair value vs par - rather than a parse error. A fuller comparison needs the
+AIC panel rebuilt, which the backtest workflow does.
+
+### Coverage, as measured by the first full run (2026-08-31)
+
+| | |
+|---|---|
+| live UK funds addressed | 288 |
+| funds with a daily price series | 279 (Yahoo serves 9 nothing) |
+| daily price bars | 1,146,007 |
+| funds with NAV history | 147 |
+| daily discount panel | 1,106,399 fund-days, 2007-01-02 to 2026-08-27 |
+| fund-days carrying a discount | 444,228 |
+| ...against a NAV fresh by that fund's cadence | 337,816 |
+
+Of the 114 funds with any discount, 90 have NAV into 2026 and contribute
+318,974 of the fresh fund-days. The 21 whose NAV stops before 2025
+contribute almost none - the staleness rule doing its job rather than
+quietly pricing them off a three-year-old number.
+
+### The gap, and what closing it found
+
+The listings crawl was seeded from the AIC panel's *eligible* universe, and
+eligibility means the aggregator publishes a price and a NAV - exactly the
+test the infrastructure, renewables, property and private-equity trusts
+fail. So those funds were never indexed, never archived, and had no NAV.
+
+`uk-index-gap` indexed them. Six shards, under 12 minutes, 99 funds
+attempted:
+
+- **70 funds newly indexed, 34,287 NAV announcements** - JPMorgan EMEA
+  (5,180), Canadian General (3,179), River UK Micro Cap (2,940), India
+  Capital Growth (2,785), Vietnam Enterprise (2,476), VinaCapital (2,027),
+  Ruffer (1,275).
+- **13 have no Investegate company page** under their ticker - BioPharma
+  Credit, Tetragon, Volta Finance, Tufton, US Solar Fund among them, several
+  foreign-currency lines. Recorded `not_found`, not guessed around.
+- **16 were indexed fully and publish no "Net Asset Value(s)" RNS at all** -
+  Tritax Big Box (2,769 announcements), Life Science REIT (1,486), Molten
+  Ventures (1,297), Home REIT (1,290), Real Estate Credit (1,136). UK REITs
+  and several PE vehicles state EPRA NTA inside interim and annual results
+  instead. That is a different source, not a failed crawl, and the run now
+  records the headlines those funds DO publish so the distinction stays a
+  measurement rather than an inference.
+
+`uk_nav_archive_readiness.csv` separates the causes per fund, and says
+`unknown_listing_index_not_pulled` rather than guessing when the index was
+not pulled.
