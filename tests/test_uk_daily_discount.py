@@ -399,3 +399,51 @@ def test_tail_fetch_does_not_forget_older_splits():
     """
     src = inspect.getsource(PH.update)
     assert "read_splits()" in src and "drop_duplicates" in src
+
+
+def test_the_snapshot_leads_with_what_is_usable_not_what_is_extreme():
+    """Sorting by raw discount put the least trustworthy rows on top.
+
+    The first full run's snapshot led with Law Debenture at -86% and CQS New
+    City High Yield at -43%, both on NAVs 1,291 days old, both computed
+    exactly as specified. A file whose most eye-catching rows are its least
+    trustworthy ones is not a deliverable, however correct each cell is.
+    """
+    fresh = _nav("GOOD", pd.bdate_range("2026-08-01", "2026-08-27"),
+                 pd.bdate_range("2026-08-01", "2026-08-27"),
+                 [100.0] * len(pd.bdate_range("2026-08-01", "2026-08-27")))
+    stale = _nav("STALE", ["2023-01-04"], ["2023-01-04"], [900.0])
+    nav = pd.concat([fresh, stale], ignore_index=True)
+    px = pd.concat([_px("GOOD", ["2026-08-27"], [90.0]),
+                    _px("STALE", ["2026-08-27"], [100.0])], ignore_index=True)
+    panel = DISC.build(nav, px, frequency=NAV.publication_frequency(nav))
+    snap = DISC.latest_snapshot(panel)
+    assert snap.iloc[0]["ticker"] == "GOOD"
+    assert bool(snap.iloc[0]["usable"])
+    st = snap[snap["ticker"] == "STALE"].iloc[0]
+    assert not bool(st["usable"])
+    # the stale number is still present and still says what it is
+    assert pd.notna(st["discount"]) and pd.isna(st["discount_fresh"])
+
+
+def test_an_unreliable_nav_series_carries_no_discount_at_all():
+    """A real price over a mis-parsed NAV is a plausible-looking percentage."""
+    dates = pd.bdate_range("2021-01-01", "2021-12-31")
+    nav = _nav("BAD", dates, dates, [100.0] * len(dates))
+    px = _px("BAD", dates, [90.0] * len(dates))
+    out = DISC.build(nav, px, unreliable={"BAD"})
+    assert out["discount"].isna().all()
+    assert out["discount_fresh"].isna().all()
+    assert (out["quality"] == "unreliable_nav_series").all()
+    # and the rows survive: the problem is stated, not hidden
+    assert len(out) == len(dates)
+
+
+def test_unreliability_is_measured_from_the_series_itself():
+    """26-33% median change between consecutive publications is not a NAV."""
+    q = pd.DataFrame([{"ticker": "BAD", "obs": 100, "median_abs_change_all": 0.32},
+                      {"ticker": "OK", "obs": 100, "median_abs_change_all": 0.005},
+                      {"ticker": "THIN", "obs": 3, "median_abs_change_all": 0.9}])
+    bad = NAV.unreliable_nav_series(q)
+    assert bad.tolist() == [True, False, False], \
+        "a fund with too few observations must not be condemned on them"

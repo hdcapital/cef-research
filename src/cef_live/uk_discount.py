@@ -64,6 +64,7 @@ def staleness_limit(median_gap_days: float | None) -> float:
 def build(nav: pd.DataFrame, px: pd.DataFrame,
           frequency: pd.DataFrame | None = None,
           units: pd.DataFrame | None = None,
+          unreliable: set[str] | None = None,
           start: str = "2007-01-01") -> pd.DataFrame:
     """The daily panel: one row per fund per trading day it traded.
 
@@ -171,6 +172,16 @@ def build(nav: pd.DataFrame, px: pd.DataFrame,
     d.loc[d["nav_pence_adj"].isna(), "quality"] = "no_nav_published_yet"
     imp = d["discount"].abs() > IMPLAUSIBLE_ABS
     d.loc[imp.fillna(False), "quality"] = "implausible_discount"
+    if unreliable:
+        # A fund whose NAV series is measured unreliable keeps its rows and
+        # its numbers - deleting them would hide the problem rather than
+        # state it - but the discount is withdrawn, because dividing a real
+        # price by a mis-parsed NAV produces a percentage that reads exactly
+        # like a dislocation.
+        bad = d["ticker"].isin(unreliable)
+        d.loc[bad, "quality"] = "unreliable_nav_series"
+        d.loc[bad, "discount"] = pd.NA
+        d.loc[bad, "discount_fresh"] = pd.NA
 
     cols = ["ticker", "date", "close_raw", "price_pence", "price_ccy",
             "price_scale", "price_unit_status",
@@ -225,7 +236,17 @@ def read_panel(out_dir: Path = DISCOUNT_DIR) -> pd.DataFrame:
 
 def latest_snapshot(panel: pd.DataFrame,
                     universe: pd.DataFrame | None = None) -> pd.DataFrame:
-    """Today's row per fund - the daily deliverable, small enough to commit."""
+    """Today's row per fund - the daily deliverable, small enough to commit.
+
+    Every fund appears, including the ones with no usable number, and the
+    `usable` column says which is which. That column exists because of what
+    the first full run produced: sorting the snapshot by `discount` put Law
+    Debenture at -86% and CQS New City High Yield at -43% at the top of the
+    list, on NAVs 1,291 days old. Both numbers were computed exactly as
+    specified - price against the last published NAV - and both are useless.
+    A file whose most eye-catching rows are its least trustworthy ones is
+    not a deliverable, however correct each cell is.
+    """
     if panel is None or not len(panel):
         return pd.DataFrame()
     last = (panel.sort_values("date").groupby("ticker", as_index=False).tail(1)
@@ -234,7 +255,10 @@ def latest_snapshot(panel: pd.DataFrame,
         keep = [c for c in ["ticker", "name", "sector", "security_id", "is_vct",
                             "currency"] if c in universe.columns]
         last = last.merge(universe[keep], on="ticker", how="left")
-    return last
+    last["usable"] = (last["discount_fresh"].notna()
+                      & last["quality"].eq("ok"))
+    return last.sort_values(["usable", "discount_fresh"],
+                            ascending=[False, True]).reset_index(drop=True)
 
 
 def coverage_report(panel: pd.DataFrame, universe: pd.DataFrame,

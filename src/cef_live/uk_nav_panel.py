@@ -547,6 +547,36 @@ def archive_readiness(universe: pd.DataFrame, panel: pd.DataFrame,
     return universe[keep].merge(out, on="ticker", how="right")
 
 
+# A NAV series whose value moves this much between CONSECUTIVE publications
+# is not reporting a NAV. The panel's own median is 0.54% and its 90th
+# percentile 1.8%; the funds this excludes sit at 26-33%, every one of them
+# sourced 100% from the parser's unlabelled fallback. The threshold is set
+# an order of magnitude above normal so that a genuinely volatile quarterly
+# publisher is never caught by it.
+UNRELIABLE_MEDIAN_CHANGE = 0.15
+UNRELIABLE_MIN_OBS = 10
+
+
+def unreliable_nav_series(quality: pd.DataFrame) -> pd.Series:
+    """Funds whose NAV series cannot carry a discount, from measurement.
+
+    This exists because of what the first full run produced. Every fund the
+    unit reconciliation wanted to rescale by 100 - NCYF, LWDB, CHI, CMPI,
+    PNL, SST, GCL, GPM - had cum_assumed_share 1.0 and a median change
+    between consecutive publications of 26-33%. The plain fallback rule was
+    matching whatever number sat nearest the words "net asset value", and it
+    was a different number each time. Fitting a unit scale to that is fitting
+    a scale to noise, and the resulting discount looked entirely ordinary:
+    CQS New City High Yield priced at 5060p against an 8879p "NAV", for a
+    trust that trades near 50p.
+    """
+    if quality is None or not len(quality):
+        return pd.Series(dtype=bool)
+    med = pd.to_numeric(quality.get("median_abs_change_all"), errors="coerce")
+    obs = pd.to_numeric(quality.get("obs"), errors="coerce").fillna(0)
+    return (med > UNRELIABLE_MEDIAN_CHANGE) & (obs >= UNRELIABLE_MIN_OBS)
+
+
 def quality_report(panel: pd.DataFrame, jump: float = 0.25,
                    max_gap_days: int = 4) -> tuple[pd.DataFrame, dict]:
     """Per-fund evidence on how much each fund's NAV series can be trusted.
@@ -586,6 +616,13 @@ def quality_report(panel: pd.DataFrame, jump: float = 0.25,
                  & (np.sign(con["next_chg"]) != np.sign(con["chg"]))
                  & (con["next_chg"].abs() > jump * 0.8))
 
+    # Change between consecutive publications at ANY gap, not just the
+    # daily ones: a monthly or quarterly publisher has no <=4-day pairs at
+    # all, and judging its series by a statistic it cannot have would either
+    # exempt it from every check or condemn it for having none.
+    allpairs = d[d["chg"].notna()].groupby("ticker")["chg"].apply(
+        lambda v: float(v.abs().median())).rename("median_abs_change_all")
+
     per = con.assign(_big=big, _rev=reversed_).groupby("ticker").agg(
         obs=("chg", "size"),
         median_abs_change=("chg", lambda v: float(v.abs().median())),
@@ -594,6 +631,8 @@ def quality_report(panel: pd.DataFrame, jump: float = 0.25,
         jump_reversals=("_rev", "sum"),
         cum_assumed_share=("cum_assumed", "mean"),
     ).reset_index()
+    per = per.merge(allpairs, on="ticker", how="left")
+    per["reliable"] = ~unreliable_nav_series(per)
     per["suspect_rate"] = per["jump_reversals"] / per["obs"].clip(lower=1)
 
     def _rate(mask):
@@ -609,5 +648,6 @@ def quality_report(panel: pd.DataFrame, jump: float = 0.25,
         "big_move_rate_labelled_basis": round(_rate(~con["cum_assumed"]), 6),
         "big_move_rate_cum_assumed": round(_rate(con["cum_assumed"]), 6),
         "cum_assumed_share_of_panel": round(float(panel["cum_assumed"].mean()), 4),
+        "funds_unreliable_nav_series": int((~per["reliable"]).sum()),
     }
     return per.sort_values("suspect_rate", ascending=False).reset_index(drop=True), summary

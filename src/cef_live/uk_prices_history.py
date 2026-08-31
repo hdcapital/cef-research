@@ -319,7 +319,8 @@ MAX_LOG_SPREAD = 0.5
 
 
 def reconcile_units(nav: pd.DataFrame, px: pd.DataFrame,
-                    max_nav_age_days: int = 40) -> pd.DataFrame:
+                    max_nav_age_days: int = 40,
+                    unreliable: set[str] | None = None) -> pd.DataFrame:
     """Per fund: the scale that puts price and NAV in the same unit.
 
     Returns ticker, price_scale, price_unit_status, the median ratio before
@@ -344,9 +345,20 @@ def reconcile_units(nav: pd.DataFrame, px: pd.DataFrame,
 
     nav_by_ticker = {tk: g for tk, g in n.groupby("ticker", sort=False)} if len(n) else {}
 
+    unreliable = unreliable or set()
     rows = []
     for tk, g in px.groupby("ticker"):
         ccy = str(g["price_ccy"].iloc[-1]) if "price_ccy" in g.columns else ""
+        if tk in unreliable:
+            # Never fit a scale to a NAV series that is not reporting a NAV.
+            # The currency label still gives the honest default; what is
+            # refused is the x100 correction, which on these funds was
+            # fitting arithmetic to parser noise.
+            rows.append({"ticker": tk, "price_scale": currency_scale(ccy),
+                         "price_unit_status": "unreliable_nav_series",
+                         "ratio_raw": None, "ratio_scaled": None,
+                         "log_spread": None, "n_days": 0, "price_ccy": ccy})
+            continue
         ng = nav_by_ticker.get(tk, n.iloc[0:0])
         if not len(ng):
             # no NAV to reconcile against: fall back to the quote currency,

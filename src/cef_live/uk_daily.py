@@ -107,8 +107,11 @@ def stage_discount(universe: pd.DataFrame, nav: pd.DataFrame,
     # is restated onto the price series' share basis before either the unit
     # reconciliation or the discount touches it.
     nav = PH.nav_on_price_basis(nav, PH.read_splits())
-    units = PH.reconcile_units(nav, px)
-    panel = DISC.build(nav, px, frequency=freq, units=units)
+    qual, _ = NAV.quality_report(nav)
+    unreliable = set(qual.loc[~qual["reliable"], "ticker"]) if len(qual) else set()
+    units = PH.reconcile_units(nav, px, unreliable=unreliable)
+    panel = DISC.build(nav, px, frequency=freq, units=units,
+                       unreliable=unreliable)
     if len(panel):
         DISC.write_panel(panel)
     _write_csv(units, OUT_DIR / "uk_price_unit_reconciliation.csv")
@@ -120,12 +123,18 @@ def stage_discount(universe: pd.DataFrame, nav: pd.DataFrame,
     _write_csv(cover, OUT_DIR / "uk_discount_coverage.csv")
     _write_csv(ready, OUT_DIR / "uk_nav_archive_readiness.csv")
     if len(latest):
-        keep = [c for c in ["ticker", "name", "sector", "date", "close_raw",
-                            "price_pence", "price_ccy", "nav_pence", "nav_date",
-                            "published_at", "nav_age_days", "nav_stale",
-                            "discount", "discount_fresh", "disc_z", "quality",
-                            "is_vct", "security_id"] if c in latest.columns]
+        keep = [c for c in ["ticker", "name", "sector", "date", "usable",
+                            "close_raw", "price_pence", "price_ccy",
+                            "nav_pence", "nav_pence_adj", "split_factor",
+                            "nav_date", "published_at", "nav_age_days",
+                            "nav_stale", "discount", "discount_fresh",
+                            "disc_z", "quality", "is_vct", "security_id"]
+                if c in latest.columns]
         _write_csv(latest[keep].round(6), OUT_DIR / "uk_discount_latest.csv")
+        # the subset an analyst can act on today, without having to know
+        # which columns to filter on first
+        _write_csv(latest[latest["usable"]][keep].round(6),
+                   OUT_DIR / "uk_discount_today.csv")
 
     stats = {
         "panel_rows": int(len(panel)),
@@ -133,11 +142,13 @@ def stage_discount(universe: pd.DataFrame, nav: pd.DataFrame,
         "days_with_discount": int(panel["discount"].notna().sum()) if len(panel) else 0,
         "days_with_fresh_discount": int(panel["discount_fresh"].notna().sum())
         if len(panel) else 0,
+        "funds_usable_today": int(latest["usable"].sum()) if len(latest) else 0,
         "first_date": str(panel["date"].min().date()) if len(panel) else None,
         "last_date": str(panel["date"].max().date()) if len(panel) else None,
         "funds_no_nav": int((cover["discount_days"] == 0).sum()) if len(cover) else 0,
         "unit_status": units["price_unit_status"].value_counts().to_dict()
         if len(units) else {},
+        "unreliable_nav_funds": sorted(unreliable),
         "nav_readiness": ready["readiness"].value_counts().to_dict(),
         "funds_split_adjusted": int((nav["split_factor"] != 1.0)
                                     .groupby(nav["ticker"]).any().sum()),
