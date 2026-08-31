@@ -1,0 +1,148 @@
+{
+  "documents": 1082,
+  "no_pdf": 0,
+  "unreadable": 0,
+  "with_evidence": 204,
+  "no_label_matched": 878,
+  "fund_months_with_truth": 2076,
+  "observations": 244,
+  "funds_with_evidence": 49,
+  "labels_seen": 58,
+  "labels_promoted_to_rules": 13,
+  "funds_covered_by_a_rule": 7,
+  "holdout_funds": 32,
+  "learn_funds": 60,
+  "top_rules": [
+    {
+      "ticker": "ARG",
+      "label": "and approximate pre tax nta per share",
+      "unit": "dollars",
+      "months_supporting": 3,
+      "months_clean": 3,
+      "first_month": "2025-09",
+      "last_month": "2026-05",
+      "is_rule": true
+    },
+    {
+      "ticker": "GCI",
+      "label": "on nta per unit as at",
+      "unit": "dollars",
+      "months_supporting": 11,
+      "months_clean": 11,
+      "first_month": "2024-10",
+      "last_month": "2026-06",
+      "is_rule": true
+    },
+    {
+      "ticker": "GCI",
+      "label": "macquarie tower farrer place sydney nsw p f",
+      "unit": "dollars",
+      "months_supporting": 3,
+      "months_clean": 3,
+      "first_month": "2024-09",
+      "last_month": "2025-02",
+      "is_rule": true
+    },
+    {
+      "ticker": "GCI",
+      "label": "governor macquarie tower farrer place sydney nsw p",
+      "unit": "dollars",
+      "months_supporting": 3,
+      "months_clean": 3,
+      "first_month": "2024-09",
+      "last_month": "2025-02",
+      "is_rule": true
+    },
+    {
+      "ticker": "LF1",
+      "label": "fund was as follows nta per unit",
+      "unit": "dollars",
+      "months_supporting": 3,
+      "months_clean": 3,
+      "first_month": "2025-12",
+      "last_month": "2026-06",
+      "is_rule": true
+    },
+    {
+      "ticker": "LF1",
+      "label": "nta per unit",
+      "unit": "dollars",
+      "months_supporting": 3,
+      "months_clean": 3,
+      "first_month": "2025-12",
+      "last_month": "2026-06",
+      "is_rule": true
+    },
+    {
+      "ticker": "MOT",
+      "label": "is as follows value date nta per unit",
+      "unit": "dollars",
+      "months_supporting": 15,
+      "months_clean": 15,
+      "first_month": "2024-07",
+      "last_month": "2026-04",
+      "is_rule": true
+    },
+    {
+      "ticker": "MXT",
+      "label": "is as follows value date nta per unit",
+      "unit": "dollars",
+      "months_supporting": 12,
+      "months_clean": 12,
+      "first_month": "2024-07",
+      "last_month": "2026-06",
+      "is_rule": true
+    },
+    {
+      "ticker": "MXT",
+      "label": "limited level exchange centre bridge street sydney nsw",
+      "unit": "dollars",
+      "months_supporting": 3,
+      "months_clean": 3,
+      "first_month": "2024-09",
+      "last_month": "2025-12",
+      "is_rule": true
+    },
+    {
+      "ticker": "REV",
+      "label": "is as follows value date nta per unit",
+      "unit": "dollars",
+      "months_supporting": 4,
+      "months_clean": 4,
+      "first_month": "2026-01",
+      "last_month": "2026-06",
+      "is_rule": true
+    },
+    {
+      "ticker": "REV",
+      "label": "please contact revolution private credit income trust on",
+      "unit": "dollars",
+      "months_supporting": 3,
+      "months_clean": 3,
+      "first_month": "2026-02",
+      "last_month": "2026-06",
+      "is_rule": true
+    },
+    {
+      "ticker": "TCF",
+      "label": "as follows value date nav per unit",
+      "unit": "dollars",
+      "months_supporting": 3,
+      "months_clean": 3,
+      "first_month": "2025-09",
+      "last_month": "2026-04",
+      "is_rule": true
+    },
+    {
+      "ticker": "TCF",
+      "label": "unit price unit nav unit price unit nav",
+      "unit": "dollars",
+      "months_supporting": 3,
+      "months_clean": 3,
+      "first_month": "2025-03",
+      "last_month": "2025-05",
+      "is_rule": true
+    }
+  ],
+  "note": "rules are learned ONLY from the learn split; the holdout funds exist so agreement can be measured without circularity. No parser is changed by this mode."
+}
