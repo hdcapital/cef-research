@@ -31,26 +31,26 @@
         "no_usable_nav_pct": 20.0,
         "announcement_held_but_unparsed": 38,
         "announcement_held_but_unparsed_pct": 16.5,
-        "parser_failure_recorded": 38,
-        "parser_failure_recorded_pct": 16.5
+        "parser_failure_recorded": 39,
+        "parser_failure_recorded_pct": 17.0
       },
       "signal": {
         "usable_price": 205,
         "usable_price_pct": 89.1,
         "usable_nav": 147,
         "usable_nav_pct": 63.9,
-        "normalised_units": 23,
-        "valid_discount": 0,
-        "valid_discount_pct": 0.0,
+        "normalised_units": 176,
+        "valid_discount": 142,
+        "valid_discount_pct": 61.7,
         "zscore_history": 157,
         "zscore_history_pct": 68.3,
-        "signal_ready": 0,
-        "signal_ready_pct": 0.0
+        "signal_ready": 126,
+        "signal_ready_pct": 54.8
       },
       "status": {
-        "GREEN": 0,
-        "AMBER": 1,
-        "RED": 229
+        "GREEN": 126,
+        "AMBER": 16,
+        "RED": 88
       },
       "excluded_by_reason": {
         "not_live:delisted": 298,
@@ -152,26 +152,26 @@
         "no_usable_nav_pct": 13.9,
         "announcement_held_but_unparsed": 114,
         "announcement_held_but_unparsed_pct": 33.7,
-        "parser_failure_recorded": 38,
-        "parser_failure_recorded_pct": 11.2
+        "parser_failure_recorded": 39,
+        "parser_failure_recorded_pct": 11.5
       },
       "signal": {
         "usable_price": 304,
         "usable_price_pct": 89.9,
         "usable_nav": 237,
         "usable_nav_pct": 70.1,
-        "normalised_units": 123,
-        "valid_discount": 87,
-        "valid_discount_pct": 25.7,
+        "normalised_units": 276,
+        "valid_discount": 229,
+        "valid_discount_pct": 67.8,
         "zscore_history": 248,
         "zscore_history_pct": 73.4,
-        "signal_ready": 46,
-        "signal_ready_pct": 13.6
+        "signal_ready": 172,
+        "signal_ready_pct": 50.9
       },
       "status": {
-        "GREEN": 46,
-        "AMBER": 43,
-        "RED": 249
+        "GREEN": 172,
+        "AMBER": 58,
+        "RED": 108
       },
       "excluded_by_reason": {
         "not_live:delisted": 356,
@@ -187,7 +187,7 @@
     }
   },
   "meta": {
-    "generated_at": "2026-08-31T07:58:27+00:00",
+    "generated_at": "2026-08-31T08:04:37+00:00",
     "as_of": "2026-08-31",
     "thresholds": {
       "price": {
