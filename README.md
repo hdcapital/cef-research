@@ -147,7 +147,11 @@ eligibility, NAV harvesters, price layer, live NTA table). It builds nothing
 new, fetches nothing on its own, and fixes nothing.
 
 **Manual / on-demand only.** There is no cron, no nightly hook, and no push
-trigger. It runs when you ask it to, and only then.
+trigger. It runs when you ask it to, and only then. It is also read-only
+about state: `--refresh` runs the real nightly on the runner so the report
+reflects it, but nothing is persisted or committed, so it is a preview of
+what the next `cef-live-nightly` will produce rather than a replacement
+for it.
 
 ```bash
 # audit whatever is already stored locally

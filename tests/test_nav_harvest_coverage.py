@@ -323,3 +323,40 @@ def test_liveness_and_the_harvester_share_one_nta_headline_pattern():
     """
     from cef_live import cli
     assert cli.NAV_HEAD is H.AU_NAV_HEAD
+
+
+def test_a_reparsed_nav_reaches_the_live_table_and_the_audit(monkeypatch, tmp_path):
+    """A NAV recovered by a re-parse must stop being a parser failure.
+
+    `uk-daily --stages nav --reparse-unparsed` re-reads the announcements
+    stored as `no_nav_parsed` and writes what today's rules extract into
+    data/uk/nav. Reading only the legacy shards meant a fund could be fixed
+    in one store and still RED in the audit, with a parse failure reported
+    against an announcement that had just been parsed.
+    """
+    import pandas as pd
+
+    from cef_live import cli, coverage_audit as CA
+    from cef_live import uk_nav_panel as UKP
+
+    panel = pd.DataFrame([{
+        "ticker": "PNL", "ann_id": "9743001",
+        "published_at": pd.Timestamp("2026-08-27"),
+        "nav_date": pd.Timestamp("2026-08-26"), "nav_pence": 555.50,
+        "nav_ex_pence": None, "cum_assumed": False,
+        "nav_source": "archive", "quality": "ok"}])
+    monkeypatch.setattr(UKP, "read_panel", lambda *a, **k: panel)
+    monkeypatch.setattr(CA, "load_tickers", lambda: pd.DataFrame(
+        [{"security_id": "SEDOL:PNL1", "ticker": "PNL",
+          "ticker_status": "verified"}]))
+
+    facts = CA.uk_nav_archive_facts().set_index("security_id")
+    assert "SEDOL:PNL1" in facts.index
+    row = facts.loc["SEDOL:PNL1"]
+    assert row["last_parsed_nav_date"] == "2026-08-27", (
+        "a re-parsed announcement must count as parsed")
+
+    # and the value itself must reach the live table's NAV anchor
+    src = inspect.getsource(cli._own_nav_history)
+    assert "uk_nav_panel" in src and "nav_pence" in src
+    assert '"nav_unit": "GBX"' in src
