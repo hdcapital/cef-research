@@ -320,6 +320,27 @@ def _own_nav_history(market: str) -> pd.DataFrame:
     """
     frames = []
     if market == "UK":
+        # The daily NAV panel (data/uk/nav, cef_live.uk_nav_panel) is the
+        # better UK store where it exists: normalised, deduplicated on
+        # ann_id, plausibility-filtered, and re-parsed by
+        # `uk-daily --stages nav --reparse-unparsed` whenever the rule list
+        # grows. Reading only the legacy shards meant a NAV that a re-parse
+        # had just recovered stayed invisible to the live table, so the same
+        # fund could be fixed in one store and still RED in the audit.
+        # Both are read: the panel starts in 2007 but need not cover every
+        # ticker, and nta_live takes the newest anchor per fund either way.
+        try:
+            from . import uk_nav_panel as UKP
+            panel = UKP.read_panel()
+        except Exception:  # noqa: BLE001
+            panel = None
+        if panel is not None and len(panel):
+            frames.append(pd.DataFrame({
+                "ticker": panel["ticker"].astype(str).str.upper(),
+                "nav_date": panel["nav_date"],
+                "nav_value": pd.to_numeric(panel["nav_pence"], errors="coerce"),
+                "nav_unit": "GBX",
+            }))
         for f in sorted(Path("data").glob("uk_nav_history*.parquet")):
             try:
                 h = pd.read_parquet(f)

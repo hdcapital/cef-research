@@ -4,12 +4,19 @@ name: live-coverage-audit
 # trigger: this is a diagnostic you run when you want to know where coverage
 # stands, not another nightly job whose output nobody reads. If a future
 # change adds a schedule here, tests/test_coverage_audit.py fails.
+#
+# It is also READ-ONLY about state: `contents: read`, no S3 state push, no
+# commit. `refresh_data: true` therefore runs the real nightly on this
+# runner - the report reflects it - but the refreshed listing cache, ticker
+# resolutions and live table are thrown away with the runner. Treat it as a
+# preview of what the next cef-live-nightly will produce, not as a
+# replacement for it.
 
 on:
   workflow_dispatch:
     inputs:
       refresh_data:
-        description: "Refresh prices and NAVs before auditing (slow, ~30 min)"
+        description: "Refresh prices and NAVs before auditing (slow). A PREVIEW: it runs the real nightly on this runner but persists no state, so the fixes it demonstrates only stick when cef-live-nightly runs"
         type: boolean
         default: false
       markets:

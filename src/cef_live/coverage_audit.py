@@ -227,6 +227,21 @@ def uk_nav_archive_facts() -> pd.DataFrame:
              for r in tick.itertuples(index=False)}
 
     frames = []
+    # the daily NAV panel's rows are, by construction, announcements a value
+    # WAS extracted from - including ones a re-parse recovered after the
+    # original crawl recorded them unparsed
+    try:
+        from . import uk_nav_panel as UKP
+        panel = UKP.read_panel()
+    except Exception:  # noqa: BLE001
+        panel = None
+    if panel is not None and len(panel):
+        frames.append(pd.DataFrame({
+            "ticker": panel["ticker"],
+            "ann_id": panel["ann_id"],
+            "ann_date": panel["published_at"],
+            "status": "parsed",
+        }))
     for f in sorted(Path("data").glob("uk_nav_history*.parquet")):
         try:
             h = pd.read_parquet(f)

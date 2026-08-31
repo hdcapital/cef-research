@@ -1,6 +1,6 @@
 # Live fund coverage audit
 
-Generated 2026-08-31T06:43:12+00:00 (as at 2026-08-31).
+Generated 2026-08-31T06:47:24+00:00 (as at 2026-08-31).
 
 Run on demand only - this report has no schedule.
 
