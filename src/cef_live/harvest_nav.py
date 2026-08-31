@@ -80,6 +80,68 @@ AU_COLS = ["security_id", "nav_date", "nav_value", "unit", "basis_note",
            "source", "headline"]
 
 
+# "Net Tangible Asset per share - $ 0.1047 0.1033 ... pre-tax" - the
+# monthly-report layout, where the pre/post-tax qualifier follows the
+# numbers instead of preceding the label, and two-column page furniture
+# lands between them.
+ASX_PER_SHARE_LABEL = re.compile(
+    r"(?:net\s+tangible\s+assets?|\bNTA\b)\s+per\s+share", re.I)
+ASX_NUM = re.compile(r"[0-9]*\.[0-9]{3,6}")
+ASX_PRE_TAX = re.compile(r"\bpre[\s-]?tax\b|\bbefore\s+tax\b", re.I)
+ASX_POST_TAX = re.compile(r"\bpost[\s-]?tax\b|\bafter\s+tax\b", re.I)
+# "Key Metrics as at 31-Jul-26 30-Jun-26" - the column order is stated, so
+# it is read rather than assumed. Law Debenture taught that lesson on the
+# UK side: two funds put the same two columns in opposite orders.
+ASX_ASAT_HEADER = re.compile(
+    r"as at\s+(\d{1,2}-\w{3}-\d{2,4})\s+(\d{1,2}-\w{3}-\d{2,4})", re.I)
+
+
+def _asx_pretax_per_share(text: str) -> float | None:
+    """The CURRENT PRE-TAX NTA per share from a monthly-report table.
+
+    Two things have to be right and neither is the number itself.
+
+    Basis: this system's ASX convention is pre-tax throughout, and the
+    generic parser returned Underwood Capital's POST-tax figure (0.0966)
+    because it is the later of the two identical labels. Reading the wrong
+    basis silently changes every discount computed from it.
+
+    Column: the row carries this month and last month side by side -
+    "0.1047 0.1033" under "as at 31-Jul-26 30-Jun-26". Taking the wrong one
+    is a month-old NAV wearing today's date, which is the failure the whole
+    staleness apparatus exists to make visible.
+    """
+    newest_first = True
+    m = ASX_ASAT_HEADER.search(text)
+    if m:
+        try:
+            d1 = pd.to_datetime(m.group(1), dayfirst=True)
+            d2 = pd.to_datetime(m.group(2), dayfirst=True)
+            newest_first = d1 >= d2
+        except Exception:  # noqa: BLE001
+            pass
+    best = None
+    for lab in ASX_PER_SHARE_LABEL.finditer(text):
+        window = text[lab.end():lab.end() + 200]
+        nums = ASX_NUM.findall(window[:60])
+        if not nums:
+            continue
+        pre = ASX_PRE_TAX.search(window)
+        post = ASX_POST_TAX.search(window)
+        # whichever qualifier is nearer describes THIS row
+        if post and (not pre or post.start() < pre.start()):
+            continue
+        if not pre:
+            continue
+        try:
+            vals = [float(n) for n in nums]
+        except ValueError:
+            continue
+        best = vals[0] if newest_first else vals[-1]
+        break
+    return best
+
+
 def _note_failure(stats: dict, code: str, headline: str, url: str,
                   status: str | None, text: str) -> None:
     """Record one unreadable document, capped so the report stays readable."""
@@ -110,6 +172,18 @@ def _nta_from_document(doc: dict, headline: str) -> dict | None:
         from au_lic.extract import deterministic as D
     except Exception:  # noqa: BLE001
         D = None
+
+    # the monthly-report pre-tax row first: it is the only reader that knows
+    # which of two identically-labelled rows is the pre-tax one, and which
+    # of two side-by-side columns is this month
+    text = doc.get("text") or ""
+    pre = _asx_pretax_per_share(text)
+    if pre is not None:
+        return {"nav_per_share": pre, "unit_source": "dollars",
+                "nav_basis": "pre_tax",
+                "valuation_date": (D._asat(text, headline or "")
+                                   if D is not None else None),
+                "extractor": "asx_monthly_pretax_v1"}
     if D is not None:
         try:
             got = D.extract_nta(doc.get("text") or "", doc.get("rows") or [],
