@@ -12,6 +12,17 @@ name: asx-extract
 # is never blocked on it.
 
 on:
+  # Runs nightly after the archive. Extraction was the one dispatch-only
+  # link in an otherwise scheduled chain (index 01:30 -> archive 02:00 ->
+  # extract), so newly archived PDFs sat unparsed until someone remembered
+  # to press the button - and a manual step in an automatic chain is how the
+  # index fell two and a half years behind in the first place. 08:00 clears
+  # the archive's 02:00 start plus its 5.5h budget.
+  #
+  # The scheduled run is DETERMINISTIC only: it needs no API key and cannot
+  # spend anything. The model-backed modes stay dispatch-only on purpose.
+  schedule:
+    - cron: "0 8 * * *"
   workflow_dispatch:
     inputs:
       mode:
@@ -89,8 +100,8 @@ jobs:
           # compare mode runs the tiers head to head
           COMPARE_MODELS: ${{ vars.CHEAP_MODEL }},${{ vars.EXPENSIVE_MODEL }}
         run: |
-          python -m au_lic.extract.runner "${{ github.event.inputs.mode }}" \
-            --limit "${{ github.event.inputs.limit }}" \
+          python -m au_lic.extract.runner "${{ github.event.inputs.mode || 'deterministic' }}" \
+            --limit "${{ github.event.inputs.limit || '0' }}" \
             ${{ github.event.inputs.batch_id && format('--batch-id {0}', github.event.inputs.batch_id) || '' }}
       - name: Commit status
         run: |

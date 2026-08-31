@@ -95,7 +95,7 @@ jobs:
         run: python scripts/sync_state.py push --groups asx_index,raw_asx
 
       - name: Commit archive status
-        if: steps.creds.outputs.configured == 'true' && github.event_name == 'push'
+        if: always() && steps.creds.outputs.configured == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
