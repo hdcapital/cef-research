@@ -89,8 +89,13 @@ jobs:
             echo "no change"
           else
             git commit -m "CI: UK index gap ($(date -u +%Y-%m-%dT%H:%MZ))"
+            pushed=0
             for i in 1 2 3 4; do
-              git pull --rebase origin main && git push origin HEAD:main && break
+              if git pull --rebase --autostash origin main \
+                 && git push origin HEAD:main; then pushed=1; break; fi
               sleep $((2 ** i))
             done
+            if [ "$pushed" != 1 ]; then
+              echo "::error::could not push results after 4 attempts"; exit 1
+            fi
           fi

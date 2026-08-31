@@ -96,11 +96,15 @@ jobs:
             echo "no change"
           else
             git commit -m "CI: UK daily discount panel ($(date -u +%Y-%m-%dT%H:%MZ))"
+            pushed=0
             for i in 1 2 3 4; do
-              git pull --rebase origin "${GITHUB_REF_NAME}" && \
-                git push origin "HEAD:${GITHUB_REF_NAME}" && break
+              if git pull --rebase --autostash origin "${GITHUB_REF_NAME}" \
+                 && git push origin "HEAD:${GITHUB_REF_NAME}"; then pushed=1; break; fi
               sleep $((2 ** i))
             done
+            if [ "$pushed" != 1 ]; then
+              echo "::error::could not push results after 4 attempts"; exit 1
+            fi
           fi
 
       - name: Upload the full panels as an artifact
