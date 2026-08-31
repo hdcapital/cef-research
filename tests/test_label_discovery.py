@@ -77,10 +77,22 @@ def test_the_matching_label_is_the_one_recorded():
         "the dividend label must not be credited with the NTA"
 
 
-def test_a_wrong_figure_yields_no_evidence_at_all():
-    """HCF's constant 4.120 against a real 0.011 supports nothing."""
+def test_a_wrong_figure_teaches_nothing_but_is_still_recorded():
+    """HCF's constant 4.120 against a real 0.011 supports no label.
+
+    The row it leaves is a MISS, carrying the nearest candidate so the 80% of
+    documents that match nothing can be split between a real disagreement
+    between the two sources and a gap in the enumerator. It must never
+    contribute a label to learn from.
+    """
     obs = LD.observe("HCF", "2025-10", "Something per share $4.120", None, truth=0.011)
-    assert obs == []
+    assert len(obs) == 1
+    assert obs[0]["matched"] is False
+    assert obs[0]["label"] is None
+    assert obs[0]["nearest_value"] == pytest.approx(4.12)
+    # and it must not survive into the rules
+    out = LD.discover(pd.DataFrame(obs))
+    assert len(out) == 0
 
 
 def test_a_crowded_document_records_how_crowded_it_was():
@@ -243,3 +255,29 @@ def test_evidence_aggregates_across_shards_before_the_bar_is_applied():
         "a single month should never clear the bar on its own"
     merged = LD.discover(pd.concat(per_shard, ignore_index=True))
     assert bool(merged.loc[0, "is_rule"]) is True
+
+
+def test_a_basis_difference_shows_as_a_consistent_ratio():
+    """The signature that says 'not a parser problem'.
+
+    Where the exchange publishes post-tax and the fund reports pre-tax, the
+    nearest candidate misses by the same proportion every month. That is the
+    two sources measuring different things, and no amount of parser work
+    fixes it - which is exactly why the miss rows have to record the ratio.
+    """
+    rows = [LD.observe("XYZ", m, f"NTA before tax ${v}", None, truth=v * 0.9)[0]
+            for m, v in (("2025-03", 2.00), ("2025-04", 2.10), ("2025-05", 2.20))]
+    ratios = [r["nearest_ratio"] for r in rows]
+    assert all(r["matched"] is False for r in rows)
+    assert max(ratios) - min(ratios) < 0.01, "a basis gap is a STABLE ratio"
+    assert abs(ratios[0] - 1 / 0.9) < 0.01
+
+
+def test_misses_and_matches_can_coexist_without_corrupting_the_rules():
+    ev = (_obs("AFI", ["2025-03", "2025-04", "2025-05"], "pre tax nta per share")
+          + [{"ticker": "AFI", "month": "2025-06", "label": None, "unit": None,
+              "truth": 1.0, "n_matching_labels": 0, "matched": False}])
+    for r in ev[:3]:
+        r["matched"] = True
+    out = LD.discover(pd.DataFrame(ev))
+    assert len(out) == 1 and bool(out.loc[0, "is_rule"]) is True

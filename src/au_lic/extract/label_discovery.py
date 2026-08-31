@@ -156,6 +156,25 @@ def matches(cands: list[dict], truth: float, tol: float = MATCH_TOL) -> list[dic
             if abs(c["value"] - float(truth)) / float(truth) <= tol]
 
 
+def nearest(cands: list[dict], truth: float) -> dict | None:
+    """The closest candidate and how far off it was.
+
+    Four documents in five contain NO figure matching the exchange, and that
+    number means nothing until it is split. A near miss at a consistent
+    per-fund ratio is the two sources measuring different things - the
+    exchange publishes post-tax where the fund reports pre-tax - and is not
+    a parser problem at all. A scattered miss means the figure is on the page
+    and the candidate enumerator did not offer it. The first bounds the
+    method; the second is fixable. Without this they are indistinguishable.
+    """
+    if not cands or truth is None or not pd.notna(truth) or truth <= 0:
+        return None
+    best = min(cands, key=lambda c: abs(c["value"] - float(truth)))
+    return {"nearest_label": best["label"], "nearest_value": best["value"],
+            "nearest_unit": best["unit"],
+            "nearest_ratio": best["value"] / float(truth)}
+
+
 def observe(ticker: str, month: str, text: str, rows, truth: float) -> list[dict]:
     """One fund-month's evidence: which labels carried the right figure.
 
@@ -165,9 +184,17 @@ def observe(ticker: str, month: str, text: str, rows, truth: float) -> list[dict
     cands = candidates(text, rows)
     hit = matches(cands, truth)
     uniq = {(c["label"], c["unit"]) for c in hit}
+    if not uniq:
+        # a miss is evidence too, and the only evidence that says whether
+        # this method has further to run or has reached its limit
+        near = nearest(cands, truth)
+        return [{"ticker": str(ticker).upper(), "month": str(month),
+                 "label": None, "unit": None, "truth": float(truth),
+                 "n_matching_labels": 0, "matched": False,
+                 **(near or {})}]
     return [{"ticker": str(ticker).upper(), "month": str(month),
              "label": lab, "unit": unit, "truth": float(truth),
-             "n_matching_labels": len(uniq)}
+             "n_matching_labels": len(uniq), "matched": True}
             for lab, unit in uniq]
 
 
@@ -202,6 +229,9 @@ def discover(observations: pd.DataFrame,
     agg: dict[tuple, dict] = defaultdict(
         lambda: {"months": set(), "clean": set()})
     for r in observations.itertuples(index=False):
+        if not getattr(r, "label", None) or (
+                "matched" in observations.columns and not r.matched):
+            continue                       # a miss row carries no label to learn
         k = (r.ticker, r.label, r.unit)
         agg[k]["months"].add(r.month)
         if r.n_matching_labels < AMBIGUOUS_MATCH_COUNT:

@@ -42,6 +42,21 @@ def main() -> int:
     OUT_RULES.parent.mkdir(parents=True, exist_ok=True)
     rules.to_csv(OUT_RULES, index=False)
 
+    # split the misses: a STABLE per-fund ratio is the two sources measuring
+    # different things (post-tax vs pre-tax) and no parser work fixes it; a
+    # scattered one means the figure was on the page and we failed to offer it
+    miss = ev[ev.get("matched") == False] if "matched" in ev.columns else ev.iloc[0:0]  # noqa: E712
+    basis_like = fixable = 0
+    if len(miss) and "nearest_ratio" in miss.columns:
+        for _t, g in miss.groupby("ticker"):
+            r = g["nearest_ratio"].dropna()
+            if len(r) < 2:
+                continue
+            if (r.max() - r.min()) < 0.02 and abs(r.median() - 1.0) > 0.02:
+                basis_like += len(g)
+            else:
+                fixable += len(g)
+
     status = {
         "evidence_files": len(files),
         "evidence_rows": int(len(ev)),
@@ -55,6 +70,9 @@ def main() -> int:
         # address case: surfaced for review, never auto-promoted
         "high_support_no_vocab": int(((~rules["has_nav_vocab"])
                                       & (rules["months_clean"] >= 3)).sum()),
+        "misses_total": int(len(miss)),
+        "misses_stable_ratio_likely_basis": int(basis_like),
+        "misses_scattered_likely_enumerator": int(fixable),
         "note": ("the bar is applied once over all shards' evidence; applying "
                  "it per shard tested it against an eighth of each fund's "
                  "months and under-counted funds by roughly four times"),
