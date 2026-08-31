@@ -1,19 +1,152 @@
 {
-  "comparable_observations": 0,
-  "note": "no fund-month had a value from both sources",
+  "comparable_observations": 194,
+  "by_verdict": {
+    "match": 132,
+    "mismatch": 55,
+    "basis_gap": 7
+  },
+  "agreement_rate": 0.6804,
+  "unit_error_rate": 0.0,
+  "median_ratio": 1.0,
+  "funds_compared": 49,
+  "worst": [
+    {
+      "ticker": "HCF",
+      "month": "2025-10",
+      "nav_per_share": 4.12,
+      "nta_price": 0.011,
+      "ratio": 374.54545454545456,
+      "verdict": "mismatch"
+    },
+    {
+      "ticker": "HCF",
+      "month": "2025-08",
+      "nav_per_share": 4.12,
+      "nta_price": 0.012,
+      "ratio": 343.3333333333333,
+      "verdict": "mismatch"
+    },
+    {
+      "ticker": "HCF",
+      "month": "2025-09",
+      "nav_per_share": 4.12,
+      "nta_price": 0.012,
+      "ratio": 343.3333333333333,
+      "verdict": "mismatch"
+    },
+    {
+      "ticker": "REV",
+      "month": "2025-11",
+      "nav_per_share": 18.11,
+      "nta_price": 2.0012,
+      "ratio": 9.049570257845293,
+      "verdict": "mismatch"
+    },
+    {
+      "ticker": "TEK",
+      "month": "2025-08",
+      "nav_per_share": 2.0,
+      "nta_price": 0.248,
+      "ratio": 8.064516129032258,
+      "verdict": "mismatch"
+    },
+    {
+      "ticker": "REV",
+      "month": "2025-12",
+      "nav_per_share": 16.12,
+      "nta_price": 2.0167,
+      "ratio": 7.993256309813061,
+      "verdict": "mismatch"
+    },
+    {
+      "ticker": "TEK",
+      "month": "2025-11",
+      "nav_per_share": 2.0,
+      "nta_price": 0.258,
+      "ratio": 7.751937984496124,
+      "verdict": "mismatch"
+    },
+    {
+      "ticker": "TEK",
+      "month": "2025-09",
+      "nav_per_share": 2.0,
+      "nta_price": 0.259,
+      "ratio": 7.722007722007722,
+      "verdict": "mismatch"
+    },
+    {
+      "ticker": "TEK",
+      "month": "2025-10",
+      "nav_per_share": 2.0,
+      "nta_price": 0.262,
+      "ratio": 7.633587786259541,
+      "verdict": "mismatch"
+    },
+    {
+      "ticker": "REV",
+      "month": "2025-10",
+      "nav_per_share": 14.1,
+      "nta_price": 2.015,
+      "ratio": 6.997518610421835,
+      "verdict": "mismatch"
+    },
+    {
+      "ticker": "FGG",
+      "month": "2025-06",
+      "nav_per_share": 0.04,
+      "nta_price": 1.7124,
+      "ratio": 0.0233590282644242,
+      "verdict": "mismatch"
+    },
+    {
+      "ticker": "FGG",
+      "month": "2025-03",
+      "nav_per_share": 0.04,
+      "nta_price": 1.6617,
+      "ratio": 0.024071733766624543,
+      "verdict": "mismatch"
+    },
+    {
+      "ticker": "FGX",
+      "month": "2025-06",
+      "nav_per_share": 0.036000000000000004,
+      "nta_price": 1.3861,
+      "ratio": 0.025972152081379412,
+      "verdict": "mismatch"
+    },
+    {
+      "ticker": "FGX",
+      "month": "2025-03",
+      "nav_per_share": 0.036000000000000004,
+      "nta_price": 1.3456,
+      "ratio": 0.026753864447086807,
+      "verdict": "mismatch"
+    },
+    {
+      "ticker": "CD3",
+      "month": "2025-08",
+      "nav_per_share": 0.13,
+      "nta_price": 1.83,
+      "ratio": 0.07103825136612021,
+      "verdict": "mismatch"
+    }
+  ],
+  "extracted_observations": 953,
+  "check_coverage": 0.2036,
+  "note": "the exchange file starts in 2017 and lists only the funds it covers, so agreement is measured on this subset, not on the whole extraction",
   "compare_stages": {
-    "extracted_in": 26274,
-    "after_value_dropna": 26274,
-    "after_month_dropna_and_dedupe": 4663,
+    "extracted_in": 953,
+    "after_value_dropna": 953,
+    "after_month_dropna_and_dedupe": 216,
     "panel_in": 11830,
     "panel_after_dropna": 2076,
-    "merged": 0,
+    "merged": 194,
     "e_month_dtype": "object",
     "p_month_dtype": "object",
     "e_key_sample": [
-      "8EC|2016-10",
-      "8EC|2016-11",
-      "8EC|2016-12"
+      "AFI|2025-08",
+      "AFI|2025-09",
+      "AFI|2025-10"
     ],
     "p_key_sample": [
       "8IH|2024-07",
@@ -22,33 +155,23 @@
     ]
   },
   "diagnostics": {
-    "fact_rows_total": 46650,
-    "nav_rows": 26274,
-    "nav_rows_with_valuation_date": 18961,
-    "nav_tickers": 147,
+    "fact_rows_total": 2205,
+    "nav_rows": 953,
+    "nav_rows_with_valuation_date": 767,
+    "nav_tickers": 72,
     "nav_months_sample": [
-      "2005-04",
-      "2008-10",
-      "2009-02",
-      "2009-09",
-      "2009-11",
-      "2010-04"
+      "2025-03",
+      "2025-06",
+      "2025-08",
+      "2025-09",
+      "2025-10",
+      "2025-11"
     ],
-    "nav_month_min": "2005-04",
-    "nav_month_max": "2023-08",
+    "nav_month_min": "2025-03",
+    "nav_month_max": "2026-08",
     "nav_rows_by_year": {
-      "2005": 1,
-      "2008": 1,
-      "2009": 4,
-      "2010": 1,
-      "2016": 345,
-      "2017": 2146,
-      "2018": 2354,
-      "2019": 2882,
-      "2020": 3731,
-      "2021": 3588,
-      "2022": 2571,
-      "2023": 1337
+      "2025": 747,
+      "2026": 20
     },
     "panel_rows": 11830,
     "panel_has_nta_price": true,
@@ -63,14 +186,14 @@
     ],
     "panel_month_min": "2016-12",
     "panel_month_max": "2026-06",
-    "ticker_overlap": 147,
-    "nav_rows_with_value": 26274,
+    "ticker_overlap": 72,
+    "nav_rows_with_value": 953,
     "nav_key_sample": [
-      "MFF|2023-07",
-      "LRT|2023-07",
-      "LSF|nan",
-      "HM1|nan",
-      "PGF|2023-07"
+      "RF1|2026-08",
+      "DJW|2026-08",
+      "MIR|2026-08",
+      "PIC|2025-12",
+      "SEC|2025-12"
     ],
     "panel_key_sample": [
       "8EC|2016-12",
@@ -79,32 +202,32 @@
       "8EC|2017-03",
       "8EC|2017-04"
     ],
-    "composite_key_overlap": 4511,
-    "nav_unique_keys": 4663,
+    "composite_key_overlap": 199,
+    "nav_unique_keys": 216,
     "panel_unique_keys": 11830,
     "key_overlap_sample": [
-      "8EC|2016-12",
-      "8EC|2017-01",
-      "8EC|2017-02",
-      "8EC|2017-03",
-      "8EC|2017-04"
+      "AFI|2025-08",
+      "AFI|2025-09",
+      "AFI|2025-10",
+      "AFI|2025-11",
+      "AFI|2025-12"
     ],
-    "probe_ticker": "8EC",
+    "probe_ticker": "AFI",
     "probe_nav_months": [
-      "2021-02",
-      "2021-04",
-      "2021-05",
-      "2021-06",
-      "2021-07",
-      "2021-08"
+      "2025-11",
+      "2025-11",
+      "2025-12",
+      "2025-12",
+      "2025-12",
+      "2026-08"
     ],
     "probe_panel_months": [
-      "2021-03",
-      "2021-04",
-      "2021-05",
-      "2021-06",
-      "2021-07",
-      "2021-08"
+      "2026-01",
+      "2026-02",
+      "2026-03",
+      "2026-04",
+      "2026-05",
+      "2026-06"
     ]
   }
 }
