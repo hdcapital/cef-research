@@ -36,10 +36,6 @@ on:
         description: "also pull the listings index, to say WHY each short history is short"
         type: boolean
         default: false
-      reparse_unparsed:
-        description: "re-read announcements no parser has yet read a NAV from (S3 text, no new fetches)"
-        type: boolean
-        default: false
 
 permissions:
   contents: write
@@ -84,7 +80,6 @@ jobs:
             --stages "${{ github.event.inputs.stages || 'nav,prices,discount' }}" \
             --deadline-min "${{ github.event.inputs.deadline_minutes || '240' }}" \
             ${{ github.event.inputs.full_prices == 'true' && '--full-prices' || '' }} \
-            ${{ github.event.inputs.reparse_unparsed == 'true' && '--reparse-unparsed' || '' }} \
             ${{ github.event.inputs.reparse_unparsed == 'true' && '--reparse-unparsed' || '' }}
 
       - name: Persist panels to S3
