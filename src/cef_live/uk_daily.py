@@ -103,6 +103,10 @@ def stage_prices(universe: pd.DataFrame, *, deadline_min: float,
 def stage_discount(universe: pd.DataFrame, nav: pd.DataFrame,
                    px: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
     freq = NAV.publication_frequency(nav)
+    # Yahoo's close is split-adjusted and a published NAV is not, so the NAV
+    # is restated onto the price series' share basis before either the unit
+    # reconciliation or the discount touches it.
+    nav = PH.nav_on_price_basis(nav, PH.read_splits())
     units = PH.reconcile_units(nav, px)
     panel = DISC.build(nav, px, frequency=freq, units=units)
     if len(panel):
@@ -135,6 +139,8 @@ def stage_discount(universe: pd.DataFrame, nav: pd.DataFrame,
         "unit_status": units["price_unit_status"].value_counts().to_dict()
         if len(units) else {},
         "nav_readiness": ready["readiness"].value_counts().to_dict(),
+        "funds_split_adjusted": int((nav["split_factor"] != 1.0)
+                                    .groupby(nav["ticker"]).any().sum()),
         "frequency_mix": freq["nav_frequency"].value_counts().to_dict()
         if len(freq) else {},
     }

@@ -77,7 +77,16 @@ def build(nav: pd.DataFrame, px: pd.DataFrame,
     n = nav.copy()
     n["published_at"] = pd.to_datetime(n["published_at"])
     n["nav_date"] = pd.to_datetime(n["nav_date"])
-    n = n.dropna(subset=["nav_pence", "published_at"]).sort_values("published_at")
+    # The discount is computed on the SPLIT-ADJUSTED NAV, because the price
+    # series is split-adjusted and the published NAV is not. `nav_pence`
+    # stays in the panel exactly as the fund announced it - a restated figure
+    # must never overwrite the fund's own number - and `split_factor` says
+    # what was applied.
+    if "nav_pence_adj" not in n.columns:
+        n["nav_pence_adj"] = n["nav_pence"]
+        n["split_factor"] = 1.0
+    n["nav_pence_adj"] = n["nav_pence_adj"].fillna(n["nav_pence"])
+    n = n.dropna(subset=["nav_pence_adj", "published_at"]).sort_values("published_at")
 
     p = px.copy()
     p["date"] = pd.to_datetime(p["date"])
@@ -119,13 +128,16 @@ def build(nav: pd.DataFrame, px: pd.DataFrame,
             # it with the funds that DO have NAV cannot change their dtypes.
             left = left.assign(
                 nav_pence=pd.Series(dtype="float64"),
+                nav_pence_adj=pd.Series(dtype="float64"),
+                split_factor=pd.Series(dtype="float64"),
                 nav_date=pd.Series(dtype="datetime64[ns]"),
                 published_at=pd.Series(dtype="datetime64[ns]"),
                 cum_assumed=pd.Series(dtype="object"),
                 nav_source=pd.Series(dtype="object"),
                 ann_id=pd.Series(dtype="object"))
         else:
-            right = ng[["published_at", "nav_pence", "nav_date", "cum_assumed",
+            right = ng[["published_at", "nav_pence", "nav_pence_adj",
+                        "split_factor", "nav_date", "cum_assumed",
                         "nav_source", "ann_id"]].copy()
             # merge_asof CONSUMES the join key, overwriting it with the left
             # frame's date. Keeping a copy is the only way the panel can
@@ -141,9 +153,11 @@ def build(nav: pd.DataFrame, px: pd.DataFrame,
     d["nav_date"] = pd.to_datetime(d.get("nav_date"), errors="coerce")
     d["nav_age_days"] = (d["date"] - d["nav_date"]).dt.days
     d["nav_pence"] = pd.to_numeric(d["nav_pence"], errors="coerce")
+    d["nav_pence_adj"] = pd.to_numeric(d.get("nav_pence_adj"), errors="coerce")
 
-    d["discount"] = pd.to_numeric(d["price_pence"], errors="coerce") / d["nav_pence"] - 1.0
-    d.loc[d["nav_pence"].isna() | (d["nav_pence"] <= 0), "discount"] = pd.NA
+    d["discount"] = (pd.to_numeric(d["price_pence"], errors="coerce")
+                     / d["nav_pence_adj"] - 1.0)
+    d.loc[d["nav_pence_adj"].isna() | (d["nav_pence_adj"] <= 0), "discount"] = pd.NA
     d.loc[d["price_pence"].isna(), "discount"] = pd.NA
 
     limit = d["ticker"].map(limits).fillna(float(STALE_FLOOR_DAYS))
@@ -154,13 +168,14 @@ def build(nav: pd.DataFrame, px: pd.DataFrame,
     d["quality"] = "ok"
     d.loc[d["price_pence"].isna() & d["close_raw"].notna(),
           "quality"] = "price_unit_unresolved"
-    d.loc[d["nav_pence"].isna(), "quality"] = "no_nav_published_yet"
+    d.loc[d["nav_pence_adj"].isna(), "quality"] = "no_nav_published_yet"
     imp = d["discount"].abs() > IMPLAUSIBLE_ABS
     d.loc[imp.fillna(False), "quality"] = "implausible_discount"
 
     cols = ["ticker", "date", "close_raw", "price_pence", "price_ccy",
             "price_scale", "price_unit_status",
-            "nav_pence", "nav_date", "published_at", "nav_age_days", "nav_stale",
+            "nav_pence", "nav_pence_adj", "split_factor",
+            "nav_date", "published_at", "nav_age_days", "nav_stale",
             "nav_stale_limit_days", "discount", "discount_fresh",
             "cum_assumed", "nav_source", "ann_id", "price_source", "quality"]
     return d[[c for c in cols if c in d.columns]].sort_values(

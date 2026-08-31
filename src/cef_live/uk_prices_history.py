@@ -120,6 +120,13 @@ def fetch_history(s: requests.Session, ticker: str, symbol: str,
             return None
         q = j["indicators"]["quote"][0]
         adj = ((j["indicators"].get("adjclose") or [{}])[0] or {}).get("adjclose")
+        splits = [{"ticker": str(ticker).upper(),
+                   "date": pd.Timestamp(int(v["date"]), unit="s").normalize(),
+                   "numerator": float(v.get("numerator") or 0),
+                   "denominator": float(v.get("denominator") or 0),
+                   "ratio": (float(v["numerator"]) / float(v["denominator"]))
+                   if v.get("numerator") and v.get("denominator") else None}
+                  for v in (j.get("events", {}).get("splits") or {}).values()]
         idx = pd.to_datetime(ts, unit="s", utc=True).tz_convert(None).normalize()
         df = pd.DataFrame({
             "date": idx,
@@ -132,7 +139,11 @@ def fetch_history(s: requests.Session, ticker: str, symbol: str,
         df["price_source"] = f"yahoo:{symbol}"
         df = df.dropna(subset=["close_raw"])
         df = df[~df["date"].duplicated(keep="last")]
-        return df[COLUMNS] if len(df) else None
+        if not len(df):
+            return None
+        out = df[COLUMNS]
+        out.attrs["splits"] = [v for v in splits if v["ratio"]]
+        return out
     except Exception:  # noqa: BLE001
         return None
 
@@ -221,7 +232,7 @@ def update(tickers: list[str], existing: pd.DataFrame | None = None,
 
     s = session()
     started = time.time()
-    got, report = [], []
+    got, report, split_rows = [], [], []
     for i, tk in enumerate(sorted(set(t.upper() for t in tickers)), start=1):
         if (time.time() - started) > deadline_min * 60:
             report.append({"ticker": tk, "status": "deadline_not_attempted",
@@ -241,6 +252,7 @@ def update(tickers: list[str], existing: pd.DataFrame | None = None,
                            "status": "no_history", "rows": 0})
             continue
         got.append(df)
+        split_rows.extend(df.attrs.get("splits") or [])
         report.append({"ticker": tk, "symbol": sym, "mode": mode,
                        "status": "ok", "rows": int(len(df)),
                        "first": df["date"].min().date().isoformat(),
@@ -250,6 +262,19 @@ def update(tickers: list[str], existing: pd.DataFrame | None = None,
             print(f"  prices: {i}/{len(set(tickers))} funds, "
                   f"{sum(len(d) for d in got):,} bars this run")
     new = pd.concat(got, ignore_index=True) if got else pd.DataFrame(columns=COLUMNS)
+    # Split events are only served alongside the bars, so they are collected
+    # on the same request rather than costing another one. A tail-mode fetch
+    # only sees splits inside its window, so the held set is merged rather
+    # than replaced - losing an old split would silently un-adjust a decade
+    # of NAV.
+    held = read_splits()
+    fresh = pd.DataFrame(split_rows, columns=["ticker", "date", "numerator",
+                                              "denominator", "ratio"])
+    both = pd.concat([held, fresh], ignore_index=True)
+    if len(both):
+        both["date"] = pd.to_datetime(both["date"])
+        both = both.drop_duplicates(["ticker", "date"], keep="last")
+        write_splits(both)
     return merge_prices(existing, new), pd.DataFrame(report)
 
 
@@ -309,8 +334,11 @@ def reconcile_units(nav: pd.DataFrame, px: pd.DataFrame,
 
     n = pd.DataFrame(columns=["ticker", "date", "nav_pence"])
     if nav is not None and len(nav):
-        n = nav[["ticker", "published_at", "nav_pence"]].rename(
-            columns={"published_at": "date"}).dropna()
+        # reconcile against the SPLIT-ADJUSTED NAV where one is present, so a
+        # subdivision is not mistaken for a unit error (and then refused).
+        col = "nav_pence_adj" if "nav_pence_adj" in nav.columns else "nav_pence"
+        n = nav[["ticker", "published_at", col]].rename(
+            columns={"published_at": "date", col: "nav_pence"}).dropna()
         n["date"] = pd.to_datetime(n["date"])
         n = n.sort_values("date")
 
@@ -375,3 +403,87 @@ def reconcile_units(nav: pd.DataFrame, px: pd.DataFrame,
                      "log_spread": round(spread, 4) if pd.notna(spread) else None,
                      "n_days": int(len(m)), "price_ccy": ccy})
     return pd.DataFrame(rows, columns=cols).sort_values("ticker").reset_index(drop=True)
+
+
+# ------------------------------------------------------------------ splits
+# THE SECOND UNIT TRAP, and a subtler one than the pence/pounds label.
+#
+# Yahoo's `close` is retro-adjusted for SPLITS. A trust that subdivided its
+# shares 10-for-1 in 2021 has its entire pre-2021 price history divided by
+# ten, so it is comparable with today's price. The NAV in a 2015 RNS
+# announcement is not: it states pence per share on the share count that
+# existed in 2015.
+#
+# Divide one by the other and the discount is out by the split factor - and
+# it does not look like an error. It looks like a fund that traded at a 90%
+# discount for years and then abruptly did not, on the day of the split.
+#
+# The first run measured exactly this: 17 live trusts - Bankers, Caledonia,
+# Temple Bar, Polar Capital Technology, Lowland, Murray International,
+# Alliance Witan among them - came back with price/NAV clustered near 0.10
+# or, for consolidations, near 170. The unit reconciliation correctly refused
+# to price any of them (a 10x correction is not one of the scales it will
+# apply, and it never guesses), so they had no discount at all. The fix is
+# not a scale: it is putting NAV on the same share basis as the price.
+#
+# The log-spread told which was which. A tight spread (Capital Gearing
+# 0.013, Temple Bar 0.036) is a constant offset - the split predates the
+# window. A wide one (Bankers 0.99, Polar Cap Tech 0.98) is a ratio that
+# steps mid-history, which is the split itself, visible in the data.
+
+SPLIT_FILE = Path("data/uk/splits.parquet")
+
+
+def write_splits(splits: pd.DataFrame, path: Path = SPLIT_FILE) -> None:
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    splits.sort_values(["ticker", "date"]).to_parquet(path, index=False)
+
+
+def read_splits(path: Path = SPLIT_FILE) -> pd.DataFrame:
+    p = Path(path)
+    if not p.exists():
+        return pd.DataFrame(columns=["ticker", "date", "numerator",
+                                     "denominator", "ratio"])
+    df = pd.read_parquet(p)
+    df["date"] = pd.to_datetime(df["date"])
+    return df
+
+
+def split_factor(dates: pd.Series, ticker_splits: pd.DataFrame) -> pd.Series:
+    """Cumulative split factor applying AFTER each date.
+
+    Yahoo's close on date t has already been divided by this. So a NAV
+    published on date t is put on today's share basis by dividing by the
+    same number - and a fund with no splits gets 1.0, changing nothing.
+    """
+    f = pd.Series(1.0, index=dates.index)
+    if ticker_splits is None or not len(ticker_splits):
+        return f
+    for r in ticker_splits.itertuples(index=False):
+        if not r.ratio:
+            continue
+        f = f.where(dates >= r.date, f * float(r.ratio))
+    return f
+
+
+def nav_on_price_basis(nav: pd.DataFrame, splits: pd.DataFrame) -> pd.DataFrame:
+    """Restate published NAV per share on the price series' share basis.
+
+    Adds `split_factor` and `nav_pence_adj`, keeping `nav_pence` exactly as
+    published: the announcement said what it said, and a restated figure
+    must never overwrite the fund's own number.
+    """
+    out = nav.copy()
+    out["split_factor"] = 1.0
+    if splits is not None and len(splits):
+        by_ticker = {tk: g for tk, g in splits.groupby("ticker", sort=False)}
+        for tk, idx in out.groupby("ticker", sort=False).groups.items():
+            g = by_ticker.get(tk)
+            if g is None or not len(g):
+                continue
+            out.loc[idx, "split_factor"] = split_factor(
+                out.loc[idx, "published_at"], g)
+    out["nav_pence_adj"] = pd.to_numeric(out["nav_pence"], errors="coerce") \
+        / out["split_factor"]
+    return out

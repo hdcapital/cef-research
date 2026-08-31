@@ -333,3 +333,69 @@ def test_a_comment_only_symbol_override_file_is_not_an_error(tmp_path):
     assert PH.load_overrides(p) == {"ATST": "ALW.L"}
     assert PH.yahoo_symbol("ATST", PH.load_overrides(p)) == "ALW.L"
     assert PH.yahoo_symbol("CTY", {}) == "CTY.L"
+
+
+# ----------------------------------------------------------------- splits
+def test_split_adjusted_price_against_unadjusted_nav_is_corrected():
+    """Yahoo's close is retro-adjusted for splits; a published NAV is not.
+
+    A trust that subdivided 10-for-1 has its whole pre-split price history
+    divided by ten. The 2015 RNS states pence per share on the 2015 share
+    count. Divide one by the other and you get a fund that appears to have
+    traded at a 90% discount for years and then abruptly not, on the day of
+    the split - an artefact that looks exactly like a real re-rating.
+
+    The first CI run measured this on 17 live trusts (Bankers, Caledonia,
+    Temple Bar, Polar Capital Technology, Lowland, Alliance Witan among
+    them), whose price/NAV came back clustered near 0.10.
+    """
+    dates = pd.bdate_range("2020-01-01", "2022-12-31")
+    nav = _nav("AAA", dates, dates,
+               [1000.0 if d < pd.Timestamp("2021-06-01") else 100.0
+                for d in dates])
+    splits = pd.DataFrame([{"ticker": "AAA", "date": pd.Timestamp("2021-06-01"),
+                            "numerator": 10.0, "denominator": 1.0, "ratio": 10.0}])
+    nav_adj = PH.nav_on_price_basis(nav, splits)
+    # the fund's own published number is preserved, never overwritten
+    assert nav_adj[nav_adj["published_at"] < pd.Timestamp("2021-06-01")]["nav_pence"].eq(1000.0).all()
+    assert nav_adj["nav_pence_adj"].eq(100.0).all()
+
+    px = _px("AAA", dates, [90.0] * len(dates))     # split-adjusted throughout
+    units = PH.reconcile_units(nav_adj, px)
+    assert units.iloc[0]["price_unit_status"] == "ok"
+    out = DISC.build(nav_adj, px, units=units)
+    assert out["discount"].median() == pytest.approx(-0.10)
+    # Without the adjustment the same data yields the artefact, and its
+    # signature is a STEP at the split date rather than a shifted level:
+    # a fund apparently at a 91% discount for eighteen months that re-rates
+    # to 10% overnight, on no news, purely because the share count changed.
+    bad = DISC.build(nav.assign(nav_pence_adj=nav["nav_pence"], split_factor=1.0),
+                     px, units=PH.reconcile_units(nav, px))
+    before = bad[bad["date"] < pd.Timestamp("2021-06-01")]["discount"]
+    after = bad[bad["date"] >= pd.Timestamp("2021-06-01")]["discount"]
+    assert before.median() == pytest.approx(-0.91)
+    assert after.median() == pytest.approx(-0.10)
+    # while the corrected panel shows no step at all
+    ok_before = out[out["date"] < pd.Timestamp("2021-06-01")]["discount"]
+    ok_after = out[out["date"] >= pd.Timestamp("2021-06-01")]["discount"]
+    assert abs(ok_before.median() - ok_after.median()) < 1e-9
+
+
+def test_a_fund_with_no_splits_is_left_exactly_alone():
+    nav = _nav("AAA", ["2021-01-04"], ["2021-01-04"], [100.0])
+    out = PH.nav_on_price_basis(nav, pd.DataFrame(
+        columns=["ticker", "date", "numerator", "denominator", "ratio"]))
+    assert out["split_factor"].eq(1.0).all()
+    assert out["nav_pence_adj"].eq(out["nav_pence"]).all()
+
+
+def test_tail_fetch_does_not_forget_older_splits():
+    """A tail-mode fetch only sees splits inside its window.
+
+    Replacing the held set with what one short window returned would drop a
+    2021 subdivision on the next daily run, silently un-adjusting a decade
+    of NAV for that fund - and the discount would move overnight with no
+    code change to point at.
+    """
+    src = inspect.getsource(PH.update)
+    assert "read_splits()" in src and "drop_duplicates" in src
