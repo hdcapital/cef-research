@@ -33,7 +33,7 @@ BASE = "https://www.londonstockexchange.com"
 # one live fund we already hold, and one of the seven whose ticker we
 # suspect is stale after a rename
 SAMPLES = ["CTY", "SLPE"]
-OUT = Path("outputs/probe/lse_probe.json")
+OUT = Path("data/probe/lse/lse_probe.json")
 THROTTLE = 3.0
 
 # a bot-challenge page is not content, however healthy its status code
@@ -89,7 +89,29 @@ def main() -> int:
     # Only touch a stock page if robots.txt permits it. An empty `allowed`
     # means robots.txt could not be read, which is itself a reason to stop.
     if allowed and all(v for v in allowed.values() if v is not None):
-        out["pages"] = [get(s, f"{BASE}/stock/{SAMPLES[0]}/x/company-page")]
+        pg = get(s, f"{BASE}/stock/{SAMPLES[0]}/x/company-page")
+        # The first run showed a 200 with a generic <title> and an Angular
+        # shell, which SUGGESTS the markup carries no data - but suggests is
+        # not knows. Look for the things we would actually need, so the
+        # conclusion is a measurement instead of my reading of a snippet.
+        body = ""
+        try:
+            body = requests.get(f"{BASE}/stock/{SAMPLES[0]}/x/company-page",
+                                timeout=45, headers={"User-Agent": UA}).text
+        except Exception:  # noqa: BLE001
+            pass
+        low = body.lower()
+        pg["contains"] = {
+            "fund_name_city_of_london": "city of london" in low,
+            "ticker_CTY": "cty" in low,
+            "any_price_pattern": bool(re.search(r"\b\d{2,4}\.\d{1,2}\b", body)),
+            "words_recent_trades": "recent trades" in low,
+            # where does the page say its data comes from?
+            "references_lsecws": "lsecws" in low,
+            "script_tags": low.count("<script"),
+            "total_bytes": len(body),
+        }
+        out["pages"] = [pg]
     else:
         out["pages"] = []
         out["skipped_pages"] = "robots.txt does not permit these paths"
