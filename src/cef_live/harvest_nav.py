@@ -80,6 +80,16 @@ AU_COLS = ["security_id", "nav_date", "nav_value", "unit", "basis_note",
            "source", "headline"]
 
 
+def _note_failure(stats: dict, code: str, headline: str, url: str,
+                  status: str | None, text: str) -> None:
+    """Record one unreadable document, capped so the report stays readable."""
+    samples = stats.setdefault("fail_samples", [])
+    if len(samples) >= 40:
+        return
+    samples.append({"code": code, "headline": (headline or "")[:120],
+                    "url": url, "status": status, "text_head": text})
+
+
 def _nta_from_document(doc: dict, headline: str) -> dict | None:
     """The stated per-share NTA from one parsed PDF, or None.
 
@@ -217,11 +227,22 @@ def harvest_au(codes: set[str], lookback_days: int = 45,
         stats["attempted"] += 1
         doc = P.parse_pdf(s, str(r.id), r.url, counters)
         if doc.get("status") != "extracted":
-            stats["fetch_failed"] = stats.get("fetch_failed", 0) + 1
+            # an image-only scan is a different fact from a failed fetch:
+            # no text parser will ever read the first, and the second is
+            # worth retrying
+            key = ("image_only" if doc.get("status") == "no_text_layer"
+                   else "fetch_failed")
+            stats[key] = stats.get(key, 0) + 1
+            _note_failure(stats, code, head, r.url, doc.get("status"), "")
             continue
         got = _nta_from_document(doc, head)
         if got is None:
             stats["parse_failed"] += 1
+            # keep WHAT could not be read, as the UK harvester does. A count
+            # says how many failed; a sample says why, and is the difference
+            # between guessing at a layout and reading one.
+            _note_failure(stats, code, head, r.url, "no_nta_parsed",
+                          (doc.get("text") or "")[:1200])
             continue
         if got.get("unit_source") == "ambiguous":
             stats["ambiguous_unit"] += 1

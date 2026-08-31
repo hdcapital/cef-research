@@ -530,3 +530,40 @@ def test_the_uk_parser_recovers_most_of_the_recorded_failures_plausibly():
     assert min(pence) >= 20.0, (
         f"a recovered sterling NAV of {min(pence)}p is not a UK trust's NAV")
     assert max(pence) <= 100_000.0
+
+
+def test_one_asx_nta_headline_pattern_serves_every_reader():
+    """The audit kept a THIRD copy, and it drifted the moment the
+    harvester's was widened.
+
+    Underwood Capital publishes its monthly NTA as "UWC Investment
+    Portfolio Performance July 2026". The harvester and the liveness
+    classifier both recognise it - UWC's own audit row reads
+    `nav_19d_old` - while the audit's narrower copy reported "no NAV
+    announcement held" for the same fund on the same day. The report
+    contradicted itself and pointed away from the real problem, which is
+    that the PDF behind that announcement does not parse.
+    """
+    from cef_live import cli, coverage_audit as CA
+    assert CA.ASX_NTA is H.AU_NAV_HEAD
+    assert cli.NAV_HEAD is H.AU_NAV_HEAD
+    assert CA.ASX_NTA.search("UWC Investment Portfolio Performance July 2026")
+
+
+def test_an_unreadable_asx_document_is_recorded_with_enough_to_fix_it():
+    """A count says how many failed; a sample says why.
+
+    That difference is what turned the UK parser from a guess into a
+    measurement, and the ASX side had only counts.
+    """
+    src = inspect.getsource(H.harvest_au)
+    assert "_note_failure(" in src
+    assert '"image_only"' in src, (
+        "a scan with no text layer is not a failed fetch - no text parser "
+        "will ever read it, and the two need different fixes")
+    stats = {}
+    for i in range(45):
+        H._note_failure(stats, f"C{i}", "Monthly Report", "u", "no_nta_parsed", "x" * 5000)
+    assert len(stats["fail_samples"]) == 40, "the sample list must stay bounded"
+    assert set(stats["fail_samples"][0]) == {"code", "headline", "url",
+                                             "status", "text_head"}
