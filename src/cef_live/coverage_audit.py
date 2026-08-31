@@ -52,7 +52,7 @@ import numpy as np
 import pandas as pd
 import yaml
 
-from . import eligibility, liveness, units
+from . import eligibility, identity, liveness, units
 
 OUT_DIR = Path("outputs/live_coverage")
 
@@ -115,6 +115,27 @@ FIXES = {
         "to the Tier 0 harvest so it stops depending on the aggregator",
     "stale_nav":
         "re-run the NAV harvest; the anchor is past the fresh window",
+    "identity_unresolved":
+        "this ticker is claimed by more than one security, or now belongs to "
+        "a different company - settle which security the quote belongs to "
+        "(outputs/live_coverage/identity_conflicts.csv) before trusting it",
+    "nav_not_positive":
+        "the NAV parsed as zero or negative, which is not a valuation - fix "
+        "the source reader rather than the output",
+    "no_valid_discount":
+        "price and NAV both look usable but no discount came out - a defect "
+        "in the discount path, not a coverage gap",
+    "z_within_error_band":
+        "none needed - the discount is within its own estimate's error band, "
+        "so there is no current dislocation to signal",
+    "no_current_zscore":
+        "the fund has history but no current z-score; check the discount and "
+        "the estimate's error band",
+    "no_current_discount":
+        "history is sufficient but there is no current discount to score",
+    "required_input_missing":
+        "a required GREEN input is missing; see the row's usable_price, "
+        "usable_nav, valid_discount and z_status columns",
     "future_dated_price":
         "the price carries a date later than the audit date - check the "
         "provider's timezone handling before trusting it",
@@ -162,6 +183,12 @@ def load_registry(params: dict, as_of: date | None = None,
         evidence = _liveness_evidence()
     reg = liveness.apply(reg, evidence, as_of=as_of, params=params)
     reg = eligibility.classify(reg, liveness.LIVE_STATUSES)
+    # who a ticker's live quote actually belongs to. A security whose
+    # identity is superseded or contested may keep every other column and
+    # must never carry a live signal.
+    from .cli import _verified_tickers
+    reg = identity.resolve(reg, _verified_tickers(),
+                           live_statuses=tuple(liveness.LIVE_STATUSES))
     return reg
 
 
@@ -654,6 +681,13 @@ def build_rows(reg: pd.DataFrame, live: pd.DataFrame, params: dict,
             "live_status_source": r.get("live_status_source"),
             "aggregator_status": r.get("aggregator_status"),
             "exclusion_reason": r.get("exclusion_reason"),
+            "identity_status": r.get("identity_status"),
+            "identity_ok": bool(r.get("identity_ok", True)),
+            "identity_reason": r.get("identity_reason"),
+            "identity_incumbent_id": r.get("identity_incumbent_id"),
+            "identity_incumbent_name": r.get("identity_incumbent_name"),
+            "identity_claimants": r.get("identity_claimants"),
+            "identity_same_name": bool(r.get("identity_same_name", False)),
             # price
             "price": price_value,
             "price_unit": price_unit,
@@ -707,6 +741,10 @@ def build_rows(reg: pd.DataFrame, live: pd.DataFrame, params: dict,
             "zscore_history_ok": zscore_ok,
             "zscore_min_months_required": zmin,
             "z_adj": lv.get("z_adj"),
+            "z_raw": lv.get("z_raw"),
+            "z_status": lv.get("z_status"),
+            "data_quality_ok": lv.get("data_quality_ok"),
+            "data_quality_reason": lv.get("data_quality_reason"),
             "alert_eligible": bool(lv.get("alert_eligible", False)),
             "in_live_table": bool(lv),
         })
@@ -716,8 +754,16 @@ def build_rows(reg: pd.DataFrame, live: pd.DataFrame, params: dict,
 def classify_coverage(df: pd.DataFrame, params: dict) -> pd.DataFrame:
     """GREEN / AMBER / RED / EXCLUDED, decided in code and nowhere else.
 
-    Read top to bottom: the first rule that fires wins, so the reported
-    blocking issue is the one that would have to be fixed first.
+    GREEN IS A CONJUNCTION, NOT AN ABSENCE OF COMPLAINTS. It used to be
+    "no RED issue fired and no AMBER qualification fired", which is a
+    different statement and a weaker one: Ironbark Capital came through
+    GREEN and signal-ready with a NAV of exactly 0.0, no discount at all
+    and valid_discount already False, because a zero NAV happened to trip
+    no rule in either list. 42 more were GREEN with no z-score.
+
+    So the required inputs are now named and all of them must hold. A fund
+    that fails one is AMBER or RED on the reason it failed, and
+    `signal_ready` is exactly the GREEN set by construction.
     """
     thr = thresholds(params)
     p_fresh = int(thr["price"]["fresh_days"])
@@ -732,29 +778,33 @@ def classify_coverage(df: pd.DataFrame, params: dict) -> pd.DataFrame:
         if not r["monitoring_eligible"]:
             status.append(EXCLUDED)
             reason.append(r["exclusion_reason"] or "not_in_monitoring_universe")
-            blocking.append("")
-            fix.append("")
+            blocking.append(""); fix.append("")
             usable_price.append(False); usable_nav.append(False)
             valid_disc.append(False); sig_ready.append(False)
             continue
 
         pa, na = r["price_age_days"], r["nav_age_days"]
-        has_price = r["price"] is not None and pd.notna(r["price"])
+        has_price = r["price"] is not None and pd.notna(r["price"]) and r["price"] > 0
+        nav_positive = (r["nav"] is not None and pd.notna(r["nav"]) and r["nav"] > 0)
         has_nav = r["nav"] is not None and pd.notna(r["nav"])
         up = bool(has_price and not r["price_is_fallback_panel"]
                   and pa is not None and 0 <= pa <= p_stale)
-        un = bool(has_nav and na is not None and 0 <= na <= n_amber)
+        un = bool(nav_positive and na is not None and 0 <= na <= n_amber)
         units_ok = r["unit_check_status"] in ("ok", "extreme")
-        vd = bool(up and un and units_ok and r["discount"] is not None)
+        vd = bool(up and un and units_ok and r["discount"] is not None
+                  and pd.notna(r["discount"]))
+        ident_ok = bool(r.get("identity_ok", True))
+        z_ok = r.get("z_adj") is not None and pd.notna(r.get("z_adj"))
+        hist_ok = bool(r["zscore_history_ok"])
 
         issues = []           # RED, in priority order
-        # A date after the audit date is not evidence of anything. Letting a
-        # negative age through would make a future-stamped observation the
-        # freshest data we hold - look-ahead arriving as a bad timestamp.
+        # A date after the audit date is not evidence of anything.
         if pa is not None and pa < 0:
             issues.append("future_dated_price")
         if na is not None and na < 0:
             issues.append("future_dated_nav")
+        if not ident_ok:
+            issues.append("identity_unresolved")
         if not has_price and not r["in_live_table"]:
             issues.append("not_in_live_table")
         elif not has_price and not r["ticker"]:
@@ -765,13 +815,19 @@ def classify_coverage(df: pd.DataFrame, params: dict) -> pd.DataFrame:
             issues.append("stale_panel_price_only")
         elif pa is None or pa > p_stale:
             issues.append("stale_price")
-        if not has_nav:
+        if has_nav and not nav_positive:
+            issues.append("nav_not_positive")
+        elif not has_nav:
             issues.append("nav_announcement_unparsed"
                           if r["nav_announcement_unparsed"] else "no_nav")
         elif na is None or na > n_amber:
             issues.append("nav_too_stale")
         if r["unit_check_status"] == "suspect_scale":
             issues.append("suspected_unit_mismatch")
+        if has_price and nav_positive and not vd and not issues:
+            # every input looked fine and no discount came out: a defect,
+            # not a coverage gap, and it must not pass as one
+            issues.append("no_valid_discount")
 
         if issues:
             status.append(RED)
@@ -783,8 +839,14 @@ def classify_coverage(df: pd.DataFrame, params: dict) -> pd.DataFrame:
             continue
 
         quals = []            # AMBER, in priority order
-        if not r["zscore_history_ok"]:
+        if not hist_ok:
             quals.append("insufficient_zscore_history")
+        elif not z_ok:
+            # the inputs are all present; the z was either not significant
+            # or could not be formed. z_status says which.
+            quals.append({"voided_within_error_band": "z_within_error_band",
+                          "no_current_discount": "no_current_discount"}
+                         .get(str(r.get("z_status")), "no_current_zscore"))
         if r["unit_check_status"] in ("extreme", "metadata_conflict"):
             quals.append("extreme_discount_premium")
         if na is not None and na > n_fresh:
@@ -797,7 +859,13 @@ def classify_coverage(df: pd.DataFrame, params: dict) -> pd.DataFrame:
         if pa is not None and pa > p_fresh:
             quals.append("stale_price")
 
-        if quals:
+        # GREEN is the CONJUNCTION - every required input, named
+        ready = bool(up and un and nav_positive and units_ok and vd
+                     and hist_ok and z_ok and ident_ok
+                     and r["monitoring_eligible"] and not quals)
+        if not ready:
+            if not quals:      # belt and braces: never fall through to GREEN
+                quals.append("required_input_missing")
             status.append(AMBER)
             reason.append("; ".join(quals))
             blocking.append(quals[0])
@@ -807,10 +875,10 @@ def classify_coverage(df: pd.DataFrame, params: dict) -> pd.DataFrame:
             continue
 
         status.append(GREEN)
-        reason.append("fresh price, published NAV, units consistent, "
-                      "own discount history sufficient")
-        blocking.append("")
-        fix.append("")
+        reason.append("fresh price, published NAV > 0, units consistent, "
+                      "valid discount, own discount history sufficient, "
+                      "current z-score, identity resolved")
+        blocking.append(""); fix.append("")
         usable_price.append(up); usable_nav.append(un)
         valid_disc.append(vd); sig_ready.append(True)
 
@@ -892,11 +960,24 @@ def summarise(rows: pd.DataFrame, params: dict) -> dict:
                 "valid_discount_pct": _pct(int(mon["valid_discount"].sum()), d),
                 "zscore_history": int(mon["zscore_history_ok"].sum()),
                 "zscore_history_pct": _pct(int(mon["zscore_history_ok"].sum()), d),
+                # history is the INPUT; a populated z_adj is the OUTPUT, and
+                # only the second one means a signal exists today
+                "current_zscore": int(mon["z_adj"].notna().sum()),
+                "current_zscore_pct": _pct(int(mon["z_adj"].notna().sum()), d),
+                "zscore_voided_within_error_band": int(
+                    (mon["z_status"] == "voided_within_error_band").sum()),
+                "identity_resolved": int(mon["identity_ok"].sum()),
+                "identity_unresolved": int((~mon["identity_ok"]).sum()),
                 "signal_ready": int(mon["signal_ready"].sum()),
                 "signal_ready_pct": _pct(int(mon["signal_ready"].sum()), d),
             },
             "status": {s: int((mon["coverage_status"] == s).sum())
                        for s in (GREEN, AMBER, RED)},
+            "identity": {
+                "conflicts_all_rows": int((g["identity_status"] == "conflict").sum()),
+                "superseded_all_rows": int((g["identity_status"] == "superseded").sum()),
+                "unresolved_monitored": int((~mon["identity_ok"]).sum()),
+            },
             "excluded_by_reason": (g[~g["monitoring_eligible"]]["exclusion_reason"]
                                    .replace("", "unstated").value_counts().to_dict()),
         }
@@ -905,6 +986,34 @@ def summarise(rows: pd.DataFrame, params: dict) -> dict:
 
 ISSUE_LABEL = {
     "not_in_live_table": "Live but absent from the live table",
+    "identity_unresolved":
+        "this ticker is claimed by more than one security, or now belongs to "
+        "a different company - settle which security the quote belongs to "
+        "(outputs/live_coverage/identity_conflicts.csv) before trusting it",
+    "nav_not_positive":
+        "the NAV parsed as zero or negative, which is not a valuation - fix "
+        "the source reader rather than the output",
+    "no_valid_discount":
+        "price and NAV both look usable but no discount came out - a defect "
+        "in the discount path, not a coverage gap",
+    "z_within_error_band":
+        "none needed - the discount is within its own estimate's error band, "
+        "so there is no current dislocation to signal",
+    "no_current_zscore":
+        "the fund has history but no current z-score; check the discount and "
+        "the estimate's error band",
+    "no_current_discount":
+        "history is sufficient but there is no current discount to score",
+    "required_input_missing":
+        "a required GREEN input is missing; see the row's usable_price, "
+        "usable_nav, valid_discount and z_status columns",
+    "identity_unresolved": "Ticker identity unresolved",
+    "nav_not_positive": "NAV is zero or negative",
+    "no_valid_discount": "No discount despite usable price and NAV",
+    "z_within_error_band": "No current z-score (within the error band)",
+    "no_current_zscore": "No current z-score",
+    "no_current_discount": "No current discount",
+    "required_input_missing": "A required signal input is missing",
     "future_dated_price": "Price dated after the audit date",
     "future_dated_nav": "NAV dated after the audit date",
     "stale_nav": "Somewhat stale NAV",
@@ -1020,6 +1129,18 @@ def write_outputs(rows: pd.DataFrame, summary: dict, failures: pd.DataFrame,
     failures.to_csv(out_dir / "coverage_failures.csv", index=False)
     paths["failures"] = str(out_dir / "coverage_failures.csv")
 
+    # the identity queue is a REVIEW list, not a result: nothing here is
+    # auto-resolved, and every row on it is excluded from live signals
+    ident_cols = ["market", "ticker", "security_id", "name", "live_status",
+                  "identity_status", "identity_same_name", "identity_claimants",
+                  "identity_incumbent_id", "identity_incumbent_name",
+                  "identity_reason", "monitoring_eligible", "coverage_status"]
+    ident = rows[rows["identity_status"].isin(("conflict", "superseded"))][
+        [c for c in dict.fromkeys(ident_cols) if c in rows.columns]
+    ].sort_values(["identity_status", "market", "ticker"])
+    ident.to_csv(out_dir / "identity_conflicts.csv", index=False)
+    paths["identity"] = str(out_dir / "identity_conflicts.csv")
+
     mon = rows[rows["monitoring_eligible"]]
     tabs = {
         "Summary": _summary_frame(summary),
@@ -1033,6 +1154,7 @@ def write_outputs(rows: pd.DataFrame, summary: dict, failures: pd.DataFrame,
                              | mon["price_error"].notna()],
         "Unit Warnings": mon[mon["unit_check_status"].isin(
             ["suspect_scale", "extreme", "metadata_conflict"])],
+        "Identity Conflicts": ident,
         "Excluded": rows[~rows["monitoring_eligible"]],
         "Failure Ranking": ranking,
         "All Failures": failures,
@@ -1102,8 +1224,15 @@ def render_markdown(summary: dict, ranking: pd.DataFrame, rows: pd.DataFrame,
               f"{s['signal']['usable_nav_pct']}%",
               f"Valid current discount:     {s['signal']['valid_discount']:>6} / "
               f"{s['signal']['valid_discount_pct']}%",
-              f"Valid z-score history:      {s['signal']['zscore_history']:>6} / "
+              f"Discount history sufficient:{s['signal']['zscore_history']:>6} / "
               f"{s['signal']['zscore_history_pct']}%",
+              f"CURRENT z-score:            {s['signal']['current_zscore']:>6} / "
+              f"{s['signal']['current_zscore_pct']}%",
+              f"  (of which none needed:    "
+              f"{s['signal']['zscore_voided_within_error_band']:>6} within the "
+              f"estimate's own error band)",
+              f"Identity unresolved:        "
+              f"{s['signal']['identity_unresolved']:>6}",
               f"Fully signal-ready:         {s['signal']['signal_ready']:>6} / "
               f"{s['signal']['signal_ready_pct']}%",
               "",

@@ -112,7 +112,9 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
     reg_meta = {}
     if registry is not None and len(registry):
         cols = [c for c in ("name", "sector", "currency", "is_vct",
-                            "research_eligible", "status", "isin")
+                            "research_eligible", "status", "isin",
+                            "ticker", "identity_status", "identity_ok",
+                            "identity_incumbent_id")
                 if c in registry.columns]
         reg_meta = {str(r["security_id"]): {c: r[c] for c in cols}
                     for _, r in registry.iterrows()}
@@ -237,19 +239,55 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
         if dcol is None and {"share_price", "nta_derived"} <= set(g.columns):
             hist = hist.assign(discount=hist["share_price"] / hist["nta_derived"] - 1.0)
             dcol = "discount"
-        z_adj, mu, sd = np.nan, np.nan, np.nan
+        # z, and - separately - WHY there is no z. "We could not compute
+        # one" and "we computed one and it was not significant" are
+        # different facts about a fund, and reporting both as a blank
+        # z_adj sent 42 perfectly well covered funds to the coverage
+        # audit's failure list with no way to tell them apart.
+        z_adj, z_raw, mu, sd = np.nan, np.nan, np.nan, np.nan
+        z_status = "no_discount_history"
         if dcol is not None:
             h = hist[dcol].dropna()
-            if len(h) >= zp["min_months"] and h.std(ddof=1) > 0:
+            if len(h) < zp["min_months"]:
+                z_status = f"insufficient_history_{len(h)}m"
+            elif not h.std(ddof=1) > 0:
+                z_status = "zero_variance_history"
+            else:
                 mu, sd = float(h.mean()), float(h.std(ddof=1))
-                if pd.notna(discount_est):
-                    z_adj = (discount_est - mu) / sd
-                    # error-sanity gate: anomaly must exceed the estimate's
-                    # own error band, else the z is voided (NaN, not 0 -
-                    # absence of signal, not a neutral one)
+                if not pd.notna(discount_est):
+                    z_status = "no_current_discount"
+                else:
+                    z_raw = (discount_est - mu) / sd
+                    z_adj = z_raw
+                    # error-sanity gate: the anomaly must exceed the
+                    # estimate's own error band, else the z is voided (NaN,
+                    # not 0 - absence of signal, not a neutral one)
                     if pd.notna(est_error) and abs(discount_est - mu) <= \
                             zp["error_sanity_k"] * est_error:
                         z_adj = np.nan
+                        z_status = "voided_within_error_band"
+                    else:
+                        z_status = "computed"
+
+        # One data-quality verdict, computed once, on the values this row
+        # actually carries. It gates the alert BEFORE any z/catalyst/IRR
+        # logic runs, because a 100x unit error produces a spectacular
+        # z-score and nothing downstream can tell it from a real one:
+        # Lindsell Train came through at z=-19.3, Benjamin Hornigold at
+        # -6.5, Thorney Tech at -6.0, all three from a price and a NAV in
+        # different units, all three alert_eligible.
+        diag = U.scale_diagnosis(price, nta_est if has_nav else None)
+        nav_positive = bool(has_nav and pd.notna(anchor_val) and anchor_val > 0)
+        dq_ok = bool(nav_positive
+                     and pd.notna(price) and price > 0
+                     and pd.notna(discount_est)
+                     and diag["unit_check_status"] in ("ok", "extreme"))
+        dq_reason = "" if dq_ok else (
+            "nav_not_positive" if not nav_positive else
+            "no_price" if not (pd.notna(price) and price > 0) else
+            "no_discount" if not pd.notna(discount_est) else
+            f"unit_{diag['unit_check_status']}")
+        identity_ok = bool(meta.get("identity_ok", True))
 
         research_ok = bool(
             meta["research_eligible"] if "research_eligible" in meta
@@ -310,11 +348,24 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
             # established on a population that excluded VCTs, split-capital
             # classes and non-sterling lines, so a signal on one of those is
             # a signal with no research behind it.
+            "unit_check_status": diag["unit_check_status"],
+            "price_nav_ratio": diag["price_nav_ratio"],
+            "suspected_scale_factor": diag["suspected_scale_factor"],
+            "data_quality_ok": dq_ok, "data_quality_reason": dq_reason,
+            "identity_status": meta.get("identity_status"),
+            "identity_ok": identity_ok,
+            "z_raw": round(z_raw, 4) if pd.notna(z_raw) else np.nan,
+            "z_status": z_status,
+            # Every clause here is a REASON A FUND MUST NOT ALERT, and the
+            # data-quality and identity clauses come first by intent: a
+            # reused ticker or a unit error must be stopped before any
+            # signal logic gets to look at the number.
             "alert_eligible": bool(
-                pd.notna(z_adj)
+                dq_ok and identity_ok and research_ok
+                and pd.notna(z_adj)
+                and pd.notna(staleness)
                 and staleness <= live["staleness"]["max_days_for_alerting"]
-                and basis <= 2
-                and research_ok),
+                and pd.notna(basis) and basis <= 2),
             "model_factors": m["factors"] if has_model else None,
             "updated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         })

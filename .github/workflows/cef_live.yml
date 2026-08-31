@@ -39,7 +39,11 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
           S3_BUCKET: ${{ secrets.S3_BUCKET }}
-        run: python scripts/sync_state.py pull --groups raw_aic,raw_asx,uk_announcements,asx_index,tickers
+        # uk_daily carries data/uk/nav - the re-parsed daily UK NAV panel
+        # that _own_nav_history reads. Without it the panel is empty on this
+        # runner, so a NAV a re-parse had just recovered never reaches the
+        # live table and the fund reports as having no NAV at all.
+        run: python scripts/sync_state.py pull --groups raw_aic,raw_asx,uk_announcements,asx_index,tickers,uk_daily
       # architectural invariants: the registry is identity-only and every
       # addressable fund is a NAV target. A regression fails the run.
       - run: python -m pytest tests/test_nav_source_invariants.py -q

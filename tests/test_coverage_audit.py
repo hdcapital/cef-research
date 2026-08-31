@@ -118,8 +118,12 @@ def _row(**kw) -> dict:
         extreme_discount_flag=False, price_vs_panel_ratio=None,
         price_history_check="no_panel_price_held",
         disc_mu_36m=-0.03, disc_sigma_36m=0.02, zscore_history_ok=True,
-        zscore_min_months_required=24, z_adj=0.5, alert_eligible=True,
-        in_live_table=True,
+        zscore_min_months_required=24, z_adj=0.5, z_raw=0.5,
+        z_status="computed", alert_eligible=True, in_live_table=True,
+        identity_status="sole_claimant", identity_ok=True, identity_reason="",
+        identity_incumbent_id="SEDOL:0199049", identity_incumbent_name="City of London",
+        identity_claimants=1, identity_same_name=False,
+        data_quality_ok=True, data_quality_reason="",
     )
     base.update(kw)
     return base
@@ -440,3 +444,78 @@ def test_a_sterling_currency_label_never_rescales_a_uk_price():
     assert units.unit_metadata_conflict("UK", "USD").startswith("quote_currency_USD")
     assert units.unit_metadata_conflict("UK", "GBp") is None
     assert "ambiguous" in units.unit_metadata_conflict("UK", "GBP")
+
+
+# ------------------------------------------- GREEN is a conjunction (P5, P6)
+
+def test_green_requires_every_named_input_and_not_merely_no_complaints():
+    """Ironbark Capital was GREEN and signal-ready with a NAV of 0.0.
+
+    GREEN used to mean "no RED issue fired and no AMBER qualification
+    fired", which is a weaker statement than "every required input is
+    valid": a zero NAV tripped no rule in either list, so it fell through.
+    valid_discount was already False on the same row - the audit knew and
+    said GREEN anyway.
+    """
+    for label, override, expect in (
+            ("nav is zero", dict(nav=0.0, discount=None, unit_check_status="no_data"), CA.RED),
+            ("nav is negative", dict(nav=-1.0, discount=None,
+                                     unit_check_status="no_data"), CA.RED),
+            ("no discount", dict(discount=None), CA.RED),
+            ("no current z-score", dict(z_adj=None, z_status="voided_within_error_band"),
+             CA.AMBER),
+            ("no history", dict(zscore_history_ok=False, disc_sigma_36m=None,
+                                z_adj=None), CA.AMBER),
+            ("identity unresolved", dict(identity_ok=False,
+                                         identity_status="conflict"), CA.RED),
+            ("suspect units", dict(unit_check_status="suspect_scale",
+                                   suspected_scale_factor=100.0), CA.RED),
+            ("price is a panel fallback", dict(price_is_fallback_panel=True,
+                                               price_is_fresh=False), CA.RED)):
+        got = _classify(_row(**override)).iloc[0]
+        assert got["coverage_status"] == expect, (
+            f"{label}: expected {expect}, got {got['coverage_status']} "
+            f"({got['coverage_reason']})")
+        assert not got["signal_ready"], f"{label} was signal-ready"
+
+
+def test_every_green_row_satisfies_every_invariant():
+    """The property, asserted directly rather than case by case."""
+    rows = _classify(
+        _row(security_id="A"),
+        _row(security_id="B", nav=0.0, discount=None, unit_check_status="no_data"),
+        _row(security_id="C", z_adj=None, z_status="voided_within_error_band"),
+        _row(security_id="D", identity_ok=False, identity_status="conflict"),
+        _row(security_id="E", price=None, price_is_fresh=False, discount=None),
+    )
+    green = rows[rows["coverage_status"] == CA.GREEN]
+    assert len(green) == 1 and green.iloc[0]["security_id"] == "A"
+    assert green["usable_price"].all() and green["usable_nav"].all()
+    assert green["valid_discount"].all()
+    assert green["z_adj"].notna().all(), "GREEN without a current z-score"
+    assert (green["nav"] > 0).all(), "GREEN with a non-positive NAV"
+    assert green["identity_ok"].all()
+    assert green["unit_check_status"].isin(["ok", "extreme"]).all()
+    assert list(rows["signal_ready"]) == list(rows["coverage_status"] == CA.GREEN)
+
+
+def test_a_fund_with_history_but_no_current_z_is_amber_and_says_why():
+    """42 funds were GREEN on history alone. History is the INPUT; a
+    populated z_adj is the output, and only the second means a signal
+    exists. Where the z was voided because the discount sits inside the
+    estimate's own error band, the row says so rather than reading as a
+    coverage failure.
+    """
+    got = _classify(_row(z_adj=None, z_status="voided_within_error_band")).iloc[0]
+    assert got["coverage_status"] == CA.AMBER
+    assert got["blocking_issue"] == "z_within_error_band"
+    assert "none needed" in got["recommended_fix"]
+    assert got["valid_discount"], "the discount itself is still fine"
+
+
+def test_a_row_that_passes_every_check_but_yields_no_discount_is_a_defect():
+    """"Everything looked fine and no discount came out" is a bug in the
+    discount path, and must not pass as a coverage gap."""
+    got = _classify(_row(discount=None)).iloc[0]
+    assert got["coverage_status"] == CA.RED
+    assert got["blocking_issue"] == "no_valid_discount"

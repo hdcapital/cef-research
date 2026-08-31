@@ -80,6 +80,52 @@ AU_COLS = ["security_id", "nav_date", "nav_value", "unit", "basis_note",
            "source", "headline"]
 
 
+def _nta_from_document(doc: dict, headline: str) -> dict | None:
+    """The stated per-share NTA from one parsed PDF, or None.
+
+    Routed through au_lic.extract.deterministic.extract_nta - the SAME
+    extractor the archive's deterministic pass uses - rather than calling
+    the scored parser directly. That pass reads about 72% of the documents
+    it is given; this harvest was reading far fewer of the same documents,
+    because it skipped the two things the extractor does first:
+    normalise_nta_text (which repairs the run-together text pdfplumber
+    produces for these layouts) and a retry on the raw text when the
+    normalised form does not match. It also derives the as-at date from the
+    document rather than only from the headline.
+
+    Two parsers for one corpus is two things to keep in step, and the one
+    with the lower hit rate was the one feeding the live table.
+    """
+    try:
+        from au_lic.extract import deterministic as D
+    except Exception:  # noqa: BLE001
+        D = None
+    if D is not None:
+        try:
+            got = D.extract_nta(doc.get("text") or "", doc.get("rows") or [],
+                                headline or "")
+        except Exception:  # noqa: BLE001
+            got = []
+        if got:
+            g = got[0]
+            if g.get("nav_per_share") is not None:
+                return {"nav_per_share": g["nav_per_share"],
+                        "unit_source": g.get("unit"),
+                        "nav_basis": g.get("nav_basis"),
+                        "valuation_date": g.get("valuation_date"),
+                        "extractor": g.get("extractor", "nta_scored_v1")}
+    # last resort: the scored parser on the raw text, so a failure here is
+    # still a parser failure rather than an import problem
+    res = P.derive_stated(doc)
+    if res.get("status") != "parsed" or res.get("stated_raw") is None:
+        return None
+    unit = res.get("unit")
+    val = res["stated_raw"]
+    return {"nav_per_share": val / 100.0 if unit == "cents" else val,
+            "unit_source": unit, "nav_basis": res.get("basis"),
+            "valuation_date": None, "extractor": "derive_stated"}
+
+
 def harvest_au(codes: set[str], lookback_days: int = 45,
                pdf_budget: int = 0, max_attempts_per_code: int = 3,
                deadline_min: float = 45.0) -> pd.DataFrame:
@@ -169,21 +215,32 @@ def harvest_au(codes: set[str], lookback_days: int = 45,
             break
         attempts[code] = attempts.get(code, 0) + 1
         stats["attempted"] += 1
-        res = P.derive_stated(P.parse_pdf(s, str(r.id), r.url, counters))
-        if res.get("status") != "parsed":
+        doc = P.parse_pdf(s, str(r.id), r.url, counters)
+        if doc.get("status") != "extracted":
+            stats["fetch_failed"] = stats.get("fetch_failed", 0) + 1
+            continue
+        got = _nta_from_document(doc, head)
+        if got is None:
             stats["parse_failed"] += 1
             continue
-        val, unit = res["stated_raw"], res.get("unit")
-        if unit == "ambiguous":
+        if got.get("unit_source") == "ambiguous":
             stats["ambiguous_unit"] += 1
             continue                      # flagged, never guessed
         stats["parsed"] += 1
         done.add(code)
+        if got.get("valuation_date"):
+            asat = pd.Timestamp(got["valuation_date"])
+            date_src = "as_at_document"
         rows.append({"security_id": f"ASX:{code}",
                      "nav_date": asat.date().isoformat(),
-                     "nav_value": val,          # AS STATED, in `unit`
-                     "unit": unit,
-                     "basis_note": res.get("basis", "pre_tax") + f"|{date_src}",
+                     # already reduced to AUD by the extractor; the unit it
+                     # was STATED in is kept beside it so one conversion is
+                     # the only conversion
+                     "nav_value": got["nav_per_share"],
+                     "unit": "dollars",
+                     "basis_note": (got.get("nav_basis") or "pre_tax")
+                                   + f"|{date_src}|unit_source={got.get('unit_source')}"
+                                   + f"|extractor={got.get('extractor')}",
                      "source": f"asx_ann:{r.id}", "headline": head[:120]})
 
     stats["codes_parsed"] = len(done)
@@ -255,6 +312,15 @@ UK_ZDP = re.compile(r"zero dividend|preference share", re.I)
 # formality sitting one clause before the number we wanted.
 UK_NOMINAL = re.compile(r"(?:ordinary\s+|preference\s+|\beach\s+)?shares?\s+of\s*$|"
                         r"nominal\s+value\s+of\s*$|par\s+value\s+of\s*$", re.I)
+# A number sitting next to a DIVIDEND is a dividend. The looser rules added
+# for the "was N pence" family reached these before the guard existed:
+# Gore Street came back at 1.9p and NextEnergy at 1.79p, both of which are
+# the quarterly distribution, against real NAVs near 100p.
+UK_DIVIDEND = re.compile(r"\bdividend\b|\bdistribution\b", re.I)
+# ...and a number sitting next to a FOREIGN unit is not pence. Schiehallion
+# publishes "Cum NAV* 161.54cents" in US cents; reading that as pence is the
+# unit bug in its most direct form.
+UK_FOREIGN = re.compile(r"\bcents?\b|US\s*\$|\bUSD\b|\bEUR\b|€|\bCAD\b", re.I)
 
 # Ordered rule list, written against the committed corpus
 # (data/uk_nav_corpus.json.gz). Each entry: (kind, priority, regex).
@@ -423,6 +489,51 @@ UK_RULES = [
     ("ex", 3, _R(r"capital[- ]only net asset value[\s\S]{0,140}?" + UK_PENCE, re.I)),
     ("ex", 3, _R(r"\bCapital only:?\s*" + UK_PENCE, re.I)),
 
+    # THE "was N pence" FAMILY - the largest remaining cluster by a wide
+    # margin. Patria, Crystal Amber, Sequoia, Target Healthcare, Foresight
+    # Solar, NextEnergy, Schroder REIT, Pantheon and India Capital Growth
+    # all write some variant of
+    #     "...net asset value ... at <date> was 864.9 pence per share"
+    # and every one of them defeated the plain fallback for the same
+    # reason: `net asset value[^0-9]{0,220}?` cannot cross the DATE that
+    # sits between the label and the number. Anchoring on the word "was"
+    # instead lets the gap contain digits while keeping the match tied to a
+    # NAV statement, and the number must still be followed by "pence"/"p".
+    ("cum_assumed", 4, _R(r"(?:net asset value|\bNAV\b)[\s\S]{0,220}?\bwas\s+"
+                          r"(?:approximately\s+|estimated\s+(?:to\s+be|at)\s+)?"
+                          + UK_PENCE, re.I)),
+
+    # "NAV per Ordinary Share of 111.0 pence" (Foresight Solar) and
+    # "net asset value per share at 30th September 2013 of 1,283.3p"
+    # (Pantheon). Anchored on "of" the way the family above is anchored on
+    # "was", and for the same reason: a date sits in the gap.
+    ("cum_assumed", 4, _R(r"NAV per (?:Ordinary |Redeemable )?Share\s+of\s+"
+                          + UK_PENCE, re.I)),
+    # "increased to 101.66p from the prior month's NAV of 101.10p" - the
+    # movement verb has to win, or the rule below takes LAST month's number
+    ("cum_assumed", 4, _R(r"\b(?:increased|decreased|rose|fell|moved|changed)"
+                          r"\s+to\s+" + UK_PENCE, re.I)),
+    # "£252.9 million or 97.1 pence per share" (JLEN) - the sterling total
+    # comes first and the per-share figure follows it
+    ("cum_assumed", 5, _R(r"\bor\s+" + UK_PENCE
+                          + r"\s*per\s+(?:ordinary\s+)?share", re.I)),
+    # "FUND NAME NAV SEDOL NAV DATE  BACIT Limited 101.45p" - the Northern
+    # Trust administrator table used by BACIT/Syncona and Castelnau
+    ("cum_assumed", 5, _R(r"FUND NAME[\s\S]{0,140}?NAV[\s\S]{0,200}?"
+                          + UK_PENCE, re.I)),
+    # "net asset value ("NAV") per share at 30th September 2013 of 1,283.3p"
+    # (Pantheon). Anchored on "per share" with a SHORT gap: the same rule
+    # written loosely - NAV within 160 characters of any "of N pence" -
+    # read "Interest income net of expenses of 0.42p" as Sequoia's NAV and
+    # "an uplift of 1.9 pence per share" as Gore Street's. Both were
+    # arithmetic about the NAV sitting one clause away from it.
+    ("cum_assumed", 6, _R(r"net asset value[^.]{0,40}?per share[\s\S]{0,70}?"
+                          r"\bof\s+" + UK_PENCE, re.I)),
+    # "Net Asset Value (pence): 261.09" - Ecofin states the unit in the
+    # label and omits the suffix, so UK_PENCE alone never matches
+    ("cum", 2, _R(r"Net Asset Value\s*\(pence\):?\s*"
+                  r"([0-9][0-9,]*\.[0-9]+)", re.I)),
+
     # Greencoat: "unaudited Net Asset Value as of 31 December 2025 is
     # GBP2,939.1 million (136.1 pence per share)"
     ("cum_assumed", 4, _R(r"Net Asset Value[\s\S]{0,140}?\(" + UK_PENCE
@@ -478,6 +589,17 @@ UK_CCY_RULES = [
     (_R(r"net asset value[^.]{0,40}per common share:?\s*\$?\s*([0-9][0-9,]*\.[0-9]+)", re.I), "cum", "CAD", 1.0),
 ]
 
+# A document that DECLARES its per-share unit and declares a foreign one is
+# not reporting pence, whatever else it contains. Schiehallion heads its
+# table "(US cents per ordinary share)" and then prints "Cum NAV* 161.54
+# cents" - while separately carrying a legend that explains what a pence
+# NAV would mean. Reading anything out of that as pence is the unit bug in
+# its most direct form, so the whole document is refused.
+UK_FOREIGN_DECL = re.compile(
+    r"\((?:in\s+)?(?:US\s*)?cents?\s+per\s+(?:ordinary\s+)?share\)|"
+    r"\bin\s+US\s*cents\b|\(US\$?\s*per\s+(?:ordinary\s+)?share\)|"
+    r"\(€\s*per\s+(?:ordinary\s+)?share\)", re.I)
+
 UK_HDR_NAME = re.compile(r"Net Asset Value\(s\)\s+(.{5,90}?)\s+\d{1,2}\s+\w{3,9}\s+20\d\d")
 
 
@@ -489,13 +611,37 @@ def parse_uk_nav_text(text: str) -> dict:
     fair-value-debt figures outrank par (panel basis FCCWETScum); the plain
     fallback is flagged cum_assumed. Ambiguity yields absence, never a guess.
     """
-    def hits(pat):
+    # A document that DECLARES a foreign per-share unit may still be read -
+    # by the CURRENCY rules below, which record what unit the number is in.
+    # What it must never do is hand a value to the PENCE rules: Schiehallion
+    # prints "Cum NAV* 161.54cents" under a "(US cents per ordinary share)"
+    # heading while separately carrying a legend explaining what a pence NAV
+    # would mean, and a loose rule read that legend as a pence figure.
+    foreign_declared = bool(UK_FOREIGN_DECL.search(text))
+
+    def hits(pat, loose: bool = False):
+        """Candidate values for one rule.
+
+        `loose` marks the rules that are anchored on prose rather than on an
+        explicit NAV label - the "was N pence" family and friends. Those are
+        the ones that can wander into a neighbouring number, so only they
+        pay for the extra guards. Applying the guards to the precise rules
+        as well cost 37 correctly-parsed funds, because "ex-dividend" and
+        "cents" appear in the ordinary prose of a perfectly good sterling
+        NAV announcement.
+        """
         for m in pat.finditer(text):
             before = text[max(0, m.start() - 90):m.start()]
             if UK_ZDP.search(before):
                 continue
             if UK_NOMINAL.search(before[-30:]):
                 continue          # a nominal/par value, not a NAV
+            if loose:
+                near = text[max(0, m.start() - 40):m.end() + 25]
+                if UK_DIVIDEND.search(near):
+                    continue      # a distribution, not a valuation
+                if UK_FOREIGN.search(near):
+                    continue      # not sterling pence; absence beats a guess
             yield float(m.group(1).replace(",", ""))
 
     asat = None
@@ -507,12 +653,12 @@ def parse_uk_nav_text(text: str) -> dict:
             pass
 
     best: dict = {}
-    for kind, prio, pat in UK_RULES:
+    for kind, prio, pat in (() if foreign_declared else UK_RULES):
         if kind in ("cum", "cum_assumed") and best.get("_cum_prio", 99) <= prio:
             continue
         if kind == "ex" and best.get("_ex_prio", 99) <= prio:
             continue
-        v = next(hits(pat), None)
+        v = next(hits(pat, loose=prio >= 4), None)
         if v is None:
             continue
         if kind == "ex":
@@ -545,6 +691,8 @@ def parse_uk_nav_text(text: str) -> dict:
             best["nav_ccy"] = ccy
 
     out = {k: v for k, v in best.items() if not k.startswith("_")}
+    if foreign_declared:
+        out["unit_declared_foreign"] = True
     out.setdefault("nav_ccy", "GBX")
     if asat:
         out["asat"] = asat

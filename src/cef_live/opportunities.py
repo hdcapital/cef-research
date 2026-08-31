@@ -74,16 +74,32 @@ def evaluate(live: pd.DataFrame, cats: pd.DataFrame | None,
         return None if base is None else float(base) + excess
 
     df = live.copy()
-    # A vehicle the research policy excludes cannot produce an idea. The
-    # research that justifies acting on a discount z-score was run on a
-    # population without VCTs, split-capital classes or non-sterling lines,
-    # so a verdict on one of those has nothing behind it. Excluded rows are
-    # dropped from SCORING, never from the live table they came from.
-    if "research_eligible" in df.columns:
+
+    # ---- GATES THAT RUN BEFORE ANY SIGNAL LOGIC ----
+    # Each of these disqualifies a row on grounds that have nothing to do
+    # with how attractive it looks, and each is applied FIRST for that
+    # reason. A 100x unit error is not a dislocation, and it produces a
+    # more extreme z-score than any real one: Lindsell Train reached
+    # z = -19.3 on a price and a NAV in different units, Benjamin Hornigold
+    # -6.5, Thorney Tech -6.0. Ranking by z would have put all three at the
+    # top. Gating after scoring is gating too late.
+    gates = [
+        # the research that justifies acting on a discount z-score was run
+        # on a population without VCTs, split-capital classes or
+        # non-sterling lines
+        ("research_eligible", "research-policy exclusion"),
+        # a price and a NAV that cannot both be right
+        ("data_quality_ok", "data-quality failure"),
+        # a ticker whose live quote may belong to another company
+        ("identity_ok", "unresolved ticker identity"),
+    ]
+    for col, label in gates:
+        if col not in df.columns:
+            continue
         n_before = len(df)
-        df = df[df["research_eligible"].fillna(True).astype(bool)]
+        df = df[df[col].fillna(True).astype(bool)]
         if len(df) < n_before:
-            print(f"research-eligibility filter: {n_before} -> {len(df)} scored")
+            print(f"gate [{label}]: {n_before} -> {len(df)} scored")
     if irr is not None and len(irr):
         df = df.merge(irr, on="security_id", how="left")
     else:
@@ -116,7 +132,15 @@ def evaluate(live: pd.DataFrame, cats: pd.DataFrame | None,
         g3 = bool(hurdle is not None and pd.notna(irr_v) and irr_v >= hurdle)
 
         passed = int(g1) + int(g2) + int(g3)
-        if passed == 3:
+        # OPPORTUNITY is reserved for a row whose DATA is fully sound.
+        # alert_eligible is that verdict, computed on the row itself: a
+        # current z-score, a NAV inside the staleness cap, basis <= 2, and
+        # the data-quality, identity and research gates all clear. A row
+        # that clears three gates on a rolled-forward or somewhat stale NAV
+        # is a real observation and may be WATCHed - it is not something to
+        # act on, and calling it an opportunity would say it was.
+        clean = bool(getattr(r, "alert_eligible", True))
+        if passed == 3 and clean:
             verdict = "OPPORTUNITY"
         elif passed >= need_watch:
             verdict = "WATCH"
@@ -130,6 +154,7 @@ def evaluate(live: pd.DataFrame, cats: pd.DataFrame | None,
             "market": getattr(r, "market", ""), "verdict": verdict,
             "gates_passed": passed,
             "gate1_dislocation": g1, "gate2_catalyst": g2, "gate3_return": g3,
+            "data_fully_sound": clean,
             "z_adj": None if pd.isna(z) else round(float(z), 2),
             "discount_est": None if pd.isna(getattr(r, "discount_est", np.nan))
                             else round(float(r.discount_est), 4),
