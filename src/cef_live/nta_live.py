@@ -33,6 +33,48 @@ def _busdays_since(anchor: pd.Timestamp, today: date) -> int:
     return int(np.busday_count(anchor.date(), today))
 
 
+# A NAV that jumps implausibly from the fund's own previous NAV is far more
+# likely to be a bad parse than a real event, and it produces the most
+# attractive-looking opportunity in the table. Argo Global Listed
+# Infrastructure anchored at $5.00 against a $2.55 price - a -49% discount
+# and z = -10.2, the top signal in the whole system - while its real NTA
+# series runs $2.31 to $2.75 and our own extractor had read June 2026 as
+# $2.75 exactly. The unit check could not catch it: $5.00 against $2.55 is
+# 1.8x, not the 100x a cents/dollars error produces.
+#
+# The threshold is deliberately loose. Measured over consecutive
+# publications the median NAV change is 0.54% and the 90th percentile 1.8%,
+# so 35% is far outside normal while still leaving room for a real event.
+# A fund CAN legitimately move that far - a capital return, a wind-up
+# distribution, a crash - so this quarantines the row from ALERTING and
+# records why; it never deletes the observation or "corrects" the number.
+NAV_JUMP_ALERT_LIMIT = 0.35
+
+
+def nav_continuity(anchor_val, anchor_date, prior) -> dict:
+    """Is this anchor plausible against the fund's own previous NAV?
+
+    `prior` is (date, value) pairs in the SAME unit as the anchor - mixing
+    units here would manufacture exactly the false alarm the check exists to
+    prevent. Returns ok=True when there is nothing to compare against:
+    absence of history is not evidence of a bad parse.
+    """
+    if anchor_val is None or not pd.notna(anchor_val) or anchor_val <= 0:
+        return {"ok": True, "reason": "", "prev": None, "jump": None}
+    usable = [(d, v) for d, v in prior
+              if d is not None and v is not None and pd.notna(v) and v > 0
+              and (anchor_date is None
+                   or pd.Timestamp(d) < pd.Timestamp(anchor_date))]
+    if not usable:
+        return {"ok": True, "reason": "no_prior_nav", "prev": None, "jump": None}
+    _d, prev = max(usable, key=lambda t: pd.Timestamp(t[0]))
+    jump = abs(float(anchor_val) - float(prev)) / float(prev)
+    if jump > NAV_JUMP_ALERT_LIMIT:
+        return {"ok": False, "reason": f"nav_jump_{jump:.0%}_vs_prior",
+                "prev": float(prev), "jump": float(jump)}
+    return {"ok": True, "reason": "", "prev": float(prev), "jump": float(jump)}
+
+
 def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
                 price_col: str, params: dict,
                 tier0: pd.DataFrame | None = None,
@@ -277,6 +319,31 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
         # -6.5, Thorney Tech at -6.0, all three from a price and a NAV in
         # different units, all three alert_eligible.
         diag = U.scale_diagnosis(price, nta_est if has_nav else None)
+        # Prior NAVs for THIS fund, normalised into the anchor's unit, so the
+        # continuity check compares like with like. Only our own extracted
+        # sources are used: the aggregator panel is monthly and lags, so a
+        # month-end print is not the right predecessor for a fresh
+        # announcement, and mixing the two would fire on ordinary staleness.
+        _prior = []
+        if own is not None and len(own):
+            _o = own[own["security_id"] == sid]
+            for _, _r in _o.iterrows():
+                try:
+                    _v, _u, _ = U.normalise(market, _r["nav_value"], _r.get("nav_unit"))
+                    _prior.append((pd.Timestamp(_r["nav_date"]), float(_v)))
+                except Exception:  # noqa: BLE001
+                    continue
+        if tier0 is not None and len(tier0):
+            _t = tier0[tier0["security_id"] == sid]
+            for _, _r in _t.iterrows():
+                try:
+                    _v, _u, _ = U.normalise(
+                        market, _r["nav_value"],
+                        _r["unit"] if "unit" in _r.index else None)
+                    _prior.append((pd.Timestamp(_r["nav_date"]), float(_v)))
+                except Exception:  # noqa: BLE001
+                    continue
+        cont = nav_continuity(anchor_val if has_nav else None, anchor_date, _prior)
         nav_positive = bool(has_nav and pd.notna(anchor_val) and anchor_val > 0)
         # A MONTH-END AGGREGATOR PRINT IS NOT A CURRENT MARKET PRICE, and a
         # discount computed against one is not a current discount. European
@@ -290,12 +357,14 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
                      and pd.notna(price) and price > 0
                      and not price_is_fallback
                      and pd.notna(discount_est)
-                     and diag["unit_check_status"] in ("ok", "extreme"))
+                     and diag["unit_check_status"] in ("ok", "extreme")
+                     and cont["ok"])
         dq_reason = "" if dq_ok else (
             "nav_not_positive" if not nav_positive else
             "no_price" if not (pd.notna(price) and price > 0) else
             "stale_panel_price_only" if price_is_fallback else
             "no_discount" if not pd.notna(discount_est) else
+            cont["reason"] if not cont["ok"] else
             f"unit_{diag['unit_check_status']}")
         identity_ok = bool(meta.get("identity_ok", True))
 
@@ -359,6 +428,8 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
             # classes and non-sterling lines, so a signal on one of those is
             # a signal with no research behind it.
             "unit_check_status": diag["unit_check_status"],
+            "nav_prev": cont["prev"], "nav_jump": cont["jump"],
+            "nav_continuity_ok": cont["ok"],
             "price_nav_ratio": diag["price_nav_ratio"],
             "suspected_scale_factor": diag["suspected_scale_factor"],
             "data_quality_ok": dq_ok, "data_quality_reason": dq_reason,
