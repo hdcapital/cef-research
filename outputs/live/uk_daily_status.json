@@ -1,20 +1,22 @@
 {
-  "run_at": "2026-08-31T06:54:47+00:00",
+  "run_at": "2026-08-31T07:48:38+00:00",
   "stages": [
-    "nav"
+    "nav",
+    "prices",
+    "discount"
   ],
-  "live_funds_addressed": 288,
+  "live_funds_addressed": 271,
   "bucket": true,
   "nav": {
-    "held_rows": 375514,
-    "seed_rows": 587436,
-    "reparse_candidates": 175212,
+    "held_rows": 450389,
+    "seed_rows": 596718,
+    "reparse_candidates": 188418,
     "archive": {
-      "archive_objects": 704360,
-      "queued": 175212,
-      "read": 175212,
-      "parsed": 74802,
-      "unparsed": 100410,
+      "archive_objects": 722002,
+      "queued": 191452,
+      "read": 191452,
+      "parsed": 75819,
+      "unparsed": 115633,
       "read_failed": 0,
       "deadline_hit": false
     },
@@ -23,20 +25,72 @@
       "rows": 106,
       "read_failed": 0
     },
-    "raw_rows": 1138268,
-    "unparsed_rows": 275622,
-    "panel_rows": 450389,
-    "panel_funds": 163,
+    "raw_rows": 1238665,
+    "unparsed_rows": 304051,
+    "panel_rows": 458069,
+    "panel_funds": 205,
     "quality": {
-      "observations_compared": 440557,
-      "median_abs_change": 0.005348,
-      "p90_abs_change": 0.018142,
-      "big_move_rate": 0.010303,
-      "jump_reversal_rate": 0.00210642,
-      "big_move_rate_labelled_basis": 0.003689,
-      "big_move_rate_cum_assumed": 0.039125,
-      "cum_assumed_share_of_panel": 0.1905,
-      "funds_unreliable_nav_series": 2
+      "observations_compared": 446971,
+      "median_abs_change": 0.00537,
+      "p90_abs_change": 0.018305,
+      "big_move_rate": 0.010627,
+      "jump_reversal_rate": 0.00210752,
+      "big_move_rate_labelled_basis": 0.003663,
+      "big_move_rate_cum_assumed": 0.041371,
+      "cum_assumed_share_of_panel": 0.1902,
+      "funds_unreliable_nav_series": 7
+    }
+  },
+  "prices": {
+    "held_bars": 1146007,
+    "panel_bars": 1156446,
+    "funds_with_prices": 282,
+    "funds_no_history": 4
+  },
+  "discount": {
+    "panel_rows": 1116334,
+    "funds": 282,
+    "days_with_discount": 631887,
+    "days_with_fresh_discount": 531267,
+    "funds_usable_today": 137,
+    "first_date": "2007-01-02",
+    "last_date": "2026-08-27",
+    "funds_no_nav": 107,
+    "unit_status": {
+      "ok": 162,
+      "assumed_from_currency": 67,
+      "unresolved_no_nav_no_currency": 14,
+      "assumed_from_currency_thin_overlap": 11,
+      "unresolved_scale": 7,
+      "unreliable_nav_series": 7,
+      "unresolved_dispersed": 7,
+      "rescaled_x100": 4,
+      "rescaled_x0.01": 3
+    },
+    "unreliable_nav_funds": [
+      "CGI",
+      "IGC",
+      "MAJE",
+      "RMMC",
+      "VEIL",
+      "VNH",
+      "VOF"
+    ],
+    "nav_readiness": {
+      "archived": 193,
+      "indexed_not_archived": 42,
+      "indexed_no_nav_announcements": 31,
+      "no_listing_index": 5
+    },
+    "funds_split_adjusted": 43,
+    "frequency_mix": {
+      "daily": 138,
+      "single_observation": 18,
+      "quarterly": 15,
+      "monthly": 11,
+      "semiannual": 10,
+      "adhoc": 7,
+      "weekly": 6
     }
   }
 }
