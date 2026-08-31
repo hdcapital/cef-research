@@ -631,3 +631,23 @@ def test_scheduled_extraction_cannot_spend():
     expr = m.group(1)
     assert "'deterministic'" in expr, \
         f"scheduled run does not default to deterministic: {expr.strip()}"
+
+
+def test_every_workflow_push_retry_uses_autostash():
+    """A rebase without --autostash discards the run it was meant to save.
+
+    These jobs leave the raw cache and index dirty, so `git pull --rebase`
+    refuses with "cannot pull with rebase: You have unstaged changes", every
+    retry fails identically, and the push is rejected. It cost all eight ASX
+    archive shards their status after 71 minutes of fetching each, and it had
+    already cost the nightly a 35-minute harvest before that. Eight workflows
+    carried the same line.
+    """
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    bad = []
+    for wf in sorted((root / ".github" / "workflows").glob("*.yml")):
+        for i, line in enumerate(wf.read_text().splitlines(), 1):
+            if "git pull --rebase" in line and "--autostash" not in line:
+                bad.append(f"{wf.name}:{i}")
+    assert not bad, f"rebase without --autostash: {bad}"

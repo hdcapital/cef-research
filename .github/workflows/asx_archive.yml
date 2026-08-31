@@ -99,14 +99,23 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -f outputs/au/au_s3_archive_status*.json
+          # add each path separately: `git add -f A B` aborts entirely when
+          # one path is missing, which has silently discarded status before
+          for f in outputs/au/au_s3_archive_status*.json; do
+            [ -e "$f" ] && git add -f "$f" || true
+          done
           if git diff --cached --quiet; then
             echo "no changes"
           else
             git commit -m "CI: S3 archive status shard ${{ matrix.shard }} ($(date -u +%Y-%m-%dT%H:%MZ))"
-          for i in 1 2 3 4 5 6; do
-            git pull --rebase -X theirs origin "${GITHUB_REF_NAME}" || true
-            if git push origin "HEAD:${GITHUB_REF_NAME}"; then break; fi
-            sleep $((RANDOM % 15 + 5))
-          done
+            for i in 1 2 3 4 5 6; do
+              # --autostash is not optional here. The run leaves the raw
+              # cache and index dirty, so a plain rebase refuses with
+              # "cannot pull with rebase: You have unstaged changes" - which
+              # is what happened on all six retries of all eight shards, so
+              # 71 minutes of fetching per shard was recorded nowhere.
+              git pull --rebase --autostash -X theirs origin "${GITHUB_REF_NAME}" || true
+              if git push origin "HEAD:${GITHUB_REF_NAME}"; then break; fi
+              sleep $((RANDOM % 15 + 5))
+            done
           fi
