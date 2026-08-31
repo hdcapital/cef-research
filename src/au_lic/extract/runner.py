@@ -381,6 +381,40 @@ def collect_batch(batch_id: str) -> dict:
 DET_MANIFEST_PREFIX = "asx/extract/det_manifest"
 
 
+def _load_index_union() -> pd.DataFrame:
+    """The announcement index, unioned across every copy we hold.
+
+    The index lives in two places - committed in git, and in S3 - and the
+    workflow restores S3 over the checkout. Tonight the S3 copy is 91,010
+    rows while the committed one is 117,514: extracting from the restored
+    copy alone would silently skip all of 2024 and 2025, which is the exact
+    history this run exists to process. The index is append-only and keyed
+    by a unique id, so the union is the only safe reading of two copies that
+    disagree.
+    """
+    frames: list[pd.DataFrame] = []
+    if INDEX_F.exists():
+        try:
+            frames.append(pd.read_parquet(INDEX_F))
+        except Exception as exc:  # noqa: BLE001
+            print(f"on-disk index unreadable ({exc})")
+    try:
+        import io
+        import subprocess
+        r = subprocess.run(["git", "show", f"HEAD:{INDEX_F.as_posix()}"],
+                           capture_output=True, timeout=120)
+        if r.returncode == 0 and r.stdout:
+            frames.append(pd.read_parquet(io.BytesIO(r.stdout)))
+    except Exception as exc:  # noqa: BLE001
+        print(f"committed index unavailable ({exc})")
+    if not frames:
+        raise SystemExit(f"no announcement index found at {INDEX_F}")
+    out = (pd.concat(frames, ignore_index=True).drop_duplicates("id")
+           if len(frames) > 1 else frames[0])
+    print(f"index copies {[len(f) for f in frames]} -> union {len(out):,} rows")
+    return out.reset_index(drop=True)
+
+
 def run_deterministic(limit: int = 0, deadline_min: float = 300.0) -> dict:
     """Parse the prescribed-form route in Python, straight from the archive.
 
@@ -396,7 +430,7 @@ def run_deterministic(limit: int = 0, deadline_min: float = 300.0) -> dict:
 
     s3 = boto3.client("s3", region_name=os.environ.get("AWS_REGION"))
     done = read_manifest(DET_MANIFEST_PREFIX)
-    raw = pd.read_parquet(INDEX_F)
+    raw = _load_index_union()
     # The index this reads is restored from S3 and can differ from the
     # committed copy. All eight shards died here with KeyError:
     # 'published_at' on a frame that carries that column when built from the
@@ -430,6 +464,12 @@ def run_deterministic(limit: int = 0, deadline_min: float = 300.0) -> dict:
     if SHARDS > 1:
         idx = idx[idx["announcement_id"].map(
             lambda i: zlib.crc32(i.encode()) % SHARDS == SHARD)]
+    if "published_at" not in idx.columns:
+        # it WAS present a few lines above; say what happened rather than
+        # let pandas raise a bare KeyError from inside sort_values
+        raise SystemExit(
+            "published_at was constructed but is gone by the sort; "
+            f"columns now = {list(idx.columns)}, rows = {len(idx)}")
     idx = idx.sort_values("published_at", ascending=False)
     if limit:
         idx = idx.head(limit)
