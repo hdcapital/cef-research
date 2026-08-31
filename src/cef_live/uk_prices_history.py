@@ -311,6 +311,25 @@ def coverage(px: pd.DataFrame, tickers: list[str]) -> pd.DataFrame:
 # correct despite the parser calling the NAV "pence": both halves are in the
 # same unit, which is all a ratio needs.
 
+STERLING = {"GBX", "GBP", "GBp"}
+
+
+def same_currency(nav_ccy: str | None, price_ccy: str | None) -> bool | None:
+    """Whether a NAV and a price can be divided at all.
+
+    None when either side is unknown - an unknown unit is not evidence of
+    agreement. A sterling NAV over a USD price is an exchange rate wearing a
+    discount's clothing: it lands near 1.3, well inside every plausible band,
+    and no scale check would ever question it.
+    """
+    if not nav_ccy or not price_ccy:
+        return None
+    a, b = str(nav_ccy).strip(), str(price_ccy).strip()
+    if a in STERLING or b in STERLING:
+        return (a in STERLING) and (b in STERLING)
+    return a.upper() == b.upper()
+
+
 SCALE_CANDIDATES = (1.0, 100.0, 0.01)
 RATIO_OK_LO, RATIO_OK_HI = 0.2, 5.0
 # how tight the ratio must cluster before a x100 correction is called
@@ -320,7 +339,8 @@ MAX_LOG_SPREAD = 0.5
 
 def reconcile_units(nav: pd.DataFrame, px: pd.DataFrame,
                     max_nav_age_days: int = 40,
-                    unreliable: set[str] | None = None) -> pd.DataFrame:
+                    unreliable: set[str] | None = None,
+                    nav_ccy: dict[str, str] | None = None) -> pd.DataFrame:
     """Per fund: the scale that puts price and NAV in the same unit.
 
     Returns ticker, price_scale, price_unit_status, the median ratio before
@@ -346,9 +366,16 @@ def reconcile_units(nav: pd.DataFrame, px: pd.DataFrame,
     nav_by_ticker = {tk: g for tk, g in n.groupby("ticker", sort=False)} if len(n) else {}
 
     unreliable = unreliable or set()
+    nav_ccy = nav_ccy or {}
     rows = []
     for tk, g in px.groupby("ticker"):
         ccy = str(g["price_ccy"].iloc[-1]) if "price_ccy" in g.columns else ""
+        if same_currency(nav_ccy.get(tk), ccy) is False:
+            rows.append({"ticker": tk, "price_scale": None,
+                         "price_unit_status": "currency_mismatch",
+                         "ratio_raw": None, "ratio_scaled": None,
+                         "log_spread": None, "n_days": 0, "price_ccy": ccy})
+            continue
         if tk in unreliable:
             # Never fit a scale to a NAV series that is not reporting a NAV.
             # The currency label still gives the honest default; what is

@@ -68,7 +68,7 @@ NAV_MIN_PENCE = 0.01
 NAV_MAX_PENCE = 100_000.0
 
 COLUMNS = ["ticker", "ann_id", "published_at", "nav_date", "nav_pence",
-           "nav_ex_pence", "cum_assumed", "nav_source", "quality"]
+           "nav_ex_pence", "cum_assumed", "nav_ccy", "nav_source", "quality"]
 
 
 # --------------------------------------------------------------- universe
@@ -200,8 +200,8 @@ def extract_from_archive(bucket: str, tickers: set[str] | None = None,
             return {"ticker": ticker, "ann_id": str(ann_id),
                     "published_at": published, "nav_date": None,
                     "nav_pence": None, "nav_ex_pence": None,
-                    "cum_assumed": False, "nav_source": "s3_archive",
-                    "quality": "no_nav_parsed"}
+                    "cum_assumed": False, "nav_ccy": "GBX",
+                    "nav_source": "s3_archive", "quality": "no_nav_parsed"}
         return {"ticker": ticker, "ann_id": str(ann_id),
                 "published_at": published,
                 "nav_date": got.get("asat") or rec.get("nav_date") or published,
@@ -209,6 +209,10 @@ def extract_from_archive(bucket: str, tickers: set[str] | None = None,
                 "nav_ex_pence": got.get("nav_ex_pence", rec.get("nav_ex_pence")),
                 "cum_assumed": bool(got.get("cum_assumed",
                                             rec.get("cum_assumed", False))),
+                # the unit the announcement stated. A fund quoting USD or CAD
+                # cannot be divided into a pence price, and saying so is the
+                # difference between no discount and an FX rate.
+                "nav_ccy": got.get("nav_ccy", "GBX"),
                 "nav_source": "s3_archive", "quality": "parsed"}
 
     rows: list[dict] = []
@@ -303,6 +307,7 @@ def extract_from_snapshots(bucket: str, tickers: set[str] | None = None,
         out = out[out["ticker"].isin(tickers)]
     out["nav_ex_pence"] = pd.NA
     out["cum_assumed"] = False
+    out["nav_ccy"] = "GBX"
     out["nav_source"] = "s3_snapshot"
     out["quality"] = "parsed"
     out["ann_id"] = "snap:" + out["ann_id"].astype(str)
@@ -354,6 +359,7 @@ def extract_from_committed(data_dir: str | Path = "data",
             "nav_pence": pd.to_numeric(d.get("nav_cum_pence"), errors="coerce"),
             "nav_ex_pence": pd.to_numeric(d.get("nav_ex_pence"), errors="coerce"),
             "cum_assumed": d.get("cum_assumed", False),
+            "nav_ccy": d["nav_ccy"] if "nav_ccy" in d.columns else "GBX",
             "nav_source": "committed",
             "quality": d.get("status", "parsed"),
         }))
@@ -396,6 +402,7 @@ def normalise(rows: pd.DataFrame, start: str = "2007-01-01") -> pd.DataFrame:
     df["nav_pence"] = pd.to_numeric(df["nav_pence"], errors="coerce")
     df["nav_ex_pence"] = pd.to_numeric(df["nav_ex_pence"], errors="coerce")
     df["cum_assumed"] = df["cum_assumed"].fillna(False).astype(bool)
+    df["nav_ccy"] = df.get("nav_ccy", pd.Series("GBX", index=df.index)).fillna("GBX")
 
     df = df.dropna(subset=["published_at", "nav_pence"])
     df = df[df["published_at"] >= pd.Timestamp(start)]

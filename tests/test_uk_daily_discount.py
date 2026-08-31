@@ -472,3 +472,76 @@ def test_reparse_targets_exactly_the_announcements_with_no_nav_yet():
         }).to_parquet(d / "uk_nav_history_test.parquet", index=False)
         assert NAV.unparsed_ann_ids(d) == {"2", "3"}
         assert NAV.unparsed_ann_ids(d, tickers={"AAA"}) == {"2"}
+
+
+# --------------------------------------------------- the non-pence cohort
+def test_non_pence_announcements_parse_with_their_unit_recorded():
+    """37 funds published NAV in units the rule list had never seen.
+
+    Measured on the samples the archiver kept because nothing could read
+    them: 0 of 483 parsed. They quote GBP per share, US cents, Canadian
+    dollars - and several state a TOTAL in the same sentence as the
+    per-share figure ("USD 91.7 million or USD 4.970 per share"), which is
+    why every rule here is anchored on explicit per-share language. A rule
+    loose enough to take "USD 91.7 million" is how the twelve unreliable
+    series were made.
+    """
+    from cef_live.harvest_nav import parse_uk_nav_text
+
+    cases = [
+        ("The Company announces its Net Asset Value per ordinary share as at "
+         "11 August 2026 was estimated to be 197.39 pence.", 197.39, "GBX"),
+        ("announces the following unaudited, estimated net asset value per "
+         "share as at 12 August 2026 : Ordinary Share GBP 2.8157", 281.57, "GBX"),
+        ("its Estimated NAV was USD 91.7 million or USD 4.970 per share and "
+         "GBP 67.3 million or GBP 3.645 per share", 364.5, "GBX"),
+        ("Net Asset Value as at close of business on 24 April 2026 (US cents "
+         "per ordinary share) Cum NAV* 191.47cents", 1.9147, "USD"),
+        ("Net asset value (unaudited) per common share: $ 90.79 Closing "
+         "market price per common share: $ 53.28", 90.79, "CAD"),
+    ]
+    for text, want, ccy in cases:
+        got = parse_uk_nav_text(text)
+        assert got.get("nav_cum_pence") == pytest.approx(want), text[:60]
+        assert got.get("nav_ccy") == ccy, text[:60]
+
+
+def test_the_total_is_never_mistaken_for_the_per_share_figure():
+    """"USD 91.7 million" sits in the same sentence as the number we want."""
+    from cef_live.harvest_nav import parse_uk_nav_text
+
+    got = parse_uk_nav_text(
+        "its Estimated NAV was USD 91.7 million or USD 4.970 per share and "
+        "GBP 67.3 million or GBP 3.645 per share")
+    assert got["nav_cum_pence"] == pytest.approx(364.5)
+
+
+def test_a_new_rule_never_overrides_an_announcement_that_already_parses():
+    from cef_live.harvest_nav import parse_uk_nav_text
+
+    got = parse_uk_nav_text(
+        "NAV per Share (including current financial year revenue items) 264.21p "
+        "... Ordinary Share GBP 2.8157")
+    assert got["nav_cum_pence"] == pytest.approx(264.21)
+    assert got["nav_ccy"] == "GBX"
+
+
+def test_a_foreign_nav_over_a_sterling_price_yields_no_discount():
+    """It lands near 1.3 - inside every plausible band - and is an FX rate."""
+    dates = pd.bdate_range("2021-01-01", "2021-12-31")
+    nav = _nav("AAA", dates, dates, [100.0] * len(dates))
+    px = _px("AAA", dates, [130.0] * len(dates), ccy="GBp")
+    units = PH.reconcile_units(nav, px, nav_ccy={"AAA": "USD"})
+    assert units.iloc[0]["price_unit_status"] == "currency_mismatch"
+    assert units.iloc[0]["price_scale"] is None or pd.isna(units.iloc[0]["price_scale"])
+    out = DISC.build(nav, px, units=units)
+    assert out["discount"].isna().all()
+
+
+def test_matching_currencies_still_reconcile():
+    dates = pd.bdate_range("2021-01-01", "2021-12-31")
+    nav = _nav("AAA", dates, dates, [100.0] * len(dates))
+    px = _px("AAA", dates, [90.0] * len(dates), ccy="GBp")
+    units = PH.reconcile_units(nav, px, nav_ccy={"AAA": "GBX"})
+    assert units.iloc[0]["price_unit_status"] == "ok"
+    assert DISC.build(nav, px, units=units)["discount"].median() == pytest.approx(-0.10)

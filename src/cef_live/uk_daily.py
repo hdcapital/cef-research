@@ -118,7 +118,10 @@ def stage_discount(universe: pd.DataFrame, nav: pd.DataFrame,
     nav = PH.nav_on_price_basis(nav, PH.read_splits())
     qual, _ = NAV.quality_report(nav)
     unreliable = set(qual.loc[~qual["reliable"], "ticker"]) if len(qual) else set()
-    units = PH.reconcile_units(nav, px, unreliable=unreliable)
+    ccy_by_ticker = (nav.sort_values("published_at").groupby("ticker")["nav_ccy"]
+                     .last().to_dict()) if "nav_ccy" in nav.columns else {}
+    units = PH.reconcile_units(nav, px, unreliable=unreliable,
+                               nav_ccy=ccy_by_ticker)
     panel = DISC.build(nav, px, frequency=freq, units=units,
                        unreliable=unreliable)
     if len(panel):

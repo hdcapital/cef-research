@@ -428,8 +428,54 @@ UK_RULES = [
     ("cum_assumed", 4, _R(r"Net Asset Value[\s\S]{0,140}?\(" + UK_PENCE
                           + r"\s+per share\)", re.I)),
 
+    # ---------------------------------------------------------------- the
+    # non-pence cohort. Written against reports/build/uk_nav_parse_failures*,
+    # the announcements the archiver kept because nothing could read them:
+    # 0 of 483 samples parsed before these, across 37 funds.
+    #
+    # What they have in common is that they do not quote pence. They quote
+    # GBP per share, US cents, Canadian dollars, US dollars - and several
+    # quote a TOTAL alongside the per-share figure ("USD 91.7 million or USD
+    # 4.970 per share"). So every rule here is anchored on explicit
+    # per-share language and none of them will match a bare currency and a
+    # number: a rule loose enough to take "USD 91.7 million" is exactly how
+    # the twelve unreliable series were made.
+    #
+    # Each carries its unit. A GBP figure becomes pence; US cents become
+    # dollars; a foreign currency stays in its own currency and is recorded,
+    # because a USD NAV divided into a pence price is an FX rate wearing a
+    # discount's clothing.
+    #
+    # "Net Asset Value per ordinary share as at 11 August 2026 was estimated
+    # to be 197.39 pence" (IGC). The plain fallback cannot reach this: it
+    # forbids digits between the label and the number, and an as-at date is
+    # always digits.
+    ("cum", 6, _R(r"net asset value per ordinary share[^.]{0,120}?"
+                  r"([0-9][0-9,]*\.[0-9]+)\s*pence", re.I)),
     # plain fallback: "net asset value ... 123.45p"
     ("cum_assumed", 9, _R(r"net asset value[^0-9]{0,220}?" + UK_PENCE, re.I)),
+]
+
+# (regex, kind, currency, multiplier) - matched only after UK_RULES fails,
+# so no announcement that already parses can change meaning.
+UK_CCY_RULES = [
+    # "Ordinary Share GBP 2.8157" (River UK Micro Cap)
+    (_R(r"\bOrdinary Share\s+(?:GBP|£)\s*([0-9][0-9,]*\.[0-9]+)", re.I), "cum", "GBX", 100.0),
+    # "GBP 3.645 per share" (VietNam Holding, VinaCapital) - the sterling
+    # figure is preferred over the USD one the same sentence carries, so a
+    # fund's series stays in one unit rather than alternating.
+    (_R(r"\bGBP\s*([0-9][0-9,]*\.[0-9]+)\s*per\s+share", re.I), "cum", "GBX", 100.0),
+    # "Estimated NAV per share $54.62 (£42.28)" (HarbourVest) - again the
+    # sterling figure, which is the one its London line trades against.
+    (_R(r"Estimated NAV per share[^(]{0,40}\(£\s*([0-9][0-9,]*\.[0-9]+)\)", re.I), "cum", "GBX", 100.0),
+    # "Cum NAV* 191.47cents / Ex NAV 191.74cents" (Schiehallion), US cents
+    (_R(r"\bCum\s*NAV\*?\s*([0-9][0-9,]*\.[0-9]+)\s*cents?", re.I), "cum", "USD", 0.01),
+    (_R(r"\bEx\s*NAV\*?\s*([0-9][0-9,]*\.[0-9]+)\s*cents?", re.I), "ex", "USD", 0.01),
+    # "Net asset value (unaudited) per common share: $ 90.79" - Canadian
+    # General states Canadian dollar values; its London line is secondary,
+    # so this will usually end as a currency mismatch and no discount. That
+    # is the correct outcome, and it is now a stated one rather than a gap.
+    (_R(r"net asset value[^.]{0,40}per common share:?\s*\$?\s*([0-9][0-9,]*\.[0-9]+)", re.I), "cum", "CAD", 1.0),
 ]
 
 UK_HDR_NAME = re.compile(r"Net Asset Value\(s\)\s+(.{5,90}?)\s+\d{1,2}\s+\w{3,9}\s+20\d\d")
@@ -478,7 +524,28 @@ def parse_uk_nav_text(text: str) -> dict:
             if kind == "cum_assumed":
                 best["cum_assumed"] = True
 
+    # Only when no labelled pence rule matched: the non-pence cohort. These
+    # never override an announcement that already parses, so adding them
+    # cannot change a single existing observation.
+    if "nav_cum_pence" not in best:
+        for pat, kind, ccy, mult in UK_CCY_RULES:
+            m = pat.search(text)
+            if m is None:
+                continue
+            if UK_ZDP.search(text[max(0, m.start() - 90):m.start()]):
+                continue
+            try:
+                v = float(m.group(1).replace(",", "")) * mult
+            except ValueError:
+                continue
+            key = "nav_cum_pence" if kind == "cum" else "nav_ex_pence"
+            if key in best:
+                continue
+            best[key] = v
+            best["nav_ccy"] = ccy
+
     out = {k: v for k, v in best.items() if not k.startswith("_")}
+    out.setdefault("nav_ccy", "GBX")
     if asat:
         out["asat"] = asat
     return out
