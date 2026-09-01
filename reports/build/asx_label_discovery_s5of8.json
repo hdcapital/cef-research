@@ -125,17 +125,6 @@
     },
     {
       "ticker": "PCX",
-      "label": "nav as at cents per unit nav",
-      "unit": "cents",
-      "months_supporting": 3,
-      "months_clean": 3,
-      "first_month": "2025-12",
-      "last_month": "2026-06",
-      "has_nav_vocab": true,
-      "is_rule": true
-    },
-    {
-      "ticker": "PCX",
       "label": "net asset value",
       "unit": "cents",
       "months_supporting": 3,
@@ -146,8 +135,19 @@
       "is_rule": true
     },
     {
+      "ticker": "PCX",
+      "label": "nav as at cents per unit nav",
+      "unit": "cents",
+      "months_supporting": 3,
+      "months_clean": 3,
+      "first_month": "2025-12",
+      "last_month": "2026-06",
+      "has_nav_vocab": true,
+      "is_rule": true
+    },
+    {
       "ticker": "PIC",
-      "label": "was nta per ordinary share nta before tax",
+      "label": "nta before tax",
       "unit": "dollars",
       "months_supporting": 8,
       "months_clean": 8,
@@ -158,7 +158,7 @@
     },
     {
       "ticker": "PIC",
-      "label": "nta before tax",
+      "label": "was nta per ordinary share nta before tax",
       "unit": "dollars",
       "months_supporting": 8,
       "months_clean": 8,
