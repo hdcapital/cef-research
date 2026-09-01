@@ -957,3 +957,50 @@ def test_one_uk_nav_headline_pattern_shared_everywhere():
     assert 're.compile(r"net asset value", re.I)' not in src
     arch = Path("scripts/archive_uk_navs.py").read_text()
     assert "UK_NAV_HEAD" in arch
+
+
+def test_nav_validation_verdicts_and_tolerances():
+    """A plausible wrong number is invisible to every other check.
+
+    The validator compares our extracted NAV against the AIC's
+    independently collected figure: 2% is rounding, 6% is a cum/ex or
+    debt-basis definition gap (agreement, not error), x100 is the unit
+    trap, anything else is the parser reading the wrong number.
+    """
+    from cef_live import nav_validation as NV
+    own = pd.DataFrame([
+        # agree
+        {"security_id": "A", "nav_date": "2026-06-30", "nav_value": 100.5},
+        {"security_id": "A", "nav_date": "2026-07-31", "nav_value": 101.0},
+        {"security_id": "A", "nav_date": "2026-08-28", "nav_value": 101.5},
+        # stable basis gap (~4%)
+        {"security_id": "B", "nav_date": "2026-06-30", "nav_value": 104.0},
+        {"security_id": "B", "nav_date": "2026-07-31", "nav_value": 104.0},
+        {"security_id": "B", "nav_date": "2026-08-31", "nav_value": 104.0},
+        # unit error: pounds in a pence column
+        {"security_id": "C", "nav_date": "2026-08-31", "nav_value": 1.0},
+        # wrong number entirely
+        {"security_id": "D", "nav_date": "2026-06-30", "nav_value": 55.0},
+        {"security_id": "D", "nav_date": "2026-07-31", "nav_value": 61.0},
+        {"security_id": "D", "nav_date": "2026-08-31", "nav_value": 42.0},
+        # mid-month observation must be superseded by month-end
+        {"security_id": "A", "nav_date": "2026-08-14", "nav_value": 55.0},
+    ])
+    panel = pd.DataFrame([
+        {"security_id": s, "obs_month": m, "nav_per_share": 100.0}
+        for s in ("A", "B", "C", "D")
+        for m in ("2026-06", "2026-07", "2026-08")])
+    pairs = NV.compare(own, panel, "nav_per_share")
+    got = NV.per_fund(pairs).set_index("security_id")
+    assert got.loc["A", "verdict"] == "validated"
+    assert got.loc["A", "agree"] == 3, "month-end must win over mid-month"
+    assert got.loc["B", "verdict"] == "validated", (
+        "a stable basis gap is a definition difference, not a parse error")
+    assert got.loc["C", "verdict"] == "unit_suspect"
+    assert got.loc["D", "verdict"] == "suspect"
+
+
+def test_nav_validation_runs_inside_the_nightly():
+    src = inspect.getsource(cli.nightly)
+    assert "nav_validation.run_uk" in src, (
+        "the UK validation must run where the panel and our history meet")

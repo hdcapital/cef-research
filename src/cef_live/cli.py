@@ -1028,14 +1028,25 @@ def nightly(markets: list[str]) -> int:
                     if aux_uk is not None else 0)
             except Exception as exc:  # noqa: BLE001
                 notes["markets"]["uk_aux_z_history_error"] = str(exc)
+            own_uk = _own_nav_history("UK")
             t = nta_live.build_table(
                 panel, "UK", ret_col="nav_total_return", nav_col=nav_col,
                 price_col=price_col, params=params, tier0=uk_tier0,
                 market_factors=mf, daily_factors=df, live_prices=live_px,
                 registry=_registry_for("UK"),
-                own_nav_history=_own_nav_history("UK"),
+                own_nav_history=own_uk,
                 aux_discount_history=aux_uk)
             tables.append(t)
+            # our parser vs the AIC's independently collected NAV: the only
+            # way a plausible-but-wrong number gets caught
+            try:
+                from . import nav_validation
+                nv = nav_validation.run_uk(own_uk, panel, nav_col)
+                notes["markets"]["uk_nav_validation"] = {
+                    k: nv[k] for k in ("comparable_pairs",
+                                       "agreement_rate_pairs")}
+            except Exception as exc:  # noqa: BLE001
+                notes["markets"]["uk_nav_validation_error"] = str(exc)
             if len(census):
                 notes["markets"]["uk"] = {
                     "tier0_navs": int(len(uk_tier0)) if uk_tier0 is not None else 0,
