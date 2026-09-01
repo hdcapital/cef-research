@@ -341,20 +341,26 @@ def test_a_reparsed_nav_reaches_the_live_table_and_the_audit(monkeypatch, tmp_pa
     from cef_live import cli, coverage_audit as CA
     from cef_live import uk_nav_panel as UKP
 
+    # A TICKER THE REAL SHARDS CANNOT CONTAIN. uk_nav_archive_facts also
+    # reads the committed data/uk_nav_history*.parquet, so a fixture keyed
+    # on a real ticker silently unions with whatever the archive last
+    # collected for that fund - this test used "PNL" and started failing
+    # the night the archiver picked up a newer Personal Assets
+    # announcement. The assertion was about the fixture; the data was not.
     panel = pd.DataFrame([{
-        "ticker": "PNL", "ann_id": "9743001",
+        "ticker": "ZZFIXTURE", "ann_id": "fixture-1",
         "published_at": pd.Timestamp("2026-08-27"),
         "nav_date": pd.Timestamp("2026-08-26"), "nav_pence": 555.50,
         "nav_ex_pence": None, "cum_assumed": False,
         "nav_source": "archive", "quality": "ok"}])
     monkeypatch.setattr(UKP, "read_panel", lambda *a, **k: panel)
     monkeypatch.setattr(CA, "load_tickers", lambda: pd.DataFrame(
-        [{"security_id": "SEDOL:PNL1", "ticker": "PNL",
+        [{"security_id": "SEDOL:FIX1", "ticker": "ZZFIXTURE",
           "ticker_status": "verified"}]))
 
     facts = CA.uk_nav_archive_facts().set_index("security_id")
-    assert "SEDOL:PNL1" in facts.index
-    row = facts.loc["SEDOL:PNL1"]
+    assert "SEDOL:FIX1" in facts.index
+    row = facts.loc["SEDOL:FIX1"]
     assert row["last_parsed_nav_date"] == "2026-08-27", (
         "a re-parsed announcement must count as parsed")
 
