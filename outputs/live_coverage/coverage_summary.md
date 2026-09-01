@@ -1,6 +1,6 @@
 # Live fund coverage audit
 
-Generated 2026-08-31T22:30:09+00:00 (as at 2026-08-31).
+Generated 2026-09-01T03:08:10+00:00 (as at 2026-09-01).
 
 Run on demand only - this report has no schedule.
 
@@ -22,14 +22,14 @@ Monitoring-eligible funds:     230
 Fresh price:                   196 / 85.2%
 Usable price:                  196 / 85.2%
 Usable NAV:                    158 / 68.7%
-Valid current discount:        145 / 63.0%
+Valid current discount:        144 / 62.6%
 Discount history sufficient:   157 / 68.3%
-CURRENT z-score:               132 / 57.4%
-  (of which none needed:        25 within the estimate's own error band)
+CURRENT z-score:               128 / 55.7%
+  (of which none needed:        29 within the estimate's own error band)
 Identity unresolved:            11
-Fully signal-ready:            109 / 47.4%
+Fully signal-ready:            105 / 45.7%
 
-GREEN 109   AMBER 36   RED 85
+GREEN 105   AMBER 39   RED 86
 ```
 
 | Price | n | % |
@@ -49,7 +49,7 @@ NAV rows below are independent flags, not a partition: a NAV can be both modelle
 | Stale | 63 | 27.4% |
 | No usable NAV | 19 | 8.3% |
 | NAV announcement held but no value parsed | 31 | 13.5% |
-| ...of which the parser ran and failed | 31 | 13.5% |
+| ...of which the parser ran and failed | 32 | 13.9% |
 
 ## ASX
 
@@ -60,12 +60,12 @@ Usable price:                   95 / 96.9%
 Usable NAV:                     89 / 90.8%
 Valid current discount:         86 / 87.8%
 Discount history sufficient:    85 / 86.7%
-CURRENT z-score:                42 / 42.9%
-  (of which none needed:        42 within the estimate's own error band)
+CURRENT z-score:                41 / 41.8%
+  (of which none needed:        43 within the estimate's own error band)
 Identity unresolved:             0
-Fully signal-ready:             14 / 14.3%
+Fully signal-ready:             15 / 15.3%
 
-GREEN 14   AMBER 72   RED 12
+GREEN 15   AMBER 71   RED 12
 ```
 
 | Price | n | % |
@@ -80,9 +80,9 @@ NAV rows below are independent flags, not a partition: a NAV can be both modelle
 
 | NAV | n | % |
 |---|--:|--:|
-| Fresh directly published | 56 | 57.1% |
+| Fresh directly published | 57 | 58.2% |
 | Modelled / rolled forward | 46 | 46.9% |
-| Stale | 41 | 41.8% |
+| Stale | 40 | 40.8% |
 | No usable NAV | 1 | 1.0% |
 | NAV announcement held but no value parsed | 66 | 67.3% |
 | ...of which the parser ran and failed | 0 | 0.0% |
@@ -94,14 +94,14 @@ Monitoring-eligible funds:     328
 Fresh price:                   291 / 88.7%
 Usable price:                  291 / 88.7%
 Usable NAV:                    247 / 75.3%
-Valid current discount:        231 / 70.4%
+Valid current discount:        230 / 70.1%
 Discount history sufficient:   242 / 73.8%
-CURRENT z-score:               174 / 53.0%
-  (of which none needed:        67 within the estimate's own error band)
+CURRENT z-score:               169 / 51.5%
+  (of which none needed:        72 within the estimate's own error band)
 Identity unresolved:            11
-Fully signal-ready:            123 / 37.5%
+Fully signal-ready:            120 / 36.6%
 
-GREEN 123   AMBER 108   RED 97
+GREEN 120   AMBER 110   RED 98
 ```
 
 | Price | n | % |
@@ -116,25 +116,25 @@ NAV rows below are independent flags, not a partition: a NAV can be both modelle
 
 | NAV | n | % |
 |---|--:|--:|
-| Fresh directly published | 202 | 61.6% |
+| Fresh directly published | 203 | 61.9% |
 | Modelled / rolled forward | 71 | 21.6% |
-| Stale | 104 | 31.7% |
+| Stale | 103 | 31.4% |
 | No usable NAV | 20 | 6.1% |
 | NAV announcement held but no value parsed | 97 | 29.6% |
-| ...of which the parser ran and failed | 31 | 9.5% |
+| ...of which the parser ran and failed | 32 | 9.8% |
 
 ## Why coverage is missing
 
 | Issue | UK | ASX | Total |
 |---|--:|--:|--:|
 | NAV older than the amber window | 53 | 7 | 60 |
-| No current z-score (within the error band) | 17 | 37 | 54 |
+| No current z-score (within the error band) | 21 | 38 | 59 |
 | Rolled-forward (modelled) NAV | 2 | 40 | 42 |
-| Somewhat stale NAV | 8 | 34 | 42 |
-| ASX monthly report NTA (no announcement route) | 0 | 31 | 31 |
+| Somewhat stale NAV | 8 | 33 | 41 |
+| ASX monthly report NTA (no announcement route) | 0 | 30 | 30 |
 | Stale historical panel price only | 26 | 3 | 29 |
-| Insufficient z-score history | 16 | 12 | 28 |
-| Suspected unit mismatch | 16 | 3 | 19 |
+| Insufficient z-score history | 15 | 12 | 27 |
+| Suspected unit mismatch | 17 | 3 | 20 |
 | No usable NAV | 10 | 1 | 11 |
 | Ticker identity unresolved | 11 | 0 | 11 |
 | NAV announcement found but unparsed | 9 | 0 | 9 |
@@ -162,6 +162,7 @@ NAV rows below are independent flags, not a partition: a NAV can be both modelle
 | UK | 3IN | 3i Infrastructure | NAV older than the amber window | the newest NAV we hold is older than the amber window - re-run the NAV harvest for this fund and check its publication frequency |
 | UK | AEWU | AEW UK REIT | NAV older than the amber window | the newest NAV we hold is older than the amber window - re-run the NAV harvest for this fund and check its publication frequency |
 | UK | AGVI | Aberforth Geared Value & Income Trust | Ticker identity unresolved | this ticker is claimed by more than one security, or now belongs to a different company - settle which security the quote belongs to (outputs/live_coverage/identity_conflicts.csv) before trusting it |
+| UK | AIC | Achilles Investment Company | Suspected unit mismatch | do NOT rescale the output - find which side is wrong (NAV parse or quote currency) and fix the source reader |
 | UK | AA4 | Amedeo Air Four Plus | Stale historical panel price only | the live price feed returned nothing for this symbol - verify the Yahoo symbol and re-run; never present the panel price as today's |
 | UK | ATS | Artemis Alpha Trust | Stale historical panel price only | the live price feed returned nothing for this symbol - verify the Yahoo symbol and re-run; never present the panel price as today's |
 | UK | AUGM | Augmentum Fintech | No price returned | check the fund still trades under this ticker; re-run the price layer for it and record the provider error |

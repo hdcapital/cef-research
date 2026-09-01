@@ -31,31 +31,31 @@
         "no_usable_nav_pct": 8.3,
         "announcement_held_but_unparsed": 31,
         "announcement_held_but_unparsed_pct": 13.5,
-        "parser_failure_recorded": 31,
-        "parser_failure_recorded_pct": 13.5
+        "parser_failure_recorded": 32,
+        "parser_failure_recorded_pct": 13.9
       },
       "signal": {
         "usable_price": 196,
         "usable_price_pct": 85.2,
         "usable_nav": 158,
         "usable_nav_pct": 68.7,
-        "normalised_units": 191,
-        "valid_discount": 145,
-        "valid_discount_pct": 63.0,
+        "normalised_units": 190,
+        "valid_discount": 144,
+        "valid_discount_pct": 62.6,
         "zscore_history": 157,
         "zscore_history_pct": 68.3,
-        "current_zscore": 132,
-        "current_zscore_pct": 57.4,
-        "zscore_voided_within_error_band": 25,
+        "current_zscore": 128,
+        "current_zscore_pct": 55.7,
+        "zscore_voided_within_error_band": 29,
         "identity_resolved": 219,
         "identity_unresolved": 11,
-        "signal_ready": 109,
-        "signal_ready_pct": 47.4
+        "signal_ready": 105,
+        "signal_ready_pct": 45.7
       },
       "status": {
-        "GREEN": 109,
-        "AMBER": 36,
-        "RED": 85
+        "GREEN": 105,
+        "AMBER": 39,
+        "RED": 86
       },
       "identity": {
         "conflicts_all_rows": 30,
@@ -94,12 +94,12 @@
         "unresolved_ticker": 0
       },
       "nav": {
-        "fresh_published": 56,
-        "fresh_published_pct": 57.1,
+        "fresh_published": 57,
+        "fresh_published_pct": 58.2,
         "modelled_rolled_forward": 46,
         "modelled_rolled_forward_pct": 46.9,
-        "stale": 41,
-        "stale_pct": 41.8,
+        "stale": 40,
+        "stale_pct": 40.8,
         "no_usable_nav": 1,
         "no_usable_nav_pct": 1.0,
         "announcement_held_but_unparsed": 66,
@@ -117,17 +117,17 @@
         "valid_discount_pct": 87.8,
         "zscore_history": 85,
         "zscore_history_pct": 86.7,
-        "current_zscore": 42,
-        "current_zscore_pct": 42.9,
-        "zscore_voided_within_error_band": 42,
+        "current_zscore": 41,
+        "current_zscore_pct": 41.8,
+        "zscore_voided_within_error_band": 43,
         "identity_resolved": 98,
         "identity_unresolved": 0,
-        "signal_ready": 14,
-        "signal_ready_pct": 14.3
+        "signal_ready": 15,
+        "signal_ready_pct": 15.3
       },
       "status": {
-        "GREEN": 14,
-        "AMBER": 72,
+        "GREEN": 15,
+        "AMBER": 71,
         "RED": 12
       },
       "identity": {
@@ -162,41 +162,41 @@
         "unresolved_ticker": 0
       },
       "nav": {
-        "fresh_published": 202,
-        "fresh_published_pct": 61.6,
+        "fresh_published": 203,
+        "fresh_published_pct": 61.9,
         "modelled_rolled_forward": 71,
         "modelled_rolled_forward_pct": 21.6,
-        "stale": 104,
-        "stale_pct": 31.7,
+        "stale": 103,
+        "stale_pct": 31.4,
         "no_usable_nav": 20,
         "no_usable_nav_pct": 6.1,
         "announcement_held_but_unparsed": 97,
         "announcement_held_but_unparsed_pct": 29.6,
-        "parser_failure_recorded": 31,
-        "parser_failure_recorded_pct": 9.5
+        "parser_failure_recorded": 32,
+        "parser_failure_recorded_pct": 9.8
       },
       "signal": {
         "usable_price": 291,
         "usable_price_pct": 88.7,
         "usable_nav": 247,
         "usable_nav_pct": 75.3,
-        "normalised_units": 284,
-        "valid_discount": 231,
-        "valid_discount_pct": 70.4,
+        "normalised_units": 283,
+        "valid_discount": 230,
+        "valid_discount_pct": 70.1,
         "zscore_history": 242,
         "zscore_history_pct": 73.8,
-        "current_zscore": 174,
-        "current_zscore_pct": 53.0,
-        "zscore_voided_within_error_band": 67,
+        "current_zscore": 169,
+        "current_zscore_pct": 51.5,
+        "zscore_voided_within_error_band": 72,
         "identity_resolved": 317,
         "identity_unresolved": 11,
-        "signal_ready": 123,
-        "signal_ready_pct": 37.5
+        "signal_ready": 120,
+        "signal_ready_pct": 36.6
       },
       "status": {
-        "GREEN": 123,
-        "AMBER": 108,
-        "RED": 97
+        "GREEN": 120,
+        "AMBER": 110,
+        "RED": 98
       },
       "identity": {
         "conflicts_all_rows": 30,
@@ -217,8 +217,8 @@
     }
   },
   "meta": {
-    "generated_at": "2026-08-31T22:30:09+00:00",
-    "as_of": "2026-08-31",
+    "generated_at": "2026-09-01T03:08:10+00:00",
+    "as_of": "2026-09-01",
     "thresholds": {
       "price": {
         "fresh_days": 5,
