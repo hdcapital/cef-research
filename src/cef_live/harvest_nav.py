@@ -151,9 +151,11 @@ ASX_CENTS_DECL = re.compile(r"\bcents?\b", re.I)
 # looked perfectly reasonable.
 ASX_LABEL_RULES = [
     ("pre_tax", re.compile(
-        r"NTA\s+before\s+(?:all\s+)?tax(?:es)?\d{0,2}\s*[:\-]?\s*", re.I)),
+        r"NTA\s+before\s+(?:all\s+)?tax(?:es)?\d{0,2}\s*[:\-]?\s*\$?\s*", re.I)),
+    ("pre_tax", re.compile(
+        r"pre[\s\-]?tax\s+NTA\d{0,2}\s*[:\-]?\s*\$?\s*", re.I)),
     ("unknown", re.compile(
-        r"Net\s+asset\s+value\s*\(\s*CUM\s*\)\d{0,2}\s*[:\-]?\s*", re.I)),
+        r"Net\s+asset\s+value\s*\(\s*CUM\s*\)\d{0,2}\s*[:\-]?\s*\$?\s*", re.I)),
 ]
 ASX_VALUE = re.compile(r"([0-9]+\.[0-9]{2,6})")
 
@@ -205,6 +207,33 @@ def _asx_before_tax_column(text: str) -> tuple[float, str] | None:
                 except ValueError:
                     pass
     return None
+
+
+# OCR misreads digits - 5 for 6, 8 for 3, 0 for O - and a misread NAV is
+# indistinguishable from a real one by inspection. So an OCR'd figure is
+# not taken on trust: it is taken only where the document's OWN arithmetic
+# confirms it. Cadence prints the NTA, the share price and the discount
+# between them in the same image; two digits misread badly enough to
+# matter would have to be misread CONSISTENTLY to survive this, which is
+# a far stronger test than any plausibility band on a single number.
+OCR_PRICE = re.compile(
+    r"share\s+price[^$%\n]{0,40}\$\s*([0-9]+\.[0-9]{2,4})", re.I)
+OCR_DISCOUNT = re.compile(
+    r"(?:premium|discount)[^%]{0,60}?(-?\s*[0-9]+(?:\.[0-9])?)\s*%", re.I)
+OCR_DISCOUNT_TOL = 0.005          # half a percentage point
+
+
+def _ocr_confirms(text: str, nav: float) -> bool:
+    """Does the document's stated price and discount agree with this NAV?"""
+    pm, dm = OCR_PRICE.search(text), OCR_DISCOUNT.search(text)
+    if pm is None or dm is None or not nav:
+        return False              # unverifiable, so not published
+    try:
+        price = float(pm.group(1))
+        stated = float(dm.group(1).replace(" ", "")) / 100.0
+    except ValueError:
+        return False
+    return abs((price / nav - 1.0) - stated) <= OCR_DISCOUNT_TOL
 
 
 def _asx_labelled_nta(text: str) -> tuple[float, str, str] | None:
@@ -391,7 +420,7 @@ def _nta_from_document(doc: dict, headline: str) -> dict | None:
     # still a parser failure rather than an import problem
     res = P.derive_stated(doc)
     if res.get("status") != "parsed" or res.get("stated_raw") is None:
-        return None
+        return _from_ocr(doc, asat)
     unit = res.get("unit")
     val = res["stated_raw"]
     return {"nav_per_share": val / 100.0 if unit == "cents" else val,
@@ -1233,3 +1262,42 @@ def uk_nav_samples(cache_dir: Path, n: int = 5) -> list[dict]:
         except Exception as exc:  # noqa: BLE001
             out.append({**c, "status": f"error:{exc}"})
     return out
+
+
+def _from_ocr(doc: dict, asat) -> dict | None:
+    """The same readers, run over the picture - and only believed where the
+    document's own numbers agree with the answer.
+
+    Cadence Capital's monthly update carries a text layer of commentary and
+    prints its NTA table as an image, so it extracts cleanly and holds no
+    figure. Reading the image recovers "Pre Tax NTA $0.810"; the same image
+    also states a share price of $0.795 and a discount of -1.8%, and
+    0.795/0.810-1 is -1.85%. That agreement is what makes the figure
+    publishable. Where a document offers no such check the value is
+    dropped, because an unverified OCR digit and an invented one are worth
+    the same.
+    """
+    text = doc.get("ocr_text") or ""
+    if not text:
+        return None
+    for reader, extractor, basis in (
+            (_asx_pretax_per_share, "ocr_pretax_per_share_v1", "pre_tax"),
+            (None, "ocr_labelled_nta_v1", None),
+    ):
+        if reader is None:
+            lab = _asx_labelled_nta(text)
+            if lab is None:
+                continue
+            val, unit_src, basis = lab
+        else:
+            got = reader(text)
+            if got is None:
+                continue
+            val, unit_src = (got.get("nav_per_share"), "dollars") \
+                if isinstance(got, dict) else (got, "dollars")
+        if val is None or not _ocr_confirms(text, val):
+            continue                  # unconfirmed by the document itself
+        return {"nav_per_share": val, "unit_source": unit_src,
+                "nav_basis": basis, "valuation_date": asat,
+                "extractor": extractor, "ocr": True}
+    return None

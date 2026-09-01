@@ -594,6 +594,36 @@ def derive_stated(extract: dict) -> dict:
     return {"status": status, **(got or {})}
 
 
+# An NTA label standing next to a number. Cadence's monthly update has a
+# text layer - the commentary - but prints its NTA table as an IMAGE, so
+# the document extracts cleanly, reads as prose, and carries no figure.
+# "no_text_layer" does not catch it: there IS a text layer, just not the
+# part that matters.
+NTA_VALUE_IN_TEXT = re.compile(
+    r"(?:NTA|net tangible|net asset)[\s\S]{0,120}?[0-9]+\.[0-9]{2}", re.I)
+OCR_DPI = int(os.environ.get("NTA_OCR_DPI", "200"))
+
+
+def _ocr_pages(pdf, limit: int) -> str:
+    """Read the pictures. Only ever called for a document that already
+    failed to yield a figure any cheaper way, so the cost falls on the
+    documents that are broken and on no others."""
+    try:
+        import pytesseract
+    except Exception:  # noqa: BLE001
+        return ""
+    out = []
+    for page in pdf.pages[:limit]:
+        if not page.images:
+            continue
+        try:
+            out.append(pytesseract.image_to_string(
+                page.to_image(resolution=OCR_DPI).original))
+        except Exception:  # noqa: BLE001
+            continue
+    return re.sub(r"\s+", " ", " ".join(out))
+
+
 def parse_pdf(s: requests.Session, ann_id: str, url: str, counters: dict) -> dict:
     import pdfplumber
 
@@ -655,12 +685,28 @@ def parse_pdf(s: requests.Session, ann_id: str, url: str, counters: dict) -> dic
         return res
     finally:
         signal.alarm(0)
-    if len(text) < 50:                # scanned image, no text layer - honest gap
+    ocr = ""
+    if not NTA_VALUE_IN_TEXT.search(text):
+        # nothing here a text parser can use - look at the pictures before
+        # calling it a gap
+        signal.alarm(120)
+        try:
+            with pdfplumber.open(io.BytesIO(r.content)) as pdf:
+                ocr = _ocr_pages(pdf, PDF_PAGES)
+        except Exception:  # noqa: BLE001
+            ocr = ""
+        finally:
+            signal.alarm(0)
+    if len(text) < 50 and not ocr:     # scanned image, unreadable - honest gap
         res = {"status": "no_text_layer"}
         cf.write_text(json.dumps(res))
         return res
     res = {"status": "extracted", "text": text[:PDF_TEXT_CHARS],
            "rows": rows[:PDF_TABLE_ROWS]}
+    if ocr:
+        # kept apart from the text layer so a value's provenance survives:
+        # an OCR'd figure is held to a stricter test than a typeset one.
+        res["ocr_text"] = ocr[:PDF_TEXT_CHARS]
     cf.write_text(json.dumps(res))
     return res
 

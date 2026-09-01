@@ -896,3 +896,41 @@ def test_percentage_change_is_never_read_as_a_valuation():
     t = "NTA before tax -53.8% 0.456 0.912"
     got = H._asx_labelled_nta(t)
     assert got is None or got[0] != -53.8
+
+
+# --- OCR fallback: only believed where the document confirms itself ---
+
+CDM_OCR = ("CADENCE CAPITAL LIMITED NTA AND INVESTMENT UPDATE July 2026 "
+           "Net Tangible Assets as at 31st July 2026 Pre Tax NTA $0.810 "
+           "Post Tax NTA $1.016. Share Price (ASX Code: CDM) $0.795 "
+           "Premium (Discount) to Pre Tax NTA -1.8%")
+
+
+def test_ocr_value_accepted_when_the_document_confirms_it():
+    """0.795 / 0.810 - 1 = -1.85%, against a stated -1.8%."""
+    got = H._nta_from_document({"status": "extracted", "text": "",
+                                "ocr_text": CDM_OCR}, "NTA update")
+    assert got["nav_per_share"] == 0.810
+    assert got["nav_basis"] == "pre_tax" and got["ocr"] is True
+
+
+def test_ocr_value_refused_when_the_arithmetic_disagrees():
+    """A digit misread as 0.860 implies -7.6%, not the stated -1.8%."""
+    assert H._ocr_confirms(CDM_OCR, 0.860) is False
+
+
+def test_ocr_value_refused_when_there_is_nothing_to_check_it_against():
+    """No stated price and discount means no confirmation, so no value:
+    an unverified OCR digit is worth what an invented one is worth."""
+    assert H._ocr_confirms("Pre Tax NTA $0.810", 0.810) is False
+    assert H._nta_from_document(
+        {"status": "extracted", "text": "", "ocr_text": "Pre Tax NTA $0.810"},
+        "NTA update") is None
+
+
+def test_typeset_text_is_never_held_to_the_ocr_gate():
+    """The strict test applies to pictures, not to documents that parse."""
+    t = ("Net Tangible Asset Backing Per Ordinary Share1 "
+         "NTA before tax2 2.3660 NTA after tax3 2.2990")
+    got = H._nta_from_document({"status": "extracted", "text": t}, "NTA")
+    assert got["nav_per_share"] == 2.3660 and "ocr" not in got
