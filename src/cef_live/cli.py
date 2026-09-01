@@ -22,8 +22,8 @@ from pathlib import Path
 import pandas as pd
 import yaml
 
-from . import (catalysts, forward_irr, harvest_nav, identity, liveness,
-               nta_live, opportunities, prices, tickers, universe,
+from . import (catalysts, eligibility, forward_irr, harvest_nav, identity,
+               liveness, nta_live, opportunities, prices, tickers, universe,
                universe_report)
 
 
@@ -187,6 +187,18 @@ def build_universe() -> int:
     ev = _liveness_evidence()
     before = reg["status"].value_counts().to_dict()
     reg = liveness.apply(reg, ev, params=_params())
+
+    # The research-policy verdict travels WITH the registry. It was only
+    # ever computed inside the coverage audit, so the nightly's research
+    # gate fell back to the panel's `eligible` column and defaulted
+    # registry-only funds - VCTs and ZDP lines included - to True. The
+    # signal_coverage denominator counted VCTs the research universe
+    # excludes by pre-specified policy.
+    elig = eligibility.classify(reg, liveness.LIVE_STATUSES)
+    reg = reg.merge(
+        elig[["security_id", "research_eligible", "monitoring_eligible",
+              "exclusion_reason"]],
+        on="security_id", how="left")
 
     # PERSIST it. universe.build() writes the registry with the AGGREGATOR's
     # status; this function then computed a better one from the funds' own

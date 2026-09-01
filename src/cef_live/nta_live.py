@@ -297,6 +297,15 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
                 nta_est = anchor_val * float(np.prod(1.0 + X @ b))
                 est_note = "factor_rollforward"
 
+        # A published NAV inside the fund's own cadence IS current. Basis 3
+        # is reserved for a stale carry, but a fund without a factor model
+        # was labelled 3 however fresh its anchor - EJF failed the
+        # freshness gate on a 22-day-old published NAV because nothing
+        # could roll it forward. Nothing NEEDS to roll a current NAV
+        # forward; provenance stays on anchor_source.
+        if basis == 3 and pd.notna(staleness) and staleness <= stale_limit:
+            basis = 0
+
         sigma = float(m["sigma_1m"]) if m is not None and pd.notna(m["sigma_1m"]) else np.nan
         est_error = sigma * np.sqrt(
             max(staleness, 1) / live["est_error"]["trading_days_per_month"]) \

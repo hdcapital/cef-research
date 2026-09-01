@@ -868,3 +868,53 @@ def test_forward_irr_growth_falls_back_to_the_funds_own_nav_history():
     assert r["g_source"] == "own_nav_history"
     assert r["irr_central"] is not None, (
         "growth + aux terminal discount must be enough for an IRR")
+
+
+def test_a_fresh_published_nav_is_basis_0_even_without_a_factor_model():
+    """EJF failed the freshness gate on a 22-day-old published NAV.
+
+    Basis 3 is a STALE carry; a fund without a factor model was labelled 3
+    however fresh its anchor, so `basis <= 2` gates wrote off every
+    modelless fund. A published NAV inside the fund's own cadence needs no
+    rolling forward to be current.
+    """
+    params = _params()
+    empty_panel = pd.DataFrame(columns=["security_id", "obs_month", "sector",
+                                        "nav_total_return", "nav_per_share",
+                                        "share_price", "discount"])
+    registry = pd.DataFrame([{"security_id": "F", "market": "UK",
+                              "status": "live", "name": "F",
+                              "research_eligible": True, "identity_ok": True}])
+    own = pd.DataFrame([{"security_id": "F",
+                         "nav_date": pd.Timestamp("2026-08-15"),
+                         "nav_value": 100.0}])
+    out = nta_live.build_table(empty_panel, "UK", "nav_total_return",
+                               "nav_per_share", "share_price", params,
+                               registry=registry, own_nav_history=own,
+                               today=TODAY)
+    r = out[out["security_id"] == "F"].iloc[0]
+    assert r["basis"] == 0, (r["basis"], r["staleness_days"])
+    # and a genuinely stale carry stays basis 3
+    old = pd.DataFrame([{"security_id": "F",
+                         "nav_date": pd.Timestamp("2024-01-15"),
+                         "nav_value": 100.0}])
+    out2 = nta_live.build_table(empty_panel, "UK", "nav_total_return",
+                                "nav_per_share", "share_price", params,
+                                registry=registry, own_nav_history=old,
+                                today=TODAY)
+    assert out2.iloc[0]["basis"] == 3
+
+
+def test_the_registry_carries_the_research_policy_verdict():
+    """VCTs were counting toward the coverage target.
+
+    eligibility.classify only ever ran inside the coverage audit, so the
+    registry carried no research_eligible column and the nightly's
+    research gate defaulted registry-only funds - VCTs included - to True.
+    The verdict is now computed and persisted when the registry is built.
+    """
+    src = inspect.getsource(cli.build_universe)
+    assert "eligibility.classify" in src
+    assert src.index("eligibility.classify") < src.index(
+        'to_parquet(out / "registry.parquet"'), (
+        "eligibility must be written INTO the persisted registry")
