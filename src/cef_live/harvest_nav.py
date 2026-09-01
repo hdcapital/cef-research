@@ -61,6 +61,30 @@ UK_FACTSHEET_HEAD = re.compile(
 # a third party's research note is never a source for a fund's NAV
 UK_THIRD_PARTY = re.compile(
     r"kepler|edison|quoteddata|hardman|analysis from|research", re.I)
+# Investegate announcement URLs carry the company's own slug:
+#   /announcement/rns/<company-slug>--<ticker>/<headline-slug>/<id>
+# A DEAD ticker's company page silently serves the MARKET-WIDE feed, so a
+# listing cache for one can fill with other companies' announcements - 56
+# funds the AIC delisted years ago came back "announced today" through
+# exactly this, resurrecting them into the live universe. Every reader of
+# ticker-keyed announcement rows must therefore check the row's own slug.
+_URL_TICKER = re.compile(r"--([a-z0-9.]{2,8})/")
+
+
+def uk_row_matches_ticker(url: str, ticker: str) -> bool:
+    """Does this announcement URL belong to this ticker's company?
+
+    True when the URL's company-slug ticker suffix matches, and also when
+    the URL carries no recognisable slug (older cache rows) - absence of
+    evidence is not evidence of contamination. False only on a positive
+    mismatch, which is the market-feed fallback signature.
+    """
+    m = _URL_TICKER.search(str(url or "").lower())
+    if m is None:
+        return True
+    return m.group(1) == str(ticker or "").lower()
+
+
 # Investegate's model-generated summary panel is deliberately NOT stripped
 # before parsing. It paraphrases THIS announcement's own figure, so a match
 # inside it nearly always yields the correct number - and stripping it was
@@ -1024,6 +1048,17 @@ def harvest_uk(ticker_map: pd.DataFrame, census: pd.DataFrame,
         except Exception:  # noqa: BLE001
             stats["listing_fail"] += 1
             continue
+        # An unknown or dead ticker's page silently serves the MARKET-WIDE
+        # feed - the crawler has guarded its H1 since day one, and this
+        # harvest not doing the same resurrected 56 delisted funds with
+        # other companies' announcement dates and polluted their listing
+        # caches. The page must name THIS ticker or nothing here is used.
+        h1 = soup.find("h1")
+        h1_m = re.search(r"\(([A-Z0-9.]{2,8})\)\s+RNS",
+                         h1.get_text(" ", strip=True)) if h1 else None
+        if h1_m is None or h1_m.group(1).upper() != tk.upper():
+            stats["identity_mismatch"] = stats.get("identity_mismatch", 0) + 1
+            continue
         best = None
         for tr in soup.select("table.table-investegate tbody tr"):
             tds = tr.find_all("td")
@@ -1040,6 +1075,10 @@ def harvest_uk(ticker_map: pd.DataFrame, census: pd.DataFrame,
                 continue
             href = a["href"]
             url_ = ("https://www.investegate.co.uk" + href) if href.startswith("/") else href
+            # page footers leak other companies' announcements; only rows
+            # whose URL slug names THIS ticker are this fund's
+            if not uk_row_matches_ticker(url_, tk):
+                continue
             listing_rows.setdefault(tk, []).append({
                 "ann_id": url_.rsplit("/", 1)[-1], "date": d,
                 "headline": head, "url": url_})

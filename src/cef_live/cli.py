@@ -131,12 +131,25 @@ def _liveness_evidence() -> pd.DataFrame:
         t0 = t0[t0["status"] == "verified"]
         by_tk = {str(r.ticker).upper(): r.security_id
                  for r in t0.itertuples(index=False) if pd.notna(r.ticker)}
-        for f in sorted(Path("data").glob("uk_nav_history*.parquet")):
+        # Prefer the reparse shards when present: they are the complete
+        # current-parser view of the archive AND carry the announcement URL,
+        # so a market-feed leak archived under a dead ticker can be
+        # excluded (uk_row_matches_ticker). The older crawl shards carry no
+        # URL and resurrected 56 delisted funds with other companies'
+        # announcement dates.
+        files = sorted(Path("data").glob("uk_nav_history_reparse_*.parquet")) \
+            or sorted(Path("data").glob("uk_nav_history*.parquet"))
+        for f in files:
             try:
-                h = pd.read_parquet(f, columns=["ticker", "ann_date"])
+                h = pd.read_parquet(f)
             except Exception:  # noqa: BLE001
                 continue
+            if not {"ticker", "ann_date"} <= set(h.columns):
+                continue
             h["ticker"] = h["ticker"].astype(str).str.upper()
+            if "url" in h.columns:
+                h = h[[harvest_nav.uk_row_matches_ticker(u, t)
+                       for u, t in zip(h["url"].fillna(""), h["ticker"])]]
             h["d"] = pd.to_datetime(h["ann_date"], errors="coerce")
             for tk, g in h.dropna(subset=["d"]).groupby("ticker"):
                 sid = by_tk.get(tk)
@@ -162,6 +175,13 @@ def _liveness_evidence() -> pd.DataFrame:
                 continue
             if "date" not in df_.columns:
                 continue
+            # a dead ticker's page serves the market-wide feed, so cached
+            # rows must prove they belong to this company (URL slug) before
+            # they can count as ITS liveness evidence - 56 delisted funds
+            # were resurrected with other companies' announcement dates
+            if "url" in df_.columns:
+                df_ = df_[[harvest_nav.uk_row_matches_ticker(u, f.stem)
+                           for u in df_["url"].fillna("")]]
             d = pd.to_datetime(df_["date"], errors="coerce").dropna()
             if len(d):
                 note(sid, "last_announcement", d.max())

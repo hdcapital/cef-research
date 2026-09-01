@@ -1072,3 +1072,45 @@ def test_third_party_research_is_excluded_from_the_factsheet_route():
         "Results analysis from Kepler Trust Intelligence")
     assert UK_THIRD_PARTY.search("Edison issues report on HgT")
     assert not UK_THIRD_PARTY.search("Half-Yearly Results")
+
+
+# --------------------------------------- ticker reuse / zombie resurrection
+
+def test_a_dead_tickers_market_feed_rows_never_count_as_its_evidence():
+    """56 funds the AIC delisted years ago came back "announced today".
+
+    A dead ticker's Investegate page silently serves the MARKET-WIDE feed,
+    so its listing cache filled with other companies' announcements and
+    liveness resurrected the fund into the priced universe. Announcement
+    URLs carry the company's own slug (`...--<ticker>/`), so every reader
+    of ticker-keyed rows can and must verify the row belongs to the fund.
+    """
+    from cef_live.harvest_nav import uk_row_matches_ticker
+    assert uk_row_matches_ticker(
+        "https://www.investegate.co.uk/announcement/rns/"
+        "3i-infrastructure--3in/some-headline/9564461", "3IN")
+    assert uk_row_matches_ticker(
+        "https://www.investegate.co.uk/announcement/rns/"
+        "amedeo-air-four-plus-limited-red-ord-npv--aa4/factsheet/9557770",
+        "AA4")
+    # the market-feed leak: another company's slug under a dead ticker
+    assert not uk_row_matches_ticker(
+        "https://www.investegate.co.uk/announcement/rns/"
+        "some-other-company--xyz/holdings-in-company/9564000", "BEEP")
+    # an old cache row with no recognisable slug is not condemned
+    assert uk_row_matches_ticker("https://old/shape/12345", "BEEP")
+
+    # and every reader applies it
+    src = inspect.getsource(cli._liveness_evidence)
+    assert src.count("uk_row_matches_ticker") >= 2, (
+        "both the listing-cache and nav-history evidence paths must verify")
+    arch = Path("scripts/archive_uk_navs.py").read_text()
+    assert arch.count("uk_row_matches_ticker") >= 2, (
+        "the archive queue and the reparse loader must verify")
+    from cef_live import uk_nav_panel
+    assert "uk_row_matches_ticker" in inspect.getsource(uk_nav_panel)
+    from cef_live import harvest_nav as HN
+    h_src = inspect.getsource(HN.harvest_uk)
+    assert "identity_mismatch" in h_src, (
+        "the harvest must verify the listing page H1 names the ticker")
+    assert "uk_row_matches_ticker" in h_src

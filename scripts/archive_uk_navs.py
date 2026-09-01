@@ -81,6 +81,7 @@ HIST = Path("data/uk_nav_history.parquet" if SHARDS == 1
 MANIFEST_KEY = ("uk/nav_announcements/manifest.json" if SHARDS == 1
                 else f"uk/nav_announcements/manifest_s{SHARD}of{SHARDS}.json")
 from cef_live.harvest_nav import UK_NAV_HEAD as NAV_PAT  # one pattern, everywhere
+from cef_live.harvest_nav import uk_row_matches_ticker
 
 _last = 0.0
 
@@ -150,6 +151,11 @@ def main() -> int:
                     & df["url"].notna()]
             nav = pd.concat([nav, fs], ignore_index=True)
         for r in nav.itertuples(index=False):
+            # the market-feed fallback leaks other companies' rows into a
+            # dead ticker's cache; never archive a row whose URL slug says
+            # it belongs to someone else
+            if not uk_row_matches_ticker(r.url, f.stem):
+                continue
             if str(r.ann_id) not in done:
                 work.append({"ticker": f.stem, "ann_id": str(r.ann_id),
                              "date": r.date or "", "url": r.url})
@@ -299,6 +305,10 @@ def reparse() -> int:
                 unreadable += 1
                 continue
             seen += 1
+            tk_ = str(rec.get("ticker") or key.split("/")[-2]).upper()
+            if rec.get("url") and not uk_row_matches_ticker(rec["url"], tk_):
+                # market-feed leak archived under the wrong fund
+                continue
             before[rec.get("status", "no_nav_parsed")] = \
                 before.get(rec.get("status", "no_nav_parsed"), 0) + 1
             text = rec.get("text") or ""
@@ -313,6 +323,9 @@ def reparse() -> int:
                 "nav_cum_pence": got.get("nav_cum_pence"),
                 "nav_ex_pence": got.get("nav_ex_pence"),
                 "cum_assumed": bool(got.get("cum_assumed", False)),
+                # the URL travels with the row so any reader can re-verify
+                # the announcement belongs to this ticker's company
+                "url": rec.get("url"),
                 "status": "parsed" if "nav_cum_pence" in got else "no_nav_parsed"})
 
     out = Path("data/uk_nav_history_reparse.parquet" if SHARDS == 1

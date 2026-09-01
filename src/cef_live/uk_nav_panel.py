@@ -53,7 +53,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from .harvest_nav import parse_uk_nav_text
+from .harvest_nav import parse_uk_nav_text, uk_row_matches_ticker
 
 NAV_PREFIX = "uk/nav_announcements/"
 SNAPSHOT_PREFIX = "nta_live/"
@@ -190,6 +190,10 @@ def extract_from_archive(bucket: str, tickers: set[str] | None = None,
         except Exception:  # noqa: BLE001
             return None
         ticker = str(rec.get("ticker") or key[len(NAV_PREFIX):].split("/", 1)[0]).upper()
+        # a market-feed leak archived under the wrong fund must not become
+        # that fund's NAV observation (see harvest_nav.uk_row_matches_ticker)
+        if rec.get("url") and not uk_row_matches_ticker(rec["url"], ticker):
+            return None
         published = rec.get("ann_date") or key.rsplit("/", 1)[-1].split("_", 1)[0]
         # Re-parse the stored text rather than trust the stored verdict: the
         # rule list has grown since these were archived, so a row written as
