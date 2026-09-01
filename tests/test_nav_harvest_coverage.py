@@ -850,3 +850,49 @@ def test_the_layouts_that_already_parsed_still_parse_the_same_way():
         assert got["nav_per_share"] == pytest.approx(want)
         assert got["extractor"] == "nta_scored_v1", (
             "an existing layout was taken over by the new rule")
+
+
+# --- clusters B, C, D: values checked against each issuer's own print ---
+
+def test_labelled_nta_reads_declared_cents_not_magnitude():
+    """Excelsior heads its table "Cents" and prints 96.85 -> $0.9685."""
+    t = ("Net tangible asset per share: Cents As at 31 July 2026 "
+         "NTA before all taxes1 96.85 NTA after providing all taxes 2 96.85")
+    val, unit, basis = H._asx_labelled_nta(t)
+    assert (round(val, 4), unit, basis) == (0.9685, "cents", "pre_tax")
+
+
+def test_labelled_nta_defaults_to_dollars_when_undeclared():
+    t = ("Net Tangible Asset Backing Per Ordinary Share1 "
+         "NTA before tax2 2.3660 NTA after tax3 2.2990")
+    assert H._asx_labelled_nta(t) == (2.3660, "dollars", "pre_tax")
+
+
+def test_footnote_marker_never_eats_the_value():
+    """"(CUM) 197.89" once parsed as 7.89 -> $0.0789 against a real $1.9825."""
+    t = ("NET ASSET VALUE (NAV) AS AT 31 JULY 2026 Cents Per Unit "
+         "Net asset value (CUM) 197.89")
+    val, unit, _ = H._asx_labelled_nta(t)
+    assert (round(val, 4), unit) == (1.9789, "cents")
+
+
+def test_before_tax_column_takes_the_stated_before_tax_figure():
+    """WAM prints before, after, then the refund - order from the header."""
+    t = ("NTA NTA (before tax refund) (after tax refund) Tax refund "
+         "119.50c 121.17c 1.67c July 2026 122.20c June 2026")
+    val, unit = H._asx_before_tax_column(t)
+    assert (round(val, 4), unit) == (1.1950, "cents")
+
+
+def test_before_tax_column_reads_current_month_not_prior():
+    """Whitefield heads "31 Jul 26 Prior Month" then prints "$6.28 $6.11"."""
+    t = ("NET TANGIBLE ASSET BACKING 31 Jul 26 Prior Month "
+         "NTA (Before Deferred Tax) $6.28 $6.11")
+    assert H._asx_before_tax_column(t) == (6.28, "dollars")
+
+
+def test_percentage_change_is_never_read_as_a_valuation():
+    """Bentley prints "-53.8% 0.456 0.9xx" - change, this month, last."""
+    t = "NTA before tax -53.8% 0.456 0.912"
+    got = H._asx_labelled_nta(t)
+    assert got is None or got[0] != -53.8

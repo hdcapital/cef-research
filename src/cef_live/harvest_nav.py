@@ -126,6 +126,116 @@ def _asx_per_unit_dollars(text: str) -> float | None:
         return None
 
 
+# A number followed by "%" is a change, not a valuation. Bentley prints
+# "-53.8% 0.456 0.9xx" - percentage change, this month, last month - so a
+# rule that takes the first number after the label takes the percentage.
+ASX_PCT = re.compile(r"\s*%")
+# The unit a document DECLARES for the row, read backwards from the label.
+# Excelsior heads its table "Net tangible asset per share: Cents" and
+# Pengana "Cents Per Unit"; both then print a bare number. Read as dollars
+# those are 96.85 and 197.89 against real values of 0.9633 and 1.9825 -
+# 100x errors that look like nothing else in the table. The existing
+# parser's "dollars if < 20 else ambiguous" rule is what protects them
+# today, by refusing rather than guessing, which is why they show as
+# failures and not as disasters.
+ASX_CENTS_DECL = re.compile(r"\bcents?\b", re.I)
+
+# (basis, label). Each is anchored on wording taken from a real
+# announcement, and each ends immediately before the value - including any
+# footnote marker glued to the label ("taxes1 96.85", "tax2 2.3660").
+# A footnote marker is GLUED to the label ("taxes1 96.85", "tax2 2.3660");
+# a value is separated from it by whitespace. Allowing whitespace before
+# the footnote digits let the label swallow the front of the number:
+# "Net asset value (CUM) 197.89" consumed "19" and returned 7.89, which
+# became $0.0789 against a real $1.9825. The harness caught it; the rule
+# looked perfectly reasonable.
+ASX_LABEL_RULES = [
+    ("pre_tax", re.compile(
+        r"NTA\s+before\s+(?:all\s+)?tax(?:es)?\d{0,2}\s*[:\-]?\s*", re.I)),
+    ("unknown", re.compile(
+        r"Net\s+asset\s+value\s*\(\s*CUM\s*\)\d{0,2}\s*[:\-]?\s*", re.I)),
+]
+ASX_VALUE = re.compile(r"([0-9]+\.[0-9]{2,6})")
+
+
+# The before/after-tax column pair. WAM heads its table
+#   "NTA (before tax refund) (after tax refund) Tax refund"
+# and then prints "119.50c 121.17c 1.67c"; Thorney heads its
+#   "NTA Current Month Before Tax After Tax"
+# and prints "93.0 cents 86.7 cents". Taking the wrong column changes the
+# BASIS of every discount computed from it, silently, so the header is
+# read to establish the order rather than the order being assumed.
+ASX_BEFORE_TAX = re.compile(r"before\s+(?:deferred\s+)?tax", re.I)
+ASX_AFTER_TAX = re.compile(r"after\s+(?:deferred\s+)?tax", re.I)
+# a value that carries its own unit: "119.50c", "93.0 cents"
+ASX_CENTS_VALUE = re.compile(r"([0-9]+(?:\.[0-9]+)?)\s*(?:c\b|cents?\b)")
+# "31 Jul 26 Prior Month" - an explicit date, then the comparison column
+ASX_CURRENT_THEN_PRIOR = re.compile(
+    r"\d{1,2}\s*\w{3}\s*\d{2,4}[^0-9]{0,20}(?:prior|previous)\s+month", re.I)
+ASX_DOLLAR_VALUE = re.compile(r"\$\s*([0-9]+\.[0-9]{2,6})")
+
+
+def _asx_before_tax_column(text: str) -> tuple[float, str] | None:
+    """(dollars, source unit) from a before/after-tax column pair.
+
+    Two independent things have to be right, and the number itself is
+    neither of them: which column is the pre-tax one, and what unit these
+    figures are in. Both are stated in the document, so both are read.
+    """
+    for m in ASX_BEFORE_TAX.finditer(text):
+        after = ASX_AFTER_TAX.search(text, m.end(), m.end() + 60)
+        if after is None and ASX_AFTER_TAX.search(text, max(0, m.start() - 60), m.start()):
+            continue          # the AFTER-tax column comes first here
+        seg = text[m.end():m.end() + 260]
+        v = ASX_CENTS_VALUE.search(seg)
+        if v is not None:
+            try:
+                return float(v.group(1)) / 100.0, "cents"
+            except ValueError:
+                continue
+    # "31 Jul 26 Prior Month  NTA (Before Deferred Tax)  $6.28  $6.11"
+    hdr = ASX_CURRENT_THEN_PRIOR.search(text)
+    if hdr is not None:
+        m = ASX_BEFORE_TAX.search(text, hdr.end(), hdr.end() + 120)
+        if m is not None:
+            v = ASX_DOLLAR_VALUE.search(text, m.end(), m.end() + 60)
+            if v is not None:
+                try:
+                    return float(v.group(1)), "dollars"
+                except ValueError:
+                    pass
+    return None
+
+
+def _asx_labelled_nta(text: str) -> tuple[float, str, str] | None:
+    """(value in dollars, source unit, basis) from a labelled NTA row.
+
+    The unit is taken from what the document SAYS, never from how large the
+    number is. Where it says nothing, dollars is the only reading that does
+    not invent a hundredfold, and a bare figure too large to be a share
+    price is left alone rather than rescaled - the caller's plausibility
+    check is not a licence to guess.
+    """
+    for basis, lab in ASX_LABEL_RULES:
+        m = lab.search(text)
+        if m is None:
+            continue
+        v = ASX_VALUE.match(text, m.end())
+        if v is None:
+            continue
+        if ASX_PCT.match(text, v.end()):
+            continue                      # a change, not a valuation
+        try:
+            raw = float(v.group(1))
+        except ValueError:
+            continue
+        window = text[max(0, m.start() - 150):m.start()]
+        cents = bool(ASX_CENTS_DECL.search(window))
+        return (raw / 100.0 if cents else raw,
+                "cents" if cents else "dollars", basis)
+    return None
+
+
 def _asx_pretax_per_share(text: str) -> float | None:
     """The CURRENT PRE-TAX NTA per share from a monthly-report table.
 
@@ -259,6 +369,18 @@ def _nta_from_document(doc: dict, headline: str) -> dict | None:
     # pre-empt it would trade a considered answer for a nearby one; the
     # six funds this rule exists for are precisely the ones the extractor
     # returns nothing for.
+    col = _asx_before_tax_column(text)
+    if col is not None:
+        val, unit_src = col
+        return {"nav_per_share": val, "unit_source": unit_src,
+                "nav_basis": "pre_tax", "valuation_date": asat,
+                "extractor": "asx_before_tax_column_v1"}
+    lab = _asx_labelled_nta(text)
+    if lab is not None:
+        val, unit_src, basis = lab
+        return {"nav_per_share": val, "unit_source": unit_src,
+                "nav_basis": basis, "valuation_date": asat,
+                "extractor": "asx_labelled_nta_v1"}
     plain = _asx_per_unit_dollars(text)
     if plain is not None:
         return {"nav_per_share": plain, "unit_source": "dollars",
