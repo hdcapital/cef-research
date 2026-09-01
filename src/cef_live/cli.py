@@ -506,7 +506,11 @@ def _signal_coverage(live: pd.DataFrame, irr: pd.DataFrame | None,
         df = df[df["security_id"].astype(str).isin(live_sids)]
     lim = df["staleness_limit_days"] if "staleness_limit_days" in df.columns \
         else 45.0
-    nav_ok = df["basis"].le(2) & df["staleness_days"].le(lim)
+    if "nav_current" in df.columns:
+        # freshness by the fund's own cadence; basis is provenance only
+        nav_ok = df["nav_current"].fillna(False).astype(bool)
+    else:
+        nav_ok = df["basis"].le(2) & df["staleness_days"].le(lim)
     z_ok = df["z_adj"].notna()
     growth_ok = df["g_used"].notna()
     irr_ok = df["irr_central"].notna()

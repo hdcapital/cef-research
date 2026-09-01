@@ -870,13 +870,14 @@ def test_forward_irr_growth_falls_back_to_the_funds_own_nav_history():
         "growth + aux terminal discount must be enough for an IRR")
 
 
-def test_a_fresh_published_nav_is_basis_0_even_without_a_factor_model():
+def test_a_fresh_published_nav_is_current_even_without_a_factor_model():
     """EJF failed the freshness gate on a 22-day-old published NAV.
 
-    Basis 3 is a STALE carry; a fund without a factor model was labelled 3
-    however fresh its anchor, so `basis <= 2` gates wrote off every
-    modelless fund. A published NAV inside the fund's own cadence needs no
-    rolling forward to be current.
+    Basis states PROVENANCE and stays untouched (0 = the fund's own
+    announcement - the nav-source invariant); freshness is the separate
+    `nav_current` fact, judged by the fund's own cadence. A modelless
+    fund's fresh NAV is basis 3 AND current; a genuinely stale one is
+    basis 3 and NOT current, and the gates read the freshness fact.
     """
     params = _params()
     empty_panel = pd.DataFrame(columns=["security_id", "obs_month", "sector",
@@ -893,16 +894,31 @@ def test_a_fresh_published_nav_is_basis_0_even_without_a_factor_model():
                                registry=registry, own_nav_history=own,
                                today=TODAY)
     r = out[out["security_id"] == "F"].iloc[0]
-    assert r["basis"] == 0, (r["basis"], r["staleness_days"])
-    # and a genuinely stale carry stays basis 3
-    old = pd.DataFrame([{"security_id": "F",
-                         "nav_date": pd.Timestamp("2024-01-15"),
-                         "nav_value": 100.0}])
+    assert r["basis"] == 3, "provenance must not be relabelled by freshness"
+    assert bool(r["nav_current"]), (r["staleness_days"],
+                                    r["staleness_limit_days"])
+    # and a genuinely stale carry is not current
+    old_nav = pd.DataFrame([{"security_id": "F",
+                             "nav_date": pd.Timestamp("2024-01-15"),
+                             "nav_value": 100.0}])
     out2 = nta_live.build_table(empty_panel, "UK", "nav_total_return",
                                 "nav_per_share", "share_price", params,
-                                registry=registry, own_nav_history=old,
+                                registry=registry, own_nav_history=old_nav,
                                 today=TODAY)
     assert out2.iloc[0]["basis"] == 3
+    assert not bool(out2.iloc[0]["nav_current"])
+
+    # the dislocation gate accepts a fresh basis-3 NAV and refuses a stale one
+    live = pd.DataFrame([
+        {"security_id": "FRESH", "market": "UK", "name": "Fresh",
+         "research_eligible": True, "z_adj": -3.0, "staleness_days": 22,
+         "basis": 3, "nav_current": True, "discount_est": -0.30},
+        {"security_id": "STALE3", "market": "UK", "name": "Stale",
+         "research_eligible": True, "z_adj": -3.0, "staleness_days": 300,
+         "basis": 3, "nav_current": False, "discount_est": -0.30}])
+    got = opportunities.evaluate(live, None, None, params)
+    assert set(got["security_id"]) == {"FRESH"}
+
 
 
 def test_the_registry_carries_the_research_policy_verdict():

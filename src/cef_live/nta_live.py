@@ -297,15 +297,6 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
                 nta_est = anchor_val * float(np.prod(1.0 + X @ b))
                 est_note = "factor_rollforward"
 
-        # A published NAV inside the fund's own cadence IS current. Basis 3
-        # is reserved for a stale carry, but a fund without a factor model
-        # was labelled 3 however fresh its anchor - EJF failed the
-        # freshness gate on a 22-day-old published NAV because nothing
-        # could roll it forward. Nothing NEEDS to roll a current NAV
-        # forward; provenance stays on anchor_source.
-        if basis == 3 and pd.notna(staleness) and staleness <= stale_limit:
-            basis = 0
-
         sigma = float(m["sigma_1m"]) if m is not None and pd.notna(m["sigma_1m"]) else np.nan
         est_error = sigma * np.sqrt(
             max(staleness, 1) / live["est_error"]["trading_days_per_month"]) \
@@ -533,6 +524,14 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
             "z_within_error": z_within_error,
             "z_source": z_source,
             "staleness_limit_days": stale_limit,
+            # basis states PROVENANCE (0 = the fund's own announcement,
+            # 1 = factor roll-forward, 3 = carried anchor); nav_current
+            # states FRESHNESS by the fund's own cadence. They are
+            # different facts: a modelless quarterly publisher's 22-day-old
+            # NAV is basis 3 AND current - EJF failed every gate keyed on
+            # `basis <= 2` while holding a perfectly fresh published NAV.
+            "nav_current": bool(has_nav and pd.notna(staleness)
+                                and staleness <= stale_limit),
             # Every clause here is a REASON A FUND MUST NOT ALERT, and the
             # data-quality and identity clauses come first by intent: a
             # reused ticker or a unit error must be stopped before any
@@ -541,7 +540,7 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
                 dq_ok and identity_ok and research_ok
                 and pd.notna(z_adj) and not z_within_error
                 and pd.notna(staleness) and staleness <= stale_limit
-                and pd.notna(basis) and basis <= 2),
+                and pd.notna(basis)),
             "model_factors": m["factors"] if has_model else None,
             "updated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         })
