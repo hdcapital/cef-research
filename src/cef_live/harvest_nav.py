@@ -273,7 +273,7 @@ def harvest_au(codes: set[str], lookback_days: int = 45,
     stats = {"lookback_days": lookback_days, "codes_requested": len(codes),
              "index_rows_in_window": int(len(idx)), "candidates": 0,
              "codes_with_a_candidate": 0, "attempted": 0, "parsed": 0,
-             "parse_failed": 0, "ambiguous_unit": 0, "no_date": 0,
+             "parse_failed": 0, "ambiguous_unit": 0,
              "codes_parsed": 0, "budget_reached": False,
              "deadline_reached": False}
     done: set[str] = set()
@@ -296,14 +296,22 @@ def harvest_au(codes: set[str], lookback_days: int = 45,
         head = r.headline or ""
         asat = _asat_date(head)
         if asat is None:
-            # daily/weekly/monthly updates often carry no as-at in the
-            # headline; use the release date as the observation date,
-            # labelled so the reader knows which it is
-            if not re.search(r"daily|weekly|monthly|\bNTA\b|net tangible|"
-                             r"\bNAV\b|fund update|investment update",
-                             head, re.I):
-                stats["no_date"] += 1
-                continue
+            # No as-at date in the headline. That is not a reason to skip
+            # the document: this row is already an AU_NAV_HEAD candidate,
+            # the extractor derives a valuation date from the document
+            # itself where there is one, and the release date is an honest
+            # labelled fallback where there is not.
+            #
+            # There used to be a SECOND headline pattern here deciding
+            # whether the release date could be used - a fourth copy of
+            # "headlines that carry an NTA", and the one I did not unify.
+            # "UWC Investment Portfolio Performance July 2026" matches the
+            # candidate filter and matches none of daily / weekly / monthly
+            # / NTA / net tangible / NAV / fund update / investment update,
+            # so Underwood Capital was counted as `no_date` and never
+            # fetched at all. The document parses correctly; it was simply
+            # never asked for. Same drift, fourth copy, third time it hid
+            # the same fund.
             asat = pd.Timestamp(r.release.date())
             date_src = "release_date"
         else:
