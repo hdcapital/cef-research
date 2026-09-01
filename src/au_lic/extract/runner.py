@@ -429,7 +429,17 @@ def run_deterministic(limit: int = 0, deadline_min: float = 300.0) -> dict:
     import boto3
 
     s3 = boto3.client("s3", region_name=os.environ.get("AWS_REGION"))
-    done = read_manifest(DET_MANIFEST_PREFIX)
+    # The manifest is keyed on the PARSER's content hash: a parser change
+    # starts an empty manifest, so the whole corpus reparses (resumable,
+    # deadline-bounded, S3 reads only). A single manifest for all versions
+    # meant an announcement once recorded as a parse failure was never
+    # revisited - the recent headline/label fixes could not reach the
+    # documents they were written for, and every sharded nightly run
+    # reported 0 documents while 66 funds sat unparsed.
+    manifest_prefix = f"{DET_MANIFEST_PREFIX}_{deterministic.PARSER_VERSION}"
+    done = read_manifest(manifest_prefix)
+    print(f"parser version {deterministic.PARSER_VERSION}: "
+          f"{len(done)} announcement(s) already done under this version")
     raw = _load_index_union()
     # The index this reads is restored from S3 and can differ from the
     # committed copy. All eight shards died here with KeyError:
@@ -476,10 +486,13 @@ def run_deterministic(limit: int = 0, deadline_min: float = 300.0) -> dict:
     print(f"deterministic: {len(idx)} documents (shard {SHARD + 1}/{SHARDS})")
 
     started = time.time()
+    run_stamp = datetime.now(timezone.utc).isoformat(timespec="seconds")
     rows: list[dict] = []
     escalations: list[dict] = []
     stats = {"documents": 0, "no_pdf": 0, "unreadable": 0, "image_only": 0,
-             "parsed": 0, "escalated": 0, "by_family": {}}
+             "parsed": 0, "escalated": 0, "by_family": {},
+             "parser_version": deterministic.PARSER_VERSION,
+             "already_done_this_version": len(done)}
     for rec in idx.to_dict("records"):
         if (time.time() - started) > deadline_min * 60:
             print("deadline reached - stopping cleanly")
@@ -529,6 +542,8 @@ def run_deterministic(limit: int = 0, deadline_min: float = 300.0) -> dict:
                          "ticker": rec["ticker"],
                          "published_at": rec["published_at"],
                          "family": fam, "source": "deterministic",
+                         "parser_version": deterministic.PARSER_VERSION,
+                         "extracted_at": run_stamp,
                          "payload": json.dumps(f, default=str),
                          **{k: f.get(k) for k in
                             ("section", "valuation_date", "nav_per_share",
@@ -538,7 +553,13 @@ def run_deterministic(limit: int = 0, deadline_min: float = 300.0) -> dict:
 
     out = Path("data/asx_extract")
     out.mkdir(parents=True, exist_ok=True)
-    tag = f"det_s{SHARD}of{SHARDS}"
+    # the tag carries the parser version AND the run stamp: successive runs
+    # under one manifest each hold only their own rows, so writing to a
+    # constant key would have each night OVERWRITE the previous night's
+    # facts. Files accumulate; facts.load() dedupes per announcement,
+    # newest extraction winning.
+    tag = (f"det_{deterministic.PARSER_VERSION}_s{SHARD}of{SHARDS}_"
+           f"{run_stamp.replace(':', '').replace('-', '')}")
     if rows:
         pd.DataFrame(rows).to_parquet(out / f"facts_{tag}.parquet", index=False)
     if escalations:
@@ -551,7 +572,7 @@ def run_deterministic(limit: int = 0, deadline_min: float = 300.0) -> dict:
             f = out / name
             if f.exists():
                 c.upload_file(str(f), BUCKET, f"asx/extract/{name}")
-        write_manifest(done, DET_MANIFEST_PREFIX)
+        write_manifest(done, manifest_prefix)
     stats["fact_rows"] = len(rows)
     stats["escalation_rows"] = len(escalations)
     # two rates, because they answer different questions: how much of the

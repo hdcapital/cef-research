@@ -439,6 +439,121 @@ def _own_nav_history(market: str) -> pd.DataFrame:
     return own if len(own) else pd.DataFrame()
 
 
+def _uk_aux_discount_history() -> pd.DataFrame | None:
+    """Monthly UK discount history from the daily panel, keyed by security_id.
+
+    The aggregator's monthly panel never priced the announcements-only
+    cohort, so those funds could not z-score however good their own NAV
+    series was. The daily panel holds exactly that series; this resamples
+    it monthly (uk_discount.monthly_history) and joins it to security_ids
+    through the VERIFIED ticker map. A ticker claimed by more than one
+    fund is dropped rather than guessed - identity ambiguity must not leak
+    a discount history across funds.
+    """
+    from . import uk_discount
+    hist = uk_discount.monthly_history()
+    if not len(hist):
+        return None
+    tp = Path("config/resolved_tickers.csv")
+    if not tp.exists():
+        return None
+    rt = pd.read_csv(tp)
+    rt = rt[(rt["status"] == "verified") & rt["ticker"].notna()]
+    m = rt[["security_id", "ticker"]].copy()
+    m["ticker"] = m["ticker"].astype(str).str.upper()
+    m = m[~m["ticker"].duplicated(keep=False)]
+    hist = hist.copy()
+    hist["ticker"] = hist["ticker"].astype(str).str.upper()
+    out = hist.merge(m, on="ticker", how="inner")
+    return out[["security_id", "obs_month", "discount"]] if len(out) else None
+
+
+def _signal_coverage(live: pd.DataFrame, irr: pd.DataFrame | None,
+                     live_sids: set | None = None) -> dict:
+    """The objective function: can we PRICE the universe?
+
+    Share of live, research-eligible funds carrying all three of: a NAV
+    that is live or a good estimate (basis <= 2, fresh by the fund's own
+    cadence), a discount z against the fund's own history, and a growth
+    input for the forward IRR. Written every run so progress toward the
+    90% target is measured, never assumed. Per-fund blockers go to
+    outputs/live/signal_coverage.csv - that file is the work list.
+    """
+    df = live.copy()
+    if irr is not None and len(irr):
+        df = df.merge(irr[["security_id", "irr_central", "g_used"]],
+                      on="security_id", how="left")
+    else:
+        df["irr_central"] = np.nan
+        df["g_used"] = np.nan
+    df = df[df["research_eligible"].fillna(False)]
+    # the denominator is LIVE funds only - the panel carries history for
+    # delisted ones too, and counting the dead would flatter nothing but
+    # would distort the target
+    if live_sids is not None:
+        df = df[df["security_id"].astype(str).isin(live_sids)]
+    lim = df["staleness_limit_days"] if "staleness_limit_days" in df.columns \
+        else 45.0
+    nav_ok = df["basis"].le(2) & df["staleness_days"].le(lim)
+    z_ok = df["z_adj"].notna()
+    growth_ok = df["g_used"].notna()
+    irr_ok = df["irr_central"].notna()
+    complete = nav_ok & z_ok & growth_ok
+
+    def _blk(r, n_ok, z_ok_, g_ok):
+        b = []
+        if not n_ok:
+            b.append("nav")
+        if not z_ok_:
+            b.append(f"z:{r.get('z_status')}")
+        if not g_ok:
+            b.append("growth")
+        return "+".join(b) or ""
+
+    per_fund = df.assign(
+        nav_ok=nav_ok, z_ok=z_ok, growth_ok=growth_ok, irr_ok=irr_ok,
+        signal_complete=complete)
+    per_fund["blockers"] = [
+        _blk(r, n, z_, g_) for (_, r), n, z_, g_ in
+        zip(df.iterrows(), nav_ok, z_ok, growth_ok)]
+    cols = ["security_id", "name", "market", "basis", "staleness_days",
+            "z_adj", "z_status", "z_source", "g_used", "irr_central",
+            "nav_ok", "z_ok", "growth_ok", "irr_ok", "signal_complete",
+            "blockers"]
+    Path("outputs/live").mkdir(parents=True, exist_ok=True)
+    per_fund[[c for c in cols if c in per_fund.columns]].to_csv(
+        "outputs/live/signal_coverage.csv", index=False)
+
+    summary: dict = {"generated_at": datetime.now(timezone.utc)
+                     .isoformat(timespec="seconds"),
+                     "target_pct": 90.0, "markets": {}}
+    for mkt, g in per_fund.groupby("market"):
+        summary["markets"][mkt] = {
+            "denominator_live_research_eligible": int(len(g)),
+            "nav_ok": int(g["nav_ok"].sum()),
+            "z_ok": int(g["z_ok"].sum()),
+            "growth_ok": int(g["growth_ok"].sum()),
+            "irr_ok": int(g["irr_ok"].sum()),
+            "signal_complete": int(g["signal_complete"].sum()),
+            "signal_complete_pct": round(
+                100.0 * g["signal_complete"].mean(), 1) if len(g) else 0.0,
+        }
+    n = len(per_fund)
+    summary["total"] = {
+        "denominator": n,
+        "signal_complete": int(per_fund["signal_complete"].sum()),
+        "signal_complete_pct": round(
+            100.0 * per_fund["signal_complete"].mean(), 1) if n else 0.0,
+        "top_blockers": per_fund.loc[~per_fund["signal_complete"], "blockers"]
+        .value_counts().head(12).to_dict(),
+    }
+    Path("reports/build").mkdir(parents=True, exist_ok=True)
+    Path("reports/build/signal_coverage.json").write_text(
+        json.dumps(summary, indent=2, default=str))
+    print("signal coverage:", json.dumps(summary["total"], default=str))
+    return summary
+
+
 def resolve_tickers(budget: int = 400) -> int:
     """Resolve Investegate/Yahoo tickers for live registry funds with none."""
     reg = pd.read_parquet("data/universe/registry.parquet")
@@ -490,11 +605,30 @@ def build_universe_workbook() -> tuple[Path, dict]:
     irr = None
     if panels:
         try:
-            irr = forward_irr.build_by_market(live, panels, _params())
+            aux_h = {}
+            try:
+                a = _uk_aux_discount_history()
+                if a is not None:
+                    aux_h["UK"] = a
+            except Exception as exc:  # noqa: BLE001
+                print(f"UK aux discount history unavailable ({exc})")
+            irr = forward_irr.build_by_market(
+                live, panels, _params(),
+                own_hist={m: _own_nav_history(m) for m in panels},
+                aux_discount_hist=aux_h)
             Path("data/forward_irr").mkdir(parents=True, exist_ok=True)
             irr.to_parquet("data/forward_irr/latest.parquet", index=False)
         except Exception as exc:  # noqa: BLE001
             print(f"forward IRR failed ({exc}); sheet will omit it")
+
+    # the objective function: can we price the universe? Measured every
+    # run, per market, with the per-fund work list committed beside it.
+    try:
+        live_sids = set(reg.loc[reg["status"].isin(liveness.LIVE_STATUSES),
+                                "security_id"].astype(str))
+        _signal_coverage(live, irr, live_sids)
+    except Exception as exc:  # noqa: BLE001
+        print(f"signal coverage measurement failed ({exc})")
 
     # attach resolved tickers so the sheet is addressable
     tp = Path("config/resolved_tickers.csv")
@@ -870,12 +1004,21 @@ def nightly(markets: list[str]) -> int:
                     except Exception as exc:  # noqa: BLE001
                         notes["markets"]["uk_tier0_error"] = str(exc)
 
+            aux_uk = None
+            try:
+                aux_uk = _uk_aux_discount_history()
+                notes["markets"]["uk_aux_z_history_funds"] = (
+                    int(aux_uk["security_id"].nunique())
+                    if aux_uk is not None else 0)
+            except Exception as exc:  # noqa: BLE001
+                notes["markets"]["uk_aux_z_history_error"] = str(exc)
             t = nta_live.build_table(
                 panel, "UK", ret_col="nav_total_return", nav_col=nav_col,
                 price_col=price_col, params=params, tier0=uk_tier0,
                 market_factors=mf, daily_factors=df, live_prices=live_px,
                 registry=_registry_for("UK"),
-                own_nav_history=_own_nav_history("UK"))
+                own_nav_history=_own_nav_history("UK"),
+                aux_discount_history=aux_uk)
             tables.append(t)
             if len(census):
                 notes["markets"]["uk"] = {

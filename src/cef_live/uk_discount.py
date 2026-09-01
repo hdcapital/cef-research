@@ -213,6 +213,38 @@ def with_zscores(panel: pd.DataFrame, window_days: int = 756,
     return d
 
 
+def monthly_history(out_dir: Path = DISCOUNT_DIR) -> pd.DataFrame:
+    """Month-end discount per fund from the daily panel, for the live z.
+
+    The nightly table's z-score reads the aggregator's monthly panel, which
+    never priced the announcements-only cohort (infrastructure, property,
+    PE) - so those funds had a NAV, a price, a daily discount series, and
+    no z. This is that series resampled to the same monthly spec the z was
+    validated on: the STRICT reading only (`discount_fresh` - the NAV was
+    fresh by the fund's own cadence - on rows whose quality is 'ok'), last
+    observation per calendar month.
+
+    Returns ticker, obs_month (YYYY-MM), discount. Empty when the panel is
+    not on disk (a runner without the uk_daily state group).
+    """
+    frames = []
+    for f in sorted(Path(out_dir).glob("*.parquet")):
+        t = pd.read_parquet(f, columns=["ticker", "date", "discount_fresh",
+                                        "quality"])
+        t = t[t["quality"].eq("ok") & t["discount_fresh"].notna()]
+        if len(t):
+            frames.append(t)
+    if not frames:
+        return pd.DataFrame(columns=["ticker", "obs_month", "discount"])
+    d = pd.concat(frames, ignore_index=True)
+    d["date"] = pd.to_datetime(d["date"])
+    d["obs_month"] = d["date"].dt.to_period("M").astype(str)
+    d = (d.sort_values("date").groupby(["ticker", "obs_month"], as_index=False)
+         .last())
+    d["discount"] = d["discount_fresh"].astype(float)
+    return d[["ticker", "obs_month", "discount"]]
+
+
 # ------------------------------------------------------------- persistence
 def write_panel(panel: pd.DataFrame, out_dir: Path = DISCOUNT_DIR) -> list[Path]:
     out_dir = Path(out_dir)

@@ -124,8 +124,17 @@ def evaluate(live: pd.DataFrame, cats: pd.DataFrame | None,
         z = getattr(r, "z_adj", np.nan)
         stale = getattr(r, "staleness_days", np.nan)
         basis = getattr(r, "basis", np.nan)
-        g1 = bool(pd.notna(z) and z <= z_thr
-                  and pd.notna(stale) and stale <= max_stale
+        # a z inside the NAV estimate's own error band is a real number for
+        # pricing, never evidence of a dislocation (nta_live.z_within_error)
+        zwe = getattr(r, "z_within_error", False)
+        zwe = bool(zwe) if pd.notna(zwe) else False
+        # freshness is per fund: a quarterly publisher's 60-day-old NAV is
+        # current by its own cadence (nta_live.staleness_limit_days); the
+        # flat cap remains the floor for rows without a measured cadence
+        lim = getattr(r, "staleness_limit_days", np.nan)
+        lim = float(lim) if pd.notna(lim) else float(max_stale)
+        g1 = bool(pd.notna(z) and z <= z_thr and not zwe
+                  and pd.notna(stale) and stale <= lim
                   and pd.notna(basis) and basis <= max_basis)
         g2 = bool(pd.notna(getattr(r, "catalyst_class", np.nan)))
         cat_w = getattr(r, "weight", np.nan)
@@ -133,7 +142,7 @@ def evaluate(live: pd.DataFrame, cats: pd.DataFrame | None,
         # An IRR built on a stale or carried NAV is not evidence of a
         # return; gate 3 demands the same anchor freshness as gate 1.
         g3 = bool(pd.notna(irr_v) and irr_v >= min_irr
-                  and pd.notna(stale) and stale <= max_stale
+                  and pd.notna(stale) and stale <= lim
                   and pd.notna(basis) and basis <= max_basis)
 
         passed = int(g1) + int(g2) + int(g3)

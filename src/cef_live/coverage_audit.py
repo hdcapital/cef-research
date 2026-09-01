@@ -852,6 +852,7 @@ def classify_coverage(df: pd.DataFrame, params: dict) -> pd.DataFrame:
             # the inputs are all present; the z was either not significant
             # or could not be formed. z_status says which.
             quals.append({"voided_within_error_band": "z_within_error_band",
+                          "within_error_band": "z_within_error_band",
                           "no_current_discount": "no_current_discount"}
                          .get(str(r.get("z_status")), "no_current_zscore"))
         if r["unit_check_status"] in ("extreme", "metadata_conflict"):
@@ -972,7 +973,8 @@ def summarise(rows: pd.DataFrame, params: dict) -> dict:
                 "current_zscore": int(mon["z_adj"].notna().sum()),
                 "current_zscore_pct": _pct(int(mon["z_adj"].notna().sum()), d),
                 "zscore_voided_within_error_band": int(
-                    (mon["z_status"] == "voided_within_error_band").sum()),
+                    mon["z_status"].isin(["voided_within_error_band",
+                                          "within_error_band"]).sum()),
                 "identity_resolved": int(mon["identity_ok"].sum()),
                 "identity_unresolved": int((~mon["identity_ok"]).sum()),
                 "signal_ready": int(mon["signal_ready"].sum()),
@@ -1235,8 +1237,8 @@ def render_markdown(summary: dict, ranking: pd.DataFrame, rows: pd.DataFrame,
               f"{s['signal']['zscore_history_pct']}%",
               f"CURRENT z-score:            {s['signal']['current_zscore']:>6} / "
               f"{s['signal']['current_zscore_pct']}%",
-              f"  (of which none needed:    "
-              f"{s['signal']['zscore_voided_within_error_band']:>6} within the "
+              f"  (of which flagged within  "
+              f"{s['signal']['zscore_voided_within_error_band']:>6} the "
               f"estimate's own error band)",
               f"Identity unresolved:        "
               f"{s['signal']['identity_unresolved']:>6}",

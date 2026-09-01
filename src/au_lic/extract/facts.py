@@ -84,7 +84,23 @@ def load(local_dir: Path = LOCAL_DIR, allow_s3: bool = True) -> pd.DataFrame:
             log.warning("unreadable fact shard %s (%s)", f, exc)
     if not frames:
         return pd.DataFrame()
-    return pd.concat(frames, ignore_index=True)
+    out = pd.concat(frames, ignore_index=True)
+    # A reparse re-extracts announcements the corpus already holds - its
+    # corrected rows must REPLACE the old ones, never sit beside them as a
+    # second NAV for the same document. Per announcement, only the rows
+    # from the newest extraction survive; rows from before the
+    # `extracted_at` stamp existed rank oldest.
+    if "announcement_id" in out.columns:
+        if "extracted_at" in out.columns:
+            ts = pd.to_datetime(out["extracted_at"], errors="coerce", utc=True)
+        else:
+            ts = pd.Series(pd.NaT, index=out.index,
+                           dtype="datetime64[ns, UTC]")
+        ts = ts.fillna(pd.Timestamp(0, tz="UTC"))
+        out = out.assign(_ts=ts)
+        latest = out.groupby("announcement_id")["_ts"].transform("max")
+        out = out[out["_ts"] == latest].drop(columns="_ts")
+    return out.reset_index(drop=True)
 
 
 def nav_observations(local_dir: Path = LOCAL_DIR,
