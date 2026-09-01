@@ -133,7 +133,22 @@ def main() -> int:
             continue
         if not {"ann_id", "date", "headline", "url"} <= set(df.columns):
             continue
-        nav = df[df["headline"].fillna("").str.contains(NAV_PAT) & df["url"].notna()]
+        heads = df["headline"].fillna("")
+        nav = df[heads.str.contains(NAV_PAT) & df["url"].notna()]
+        # Factsheet-route cohort: a fund with NO NAV-shaped headline in the
+        # last 400 days states its NAV inside results/updates (measured:
+        # reports/build/uk_nav_reach_probe.json). For exactly those funds,
+        # archive the factsheet-shaped bodies too - never universe-wide,
+        # and never a third party's research note.
+        recent = (pd.Timestamp.utcnow() - pd.Timedelta(days=400)).date().isoformat()
+        if not len(nav[nav["date"].fillna("") >= recent]):
+            from cef_live.harvest_nav import (UK_FACTSHEET_HEAD,
+                                              UK_THIRD_PARTY)
+            fs = df[heads.str.contains(UK_FACTSHEET_HEAD)
+                    & ~heads.str.contains(UK_THIRD_PARTY)
+                    & (df["date"].fillna("") >= recent)
+                    & df["url"].notna()]
+            nav = pd.concat([nav, fs], ignore_index=True)
         for r in nav.itertuples(index=False):
             if str(r.ann_id) not in done:
                 work.append({"ticker": f.stem, "ann_id": str(r.ann_id),

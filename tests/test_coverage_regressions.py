@@ -957,3 +957,118 @@ def test_one_uk_nav_headline_pattern_shared_everywhere():
     assert 're.compile(r"net asset value", re.I)' not in src
     arch = Path("scripts/archive_uk_navs.py").read_text()
     assert "UK_NAV_HEAD" in arch
+
+
+def test_nav_validation_verdicts_and_tolerances():
+    """A plausible wrong number is invisible to every other check.
+
+    The validator compares our extracted NAV against the AIC's
+    independently collected figure: 2% is rounding, 6% is a cum/ex or
+    debt-basis definition gap (agreement, not error), x100 is the unit
+    trap, anything else is the parser reading the wrong number.
+    """
+    from cef_live import nav_validation as NV
+    own = pd.DataFrame([
+        # agree
+        {"security_id": "A", "nav_date": "2026-06-30", "nav_value": 100.5},
+        {"security_id": "A", "nav_date": "2026-07-31", "nav_value": 101.0},
+        {"security_id": "A", "nav_date": "2026-08-28", "nav_value": 101.5},
+        # stable basis gap (~4%)
+        {"security_id": "B", "nav_date": "2026-06-30", "nav_value": 104.0},
+        {"security_id": "B", "nav_date": "2026-07-31", "nav_value": 104.0},
+        {"security_id": "B", "nav_date": "2026-08-31", "nav_value": 104.0},
+        # unit error: pounds in a pence column
+        {"security_id": "C", "nav_date": "2026-08-31", "nav_value": 1.0},
+        # wrong number entirely
+        {"security_id": "D", "nav_date": "2026-06-30", "nav_value": 55.0},
+        {"security_id": "D", "nav_date": "2026-07-31", "nav_value": 61.0},
+        {"security_id": "D", "nav_date": "2026-08-31", "nav_value": 42.0},
+        # mid-month observation must be superseded by month-end
+        {"security_id": "A", "nav_date": "2026-08-14", "nav_value": 55.0},
+    ])
+    panel = pd.DataFrame([
+        {"security_id": s, "obs_month": m, "nav_per_share": 100.0}
+        for s in ("A", "B", "C", "D")
+        for m in ("2026-06", "2026-07", "2026-08")])
+    pairs = NV.compare(own, panel, "nav_per_share")
+    got = NV.per_fund(pairs).set_index("security_id")
+    assert got.loc["A", "verdict"] == "validated"
+    assert got.loc["A", "agree"] == 3, "month-end must win over mid-month"
+    assert got.loc["B", "verdict"] == "validated", (
+        "a stable basis gap is a definition difference, not a parse error")
+    assert got.loc["C", "verdict"] == "unit_suspect"
+    assert got.loc["D", "verdict"] == "suspect"
+
+
+def test_nav_validation_runs_inside_the_nightly():
+    src = inspect.getsource(cli.nightly)
+    assert "nav_validation.run_uk" in src, (
+        "the UK validation must run where the panel and our history meet")
+
+
+# ------------------------------------------- factsheet-route extraction
+
+def test_directional_nav_phrases_read_the_current_value():
+    """The plain fallback read RECI's PRIOR month and LBOW's £2.42m.
+
+    Real phrasings from the committed factsheet probe. Direction matters:
+    'decreased from OLD to NEW' and 'falling to NEW from OLD' place the
+    current value at opposite ends of the sentence.
+    """
+    from cef_live.harvest_nav import parse_uk_nav_text
+    reci = ("The Net Asset Value per share decreased from 140.6p in June "
+            "to 138.2p in July, primarily due to a dividend payment")
+    assert parse_uk_nav_text(reci).get("nav_cum_pence") == 138.2
+    lbow = ("a decrease from the previous year's loss of £3.30 million, "
+            "with net asset value per share falling to 17.15 pence from "
+            "27.15 pence")
+    assert parse_uk_nav_text(lbow).get("nav_cum_pence") == 17.15
+    aeet = ('Financial information At 30 June 2025 At 31 December 2024 '
+            'Net asset value ("NAV") per share (pence) 50.15 85.55 '
+            'Share price (pence) 33.70 52.00')
+    assert parse_uk_nav_text(aeet).get("nav_cum_pence") == 50.15
+    thrl = ("a 1.0% increase in EPRA Net Tangible Assets per share to "
+            "120.6 pence as of March 31, 2026")
+    assert parse_uk_nav_text(thrl).get("nav_cum_pence") == 120.6
+
+
+def test_the_corpus_still_parses_after_the_factsheet_rules():
+    """New loose rules must never cost a previously-read announcement."""
+    import gzip
+    import json as _json
+
+    from cef_live.harvest_nav import parse_uk_nav_text
+    corp = _json.loads(gzip.open("data/uk_nav_corpus.json.gz").read())
+    anns = corp if isinstance(corp, list) else corp.get("announcements", [])
+    ok = sum(1 for a in anns
+             if parse_uk_nav_text(a.get("text") or a.get("body") or "")
+             .get("nav_cum_pence"))
+    assert ok >= 174, f"corpus regression: {ok}/{len(anns)} parsed"
+
+
+def test_the_ai_summary_stays_in_the_parsed_text_by_measured_decision():
+    """Stripping Investegate's AI summary cost four corpus parses.
+
+    The summary paraphrases THIS announcement's own figure (BIPS's value
+    sits partly inside it, before the first reliable body anchor), so it
+    stays in the text and the nightly AIC cross-validation polices the
+    residual risk of a mis-stated paraphrase. This test pins the decision:
+    a page whose only in-window statement is summary-shaped still parses.
+    """
+    from cef_live.harvest_nav import parse_uk_nav_text
+    page = ("Net Asset Value(s) Summary by AI BETA Close X Invesco Bond "
+            "Income Plus Limited reported its unaudited Net Asset Value "
+            "(NAV) per Ordinary share as of August 26, 2026 was 168.94 "
+            "pence. LEI: 549300O3XQTC12345678")
+    assert parse_uk_nav_text(page).get("nav_cum_pence") == 168.94
+
+
+def test_third_party_research_is_excluded_from_the_factsheet_route():
+    from cef_live.harvest_nav import UK_FACTSHEET_HEAD, UK_THIRD_PARTY
+    assert UK_FACTSHEET_HEAD.search("Portfolio Update")
+    assert UK_FACTSHEET_HEAD.search("Half-Yearly Results")
+    assert UK_FACTSHEET_HEAD.search("Fact Sheet Announcement")
+    assert UK_THIRD_PARTY.search(
+        "Results analysis from Kepler Trust Intelligence")
+    assert UK_THIRD_PARTY.search("Edison issues report on HgT")
+    assert not UK_THIRD_PARTY.search("Half-Yearly Results")

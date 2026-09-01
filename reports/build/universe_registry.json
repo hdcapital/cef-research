@@ -5,8 +5,8 @@
     "AU": 172,
     "UK": 944
   },
-  "live": 318,
-  "live_stale_nav": 126,
+  "live": 319,
+  "live_stale_nav": 125,
   "status_before_evidence": {
     "delisted": 731,
     "live": 376,
@@ -16,8 +16,8 @@
   "persisted_to": "data/universe/registry.parquet",
   "live_status_source": {
     "registry_deferral_no_own_filings": 568,
-    "own_nav_announcement": 306,
-    "own_periodic_report": 113,
+    "own_nav_announcement": 307,
+    "own_periodic_report": 112,
     "silence_beyond_grace": 84,
     "own_announcement_only": 28,
     "own_nav_announcement_stale": 13,
@@ -28,8 +28,8 @@
   "aggregator_said_live_evidence_says_not": 22,
   "by_liveness_reason": {
     "no_own_filings_held_deferring_to_registry": 568,
-    "nav": 319,
-    "periodic_report": 113,
+    "nav": 320,
+    "periodic_report": 112,
     "silent": 85,
     "filings_but_no_nav_or_report": 28,
     "registry_listed": 3
@@ -37,7 +37,7 @@
   "delisted": 639,
   "priced_by_source": 638,
   "announcements_only": 478,
-  "live_announcements_only": 64,
+  "live_announcements_only": 65,
   "offshore": 195,
   "vct": 228,
   "live_by_domicile": {
@@ -45,7 +45,7 @@
     "null": 99,
     "GG": 23,
     "BM": 10,
-    "JE": 7,
+    "JE": 8,
     "KY": 2,
     "IE": 1,
     "CA": 1
@@ -131,6 +131,15 @@
       "isin": "GB0005001796",
       "first_seen": "2007-01",
       "months_listed": 235
+    },
+    {
+      "security_id": "SEDOL:B9MRHZ5",
+      "name": "CVC Income & Growth",
+      "sector": "Debt - Loans & Bonds",
+      "domicile": "JE",
+      "isin": "JE00B9MRHZ51",
+      "first_seen": "2013-06",
+      "months_listed": 158
     },
     {
       "security_id": "SEDOL:B9G79F5",
@@ -636,11 +645,11 @@
     "Australian Indices": 4,
     "Debt - Structured Finance": 3,
     "Country Specialist": 3,
-    "Hedge Funds": 2,
+    "Debt - Loans & Bonds": 3,
     "Split Capital Trust": 2,
     "Private Equity": 2,
     "North America": 2,
-    "Debt - Loans & Bonds": 2,
+    "Hedge Funds": 2,
     "Global Equity Income": 1,
     "Global Emerging Markets": 1,
     "Equity - Global Strategy": 1,
