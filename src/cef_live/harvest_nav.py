@@ -97,6 +97,35 @@ ASX_ASAT_HEADER = re.compile(
     r"as at\s+(\d{1,2}-\w{3}-\d{2,4})\s+(\d{1,2}-\w{3}-\d{2,4})", re.I)
 
 
+# "NTA per unit as at 26 August 2026 $2.0172" - the label, then a DATE,
+# then the value. The scored parser's gap between label and number cannot
+# cross digits, so the date defeats it: Gryphon, 360 Capital, Qualitas,
+# Perpetual Credit and both Metrics trusts all publish this shape and all
+# six lost their NAV to it. Exactly the root cause of the UK "was N pence"
+# family, one market over.
+#
+# The literal "$" is what makes the wide gap safe. Without it the pattern
+# could pick up a fragment of the date it was written to cross; with it,
+# the match must land on a stated dollar amount. Two to six decimals keeps
+# it off "$762m" and "$19.0m".
+ASX_PER_UNIT_DOLLARS = re.compile(
+    r"(?:\bNTA\b|\bNAV\b|net\s+tangible\s+assets?|net\s+asset\s+value)"
+    r"\s*(?:backing\s*)?(?:value\s*)?"
+    r"per\s+(?:ordinary\s+)?(?:share|unit|security)"
+    r"[\s\S]{0,90}?\$\s*([0-9]+\.[0-9]{2,6})\b", re.I)
+
+
+def _asx_per_unit_dollars(text: str) -> float | None:
+    """A per-unit NTA stated in dollars, with a date allowed in between."""
+    m = ASX_PER_UNIT_DOLLARS.search(text)
+    if m is None:
+        return None
+    try:
+        return float(m.group(1))
+    except ValueError:
+        return None
+
+
 def _asx_pretax_per_share(text: str) -> float | None:
     """The CURRENT PRE-TAX NTA per share from a monthly-report table.
 
@@ -194,12 +223,22 @@ def _nta_from_document(doc: dict, headline: str) -> dict | None:
     # which of two identically-labelled rows is the pre-tax one, and which
     # of two side-by-side columns is this month
     text = doc.get("text") or ""
+    asat = (D._asat(text, headline or "") if D is not None else None)
+
+    # ORDER MATTERS, and it is basis-aware first. The pre-tax reader knows
+    # which of two identically-labelled rows is the pre-tax one and which
+    # of two side-by-side columns is this month; the plain reader below
+    # knows neither and takes the first dollar amount after the label.
+    #
+    # Run the other way round, UWC still returned 0.1047 - but only because
+    # its pre-tax row happens to come first. The basis fell to "unknown",
+    # the valuation date was lost, and a fund that printed post-tax first
+    # would have been read silently wrong. A right answer for the wrong
+    # reason is not a right answer.
     pre = _asx_pretax_per_share(text)
     if pre is not None:
         return {"nav_per_share": pre, "unit_source": "dollars",
-                "nav_basis": "pre_tax",
-                "valuation_date": (D._asat(text, headline or "")
-                                   if D is not None else None),
+                "nav_basis": "pre_tax", "valuation_date": asat,
                 "extractor": "asx_monthly_pretax_v1"}
     if D is not None:
         try:
@@ -215,6 +254,17 @@ def _nta_from_document(doc: dict, headline: str) -> dict | None:
                         "nav_basis": g.get("nav_basis"),
                         "valuation_date": g.get("valuation_date"),
                         "extractor": g.get("extractor", "nta_scored_v1")}
+    # Only once the table-aware extractor has declined. It reads the row
+    # structure these documents are built from, so letting a text pattern
+    # pre-empt it would trade a considered answer for a nearby one; the
+    # six funds this rule exists for are precisely the ones the extractor
+    # returns nothing for.
+    plain = _asx_per_unit_dollars(text)
+    if plain is not None:
+        return {"nav_per_share": plain, "unit_source": "dollars",
+                "nav_basis": "unknown", "valuation_date": asat,
+                "extractor": "asx_per_unit_dollars_v1"}
+
     # last resort: the scored parser on the raw text, so a failure here is
     # still a parser failure rather than an import problem
     res = P.derive_stated(doc)

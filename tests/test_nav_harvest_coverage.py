@@ -774,3 +774,79 @@ def test_a_candidate_without_an_as_at_date_is_still_fetched():
     assert not H.BAD.search(head)
     assert H._asat_date(head) is None, (
         "the fixture must exercise the no-as-at-date path")
+
+
+# ------------------------------------- ASX cluster A: a date in the way
+
+def test_a_date_between_the_label_and_the_value_no_longer_hides_the_nta():
+    """Six live funds lost their NAV to a date.
+
+    Gryphon, 360 Capital, Qualitas, Perpetual Credit and both Metrics
+    trusts publish "<label> <date> $<value>", and the scored parser's gap
+    between label and number cannot cross digits. Exactly the root cause of
+    the UK "was N pence" family, one market over.
+
+    Each expected value below was checked against the exchange's own
+    monthly NTA print for that fund - an independent reference that did not
+    come from this parser - and every one agrees to within 0.6%.
+    """
+    cases = [
+        ("NTA per unit as at 26 August 2026 $2.0172", 2.0172),          # GCI
+        ("Value Date NAV per Unit* 31 July 2026 $5.954", 5.954),        # TCF
+        ("VALUE DATE NTA PER UNIT1 24/08/2026 $1.6084", 1.6084),        # QRI
+        ("NTA PER UNIT^ 26/08/2026 $1.100", 1.100),                     # PCI
+        ("NTA per Unit 26/08/2026 $2.1570", 2.1570),                    # MOT
+    ]
+    for text, want in cases:
+        got = H._asx_per_unit_dollars(text)
+        assert got == pytest.approx(want), f"{text!r} -> {got}"
+
+
+def test_the_dollar_sign_is_what_makes_the_wide_gap_safe():
+    """Without it the pattern could match a fragment of the date it was
+    written to cross, or a total in millions."""
+    # no dollar amount: absence, not a piece of the date
+    assert H._asx_per_unit_dollars("NTA per unit as at 26 August 2026") is None
+    # totals in millions must not be mistaken for a per-unit figure
+    assert H._asx_per_unit_dollars("NTA per unit Gross Assets $762m") is None
+    assert H._asx_per_unit_dollars("NAV per unit net assets $19.0m") is None
+    # and a cents figure with no dollar sign is left for a unit-aware reader
+    assert H._asx_per_unit_dollars("Cents Per Unit Net asset value (CUM) 197.89") is None
+
+
+def test_the_basis_aware_reader_runs_before_the_plain_one():
+    """Order, not coverage, is what protects the basis.
+
+    Run the other way round UWC still returned 0.1047 - but only because
+    its pre-tax row happens to come first. The basis fell to "unknown", the
+    valuation date was lost, and a fund printing post-tax first would have
+    been read silently wrong. A right answer for the wrong reason is not a
+    right answer.
+    """
+    src = inspect.getsource(H._nta_from_document)
+    assert src.index("_asx_pretax_per_share(") < src.index("_asx_per_unit_dollars("), (
+        "the plain reader must not pre-empt the basis-aware one")
+    assert src.index("D.extract_nta(") < src.index("_asx_per_unit_dollars("), (
+        "the table-aware extractor must not be pre-empted either")
+
+    uwc = ("Key Metrics as at 31-Jul-26 30-Jun-26 Net Tangible Asset per share "
+           "- $ 0.1047 0.1033 b) text; pre-tax (issued pursuant to LR 4.12) "
+           "Net Tangible Asset per share - $ 0.0966 0.0946 and post tax")
+    got = H._nta_from_document({"status": "extracted", "text": uwc, "rows": []}, "UWC")
+    assert got["nav_per_share"] == pytest.approx(0.1047)
+    assert got["nav_basis"] == "pre_tax"
+    assert got["extractor"] == "asx_monthly_pretax_v1"
+
+
+def test_the_layouts_that_already_parsed_still_parse_the_same_way():
+    """A new rule earns its place by adding funds, not by moving existing
+    ones onto itself."""
+    for text, want in (
+            ("Net Tangible Asset Backing The pre-tax NTA per share as at "
+             "31 July 2026 was $2.0590 per share.", 2.059),
+            ("NTA per unit 125.10 cents as at 21 August 2026", 1.251),
+            ("Daily Net Tangible Asset Statement NTA per share $1.2480", 1.248)):
+        got = H._nta_from_document({"status": "extracted", "text": text, "rows": []}, "NTA")
+        assert got["nav_per_share"] == pytest.approx(want)
+        assert got["extractor"] == "nta_scored_v1", (
+            "an existing layout was taken over by the new rule")
