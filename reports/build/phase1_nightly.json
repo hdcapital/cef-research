@@ -4,13 +4,13 @@
   "rows_without_nav": 403,
   "basis_counts": {
     "nan": 403,
-    "3.0": 284,
-    "1.0": 223,
-    "0.0": 206
+    "3.0": 282,
+    "0.0": 216,
+    "1.0": 215
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 136,
+  "alert_eligible": 139,
   "z_extremes": [
     {
       "security_id": "SEDOL:BDHXP96",
@@ -44,8 +44,8 @@
     },
     {
       "security_id": "ASX:AEG",
-      "z_adj": -20.302,
-      "discount_est": -0.912019,
+      "z_adj": -20.3304,
+      "discount_est": -0.913183,
       "staleness_days": 1044.0
     },
     {
@@ -77,7 +77,7 @@
   "markets": {
     "au_identity_blocked": 0,
     "au": {
-      "tier0_navs": 62,
+      "tier0_navs": 71,
       "factors_monthly": true,
       "factors_daily": true,
       "live_prices": 100
@@ -86,16 +86,16 @@
     "uk_nav_targets": 298,
     "uk_registry_only_targets": 90,
     "uk": {
-      "tier0_navs": 170,
+      "tier0_navs": 171,
       "nav_publishers_found": 282,
       "daily_weekly": 187
     }
   },
   "catalysts": {
-    "catalysts": 117,
+    "catalysts": 116,
     "funds": 65,
     "by_class": {
-      "discount_control": 91,
+      "discount_control": 90,
       "substantial_holder": 19,
       "tender_offer": 6,
       "liquidation_wind_down": 1
