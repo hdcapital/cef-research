@@ -36,6 +36,15 @@ _SPEC.loader.exec_module(P)
 # month, or an explicit daily/weekly update. Amendments still excluded.
 BAD = re.compile(r"amendment|amended|correction|withdraw", re.I)
 
+# UK NAV headline selector - ONE pattern, shared by the archiver
+# (scripts/archive_uk_navs.py), the frequency census and the Tier-0
+# harvest below. Three separate copies of "net asset value" is how the ASX
+# side lost UWC four times over. Widened to bare NAV on probe evidence
+# (reports/build/uk_nav_reach_probe.json): Chrysalis publishes "Quarterly
+# NAV Announcement and Trading Update" and never the full phrase -
+# \bNAVs?\b matches the abbreviation without matching "Navigator".
+UK_NAV_HEAD = re.compile(r"net asset value|\bNAVs?\b", re.I)
+
 # Headlines that may carry a published NTA. Deliberately WIDER than the
 # archive sweep's NTA_HEAD: several of the largest LIC families never use
 # the words "NTA" in a headline. Metrics publishes its NTA inside a "Daily
@@ -448,7 +457,7 @@ def uk_frequency_census(cache_dir: Path) -> pd.DataFrame:
     weekly / monthly / adhoc. Feeds the universe config; value harvesting
     follows via the same detail-page path the dividend crawler uses.
     """
-    pat = re.compile(r"net asset value", re.I)
+    pat = UK_NAV_HEAD
     listings = cache_dir / "listings"
     rows = []
     files = sorted(listings.glob("*.csv")) if listings.exists() else []
@@ -941,7 +950,7 @@ def harvest_uk(ticker_map: pd.DataFrame, census: pd.DataFrame,
              "parse_fail": 0, "parsed": 0, "fail_samples": []}
     s = requests.Session()
     s.headers["User-Agent"] = P.UA
-    pat = re.compile(r"net asset value", re.I)
+    pat = UK_NAV_HEAD
     rows = []
     cutoff = (datetime.now(timezone.utc) - timedelta(days=lookback_days)).date().isoformat()
     # every listing page is already being fetched for NAV; the catalyst rows
@@ -1073,7 +1082,7 @@ def uk_nav_samples(cache_dir: Path, n: int = 5) -> list[dict]:
     never guessed."""
     import requests
 
-    pat = re.compile(r"net asset value", re.I)
+    pat = UK_NAV_HEAD
     listings = cache_dir / "listings"
     cands = []
     for f in sorted(listings.glob("*.csv")) if listings.exists() else []:

@@ -80,7 +80,12 @@ jobs:
             --stages "${{ github.event.inputs.stages || 'nav,prices,discount' }}" \
             --deadline-min "${{ github.event.inputs.deadline_minutes || '240' }}" \
             ${{ github.event.inputs.full_prices == 'true' && '--full-prices' || '' }} \
-            ${{ github.event.inputs.reparse_unparsed == 'true' && '--reparse-unparsed' || '' }}
+            ${{ github.event.inputs.reparse_unparsed != 'false' && '--reparse-unparsed' || '' }}
+        # --reparse-unparsed is ON for scheduled runs on purpose: a stored
+        # `no_nav_parsed` is the verdict of the parser that ran at archive
+        # time, and the recorded failure samples all parse under today's
+        # rules - the panel's unparsed backlog was verdict-staleness, not
+        # parser weakness. Costs S3 reads only, inside the same deadline.
 
       - name: Persist panels to S3
         if: always()

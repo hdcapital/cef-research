@@ -934,3 +934,26 @@ def test_the_registry_carries_the_research_policy_verdict():
     assert src.index("eligibility.classify") < src.index(
         'to_parquet(out / "registry.parquet"'), (
         "eligibility must be written INTO the persisted registry")
+
+
+def test_one_uk_nav_headline_pattern_shared_everywhere():
+    """Three copies of 'net asset value' is how the ASX side lost UWC.
+
+    The archiver, the frequency census and the Tier-0 harvest each carried
+    their own copy of the selector, so widening one silently left the
+    others narrow. One pattern, in harvest_nav, imported by all three -
+    widened to the bare NAV abbreviation on probe evidence (Chrysalis:
+    "Quarterly NAV Announcement and Trading Update").
+    """
+    from cef_live import harvest_nav
+    assert harvest_nav.UK_NAV_HEAD.search("Net Asset Value(s)")
+    assert harvest_nav.UK_NAV_HEAD.search(
+        "Quarterly NAV Announcement and Trading Update")
+    assert harvest_nav.UK_NAV_HEAD.search("Monthly Net Asset Value")
+    assert not harvest_nav.UK_NAV_HEAD.search("Navigator Global Update")
+    assert not harvest_nav.UK_NAV_HEAD.search("Total Voting Rights")
+    # no stray private copies of the phrase-only pattern
+    src = Path("src/cef_live/harvest_nav.py").read_text()
+    assert 're.compile(r"net asset value", re.I)' not in src
+    arch = Path("scripts/archive_uk_navs.py").read_text()
+    assert "UK_NAV_HEAD" in arch
