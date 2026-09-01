@@ -737,3 +737,34 @@ def test_every_asx_code_gets_an_outcome_not_only_the_failures():
     assert 'stats.setdefault("by_code", {})[code] = "parsed"' in src
     assert '"no_candidate_in_window"' in src
     assert '"by_outcome"' in src
+
+
+def test_a_candidate_without_an_as_at_date_is_still_fetched():
+    """The fourth copy of the pattern, and the one that actually hid UWC.
+
+    "UWC Investment Portfolio Performance July 2026" passes the candidate
+    filter, carries no as-at date in its headline, and matched none of the
+    SECOND inline list - daily / weekly / monthly / NTA / net tangible /
+    NAV / fund update / investment update - so it was counted as `no_date`
+    and never fetched. The document parses correctly the moment it is
+    handed to the parser; it was simply never asked for.
+
+    A row that reached the candidate list has already been judged an NTA
+    document. Whether its headline also happens to name a date says nothing
+    about that, so it cannot be a reason to skip it.
+    """
+    src = inspect.getsource(H.harvest_au)
+    # the check is on the CODE, not on the prose explaining it
+    code = "\n".join(l for l in src.splitlines()
+                     if not l.lstrip().startswith("#"))
+    assert "re.search(" not in code, (
+        "a second headline pattern inside the loop is a fourth copy")
+    assert 'stats["no_date"] += 1' not in code
+    assert 'date_src = "release_date"' in code
+
+    # the headline itself, through the candidate filter it must pass
+    head = "UWC Investment Portfolio Performance July 2026"
+    assert H.AU_NAV_HEAD.search(head)
+    assert not H.BAD.search(head)
+    assert H._asat_date(head) is None, (
+        "the fixture must exercise the no-as-at-date path")
