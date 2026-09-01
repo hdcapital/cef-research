@@ -704,3 +704,256 @@ def test_a_month_end_panel_price_can_never_alert():
     assert not r["data_quality_ok"]
     assert r["data_quality_reason"] == "stale_panel_price_only"
     assert not r["alert_eligible"], "a month-end panel price alerted"
+
+
+def test_a_within_error_z_is_kept_flagged_not_voided():
+    """76 priced funds vanished because their z was set to NaN.
+
+    A dislocation smaller than the NAV estimate's own error band must not
+    ALERT - but the z is a real computed number the universe pricing
+    needs. The old code voided it to NaN, making a fully priced fund
+    indistinguishable from one with no history at all. Now the number
+    stays, `z_within_error` travels with it, and both alert_eligible and
+    the dislocation gate refuse it.
+    """
+    params = _params()
+    months = pd.period_range("2018-01", "2026-08", freq="M").astype(str)
+    # constant discount for X: today's discount equals its own history
+    # mean, so the anomaly (zero) sits inside any non-missing error band.
+    # Three funds in one sector with varying returns give the factor model
+    # a leave-one-out sector factor and a real sigma - a single fund has
+    # neither, and est_error would be NaN.
+    panel = pd.DataFrame([
+        {"security_id": s, "obs_month": m, "sector": "S",
+         "nav_total_return": 0.004 + 0.003 * ((i + j) % 5 - 2) / 2,
+         "nav_per_share": 100.0, "share_price": 90.0,
+         "company_name": s, "discount": -0.10}
+        for j, s in enumerate(("X", "Y", "Z2")) for i, m in enumerate(months)])
+    registry = pd.DataFrame([{"security_id": "X", "market": "UK",
+                              "status": "live", "name": "X",
+                              "research_eligible": True, "identity_ok": True}])
+    px = pd.DataFrame([{"security_id": "X", "price": 90.0,
+                        "price_source": "yahoo:X.L",
+                        "price_date": "2026-08-28", "price_ccy": "GBp"}])
+    out = nta_live.build_table(panel, "UK", "nav_total_return",
+                               "nav_per_share", "share_price", params,
+                               live_prices=px, registry=registry, today=TODAY)
+    r = out[out["security_id"] == "X"].iloc[0]
+    assert r["z_status"] == "within_error_band", r["z_status"]
+    assert pd.notna(r["z_adj"]), "the z must survive the error-band flag"
+    assert bool(r["z_within_error"])
+    assert not r["alert_eligible"], "a within-error z must not alert"
+
+    # and the dislocation gate refuses it even at an extreme z
+    live = pd.DataFrame([{"security_id": "X", "market": "UK", "name": "X",
+                          "research_eligible": True, "z_adj": -3.0,
+                          "z_within_error": True, "staleness_days": 1,
+                          "basis": 0, "discount_est": -0.30}])
+    got = opportunities.evaluate(live, None, None, params)
+    assert not len(got), "a within-error dislocation produced an idea"
+
+
+def test_a_registry_only_fund_gets_its_z_from_the_daily_panel():
+    """The announcements-only cohort had a NAV, a price, and no z.
+
+    The aggregator's monthly panel never priced these funds, so the z
+    block had no history however good the fund's own NAV series was. The
+    daily panel resampled monthly is that history; the panel stays
+    primary and the source is recorded.
+    """
+    params = _params()
+    empty_panel = pd.DataFrame(columns=["security_id", "obs_month", "sector",
+                                        "nav_total_return", "nav_per_share",
+                                        "share_price", "discount"])
+    registry = pd.DataFrame([{"security_id": "SEDOL:AUX1", "market": "UK",
+                              "status": "live", "name": "Aux fund",
+                              "research_eligible": True, "identity_ok": True}])
+    tier0 = pd.DataFrame([{"security_id": "SEDOL:AUX1",
+                           "nav_date": "2026-08-28", "nav_value": 100.0,
+                           "unit": "GBX", "source": "investegate:1"}])
+    px = pd.DataFrame([{"security_id": "SEDOL:AUX1", "price": 80.0,
+                        "price_source": "yahoo:AUX1.L",
+                        "price_date": "2026-08-29", "price_ccy": "GBp"}])
+    months = pd.period_range("2023-01", "2026-08", freq="M").astype(str)
+    aux = pd.DataFrame([{"security_id": "SEDOL:AUX1", "obs_month": m,
+                         "discount": -0.10 + 0.02 * (i % 4)}
+                        for i, m in enumerate(months)])
+    out = nta_live.build_table(empty_panel, "UK", "nav_total_return",
+                               "nav_per_share", "share_price", params,
+                               tier0=tier0, live_prices=px,
+                               registry=registry,
+                               aux_discount_history=aux, today=TODAY)
+    r = out[out["security_id"] == "SEDOL:AUX1"].iloc[0]
+    assert pd.notna(r["z_adj"]), r["z_status"]
+    assert r["z_source"] == "own_daily_panel"
+    assert r["z_status"] in ("computed", "within_error_band")
+
+
+def test_staleness_limit_follows_the_funds_own_cadence():
+    """A quarterly publisher's 60-day-old NAV is current by its cadence.
+
+    The flat 45-day cap wrote off the infrastructure/property cohort as
+    stale. The limit is now 3x the fund's own median publication gap,
+    floored at the flat cap and capped at max_days_cadence_cap.
+    """
+    params = _params()
+    empty_panel = pd.DataFrame(columns=["security_id", "obs_month", "sector",
+                                        "nav_total_return", "nav_per_share",
+                                        "share_price", "discount"])
+    registry = pd.DataFrame([
+        {"security_id": "Q", "market": "UK", "status": "live", "name": "Q",
+         "research_eligible": True, "identity_ok": True},
+        {"security_id": "D", "market": "UK", "status": "live", "name": "D",
+         "research_eligible": True, "identity_ok": True}])
+    hist_rows = []
+    for i in range(12):     # quarterly publisher, three years of NAVs
+        hist_rows.append({"security_id": "Q",
+                          "nav_date": pd.Timestamp("2026-08-01")
+                          - pd.Timedelta(days=91 * i), "nav_value": 100.0})
+    for i in range(24):     # daily publisher (recent business days)
+        hist_rows.append({"security_id": "D",
+                          "nav_date": pd.Timestamp("2026-08-28")
+                          - pd.Timedelta(days=i), "nav_value": 100.0})
+    own = pd.DataFrame(hist_rows)
+    out = nta_live.build_table(empty_panel, "UK", "nav_total_return",
+                               "nav_per_share", "share_price", params,
+                               registry=registry, own_nav_history=own,
+                               today=TODAY)
+    q = out[out["security_id"] == "Q"].iloc[0]
+    d = out[out["security_id"] == "D"].iloc[0]
+    cap = params["live_nta"]["staleness"]["max_days_cadence_cap"]
+    floor = params["live_nta"]["staleness"]["max_days_for_alerting"]
+    assert q["staleness_limit_days"] == cap, (
+        "3 x 91d exceeds the cap, so the cap must bind")
+    assert d["staleness_limit_days"] == floor, (
+        "a daily publisher keeps the flat floor")
+
+
+def test_forward_irr_growth_falls_back_to_the_funds_own_nav_history():
+    """~64 funds got no IRR because the panel had no CAGR for them.
+
+    The fallback reads the fund's own NAV-per-share history - median
+    monthly log-change annualised, with a 10-for-1 split excluded by the
+    outlier filter rather than poisoning the number.
+    """
+    dates, vals = [], []
+    v = 100.0
+    for i in range(60):
+        d_ = pd.Timestamp("2021-01-31") + pd.DateOffset(months=i)
+        v *= 1.005
+        if i == 30:
+            v /= 10.0        # subdivision: NAV/share drops 10x overnight
+        dates.append(d_)
+        vals.append(v)
+    own = pd.DataFrame({"security_id": "X", "nav_date": dates,
+                        "nav_value": vals})
+    g = forward_irr.own_history_cagr(own)
+    assert "X" in g.index
+    assert g["X"] == pytest.approx((1.005 ** 12) - 1, rel=0.05), (
+        "the split month must be excluded, not compounded")
+
+    # and build() uses it for a fund the panel never covered
+    live = pd.DataFrame([{"security_id": "X", "market": "UK", "name": "X",
+                          "sector": "Infra", "price": 90.0, "nta_est": 100.0,
+                          "discount_est": -0.10}])
+    aux = pd.DataFrame([{"security_id": "X", "obs_month": m,
+                         "discount": -0.08}
+                        for m in pd.period_range("2022-01", "2026-08",
+                                                 freq="M").astype(str)])
+    empty_panel = pd.DataFrame(columns=["security_id", "obs_month", "sector",
+                                        "discount", "nav_tr_cagr_5y"])
+    got = forward_irr.build(live, empty_panel, _params(), own_hist=own,
+                            aux_discount_hist=aux)
+    r = got.iloc[0]
+    assert r["g_source"] == "own_nav_history"
+    assert r["irr_central"] is not None, (
+        "growth + aux terminal discount must be enough for an IRR")
+
+
+def test_a_fresh_published_nav_is_current_even_without_a_factor_model():
+    """EJF failed the freshness gate on a 22-day-old published NAV.
+
+    Basis states PROVENANCE and stays untouched (0 = the fund's own
+    announcement - the nav-source invariant); freshness is the separate
+    `nav_current` fact, judged by the fund's own cadence. A modelless
+    fund's fresh NAV is basis 3 AND current; a genuinely stale one is
+    basis 3 and NOT current, and the gates read the freshness fact.
+    """
+    params = _params()
+    empty_panel = pd.DataFrame(columns=["security_id", "obs_month", "sector",
+                                        "nav_total_return", "nav_per_share",
+                                        "share_price", "discount"])
+    registry = pd.DataFrame([{"security_id": "F", "market": "UK",
+                              "status": "live", "name": "F",
+                              "research_eligible": True, "identity_ok": True}])
+    own = pd.DataFrame([{"security_id": "F",
+                         "nav_date": pd.Timestamp("2026-08-15"),
+                         "nav_value": 100.0}])
+    out = nta_live.build_table(empty_panel, "UK", "nav_total_return",
+                               "nav_per_share", "share_price", params,
+                               registry=registry, own_nav_history=own,
+                               today=TODAY)
+    r = out[out["security_id"] == "F"].iloc[0]
+    assert r["basis"] == 3, "provenance must not be relabelled by freshness"
+    assert bool(r["nav_current"]), (r["staleness_days"],
+                                    r["staleness_limit_days"])
+    # and a genuinely stale carry is not current
+    old_nav = pd.DataFrame([{"security_id": "F",
+                             "nav_date": pd.Timestamp("2024-01-15"),
+                             "nav_value": 100.0}])
+    out2 = nta_live.build_table(empty_panel, "UK", "nav_total_return",
+                                "nav_per_share", "share_price", params,
+                                registry=registry, own_nav_history=old_nav,
+                                today=TODAY)
+    assert out2.iloc[0]["basis"] == 3
+    assert not bool(out2.iloc[0]["nav_current"])
+
+    # the dislocation gate accepts a fresh basis-3 NAV and refuses a stale one
+    live = pd.DataFrame([
+        {"security_id": "FRESH", "market": "UK", "name": "Fresh",
+         "research_eligible": True, "z_adj": -3.0, "staleness_days": 22,
+         "basis": 3, "nav_current": True, "discount_est": -0.30},
+        {"security_id": "STALE3", "market": "UK", "name": "Stale",
+         "research_eligible": True, "z_adj": -3.0, "staleness_days": 300,
+         "basis": 3, "nav_current": False, "discount_est": -0.30}])
+    got = opportunities.evaluate(live, None, None, params)
+    assert set(got["security_id"]) == {"FRESH"}
+
+
+
+def test_the_registry_carries_the_research_policy_verdict():
+    """VCTs were counting toward the coverage target.
+
+    eligibility.classify only ever ran inside the coverage audit, so the
+    registry carried no research_eligible column and the nightly's
+    research gate defaulted registry-only funds - VCTs included - to True.
+    The verdict is now computed and persisted when the registry is built.
+    """
+    src = inspect.getsource(cli.build_universe)
+    assert "eligibility.classify" in src
+    assert src.index("eligibility.classify") < src.index(
+        'to_parquet(out / "registry.parquet"'), (
+        "eligibility must be written INTO the persisted registry")
+
+
+def test_one_uk_nav_headline_pattern_shared_everywhere():
+    """Three copies of 'net asset value' is how the ASX side lost UWC.
+
+    The archiver, the frequency census and the Tier-0 harvest each carried
+    their own copy of the selector, so widening one silently left the
+    others narrow. One pattern, in harvest_nav, imported by all three -
+    widened to the bare NAV abbreviation on probe evidence (Chrysalis:
+    "Quarterly NAV Announcement and Trading Update").
+    """
+    from cef_live import harvest_nav
+    assert harvest_nav.UK_NAV_HEAD.search("Net Asset Value(s)")
+    assert harvest_nav.UK_NAV_HEAD.search(
+        "Quarterly NAV Announcement and Trading Update")
+    assert harvest_nav.UK_NAV_HEAD.search("Monthly Net Asset Value")
+    assert not harvest_nav.UK_NAV_HEAD.search("Navigator Global Update")
+    assert not harvest_nav.UK_NAV_HEAD.search("Total Voting Rights")
+    # no stray private copies of the phrase-only pattern
+    src = Path("src/cef_live/harvest_nav.py").read_text()
+    assert 're.compile(r"net asset value", re.I)' not in src
+    arch = Path("scripts/archive_uk_navs.py").read_text()
+    assert "UK_NAV_HEAD" in arch

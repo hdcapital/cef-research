@@ -80,7 +80,7 @@ HIST = Path("data/uk_nav_history.parquet" if SHARDS == 1
             else f"data/uk_nav_history_s{SHARD}of{SHARDS}.parquet")
 MANIFEST_KEY = ("uk/nav_announcements/manifest.json" if SHARDS == 1
                 else f"uk/nav_announcements/manifest_s{SHARD}of{SHARDS}.json")
-NAV_PAT = re.compile(r"net asset value", re.I)
+from cef_live.harvest_nav import UK_NAV_HEAD as NAV_PAT  # one pattern, everywhere
 
 _last = 0.0
 

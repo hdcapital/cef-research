@@ -1,0 +1,43 @@
+{
+  "generated_at": "2026-09-01T10:33:43+00:00",
+  "target_pct": 90.0,
+  "markets": {
+    "AU": {
+      "denominator_live_research_eligible": 97,
+      "nav_ok": 91,
+      "z_ok": 83,
+      "growth_ok": 97,
+      "irr_ok": 95,
+      "signal_complete": 78,
+      "signal_complete_pct": 80.4
+    },
+    "UK": {
+      "denominator_live_research_eligible": 271,
+      "nav_ok": 166,
+      "z_ok": 212,
+      "growth_ok": 271,
+      "irr_ok": 229,
+      "signal_complete": 156,
+      "signal_complete_pct": 57.6
+    }
+  },
+  "total": {
+    "denominator": 368,
+    "signal_complete": 234,
+    "signal_complete_pct": 63.6,
+    "top_blockers": {
+      "nav": 61,
+      "nav+z:no_discount_history": 36,
+      "z:no_discount_history": 9,
+      "nav+z:insufficient_history_3m": 3,
+      "z:insufficient_history_19m": 2,
+      "z:insufficient_history_10m": 2,
+      "z:insufficient_history_3m": 2,
+      "nav+z:insufficient_history_20m": 2,
+      "nav+z:insufficient_history_5m": 2,
+      "nav+z:insufficient_history_1m": 2,
+      "z:insufficient_history_16m": 1,
+      "z:insufficient_history_8m": 1
+    }
+  }
+}

@@ -1,15 +1,24 @@
 {
-  "documents": 0,
+  "documents": 10657,
   "no_pdf": 0,
   "unreadable": 0,
-  "image_only": 0,
-  "parsed": 0,
-  "escalated": 0,
-  "by_family": {},
-  "fact_rows": 0,
-  "escalation_rows": 0,
-  "parse_rate": 0.0,
-  "parse_rate_text_bearing": 0.0,
+  "image_only": 344,
+  "parsed": 8331,
+  "escalated": 1982,
+  "by_family": {
+    "nta": 4393,
+    "buyback_daily": 2575,
+    "dividend": 401,
+    "substantial_holder": 377,
+    "issue": 497,
+    "share_cancellation": 88
+  },
+  "parser_version": "93343db6",
+  "already_done_this_version": 0,
+  "fact_rows": 8331,
+  "escalation_rows": 2326,
+  "parse_rate": 0.7817,
+  "parse_rate_text_bearing": 0.8078,
   "shard": 3,
   "shards": 8
 }

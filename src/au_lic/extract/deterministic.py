@@ -32,6 +32,28 @@ _SPEC = importlib.util.spec_from_file_location(
 P = importlib.util.module_from_spec(_SPEC)
 _SPEC.loader.exec_module(P)
 
+
+def _parser_version() -> str:
+    """Content hash of the parsing code - this module plus the scored NTA
+    parser it imports. The deterministic runner keys its resume manifest on
+    this, so ANY parser change automatically re-opens the whole archived
+    corpus for reparsing (S3 reads only, resumable, no publisher requests).
+    Without it, a document once recorded as a parse failure was never
+    revisited, and a better rule list could not reach the funds it was
+    written for - the same manifest-blindness the UK reparse mode fixed.
+    """
+    import zlib as _z
+    src = Path(__file__).read_bytes()
+    try:
+        src += (Path(__file__).resolve().parents[3]
+                / "scripts" / "sample_nta_pdfs.py").read_bytes()
+    except OSError:
+        pass
+    return f"{_z.crc32(src) & 0xffffffff:08x}"
+
+
+PARSER_VERSION = _parser_version()
+
 MONEY = r"\$?\s*([0-9][0-9,]*\.?[0-9]*)"
 CENTS = r"([0-9]+\.?[0-9]*)\s*(?:cents|cps|c\b)"
 

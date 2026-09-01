@@ -10,6 +10,9 @@ on:
       script:
         description: "probe script to run"
         default: "scripts/probe_ticker_sources.py"
+      state_groups:
+        description: "S3 state groups to restore (comma list)"
+        default: "raw_aic"
   push:
     branches:
       - "claude/**"
@@ -38,7 +41,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
           S3_BUCKET: ${{ secrets.S3_BUCKET }}
-        run: python scripts/sync_state.py pull --groups raw_aic
+        run: python scripts/sync_state.py pull --groups "${{ github.event.inputs.state_groups || 'raw_aic' }}"
       - name: Restore raw-data cache
         uses: actions/cache/restore@v4
         with:

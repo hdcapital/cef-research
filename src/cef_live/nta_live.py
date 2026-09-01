@@ -106,6 +106,7 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
                 live_prices: pd.DataFrame | None = None,
                 registry: pd.DataFrame | None = None,
                 own_nav_history: pd.DataFrame | None = None,
+                aux_discount_history: pd.DataFrame | None = None,
                 today: date | None = None) -> pd.DataFrame:
     """Build the live table for one market, keyed on the REGISTRY.
 
@@ -173,6 +174,31 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
         own = own.copy()
         own["nav_date"] = pd.to_datetime(own["nav_date"], errors="coerce")
         own = own.dropna(subset=["nav_date", "nav_value"])
+
+    # Fallback discount history (monthly, security_id/obs_month/discount)
+    # for funds the aggregator panel never priced - the UK daily panel
+    # resampled to the same monthly spec the z was validated on. The panel
+    # stays primary; this only ever ADDS history where the panel has too
+    # little to z-score.
+    aux_by_sid: dict[str, pd.DataFrame] = {}
+    if aux_discount_history is not None and len(aux_discount_history):
+        a = aux_discount_history.dropna(subset=["discount"])
+        aux_by_sid = {str(s_): g_.sort_values("obs_month")
+                      for s_, g_ in a.groupby("security_id")}
+
+    # Per-fund publication cadence, measured from the fund's own NAV
+    # history. A quarterly publisher whose NAV is 60 days old is CURRENT by
+    # its own cadence; judging it on a daily publisher's 45-day cap wrote
+    # off the whole infrastructure/property cohort as stale.
+    cadence_days: dict[str, float] = {}
+    if own is not None and len(own):
+        for s_, g_ in own.groupby("security_id"):
+            d_ = g_["nav_date"].sort_values().tail(24)
+            if len(d_) >= 5:
+                gaps = d_.diff().dt.days.dropna()
+                gaps = gaps[gaps > 0]
+                if len(gaps) >= 4:
+                    cadence_days[str(s_)] = float(gaps.median())
 
     reg_meta = {}
     if registry is not None and len(registry):
@@ -244,6 +270,15 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
 
         staleness = (max(0, _busdays_since(anchor_date, today)) if has_nav
                      else np.nan)
+        # freshness is judged against the fund's OWN publication cadence:
+        # the flat cap remains the floor, 3x the fund's median gap the
+        # limit, bounded so nothing is called fresh past the cadence cap
+        base_limit = float(live["staleness"]["max_days_for_alerting"])
+        stale_limit = base_limit
+        if sid in cadence_days:
+            stale_limit = float(np.clip(
+                3.0 * cadence_days[sid], base_limit,
+                float(live["staleness"].get("max_days_cadence_cap", 200))))
         m = models.loc[sid] if sid in models.index else None
         has_model = m is not None and m["betas"] is not None
 
@@ -311,8 +346,19 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
         # audit's failure list with no way to tell them apart.
         z_adj, z_raw, mu, sd = np.nan, np.nan, np.nan, np.nan
         z_status = "no_discount_history"
-        if dcol is not None:
-            h = hist[dcol].dropna()
+        z_within_error = False
+        z_source = None
+        h = hist[dcol].dropna() if dcol is not None else pd.Series(dtype=float)
+        if len(h):
+            z_source = "aggregator_panel"
+        # the panel stays primary; the daily-panel resample only ADDS
+        # history where the panel cannot z-score the fund at all
+        if len(h) < zp["min_months"] and sid in aux_by_sid:
+            ah = (aux_by_sid[sid]["discount"].tail(zp["window_months"])
+                  .dropna())
+            if len(ah) >= zp["min_months"]:
+                h, z_source = ah, "own_daily_panel"
+        if len(h) or z_source is not None:
             if len(h) < zp["min_months"]:
                 z_status = f"insufficient_history_{len(h)}m"
             elif not h.std(ddof=1) > 0:
@@ -324,13 +370,18 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
                 else:
                     z_raw = (discount_est - mu) / sd
                     z_adj = z_raw
-                    # error-sanity gate: the anomaly must exceed the
-                    # estimate's own error band, else the z is voided (NaN,
-                    # not 0 - absence of signal, not a neutral one)
+                    # error-sanity gate: an anomaly smaller than the
+                    # estimate's own error band must not ALERT - but the z
+                    # itself is a real, computed number the universe pricing
+                    # needs. It used to be voided to NaN here, which made 76
+                    # perfectly priced funds indistinguishable from funds
+                    # with no history at all. The z stays; the flag travels
+                    # with it, and every alerting consumer (alert_eligible
+                    # below, opportunities gate 1) refuses a within-error z.
                     if pd.notna(est_error) and abs(discount_est - mu) <= \
                             zp["error_sanity_k"] * est_error:
-                        z_adj = np.nan
-                        z_status = "voided_within_error_band"
+                        z_within_error = True
+                        z_status = "within_error_band"
                     else:
                         z_status = "computed"
 
@@ -470,16 +521,26 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
             "identity_ok": identity_ok,
             "z_raw": round(z_raw, 4) if pd.notna(z_raw) else np.nan,
             "z_status": z_status,
+            "z_within_error": z_within_error,
+            "z_source": z_source,
+            "staleness_limit_days": stale_limit,
+            # basis states PROVENANCE (0 = the fund's own announcement,
+            # 1 = factor roll-forward, 3 = carried anchor); nav_current
+            # states FRESHNESS by the fund's own cadence. They are
+            # different facts: a modelless quarterly publisher's 22-day-old
+            # NAV is basis 3 AND current - EJF failed every gate keyed on
+            # `basis <= 2` while holding a perfectly fresh published NAV.
+            "nav_current": bool(has_nav and pd.notna(staleness)
+                                and staleness <= stale_limit),
             # Every clause here is a REASON A FUND MUST NOT ALERT, and the
             # data-quality and identity clauses come first by intent: a
             # reused ticker or a unit error must be stopped before any
             # signal logic gets to look at the number.
             "alert_eligible": bool(
                 dq_ok and identity_ok and research_ok
-                and pd.notna(z_adj)
-                and pd.notna(staleness)
-                and staleness <= live["staleness"]["max_days_for_alerting"]
-                and pd.notna(basis) and basis <= 2),
+                and pd.notna(z_adj) and not z_within_error
+                and pd.notna(staleness) and staleness <= stale_limit
+                and pd.notna(basis)),
             "model_factors": m["factors"] if has_model else None,
             "updated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         })

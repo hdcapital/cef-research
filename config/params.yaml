@@ -14,7 +14,13 @@ live_nta:
     # est_error = sigma_1m * sqrt(staleness_days / 21)
     trading_days_per_month: 21
   staleness:
-    max_days_for_alerting: 45     # beyond this a fund is excluded from z alerts
+    max_days_for_alerting: 45     # FLOOR: below this every fund is fresh
+    # A fund is fresh while its NAV is younger than 3x its OWN median
+    # publication gap (measured from its announcement history), floored at
+    # max_days_for_alerting and capped here. A quarterly publisher's
+    # 60-day-old NAV is current by its own cadence; a daily publisher's is
+    # not. Owner instruction 2026-09-01 (see CHANGELOG.md).
+    max_days_cadence_cap: 200
   z_adjustment:
     window_months: 36             # own-history z window (validated research spec)
     min_months: 24

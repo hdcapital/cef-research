@@ -67,3 +67,38 @@ Changed on the owner's explicit instruction, not against live outcomes:
   nightly heartbeat, the standalone universe-spreadsheet email and the
   delist-review email no longer send; their content is committed (and the
   delist count is included in the ideas email) instead.
+
+## 2026-09-01 — Pricing the whole universe (owner instruction: 90% coverage target)
+Goal set by the owner: 90%+ of currently trading UK and AU funds carrying a
+live or well-estimated NAV, an own-history discount z, and a NAV growth
+input for the forward IRR. Baseline measured 2026-09-01: 47.0% (154/328
+monitoring-eligible). Changes, all measurement-driven:
+
+- **z within the error band is kept, flagged, and never voided.** A
+  dislocation smaller than the NAV estimate's own error band must not
+  alert — but voiding the z to NaN made 76 fully priced funds
+  indistinguishable from funds with no history. `z_adj` now always
+  computes; `z_within_error` travels with it; `alert_eligible` and the
+  dislocation gate refuse a within-error z exactly as before.
+- **The daily panel becomes a z-history fallback** (`z_source:
+  own_daily_panel`). The aggregator's monthly panel never priced the
+  announcements-only cohort; the UK daily discount panel holds those
+  funds' own series and is resampled to the identical monthly 36m spec
+  (strict `discount_fresh` reading only). The panel stays primary.
+- **Freshness is judged against each fund's own cadence**:
+  `staleness_limit_days = clip(3 × own median publication gap,
+  max_days_for_alerting, max_days_cadence_cap=200)`. Rationale: a
+  45-day flat cap wrote off the quarterly-publishing infrastructure/
+  property cohort as stale on data that is current by those funds' own
+  cadence. The flat cap remains the floor and the alert gates use the
+  per-fund limit.
+- **Growth input fallback chain for the forward IRR**, recorded in
+  `g_source`: panel TR CAGR → the fund's own NAV-per-share history
+  (median monthly log-change annualised, |monthly| < 18% excluded so a
+  split cannot poison it) → sector median → market median. Every
+  fallback passes the same 50% shrink and [−5%, +15%] caps. Terminal
+  discount falls back from the panel's 5y median to the daily panel's.
+- **The objective function is measured every run**:
+  `reports/build/signal_coverage.json` + per-fund
+  `outputs/live/signal_coverage.csv` (the work list), denominated over
+  live research-eligible funds.

@@ -630,3 +630,49 @@ def test_sharded_status_files_do_not_collide():
 
     src = inspect.getsource(R.main)
     assert "asx_deterministic_status_s{SHARD}of{SHARDS}" in src
+
+
+# --------------------------------------------- reparse-on-parser-change
+
+def test_the_deterministic_manifest_is_keyed_on_the_parser_version():
+    """A parse failure was final: the manifest never let a better parser
+    revisit the document it failed on, and every sharded nightly run
+    reported 0 documents while 66 funds sat unparsed. The manifest key now
+    carries the parser's content hash, so a parser change re-opens the
+    corpus automatically."""
+    import inspect
+
+    from au_lic.extract import deterministic, runner
+    assert len(deterministic.PARSER_VERSION) == 8
+    src = inspect.getsource(runner.run_deterministic)
+    assert "DET_MANIFEST_PREFIX}_{deterministic.PARSER_VERSION}" in src
+    assert "write_manifest(done, manifest_prefix)" in src, (
+        "the manifest must be written back under the versioned prefix")
+    # and each run's fact file is unique - a constant key made every run
+    # overwrite the previous run's rows
+    assert "run_stamp" in src
+
+
+def test_facts_load_keeps_only_the_newest_extraction_per_announcement(tmp_path):
+    """A reparse's corrected rows must replace the old ones, not join them."""
+    import pandas as pd
+
+    from au_lic.extract import facts
+    old = pd.DataFrame([{"announcement_id": "1", "ticker": "AAA",
+                         "section": "nav_observations", "nav_per_share": 9.99,
+                         "valuation_date": "2026-01-31"}])          # no stamp
+    new = pd.DataFrame([{"announcement_id": "1", "ticker": "AAA",
+                         "section": "nav_observations", "nav_per_share": 1.23,
+                         "valuation_date": "2026-01-31",
+                         "extracted_at": "2026-09-01T06:00:00+00:00"},
+                        {"announcement_id": "2", "ticker": "BBB",
+                         "section": "nav_observations", "nav_per_share": 2.00,
+                         "valuation_date": "2026-02-28",
+                         "extracted_at": "2026-09-01T06:00:00+00:00"}])
+    old.to_parquet(tmp_path / "facts_det_s0of1.parquet", index=False)
+    new.to_parquet(tmp_path / "facts_det_v2_s0of1_x.parquet", index=False)
+    got = facts.load(tmp_path, allow_s3=False)
+    one = got[got["announcement_id"] == "1"]
+    assert len(one) == 1 and one["nav_per_share"].iloc[0] == 1.23, (
+        "the reparsed value must replace the stale one")
+    assert set(got["announcement_id"]) == {"1", "2"}
