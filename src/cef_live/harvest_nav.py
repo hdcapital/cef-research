@@ -45,6 +45,30 @@ BAD = re.compile(r"amendment|amended|correction|withdraw", re.I)
 # \bNAVs?\b matches the abbreviation without matching "Navigator".
 UK_NAV_HEAD = re.compile(r"net asset value|\bNAVs?\b", re.I)
 
+# Update/results headlines that may carry the NAV for the cohort that
+# publishes no NAV-shaped RNS at all (measured:
+# reports/build/uk_nav_reach_probe.json - BSIF, HGT, ICGT, 3IN, the
+# REITs). Used ONLY for funds where UK_NAV_HEAD matches nothing recent,
+# never universe-wide: fetching every trust's results would multiply the
+# crawl for documents whose NAV we already hold from daily RNS.
+UK_FACTSHEET_HEAD = re.compile(
+    r"portfolio update|trading update|business update|monthly update|"
+    r"quarterly update|interim update|fact\s?sheet|"
+    r"investor (?:update|report)|EPRA|periodic valuation|valuation update|"
+    r"(?:half[- ]?year(?:ly)?|annual|interim|final|full[- ]?year|"
+    r"quarter(?:ly)?|[1-4](?:st|nd|rd|th) quarter) "
+    r"(?:results?|report|financial report)|results? for the", re.I)
+# a third party's research note is never a source for a fund's NAV
+UK_THIRD_PARTY = re.compile(
+    r"kepler|edison|quoteddata|hardman|analysis from|research", re.I)
+# Investegate's model-generated summary panel is deliberately NOT stripped
+# before parsing. It paraphrases THIS announcement's own figure, so a match
+# inside it nearly always yields the correct number - and stripping it was
+# measured to cost four corpus parses (BIPS, GRP, IAD, IGET) whose value
+# sits before the first reliable body anchor. The residual risk of a
+# summary mis-stating the figure is exactly what the nightly AIC
+# cross-validation (nav_validation.run_uk) exists to police, per fund.
+
 # Headlines that may carry a published NTA. Deliberately WIDER than the
 # archive sweep's NTA_HEAD: several of the largest LIC families never use
 # the words "NTA" in a headline. Metrics publishes its NTA inside a "Daily
@@ -672,6 +696,32 @@ UK_RULES = [
     # Scottish Oriental: "3xx.xx pence per share (including income)"
     ("cum", 3, _R(UK_PENCE + r"\s+per share\s*\(including income", re.I)),
     ("ex", 3, _R(UK_PENCE + r"\s+per share\s*\(excluding income", re.I)),
+    # ---- factsheet / results-route shapes, written against the committed
+    # probe of real update bodies (reports/build/uk_factsheet_probe.json).
+    # Direction matters: the plain fallback read RECI's PRIOR month (140.6p
+    # from "decreased from 140.6p in June to 138.2p in July") and read
+    # LBOW's "£2.42 million" as a NAV. These sit before the loose family so
+    # the directional reading wins.
+    # RECI: "NAV per share decreased from 140.6p in June to 138.2p in July"
+    ("cum_assumed", 4, _R(r"(?:net asset value|\bNAV\b)[^.]{0,120}?\bfrom\s+"
+                          r"[0-9][0-9,]*(?:\.[0-9]+)?\s*p(?:ence)?\b"
+                          r"[^.]{0,80}?\bto\s+" + UK_PENCE, re.I)),
+    # LBOW: "net asset value per share falling to 17.15 pence from 27.15"
+    ("cum_assumed", 4, _R(r"(?:net asset value|\bNAV\b)[^.]{0,100}?"
+                          r"(?:\b(?:fell|falling|rose|rising|increas\w*|"
+                          r"decreas\w*|declin\w*|down|up)\b[^.]{0,30}?)?"
+                          r"\bto\s+" + UK_PENCE + r"[^.]{0,80}?\bfrom\b",
+                          re.I)),
+    # AEET results table: 'Net asset value ("NAV") per share (pence)
+    # 50.15 85.55' - current period first, per the "At <date> At <date>"
+    # header convention; the validator polices the funds that invert it
+    ("cum_assumed", 4, _R(r"net asset value[^0-9]{0,80}?\(pence\)\s*"
+                          + UK_PNUM, re.I)),
+    # THRL / the REIT cohort: "EPRA Net Tangible Assets per share to
+    # 120.6 pence" - EPRA NTA is that cohort's published NAV basis
+    ("cum_assumed", 4, _R(r"EPRA\s+(?:NTA|net tangible assets?)"
+                          r"[^0-9]{0,80}?" + UK_PENCE, re.I)),
+
     # Hydrogen Capital Growth: "quarterly NAV per share of the Company
     # (the "31 December NAV") was 30.54 pence"
     ("cum_assumed", 5, _R(r"NAV per share[\s\S]{0,140}?" + UK_PENCE, re.I)),
@@ -1008,6 +1058,28 @@ def harvest_uk(ticker_map: pd.DataFrame, census: pd.DataFrame,
                 # keep scanning the page so catalysts below the NAV row are
                 # still collected (rows are newest-first)
         if best is None:
+            # Factsheet-route fallback, for the cohort that publishes no
+            # NAV-shaped headline at all (measured: the factsheet probe -
+            # BSIF, HGT, ICGT, 3IN, the REITs state NAV inside results and
+            # updates). Only fires when UK_NAV_HEAD matched nothing, so a
+            # daily NAV publisher never costs an extra fetch. The window is
+            # wider because these shapes are quarterly/semiannual. A third
+            # party's research note is never a source.
+            fs_cutoff = (datetime.now(timezone.utc)
+                         - timedelta(days=200)).date().isoformat()
+            for row_ in listing_rows.get(tk, []):   # newest-first
+                head_ = row_.get("headline") or ""
+                if (row_.get("date") or "") < fs_cutoff:
+                    continue
+                if not UK_FACTSHEET_HEAD.search(head_):
+                    continue
+                if UK_THIRD_PARTY.search(head_) or BAD.search(head_):
+                    continue
+                best = {"date": row_["date"], "headline": head_,
+                        "url": row_["url"], "route": "factsheet"}
+                stats["factsheet_route"] = stats.get("factsheet_route", 0) + 1
+                break
+        if best is None:
             stats["no_recent_nav"] += 1
             continue
         _t.sleep(1.5)
@@ -1031,7 +1103,8 @@ def harvest_uk(ticker_map: pd.DataFrame, census: pd.DataFrame,
                      "nav_value": got["nav_cum_pence"],
                      "nav_ex": got.get("nav_ex_pence"),
                      "cum_assumed": got.get("cum_assumed", False),
-                     "source": f"investegate:{best['url'].rsplit('/', 1)[-1]}",
+                     "source": (f"investegate{'_fs' if best.get('route') else ''}"
+                                f":{best['url'].rsplit('/', 1)[-1]}"),
                      "headline": best["headline"][:120]})
     if write_listing_cache and listing_rows:
         stats["listing_cache_written"] = _write_listing_cache(listing_rows)
