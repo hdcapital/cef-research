@@ -692,10 +692,25 @@ def ideas() -> int:
     subject = (f"{label}: {len(opps)} actionable, {len(watch)} watch"
                if len(verdicts) else f"{label}: no new ideas")
 
+    from . import brief
     from .notify import notify
+    html = None
+    try:
+        html = brief.render_html(
+            label, datetime.now(timezone.utc).date().isoformat(),
+            evaluated=len(live), opps=opps, disl=disl, irr_led=irr_led,
+            cat_led=cat_led,
+            z_threshold=float(params["opportunity"]["z_threshold"]),
+            min_irr=min_irr, wb_summary=wb_summary, wb_error=wb_error,
+            n_delist=n_delist, n_watch=len(watch))
+    except Exception as exc:  # noqa: BLE001
+        # the text body is canonical; a rendering bug must cost the styling,
+        # never the brief
+        print(f"HTML brief rendering failed ({exc}); sending text only")
     sent = notify(subject, "\n".join(body),
                   priority="critical" if len(opps) else "normal",
-                  attachments=[str(wb_path)] if wb_path else None)
+                  attachments=[str(wb_path)] if wb_path else None,
+                  html=html)
 
     summary = {"generated_at": datetime.now(timezone.utc)
                .isoformat(timespec="seconds"),
