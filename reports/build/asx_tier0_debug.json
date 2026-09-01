@@ -4,12 +4,11 @@
  "index_rows_in_window": 1349,
  "candidates": 562,
  "codes_with_a_candidate": 92,
- "attempted": 119,
- "parsed": 61,
- "parse_failed": 52,
+ "attempted": 121,
+ "parsed": 62,
+ "parse_failed": 53,
  "ambiguous_unit": 3,
- "no_date": 2,
- "codes_parsed": 61,
+ "codes_parsed": 62,
  "budget_reached": false,
  "deadline_reached": false,
  "by_code": {
@@ -83,6 +82,7 @@
   "TOP": "no_nta_parsed",
   "8IH": "parsed",
   "KAT": "parsed",
+  "UWC": "parsed",
   "ECP": "parsed",
   "WAM": "no_nta_parsed",
   "SB2": "parsed",
@@ -172,7 +172,6 @@
   "USF": "no_candidate_in_window",
   "USG": "no_candidate_in_window",
   "USP": "no_candidate_in_window",
-  "UWC": "not_attempted",
   "VG1": "no_candidate_in_window",
   "VG8": "no_candidate_in_window",
   "WDE": "no_candidate_in_window",
@@ -438,7 +437,7 @@
   "no_candidate_in_window": 80,
   "no_nta_parsed": 28,
   "no_text_layer": 1,
-  "not_attempted": 2,
-  "parsed": 61
+  "not_attempted": 1,
+  "parsed": 62
  }
 }
