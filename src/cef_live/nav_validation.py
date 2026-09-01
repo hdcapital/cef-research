@@ -103,10 +103,12 @@ def per_fund(pairs: pd.DataFrame) -> pd.DataFrame:
         # basis_gap counts as agreement for the RATE: a stable cum/ex or
         # debt-basis offset is a definition difference, not a parse error
         rate = float((counts.get("agree", 0) + counts.get("basis_gap", 0)) / n)
-        if n < MIN_PAIRS:
-            v = "insufficient_overlap"
-        elif counts.get("unit_error", 0) > 0:
+        # a unit error outranks a small sample: one x100 observation is
+        # qualitatively alarming however few pairs exist
+        if counts.get("unit_error", 0) > 0:
             v = "unit_suspect"
+        elif n < MIN_PAIRS:
+            v = "insufficient_overlap"
         elif rate >= VALIDATED_RATE:
             v = "validated"
         elif rate < SUSPECT_RATE:
