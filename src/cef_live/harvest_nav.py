@@ -341,7 +341,14 @@ def harvest_au(codes: set[str], lookback_days: int = 45,
             # says how many failed; a sample says why, and is the difference
             # between guessing at a layout and reading one.
             _note_failure(stats, code, head, r.url, "no_nta_parsed",
-                          (doc.get("text") or "")[:1200])
+                          # 1,200 characters reached only the cover text on
+                          # five of the twenty-eight failures - Metrics,
+                          # Ophir, Cadence and the Future Generation funds
+                          # front-load commentary and put the NTA table
+                          # after it, so the sample showed prose and no
+                          # number. A sample that cannot reach the value is
+                          # not a sample of the problem.
+                          (doc.get("text") or "")[:4000])
             continue
         if got.get("unit_source") == "ambiguous":
             stats["ambiguous_unit"] += 1
