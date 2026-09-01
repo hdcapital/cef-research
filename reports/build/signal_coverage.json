@@ -1,43 +1,43 @@
 {
-  "generated_at": "2026-09-01T08:45:34+00:00",
+  "generated_at": "2026-09-01T09:43:31+00:00",
   "target_pct": 90.0,
   "markets": {
     "AU": {
-      "denominator_live_research_eligible": 99,
-      "nav_ok": 85,
-      "z_ok": 81,
-      "growth_ok": 99,
-      "irr_ok": 93,
-      "signal_complete": 75,
-      "signal_complete_pct": 75.8
+      "denominator_live_research_eligible": 97,
+      "nav_ok": 91,
+      "z_ok": 83,
+      "growth_ok": 97,
+      "irr_ok": 95,
+      "signal_complete": 78,
+      "signal_complete_pct": 80.4
     },
     "UK": {
-      "denominator_live_research_eligible": 263,
-      "nav_ok": 163,
-      "z_ok": 181,
-      "growth_ok": 263,
-      "irr_ok": 199,
-      "signal_complete": 148,
-      "signal_complete_pct": 56.3
+      "denominator_live_research_eligible": 271,
+      "nav_ok": 162,
+      "z_ok": 212,
+      "growth_ok": 271,
+      "irr_ok": 229,
+      "signal_complete": 152,
+      "signal_complete_pct": 56.1
     }
   },
   "total": {
-    "denominator": 362,
-    "signal_complete": 223,
-    "signal_complete_pct": 61.6,
+    "denominator": 368,
+    "signal_complete": 230,
+    "signal_complete_pct": 62.5,
     "top_blockers": {
-      "nav+z:no_discount_history": 66,
-      "nav": 39,
-      "z:no_discount_history": 15,
-      "nav+z:insufficient_history_3m": 2,
+      "nav": 65,
+      "nav+z:no_discount_history": 36,
+      "z:no_discount_history": 9,
+      "nav+z:insufficient_history_3m": 3,
+      "z:insufficient_history_19m": 2,
       "z:insufficient_history_10m": 2,
+      "z:insufficient_history_3m": 2,
+      "nav+z:insufficient_history_20m": 2,
+      "nav+z:insufficient_history_5m": 2,
+      "nav+z:insufficient_history_1m": 2,
       "z:insufficient_history_16m": 1,
-      "z:no_current_discount": 1,
-      "z:insufficient_history_8m": 1,
-      "z:insufficient_history_13m": 1,
-      "z:insufficient_history_21m": 1,
-      "z:insufficient_history_9m": 1,
-      "z:insufficient_history_4m": 1
+      "z:insufficient_history_8m": 1
     }
   }
 }

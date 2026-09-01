@@ -1,12 +1,12 @@
 {
-  "delist_candidates": 78,
+  "delist_candidates": 33,
   "vehicles": 1116,
   "by_market": {
     "AU": 172,
     "UK": 944
   },
   "live": 318,
-  "live_stale_nav": 81,
+  "live_stale_nav": 126,
   "status_before_evidence": {
     "delisted": 731,
     "live": 376,
@@ -17,21 +17,21 @@
   "live_status_source": {
     "registry_deferral_no_own_filings": 568,
     "own_nav_announcement": 306,
+    "own_periodic_report": 113,
     "silence_beyond_grace": 84,
-    "own_announcement_only": 73,
-    "own_periodic_report": 68,
+    "own_announcement_only": 28,
     "own_nav_announcement_stale": 13,
     "registry_last_seen": 3,
     "silence_within_grace": 1
   },
-  "revived_by_own_filings": 40,
-  "aggregator_said_live_evidence_says_not": 25,
+  "revived_by_own_filings": 82,
+  "aggregator_said_live_evidence_says_not": 22,
   "by_liveness_reason": {
     "no_own_filings_held_deferring_to_registry": 568,
     "nav": 319,
+    "periodic_report": 113,
     "silent": 85,
-    "filings_but_no_nav_or_report": 73,
-    "periodic_report": 68,
+    "filings_but_no_nav_or_report": 28,
     "registry_listed": 3
   },
   "delisted": 639,
