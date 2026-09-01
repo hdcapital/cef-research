@@ -45,9 +45,15 @@ opportunity:
   z_threshold: -1.5
   max_staleness_days: 45
   max_basis: 2
-  # Gate 3 - forward IRR hurdle, expressed as excess over trailing universe TR
-  irr_hurdle_excess_pp: 8.0
-  watch_gates_required: 2
+  # Gate 3 - forward IRR must clear a fixed absolute hurdle. Owner
+  # instruction 2026-09-01 (see CHANGELOG.md): the required return is the
+  # owner's, not the trailing universe's, so it does not float with regime.
+  min_irr_central: 0.15
+  # A catalyst on its own makes a WATCH only at this taxonomy weight or
+  # above (tender, scheme/merger, continuation vote, wind-down). Routine
+  # buyback and holder notices still count toward two-gate verdicts and
+  # stay visible in the universe workbook's Catalysts sheet.
+  standalone_catalyst_weight: 4
   no_news_gap_pct: 5.0            # price gap vs fresh Tier 0/1 NTA, no announcement
 
 forward_irr:

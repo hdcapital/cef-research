@@ -254,16 +254,12 @@ def build_universe() -> int:
                  f"{r['last_seen']}, missing {int(r['months_missing'])} monthly "
                  f"release(s)" for _, r in cand.sort_values("months_missing",
                                                             ascending=False).head(30).iterrows()]
-        from .notify import notify
-        notify(f"{len(cand)} fund(s) awaiting delisting review",
-               "These funds have stopped appearing in their registry source. "
-               "They are already excluded from idea generation, and will be "
-               "treated as delisted after the review grace period.\n\n"
-               "To KEEP tracking one, add it to universe/manual.yaml — manual "
-               "entries are never flagged.\n\n" + "\n".join(lines)
-               + "\n\nFull list attached; nothing is ever deleted from the "
-                 "registry, so the history stays intact either way.",
-               attachments=["outputs/live/delist_review.csv"])
+        # NOT emailed: the two daily pre-open briefs are the only scheduled
+        # emails (owner instruction 2026-09-01, config/CHANGELOG.md). The
+        # queue is committed as outputs/live/delist_review.csv and its count
+        # is carried in the briefs.
+        print(f"{len(cand)} fund(s) awaiting delisting review "
+              "(outputs/live/delist_review.csv):\n" + "\n".join(lines))
     return 0
 
 
@@ -479,8 +475,12 @@ def resolve_tickers(budget: int = 400) -> int:
     return 0
 
 
-def universe_sheet() -> int:
-    """Build the universe spreadsheet and email it."""
+def build_universe_workbook() -> tuple[Path, dict]:
+    """Build the universe spreadsheet (and refresh the forward IRR store).
+
+    Emailing is the caller's decision: the two daily pre-open briefs attach
+    this workbook, so nothing here sends anything.
+    """
     reg = pd.read_parquet("data/universe/registry.parquet")
     live = pd.read_parquet("data/nta_live/latest.parquet")
     panels = panels_by_market()
@@ -512,33 +512,49 @@ def universe_sheet() -> int:
     path, summary = universe_report.build(
         reg, live, irr, hist, Path(f"outputs/live/cef_universe_{stamp}.xlsx"), cats)
     print(json.dumps(summary, indent=2, default=str))
+    return path, summary
 
-    from .notify import notify
-    body = (f"CEF universe spreadsheet, {stamp}.\n\n"
-            f"Funds tracked: {summary['rows']} ({summary['live']} live)\n"
-            f"With a market price: {summary['with_price']}\n"
-            f"With a live NAV estimate: {summary['with_live_nav']}\n"
-            f"With a forward IRR: {summary['with_irr']}\n"
-            f"Catalysts announced (30d): {summary.get('catalysts', 0)}\n\n"
-            "Sheets: Universe (all), Live only, Most dislocated (lowest z), "
-            "Catalysts.\n"
-            "Published NAVs and modelled estimates are separate columns; a "
-            "blank means we hold no value, never a filled-in one.")
-    sent = notify(f"universe spreadsheet {stamp}", body, attachments=[str(path)])
-    print("emailed:" , sent)
+
+def universe_sheet(email: bool = False) -> int:
+    """Build the universe spreadsheet; email only when explicitly asked.
+
+    The two daily pre-open briefs attach this workbook, so the scheduled
+    nightly build no longer sends its own email (owner instruction
+    2026-09-01, config/CHANGELOG.md). `--email` remains for manual use.
+    """
+    path, summary = build_universe_workbook()
+    sent = False
+    if email:
+        from .notify import notify
+        stamp = datetime.now(timezone.utc).date().isoformat()
+        body = (f"CEF universe spreadsheet, {stamp}.\n\n"
+                f"Funds tracked: {summary['rows']} ({summary['live']} live)\n"
+                f"With a market price: {summary['with_price']}\n"
+                f"With a live NAV estimate: {summary['with_live_nav']}\n"
+                f"With a forward IRR: {summary['with_irr']}\n"
+                f"Catalysts announced (30d): {summary.get('catalysts', 0)}\n\n"
+                "Sheets: Universe (all), Live only, Most dislocated (lowest "
+                "z), Catalysts.\n"
+                "Published NAVs and modelled estimates are separate columns; "
+                "a blank means we hold no value, never a filled-in one.")
+        sent = notify(f"universe spreadsheet {stamp}", body,
+                      attachments=[str(path)])
+        print("emailed:", sent)
     Path("reports/build/universe_sheet.json").write_text(
         json.dumps({**summary, "emailed": sent, "file": str(path)}, indent=2, default=str))
     return 0
 
 
 def ideas() -> int:
-    """Pre-open idea scan: catalysts + dislocation + return, emailed.
+    """Pre-open brief: the day's actionable ideas + the universe workbook.
 
-    Reads what the nightly produced (live table, catalysts, IRR), applies
-    the three pre-specified gates, writes every verdict to the point-in-time
-    ledger, and emails only what clears. Run once per market before its
-    open - the horizon is months to years, so nothing here needs to repeat
-    during a session.
+    This is one of the only two scheduled emails of the day (pre-LSE and
+    pre-ASX open; owner instruction 2026-09-01, config/CHANGELOG.md). It
+    always sends - an empty day says so explicitly - and always attaches
+    the full universe workbook, so the inbox carries everything: the
+    OPPORTUNITY/WATCH verdicts, the per-trigger lists (dislocation z,
+    forward IRR >= the fixed hurdle, high-weight catalysts), and the
+    complete live universe behind them.
     """
     params = _params()
     live = pd.read_parquet("data/nta_live/latest.parquet")
@@ -546,15 +562,22 @@ def ideas() -> int:
     cp = Path("outputs/live/catalysts_recent.csv")
     if cp.exists():
         cats = pd.read_csv(cp)
+
+    # Build the workbook FIRST: it refreshes data/forward_irr/latest.parquet,
+    # so the IRR gate below judges today's NAVs, not yesterday's commit. A
+    # workbook failure must not cost the ideas email - the brief still goes,
+    # naming the failure instead of attaching silence.
+    wb_path, wb_summary, wb_error = None, {}, None
+    try:
+        wb_path, wb_summary = build_universe_workbook()
+    except Exception as exc:  # noqa: BLE001
+        wb_error = str(exc)
+        print(f"universe workbook failed ({exc}); brief will say so")
+
     irr = None
     ip = Path("data/forward_irr/latest.parquet")
     if ip.exists():
         irr = pd.read_parquet(ip)
-
-    # one hurdle PER MARKET, from that market's own panel
-    hurdle_base = {m: opportunities.universe_trailing_tr(pan)
-                   for m, pan in panels_by_market().items()}
-    hurdle_base = {m: v for m, v in hurdle_base.items() if v is not None} or None
 
     # a fund that may no longer exist must not generate an idea
     rp = Path("data/universe/registry.parquet")
@@ -566,7 +589,7 @@ def ideas() -> int:
         live = live[live["security_id"].isin(keep)]
         print(f"universe filter: {before} -> {len(live)} live funds evaluated")
 
-    verdicts = opportunities.evaluate(live, cats, irr, params, hurdle_base)
+    verdicts = opportunities.evaluate(live, cats, irr, params)
     # ledger write and signal emission are one step: the email is rendered
     # FROM the ledger rows, so an idea cannot be sent without being recorded
     rows = opportunities.append_ledger(verdicts, "data/ledger/signals.parquet")
@@ -574,56 +597,118 @@ def ideas() -> int:
     if len(verdicts):
         verdicts.to_csv("outputs/live/ideas_latest.csv", index=False)
 
-    opps = verdicts[verdicts["verdict"] == "OPPORTUNITY"] if len(verdicts) else verdicts
-    watch = verdicts[verdicts["verdict"] == "WATCH"] if len(verdicts) else verdicts
-    excess = params["opportunity"]["irr_hurdle_excess_pp"] / 100.0
-    summary = {"evaluated": int(len(live)), "opportunities": int(len(opps)),
-               "watch": int(len(watch)), "ledger_rows": rows,
-               "hurdle_base_by_market": hurdle_base,
-               "hurdle_by_market": None if not hurdle_base else
-               {m: round(v + excess, 4) for m, v in hurdle_base.items()}}
-    Path("reports/build").mkdir(parents=True, exist_ok=True)
-    Path("reports/build/ideas.json").write_text(json.dumps(summary, indent=2, default=str))
-    print(json.dumps(summary, indent=2, default=str))
+    empty = verdicts.iloc[0:0]
+    opps = verdicts[verdicts["verdict"] == "OPPORTUNITY"] if len(verdicts) else empty
+    watch = verdicts[verdicts["verdict"] == "WATCH"] if len(verdicts) else empty
+    min_irr = float(params["opportunity"]["min_irr_central"])
+
+    def _num(v, spec):
+        # verdict fields round-trip through a DataFrame, so a None written
+        # by evaluate() can come back as NaN - both must read "n/a"
+        return "n/a" if v is None or pd.isna(v) else format(float(v), spec)
 
     def _fmt(df, head):
         out = [head]
         for r in df.itertuples(index=False):
             out.append(f"\n  {r.name} ({r.market})")
-            out.append(f"    discount {r.discount_est:+.1%}  z {r.z_adj:+.2f}  "
-                       f"IRR {('n/a' if r.irr_central is None else f'{r.irr_central:+.1%}')}"
-                       f"  vs hurdle {('n/a' if r.hurdle is None else f'{r.hurdle:+.1%}')}")
-            if r.catalyst_class:
-                out.append(f"    catalyst: {r.catalyst_class} ({r.catalyst_date}) "
-                           f"- {(r.catalyst_headline or '')[:80]}")
+            out.append(f"    discount {_num(r.discount_est, '+.1%')}  "
+                       f"z {_num(r.z_adj, '+.2f')}  "
+                       f"IRR {_num(r.irr_central, '+.1%')}"
+                       f"  (hurdle {min_irr:+.1%})")
+            if isinstance(r.catalyst_class, str) and r.catalyst_class:
+                head_txt = (r.catalyst_headline
+                            if isinstance(r.catalyst_headline, str) else "")
+                out.append(f"    catalyst: {r.catalyst_class} "
+                           f"({r.catalyst_date}) - {head_txt[:80]}")
             gates = [g for g, ok in (("dislocation", r.gate1_dislocation),
                                      ("catalyst", r.gate2_catalyst),
                                      ("return", r.gate3_return)) if ok]
             out.append(f"    gates passed: {', '.join(gates)}")
         return "\n".join(out)
 
-    from .notify import notify
-    if len(opps) or len(watch):
-        body = []
-        if len(opps):
-            body.append(_fmt(opps, f"{len(opps)} OPPORTUNITY - all three gates:"))
-        if len(watch):
-            body.append(_fmt(watch.head(12), f"\n{len(watch)} WATCH - two of three:"))
-        hb = ("n/a" if not hurdle_base else
-              ", ".join(f"{m} {v:.1%}" for m, v in sorted(hurdle_base.items())))
-        body.append(f"\n\nHurdle: trailing universe return per market "
-                    f"({hb}) + "
-                    f"{params['opportunity']['irr_hurdle_excess_pp']:.0f}pp.")
-        body.append("Every verdict above is recorded in the paper-trade ledger "
-                    "at signal time, whether or not you act on it.")
-        notify(f"{len(opps)} opportunity, {len(watch)} watch",
-               "\n".join(body),
-               priority="critical" if len(opps) else "normal")
+    # per-trigger lists: each WATCH row appears once, under its strongest basis
+    if len(watch):
+        disl = watch[watch["gate1_dislocation"]].sort_values("z_adj")
+        irr_led = watch[~watch["gate1_dislocation"]
+                        & watch["gate3_return"]].sort_values("irr_central",
+                                                             ascending=False)
+        cat_led = watch[~watch["gate1_dislocation"] & ~watch["gate3_return"]
+                        & watch["gate2_catalyst"]]
     else:
-        notify("no ideas today",
-               f"Scanned {len(live)} funds. Nothing cleared two gates.\n"
-               "Silence here means the scan ran and found nothing, not that "
-               "it failed to run.", priority="heartbeat")
+        disl = irr_led = cat_led = empty
+
+    body = []
+    if len(opps):
+        body.append(_fmt(opps, f"{len(opps)} ACTIONABLE - dislocated, "
+                               f"catalyst live, IRR >= {min_irr:.0%}, data "
+                               "fully sound:"))
+    else:
+        body.append("No fund clears all three gates on fully sound data "
+                    "today.")
+    if len(disl):
+        body.append(_fmt(disl.head(20),
+                         f"\n{len(disl)} dislocated vs own history "
+                         f"(z <= {params['opportunity']['z_threshold']}):"))
+    if len(irr_led):
+        body.append(_fmt(irr_led.head(15),
+                         f"\n{len(irr_led)} at forward IRR >= {min_irr:.0%} "
+                         "(not dislocated):"))
+    if len(cat_led):
+        body.append(_fmt(cat_led,
+                         f"\n{len(cat_led)} with a high-weight catalyst "
+                         "(tender / scheme / continuation / wind-down):"))
+    if not (len(opps) or len(watch)):
+        body.append(f"\nScanned {len(live)} funds. Nothing is actionable on "
+                    "z-score, forward IRR or catalyst today. This email is "
+                    "the proof the scan ran; silence would mean failure.")
+
+    dr = Path("outputs/live/delist_review.csv")
+    n_delist = 0
+    if dr.exists():
+        try:
+            n_delist = len(pd.read_csv(dr))
+        except Exception:  # noqa: BLE001
+            pass
+    tail = [f"\n\nScanned {len(live)} live funds."]
+    if wb_summary:
+        tail.append(f"Universe workbook attached: {wb_summary['rows']} funds "
+                    f"({wb_summary['live']} live), "
+                    f"{wb_summary['with_live_nav']} with a live NAV, "
+                    f"{wb_summary['with_irr']} with a forward IRR, "
+                    f"{wb_summary.get('catalysts', 0)} catalysts (30d).")
+    if wb_error:
+        tail.append(f"Universe workbook FAILED to build: {wb_error}")
+    if n_delist:
+        tail.append(f"{n_delist} fund(s) awaiting delisting review "
+                    "(delist_review.csv in the repo).")
+    tail.append("Every verdict above is recorded in the paper-trade ledger "
+                "at signal time, whether or not you act on it.")
+    body.append("\n".join(tail))
+
+    # which open is this brief for? The scheduler runs 06:20 UTC (pre-LSE)
+    # and 23:10 UTC (pre-ASX); anything late still labels itself correctly.
+    hour = datetime.now(timezone.utc).hour
+    label = "pre-ASX open" if (hour >= 15 or hour < 3) else "pre-LSE open"
+    subject = (f"{label}: {len(opps)} actionable, {len(watch)} watch"
+               if len(verdicts) else f"{label}: no new ideas")
+
+    from .notify import notify
+    sent = notify(subject, "\n".join(body),
+                  priority="critical" if len(opps) else "normal",
+                  attachments=[str(wb_path)] if wb_path else None)
+
+    summary = {"generated_at": datetime.now(timezone.utc)
+               .isoformat(timespec="seconds"),
+               "brief": label,
+               "evaluated": int(len(live)), "opportunities": int(len(opps)),
+               "watch": int(len(watch)), "ledger_rows": rows,
+               "min_irr_central": min_irr,
+               "emailed": bool(sent),
+               "workbook": None if wb_path is None else str(wb_path),
+               "workbook_error": wb_error}
+    Path("reports/build").mkdir(parents=True, exist_ok=True)
+    Path("reports/build/ideas.json").write_text(json.dumps(summary, indent=2, default=str))
+    print(json.dumps(summary, indent=2, default=str))
     return 0
 
 
@@ -861,8 +946,10 @@ def nightly(markets: list[str]) -> int:
     Path("reports/build/phase1_nightly.json").write_text(
         json.dumps(accept, indent=2, default=str))
 
-    # daily heartbeat - silence must be distinguishable from failure
-    from .notify import notify
+    # NOT emailed: the two daily pre-open briefs are the only scheduled
+    # emails (owner instruction 2026-09-01, config/CHANGELOG.md). The
+    # always-sent briefs now carry the liveness signal; this summary goes
+    # to the log and the acceptance report instead.
     top = out[out["alert_eligible"] & out["z_adj"].notna()].nsmallest(5, "z_adj")
     lines = [f"  {r.security_id:>16}  z={r.z_adj:+.2f}  disc={r.discount_est:+.1%}"
              f"  basis={r.basis} stale={r.staleness_days}d"
@@ -880,14 +967,13 @@ def nightly(markets: list[str]) -> int:
             label = str(nm) if isinstance(nm, str) and nm.strip() else str(r.security_id)
             cat_lines.append(f"  {r.date}  {label[:34]:<34} "
                              f"{r.catalyst_class}{z}")
-    notify(f"nightly OK - {len(out)} funds, {int(out['alert_eligible'].sum())} eligible"
-           + (f", {catalysts.summarise(cats)['catalysts']} catalysts" if len(cats) else ""),
-           "Nightly live NTA table built.\n"
-           f"Basis counts: {basis_counts}\nSnapshot: {notes['snapshot']}\n"
-           f"Deepest eligible dislocations:\n" + "\n".join(lines)
-           + ("\n\nCatalysts announced (last 30 days):\n" + "\n".join(cat_lines)
-              if cat_lines else "\n\nNo catalysts in the last 30 days."),
-           priority="heartbeat")
+    print(f"nightly OK - {len(out)} funds, "
+          f"{int(out['alert_eligible'].sum())} eligible"
+          + (f", {catalysts.summarise(cats)['catalysts']} catalysts" if len(cats) else "")
+          + f"\nBasis counts: {basis_counts}\nSnapshot: {notes['snapshot']}\n"
+          f"Deepest eligible dislocations:\n" + "\n".join(lines)
+          + ("\n\nCatalysts announced (last 30 days):\n" + "\n".join(cat_lines)
+             if cat_lines else "\n\nNo catalysts in the last 30 days."))
     print(json.dumps({k: accept[k] for k in
                       ("rows", "basis_counts", "share_with_sigma",
                        "alert_eligible", "snapshot")}, default=str))
@@ -912,7 +998,10 @@ def main() -> int:
     sub.add_parser("universe")
     rt = sub.add_parser("resolve-tickers")
     rt.add_argument("--budget", type=int, default=400)
-    sub.add_parser("universe-sheet")
+    us = sub.add_parser("universe-sheet")
+    us.add_argument("--email", action="store_true",
+                    help="also email the workbook (scheduled runs never do; "
+                         "the two daily pre-open briefs attach it instead)")
     sub.add_parser("ideas")
     ud = sub.add_parser("uk-daily", help="daily UK NAV/price/discount panel")
     ud.add_argument("--stages", default="nav,prices,discount",
@@ -940,7 +1029,7 @@ def main() -> int:
     if args.cmd == "resolve-tickers":
         return resolve_tickers(args.budget)
     if args.cmd == "universe-sheet":
-        return universe_sheet()
+        return universe_sheet(email=args.email)
     if args.cmd == "ideas":
         return ideas()
     if args.cmd == "nightly":

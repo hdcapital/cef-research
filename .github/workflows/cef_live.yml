@@ -100,22 +100,19 @@ jobs:
       - name: Resolve tickers for unpriced funds
         run: python -m cef_live.cli resolve-tickers --budget 400
 
+      # No Gmail secrets anywhere in this workflow ON PURPOSE: the two
+      # daily pre-open briefs (ideas.yml) are the only scheduled emails
+      # (owner instruction 2026-09-01, config/CHANGELOG.md). This job
+      # builds and commits; the briefs attach what it built.
       - name: Nightly live NTA table
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
           S3_BUCKET: ${{ secrets.S3_BUCKET }}
-          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
-          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
-          ALERT_EMAIL_TO: ${{ secrets.ALERT_EMAIL_TO }}
         run: python -m cef_live.cli nightly --markets au,uk
 
-      - name: Universe spreadsheet (emailed)
-        env:
-          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
-          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
-          ALERT_EMAIL_TO: ${{ secrets.ALERT_EMAIL_TO }}
+      - name: Universe spreadsheet (built and committed, not emailed)
         run: python -m cef_live.cli universe-sheet
 
       - name: Persist state to S3

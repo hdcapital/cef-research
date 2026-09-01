@@ -1,13 +1,15 @@
 name: cef-ideas
 
-# Pre-open idea scan. Reads the overnight announcement flow, classifies
-# catalysts, checks each fund's dislocation and forward return against the
-# pre-specified hurdle, writes every verdict to the paper-trade ledger, and
-# emails only what clears.
+# Pre-open brief - the ONLY two scheduled emails of the day (owner
+# instruction 2026-09-01, config/CHANGELOG.md). Reads the overnight
+# announcement flow, classifies catalysts, judges every fund on the three
+# pre-specified triggers (own-history dislocation z, forward IRR vs the
+# fixed 15% hurdle, high-weight catalyst), writes every verdict to the
+# paper-trade ledger, and ALWAYS emails - the day's actionable ideas plus
+# the full universe workbook attached; an empty day says so explicitly.
 #
 # Timing: once per market, before its open, so an idea arrives while it can
-# still be acted on. The horizon is months to years - positions built over
-# days or weeks - so nothing here repeats during a session.
+# still be acted on.
 #   UK  06:20 UTC = 07:20 London (RNS opens 07:00, market 08:00)
 #   AU  23:10 UTC = 09:10 Sydney next day (market opens 10:00)
 # Both are UTC-pinned; the Cloudflare scheduler handles DST if it takes
@@ -115,12 +117,31 @@ jobs:
           S3_BUCKET: ${{ secrets.S3_BUCKET }}
         run: python -m cef_live.cli nightly --markets au,uk
 
-      - name: Score ideas and email
+      - name: Score ideas and email the brief
         env:
           GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           ALERT_EMAIL_TO: ${{ secrets.ALERT_EMAIL_TO }}
         run: python -m cef_live.cli ideas
+
+      # The brief IS the product: a scan that ran but could not email, or a
+      # run that silently skipped the scan, must fail loudly here rather
+      # than surface as weeks of unexplained inbox silence - which is
+      # exactly how the first version of this workflow died unnoticed.
+      - name: Assert the scan ran and the brief was sent
+        run: |
+          python - <<'PY'
+          import datetime as dt, json
+          d = json.load(open("reports/build/ideas.json"))
+          today = dt.datetime.now(dt.timezone.utc).date().isoformat()
+          assert str(d.get("generated_at", ""))[:10] == today, \
+              f"ideas.json is stale: {d.get('generated_at')!r}"
+          assert d.get("emailed") is True, \
+              "the scan ran but the brief was not delivered"
+          assert d.get("workbook"), "no universe workbook was attached"
+          print("brief sent:", d["brief"], "| opportunities:",
+                d["opportunities"], "| watch:", d["watch"])
+          PY
 
       - name: Persist state to S3
         if: always()

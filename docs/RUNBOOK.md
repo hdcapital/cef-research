@@ -169,8 +169,8 @@ premiums of 80x-5,000x; the fix is at the reader, never at the output.
 
 | Job | When | Purpose |
 |---|---|---|
-| `cef-ideas` | 07:20 London, 09:10 Sydney | Pre-open scan: announcements -> catalysts -> gates -> email |
-| `cef-live-nightly` | 21:00 UTC weekdays | Registry, tickers, NAV, IRR, universe spreadsheet |
+| `cef-ideas` | 07:20 London, 09:10 Sydney | Pre-open brief: announcements -> catalysts -> gates -> **the only two emails of the day**, each with the universe workbook attached |
+| `cef-live-nightly` | 21:00 UTC weekdays | Registry, tickers, NAV, IRR, universe spreadsheet (built + committed, not emailed) |
 | `asx-s3-archive` / `uk-nav-archive` | daily, 6 shards | Raw document archive to S3 |
 | `uk-daily-discount` | 18:40 UTC weekdays | UK NAV (from S3) + daily close -> daily discount panel |
 

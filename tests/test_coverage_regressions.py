@@ -208,7 +208,7 @@ def test_the_idea_scan_never_scores_a_research_excluded_vehicle():
         {"security_id": s, "catalyst_class": "tender", "weight": 1.0,
          "date": pd.Timestamp.utcnow().date().isoformat(), "headline": "h"}
         for s in ("OK", "NO")])
-    got = opportunities.evaluate(live, cats, None, _params(), hurdle_base=None)
+    got = opportunities.evaluate(live, cats, None, _params())
     assert len(got), "the eligible fund should still produce a verdict"
     assert set(got["security_id"]) == {"OK"}, (
         "an excluded vehicle produced an idea")
@@ -270,12 +270,16 @@ def test_an_asx_benchmark_series_is_not_a_fund():
 
 # ------------------------------------------------------ 4. UK vs AU history
 
-def test_each_market_gets_its_own_panel_and_its_own_hurdle():
-    """A UK trailing return is not a hurdle for an Australian LIC.
+def test_each_market_gets_its_own_panel_and_one_shared_hurdle():
+    """Each market keeps its own panel; gate 3 is one absolute number.
 
     `universe_trailing_tr` looked only for `nav_tr_cagr_*`, which the AU
-    panel does not have (it names them `nta_tr_cagr_*`), so gate 3 was
-    computed from UK history and applied to every fund in both markets.
+    panel does not have (it names them `nta_tr_cagr_*`), so a per-market
+    trailing return silently disappeared for AU. It survives as reported
+    context. The IRR hurdle itself is a fixed `min_irr_central` since
+    2026-09-01 (owner instruction, config/CHANGELOG.md): the required
+    return is the owner's, so identical funds in different markets are
+    judged identically.
     """
     assert cli.PANEL_PATHS["UK"].startswith("data/processed")
     assert cli.PANEL_PATHS["AU"].startswith("data/au_processed")
@@ -287,8 +291,9 @@ def test_each_market_gets_its_own_panel_and_its_own_hurdle():
     assert opportunities.universe_trailing_tr(au) == pytest.approx(0.05)
     assert opportunities.universe_trailing_tr(uk) == pytest.approx(0.09)
 
-    # identical funds in the two markets, identical 16% forward IRR: the
-    # only thing that can separate them is whose hurdle they are judged on
+    params = _params()
+    min_irr = params["opportunity"]["min_irr_central"]
+    assert min_irr == pytest.approx(0.15)
     live = pd.DataFrame([
         {"security_id": "SEDOL:1", "market": "UK", "name": "UK fund",
          "research_eligible": True, "z_adj": -3.0, "staleness_days": 1,
@@ -297,19 +302,49 @@ def test_each_market_gets_its_own_panel_and_its_own_hurdle():
          "research_eligible": True, "z_adj": -3.0, "staleness_days": 1,
          "basis": 0, "discount_est": -0.1}])
     irr = pd.DataFrame([{"security_id": "SEDOL:1", "irr_central": 0.16},
-                        {"security_id": "ASX:1", "irr_central": 0.16}])
+                        {"security_id": "ASX:1", "irr_central": 0.14}])
+    got = opportunities.evaluate(live, None, irr, params).set_index("security_id")
+    assert got.loc["ASX:1", "hurdle"] == pytest.approx(min_irr)
+    assert got.loc["SEDOL:1", "hurdle"] == pytest.approx(min_irr)
+    # 16% clears the fixed hurdle; 14% misses it - market plays no part
+    assert got.loc["SEDOL:1", "gate3_return"]
+    assert not got.loc["ASX:1", "gate3_return"]
+
+
+def test_a_single_strong_trigger_is_a_watch_and_a_weak_one_is_not():
+    """The owner's brief: anything actionable on z, IRR or catalyst shows.
+
+    Requiring two gates hid a z -2.5 fund with no catalyst and no IRR
+    coverage. A routine buyback-programme headline alone is the opposite
+    problem - 91 of the last 30 days' 117 catalysts are discount_control
+    noise - so a catalyst carries a verdict on its own only at weight >=
+    `standalone_catalyst_weight`.
+    """
+    today = pd.Timestamp.utcnow().date().isoformat()
+    base = {"market": "UK", "research_eligible": True, "staleness_days": 1,
+            "basis": 0, "discount_est": -0.20}
+    live = pd.DataFrame([
+        {**base, "security_id": "Z", "name": "Dislocated only", "z_adj": -2.5},
+        {**base, "security_id": "I", "name": "IRR only", "z_adj": 0.0},
+        {**base, "security_id": "CW4", "name": "Tender only", "z_adj": 0.0},
+        {**base, "security_id": "CW3", "name": "Buyback only", "z_adj": 0.0},
+        {**base, "security_id": "STALE", "name": "IRR on a carried NAV",
+         "z_adj": 0.0, "basis": 3, "staleness_days": 200}])
+    irr = pd.DataFrame([{"security_id": "I", "irr_central": 0.22},
+                        {"security_id": "STALE", "irr_central": 0.22}])
     cats = pd.DataFrame([
-        {"security_id": s_, "catalyst_class": "tender", "weight": 1.0,
-         "date": pd.Timestamp.utcnow().date().isoformat(), "headline": "h"}
-        for s_ in ("SEDOL:1", "ASX:1")])
-    got = opportunities.evaluate(live, cats, irr, _params(),
-                                 hurdle_base={"UK": 0.09, "AU": 0.05}
-                                 ).set_index("security_id")
-    assert got.loc["ASX:1", "hurdle"] == pytest.approx(0.13)
-    assert got.loc["SEDOL:1", "hurdle"] == pytest.approx(0.17)
-    # 16% clears the Australian hurdle and misses the UK one
-    assert got.loc["ASX:1", "gate3_return"]
-    assert not got.loc["SEDOL:1", "gate3_return"]
+        {"security_id": "CW4", "catalyst_class": "tender_offer", "weight": 4.0,
+         "date": today, "headline": "off-market tender"},
+        {"security_id": "CW3", "catalyst_class": "discount_control",
+         "weight": 3.0, "date": today, "headline": "buyback programme"}])
+    got = opportunities.evaluate(live, cats, irr, _params())
+    verdicts = dict(zip(got["security_id"], got["verdict"]))
+    assert verdicts.get("Z") == "WATCH", "a lone dislocation must surface"
+    assert verdicts.get("I") == "WATCH", "a lone passing IRR must surface"
+    assert verdicts.get("CW4") == "WATCH", "a tender alone must surface"
+    assert "CW3" not in verdicts, "a routine buyback alone is not an idea"
+    assert "STALE" not in verdicts, (
+        "an IRR computed off a stale carried NAV evidenced a return")
 
 
 def test_forward_irr_never_scores_a_fund_against_another_markets_panel():
@@ -437,7 +472,7 @@ def test_a_unit_error_can_never_become_an_opportunity():
         {"security_id": s, "catalyst_class": "tender", "weight": 1.0,
          "date": pd.Timestamp.utcnow().date().isoformat(), "headline": "h"}
         for s in ("GOOD", "LTI", "REUSED")])
-    got = opportunities.evaluate(live, cats, None, _params(), hurdle_base=None)
+    got = opportunities.evaluate(live, cats, None, _params())
     assert set(got["security_id"]) == {"GOOD"}, (
         f"a gated row was scored: {sorted(set(got['security_id']))}")
 
@@ -593,8 +628,8 @@ def test_an_amber_row_may_be_watched_but_never_called_an_opportunity():
         {"security_id": s, "catalyst_class": "tender", "weight": 1.0,
          "date": pd.Timestamp.utcnow().date().isoformat(), "headline": "h"}
         for s in ("CLEAN", "AMBER")])
-    got = opportunities.evaluate(live, cats, irr, _params(),
-                                 hurdle_base={"UK": 0.05}).set_index("security_id")
+    got = opportunities.evaluate(live, cats, irr,
+                                 _params()).set_index("security_id")
     assert got.loc["CLEAN", "verdict"] == "OPPORTUNITY"
     assert got.loc["AMBER", "gates_passed"] == 3, "it really does clear all three"
     assert got.loc["AMBER", "verdict"] == "WATCH", (

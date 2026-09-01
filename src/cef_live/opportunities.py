@@ -8,12 +8,20 @@ rather than judged:
                  anchor no more than `max_staleness_days` old, basis <= 2.
                  A stale NAV cannot evidence a dislocation.
   2 CATALYST     an announcement in the fixed taxonomy within the window.
-  3 RETURN       forward IRR >= trailing universe total return + hurdle,
-                 expressed as excess so it survives a regime change.
+  3 RETURN       forward IRR >= `min_irr_central`, a fixed absolute hurdle
+                 (owner instruction 2026-09-01: 15% - see
+                 config/CHANGELOG.md), on a NAV fresh and sound enough to
+                 support an IRR at all.
 
-Verdict ladder: NONE -> WATCH (2 of 3) -> OPPORTUNITY (all 3). Every
-verdict records which gates passed and the numbers behind them, so a
-rejected idea is auditable and a later change of mind is visible.
+Verdict ladder: OPPORTUNITY = all three gates on fully sound data.
+WATCH = two gates, or any single gate strong enough to act on alone -
+a dislocation, a passing IRR, or a catalyst of weight
+`standalone_catalyst_weight` or more (tender / scheme / continuation
+vote / wind-down). A routine buyback or holder notice on its own is not
+an idea; it still counts toward a two-gate WATCH and stays visible in
+the universe workbook's Catalysts sheet. Every verdict records which
+gates passed and the numbers behind them, so a rejected idea is
+auditable and a later change of mind is visible.
 
 The horizon this serves is months to years: positions built over days or
 weeks. Nothing here is time-critical within a session.
@@ -28,18 +36,17 @@ import pandas as pd
 
 
 def universe_trailing_tr(hist: pd.DataFrame, years: int = 5) -> float | None:
-    """Median annualised total return across the universe - the hurdle base.
+    """Median annualised total return across the universe - context only.
 
-    Computed from the panel rather than hard-coded so the hurdle tracks the
-    regime. Returns None when the panel cannot support it; the caller then
-    has no gate 3 rather than a guessed one.
+    Gate 3 no longer uses this (the hurdle is a fixed absolute
+    `min_irr_central` since 2026-09-01); it is kept for reporting so an
+    email can state what the universe itself has been returning.
 
     ONE MARKET AT A TIME. Passing a combined frame would compare an
-    Australian LIC against a UK hurdle; callers pass each market's own
-    panel and get that market's own hurdle (see cli._hurdle_by_market).
-    The AU panel names its CAGR columns ``nta_tr_cagr_*`` and the UK one
-    ``nav_tr_cagr_*``; both are recognised, because looking for only the UK
-    spelling returned None for AU and silently disabled gate 3 there.
+    Australian LIC against a UK number. The AU panel names its CAGR
+    columns ``nta_tr_cagr_*`` and the UK one ``nav_tr_cagr_*``; both are
+    recognised, because looking for only the UK spelling returned None for
+    AU and silently disabled the old gate 3 there.
     """
     for col in ("nav_tr_cagr_5y", "nav_tr_cagr_3y",
                 "nta_tr_cagr_5y", "nta_tr_cagr_3y"):
@@ -53,25 +60,19 @@ def universe_trailing_tr(hist: pd.DataFrame, years: int = 5) -> float | None:
 
 def evaluate(live: pd.DataFrame, cats: pd.DataFrame | None,
              irr: pd.DataFrame | None, params: dict,
-             hurdle_base: float | dict | None,
              catalyst_window_days: int = 30) -> pd.DataFrame:
-    """One row per fund with a live catalyst OR a qualifying dislocation.
+    """One row per fund with a qualifying dislocation, return or catalyst.
 
-    hurdle_base: a single trailing-universe return, or a {market: return}
-    mapping so each market is judged against its own universe. A UK number
-    applied to Australian funds is not a hurdle, it is a different market's
-    hurdle.
+    The IRR hurdle is the fixed absolute `opportunity.min_irr_central` -
+    the same number for every market, because it expresses the owner's
+    required return, not a market's trailing performance.
     """
     op = params["opportunity"]
     z_thr = float(op["z_threshold"])
     max_stale = int(op["max_staleness_days"])
     max_basis = int(op["max_basis"])
-    excess = float(op["irr_hurdle_excess_pp"]) / 100.0
-    need_watch = int(op["watch_gates_required"])
-
-    def _hurdle_for(mkt) -> float | None:
-        base = hurdle_base.get(mkt) if isinstance(hurdle_base, dict) else hurdle_base
-        return None if base is None else float(base) + excess
+    min_irr = float(op["min_irr_central"])
+    solo_cat_w = float(op["standalone_catalyst_weight"])
 
     df = live.copy()
 
@@ -127,11 +128,18 @@ def evaluate(live: pd.DataFrame, cats: pd.DataFrame | None,
                   and pd.notna(stale) and stale <= max_stale
                   and pd.notna(basis) and basis <= max_basis)
         g2 = bool(pd.notna(getattr(r, "catalyst_class", np.nan)))
+        cat_w = getattr(r, "weight", np.nan)
         irr_v = getattr(r, "irr_central", np.nan)
-        hurdle = _hurdle_for(getattr(r, "market", None))
-        g3 = bool(hurdle is not None and pd.notna(irr_v) and irr_v >= hurdle)
+        # An IRR built on a stale or carried NAV is not evidence of a
+        # return; gate 3 demands the same anchor freshness as gate 1.
+        g3 = bool(pd.notna(irr_v) and irr_v >= min_irr
+                  and pd.notna(stale) and stale <= max_stale
+                  and pd.notna(basis) and basis <= max_basis)
 
         passed = int(g1) + int(g2) + int(g3)
+        # Strong enough to stand alone: a dislocation, a passing IRR, or a
+        # high-weight catalyst. A routine buyback headline by itself is not.
+        standalone = g1 or g3 or (g2 and pd.notna(cat_w) and cat_w >= solo_cat_w)
         # OPPORTUNITY is reserved for a row whose DATA is fully sound.
         # alert_eligible is that verdict, computed on the row itself: a
         # current z-score, a NAV inside the staleness cap, basis <= 2, and
@@ -142,7 +150,7 @@ def evaluate(live: pd.DataFrame, cats: pd.DataFrame | None,
         clean = bool(getattr(r, "alert_eligible", True))
         if passed == 3 and clean:
             verdict = "OPPORTUNITY"
-        elif passed >= need_watch:
+        elif passed >= 2 or standalone:
             verdict = "WATCH"
         else:
             verdict = "NONE"
@@ -163,8 +171,9 @@ def evaluate(live: pd.DataFrame, cats: pd.DataFrame | None,
             "catalyst_class": getattr(r, "catalyst_class", None),
             "catalyst_date": getattr(r, "catalyst_date", None),
             "catalyst_headline": getattr(r, "headline", None),
+            "catalyst_weight": None if pd.isna(cat_w) else float(cat_w),
             "irr_central": None if pd.isna(irr_v) else round(float(irr_v), 4),
-            "hurdle": None if hurdle is None else round(hurdle, 4),
+            "hurdle": round(min_irr, 4),
             "evaluated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         })
     out = pd.DataFrame(rows)
