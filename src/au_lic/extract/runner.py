@@ -526,7 +526,9 @@ def run_deterministic(limit: int = 0, deadline_min: float = 300.0) -> dict:
                                 "reason": "no_text_layer_needs_ocr"})
             done.add(rec["announcement_id"])
             continue
-        facts = deterministic.extract(rec["family"], text, tbl, rec.get("headline") or "")
+        facts = deterministic.extract(rec["family"], text, tbl,
+                                      rec.get("headline") or "",
+                                      ticker=rec.get("ticker"))
         if not facts:
             stats["escalated"] += 1
             escalations.append({**{k: rec[k] for k in

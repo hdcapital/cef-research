@@ -49,6 +49,14 @@ def _parser_version() -> str:
                 / "scripts" / "sample_nta_pdfs.py").read_bytes()
     except OSError:
         pass
+    # the learned label rules are parsing code by another name: when they
+    # change, the corpus must reparse under them
+    import glob as _g
+    for f in sorted(_g.glob("outputs/au/au_nta_label_rules*.csv")):
+        try:
+            src += Path(f).read_bytes()
+        except OSError:
+            continue
     return f"{_z.crc32(src) & 0xffffffff:08x}"
 
 
@@ -178,8 +186,86 @@ def normalise_nta_text(text: str) -> str:
 
 
 # ------------------------------------------------------------------ NTA / NAV
-def extract_nta(text: str, rows: list[list[str]], headline: str) -> list[dict]:
-    """Stated per-share NTA via the already-validated parser."""
+_LABEL_RULES: dict[str, list[tuple[str, str]]] | None = None
+
+
+def _label_rules() -> dict[str, list[tuple[str, str]]]:
+    """Per-fund learned NTA labels, from label discovery's promoted rules.
+
+    Discovery learned, against the exchange's own published NTA, WHICH
+    label on each fund's page carries the figure - and then nothing ever
+    read the table it wrote. The mismatch tape showed why that matters:
+    HCF's scored parse sat 343x off the exchange for ten straight months
+    because the generic parser kept choosing a different number on the
+    page. Only vocabulary-bearing promoted rules load (the NAV_VOCAB
+    clause exists because the first run promoted a registered-office
+    address), pre-tax labels first per the system's basis convention.
+    """
+    global _LABEL_RULES
+    if _LABEL_RULES is None:
+        import glob
+        rules: dict[str, list[tuple[str, str]]] = {}
+        frames = []
+        for f in sorted(glob.glob("outputs/au/au_nta_label_rules*.csv")):
+            try:
+                frames.append(pd.read_csv(f))
+            except Exception:  # noqa: BLE001
+                continue
+        if frames:
+            df = pd.concat(frames, ignore_index=True)
+            need = {"ticker", "label", "unit", "is_rule", "has_nav_vocab",
+                    "months_supporting"}
+            if need <= set(df.columns):
+                df = df[df["is_rule"].fillna(False).astype(bool)
+                        & df["has_nav_vocab"].fillna(False).astype(bool)]
+                df["pre"] = df["label"].fillna("").str.contains(
+                    r"pre tax|before tax", regex=True)
+                df = df.sort_values(["pre", "months_supporting"],
+                                    ascending=[False, False])
+                for t, g in df.groupby(df["ticker"].astype(str).str.upper()):
+                    seen, lst = set(), []
+                    for r in g.itertuples(index=False):
+                        if r.label in seen:
+                            continue
+                        seen.add(r.label)
+                        lst.append((str(r.label), str(r.unit)))
+                    rules[t] = lst
+        _LABEL_RULES = rules
+    return _LABEL_RULES
+
+
+def extract_nta(text: str, rows: list[list[str]], headline: str,
+                ticker: str | None = None) -> list[dict]:
+    """Stated per-share NTA - the fund's own learned label first, then the
+    already-validated generic parser."""
+    if ticker:
+        learned = _label_rules().get(str(ticker).upper())
+        if learned:
+            from . import label_discovery as LD
+            cands = LD.candidates(text, rows)
+            for label, unit in learned:
+                # the candidate label is the word-window before the number,
+                # so the learned label is its TAIL - suffix match, so extra
+                # leading context ("...investment update pre tax nta per
+                # share") still finds the rule
+                for c in cands:
+                    if not c["label"].endswith(label):
+                        continue
+                    if c["unit"] != unit:
+                        continue        # a unit flip is not the same figure
+                    v = c["value"] / 100.0 if c["unit"] == "cents" else c["value"]
+                    if not 0.005 <= v <= 60:
+                        continue        # outside any plausible ASX NTA/share
+                    basis = ("pre_tax" if re.search(r"pre tax|before tax", label)
+                             else "post_tax" if re.search(r"after tax|post tax",
+                                                          label)
+                             else "unknown")
+                    return [{"section": "nav_observations",
+                             "valuation_date": _asat(normalise_nta_text(text),
+                                                     headline),
+                             "nav_per_share": v, "unit": c["unit"],
+                             "nav_basis": basis, "raw_nav_label": label,
+                             "extractor": "nta_label_rule_v1"}]
     clean = normalise_nta_text(text)
     got = P.derive_stated({"status": "extracted", "text": clean, "rows": rows})
     if got.get("status") != "parsed" and clean != text:
@@ -463,12 +549,16 @@ FAMILY_EXTRACTORS = {
 }
 
 
-def extract(family: str, text: str, rows: list[list[str]], headline: str) -> list[dict]:
+def extract(family: str, text: str, rows: list[list[str]], headline: str,
+            ticker: str | None = None) -> list[dict]:
     """Facts from one document, or [] - which means escalate, not discard.
 
     An empty result is the signal the router's intent was not met: the
     document goes to the model rather than being written off as containing
-    nothing.
+    nothing. `ticker` lets the NTA family consult that fund's learned
+    label rule before the generic parser.
     """
+    if family == "nta":
+        return extract_nta(text, rows, headline, ticker=ticker)
     fn = FAMILY_EXTRACTORS.get(family)
     return fn(text, rows, headline) if fn else []

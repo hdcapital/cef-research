@@ -676,3 +676,46 @@ def test_facts_load_keeps_only_the_newest_extraction_per_announcement(tmp_path):
     assert len(one) == 1 and one["nav_per_share"].iloc[0] == 1.23, (
         "the reparsed value must replace the stale one")
     assert set(got["announcement_id"]) == {"1", "2"}
+
+
+# ------------------------------------------------- learned label rules
+
+def test_the_learned_label_rule_outranks_the_generic_parser(tmp_path, monkeypatch):
+    """Discovery learned each fund's NTA label and nothing ever read it.
+
+    HCF's scored parse sat 343x off the exchange for ten straight months
+    because the generic parser kept choosing a different number on the
+    page. With a promoted rule, the fund's own label wins; a fund without
+    rules falls through to the scored parser unchanged.
+    """
+    import pandas as pd
+
+    from au_lic.extract import deterministic as D
+    rules = pd.DataFrame([
+        {"ticker": "TST", "label": "pre tax nta per share", "unit": "dollars",
+         "months_supporting": 11, "months_clean": 11,
+         "first_month": "2024-09", "last_month": "2026-03",
+         "has_nav_vocab": True, "is_rule": True},
+        # a promoted rule WITHOUT nav vocabulary must never load - the
+        # first discovery run promoted a registered-office address
+        {"ticker": "TST", "label": "suite level street", "unit": "dollars",
+         "months_supporting": 12, "months_clean": 12,
+         "first_month": "2024-09", "last_month": "2026-03",
+         "has_nav_vocab": False, "is_rule": True}])
+    d = tmp_path / "outputs" / "au"
+    d.mkdir(parents=True)
+    rules.to_csv(d / "au_nta_label_rules.csv", index=False)
+    monkeypatch.chdir(tmp_path)
+    D._LABEL_RULES = None            # reload from the temp rules
+    try:
+        text = ("Suite Level Street 343.00 Investment update. "
+                "Pre-tax NTA per share $1.2345 and post-tax NTA per "
+                "share $1.2000 as at 31 July 2026.")
+        got = D.extract_nta(text, [], "Monthly NTA Statement", ticker="TST")
+        assert got and got[0]["extractor"] == "nta_label_rule_v1"
+        assert got[0]["nav_per_share"] == 1.2345
+        assert got[0]["nav_basis"] == "pre_tax"
+        # unknown fund: label path is skipped entirely
+        assert D._label_rules().get("ZZZ") is None
+    finally:
+        D._LABEL_RULES = None        # never leak temp rules to other tests
