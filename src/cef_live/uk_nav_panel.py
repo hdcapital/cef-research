@@ -88,9 +88,16 @@ def live_universe(registry_path: str | Path = "data/universe/registry.parquet",
     the NAV harvested under that ticker is the ordinary share's and giving
     it to both lines would state the same number about two different claims.
     """
+    from . import liveness as _lv
     reg = pd.read_parquet(registry_path)
+    # TRACKED_STATUSES, never a hand-written list: the previous filter named
+    # ``live`` and ``delist_candidate`` and silently dropped every
+    # ``live_stale_nav`` fund - Cordiant Digital and the whole quarterly
+    # cohort in that state - from the daily panel, so their discount history
+    # could never build however well their NAVs were archived. Exactly the
+    # trap docs/RUNBOOK.md names.
     uk = reg[(reg["market"] == "UK")
-             & (reg["status"].isin(["live", "delist_candidate"]))].copy()
+             & (reg["status"].isin(_lv.TRACKED_STATUSES))].copy()
     tk = pd.read_csv(tickers_path)
     tk = tk[tk["status"] == "verified"][["security_id", "ticker"]]
     tk["ticker"] = tk["ticker"].astype(str).str.strip().str.upper()
@@ -99,8 +106,15 @@ def live_universe(registry_path: str | Path = "data/universe/registry.parquet",
 
     st = out["share_type"].fillna("").str.lower()
     out["is_ordinary_line"] = ~st.str.contains("zdp|zero dividend|preference")
-    out = out.sort_values(["ticker", "is_ordinary_line"], ascending=[True, False])
-    out = out.drop_duplicates("ticker", keep="first")
+    # when two securities claim one ticker, the LIVE one owns it: BH Macro's
+    # delisted pre-consolidation line and its live line both carry BHMG, and
+    # keeping the dead one dropped the live fund from the panel
+    prio = {_lv.STATUS_LIVE: 0, _lv.STATUS_LIVE_STALE: 1,
+            _lv.STATUS_CANDIDATE: 2}
+    out["_status_rank"] = out["status"].map(prio).fillna(9)
+    out = out.sort_values(["ticker", "_status_rank", "is_ordinary_line"],
+                          ascending=[True, True, False])
+    out = out.drop_duplicates("ticker", keep="first").drop(columns="_status_rank")
 
     if not include_vct:
         out = out[~out["is_vct"].astype(bool)]

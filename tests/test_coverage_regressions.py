@@ -81,6 +81,15 @@ def test_live_stale_nav_counts_as_alive_everywhere_it_is_read():
             "live_stale_nav funds")
     from cef_live import tickers
     assert "LIVE_STATUSES" in inspect.getsource(tickers.resolve)
+    # the daily panel's universe dropped every live_stale_nav fund with a
+    # hand-written list (Cordiant Digital among them): it must read the
+    # liveness module's own set, and a live security must own a ticker it
+    # shares with a delisted predecessor (BH Macro)
+    from cef_live import uk_nav_panel
+    src = inspect.getsource(uk_nav_panel.live_universe)
+    assert "TRACKED_STATUSES" in src
+    assert '["live", "delist_candidate"]' not in src
+    assert "_status_rank" in src
 
 
 def test_a_nav_older_than_the_fresh_window_still_means_alive():
