@@ -1114,3 +1114,31 @@ def test_a_dead_tickers_market_feed_rows_never_count_as_its_evidence():
     assert "identity_mismatch" in h_src, (
         "the harvest must verify the listing page H1 names the ticker")
     assert "uk_row_matches_ticker" in h_src
+
+
+def test_an_empty_listing_cache_does_not_break_liveness_evidence(tmp_path,
+                                                                 monkeypatch):
+    """`df[[]]` is COLUMN selection: an empty cache file made the identity
+    mask an empty list, which dropped every column and killed the whole
+    registry build on KeyError 'date'. Two consecutive nightlies died on
+    it. Masks are Series now; this pins the empty and the mixed case."""
+    cache = tmp_path / "data" / "investegate_cache" / "listings"
+    cache.mkdir(parents=True)
+    (cache / "EMPT.csv").write_text("ann_id,date,headline,url\n")
+    (cache / "GOOD.csv").write_text(
+        "ann_id,date,headline,url\n"
+        "1,2026-08-28,Net Asset Value(s),"
+        "https://www.investegate.co.uk/announcement/rns/good-fund--good/x/1\n"
+        "2,2026-08-29,Holding(s) in Company,"
+        "https://www.investegate.co.uk/announcement/rns/other-co--xyz/y/2\n")
+    (tmp_path / "config").mkdir()
+    (tmp_path / "config" / "resolved_tickers.csv").write_text(
+        "security_id,ticker,status\nSEDOL:1,EMPT,verified\n"
+        "SEDOL:2,GOOD,verified\n")
+    (tmp_path / "data" / "universe").mkdir(parents=True)
+    monkeypatch.chdir(tmp_path)
+    ev = cli._liveness_evidence()
+    got = {r["security_id"]: r for _, r in ev.iterrows()} if len(ev) else {}
+    assert "SEDOL:1" not in got, "an empty cache carries no evidence"
+    assert got["SEDOL:2"]["last_announcement"] == "2026-08-28", (
+        "the leaked other-company row must not count as GOOD's evidence")

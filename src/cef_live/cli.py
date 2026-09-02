@@ -147,9 +147,12 @@ def _liveness_evidence() -> pd.DataFrame:
             if not {"ticker", "ann_date"} <= set(h.columns):
                 continue
             h["ticker"] = h["ticker"].astype(str).str.upper()
-            if "url" in h.columns:
-                h = h[[harvest_nav.uk_row_matches_ticker(u, t)
-                       for u, t in zip(h["url"].fillna(""), h["ticker"])]]
+            if "url" in h.columns and len(h):
+                mask = pd.Series(
+                    [harvest_nav.uk_row_matches_ticker(u, t)
+                     for u, t in zip(h["url"].fillna(""), h["ticker"])],
+                    index=h.index)
+                h = h[mask]
             h["d"] = pd.to_datetime(h["ann_date"], errors="coerce")
             for tk, g in h.dropna(subset=["d"]).groupby("ticker"):
                 sid = by_tk.get(tk)
@@ -179,9 +182,13 @@ def _liveness_evidence() -> pd.DataFrame:
             # rows must prove they belong to this company (URL slug) before
             # they can count as ITS liveness evidence - 56 delisted funds
             # were resurrected with other companies' announcement dates
-            if "url" in df_.columns:
-                df_ = df_[[harvest_nav.uk_row_matches_ticker(u, f.stem)
-                           for u in df_["url"].fillna("")]]
+            if "url" in df_.columns and len(df_):
+                # a Series mask, never a bare list: an EMPTY list would be
+                # read as column selection and drop every column
+                mask = pd.Series(
+                    [harvest_nav.uk_row_matches_ticker(u, f.stem)
+                     for u in df_["url"].fillna("")], index=df_.index)
+                df_ = df_[mask]
             d = pd.to_datetime(df_["date"], errors="coerce").dropna()
             if len(d):
                 note(sid, "last_announcement", d.max())

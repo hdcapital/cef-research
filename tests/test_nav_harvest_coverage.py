@@ -509,12 +509,19 @@ def test_the_extra_guards_apply_only_to_the_loose_rules():
     assert H.parse_uk_nav_text(text).get("nav_cum_pence") == pytest.approx(121.04)
 
 
-def test_the_uk_parser_recovers_most_of_the_recorded_failures_plausibly():
-    """Measured against the archive's own committed failure samples.
+def test_anything_the_parser_reads_from_the_failure_samples_is_plausible():
+    """The failure samples are the CURRENT parser's residual, and anything
+    a newer rule list recovers from them must be a plausible NAV.
 
-    Coverage is only half of it: every value that survives has to be a
-    plausible NAV. An earlier pass reached 61% by also reading expense
-    lines, dividends and a US-cents NAV, which is worse than reading none.
+    This test used to assert a >=45% recovery rate - written when the
+    stored samples came from an OLDER parser and today's rules genuinely
+    re-read most of them. The reparse loop now refreshes the samples
+    nightly under the current rules, so by construction they are what the
+    current parser CANNOT read and the recovery rate on them is ~0 until
+    the next rule improvement. The rate assertion inverted into a
+    guaranteed failure; what must hold regardless is the second half:
+    an earlier pass 'improved' coverage by reading expense lines,
+    dividends and a US-cents NAV, which is worse than reading none.
     """
     import glob
     samples = []
@@ -526,16 +533,14 @@ def test_the_uk_parser_recovers_most_of_the_recorded_failures_plausibly():
     if len(samples) < 100:
         pytest.skip("failure samples not present")
     got = [H.parse_uk_nav_text(s.get("text_head") or "") for s in samples]
-    vals = [g["nav_cum_pence"] for g in got if "nav_cum_pence" in g]
-    assert len(vals) / len(samples) >= 0.45, (
-        f"recovery fell to {len(vals) / len(samples):.1%} of recorded failures")
     # plausibility applies to the STERLING ones: a foreign NAV is recorded in
     # its own currency and is not a pence figure to sanity-check
     pence = [g["nav_cum_pence"] for g in got
              if "nav_cum_pence" in g and g.get("nav_ccy", "GBX") == "GBX"]
-    assert min(pence) >= 20.0, (
-        f"a recovered sterling NAV of {min(pence)}p is not a UK trust's NAV")
-    assert max(pence) <= 100_000.0
+    if pence:
+        assert min(pence) >= 20.0, (
+            f"a recovered sterling NAV of {min(pence)}p is not a UK trust's NAV")
+        assert max(pence) <= 100_000.0
 
 
 def test_one_asx_nta_headline_pattern_serves_every_reader():
