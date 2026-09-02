@@ -1142,3 +1142,69 @@ def test_an_empty_listing_cache_does_not_break_liveness_evidence(tmp_path,
     assert "SEDOL:1" not in got, "an empty cache carries no evidence"
     assert got["SEDOL:2"]["last_announcement"] == "2026-08-28", (
         "the leaked other-company row must not count as GOOD's evidence")
+
+
+def test_a_short_history_gets_a_growing_z_that_prices_but_never_alerts():
+    """Owner instruction 2026-09-02: use what history exists, let it grow.
+
+    12 months of discount history now yields a computed z (status
+    computed_growing_12m, window on the row) so the fund is PRICED - and
+    neither alert_eligible nor the dislocation gate accepts it until the
+    window reaches the validated min_months. Below the floor (6) nothing
+    is computed: a two-point sigma is noise wearing a number.
+    """
+    params = _params()
+    registry = pd.DataFrame([{"security_id": "G", "market": "UK",
+                              "status": "live", "name": "G",
+                              "research_eligible": True, "identity_ok": True}])
+    tier0 = pd.DataFrame([{"security_id": "G", "nav_date": "2026-08-28",
+                           "nav_value": 100.0, "unit": "GBX",
+                           "source": "investegate:1"}])
+    px = pd.DataFrame([{"security_id": "G", "price": 70.0,
+                        "price_source": "yahoo:G.L",
+                        "price_date": "2026-08-29", "price_ccy": "GBp"}])
+    empty_panel = pd.DataFrame(columns=["security_id", "obs_month", "sector",
+                                        "nav_total_return", "nav_per_share",
+                                        "share_price", "discount"])
+
+    def _aux(n):
+        months = pd.period_range("2026-08", periods=n, freq="M")[::-1]
+        return pd.DataFrame([{"security_id": "G", "obs_month": str(m),
+                              "discount": -0.10 + 0.02 * (i % 5)}
+                             for i, m in enumerate(sorted(months.astype(str)))])
+
+    out = nta_live.build_table(empty_panel, "UK", "nav_total_return",
+                               "nav_per_share", "share_price", params,
+                               tier0=tier0, live_prices=px, registry=registry,
+                               aux_discount_history=_aux(12), today=TODAY)
+    r = out.iloc[0]
+    assert pd.notna(r["z_adj"]), r["z_status"]
+    assert r["z_status"] == "computed_growing_12m"
+    assert r["z_window_months"] == 12
+    assert not r["alert_eligible"], "a growing z must not alert"
+
+    # the dislocation gate refuses it too, however extreme the z
+    live = pd.DataFrame([{"security_id": "G", "market": "UK", "name": "G",
+                          "research_eligible": True, "z_adj": -4.0,
+                          "z_window_months": 12, "staleness_days": 1,
+                          "basis": 0, "nav_current": True,
+                          "discount_est": -0.30}])
+    assert not len(opportunities.evaluate(live, None, None, params))
+
+    # below the floor: no z at all
+    out2 = nta_live.build_table(empty_panel, "UK", "nav_total_return",
+                                "nav_per_share", "share_price", params,
+                                tier0=tier0, live_prices=px,
+                                registry=registry,
+                                aux_discount_history=_aux(4), today=TODAY)
+    assert pd.isna(out2.iloc[0]["z_adj"])
+    assert out2.iloc[0]["z_status"] == "insufficient_history_4m"
+
+    # and at full depth it is plainly computed and alertable
+    out3 = nta_live.build_table(empty_panel, "UK", "nav_total_return",
+                                "nav_per_share", "share_price", params,
+                                tier0=tier0, live_prices=px,
+                                registry=registry,
+                                aux_discount_history=_aux(30), today=TODAY)
+    assert out3.iloc[0]["z_status"] in ("computed", "within_error_band")
+    assert out3.iloc[0]["z_window_months"] == 30

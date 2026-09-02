@@ -23,7 +23,14 @@ live_nta:
     max_days_cadence_cap: 200
   z_adjustment:
     window_months: 36             # own-history z window (validated research spec)
+    # A z needs min_months of history to ALERT on - that is the depth the
+    # research evidence was built on. Below it, down to the floor, a
+    # GROWING z is still computed for pricing (owner instruction
+    # 2026-09-02, CHANGELOG.md): status computed_growing_<N>m, matures
+    # into the full spec as live grabs accumulate, never alert-eligible
+    # until it does. Below the floor a z would be two points and a prayer.
     min_months: 24
+    min_months_floor: 6
     error_sanity_k: 1.0           # |discount_est - mu| must exceed k * est_error
 
 pulse:

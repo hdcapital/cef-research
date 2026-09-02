@@ -68,6 +68,8 @@ def evaluate(live: pd.DataFrame, cats: pd.DataFrame | None,
     required return, not a market's trailing performance.
     """
     op = params["opportunity"]
+    z_min_months = int(params.get("live_nta", {}).get("z_adjustment", {})
+                       .get("min_months", 24))
     z_thr = float(op["z_threshold"])
     max_stale = int(op["max_staleness_days"])
     max_basis = int(op["max_basis"])
@@ -128,6 +130,11 @@ def evaluate(live: pd.DataFrame, cats: pd.DataFrame | None,
         # pricing, never evidence of a dislocation (nta_live.z_within_error)
         zwe = getattr(r, "z_within_error", False)
         zwe = bool(zwe) if pd.notna(zwe) else False
+        # a growing z (window below the validated min_months) prices the
+        # fund but is not dislocation evidence; rows without the column
+        # (older tables, tests) are treated as full-depth
+        zw = getattr(r, "z_window_months", np.nan)
+        z_deep = bool(pd.isna(zw) or float(zw) >= z_min_months)
         # freshness is per fund: a quarterly publisher's 60-day-old NAV is
         # current by its own cadence (nta_live.staleness_limit_days); the
         # flat cap remains the floor for rows without a measured cadence
@@ -144,7 +151,7 @@ def evaluate(live: pd.DataFrame, cats: pd.DataFrame | None,
                          and pd.notna(basis) and basis <= max_basis)
         else:
             fresh = bool(navc)
-        g1 = bool(pd.notna(z) and z <= z_thr and not zwe and fresh)
+        g1 = bool(pd.notna(z) and z <= z_thr and not zwe and z_deep and fresh)
         g2 = bool(pd.notna(getattr(r, "catalyst_class", np.nan)))
         cat_w = getattr(r, "weight", np.nan)
         irr_v = getattr(r, "irr_central", np.nan)

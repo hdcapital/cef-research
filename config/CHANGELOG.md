@@ -102,3 +102,16 @@ monitoring-eligible). Changes, all measurement-driven:
   `reports/build/signal_coverage.json` + per-fund
   `outputs/live/signal_coverage.csv` (the work list), denominated over
   live research-eligible funds.
+
+## 2026-09-02 — Growing z below the validated window (owner instruction)
+Added `live_nta.z_adjustment.min_months_floor: 6`. A fund with fewer than
+`min_months` (24) but at least the floor of monthly discount observations
+now gets a COMPUTED z over its full available history — status
+`computed_growing_<N>m`, window recorded on the row — which matures into
+the validated 36m/24m spec automatically as live grabs accumulate.
+Rationale: the owner's instruction — price the universe now and let depth
+build — plus the honesty guard that alerting is unchanged: neither
+`alert_eligible` nor the dislocation gate accepts a z below `min_months`,
+because the discount-reversion evidence was established at that depth.
+Below the floor no z is computed; six points is the least a standard
+deviation can be estimated from without being pure noise.

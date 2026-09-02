@@ -348,18 +348,24 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
         z_status = "no_discount_history"
         z_within_error = False
         z_source = None
+        z_window = 0
+        z_floor = int(zp.get("min_months_floor", zp["min_months"]))
         h = hist[dcol].dropna() if dcol is not None else pd.Series(dtype=float)
         if len(h):
             z_source = "aggregator_panel"
         # the panel stays primary; the daily-panel resample only ADDS
-        # history where the panel cannot z-score the fund at all
+        # history where the panel's series is the shallower of the two
         if len(h) < zp["min_months"] and sid in aux_by_sid:
             ah = (aux_by_sid[sid]["discount"].tail(zp["window_months"])
                   .dropna())
-            if len(ah) >= zp["min_months"]:
+            if len(ah) > len(h):
+                # adopt the deeper series even below the floor: no z is
+                # computed there, but "insufficient_history_4m" names how
+                # close the fund is, where "no_discount_history" hides it
                 h, z_source = ah, "own_daily_panel"
         if len(h) or z_source is not None:
-            if len(h) < zp["min_months"]:
+            z_window = int(len(h))
+            if len(h) < z_floor:
                 z_status = f"insufficient_history_{len(h)}m"
             elif not h.std(ddof=1) > 0:
                 z_status = "zero_variance_history"
@@ -382,6 +388,12 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
                             zp["error_sanity_k"] * est_error:
                         z_within_error = True
                         z_status = "within_error_band"
+                    elif z_window < zp["min_months"]:
+                        # a GROWING z: short of the depth the alert evidence
+                        # was built on, real enough to price with, and it
+                        # matures into the full spec as live grabs accumulate
+                        # (owner instruction 2026-09-02, CHANGELOG.md)
+                        z_status = f"computed_growing_{z_window}m"
                     else:
                         z_status = "computed"
 
@@ -523,6 +535,7 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
             "z_status": z_status,
             "z_within_error": z_within_error,
             "z_source": z_source,
+            "z_window_months": z_window,
             "staleness_limit_days": stale_limit,
             # basis states PROVENANCE (0 = the fund's own announcement,
             # 1 = factor roll-forward, 3 = carried anchor); nav_current
@@ -539,6 +552,9 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
             "alert_eligible": bool(
                 dq_ok and identity_ok and research_ok
                 and pd.notna(z_adj) and not z_within_error
+                # a growing z prices the fund; only a full-depth z - the
+                # depth the alert evidence was validated on - may alert
+                and z_window >= int(zp["min_months"])
                 and pd.notna(staleness) and staleness <= stale_limit
                 and pd.notna(basis)),
             "model_factors": m["factors"] if has_model else None,
