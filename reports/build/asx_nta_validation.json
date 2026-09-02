@@ -134,6 +134,90 @@
   "extracted_observations": 38923,
   "check_coverage": 0.0278,
   "note": "the exchange file starts in 2017 and lists only the funds it covers, so agreement is measured on this subset, not on the whole extraction",
+  "quarantined_funds": [
+    "CD1",
+    "CD2",
+    "CD3",
+    "FGG",
+    "GC1",
+    "GCI",
+    "HCF",
+    "KAT",
+    "KIT",
+    "LSF",
+    "MOT",
+    "MXT",
+    "OPH",
+    "PCX",
+    "REV",
+    "RF1",
+    "TEK"
+  ],
+  "demoted_labels": [
+    {
+      "ticker": "GCI",
+      "label": "on nta per unit as at",
+      "n": 19,
+      "agree": 0,
+      "agreement": 0.0
+    },
+    {
+      "ticker": "KIT",
+      "label": "is as follows value date nta per unit",
+      "n": 4,
+      "agree": 0,
+      "agreement": 0.0
+    },
+    {
+      "ticker": "LSF",
+      "label": "ordinary share nta before tax nta after tax",
+      "n": 16,
+      "agree": 1,
+      "agreement": 0.0625
+    },
+    {
+      "ticker": "MOT",
+      "label": "is as follows value date nta per unit",
+      "n": 24,
+      "agree": 0,
+      "agreement": 0.0
+    },
+    {
+      "ticker": "MXT",
+      "label": "is as follows value date nta per unit",
+      "n": 24,
+      "agree": 0,
+      "agreement": 0.0
+    },
+    {
+      "ticker": "OPH",
+      "label": "is as follows value date nav per unit",
+      "n": 3,
+      "agree": 0,
+      "agreement": 0.0
+    },
+    {
+      "ticker": "OPH",
+      "label": "prior value date nav per unit month end",
+      "n": 21,
+      "agree": 0,
+      "agreement": 0.0
+    },
+    {
+      "ticker": "PCX",
+      "label": "net asset value",
+      "n": 24,
+      "agree": 0,
+      "agreement": 0.0
+    },
+    {
+      "ticker": "REV",
+      "label": "is as follows value date nta per unit",
+      "n": 10,
+      "agree": 0,
+      "agreement": 0.0
+    }
+  ],
   "compare_stages": {
     "extracted_in": 38923,
     "after_value_dropna": 38923,
