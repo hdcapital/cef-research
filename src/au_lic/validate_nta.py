@@ -75,6 +75,22 @@ def compare(extracted: pd.DataFrame, panel: pd.DataFrame) -> pd.DataFrame:
     p["ticker"] = (p["security_id"].astype(str)
                    .str.replace(r"(?i)^ASX:", "", regex=True).str.upper())
     p["month"] = p["obs_month"].astype(str)
+    # The answer key must itself be plausible. The panel's NTA is DERIVED
+    # from the report's price and discount, and a malformed discount cell
+    # makes it nonsense: HCF's exchange-side NTA read $0.01 against a ~$4
+    # share price, REV's $19.05 against ~$2 - and the closed loop then
+    # demoted CORRECT label reads and quarantined correct series on the
+    # strength of a corrupted key. A listed fund's NTA sits within a wide
+    # band of its own price (discount to -60%, premium to +100%); a panel
+    # row outside it is excluded from the comparison, and counted.
+    implausible = 0
+    if "share_price" in p.columns:
+        ratio = (pd.to_numeric(p["nta_price"], errors="coerce")
+                 / pd.to_numeric(p["share_price"], errors="coerce")
+                 .replace(0, pd.NA))
+        bad = ratio.notna() & ~ratio.between(0.4, 2.5)
+        implausible = int(bad.sum())
+        p = p[~bad]
     p = p.dropna(subset=["nta_price"])[["ticker", "month", "nta_price"]]
 
     m = e.merge(p, on=["ticker", "month"], how="inner")
@@ -95,6 +111,7 @@ def compare(extracted: pd.DataFrame, panel: pd.DataFrame) -> pd.DataFrame:
                          zip(e["ticker"].head(3), e["month"].head(3))],
         "p_key_sample": [f"{a}|{b}" for a, b in
                          zip(p["ticker"].head(3), p["month"].head(3))],
+        "panel_rows_implausible_vs_price": implausible,
     }
     if m.empty:
         return m

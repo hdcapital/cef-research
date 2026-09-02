@@ -766,3 +766,35 @@ def test_validation_demotions_and_quarantine_are_honoured(tmp_path, monkeypatch)
     obs = F.nav_observations(facts_dir, allow_s3=False)
     assert set(obs["security_id"]) == {"ASX:GOOD"}, (
         "a quarantined fund's series must not reach the live feed")
+
+
+def test_an_implausible_exchange_print_cannot_condemn_a_correct_read():
+    """The answer key must itself be plausible.
+
+    The panel's NTA is derived from price and discount; a malformed
+    discount cell made HCF's exchange-side NTA $0.01 against a ~$4 share
+    price, and the closed loop demoted a CORRECT label and quarantined a
+    correct series on the strength of it. Panel rows whose NTA sits
+    outside a wide band of the fund's own price are excluded from the
+    comparison - so agreement is measured only where the key is credible.
+    """
+    import pandas as pd
+
+    from au_lic import validate_nta as V
+    extracted = pd.DataFrame([
+        {"ticker": "HCF", "valuation_date": "2026-01-31", "nav_per_share": 4.12},
+        {"ticker": "OK", "valuation_date": "2026-01-31", "nav_per_share": 1.00},
+    ])
+    panel = pd.DataFrame([
+        # corrupted key: NTA $0.01 on a $4.10 share - impossible
+        {"security_id": "ASX:HCF", "obs_month": "2026-01", "nta_price": 0.01,
+         "share_price": 4.10},
+        # credible key
+        {"security_id": "ASX:OK", "obs_month": "2026-01", "nta_price": 1.02,
+         "share_price": 0.90},
+    ])
+    cmp_df = V.compare(extracted, panel)
+    assert set(cmp_df["ticker"]) == {"OK"}, (
+        "the corrupted HCF row must not enter the comparison at all")
+    assert cmp_df.attrs.get("stages", {}).get(
+        "panel_rows_implausible_vs_price") == 1
