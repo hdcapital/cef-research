@@ -780,7 +780,58 @@ def run_validate(limit: int = 0) -> dict:
         return {"error": "au_monthly_panel.parquet not found - "
                          "run `python -m au_lic.cli build-panel` first"}
     cmp_df = V.compare(nav, panel)
-    out = V.summarise(V.classify(cmp_df), extracted_total=len(nav))
+    cls = V.classify(cmp_df)
+    out = V.summarise(cls, extracted_total=len(nav))
+
+    # Accountability per fund and per label rule. The exchange is the
+    # answer key: a fund whose extracted series disagrees with it most of
+    # the time must not feed the live table (quarantined - recorded, never
+    # deleted), and a learned label whose reads disagree is demoted so the
+    # next reparse stops using it. The label-rule rollout measured this the
+    # hard way: agreement fell 71.8% -> 62.5% because coverage was bought
+    # with wrong reads, HCF's constant 4.12 face value chief among them.
+    if cls is not None and len(cls):
+        cf = cls.copy()
+        cf["ticker"] = cf["ticker"].astype(str).str.upper()
+        meta = nav.copy()
+        meta["ticker"] = meta["ticker"].astype(str).str.upper()
+        meta["month"] = V._month(meta["valuation_date"]) \
+            if "valuation_date" in meta.columns else None
+        keep_meta = [c for c in ("ticker", "month", "extractor",
+                                 "raw_nav_label") if c in meta.columns]
+        if {"extractor"} <= set(keep_meta):
+            meta = (meta.dropna(subset=["month"])
+                    .sort_values("valuation_date")
+                    .groupby(["ticker", "month"], as_index=False).last())
+            cf = cf.merge(meta[keep_meta], on=["ticker", "month"],
+                          how="left", suffixes=("", "_m"))
+        ok = cf["verdict"].isin(["match", "basis_gap"])
+        pf = (cf.assign(ok=ok).groupby("ticker")
+              .agg(n=("verdict", "size"), agree=("ok", "sum")))
+        pf["agreement"] = (pf["agree"] / pf["n"]).round(4)
+        Path("outputs/au").mkdir(parents=True, exist_ok=True)
+        pf.reset_index().to_csv("outputs/au/au_nta_validation_per_fund.csv",
+                                index=False)
+        quarantine = pf[(pf["n"] >= 3) & (pf["agreement"] < 0.5)].reset_index()
+        quarantine.to_csv("outputs/au/au_nta_quarantine.csv", index=False)
+        out["quarantined_funds"] = quarantine["ticker"].tolist()
+        if "raw_nav_label" in cf.columns:
+            lr = cf[cf.get("extractor").eq("nta_label_rule_v1")
+                    & cf["raw_nav_label"].notna()]
+            if len(lr):
+                pl = (lr.assign(ok=lr["verdict"].isin(["match", "basis_gap"]))
+                      .groupby(["ticker", "raw_nav_label"])
+                      .agg(n=("verdict", "size"), agree=("ok", "sum")))
+                pl["agreement"] = (pl["agree"] / pl["n"]).round(4)
+                demote = pl[(pl["n"] >= 2)
+                            & (pl["agreement"] < 0.5)].reset_index()
+                demote = demote.rename(columns={"raw_nav_label": "label"})
+                # the filename matches the au_nta_label_rules* glob ON
+                # PURPOSE: it hashes into PARSER_VERSION, so a demotion
+                # automatically reopens the corpus for reparsing without it
+                demote.to_csv("outputs/au/au_nta_label_rules_demoted.csv",
+                              index=False)
+                out["demoted_labels"] = demote.to_dict("records")
     # "no fund-month had a value from both sources" is a conclusion, not a
     # diagnosis. When the join is empty the question is always WHICH SIDE is
     # empty and on WHAT KEY, so record both sides' shapes and keys.

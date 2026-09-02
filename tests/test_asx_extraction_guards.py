@@ -719,3 +719,50 @@ def test_the_learned_label_rule_outranks_the_generic_parser(tmp_path, monkeypatc
         assert D._label_rules().get("ZZZ") is None
     finally:
         D._LABEL_RULES = None        # never leak temp rules to other tests
+
+
+def test_validation_demotions_and_quarantine_are_honoured(tmp_path, monkeypatch):
+    """The exchange is the answer key, closed-loop: a label whose reads it
+    contradicts is demoted before the next reparse, and a fund whose whole
+    extracted series it contradicts is quarantined out of the LIVE feed
+    (rows kept in the store). HCF's constant 4.12 face value drove
+    agreement from 71.8% to 62.5% before this loop existed."""
+    import pandas as pd
+
+    from au_lic.extract import deterministic as D, facts as F
+    d = tmp_path / "outputs" / "au"
+    d.mkdir(parents=True)
+    pd.DataFrame([
+        {"ticker": "TST", "label": "pre tax nta per share", "unit": "dollars",
+         "months_supporting": 9, "months_clean": 9, "first_month": "2025-01",
+         "last_month": "2026-01", "has_nav_vocab": True, "is_rule": True},
+        {"ticker": "BAD", "label": "nta face value per note", "unit": "dollars",
+         "months_supporting": 9, "months_clean": 9, "first_month": "2025-01",
+         "last_month": "2026-01", "has_nav_vocab": True, "is_rule": True},
+    ]).to_csv(d / "au_nta_label_rules.csv", index=False)
+    pd.DataFrame([{"ticker": "BAD", "label": "nta face value per note",
+                   "n": 10, "agree": 0, "agreement": 0.0}]).to_csv(
+        d / "au_nta_label_rules_demoted.csv", index=False)
+    pd.DataFrame([{"ticker": "HCF", "n": 10, "agree": 0, "agreement": 0.0}]
+                 ).to_csv(d / "au_nta_quarantine.csv", index=False)
+    monkeypatch.chdir(tmp_path)
+    D._LABEL_RULES = None
+    try:
+        rules = D._label_rules()
+        assert "TST" in rules and "BAD" not in rules, (
+            "a demoted label must not load")
+    finally:
+        D._LABEL_RULES = None
+    facts_dir = tmp_path / "data" / "asx_extract"
+    facts_dir.mkdir(parents=True)
+    pd.DataFrame([
+        {"announcement_id": "1", "ticker": "HCF",
+         "section": "nav_observations", "nav_per_share": 4.12,
+         "valuation_date": "2026-01-31"},
+        {"announcement_id": "2", "ticker": "GOOD",
+         "section": "nav_observations", "nav_per_share": 1.00,
+         "valuation_date": "2026-01-31"},
+    ]).to_parquet(facts_dir / "facts_det_s0of1.parquet", index=False)
+    obs = F.nav_observations(facts_dir, allow_s3=False)
+    assert set(obs["security_id"]) == {"ASX:GOOD"}, (
+        "a quarantined fund's series must not reach the live feed")

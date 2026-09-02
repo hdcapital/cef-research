@@ -205,14 +205,29 @@ def _label_rules() -> dict[str, list[tuple[str, str]]]:
     if _LABEL_RULES is None:
         import glob
         rules: dict[str, list[tuple[str, str]]] = {}
+        # validation-demoted labels never load: the exchange's own figures
+        # said their reads were wrong (runner.run_validate writes the list)
+        demoted: set[tuple[str, str]] = set()
+        for f in sorted(glob.glob("outputs/au/au_nta_label_rules_demoted*.csv")):
+            try:
+                dd = pd.read_csv(f)
+                demoted |= {(str(t).upper(), str(l)) for t, l in
+                            zip(dd.get("ticker", []), dd.get("label", []))}
+            except Exception:  # noqa: BLE001
+                continue
         frames = []
         for f in sorted(glob.glob("outputs/au/au_nta_label_rules*.csv")):
+            if "demoted" in f:
+                continue
             try:
                 frames.append(pd.read_csv(f))
             except Exception:  # noqa: BLE001
                 continue
         if frames:
             df = pd.concat(frames, ignore_index=True)
+            if demoted and {"ticker", "label"} <= set(df.columns):
+                df = df[[(str(t).upper(), str(l)) not in demoted
+                         for t, l in zip(df["ticker"], df["label"])]]
             need = {"ticker", "label", "unit", "is_rule", "has_nav_vocab",
                     "months_supporting"}
             if need <= set(df.columns):

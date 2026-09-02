@@ -123,4 +123,23 @@ def nav_observations(local_dir: Path = LOCAL_DIR,
         "nav_value": pd.to_numeric(nav.get("nav_per_share"), errors="coerce"),
         "nav_unit": "AUD",
     })
-    return out.dropna(subset=["nav_value"])
+    out = out.dropna(subset=["nav_value"])
+    # Quarantine: funds whose extracted series the exchange's own published
+    # NTA contradicts most of the time (validate mode writes the list, e.g.
+    # HCF's constant 4.12 face value). The rows stay in the store - this
+    # only keeps a known-wrong series out of the LIVE feed until a parser
+    # or rule fix clears it through validation.
+    qf = Path("outputs/au/au_nta_quarantine.csv")
+    if qf.exists():
+        try:
+            q = {f"ASX:{str(t).upper()}"
+                 for t in pd.read_csv(qf).get("ticker", [])}
+        except Exception:  # noqa: BLE001
+            q = set()
+        if q:
+            before = len(out)
+            out = out[~out["security_id"].isin(q)]
+            if before != len(out):
+                log.info("quarantined %d NAV rows across %d funds "
+                         "(au_nta_quarantine.csv)", before - len(out), len(q))
+    return out
