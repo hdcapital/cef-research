@@ -139,15 +139,18 @@ def main() -> int:
         # Factsheet-route cohort: a fund with NO NAV-shaped headline in the
         # last 400 days states its NAV inside results/updates (measured:
         # reports/build/uk_nav_reach_probe.json). For exactly those funds,
-        # archive the factsheet-shaped bodies too - never universe-wide,
-        # and never a third party's research note.
+        # archive the factsheet-shaped bodies over their FULL history -
+        # never universe-wide, and never a third party's research note.
+        # Full history, because a 36-month z needs years of discount series:
+        # the first pass fetched 400 days, which put fresh NAVs on BH Macro,
+        # Gresham House and CT Private Equity and left every one of them
+        # un-z-scorable for want of depth the listing caches already index.
         recent = (pd.Timestamp.utcnow() - pd.Timedelta(days=400)).date().isoformat()
         if not len(nav[nav["date"].fillna("") >= recent]):
             from cef_live.harvest_nav import (UK_FACTSHEET_HEAD,
                                               UK_THIRD_PARTY)
             fs = df[heads.str.contains(UK_FACTSHEET_HEAD)
                     & ~heads.str.contains(UK_THIRD_PARTY)
-                    & (df["date"].fillna("") >= recent)
                     & df["url"].notna()]
             nav = pd.concat([nav, fs], ignore_index=True)
         for r in nav.itertuples(index=False):
