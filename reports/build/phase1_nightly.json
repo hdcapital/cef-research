@@ -1,17 +1,29 @@
 {
   "rows": 1116,
-  "rows_with_nav": 730,
-  "rows_without_nav": 386,
+  "rows_with_nav": 731,
+  "rows_without_nav": 385,
   "basis_counts": {
-    "nan": 386,
-    "3.0": 261,
-    "0.0": 248,
-    "1.0": 221
+    "nan": 385,
+    "3.0": 262,
+    "0.0": 249,
+    "1.0": 220
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 149,
+  "alert_eligible": 143,
   "z_extremes": [
+    {
+      "security_id": "SEDOL:BL690L8",
+      "z_adj": -60.3866,
+      "discount_est": -0.989873,
+      "staleness_days": 92.0
+    },
+    {
+      "security_id": "SEDOL:BRC8992",
+      "z_adj": -51.5579,
+      "discount_est": -0.990132,
+      "staleness_days": 1.0
+    },
     {
       "security_id": "SEDOL:BDHXP96",
       "z_adj": -44.1394,
@@ -20,8 +32,8 @@
     },
     {
       "security_id": "ASX:GCI",
-      "z_adj": -38.9528,
-      "discount_est": -0.926614,
+      "z_adj": -38.9529,
+      "discount_est": -0.926616,
       "staleness_days": 3.0
     },
     {
@@ -32,45 +44,33 @@
     },
     {
       "security_id": "SEDOL:B1G3N11",
-      "z_adj": -36.3359,
-      "discount_est": -0.889879,
+      "z_adj": -36.3432,
+      "discount_est": -0.890037,
       "staleness_days": 1.0
+    },
+    {
+      "security_id": "SEDOL:BKV46W4",
+      "z_adj": -34.648,
+      "discount_est": -0.99072,
+      "staleness_days": 46.0
+    },
+    {
+      "security_id": "ASX:ALR",
+      "z_adj": -32.9002,
+      "discount_est": -0.962191,
+      "staleness_days": 2220.0
+    },
+    {
+      "security_id": "ASX:CTN",
+      "z_adj": -32.181,
+      "discount_est": -0.952885,
+      "staleness_days": 2306.0
     },
     {
       "security_id": "ASX:MXT",
-      "z_adj": -27.7467,
-      "discount_est": -0.932493,
+      "z_adj": -27.7465,
+      "discount_est": -0.932488,
       "staleness_days": 4.0
-    },
-    {
-      "security_id": "ASX:OPH",
-      "z_adj": -23.1382,
-      "discount_est": -0.913532,
-      "staleness_days": 3.0
-    },
-    {
-      "security_id": "SEDOL:1610207",
-      "z_adj": -21.719,
-      "discount_est": -0.497823,
-      "staleness_days": 1.0
-    },
-    {
-      "security_id": "SEDOL:B1XHSL1",
-      "z_adj": -21.6004,
-      "discount_est": -0.34735,
-      "staleness_days": 1.0
-    },
-    {
-      "security_id": "ASX:AEG",
-      "z_adj": -20.1944,
-      "discount_est": -0.907615,
-      "staleness_days": 1045.0
-    },
-    {
-      "security_id": "SEDOL:3197794",
-      "z_adj": -19.3394,
-      "discount_est": -0.991987,
-      "staleness_days": 6.0
     }
   ],
   "date": "2026-09-02",
@@ -87,8 +87,8 @@
     "uk_registry_only_targets": 105,
     "uk_aux_z_history_funds": 185,
     "uk_nav_validation": {
-      "comparable_pairs": 5059,
-      "agreement_rate_pairs": 0.9703
+      "comparable_pairs": 5061,
+      "agreement_rate_pairs": 0.969
     },
     "uk": {
       "tier0_navs": 217,
@@ -97,10 +97,10 @@
     }
   },
   "catalysts": {
-    "catalysts": 30,
+    "catalysts": 31,
     "funds": 22,
     "by_class": {
-      "substantial_holder": 21,
+      "substantial_holder": 22,
       "tender_offer": 7,
       "liquidation_wind_down": 1,
       "discount_control": 1
