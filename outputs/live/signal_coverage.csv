@@ -1,369 +1,341 @@
 security_id,name,market,basis,staleness_days,z_adj,z_status,z_source,g_used,irr_central,nav_ok,z_ok,growth_ok,irr_ok,signal_complete,blockers
-ASX:TCF,360 Capital Mortgage REIT,AU,0.0,14.0,-1.8172,computed,aggregator_panel,0.1237,0.2359,True,True,True,True,True,
+ASX:TCF,360 Capital Mortgage REIT,AU,0.0,14.0,-1.39,computed,aggregator_panel,0.1237,0.2299,True,True,True,True,True,
 ASX:8IH,8I Holdings Ltd,AU,0.0,15.0,-0.2413,within_error_band,aggregator_panel,0.0172,0.0739,True,True,True,True,True,
 ASX:AIX,AI Private Opportunities Trust,AU,,,,no_discount_history,,0.15,,False,False,True,False,False,nav+z:no_discount_history
-ASX:AMH,AMCIL Limited,AU,1.0,3.0,-0.6503,computed,aggregator_panel,0.1111,0.1541,True,True,True,True,True,
-ASX:ACQ,Acorn Capital Investment Fund Limited,AU,1.0,46.0,-0.3301,within_error_band,aggregator_panel,0.1081,0.198,True,True,True,True,True,
-ASX:AIQ,Alternative Investment Trust,AU,1.0,46.0,0.8065,within_error_band,aggregator_panel,0.15,0.1583,True,True,True,True,True,
-ASX:APL,Antipodes Global Investment Company Ltd,AU,1.0,1230.0,-15.0687,computed,aggregator_panel,0.1043,0.5031,False,True,True,True,False,nav
+ASX:AMH,AMCIL Limited,AU,1.0,3.0,-0.554,within_error_band,aggregator_panel,0.1111,0.1534,True,True,True,True,True,
+ASX:ACQ,Acorn Capital Investment Fund Limited,AU,1.0,46.0,-0.4585,within_error_band,aggregator_panel,0.1081,0.2014,True,True,True,True,True,
+ASX:AIQ,Alternative Investment Trust,AU,1.0,46.0,0.787,within_error_band,aggregator_panel,0.15,0.159,True,True,True,True,True,
+ASX:APL,Antipodes Global Investment Company Ltd,AU,1.0,1230.0,-15.0752,computed,aggregator_panel,0.1043,0.5035,False,True,True,True,False,nav
 ASX:ALI,Argo Global Listed Infrastructure Limited,AU,0.0,7.0,-10.1245,computed,aggregator_panel,0.15,0.3242,True,True,True,True,True,
-ASX:ARG,Argo Investments Limited,AU,0.0,7.0,-0.9031,computed,aggregator_panel,0.1358,0.1788,True,True,True,True,True,
-ASX:AFI,Australian Foundation Investment Company Limited,AU,1.0,3.0,-1.0309,computed,aggregator_panel,0.1231,0.1849,True,True,True,True,True,
-ASX:ALF,Australian Leaders Fund Limited,AU,1.0,1457.0,2.3992,within_error_band,aggregator_panel,0.0499,0.052,False,True,True,True,False,nav
-ASX:AUI,Australian United Investment Company Limited,AU,0.0,8.0,-1.1579,computed,aggregator_panel,0.1485,0.1988,True,True,True,True,True,
-ASX:BKI,BKI Investment Company Limited,AU,1.0,3.0,-0.4765,computed,aggregator_panel,0.15,0.1794,True,True,True,True,True,
-ASX:BTI,Bailador Technology Investments Limited,AU,0.0,17.0,-3.9309,computed,aggregator_panel,0.15,0.3199,True,True,True,True,True,
-ASX:BST,Barrack St Investments Limited,AU,3.0,1807.0,-13.573,within_error_band,aggregator_panel,0.1394,0.4462,False,True,True,True,False,nav
+ASX:ARG,Argo Investments Limited,AU,0.0,7.0,-0.833,computed,aggregator_panel,0.1358,0.1778,True,True,True,True,True,
+ASX:AFI,Australian Foundation Investment Company Limited,AU,1.0,3.0,-1.031,computed,aggregator_panel,0.1231,0.1849,True,True,True,True,True,
+ASX:ALF,Australian Leaders Fund Limited,AU,1.0,1457.0,2.3775,within_error_band,aggregator_panel,0.0499,0.0523,False,True,True,True,False,nav
+ASX:AUI,Australian United Investment Company Limited,AU,0.0,8.0,-1.0687,computed,aggregator_panel,0.1485,0.1976,True,True,True,True,True,
+ASX:BKI,BKI Investment Company Limited,AU,1.0,3.0,-0.5657,computed,aggregator_panel,0.15,0.1804,True,True,True,True,True,
+ASX:BTI,Bailador Technology Investments Limited,AU,0.0,17.0,-3.7322,computed,aggregator_panel,0.15,0.3136,True,True,True,True,True,
+ASX:BST,Barrack St Investments Limited,AU,3.0,1807.0,-14.2664,within_error_band,aggregator_panel,0.1394,0.4761,False,True,True,True,False,nav
 ASX:BHD,Benjamin Hornigold Limited,AU,0.0,13.0,-6.4932,computed,aggregator_panel,0.15,1.5854,True,True,True,True,True,
-ASX:BEL,Bentley Capital Limited,AU,1.0,46.0,-0.7681,within_error_band,aggregator_panel,-0.05,-0.0642,True,True,True,True,True,
-ASX:CDM,Cadence Capital Limited,AU,1.0,46.0,0.979,within_error_band,aggregator_panel,0.1241,0.1839,False,True,True,True,False,nav
-ASX:CDO,Cadence Opportunities Fund Limited,AU,1.0,46.0,0.7824,computed,aggregator_panel,0.1474,0.1811,False,True,True,True,False,nav
-ASX:CIN,Carlton Investments Limited,AU,1.0,46.0,0.2355,within_error_band,aggregator_panel,0.1259,0.1548,True,True,True,True,True,
-ASX:CD1,Cd Private Equity Fund I,AU,1.0,23.0,17.6336,computed,aggregator_panel,0.1363,-0.0466,True,True,True,True,True,
-ASX:CD2,Cd Private Equity Fund II,AU,1.0,23.0,-0.6384,within_error_band,aggregator_panel,0.1265,0.1485,True,True,True,True,True,
+ASX:BEL,Bentley Capital Limited,AU,1.0,46.0,-0.7837,within_error_band,aggregator_panel,-0.05,-0.0629,True,True,True,True,True,
+ASX:CDM,Cadence Capital Limited,AU,1.0,46.0,1.0537,within_error_band,aggregator_panel,0.1241,0.1829,False,True,True,True,False,nav
+ASX:CDO,Cadence Opportunities Fund Limited,AU,1.0,46.0,0.9502,computed,aggregator_panel,0.1474,0.1757,False,True,True,True,False,nav
+ASX:CIN,Carlton Investments Limited,AU,1.0,46.0,0.027,within_error_band,aggregator_panel,0.1259,0.1611,True,True,True,True,True,
+ASX:CD1,Cd Private Equity Fund I,AU,1.0,23.0,16.9471,computed,aggregator_panel,0.1363,-0.0421,True,True,True,True,True,
+ASX:CD2,Cd Private Equity Fund II,AU,1.0,23.0,-0.889,within_error_band,aggregator_panel,0.1265,0.1533,True,True,True,True,True,
 ASX:CD3,Cd Private Equity Fund III,AU,0.0,23.0,32.189,computed,aggregator_panel,0.15,-0.1551,True,True,True,True,True,
 ASX:CAM,Clime Capital Limited,AU,0.0,10.0,-2.0709,computed,aggregator_panel,0.1119,0.216,True,True,True,True,True,
-ASX:DUI,Diversified United Investment Limited,AU,1.0,98.0,-1.8276,within_error_band,aggregator_panel,0.1256,0.1893,False,True,True,True,False,nav
-ASX:DJW,Djerriwarrh Investments Limited,AU,1.0,3.0,0.2412,within_error_band,aggregator_panel,0.1244,0.1705,True,True,True,True,True,
+ASX:DUI,Diversified United Investment Limited,AU,1.0,98.0,-1.8499,within_error_band,aggregator_panel,0.1256,0.1896,False,True,True,True,False,nav
+ASX:DJW,Djerriwarrh Investments Limited,AU,1.0,3.0,-0.4404,within_error_band,aggregator_panel,0.1244,0.1747,True,True,True,True,True,
 ASX:DN1,Dominion Income Trust 1,AU,0.0,14.0,,insufficient_history_16m,aggregator_panel,0.1237,0.185,True,False,True,True,False,z:insufficient_history_16m
 ASX:ECP,ECP Emerging Growth Limited,AU,0.0,15.0,-1.2898,within_error_band,aggregator_panel,0.0637,0.1562,True,True,True,True,True,
-ASX:ECL,Excelsior Capital Ltd,AU,1.0,46.0,0.2922,within_error_band,aggregator_panel,0.15,0.1904,False,True,True,True,False,nav
-ASX:FPC,Fat Prophets Global Contrarian Fund Ltd,AU,0.0,9.0,-0.3831,within_error_band,aggregator_panel,0.15,0.1808,True,True,True,True,True,
-ASX:FSI,Flagship Investments Limited,AU,0.0,20.0,-0.3898,within_error_band,aggregator_panel,0.075,0.1587,True,True,True,True,True,
-ASX:FGX,Future Generation Australia Limited,AU,1.0,46.0,3.2034,computed,aggregator_panel,0.1012,0.1199,True,True,True,True,True,
-ASX:FGG,Future Generation Global Limited,AU,1.0,46.0,2.0519,within_error_band,aggregator_panel,0.15,0.1619,True,True,True,True,True,
-ASX:GC1,Glennon Small Companies Limited,AU,1.0,4.0,11.5236,computed,aggregator_panel,0.15,-0.1155,True,True,True,True,True,
+ASX:ECL,Excelsior Capital Ltd,AU,1.0,46.0,0.2996,within_error_band,aggregator_panel,0.15,0.19,False,True,True,True,False,nav
+ASX:FPC,Fat Prophets Global Contrarian Fund Ltd,AU,0.0,9.0,-1.1407,within_error_band,aggregator_panel,0.15,0.1911,True,True,True,True,True,
+ASX:FSI,Flagship Investments Limited,AU,0.0,20.0,-0.4244,within_error_band,aggregator_panel,0.075,0.1596,True,True,True,True,True,
+ASX:FGX,Future Generation Australia Limited,AU,1.0,46.0,3.1417,computed,aggregator_panel,0.1012,0.1204,True,True,True,True,True,
+ASX:FGG,Future Generation Global Limited,AU,1.0,46.0,2.0946,within_error_band,aggregator_panel,0.15,0.1614,True,True,True,True,True,
+ASX:GC1,Glennon Small Companies Limited,AU,1.0,4.0,11.517,computed,aggregator_panel,0.15,-0.1155,True,True,True,True,True,
 ASX:GFL,Global Masters Fund Limited,AU,0.0,15.0,-0.7529,within_error_band,aggregator_panel,0.1411,0.1735,True,True,True,True,True,
-ASX:GCI,Gryphon Capital Income Trust,AU,0.0,5.0,0.5935,within_error_band,aggregator_panel,0.1061,0.1638,True,True,True,True,True,
+ASX:GCI,Gryphon Capital Income Trust,AU,1.0,3.0,-38.9528,computed,aggregator_panel,0.1061,0.9385,True,True,True,True,True,
 ASX:HCF,H&G High Conviction Limited,AU,0.0,23.0,-1.7068,computed,aggregator_panel,0.15,2.0618,True,True,True,True,True,
-ASX:HM1,Hearts and Minds Investments Limited,AU,1.0,46.0,-0.7404,within_error_band,aggregator_panel,0.128,0.1882,False,True,True,True,False,nav
+ASX:HM1,Hearts and Minds Investments Limited,AU,1.0,46.0,-0.9994,within_error_band,aggregator_panel,0.128,0.191,False,True,True,True,False,nav
 ASX:IBC,Ironbark Capital Limited,AU,0.0,13.0,,no_current_discount,aggregator_panel,0.1461,,True,False,True,False,False,z:no_current_discount
 ASX:KKC,KKR Credit Income Fund,AU,0.0,4.0,-0.014,within_error_band,aggregator_panel,0.1206,0.1934,True,True,True,True,True,
-ASX:KIT,Kapstream Investment Trust,AU,0.0,7.0,,insufficient_history_4m,aggregator_panel,0.1063,0.1415,True,False,True,True,False,z:insufficient_history_4m
+ASX:KIT,Kapstream Investment Trust,AU,0.0,7.0,,insufficient_history_4m,aggregator_panel,0.1063,0.1427,True,False,True,True,False,z:insufficient_history_4m
 ASX:KAT,Katana Capital Limited,AU,0.0,23.0,1.9957,computed,aggregator_panel,0.1023,0.0951,True,True,True,True,True,
-ASX:GLS,L1 Global Long Short Fund Limited,AU,0.0,23.0,,insufficient_history_8m,aggregator_panel,0.1287,0.1212,True,False,True,True,False,z:insufficient_history_8m
-ASX:LGF,L1 Gold Fund Limited,AU,3.0,46.0,,insufficient_history_3m,aggregator_panel,0.15,0.1189,False,False,True,True,False,nav+z:insufficient_history_3m
-ASX:LSF,L1 Long Short Fund Limited,AU,1.0,5.0,1.9519,computed,aggregator_panel,0.15,0.1559,True,True,True,True,True,
+ASX:GLS,L1 Global Long Short Fund Limited,AU,0.0,23.0,,insufficient_history_8m,aggregator_panel,0.1287,0.1243,True,False,True,True,False,z:insufficient_history_8m
+ASX:LGF,L1 Gold Fund Limited,AU,3.0,46.0,,insufficient_history_3m,aggregator_panel,0.15,0.1184,False,False,True,True,False,nav+z:insufficient_history_3m
+ASX:LSF,L1 Long Short Fund Limited,AU,1.0,5.0,3.8091,computed,aggregator_panel,0.15,0.1394,True,True,True,True,True,
 ASX:LF1,La Trobe Private Credit Fund,AU,0.0,23.0,,insufficient_history_13m,aggregator_panel,0.1063,0.1746,True,False,True,True,False,z:insufficient_history_13m
-ASX:LSX,Lion Selection Group Limited,AU,0.0,23.0,1.6663,computed,aggregator_panel,0.15,0.0888,True,True,True,True,True,
-ASX:LRT,Lowell Resources Fund,AU,0.0,8.0,-1.2255,computed,aggregator_panel,0.15,0.231,True,True,True,True,True,
-ASX:MA1,MA Credit Income Trust,AU,1.0,3.0,2.0361,computed,aggregator_panel,0.1232,0.1923,True,True,True,True,True,
-ASX:MFF,MFF Capital Investments Limited,AU,0.0,12.0,2.2427,computed,aggregator_panel,0.15,0.144,True,True,True,True,True,
-ASX:MOT,Metrics Income Opportunities Trust,AU,0.0,5.0,-2.6352,computed,aggregator_panel,0.1445,0.2794,True,True,True,True,True,
-ASX:MXT,Metrics Master Income Trust,AU,0.0,5.0,-2.8308,computed,aggregator_panel,0.1316,0.2205,True,True,True,True,True,
-ASX:MRE,Metrics Real Estate Multi-Strategy Fund,AU,0.0,23.0,,insufficient_history_21m,aggregator_panel,0.1237,0.2261,True,False,True,True,False,z:insufficient_history_21m
-ASX:MIR,Mirrabooka Investments Limited,AU,1.0,3.0,-0.8231,computed,aggregator_panel,0.0991,0.1529,True,True,True,True,True,
-ASX:MEC,Morphic Ethical Equities Fund Limited,AU,0.0,8.0,-1.0393,within_error_band,aggregator_panel,0.15,0.1704,True,True,True,True,True,
-ASX:NGE,NGE Capital Limited,AU,0.0,23.0,0.8136,within_error_band,aggregator_panel,0.15,0.1411,True,True,True,True,True,
-ASX:NCC,Naos Emerging Opportunities Company Limited,AU,0.0,23.0,-0.4648,within_error_band,aggregator_panel,0.0815,0.1806,True,True,True,True,True,
+ASX:LSX,Lion Selection Group Limited,AU,0.0,23.0,1.6147,computed,aggregator_panel,0.15,0.0899,True,True,True,True,True,
+ASX:LRT,Lowell Resources Fund,AU,0.0,8.0,-1.1826,computed,aggregator_panel,0.15,0.2299,True,True,True,True,True,
+ASX:MA1,MA Credit Income Trust,AU,1.0,3.0,1.988,computed,aggregator_panel,0.1232,0.1928,True,True,True,True,True,
+ASX:MFF,MFF Capital Investments Limited,AU,0.0,12.0,2.3743,computed,aggregator_panel,0.15,0.1423,True,True,True,True,True,
+ASX:MOT,Metrics Income Opportunities Trust,AU,1.0,4.0,-11.416,computed,aggregator_panel,0.1445,1.093,True,True,True,True,True,
+ASX:MXT,Metrics Master Income Trust,AU,1.0,4.0,-27.7467,computed,aggregator_panel,0.1316,1.0242,True,True,True,True,True,
+ASX:MRE,Metrics Real Estate Multi-Strategy Fund,AU,0.0,23.0,,insufficient_history_21m,aggregator_panel,0.1237,0.2254,True,False,True,True,False,z:insufficient_history_21m
+ASX:MIR,Mirrabooka Investments Limited,AU,1.0,3.0,-0.8569,computed,aggregator_panel,0.0991,0.1533,True,True,True,True,True,
+ASX:MEC,Morphic Ethical Equities Fund Limited,AU,0.0,8.0,-1.3515,computed,aggregator_panel,0.15,0.1734,True,True,True,True,True,
+ASX:NGE,NGE Capital Limited,AU,0.0,23.0,0.2966,within_error_band,aggregator_panel,0.15,0.1454,True,True,True,True,True,
+ASX:NCC,Naos Emerging Opportunities Company Limited,AU,0.0,23.0,-0.2301,within_error_band,aggregator_panel,0.0815,0.1739,True,True,True,True,True,
 ASX:NAC,Naos Ex-50 Opportunities Company Limited,AU,0.0,23.0,-0.3904,within_error_band,aggregator_panel,0.0871,0.1888,True,True,True,True,True,
 ASX:NSC,Naos Small Cap Opportunities Company Limited,AU,0.0,23.0,2.1899,computed,aggregator_panel,0.1086,0.1703,True,True,True,True,True,
-ASX:OPH,Ophir High Conviction Fund,AU,0.0,8.0,-1.631,within_error_band,aggregator_panel,0.147,0.2731,True,True,True,True,True,
+ASX:OPH,Ophir High Conviction Fund,AU,1.0,3.0,-23.1382,computed,aggregator_panel,0.147,0.9616,True,True,True,True,True,
 ASX:OEQ,Orion Equities Limited,AU,0.0,23.0,13.2863,computed,aggregator_panel,0.0717,-0.2713,True,True,True,True,True,
-ASX:PAF,PM Capital Asian Opportunities Fund Limited,AU,1.0,1177.0,19.9704,computed,aggregator_panel,0.0382,-0.1017,False,True,True,True,False,nav
-ASX:PGF,PM Capital Global Opportunities Fund Limited,AU,1.0,3.0,0.3597,within_error_band,aggregator_panel,0.15,0.1783,True,True,True,True,True,
-ASX:PCX,Pengana Global Private Credit Trust,AU,3.0,46.0,-0.0891,within_error_band,aggregator_panel,0.1063,0.1706,False,True,True,True,False,nav
-ASX:PIA,Pengana International Equities Limited,AU,1.0,46.0,-2.7502,within_error_band,aggregator_panel,0.1028,0.1656,False,True,True,True,False,nav
-ASX:PE1,Pengana Private Equity Trust,AU,1.0,46.0,-0.725,within_error_band,aggregator_panel,0.15,0.2232,False,True,True,True,False,nav
-ASX:PCI,Perpetual Credit Income Trust,AU,0.0,5.0,-0.2301,within_error_band,aggregator_panel,0.1063,0.1611,True,True,True,True,True,
-ASX:PIC,Perpetual Equity Investment Company Limited,AU,1.0,3.0,1.3312,computed,aggregator_panel,0.1167,0.1609,True,True,True,True,True,
-ASX:PL8,Plato Income Maximiser Limited,AU,1.0,8.0,1.3881,computed,aggregator_panel,0.15,0.1733,True,True,True,True,True,
-ASX:QRI,Qualitas Real Estate Income Fund,AU,0.0,7.0,-0.864,computed,aggregator_panel,0.1051,0.1764,True,True,True,True,True,
-ASX:RG8,Regal Asian Investments Limited,AU,0.0,7.0,-0.3427,within_error_band,aggregator_panel,0.15,0.1958,True,True,True,True,True,
-ASX:RF1,Regal Investment Fund,AU,1.0,3.0,1.8516,computed,aggregator_panel,0.15,0.1991,True,True,True,True,True,
+ASX:PAF,PM Capital Asian Opportunities Fund Limited,AU,1.0,1177.0,19.3704,computed,aggregator_panel,0.0382,-0.0987,False,True,True,True,False,nav
+ASX:PGF,PM Capital Global Opportunities Fund Limited,AU,1.0,3.0,0.3153,within_error_band,aggregator_panel,0.15,0.1786,True,True,True,True,True,
+ASX:PCX,Pengana Global Private Credit Trust,AU,3.0,23.0,5089.842,computed,aggregator_panel,0.0517,-0.2836,True,True,True,True,True,
+ASX:PIA,Pengana International Equities Limited,AU,1.0,46.0,-2.7085,within_error_band,aggregator_panel,0.1028,0.1652,False,True,True,True,False,nav
+ASX:PE1,Pengana Private Equity Trust,AU,1.0,46.0,-1.0725,within_error_band,aggregator_panel,0.15,0.2366,False,True,True,True,False,nav
+ASX:PCI,Perpetual Credit Income Trust,AU,0.0,5.0,-0.3142,within_error_band,aggregator_panel,0.1063,0.162,True,True,True,True,True,
+ASX:PIC,Perpetual Equity Investment Company Limited,AU,1.0,3.0,1.4027,computed,aggregator_panel,0.1167,0.1603,True,True,True,True,True,
+ASX:PL8,Plato Income Maximiser Limited,AU,1.0,8.0,1.1401,computed,aggregator_panel,0.15,0.1761,True,True,True,True,True,
+ASX:QRI,Qualitas Real Estate Income Fund,AU,0.0,7.0,-0.792,computed,aggregator_panel,0.1051,0.1757,True,True,True,True,True,
+ASX:RG8,Regal Asian Investments Limited,AU,0.0,7.0,-0.6645,within_error_band,aggregator_panel,0.15,0.1992,True,True,True,True,True,
+ASX:RF1,Regal Investment Fund,AU,1.0,3.0,1.5746,computed,aggregator_panel,0.15,0.2016,True,True,True,True,True,
 ASX:RG1,Regal Partners Global Investments Limited,AU,0.0,7.0,,insufficient_history_9m,aggregator_panel,0.1287,0.1677,True,False,True,True,False,z:insufficient_history_9m
-ASX:REV,Revolution Private Credit Income Trust,AU,0.0,6.0,,insufficient_history_10m,aggregator_panel,0.1237,0.1809,True,False,True,True,False,z:insufficient_history_10m
-ASX:RYD,Ryder Capital Limited,AU,0.0,17.0,3.2564,computed,aggregator_panel,0.15,0.1771,True,True,True,True,True,
-ASX:SB2,Salter Brothers Emerging Companies Limited,AU,0.0,23.0,1.3961,computed,aggregator_panel,0.1045,0.1387,True,True,True,True,True,
-ASX:SNC,Sandon Capital Investments Limited,AU,0.0,23.0,1.603,computed,aggregator_panel,0.1035,0.1458,True,True,True,True,True,
-ASX:SET,Solaris Australian Equity Income Plus Limited,AU,3.0,4.0,,insufficient_history_3m,aggregator_panel,0.0783,0.0815,True,False,True,True,False,z:insufficient_history_3m
-ASX:SEC,Spheria Emerging Companies Limited,AU,1.0,4.0,0.921,computed,aggregator_panel,0.1392,0.1706,True,True,True,True,True,
-ASX:GVF,Staude Capital Global Value Fund Limited,AU,0.0,23.0,0.8748,within_error_band,aggregator_panel,0.1432,0.1696,True,True,True,True,True,
-ASX:TOP,Thorney Opportunities Ltd,AU,1.0,46.0,-1.136,within_error_band,aggregator_panel,0.1068,0.1922,True,True,True,True,True,
-ASX:TEK,Thorney Technologies Ltd,AU,0.0,23.0,-6.0225,computed,aggregator_panel,0.063,0.7327,True,True,True,True,True,
+ASX:REV,Revolution Private Credit Income Trust,AU,0.0,6.0,,insufficient_history_10m,aggregator_panel,0.1237,0.1814,True,False,True,True,False,z:insufficient_history_10m
+ASX:RYD,Ryder Capital Limited,AU,0.0,17.0,3.4352,computed,aggregator_panel,0.15,0.1751,True,True,True,True,True,
+ASX:SB2,Salter Brothers Emerging Companies Limited,AU,0.0,23.0,1.2159,computed,aggregator_panel,0.1045,0.1421,True,True,True,True,True,
+ASX:SNC,Sandon Capital Investments Limited,AU,0.0,23.0,1.713,computed,aggregator_panel,0.1035,0.1444,True,True,True,True,True,
+ASX:SET,Solaris Australian Equity Income Plus Limited,AU,3.0,4.0,,insufficient_history_3m,aggregator_panel,0.0783,0.0846,True,False,True,True,False,z:insufficient_history_3m
+ASX:SEC,Spheria Emerging Companies Limited,AU,1.0,4.0,0.7453,computed,aggregator_panel,0.1392,0.1729,True,True,True,True,True,
+ASX:GVF,Staude Capital Global Value Fund Limited,AU,0.0,23.0,1.0037,within_error_band,aggregator_panel,0.1432,0.168,True,True,True,True,True,
+ASX:TOP,Thorney Opportunities Ltd,AU,1.0,46.0,-1.1915,within_error_band,aggregator_panel,0.1068,0.1941,True,True,True,True,True,
+ASX:TEK,Thorney Technologies Ltd,AU,0.0,23.0,-6.0533,computed,aggregator_panel,0.063,0.7496,True,True,True,True,True,
 ASX:TVL,Touch Ventures Limited,AU,0.0,23.0,-0.2009,computed,aggregator_panel,0.0711,0.0737,True,True,True,True,True,
-ASX:TGF,Tribeca Global Natural Resources Limited,AU,1.0,3.0,0.2374,within_error_band,aggregator_panel,0.15,0.1882,True,True,True,True,True,
+ASX:TGF,Tribeca Global Natural Resources Limited,AU,1.0,3.0,-0.9495,computed,aggregator_panel,0.15,0.2053,True,True,True,True,True,
 ASX:UWC,Underwood Capital Limited,AU,0.0,23.0,,insufficient_history_19m,aggregator_panel,0.15,0.1318,True,False,True,True,False,z:insufficient_history_19m
-ASX:WAA,WAM Active Limited,AU,1.0,46.0,-2.026,within_error_band,aggregator_panel,0.15,0.2364,True,True,True,True,True,
-ASX:WMA,WAM Alternative Assets Limited,AU,1.0,46.0,-1.3583,within_error_band,aggregator_panel,0.0913,0.1551,False,True,True,True,False,nav
-ASX:WAM,WAM Capital Limited,AU,1.0,46.0,-0.789,within_error_band,aggregator_panel,0.1438,0.2595,True,True,True,True,True,
-ASX:WGB,WAM Global Limited,AU,1.0,46.0,0.3433,within_error_band,aggregator_panel,0.1192,0.1606,True,True,True,True,True,
-ASX:WMX,WAM Income Maximiser Limited,AU,0.0,13.0,,insufficient_history_10m,aggregator_panel,0.0783,0.1139,True,False,True,True,False,z:insufficient_history_10m
-ASX:WLE,WAM Leaders Limited,AU,0.0,11.0,-0.029,within_error_band,aggregator_panel,0.15,0.2132,True,True,True,True,True,
-ASX:WMI,WAM Microcap Limited,AU,1.0,46.0,0.1365,within_error_band,aggregator_panel,0.1322,0.1987,True,True,True,True,True,
-ASX:WAX,WAM Research Limited,AU,1.0,46.0,-0.3798,within_error_band,aggregator_panel,0.1303,0.2314,True,True,True,True,True,
-ASX:WAR,WAM Strategic Value Limited,AU,0.0,17.0,-3.3188,computed,aggregator_panel,0.1041,0.2186,True,True,True,True,True,
-ASX:WQG,WCM Global Growth Limited,AU,0.0,8.0,2.716,computed,aggregator_panel,0.15,0.1543,True,True,True,True,True,
-ASX:WHI,Whitefield Income Limited,AU,3.0,46.0,,insufficient_history_19m,aggregator_panel,0.0783,0.1213,False,False,True,True,False,nav+z:insufficient_history_19m
-ASX:WHF,Whitefield Industrials Limited,AU,1.0,46.0,-1.4799,computed,aggregator_panel,0.1302,0.2062,True,True,True,True,True,
-SEDOL:BYR8GK6,3i Infrastructure,UK,3.0,2327.0,,insufficient_history_1m,aggregator_panel,0.0515,,False,False,True,False,False,nav+z:insufficient_history_1m
-SEDOL:BDVK708,AEW UK Long Lease REIT,UK,3.0,2197.0,,insufficient_history_3m,aggregator_panel,0.0515,0.0847,False,False,True,True,False,nav+z:insufficient_history_3m
-SEDOL:BWD2415,AEW UK REIT,UK,3.0,2111.0,,insufficient_history_13m,aggregator_panel,0.0515,,False,False,True,False,False,nav+z:insufficient_history_13m
-SEDOL:133508,AVI Global Trust,UK,0.0,1.0,1.6127,computed,aggregator_panel,0.0981,0.1085,True,True,True,True,True,
-SEDOL:BD6H5D3,AVI Japan Opportunity Trust,UK,0.0,2.0,-1.5453,computed,aggregator_panel,0.0683,0.1014,True,True,True,True,True,
+ASX:WAA,WAM Active Limited,AU,1.0,46.0,-1.8621,within_error_band,aggregator_panel,0.15,0.2336,True,True,True,True,True,
+ASX:WMA,WAM Alternative Assets Limited,AU,1.0,46.0,-1.7107,within_error_band,aggregator_panel,0.0913,0.1575,False,True,True,True,False,nav
+ASX:WAM,WAM Capital Limited,AU,1.0,46.0,-0.735,within_error_band,aggregator_panel,0.1438,0.258,True,True,True,True,True,
+ASX:WGB,WAM Global Limited,AU,1.0,46.0,0.0196,within_error_band,aggregator_panel,0.1192,0.1658,True,True,True,True,True,
+ASX:WMX,WAM Income Maximiser Limited,AU,0.0,13.0,,insufficient_history_10m,aggregator_panel,0.0783,0.1132,True,False,True,True,False,z:insufficient_history_10m
+ASX:WLE,WAM Leaders Limited,AU,0.0,11.0,-0.1107,within_error_band,aggregator_panel,0.15,0.2141,True,True,True,True,True,
+ASX:WMI,WAM Microcap Limited,AU,1.0,46.0,-0.1832,within_error_band,aggregator_panel,0.1322,0.2049,True,True,True,True,True,
+ASX:WAX,WAM Research Limited,AU,1.0,46.0,-0.3124,within_error_band,aggregator_panel,0.1303,0.2295,True,True,True,True,True,
+ASX:WAR,WAM Strategic Value Limited,AU,0.0,17.0,-3.4131,computed,aggregator_panel,0.1041,0.2206,True,True,True,True,True,
+ASX:WQG,WCM Global Growth Limited,AU,0.0,8.0,2.2927,computed,aggregator_panel,0.15,0.1585,True,True,True,True,True,
+ASX:WHI,Whitefield Income Limited,AU,3.0,46.0,,insufficient_history_19m,aggregator_panel,0.0783,0.1237,False,False,True,True,False,nav+z:insufficient_history_19m
+ASX:WHF,Whitefield Industrials Limited,AU,1.0,46.0,-1.4178,computed,aggregator_panel,0.1302,0.2051,True,True,True,True,True,
+SEDOL:BYR8GK6,3i Infrastructure,UK,3.0,81.0,,insufficient_history_1m,aggregator_panel,0.0515,,False,False,True,False,False,nav+z:insufficient_history_1m
+SEDOL:BWD2415,AEW UK REIT,UK,3.0,241.0,,insufficient_history_13m,aggregator_panel,0.0515,,False,False,True,False,False,nav+z:insufficient_history_13m
+SEDOL:133508,AVI Global Trust,UK,0.0,1.0,1.6127,computed,aggregator_panel,0.0945,0.105,True,True,True,True,True,
+SEDOL:BD6H5D3,AVI Japan Opportunity Trust,UK,0.0,2.0,-1.2527,computed,aggregator_panel,0.0683,0.1002,True,True,True,True,True,
 NAME:aberdeen asia focus|ordinary share,Aberdeen Asia Focus,UK,0.0,4.0,0.8389,computed,aggregator_panel,0.1107,0.1239,True,True,True,True,True,
-SEDOL:B0P6J83,Aberdeen Asian Income Fund,UK,0.0,4.0,1.1993,computed,aggregator_panel,0.1142,0.1493,True,True,True,True,True,
-SEDOL:603959,Aberdeen Equity Income Trust,UK,0.0,4.0,0.3808,within_error_band,aggregator_panel,0.0215,0.0564,True,True,True,True,True,
-SEDOL:B1W59J1,Aberdeen Frontier Markets,UK,1.0,1588.0,0.692,within_error_band,aggregator_panel,0.0396,0.0725,False,True,True,True,False,nav
+SEDOL:B0P6J83,Aberdeen Asian Income Fund,UK,0.0,4.0,1.3072,computed,aggregator_panel,0.1142,0.1486,True,True,True,True,True,
+SEDOL:603959,Aberdeen Equity Income Trust,UK,0.0,4.0,0.5839,computed,aggregator_panel,0.0215,0.0551,True,True,True,True,True,
 SEDOL:604877,Aberdeen New India Investment Trust,UK,0.0,4.0,1.1122,computed,aggregator_panel,0.0747,0.066,True,True,True,True,True,
-NAME:aberdeen new thai|ordinary share,Aberdeen New Thai,UK,1.0,1262.0,-2.2662,within_error_band,aggregator_panel,-0.0479,-0.0399,False,True,True,True,False,nav
-SEDOL:295958,Aberdeen UK Smaller Companies Growth,UK,0.0,4.0,0.2378,within_error_band,aggregator_panel,-0.0324,-0.0046,True,True,True,True,True,
-SEDOL:BPJMQ25,Aberforth Geared Value & Income Trust,UK,3.0,4.0,-0.3637,within_error_band,aggregator_panel,0.0077,0.0555,True,True,True,True,True,
+SEDOL:295958,Aberdeen UK Smaller Companies Growth,UK,0.0,4.0,1.0243,computed,aggregator_panel,-0.0324,-0.0078,True,True,True,True,True,
+SEDOL:BPJMQ25,Aberforth Geared Value & Income Trust,UK,3.0,2.0,-0.4789,computed,aggregator_panel,0.04,0.0878,True,True,True,True,True,
 NAME:aberforth smaller companies|ordinary share,Aberforth Smaller Companies,UK,0.0,2.0,-0.602,within_error_band,aggregator_panel,0.0208,0.0214,True,True,True,True,True,
 SEDOL:BT3GKD0,Achilles Investment Company,UK,0.0,23.0,,no_discount_history,,0.0488,1.7101,True,False,True,True,False,z:no_discount_history
-SEDOL:B11V7W9,Alliance Witan,UK,0.0,3.0,-1.3328,computed,aggregator_panel,0.0801,0.0963,True,True,True,True,True,
-SEDOL:339072,Allianz Technology Trust,UK,0.0,1.0,0.2979,within_error_band,aggregator_panel,0.15,0.3882,True,True,True,True,True,
+SEDOL:B11V7W9,Alliance Witan,UK,0.0,3.0,0.0653,within_error_band,aggregator_panel,0.0801,0.0934,True,True,True,True,True,
+SEDOL:339072,Allianz Technology Trust,UK,0.0,1.0,1.4949,computed,aggregator_panel,0.15,0.3829,True,True,True,True,True,
 SEDOL:BWC53H4,Amedeo Air Four Plus,UK,3.0,241.0,,insufficient_history_6m,aggregator_panel,0.0515,0.0515,False,False,True,True,False,nav+z:insufficient_history_6m
-SEDOL:435594,Artemis Alpha Trust,UK,1.0,320.0,-3.5613,within_error_band,aggregator_panel,0.0075,0.0492,False,True,True,True,False,nav
-SEDOL:B1FL3C7,Artemis UK Future Leaders,UK,0.0,3.0,0.5279,computed,aggregator_panel,-0.0285,0.0044,True,True,True,True,True,
-SEDOL:BF50VS4,Ashoka India Equity,UK,0.0,3.0,-1.6053,computed,aggregator_panel,0.1002,0.1113,True,True,True,True,True,
-SEDOL:BMZR7D1,Ashoka WhiteOak Emerging Markets,UK,0.0,3.0,-2.1578,computed,own_daily_panel,0.15,0.1614,True,True,True,True,True,
-SEDOL:0060929,Athelney Trust,UK,1.0,23.0,0.935,computed,aggregator_panel,-0.05,-0.0274,True,True,True,True,True,
-SEDOL:BG12XV8,Augmentum Fintech,UK,3.0,2206.0,,no_discount_history,,0.129,,False,False,True,False,False,nav+z:no_discount_history
+SEDOL:435594,Artemis Alpha Trust,UK,1.0,320.0,-3.5569,within_error_band,aggregator_panel,0.0075,0.0492,False,True,True,True,False,nav
+SEDOL:B1FL3C7,Artemis UK Future Leaders,UK,0.0,3.0,1.0311,computed,aggregator_panel,-0.0285,0.0016,True,True,True,True,True,
+SEDOL:BF50VS4,Ashoka India Equity,UK,0.0,3.0,-1.0553,computed,aggregator_panel,0.1002,0.1083,True,True,True,True,True,
+SEDOL:BMZR7D1,Ashoka WhiteOak Emerging Markets,UK,0.0,3.0,-1.6365,computed,own_daily_panel,0.15,0.1588,True,True,True,True,True,
+SEDOL:0060929,Athelney Trust,UK,1.0,23.0,0.9334,computed,aggregator_panel,-0.05,-0.0274,True,True,True,True,True,
+SEDOL:BG12XV8,Augmentum Fintech,UK,3.0,241.0,,no_discount_history,,0.129,,False,False,True,False,False,nav+z:no_discount_history
 NAME:aurora uk alpha|ordinary share,Aurora UK Alpha,UK,0.0,3.0,-1.334,computed,aggregator_panel,0.0211,0.0471,True,True,True,True,True,
 SEDOL:B1NPGV1,BH Macro,UK,0.0,6.0,,no_discount_history,,0.0173,,True,False,True,False,False,z:no_discount_history
 SEDOL:365602,Baillie Gifford China Growth,UK,0.0,1.0,0.6632,computed,aggregator_panel,-0.0495,-0.0335,True,True,True,True,True,
-SEDOL:329501,Baillie Gifford European Growth,UK,0.0,1.0,0.8447,computed,aggregator_panel,-0.0272,0.3166,True,True,True,True,True,
-NAME:baillie gifford japan|ordinary share,Baillie Gifford Japan Trust,UK,0.0,1.0,-0.2043,within_error_band,aggregator_panel,0.0639,0.0847,True,True,True,True,True,
-NAME:baillie gifford shin nippon|ordinary share,Baillie Gifford Shin Nippon,UK,0.0,1.0,0.3427,within_error_band,aggregator_panel,0.0681,0.0873,True,True,True,True,True,
-SEDOL:791348,Baillie Gifford UK Growth,UK,0.0,1.0,0.2272,within_error_band,aggregator_panel,0.0489,0.0616,True,True,True,True,True,
-SEDOL:BDFGHW4,Baillie Gifford US Growth,UK,0.0,1.0,0.4625,computed,aggregator_panel,0.0544,0.1274,True,True,True,True,True,
-SEDOL:B6686L2,Baker Steel Resources Trust,UK,0.0,23.0,3.4123,computed,own_daily_panel,0.0592,0.0065,True,True,True,True,True,
+SEDOL:329501,Baillie Gifford European Growth,UK,0.0,1.0,1.7273,computed,aggregator_panel,-0.0272,0.3111,True,True,True,True,True,
+NAME:baillie gifford japan|ordinary share,Baillie Gifford Japan Trust,UK,0.0,1.0,-0.2043,within_error_band,aggregator_panel,0.0648,0.0856,True,True,True,True,True,
+NAME:baillie gifford shin nippon|ordinary share,Baillie Gifford Shin Nippon,UK,0.0,1.0,0.3427,within_error_band,aggregator_panel,0.0636,0.0828,True,True,True,True,True,
+SEDOL:791348,Baillie Gifford UK Growth,UK,0.0,1.0,1.0685,computed,aggregator_panel,0.0489,0.057,True,True,True,True,True,
+SEDOL:BDFGHW4,Baillie Gifford US Growth,UK,0.0,1.0,0.6286,computed,aggregator_panel,0.0544,0.1253,True,True,True,True,True,
+SEDOL:B6686L2,Baker Steel Resources Trust,UK,0.0,23.0,3.6728,computed,own_daily_panel,0.1102,0.0504,True,True,True,True,True,
 NAME:bankers|ordinary share,Bankers Investment Trust,UK,0.0,3.0,1.7087,computed,aggregator_panel,0.0804,0.0893,True,True,True,True,True,
 SEDOL:3227334,Barings Emerging EMEA Opportunities,UK,0.0,3.0,1.3627,computed,aggregator_panel,0.015,0.0274,True,True,True,True,True,
 NAME:biotech growth|ordinary share,Biotech Growth Trust,UK,0.0,3.0,0.7679,within_error_band,aggregator_panel,0.0526,0.1525,True,True,True,True,True,
-SEDOL:B7W0XJ6,BlackRock American Income,UK,0.0,3.0,1.5884,computed,aggregator_panel,0.1159,0.1154,True,True,True,True,True,
-SEDOL:B0BN1P9,BlackRock Emerging Europe,UK,1.0,2045.0,-0.9065,within_error_band,aggregator_panel,-0.03,0.0097,False,True,True,True,False,nav
+SEDOL:B7W0XJ6,BlackRock American Income,UK,0.0,3.0,1.6769,computed,aggregator_panel,0.1159,0.1147,True,True,True,True,True,
 SEDOL:B0N8MF9,BlackRock Energy and Resources Income,UK,0.0,3.0,1.5477,computed,aggregator_panel,0.15,0.165,True,True,True,True,True,
-SEDOL:B3SXM83,BlackRock Frontiers,UK,0.0,3.0,1.0778,computed,aggregator_panel,0.0938,0.125,True,True,True,True,True,
-SEDOL:B01RDH7,BlackRock Greater Europe,UK,0.0,3.0,-2.3582,computed,aggregator_panel,0.0951,0.1235,True,True,True,True,True,
-SEDOL:3096169,BlackRock Income & Growth,UK,0.0,3.0,0.616,computed,aggregator_panel,0.0604,0.0872,True,True,True,True,True,
+SEDOL:B3SXM83,BlackRock Frontiers,UK,0.0,3.0,1.6103,computed,aggregator_panel,0.0938,0.1206,True,True,True,True,True,
+SEDOL:B01RDH7,BlackRock Greater Europe,UK,0.0,3.0,-0.4208,within_error_band,aggregator_panel,0.0951,0.1181,True,True,True,True,True,
+SEDOL:3096169,BlackRock Income & Growth,UK,0.0,3.0,0.616,computed,aggregator_panel,0.0612,0.088,True,True,True,True,True,
 SEDOL:505840,BlackRock Latin American,UK,0.0,3.0,1.3494,computed,aggregator_panel,-0.007,0.0225,True,True,True,True,True,
-SEDOL:643610,BlackRock Smaller Companies,UK,0.0,3.0,0.2261,within_error_band,aggregator_panel,0.0978,0.1216,True,True,True,True,True,
-SEDOL:891055,BlackRock Throgmorton Trust,UK,1.0,100.0,-7.1121,computed,aggregator_panel,-0.0177,0.0626,False,True,True,True,False,nav
-SEDOL:577485,BlackRock World Mining,UK,0.0,3.0,-0.0162,within_error_band,aggregator_panel,0.1367,0.1638,True,True,True,True,True,
-SEDOL:532707,Blue Planet Investment Trust,UK,1.0,980.0,-0.9264,within_error_band,aggregator_panel,0.0801,0.1148,False,True,True,True,False,nav
-SEDOL:BB0RDB9,Bluefield Solar Income Fund,UK,3.0,893.0,,no_discount_history,,0.0515,,False,False,True,False,False,nav+z:no_discount_history
-NAME:british and american|ordinary share,British & American,UK,0.0,19.0,-0.2026,computed,own_daily_panel,-0.05,-0.047,True,True,True,True,True,
-SEDOL:346340,Brown Advisory US Smaller Companies,UK,0.0,1.0,2.1085,computed,aggregator_panel,0.0694,0.4232,True,True,True,True,True,
+SEDOL:643610,BlackRock Smaller Companies,UK,0.0,3.0,1.5515,computed,aggregator_panel,0.0978,0.1161,True,True,True,True,True,
+SEDOL:891055,BlackRock Throgmorton Trust,UK,1.0,100.0,-7.1106,computed,aggregator_panel,-0.0177,0.0626,False,True,True,True,False,nav
+SEDOL:577485,BlackRock World Mining,UK,0.0,3.0,1.41,computed,aggregator_panel,0.1367,0.1539,True,True,True,True,True,
+SEDOL:BB0RDB9,Bluefield Solar Income Fund,UK,3.0,111.0,,no_discount_history,,0.0515,,True,False,True,False,False,z:no_discount_history
+NAME:british and american|ordinary share,British & American,UK,0.0,19.0,-0.487,computed,own_daily_panel,-0.05,-0.0267,True,True,True,True,True,
+SEDOL:346340,Brown Advisory US Smaller Companies,UK,0.0,1.0,2.4028,computed,aggregator_panel,0.0622,0.4148,True,True,True,True,True,
 SEDOL:149000,Brunner Investment Trust,UK,0.0,1.0,-1.0018,computed,aggregator_panel,0.0919,0.1165,True,True,True,True,True,
-SEDOL:BYSRMH1,CC Japan Income & Growth Trust,UK,0.0,3.0,-0.1647,within_error_band,aggregator_panel,0.1208,0.12,True,True,True,True,True,
+SEDOL:BYSRMH1,CC Japan Income & Growth Trust,UK,0.0,3.0,-0.3512,computed,aggregator_panel,0.1208,0.1225,True,True,True,True,True,
 NAME:cqs natural resources growth and income|ordinary share,CQS Natural Resources Growth & Income,UK,0.0,3.0,1.6738,computed,aggregator_panel,0.15,0.1191,True,True,True,True,True,
-SEDOL:506241,CQS New City High Yield Fund,UK,0.0,3.0,0.1118,within_error_band,aggregator_panel,0.052,0.1289,True,True,True,True,True,
-SEDOL:B2PP252,CT Global Managed Portfolio Growth,UK,0.0,1.0,-0.8438,computed,aggregator_panel,0.0728,0.0925,True,True,True,True,True,
-SEDOL:B2PP3J3,CT Global Managed Portfolio Income,UK,0.0,1.0,-0.2199,within_error_band,aggregator_panel,0.0447,0.0737,True,True,True,True,True,
-SEDOL:BZCNLL9,CT Healthcare Trust,UK,0.0,1.0,0.3231,within_error_band,aggregator_panel,-0.0043,-0.0062,True,True,True,True,True,
-SEDOL:3073827,CT Private Equity Trust,UK,0.0,46.0,,no_discount_history,,0.0458,,False,False,True,False,False,nav+z:no_discount_history
-SEDOL:346328,CT UK Capital and Income,UK,0.0,1.0,-1.02,computed,aggregator_panel,0.0738,0.1102,True,True,True,True,True,
-SEDOL:B1N4G29,CT UK High Income Trust,UK,0.0,1.0,0.7136,computed,aggregator_panel,0.0895,0.1128,True,True,True,True,True,
-SEDOL:B1N4H59,CT UK High Income Trust,UK,0.0,1.0,1.5216,computed,aggregator_panel,0.0806,0.1117,True,True,True,True,True,
+SEDOL:506241,CQS New City High Yield Fund,UK,0.0,3.0,0.0045,within_error_band,aggregator_panel,0.052,0.1293,True,True,True,True,True,
+SEDOL:B2PP252,CT Global Managed Portfolio Growth,UK,0.0,1.0,-0.8438,computed,aggregator_panel,0.0662,0.086,True,True,True,True,True,
+SEDOL:B2PP3J3,CT Global Managed Portfolio Income,UK,0.0,1.0,-1.4532,computed,aggregator_panel,0.0447,0.0784,True,True,True,True,True,
+SEDOL:BZCNLL9,CT Healthcare Trust,UK,0.0,1.0,0.4068,computed,aggregator_panel,-0.0043,-0.0067,True,True,True,True,True,
+SEDOL:3073827,CT Private Equity Trust,UK,0.0,46.0,,no_discount_history,,0.0458,,True,False,True,False,False,z:no_discount_history
+SEDOL:346328,CT UK Capital and Income,UK,0.0,1.0,-1.1455,computed,aggregator_panel,0.0738,0.1105,True,True,True,True,True,
+SEDOL:B1N4G29,CT UK High Income Trust,UK,0.0,1.0,1.2999,computed,aggregator_panel,0.0895,0.1076,True,True,True,True,True,
+SEDOL:B1N4H59,CT UK High Income Trust,UK,0.0,1.0,2.1777,computed,aggregator_panel,0.0806,0.1065,True,True,True,True,True,
 SEDOL:B9G79F5,CVC Income & Growth,UK,,,,no_discount_history,,0.0396,,False,False,True,False,False,nav+z:no_discount_history
 SEDOL:B9MRHZ5,CVC Income & Growth,UK,,,,no_discount_history,,0.0396,,False,False,True,False,False,nav+z:no_discount_history
-SEDOL:163992,Caledonia Investments,UK,1.0,23.0,0.7127,within_error_band,aggregator_panel,0.0428,0.0548,True,True,True,True,True,
-SEDOL:5825107,Canadian General Investments,UK,0.0,1.0,1197.0417,computed,own_daily_panel,0.15,-0.5309,True,True,True,True,True,
-SEDOL:173861,Capital Gearing Trust,UK,1.0,23.0,2.2312,computed,aggregator_panel,0.0377,0.0545,True,True,True,True,True,
+SEDOL:163992,Caledonia Investments,UK,1.0,23.0,0.7098,within_error_band,aggregator_panel,0.0428,0.0549,True,True,True,True,True,
+SEDOL:5825107,Canadian General Investments,UK,0.0,0.0,1237.0041,computed,own_daily_panel,0.15,-0.5339,True,True,True,True,True,
+SEDOL:173861,Capital Gearing Trust,UK,1.0,23.0,2.2168,computed,aggregator_panel,0.0377,0.0545,True,True,True,True,True,
 SEDOL:BMWWJM2,Castelnau Group,UK,,,,no_discount_history,,0.0488,,False,False,True,False,False,nav+z:no_discount_history
-SEDOL:636911,Cayenne Trust,UK,1.0,2850.0,-1.5863,within_error_band,aggregator_panel,0.0801,0.1032,False,True,True,True,False,nav
 SEDOL:BFMDJH1,Ceiba Investments,UK,3.0,1807.0,,no_discount_history,,0.0515,,False,False,True,False,False,nav+z:no_discount_history
-SEDOL:661582,Chelverton UK Dividend Trust,UK,1.0,3.0,-1.3832,computed,aggregator_panel,0.0731,0.1441,True,True,True,True,True,
-SEDOL:BGJYPP4,Chrysalis Investments,UK,0.0,46.0,-1.0012,computed,own_daily_panel,-0.05,0.0801,True,True,True,True,True,
+SEDOL:B62DS15,Channel Islands Property,UK,,,,no_discount_history,,0.0515,,False,False,True,False,False,nav+z:no_discount_history
+SEDOL:661582,Chelverton UK Dividend Trust,UK,1.0,1.0,-1.6535,computed,aggregator_panel,0.0731,0.147,True,True,True,True,True,
+SEDOL:BWBSDM9,Chenavari Toro Income Fund,UK,,,,no_discount_history,,0.021,,False,False,True,False,False,nav+z:no_discount_history
+SEDOL:BGJYPP4,Chrysalis Investments,UK,0.0,46.0,-0.9449,computed,own_daily_panel,-0.05,0.0731,True,True,True,True,True,
 SEDOL:199049,City of London Investment Trust,UK,0.0,3.0,1.467,computed,aggregator_panel,0.1112,0.1414,True,True,True,True,True,
+SEDOL:BMC7TM7,Cordiant Digital Infrastructure,UK,0.0,111.0,,no_discount_history,,0.0515,,False,False,True,False,False,nav+z:no_discount_history
 SEDOL:B1Z2SL4,Crystal Amber Fund,UK,3.0,67.0,-2.1284,computed,own_daily_panel,0.0426,0.1294,True,True,True,True,True,
 SEDOL:BBP6HP3,DP Aircraft I,UK,,,,no_discount_history,,0.0515,,False,False,True,False,False,nav+z:no_discount_history
 SEDOL:BD0ND66,Develop North,UK,0.0,67.0,0.5128,within_error_band,own_daily_panel,0.0515,0.0988,True,True,True,True,True,
-SEDOL:BMDKH43,Digital 9 Infrastructure,UK,0.0,46.0,,no_discount_history,,0.0515,,False,False,True,False,False,nav+z:no_discount_history
-SEDOL:B65TLW2,Diverse Income Trust,UK,1.0,48.0,2.1697,computed,aggregator_panel,0.0653,0.1069,False,True,True,True,False,nav
-SEDOL:340609,Dunedin Income Growth,UK,0.0,4.0,0.3507,within_error_band,aggregator_panel,0.0651,0.1005,True,True,True,True,True,
-SEDOL:B1GCL25,Dunedin Smaller Companies,UK,1.0,2067.0,2.0197,within_error_band,aggregator_panel,0.0,0.008,False,True,True,True,False,nav
+SEDOL:BMDKH43,Digital 9 Infrastructure,UK,0.0,46.0,,no_discount_history,,0.0515,,True,False,True,False,False,z:no_discount_history
+SEDOL:B65TLW2,Diverse Income Trust,UK,1.0,48.0,2.1732,computed,aggregator_panel,0.0653,0.1069,False,True,True,True,False,nav
+SEDOL:340609,Dunedin Income Growth,UK,0.0,4.0,0.7045,within_error_band,aggregator_panel,0.0651,0.0992,True,True,True,True,True,
 SEDOL:BF0D1M2,EJF Investments,UK,3.0,372.0,,no_discount_history,,0.0105,,False,False,True,False,False,nav+z:no_discount_history
 SEDOL:BD3V464,Ecofin Global Utilities and Infrastructure,UK,0.0,3.0,2.2869,computed,aggregator_panel,0.0775,0.0591,True,True,True,True,True,
-SEDOL:305233,Edinburgh Investment Trust,UK,0.0,1.0,3.8224,computed,aggregator_panel,0.0904,0.1081,True,True,True,True,True,
-SEDOL:291633,Edinburgh Worldwide,UK,0.0,1.0,-0.2699,computed,aggregator_panel,-0.0406,0.0478,True,True,True,True,True,
-SEDOL:3133691,Establishment Investment Trust,UK,1.0,1872.0,1.0743,within_error_band,aggregator_panel,0.0488,0.0569,False,True,True,True,False,nav
-SEDOL:322566,European Assets Trust,UK,1.0,233.0,-1.0817,within_error_band,aggregator_panel,0.065,0.118,False,True,True,True,False,nav
-NAME:european opportunities|ordinary share,European Opportunities Trust,UK,1.0,23.0,1.4872,within_error_band,aggregator_panel,0.0221,0.0377,True,True,True,True,True,
-SEDOL:346607,F&C Investment Trust,UK,0.0,1.0,-0.2695,within_error_band,aggregator_panel,0.0936,0.1089,True,True,True,True,True,
-SEDOL:332231,Fidelity Asian Values,UK,0.0,1.0,0.9855,computed,aggregator_panel,0.0755,0.1125,True,True,True,True,True,
-SEDOL:B62Z3C7,Fidelity China Special Situations,UK,0.0,1.0,0.5852,within_error_band,aggregator_panel,-0.0442,-0.0045,True,True,True,True,True,
-SEDOL:B4L0PD4,Fidelity Emerging Markets,UK,0.0,3.0,1.0165,computed,aggregator_panel,0.0566,0.0907,True,True,True,True,True,
-SEDOL:337582,Fidelity European Trust,UK,0.0,1.0,-0.8818,computed,aggregator_panel,0.0653,0.0686,True,True,True,True,True,
-SEDOL:332855,Fidelity Japan Trust,UK,1.0,203.0,1.4365,within_error_band,aggregator_panel,0.0448,0.0372,False,True,True,True,False,nav
-SEDOL:332510,Fidelity Special Values,UK,0.0,1.0,1.2802,computed,aggregator_panel,0.0703,0.0902,True,True,True,True,True,
-SEDOL:781606,Finsbury Growth & Income Trust,UK,0.0,3.0,-1.2804,computed,aggregator_panel,0.0414,0.0776,True,True,True,True,True,
-SEDOL:BJL5FH8,Foresight Environmental Infrastructure,UK,0.0,46.0,1.5948,computed,own_daily_panel,0.0515,0.0397,True,True,True,True,True,
-SEDOL:BD3QJR5,Foresight Solar Fund,UK,0.0,46.0,0.0948,within_error_band,own_daily_panel,0.0515,0.0715,True,True,True,True,True,
-SEDOL:537241,Franklin Global Trust,UK,1.0,138.0,-0.4225,within_error_band,aggregator_panel,0.0596,0.4681,False,True,True,True,False,nav
-SEDOL:BLSNND1,Fundsmith Emerging Equities,UK,1.0,1002.0,0.0423,within_error_band,aggregator_panel,0.0517,0.0576,False,True,True,True,False,nav
-SEDOL:BYXX8B0,GCP Asset Backed Income,UK,3.0,307.0,-0.3014,within_error_band,own_daily_panel,0.0515,0.0802,False,True,True,True,False,nav
-SEDOL:B6173J1,GCP Infrastructure Investments,UK,0.0,46.0,1.9978,computed,own_daily_panel,0.0515,0.0293,True,True,True,True,True,
-SEDOL:B8460Z4,GCP Student Living,UK,3.0,1284.0,,insufficient_history_17m,aggregator_panel,0.0515,0.0294,False,False,True,True,False,nav+z:insufficient_history_17m
+SEDOL:305233,Edinburgh Investment Trust,UK,0.0,1.0,4.3315,computed,aggregator_panel,0.0904,0.1066,True,True,True,True,True,
+SEDOL:291633,Edinburgh Worldwide,UK,0.0,1.0,0.1611,within_error_band,aggregator_panel,-0.0406,0.0434,True,True,True,True,True,
+SEDOL:322566,European Assets Trust,UK,1.0,233.0,-1.0796,within_error_band,aggregator_panel,0.065,0.118,False,True,True,True,False,nav
+NAME:european opportunities|ordinary share,European Opportunities Trust,UK,1.0,23.0,1.4842,within_error_band,aggregator_panel,0.0221,0.0377,True,True,True,True,True,
+SEDOL:346607,F&C Investment Trust,UK,0.0,1.0,0.5541,computed,aggregator_panel,0.0936,0.106,True,True,True,True,True,
+SEDOL:332231,Fidelity Asian Values,UK,0.0,0.0,1.3053,computed,aggregator_panel,0.0755,0.1105,True,True,True,True,True,
+SEDOL:B62Z3C7,Fidelity China Special Situations,UK,0.0,0.0,2.6954,computed,aggregator_panel,-0.0442,-0.0129,True,True,True,True,True,
+SEDOL:B4L0PD4,Fidelity Emerging Markets,UK,0.0,1.0,1.6953,computed,aggregator_panel,0.0566,0.0864,True,True,True,True,True,
+SEDOL:337582,Fidelity European Trust,UK,0.0,0.0,0.9983,computed,aggregator_panel,0.0653,0.059,True,True,True,True,True,
+SEDOL:332855,Fidelity Japan Trust,UK,1.0,203.0,1.4349,within_error_band,aggregator_panel,0.0448,0.0372,False,True,True,True,False,nav
+SEDOL:332510,Fidelity Special Values,UK,0.0,0.0,1.6882,computed,aggregator_panel,0.0669,0.084,True,True,True,True,True,
+SEDOL:781606,Finsbury Growth & Income Trust,UK,0.0,3.0,0.049,within_error_band,aggregator_panel,0.0414,0.0741,True,True,True,True,True,
+SEDOL:BJL5FH8,Foresight Environmental Infrastructure,UK,0.0,46.0,1.519,computed,own_daily_panel,0.0515,0.0411,True,True,True,True,True,
+SEDOL:BD3QJR5,Foresight Solar Fund,UK,0.0,46.0,0.292,within_error_band,own_daily_panel,0.0515,0.0673,True,True,True,True,True,
+SEDOL:537241,Franklin Global Trust,UK,1.0,138.0,-0.4364,within_error_band,aggregator_panel,0.0596,0.4681,False,True,True,True,False,nav
+SEDOL:BYXX8B0,GCP Asset Backed Income,UK,3.0,175.0,0.9243,within_error_band,own_daily_panel,0.0515,0.0494,True,True,True,True,True,
+SEDOL:B6173J1,GCP Infrastructure Investments,UK,0.0,46.0,2.0787,computed,own_daily_panel,-0.05,-0.0711,True,True,True,True,True,
 SEDOL:BCKFVJ4,GRIT Investment Trust,UK,3.0,2827.0,,insufficient_history_20m,aggregator_panel,0.1479,3.8032,False,False,True,True,False,nav+z:insufficient_history_20m
-SEDOL:BTLJYS4,Gabelli Value Plus+,UK,1.0,1545.0,-0.9361,within_error_band,aggregator_panel,0.0831,0.0958,False,True,True,True,False,nav
-SEDOL:B15FW33,Geiger Counter,UK,0.0,3.0,1.1126,computed,aggregator_panel,0.1364,0.1256,True,True,True,True,True,
-SEDOL:3386257,Global Opportunities Trust,UK,0.0,3.0,1.2203,computed,aggregator_panel,0.0585,0.0764,True,True,True,True,True,
-SEDOL:B1G9T99,Golden Prospect Precious Metals,UK,0.0,3.0,0.788,computed,aggregator_panel,0.1479,0.1365,True,True,True,True,True,
-SEDOL:BG0P0V7,Gore Street Energy Storage,UK,0.0,111.0,,no_discount_history,,0.0515,,False,False,True,False,False,nav+z:no_discount_history
-SEDOL:B8SC6K5,Greencoat UK Wind,UK,3.0,46.0,-1.5931,computed,aggregator_panel,0.0515,0.0633,True,True,True,True,True,
-SEDOL:BFX3K77,Gresham House Energy Storage,UK,0.0,175.0,,no_discount_history,,0.0515,0.0412,False,False,True,True,False,nav+z:no_discount_history
-SEDOL:2894108,Hansa Investment Company,UK,0.0,3.0,0.507,computed,aggregator_panel,0.0897,0.2201,True,True,True,True,True,
-SEDOL:787972,Hansa Investment Company,UK,0.0,3.0,1.0503,computed,aggregator_panel,0.0488,0.0542,True,True,True,True,True,
+SEDOL:BD8P074,Gabelli Merchant Partners,UK,,,,no_discount_history,,0.0206,,False,False,True,False,False,nav+z:no_discount_history
+SEDOL:B15FW33,Geiger Counter,UK,0.0,3.0,1.3258,computed,aggregator_panel,0.1364,0.1219,True,True,True,True,True,
+SEDOL:3386257,Global Opportunities Trust,UK,0.0,3.0,1.5752,computed,aggregator_panel,0.0585,0.0737,True,True,True,True,True,
+SEDOL:B1G9T99,Golden Prospect Precious Metals,UK,0.0,3.0,1.6621,computed,aggregator_panel,0.1479,0.1249,True,True,True,True,True,
+SEDOL:BG0P0V7,Gore Street Energy Storage,UK,0.0,111.0,,no_discount_history,,0.0515,,True,False,True,False,False,z:no_discount_history
+SEDOL:B8SC6K5,Greencoat UK Wind,UK,3.0,46.0,-1.4908,computed,aggregator_panel,-0.0355,-0.0275,True,True,True,True,True,
+SEDOL:BFX3K77,Gresham House Energy Storage,UK,0.0,0.0,,no_discount_history,,0.0515,0.0729,True,False,True,True,False,z:no_discount_history
+SEDOL:B0T4LH6,HICL Infrastructure,UK,0.0,0.0,,no_discount_history,,0.0515,,True,False,True,False,False,z:no_discount_history
+SEDOL:2894108,Hansa Investment Company,UK,0.0,3.0,0.4014,computed,aggregator_panel,0.0897,0.2214,True,True,True,True,True,
+SEDOL:787972,Hansa Investment Company,UK,0.0,3.0,0.9341,computed,aggregator_panel,0.0488,0.0554,True,True,True,True,True,
 SEDOL:B28XHD6,HarbourVest Global Private Equity,UK,0.0,23.0,1.7368,computed,own_daily_panel,0.0351,-0.0122,True,True,True,True,True,
-SEDOL:0121600,Henderson Alternative Strategies,UK,1.0,1567.0,0.9645,within_error_band,aggregator_panel,0.0488,0.441,False,True,True,True,False,nav
-SEDOL:526885,Henderson European Trust,UK,1.0,248.0,1.0511,within_error_band,aggregator_panel,0.0357,0.057,False,True,True,True,False,nav
-SEDOL:B1GXH75,Henderson Far East Income,UK,0.0,3.0,0.5447,computed,aggregator_panel,0.0898,0.0877,True,True,True,True,True,
-SEDOL:318402,Henderson Global,UK,1.0,2719.0,-1.4512,within_error_band,aggregator_panel,0.0801,0.1122,False,True,True,True,False,nav
-SEDOL:958057,Henderson High Income Trust,UK,0.0,3.0,1.0651,computed,aggregator_panel,0.1136,0.1537,True,True,True,True,True,
-SEDOL:B3PHCS8,Henderson International Income,UK,1.0,335.0,0.9667,within_error_band,aggregator_panel,0.0896,0.1193,False,True,True,True,False,nav
-SEDOL:BFMYZ98,Henderson International Income C shares,UK,3.0,2372.0,,insufficient_history_5m,aggregator_panel,0.1007,0.1392,False,False,True,True,False,nav+z:insufficient_history_5m
-SEDOL:853657,Henderson Opportunities Trust,UK,1.0,392.0,0.9776,within_error_band,aggregator_panel,-0.05,-0.0255,False,True,True,True,False,nav
-SEDOL:906506,Henderson Smaller Companies,UK,0.0,3.0,0.3763,within_error_band,aggregator_panel,-0.0248,-0.0268,True,True,True,True,True,
-SEDOL:422864,Herald Investment Trust,UK,0.0,3.0,-0.6526,computed,aggregator_panel,0.0037,0.0252,True,True,True,True,True,
-SEDOL:392105,HgCapital Trust,UK,0.0,46.0,,no_discount_history,,0.0458,0.1115,False,False,True,True,False,nav+z:no_discount_history
+SEDOL:526885,Henderson European Trust,UK,1.0,248.0,1.0488,within_error_band,aggregator_panel,0.0357,0.0571,False,True,True,True,False,nav
+SEDOL:B1GXH75,Henderson Far East Income,UK,0.0,3.0,0.7253,computed,aggregator_panel,0.0898,0.0864,True,True,True,True,True,
+SEDOL:958057,Henderson High Income Trust,UK,0.0,3.0,1.1697,computed,aggregator_panel,0.1136,0.1532,True,True,True,True,True,
+SEDOL:B3PHCS8,Henderson International Income,UK,1.0,335.0,0.9651,within_error_band,aggregator_panel,0.0896,0.1193,False,True,True,True,False,nav
+SEDOL:853657,Henderson Opportunities Trust,UK,1.0,392.0,0.979,within_error_band,aggregator_panel,-0.05,-0.0255,False,True,True,True,False,nav
+SEDOL:906506,Henderson Smaller Companies,UK,0.0,3.0,1.2318,computed,aggregator_panel,-0.0248,-0.0308,True,True,True,True,True,
+SEDOL:422864,Herald Investment Trust,UK,0.0,3.0,0.1877,within_error_band,aggregator_panel,0.0037,0.0199,True,True,True,True,True,
+SEDOL:392105,HgCapital Trust,UK,0.0,46.0,,no_discount_history,,0.0458,0.1029,True,False,True,True,False,z:no_discount_history
 SEDOL:BJP5HK1,Home REIT,UK,0.0,262.0,,no_discount_history,,0.0515,,False,False,True,False,False,nav+z:no_discount_history
-SEDOL:BL6K7L0,Hydrogen Capital Growth,UK,3.0,175.0,,insufficient_history_11m,aggregator_panel,0.0534,0.1041,True,False,True,True,False,z:insufficient_history_11m
-SEDOL:329200,ICG Enterprise Trust,UK,3.0,4067.0,,insufficient_history_12m,aggregator_panel,0.0458,,False,False,True,False,False,nav+z:insufficient_history_12m
+SEDOL:BL6K7L0,Hydrogen Capital Growth,UK,3.0,175.0,,insufficient_history_11m,aggregator_panel,-0.0122,0.0586,True,False,True,True,False,z:insufficient_history_11m
+SEDOL:329200,ICG Enterprise Trust,UK,3.0,152.0,,insufficient_history_12m,aggregator_panel,0.0458,,False,False,True,False,False,nav+z:insufficient_history_12m
 SEDOL:B8C23S8,ICG-Longbow Senior Secured UK Property Debt Invest,UK,0.0,152.0,,no_discount_history,,0.0515,,False,False,True,False,False,nav+z:no_discount_history
-SEDOL:3123249,Impax Environmental Markets,UK,0.0,3.0,-1.1807,computed,aggregator_panel,0.041,0.0673,True,True,True,True,True,
-NAME:independent investment trust|ordinary share,Independent Investment Trust,UK,1.0,1002.0,-0.7778,within_error_band,aggregator_panel,0.0305,0.072,False,True,True,True,False,nav
-SEDOL:B0P8RJ6,India Capital Growth Fund,UK,0.0,1.0,-0.6646,computed,own_daily_panel,0.0821,0.085,True,True,True,True,True,
-SEDOL:455934,International Biotechnology,UK,0.0,1.0,1.9142,computed,aggregator_panel,0.0683,0.164,True,True,True,True,True,
-SEDOL:B188SR5,International Public Partnerships,UK,3.0,4481.0,,no_discount_history,,0.0515,,False,False,True,False,False,nav+z:no_discount_history
-SEDOL:453530,Invesco Asia Dragon Trust,UK,0.0,3.0,1.4375,computed,aggregator_panel,0.1099,0.1231,True,True,True,True,True,
+SEDOL:3123249,Impax Environmental Markets,UK,0.0,3.0,-0.2743,within_error_band,aggregator_panel,0.041,0.0624,True,True,True,True,True,
+SEDOL:B0P8RJ6,India Capital Growth Fund,UK,0.0,1.0,-0.9284,computed,own_daily_panel,0.0896,0.095,True,True,True,True,True,
+SEDOL:455934,International Biotechnology,UK,0.0,1.0,2.5178,computed,aggregator_panel,0.0683,0.1614,True,True,True,True,True,
+SEDOL:B188SR5,International Public Partnerships,UK,3.0,175.0,,no_discount_history,,0.0515,,False,False,True,False,False,nav+z:no_discount_history
+SEDOL:453530,Invesco Asia Dragon Trust,UK,0.0,3.0,1.6888,computed,aggregator_panel,0.1099,0.1218,True,True,True,True,True,
 SEDOL:B0LNG76,Invesco Bond Income Plus,UK,0.0,1.0,0.3154,within_error_band,aggregator_panel,0.0389,0.0984,True,True,True,True,True,
-SEDOL:B05NYM3,Invesco Enhanced Income,UK,1.0,1393.0,-1.0001,within_error_band,aggregator_panel,0.0396,0.1063,False,True,True,True,False,nav
-SEDOL:B1DQ647,Invesco Global Equity Income Trust,UK,0.0,3.0,0.7581,computed,aggregator_panel,0.1346,0.134,True,True,True,True,True,
-SEDOL:358572,Invesco Income Growth,UK,1.0,1415.0,0.6027,within_error_band,aggregator_panel,0.0806,0.1056,False,True,True,True,False,nav
-SEDOL:846505,JPMorgan American,UK,0.0,1.0,-0.6134,computed,aggregator_panel,0.1458,0.1645,True,True,True,True,True,
+SEDOL:B1DQ647,Invesco Global Equity Income Trust,UK,0.0,3.0,1.0141,computed,aggregator_panel,0.1346,0.1303,True,True,True,True,True,
+SEDOL:846505,JPMorgan American,UK,0.0,1.0,-0.0427,within_error_band,aggregator_panel,0.1458,0.1619,True,True,True,True,True,
 SEDOL:132077,JPMorgan Asia Growth & Income,UK,0.0,1.0,2.2595,computed,aggregator_panel,0.1053,0.1016,True,True,True,True,True,
-SEDOL:B602HS4,JPMorgan Brazil,UK,1.0,1522.0,1.1787,within_error_band,aggregator_panel,0.0515,0.0527,False,True,True,True,False,nav
-SEDOL:343501,JPMorgan China Growth & Income,UK,0.0,1.0,0.3877,within_error_band,aggregator_panel,-0.05,0.3618,True,True,True,True,True,
-SEDOL:342218,JPMorgan Claverhouse,UK,0.0,1.0,2.5968,computed,aggregator_panel,0.0902,0.1157,True,True,True,True,True,
-SEDOL:3408009,JPMorgan Elect Managed Cash,UK,1.0,980.0,0.9127,within_error_band,aggregator_panel,0.0037,0.2359,False,True,True,True,False,nav
-SEDOL:852814,JPMorgan Elect Managed Growth,UK,1.0,980.0,-3.246,within_error_band,aggregator_panel,0.0801,0.1079,False,True,True,True,False,nav
-SEDOL:3408021,JPMorgan Elect Managed Income,UK,1.0,980.0,-4.4081,within_error_band,aggregator_panel,0.0806,0.1232,False,True,True,True,False,nav
+SEDOL:343501,JPMorgan China Growth & Income,UK,0.0,1.0,1.3346,computed,aggregator_panel,-0.05,0.3585,True,True,True,True,True,
+SEDOL:342218,JPMorgan Claverhouse,UK,0.0,1.0,3.7067,computed,aggregator_panel,0.0902,0.1131,True,True,True,True,True,
 SEDOL:3216473,"JPMorgan Emerging Europe, Middle East & Africa",UK,0.0,1.0,0.0875,computed,aggregator_panel,0.0765,0.0558,True,True,True,True,True,
-SEDOL:B5ZZY91,JPMorgan Emerging Markets Dividend Income,UK,0.0,1.0,0.9946,computed,aggregator_panel,0.0987,0.1195,True,True,True,True,True,
-SEDOL:341895,JPMorgan Emerging Markets Growth & Income,UK,0.0,1.0,1.2473,computed,aggregator_panel,0.0765,0.0903,True,True,True,True,True,
-SEDOL:341969,JPMorgan European Discovery,UK,0.0,1.0,0.2389,within_error_band,aggregator_panel,0.053,0.0668,True,True,True,True,True,
-SEDOL:B18JK16,JPMorgan European Growth & Income,UK,0.0,1.0,0.7788,computed,aggregator_panel,0.1014,0.1076,True,True,True,True,True,
-SEDOL:B17XWW4,JPMorgan European Income,UK,1.0,1197.0,-2.5761,within_error_band,aggregator_panel,0.0653,0.113,False,True,True,True,False,nav
-SEDOL:B96SW59,JPMorgan Global Convertibles Income,UK,1.0,1807.0,-0.536,within_error_band,aggregator_panel,0.0396,0.0655,False,True,True,True,False,nav
+SEDOL:B5ZZY91,JPMorgan Emerging Markets Dividend Income,UK,0.0,1.0,1.1768,computed,aggregator_panel,0.0987,0.1185,True,True,True,True,True,
+SEDOL:341895,JPMorgan Emerging Markets Growth & Income,UK,0.0,1.0,1.4702,computed,aggregator_panel,0.0765,0.0892,True,True,True,True,True,
+SEDOL:341969,JPMorgan European Discovery,UK,0.0,1.0,1.0058,computed,aggregator_panel,0.053,0.063,True,True,True,True,True,
+SEDOL:B18JK16,JPMorgan European Growth & Income,UK,0.0,1.0,1.1728,computed,aggregator_panel,0.1014,0.1035,True,True,True,True,True,
 SEDOL:BJVKW83,JPMorgan Global Core Real Assets,UK,3.0,1632.0,,insufficient_history_3m,aggregator_panel,0.0488,,False,False,True,False,False,nav+z:insufficient_history_3m
-SEDOL:914327,JPMorgan Global Growth & Income,UK,0.0,1.0,-0.6251,computed,aggregator_panel,0.1239,0.1437,True,True,True,True,True,
-SEDOL:345035,JPMorgan India Growth & Income,UK,0.0,1.0,1.1186,computed,aggregator_panel,0.0538,0.0457,True,True,True,True,True,
+SEDOL:914327,JPMorgan Global Growth & Income,UK,0.0,1.0,0.1519,within_error_band,aggregator_panel,0.1239,0.1401,True,True,True,True,True,
+SEDOL:345035,JPMorgan India Growth & Income,UK,0.0,1.0,1.1186,computed,aggregator_panel,0.057,0.0489,True,True,True,True,True,
 SEDOL:174002,JPMorgan Japanese,UK,0.0,1.0,0.2708,within_error_band,aggregator_panel,0.0669,0.0794,True,True,True,True,True,
-SEDOL:BGCZJW9,JPMorgan Senior Secured Loan,UK,3.0,2676.0,0.4418,within_error_band,aggregator_panel,0.1126,0.1076,False,True,True,True,False,nav
-SEDOL:741600,JPMorgan UK Small Cap Growth & Income,UK,0.0,1.0,0.2664,within_error_band,aggregator_panel,0.0,0.0197,True,True,True,True,True,
-SEDOL:341710,JPMorgan US Smaller Companies,UK,0.0,1.0,-0.2432,within_error_band,aggregator_panel,0.0589,0.0702,True,True,True,True,True,
-SEDOL:BDR0575,Jupiter Emerging & Frontier Income,UK,1.0,1111.0,-3.1297,within_error_band,aggregator_panel,0.0765,0.1305,False,True,True,True,False,nav
-SEDOL:B120GL7,Jupiter Green Investment Trust,UK,1.0,386.0,1.371,within_error_band,aggregator_panel,0.0872,0.0887,False,True,True,True,False,nav
-SEDOL:703376,Jupiter UK Growth,UK,1.0,1437.0,-3.7591,within_error_band,aggregator_panel,0.0305,0.0763,False,True,True,True,False,nav
-SEDOL:491206,Keystone Positive Change,UK,1.0,381.0,1.6701,within_error_band,aggregator_panel,-0.0038,0.3887,False,True,True,True,False,nav
+SEDOL:741600,JPMorgan UK Small Cap Growth & Income,UK,0.0,1.0,0.7649,computed,aggregator_panel,0.0,0.0162,True,True,True,True,True,
+SEDOL:341710,JPMorgan US Smaller Companies,UK,0.0,1.0,0.1867,within_error_band,aggregator_panel,0.0589,0.0668,True,True,True,True,True,
+SEDOL:B120GL7,Jupiter Green Investment Trust,UK,1.0,386.0,1.3699,within_error_band,aggregator_panel,0.0872,0.0887,False,True,True,True,False,nav
+SEDOL:491206,Keystone Positive Change,UK,1.0,381.0,1.6683,within_error_band,aggregator_panel,-0.0038,0.3887,False,True,True,True,False,nav
 SEDOL:B12MHD2,LMS Capital,UK,0.0,46.0,0.6581,computed,own_daily_panel,0.0458,0.051,True,True,True,True,True,
-SEDOL:3142921,Law Debenture Corporation,UK,0.0,3.0,0.0905,within_error_band,aggregator_panel,0.1042,0.1311,True,True,True,True,True,
-SEDOL:981536,Lazard World Trust Fund,UK,1.0,2067.0,-0.0685,within_error_band,aggregator_panel,0.1048,0.1165,False,True,True,True,False,nav
-SEDOL:BP5X4Q2,Life Science REIT,UK,,,,no_discount_history,,0.0515,,False,False,True,False,False,nav+z:no_discount_history
-SEDOL:3197794,Lindsell Train Investment Trust,UK,0.0,6.0,-19.3435,computed,aggregator_panel,0.0801,1.844,True,True,True,True,True,
+SEDOL:3142921,Law Debenture Corporation,UK,0.0,3.0,0.5044,within_error_band,aggregator_panel,0.1042,0.1293,True,True,True,True,True,
+SEDOL:BP5X4Q2,Life Science REIT,UK,3.0,307.0,,no_discount_history,,0.0515,,False,False,True,False,False,nav+z:no_discount_history
+SEDOL:3197794,Lindsell Train Investment Trust,UK,0.0,6.0,-19.3394,computed,aggregator_panel,0.0801,1.8317,True,True,True,True,True,
+SEDOL:BMF1L08,Literacy Capital,UK,0.0,46.0,,no_discount_history,,0.0458,,True,False,True,False,False,z:no_discount_history
 SEDOL:BF0P7H5,Living REIT,UK,0.0,175.0,,no_discount_history,,0.0515,,False,False,True,False,False,nav+z:no_discount_history
-SEDOL:531005,London & St Lawrence,UK,1.0,2481.0,-1.1293,within_error_band,aggregator_panel,0.1007,0.1469,False,True,True,True,False,nav
-SEDOL:536806,Lowland Investment Company,UK,0.0,3.0,0.8498,computed,aggregator_panel,0.0954,0.126,True,True,True,True,True,
-SEDOL:BFYYL32,M&G Credit Income,UK,1.0,23.0,-0.093,computed,aggregator_panel,0.0151,0.2715,True,True,True,True,True,
-SEDOL:3436594,MIGO Opportunities Trust,UK,0.0,3.0,-0.7254,within_error_band,aggregator_panel,0.0511,0.0887,True,True,True,True,True,
+SEDOL:536806,Lowland Investment Company,UK,0.0,3.0,1.0584,computed,aggregator_panel,0.0954,0.1248,True,True,True,True,True,
+SEDOL:BFYYL32,M&G Credit Income,UK,1.0,23.0,-0.1004,computed,aggregator_panel,-0.0023,0.2559,True,True,True,True,True,
+SEDOL:3436594,MIGO Opportunities Trust,UK,0.0,3.0,-0.366,within_error_band,aggregator_panel,0.0511,0.0877,True,True,True,True,True,
 SEDOL:0555522,Majedie Investments,UK,0.0,13.0,1.7599,computed,aggregator_panel,0.0917,0.0636,True,True,True,True,True,
-SEDOL:569512,Martin Currie Asia Unconstrained,UK,1.0,1827.0,1.9773,within_error_band,aggregator_panel,0.0491,0.0556,False,True,True,True,False,nav
 SEDOL:B1DSZV3,Marwyn Value Investors,UK,3.0,936.0,,no_discount_history,,0.0,,False,False,True,False,False,nav+z:no_discount_history
-SEDOL:BZ0XWD0,Menhaden Resource Efficiency,UK,1.0,377.0,2.2347,computed,aggregator_panel,0.1117,0.4828,False,True,True,True,False,nav
-SEDOL:579403,Mercantile Investment Trust,UK,0.0,1.0,-0.7498,computed,aggregator_panel,0.0348,0.0616,True,True,True,True,True,
-SEDOL:580007,Merchants Trust,UK,0.0,1.0,-0.8052,computed,aggregator_panel,0.0917,0.1416,True,True,True,True,True,
-SEDOL:589383,Mid Wynd International,UK,0.0,3.0,-2.4652,computed,aggregator_panel,0.0559,0.4878,True,True,True,True,True,
-SEDOL:596286,Mithras,UK,3.0,2327.0,,insufficient_history_23m,aggregator_panel,0.0458,0.0535,False,False,True,True,False,nav+z:insufficient_history_23m
-SEDOL:BWFGQ20,Miton UK Microcap C shares,UK,3.0,2654.0,,insufficient_history_5m,aggregator_panel,0.0,0.0154,False,False,True,True,False,nav+z:insufficient_history_5m
-SEDOL:BWFGQ08,Miton UK Microcap Trust,UK,1.0,335.0,-0.059,within_error_band,aggregator_panel,-0.05,-0.0226,False,True,True,True,False,nav
-SEDOL:BFZ7R98,Mobius Investment Trust,UK,0.0,3.0,-1.606,computed,aggregator_panel,0.0564,0.0723,True,True,True,True,True,
-SEDOL:BY7QYJ5,Molten Ventures,UK,,,,no_discount_history,,-0.05,,False,False,True,False,False,nav+z:no_discount_history
-SEDOL:3051726,Monks Investment Trust,UK,0.0,1.0,1.1514,computed,aggregator_panel,0.1063,0.1083,True,True,True,True,True,
-SEDOL:454351,Montanaro European Smaller Companies,UK,0.0,3.0,-0.1135,within_error_band,aggregator_panel,0.0828,0.1021,True,True,True,True,True,
-SEDOL:600756,Montanaro UK Smaller Companies,UK,0.0,3.0,0.7806,computed,aggregator_panel,-0.0196,0.0039,True,True,True,True,True,
-SEDOL:611112,Murray Income Trust,UK,0.0,1.0,1.2016,computed,aggregator_panel,0.0537,0.0841,True,True,True,True,True,
-SEDOL:611190,Murray International Trust,UK,0.0,4.0,1.5665,computed,aggregator_panel,0.1119,0.1343,True,True,True,True,True,
+SEDOL:BZ0XWD0,Menhaden Resource Efficiency,UK,1.0,377.0,2.2332,computed,aggregator_panel,0.1117,0.4828,False,True,True,True,False,nav
+SEDOL:579403,Mercantile Investment Trust,UK,0.0,1.0,0.334,within_error_band,aggregator_panel,0.0348,0.0577,True,True,True,True,True,
+SEDOL:580007,Merchants Trust,UK,0.0,1.0,-0.6524,computed,aggregator_panel,0.0917,0.1407,True,True,True,True,True,
+SEDOL:589383,Mid Wynd International,UK,0.0,3.0,-0.5579,within_error_band,aggregator_panel,0.0497,0.4798,True,True,True,True,True,
+SEDOL:BWFGQ08,Miton UK Microcap Trust,UK,1.0,335.0,-0.0398,within_error_band,aggregator_panel,-0.05,-0.0227,False,True,True,True,False,nav
+SEDOL:BFZ7R98,Mobius Investment Trust,UK,0.0,3.0,-1.3369,computed,aggregator_panel,0.0564,0.0705,True,True,True,True,True,
+SEDOL:BY7QYJ5,Molten Ventures,UK,3.0,61.0,,no_discount_history,,-0.05,,False,False,True,False,False,nav+z:no_discount_history
+SEDOL:3051726,Monks Investment Trust,UK,0.0,1.0,1.885,computed,aggregator_panel,0.0822,0.0803,True,True,True,True,True,
+SEDOL:454351,Montanaro European Smaller Companies,UK,0.0,3.0,0.4372,computed,aggregator_panel,0.0828,0.0973,True,True,True,True,True,
+SEDOL:600756,Montanaro UK Smaller Companies,UK,0.0,3.0,1.2403,computed,aggregator_panel,-0.0196,0.0001,True,True,True,True,True,
+SEDOL:611112,Murray Income Trust,UK,0.0,1.0,1.6366,computed,aggregator_panel,0.0547,0.0835,True,True,True,True,True,
+SEDOL:611190,Murray International Trust,UK,0.0,4.0,1.7022,computed,aggregator_panel,0.1119,0.1332,True,True,True,True,True,
 SEDOL:B1ZBD49,Neuberger Private Equity Partners,UK,,,,no_discount_history,,0.0458,,False,False,True,False,False,nav+z:no_discount_history
-SEDOL:B2PKXF4,New City Energy,UK,1.0,2501.0,-0.1018,within_error_band,aggregator_panel,-0.05,-0.0463,False,True,True,True,False,nav
-SEDOL:BJ0JVY0,NextEnergy Solar Fund,UK,0.0,111.0,-0.5559,computed,own_daily_panel,0.0515,0.1199,True,True,True,True,True,
-SEDOL:BKLGLS1,Nippon Active Value Fund,UK,0.0,3.0,1.4078,computed,aggregator_panel,0.1071,0.3771,True,True,True,True,True,
+SEDOL:BJ0JVY0,NextEnergy Solar Fund,UK,3.0,66.0,-0.7042,computed,own_daily_panel,0.0515,0.1286,True,True,True,True,True,
+SEDOL:BKLGLS1,Nippon Active Value Fund,UK,0.0,3.0,1.0618,computed,aggregator_panel,0.1071,0.3789,True,True,True,True,True,
 NAME:north american income|ordinary share,North American Income Trust,UK,0.0,3.0,1.8901,computed,aggregator_panel,0.1079,0.092,True,True,True,True,True,
-SEDOL:643900,North Atlantic Smaller Companies,UK,0.0,23.0,-5.4998,computed,aggregator_panel,0.1296,0.169,True,True,True,True,True,
+SEDOL:643900,North Atlantic Smaller Companies,UK,0.0,23.0,-5.4371,computed,aggregator_panel,0.1296,0.1685,True,True,True,True,True,
+SEDOL:7013105,Oakley Capital Investments,UK,0.0,46.0,,insufficient_history_2m,aggregator_panel,0.0458,,True,False,True,False,False,z:insufficient_history_2m
 SEDOL:BJM0293,Octopus Renewables Infrastructure Trust,UK,0.0,46.0,-0.9502,computed,own_daily_panel,0.0515,0.1047,True,True,True,True,True,
-SEDOL:BFFK7H5,Odyssean Investment Trust,UK,0.0,3.0,1.6106,computed,aggregator_panel,0.0354,0.0305,True,True,True,True,True,
-SEDOL:BMZR151,Onward Opportunities,UK,0.0,2.0,,no_discount_history,,0.0,0.0039,True,False,True,True,False,z:no_discount_history
-SEDOL:667438,Pacific Assets Trust,UK,0.0,3.0,1.6016,computed,aggregator_panel,0.0138,0.0243,True,True,True,True,True,
-SEDOL:666747,Pacific Horizon Investment Trust,UK,0.0,1.0,0.2608,within_error_band,aggregator_panel,0.0191,0.4509,True,True,True,True,True,
-SEDOL:BLNNFL8,Pantheon Infrastructure,UK,3.0,111.0,308.0519,computed,own_daily_panel,0.0515,-0.4458,True,True,True,True,True,
-SEDOL:414850,Pantheon International,UK,0.0,67.0,-0.0045,within_error_band,own_daily_panel,0.0458,0.0378,True,True,True,True,True,
+SEDOL:BFFK7H5,Odyssean Investment Trust,UK,0.0,3.0,0.5997,within_error_band,aggregator_panel,0.0354,0.0349,True,True,True,True,True,
+SEDOL:BMZR151,Onward Opportunities,UK,3.0,1.0,,no_discount_history,,0.0,0.0,True,False,True,True,False,z:no_discount_history
+SEDOL:667438,Pacific Assets Trust,UK,0.0,3.0,1.7738,computed,aggregator_panel,0.0138,0.0233,True,True,True,True,True,
+SEDOL:666747,Pacific Horizon Investment Trust,UK,0.0,1.0,1.2596,computed,aggregator_panel,0.0152,0.4429,True,True,True,True,True,
+SEDOL:BLNNFL8,Pantheon Infrastructure,UK,3.0,111.0,316.5817,computed,own_daily_panel,0.0515,-0.4487,True,True,True,True,True,
+SEDOL:414850,Pantheon International,UK,0.0,67.0,0.0104,within_error_band,own_daily_panel,0.0458,0.0364,True,True,True,True,True,
+SEDOL:B28C2R2,Partners Group Private Equity,UK,,,,no_discount_history,,0.0458,,False,False,True,False,False,nav+z:no_discount_history
 SEDOL:BN6JYS7,Parvus Energy Efficiency Trust,UK,0.0,175.0,,no_discount_history,,0.0515,,False,False,True,False,False,nav+z:no_discount_history
-SEDOL:3047468,Patria Private Equity,UK,0.0,111.0,-0.5033,within_error_band,aggregator_panel,0.0458,0.0825,False,True,True,True,False,nav
-SEDOL:679842,Perpetual Income & Growth,UK,1.0,1522.0,-0.3356,within_error_band,aggregator_panel,0.0806,0.109,False,True,True,True,False,nav
+SEDOL:3047468,Patria Private Equity,UK,0.0,111.0,-0.432,within_error_band,aggregator_panel,0.0396,0.0739,False,True,True,True,False,nav
 SEDOL:BPFJTF4,Pershing Square Holdings,UK,,,,no_discount_history,,0.1079,,False,False,True,False,False,nav+z:no_discount_history
-SEDOL:682754,Personal Assets Trust,UK,0.0,3.0,-0.4988,within_error_band,aggregator_panel,0.0554,0.0726,True,True,True,True,True,
-SEDOL:B9XQT11,Polar Capital Global Financials,UK,0.0,1.0,1.307,computed,aggregator_panel,0.129,0.1328,True,True,True,True,True,
-SEDOL:B6832P1,Polar Capital Global Healthcare,UK,1.0,3.0,0.9171,computed,aggregator_panel,0.0591,0.3654,True,True,True,True,True,
-SEDOL:422002,Polar Capital Technology,UK,0.0,1.0,0.2915,within_error_band,aggregator_panel,0.15,0.424,True,True,True,True,True,
-SEDOL:3353790,Premier Miton Global Renewables,UK,1.0,197.0,0.9506,within_error_band,aggregator_panel,0.0227,0.0581,False,True,True,True,False,nav
-SEDOL:736639,RIT Capital Partners,UK,0.0,23.0,-3.5019,computed,aggregator_panel,0.0638,0.0559,True,True,True,True,True,
-SEDOL:BYZKH01,Ranger Direct Lending C shares,UK,3.0,2481.0,,insufficient_history_1m,aggregator_panel,0.1126,0.1625,False,False,True,True,False,nav+z:insufficient_history_1m
+SEDOL:682754,Personal Assets Trust,UK,0.0,3.0,2.2237,computed,aggregator_panel,0.0554,0.07,True,True,True,True,True,
+SEDOL:B9XQT11,Polar Capital Global Financials,UK,0.0,1.0,1.8631,computed,aggregator_panel,0.129,0.1293,True,True,True,True,True,
+SEDOL:B6832P1,Polar Capital Global Healthcare,UK,1.0,1.0,1.1214,computed,aggregator_panel,0.0591,0.3642,True,True,True,True,True,
+SEDOL:422002,Polar Capital Technology,UK,0.0,1.0,1.8449,computed,aggregator_panel,0.15,0.4172,True,True,True,True,True,
+SEDOL:3353790,Premier Miton Global Renewables,UK,1.0,197.0,0.954,within_error_band,aggregator_panel,0.0227,0.058,False,True,True,True,False,nav
+SEDOL:736639,RIT Capital Partners,UK,0.0,23.0,-3.1275,computed,aggregator_panel,0.05,0.0368,True,True,True,True,True,
+SEDOL:BKTRRM2,RTW Biotech Opportunities,UK,,,,no_discount_history,,0.0451,,False,False,True,False,False,nav+z:no_discount_history
 SEDOL:B0HW536,Real Estate Credit Investments,UK,0.0,23.0,,no_discount_history,,0.0515,,True,False,True,False,False,z:no_discount_history
-SEDOL:BYV2ZQ3,Regional REIT,UK,,,,no_discount_history,,0.0515,,False,False,True,False,False,nav+z:no_discount_history
-SEDOL:BBHX2H9,Renewables Infrastructure Group,UK,3.0,46.0,81.8485,computed,own_daily_panel,0.0515,-0.3622,True,True,True,True,True,
-SEDOL:BYSX150,Residential Secure Income REIT,UK,0.0,111.0,-13.5611,computed,own_daily_panel,0.0515,0.7029,True,True,True,True,True,
-SEDOL:739207,Rights & Issues Investment Trust,UK,0.0,1.0,,no_discount_history,,0.0024,,True,False,True,False,False,z:no_discount_history
-SEDOL:BRGCGK0,River UK Micro Cap,UK,0.0,3.0,0.1787,within_error_band,own_daily_panel,0.0029,0.0011,True,True,True,True,True,
+SEDOL:BYV2ZQ3,Regional REIT,UK,3.0,175.0,,no_discount_history,,0.0515,,False,False,True,False,False,nav+z:no_discount_history
+SEDOL:BBHX2H9,Renewables Infrastructure Group,UK,3.0,46.0,84.4708,computed,own_daily_panel,0.0515,-0.3659,True,True,True,True,True,
+SEDOL:BYSX150,Residential Secure Income REIT,UK,0.0,111.0,-13.4886,computed,own_daily_panel,0.0515,0.6846,True,True,True,True,True,
+SEDOL:739207,Rights & Issues Investment Trust,UK,0.0,1.0,,no_discount_history,,0.0047,,True,False,True,False,False,z:no_discount_history
+SEDOL:BRGCGK0,River UK Micro Cap,UK,0.0,3.0,0.329,within_error_band,own_daily_panel,0.0029,0.0002,True,True,True,True,True,
 SEDOL:BBHXCL3,Riverstone Energy,UK,,,,no_discount_history,,0.1479,,False,False,True,False,False,nav+z:no_discount_history
-SEDOL:BYRH498,Rockwood Strategic,UK,0.0,2.0,-0.7817,computed,aggregator_panel,0.0729,0.1038,True,True,True,True,True,
-SEDOL:B018CS4,Ruffer Investment Company,UK,3.0,930.0,,no_discount_history,,0.0488,0.9221,False,False,True,True,False,nav+z:no_discount_history
-SEDOL:BYYJCZ9,SME Credit Realisation Fund,UK,3.0,2762.0,,insufficient_history_3m,aggregator_panel,0.0515,,False,False,True,False,False,nav+z:insufficient_history_3m
+SEDOL:BYRH498,Rockwood Strategic,UK,0.0,2.0,-0.8461,computed,aggregator_panel,0.0729,0.1041,True,True,True,True,True,
+SEDOL:B018CS4,Ruffer Investment Company,UK,3.0,930.0,,no_discount_history,,0.0488,0.9214,False,False,True,True,False,nav+z:no_discount_history
+SEDOL:BGHVZM4,SDCL Efficiency Income,UK,0.0,111.0,,no_discount_history,,0.0515,,False,False,True,False,False,nav+z:no_discount_history
 SEDOL:B09G3N2,STS Global Income & Growth Trust,UK,0.0,3.0,-0.8043,within_error_band,aggregator_panel,0.0739,0.1091,True,True,True,True,True,
-SEDOL:0068417,SVM UK Emerging Fund,UK,1.0,393.0,0.2233,within_error_band,aggregator_panel,-0.0119,-0.0147,False,True,True,True,False,nav
-SEDOL:BMPHJ80,Sanditon Investment,UK,3.0,1807.0,,insufficient_history_20m,aggregator_panel,0.0305,0.3526,False,False,True,True,False,nav+z:insufficient_history_20m
-SEDOL:791887,Schroder AsiaPacific Fund,UK,0.0,1.0,1.2886,computed,aggregator_panel,0.0782,0.0922,True,True,True,True,True,
-SEDOL:871079,Schroder Asian Total Return,UK,0.0,1.0,-0.181,within_error_band,aggregator_panel,0.1287,0.1465,True,True,True,True,True,
+SEDOL:0068417,SVM UK Emerging Fund,UK,1.0,393.0,0.224,within_error_band,aggregator_panel,-0.0119,-0.0147,False,True,True,True,False,nav
+SEDOL:791887,Schroder AsiaPacific Fund,UK,0.0,1.0,1.5884,computed,aggregator_panel,0.0782,0.0912,True,True,True,True,True,
+SEDOL:871079,Schroder Asian Total Return,UK,0.0,1.0,0.6122,computed,aggregator_panel,0.1287,0.1424,True,True,True,True,True,
 SEDOL:BN7JZR2,Schroder British Opportunities,UK,0.0,1.0,-1.277,computed,aggregator_panel,-0.0479,0.1752,True,True,True,True,True,
 SEDOL:BY7R8K7,Schroder European Real Estate,UK,3.0,2522.0,,no_discount_history,,0.0515,,False,False,True,False,False,nav+z:no_discount_history
-SEDOL:791586,Schroder Income Growth Fund,UK,0.0,1.0,0.9844,computed,aggregator_panel,0.0875,0.1187,True,True,True,True,True,
-SEDOL:802284,Schroder Japan Trust,UK,0.0,1.0,0.5195,computed,aggregator_panel,0.1118,0.1225,True,True,True,True,True,
-SEDOL:B0CRWN5,Schroder Oriental Income,UK,0.0,1.0,1.7301,computed,aggregator_panel,0.1244,0.1435,True,True,True,True,True,
-SEDOL:B01HM14,Schroder Real Estate,UK,3.0,1741.0,,no_discount_history,,0.0515,,False,False,True,False,False,nav+z:no_discount_history
-SEDOL:610841,Schroder UK Mid Cap Fund,UK,0.0,1.0,0.4887,computed,aggregator_panel,0.0171,0.0628,True,True,True,True,True,
-SEDOL:BVG1CF2,Schroders Capital Global Innovation Trust,UK,1.0,611.0,1.7608,within_error_band,aggregator_panel,-0.05,-0.0058,False,True,True,True,False,nav
-SEDOL:BYT2554,ScotGems,UK,1.0,1045.0,2.9382,within_error_band,aggregator_panel,0.0765,0.1344,False,True,True,True,False,nav
-SEDOL:787369,Scottish American,UK,0.0,1.0,0.2521,computed,aggregator_panel,0.0768,0.11,True,True,True,True,True,
-SEDOL:782609,Scottish Investment Trust,UK,1.0,1067.0,-0.1948,within_error_band,aggregator_panel,0.0801,0.0937,False,True,True,True,False,nav
-SEDOL:783884,Scottish Mortgage Investment Trust,UK,0.0,1.0,0.0123,within_error_band,aggregator_panel,0.0472,0.1918,True,True,True,True,True,
-SEDOL:783613,Scottish Oriental Smaller Companies,UK,0.0,3.0,1.0193,computed,aggregator_panel,0.0751,0.0943,True,True,True,True,True,
-SEDOL:BV54HY6,Sequoia Economic Infrastructure Income,UK,0.0,12.0,0.7775,computed,own_daily_panel,0.0515,0.0389,True,True,True,True,True,
-SEDOL:805250,Shires Income,UK,1.0,124.0,1.5342,within_error_band,aggregator_panel,0.0434,0.0809,False,True,True,True,False,nav
-SEDOL:BGJWTR8,Smithson Investment Trust,UK,1.0,146.0,0.4308,within_error_band,aggregator_panel,-0.0179,-0.0188,False,True,True,True,False,nav
+SEDOL:791586,Schroder Income Growth Fund,UK,0.0,1.0,1.4031,computed,aggregator_panel,0.0875,0.1164,True,True,True,True,True,
+SEDOL:802284,Schroder Japan Trust,UK,0.0,1.0,0.6376,computed,aggregator_panel,0.1118,0.1213,True,True,True,True,True,
+SEDOL:B0CRWN5,Schroder Oriental Income,UK,0.0,1.0,2.1738,computed,aggregator_panel,0.1244,0.1423,True,True,True,True,True,
+SEDOL:B01HM14,Schroder Real Estate,UK,3.0,307.0,,no_discount_history,,0.0515,,False,False,True,False,False,nav+z:no_discount_history
+SEDOL:610841,Schroder UK Mid Cap Fund,UK,0.0,1.0,1.0132,computed,aggregator_panel,0.0171,0.0593,True,True,True,True,True,
+SEDOL:BVG1CF2,Schroders Capital Global Innovation Trust,UK,1.0,111.0,2.1283,computed,aggregator_panel,-0.05,-0.0127,False,True,True,True,False,nav
+SEDOL:787369,Scottish American,UK,0.0,1.0,0.8663,computed,aggregator_panel,0.0768,0.1067,True,True,True,True,True,
+SEDOL:783884,Scottish Mortgage Investment Trust,UK,0.0,1.0,0.3593,computed,aggregator_panel,0.0472,0.1882,True,True,True,True,True,
+SEDOL:783613,Scottish Oriental Smaller Companies,UK,0.0,3.0,0.8761,computed,aggregator_panel,0.0751,0.0951,True,True,True,True,True,
+SEDOL:BV54HY6,Sequoia Economic Infrastructure Income,UK,0.0,12.0,0.8515,computed,own_daily_panel,-0.0187,-0.0341,True,True,True,True,True,
+SEDOL:805250,Shires Income,UK,1.0,124.0,1.5321,within_error_band,aggregator_panel,0.0434,0.0809,False,True,True,True,False,nav
+SEDOL:BGJWTR8,Smithson Investment Trust,UK,1.0,146.0,0.4281,within_error_band,aggregator_panel,-0.0179,-0.0187,False,True,True,True,False,nav
 SEDOL:B0BDCB2,Strategic Equity Capital,UK,0.0,3.0,-0.451,within_error_band,aggregator_panel,0.0139,0.0362,True,True,True,True,True,
 SEDOL:B8P59C0,Syncona,UK,0.0,111.0,,no_discount_history,,0.0451,,False,False,True,False,False,nav+z:no_discount_history
-SEDOL:906409,TR Property Investment Trust,UK,0.0,1.0,-1.7959,computed,aggregator_panel,-0.05,-0.0431,True,True,True,True,True,
-SEDOL:B95CGW7,Target Healthcare REIT,UK,0.0,46.0,1.0947,computed,own_daily_panel,0.0515,0.046,True,True,True,True,True,
-SEDOL:882532,Temple Bar Investment Trust,UK,0.0,3.0,1.0968,computed,aggregator_panel,0.1301,0.1423,True,True,True,True,True,
-SEDOL:882929,Templeton Emerging Markets,UK,0.0,3.0,1.7317,computed,aggregator_panel,0.1052,0.1121,True,True,True,True,True,
-SEDOL:906692,The European Smaller Companies Trust,UK,0.0,3.0,-0.014,within_error_band,aggregator_panel,0.0615,0.0757,True,True,True,True,True,
-NAME:global smaller companies trust|ordinary share,The Global Smaller Companies Trust,UK,0.0,1.0,1.6633,computed,aggregator_panel,0.005,0.011,True,True,True,True,True,
+SEDOL:906409,TR Property Investment Trust,UK,0.0,1.0,-0.7819,computed,aggregator_panel,-0.05,-0.0469,True,True,True,True,True,
+SEDOL:B95CGW7,Target Healthcare REIT,UK,0.0,46.0,1.3285,computed,own_daily_panel,0.0515,0.0419,True,True,True,True,True,
+SEDOL:882532,Temple Bar Investment Trust,UK,0.0,3.0,1.2293,computed,aggregator_panel,0.1301,0.1412,True,True,True,True,True,
+SEDOL:882929,Templeton Emerging Markets,UK,0.0,3.0,1.5729,computed,aggregator_panel,0.1052,0.1131,True,True,True,True,True,
+SEDOL:906692,The European Smaller Companies Trust,UK,0.0,3.0,0.6816,computed,aggregator_panel,0.0615,0.0709,True,True,True,True,True,
+NAME:global smaller companies trust|ordinary share,The Global Smaller Companies Trust,UK,0.0,1.0,1.6633,computed,aggregator_panel,0.0023,0.0084,True,True,True,True,True,
 SEDOL:0465825,The Investment Company,UK,0.0,8.0,1.5217,computed,aggregator_panel,0.0329,0.0294,True,True,True,True,True,
-SEDOL:461823,Threadneedle UK Select Trust,UK,1.0,2415.0,-0.282,within_error_band,aggregator_panel,0.0305,0.072,False,True,True,True,False,nav
 SEDOL:BG49KP9,Tritax Big Box REIT,UK,0.0,46.0,,no_discount_history,,0.0515,,False,False,True,False,False,nav+z:no_discount_history
+SEDOL:BDFC164,Tufton Assets,UK,,,,no_discount_history,,0.0515,,False,False,True,False,False,nav+z:no_discount_history
 SEDOL:B90J5Z9,TwentyFour Income Fund,UK,3.0,3282.0,,no_discount_history,,0.021,0.0417,False,False,True,True,False,nav+z:no_discount_history
 SEDOL:BJVDZ94,TwentyFour Select Monthly Income,UK,,,,no_discount_history,,0.0396,,False,False,True,False,False,nav+z:no_discount_history
-SEDOL:B00KTN5,UIL,UK,1.0,3.0,1.0013,computed,aggregator_panel,0.0077,0.0477,True,True,True,True,True,
-SEDOL:B0HW611,Ukraine Opportunity,UK,1.0,2872.0,-1.622,within_error_band,aggregator_panel,-0.017,0.2679,False,True,True,True,False,nav
-SEDOL:B0DQY35,Utilico Emerging Markets Trust,UK,0.0,3.0,1.4512,computed,aggregator_panel,0.0824,0.1024,True,True,True,True,True,
-SEDOL:BNKVP75,VH Global Energy Infrastructure,UK,0.0,111.0,0.3123,within_error_band,own_daily_panel,0.0515,0.0561,True,True,True,True,True,
-SEDOL:BVG6X43,VPC Specialty Lending Investments,UK,0.0,46.0,-0.3308,within_error_band,own_daily_panel,-0.05,-0.0112,True,True,True,True,True,
-SEDOL:848471,Value and Indexed Property Income Trust,UK,1.0,980.0,-1.8024,within_error_band,aggregator_panel,0.0515,0.1484,False,True,True,True,False,nav
-SEDOL:BJQZ9H1,VietNam Holding,UK,0.0,3.0,-0.584,computed,own_daily_panel,0.0116,0.0104,True,True,True,True,True,
+SEDOL:B00KTN5,UIL,UK,1.0,1.0,0.9662,computed,aggregator_panel,0.0077,0.0482,True,True,True,True,True,
+SEDOL:BJCWFX4,US Solar Fund,UK,,,,no_discount_history,,0.0515,,False,False,True,False,False,nav+z:no_discount_history
+SEDOL:B0DQY35,Utilico Emerging Markets Trust,UK,0.0,3.0,1.7312,computed,aggregator_panel,0.0824,0.1001,True,True,True,True,True,
+SEDOL:BNKVP75,VH Global Energy Infrastructure,UK,0.0,111.0,0.6119,within_error_band,own_daily_panel,0.0515,0.0487,True,True,True,True,True,
+SEDOL:BVG6X43,VPC Specialty Lending Investments,UK,0.0,46.0,-0.2379,within_error_band,own_daily_panel,-0.05,-0.0148,True,True,True,True,True,
+SEDOL:848471,Value and Indexed Property Income Trust,UK,1.0,111.0,1.5675,computed,aggregator_panel,0.0515,0.081,True,True,True,True,True,
+SEDOL:BJQZ9H1,VietNam Holding,UK,0.0,3.0,-0.3912,computed,own_daily_panel,0.0194,0.0168,True,True,True,True,True,
 SEDOL:361H109,Vietnam Enterprise Investments,UK,0.0,3.0,,no_discount_history,,0.0562,,True,False,True,False,False,z:no_discount_history
-SEDOL:3351642,VinaCapital Vietnam Opportunity,UK,0.0,3.0,1.0959,computed,own_daily_panel,-0.0137,-0.0176,True,True,True,True,True,
-SEDOL:338530,Worldwide Healthcare Trust,UK,0.0,3.0,1.1345,computed,aggregator_panel,0.0328,0.4148,True,True,True,True,True,
+SEDOL:3351642,VinaCapital Vietnam Opportunity,UK,0.0,3.0,1.4043,computed,own_daily_panel,-0.0137,-0.0193,True,True,True,True,True,
+SEDOL:338530,Worldwide Healthcare Trust,UK,0.0,3.0,1.4862,computed,aggregator_panel,0.0328,0.413,True,True,True,True,True,
 SEDOL:B06T260,Worsley Investors,UK,0.0,46.0,-0.707,within_error_band,own_daily_panel,0.0433,0.0629,True,True,True,True,True,
-SEDOL:129756,abrdn Diversified Income and Growth,UK,1.0,132.0,2.1941,computed,aggregator_panel,-0.05,-0.0381,False,True,True,True,False,nav
+SEDOL:129756,abrdn Diversified Income and Growth,UK,1.0,132.0,2.1933,computed,aggregator_panel,-0.05,-0.0381,False,True,True,True,False,nav
 SEDOL:BD9PXH4,abrdn European Logistics Income,UK,3.0,111.0,,no_discount_history,,0.0515,,True,False,True,False,False,z:no_discount_history
