@@ -225,6 +225,45 @@ Everything here has a named fix in `coverage_failures.csv`:
 - Route those structured events into the fund file and the catalyst log with
   event *dates* (vote date, tender close), enabling a forward calendar.
 
+### Phase 3b — The learning layer: mine the dead funds (after Phase 3)
+
+The corpus is the moat: ~750k UK announcements plus the ASX archive,
+*including every gone fund*, aligned with point-in-time prices, NAVs and
+known terminal outcomes. Almost nobody holds a survivorship-free text
+corpus where the endings are known — "what did the eventual wind-ups and
+tenders sound like 6–18 months before they resolved?" is answerable here,
+and announcement-*anticipation* is exactly where the backtest says the
+remaining edge lives (the discount closes at the announcement itself).
+
+Built as a ladder, never as an end-to-end black box — a few hundred
+independent resolution episodes cannot support one, and a deep model
+trained text→return will memorise fund templates and eras (survivorship
+bias wearing a neural-net costume; strategy F and the negative catalyst
+study are the house warning labels):
+
+1. **LLM as feature extractor, not learner**: read every announcement
+   (dead funds first) and emit a SMALL set of pre-specified structured
+   judgments — board tone on the discount, buyback follow-through vs
+   promise, activist presence, continuation-vote commitments, wind-down
+   credibility, fee changes, NAV-methodology conservatism. The extraction
+   guards (verbatim-quote provenance, no computed signals, anti-lookahead)
+   already exist; Phase 3's per-fund event files are the substrate.
+2. **Test those features in the existing honest framework**: decile
+   tests, Fama-MacBeth, the 2022+ holdout, skip-month controls. Twenty
+   features over twenty years is learnable and auditable.
+3. **Small models on top** (logistic / gradient-boosted) predicting
+   "resolution within N months" or forward-return bucket — time-based
+   splits only, never fund-based; the label-discovery module is the
+   in-house proof of the pattern (learn against known answers, 30%
+   holdout, anti-overfit vocabulary clause).
+4. **Deep end-to-end text models only as research** behind those
+   controls; nothing reaches the live gates without surviving the holdout
+   and a dated CHANGELOG entry.
+
+Cost is tractable: batch-triage the corpus with the cheap model and
+escalate the interesting minority — the architecture the extraction
+runner already implements, under the existing per-day budget knobs.
+
 ### Phase 4 — Catalyst-day alerting (2–3 weeks, after Phase 3)
 
 The research's clearest instruction: the discount closes at the announcement.
