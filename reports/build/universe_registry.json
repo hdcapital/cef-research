@@ -1,41 +1,41 @@
 {
-  "delist_candidates": 16,
+  "delist_candidates": 717,
   "vehicles": 1116,
   "by_market": {
     "AU": 172,
     "UK": 944
   },
   "live": 348,
-  "live_stale_nav": 71,
+  "live_stale_nav": 51,
   "status_before_evidence": {
     "delisted": 731,
     "live": 376,
     "delist_candidate": 9
   },
-  "evidence_rows": 494,
+  "evidence_rows": 495,
   "persisted_to": "data/universe/registry.parquet",
   "live_status_source": {
-    "registry_deferral_no_own_filings": 622,
+    "corroborated_delisting": 706,
     "own_nav_announcement": 324,
-    "silence_beyond_grace": 84,
-    "own_periodic_report": 53,
-    "own_nav_announcement_stale": 18,
-    "own_announcement_only": 11,
-    "registry_last_seen": 3,
-    "silence_within_grace": 1
+    "own_periodic_report": 44,
+    "registry_deferral_no_own_filings": 24,
+    "own_announcement_only": 10,
+    "own_nav_announcement_stale": 7,
+    "registry_last_seen": 1
   },
-  "revived_by_own_filings": 40,
+  "revived_by_own_filings": 24,
   "aggregator_said_live_evidence_says_not": 5,
   "by_liveness_reason": {
-    "no_own_filings_held_deferring_to_registry": 622,
-    "nav": 341,
-    "silent": 85,
-    "periodic_report": 53,
-    "filings_but_no_nav_or_report": 11,
-    "registry_listed": 3,
-    "nav_-28d_old": 1
+    "aggregator_delisted_and_own_filings_silent_alwaysd": 597,
+    "nav": 330,
+    "aggregator_delisted_and_own_filings_silent": 109,
+    "periodic_report": 44,
+    "no_own_filings_held_deferring_to_registry": 24,
+    "filings_but_no_nav_or_report": 10,
+    "nav_-28d_old": 1,
+    "registry_listed": 1
   },
-  "delisted": 681,
+  "delisted": 0,
   "priced_by_source": 638,
   "announcements_only": 478,
   "live_announcements_only": 84,
