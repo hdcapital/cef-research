@@ -75,6 +75,18 @@ def _fund_rows(df: pd.DataFrame) -> str:
         num_td = (f'style="{_NUMFONT}font-size:13px;color:{INK};'
                   f'padding:9px 6px;border-bottom:1px solid {RULE};'
                   f'text-align:right;white-space:nowrap;vertical-align:top;"')
+        # NAV growth input with its source marked: p = panel TR CAGR,
+        # h = the fund's own NAV history, s = sector median, m = market
+        # median. The discount-normalisation leg is the reliable part of
+        # the IRR; the growth leg is the part that deserves due diligence.
+        g_src = getattr(r, "g_source", None)
+        src_mark = {"panel_tr_cagr": "p", "own_nav_history": "h",
+                    "sector_median": "s", "market_median": "m"}.get(
+            g_src if isinstance(g_src, str) else "", "")
+        g_cell = _num(getattr(r, "g_used", None), "+.1%")
+        if src_mark and g_cell != "–":
+            g_cell += (f'<sup style="color:{MUTED};font-size:9px;">'
+                       f'{src_mark}</sup>')
         cells.append(
             f'<tr>'
             f'<td style="{_FONT}font-size:14px;color:{INK};padding:9px 6px 9px 0;'
@@ -86,6 +98,8 @@ def _fund_rows(df: pd.DataFrame) -> str:
             f'<td {num_td}><span style="{z_style}">'
             f'{_num(z, "+.2f")}</span></td>'
             f'<td {num_td}>{_num(getattr(r, "irr_central", None), "+.1%")}</td>'
+            f'<td {num_td}>{_num(getattr(r, "irr_discount_only", None), "+.1%")}</td>'
+            f'<td {num_td}>{g_cell}</td>'
             f'</tr>')
     return "".join(cells)
 
@@ -101,7 +115,8 @@ def _fund_table(df: pd.DataFrame) -> str:
             f'color:{MUTED};letter-spacing:0.04em;text-transform:uppercase;'
             f'text-align:left;padding:0 6px 6px 0;'
             f'border-bottom:1px solid {RULE};">Fund</th>'
-            f'<th {th}>Discount</th><th {th}>z</th><th {th}>Fwd IRR</th></tr>'
+            f'<th {th}>Discount</th><th {th}>z</th><th {th}>Fwd IRR</th>'
+            f'<th {th}>of which disc. norm.</th><th {th}>NAV g</th></tr>'
             f'{_fund_rows(df)}</table></td></tr>')
 
 

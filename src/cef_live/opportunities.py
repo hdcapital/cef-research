@@ -58,6 +58,14 @@ def universe_trailing_tr(hist: pd.DataFrame, years: int = 5) -> float | None:
     return None
 
 
+def _opt(v) -> float | None:
+    """A rounded float, or None - a NaN must not travel into the ledger."""
+    try:
+        return None if v is None or pd.isna(v) else round(float(v), 4)
+    except (TypeError, ValueError):
+        return None
+
+
 def evaluate(live: pd.DataFrame, cats: pd.DataFrame | None,
              irr: pd.DataFrame | None, params: dict,
              catalyst_window_days: int = 30) -> pd.DataFrame:
@@ -196,6 +204,14 @@ def evaluate(live: pd.DataFrame, cats: pd.DataFrame | None,
             "catalyst_headline": getattr(r, "headline", None),
             "catalyst_weight": None if pd.isna(cat_w) else float(cat_w),
             "irr_central": None if pd.isna(irr_v) else round(float(irr_v), 4),
+            # the reader's decomposition: how much of the IRR is discount
+            # normalisation (reliable) vs NAV growth (needs due diligence),
+            # and where that growth number came from
+            "irr_discount_only": _opt(getattr(r, "irr_discount_only", np.nan)),
+            "g_used": _opt(getattr(r, "g_used", np.nan)),
+            "g_source": (getattr(r, "g_source", None)
+                         if isinstance(getattr(r, "g_source", None), str)
+                         else None),
             "hurdle": round(min_irr, 4),
             "evaluated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         })

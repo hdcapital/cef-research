@@ -225,6 +225,43 @@ Everything here has a named fix in `coverage_failures.csv`:
 - Route those structured events into the fund file and the catalyst log with
   event *dates* (vote date, tender close), enabling a forward calendar.
 
+### Phase 3a — Widening attribution: why did the discount widen, and is it rational?
+
+A z says a fund is cheap against its own history, not whether it deserves
+to be. Attribution conditions the entry, in a ladder from cheap to
+sophisticated; layers 1–2 ship as soon as Phase 3 starts because the brief
+benefits immediately, layer 3 rides Phase 3's rule work, layer 4 is Phase
+3b with a sharper target variable.
+
+1. **Mechanical decomposition** (held data only): price-led or NAV-led
+   (Δdiscount = price move − NAV move); sector or idiosyncratic (own z
+   minus sector-average z); flow signature (volume z-score on the
+   down-days).
+2. **Event attribution** (the announcement tape we index): a
+   negative-catalyst taxonomy (dividend cut, write-down, manager exit,
+   issuance below NAV, covenant/gearing, failed continuation) time-joined
+   to the widening's onset → *rational, information repricing*; and
+   **holder-overhang detection** from the "Holding(s) in Company" filings
+   already indexed — a large holder grinding down over weeks is the
+   classic irrational-but-slow-to-clear widening.
+3. **NAV credibility** (is the NAV the lie?): *realization evidence* —
+   "disposal at X% premium/discount to carrying value" is extractable
+   text and the single best check on appraisal-marked NAVs; NAV
+   responsiveness from the factor model's walk-forward residuals; rate
+   sensitivity for yield vehicles (widening in line with gilts is
+   rational, beyond it is opportunity).
+4. **The judgment layer**: the model reads the announcement window around
+   each widening and emits a verdict from a fixed vocabulary —
+   `sector_macro / rate_repricing / negative_fundamental /
+   issuance_dilution / holder_overhang / flow_no_cause / nav_credibility`
+   — with quoted evidence under the existing guards. Validated the house
+   way on the dead funds: widenings attributed to flow/no-cause must
+   mean-revert faster than fundamental ones in the backtest framework, or
+   the attribution earns no place in the gates. The brief's dislocation
+   rows gain a "why" line: *widened 6pp/3wk; sector −2pp (idio −4pp); no
+   negative events; holder 8.2%→6.1% (overhang); NAV credible →
+   flow-driven, reversion candidate.*
+
 ### Phase 3b — The learning layer: mine the dead funds (after Phase 3)
 
 The corpus is the moat: ~750k UK announcements plus the ASX archive,

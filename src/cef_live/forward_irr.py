@@ -196,6 +196,8 @@ def build(live: pd.DataFrame, panel_hist: pd.DataFrame, params: dict,
                "g_source": g_source,
                "terminal_discount_own": None if pd.isna(d_own) else round(float(d_own), 4),
                "dist_yield_used": round(dy, 4)}
+        rec["irr_discount_only"] = None
+        rec["irr_ex_discount"] = None
         # no growth input or no current discount -> no IRR, never a default
         if not (pd.isna(g_i) or pd.isna(d_now) or pd.isna(d_own)):
             price = getattr(r, "price", np.nan)
@@ -206,6 +208,15 @@ def build(live: pd.DataFrame, panel_hist: pd.DataFrame, params: dict,
                 v = _irr(price, nav0, float(g_i), float(d_now), dt, dy, yrs)
                 rec[key] = None if v is None else round(v, 4)
             rec["irr_central"] = rec["irr_own_median"]
+            # Decomposition for the reader: the discount-normalisation leg
+            # alone (no NAV growth, no distributions) is the statistically
+            # grounded part - own-history reversion is what the research
+            # validated; the remainder rides on the NAV growth input and
+            # the distribution yield, which are what deserve due diligence.
+            d_only = _irr(price, nav0, 0.0, float(d_now), float(d_own), 0.0, yrs)
+            if d_only is not None and rec["irr_central"] is not None:
+                rec["irr_discount_only"] = round(d_only, 4)
+                rec["irr_ex_discount"] = round(rec["irr_central"] - d_only, 4)
         rows.append(rec)
     return pd.DataFrame(rows)
 

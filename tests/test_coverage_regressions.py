@@ -1230,3 +1230,49 @@ def test_corroborated_delisting_outranks_the_stale_nav_grace():
     fresh = liveness.classify({"last_nav": "2026-08-20",
                                "aggregator_status": "delisted"}, as_of=TODAY)
     assert fresh["status"] == liveness.STATUS_LIVE
+
+
+def test_the_irr_is_decomposed_into_discount_normalisation_and_the_rest():
+    """Owner instruction: show how much of the IRR is discount
+    normalisation (own-history reversion, the statistically grounded leg)
+    versus NAV growth and distributions (the leg that needs diligence),
+    and where the growth number came from."""
+    panel = pd.DataFrame([
+        {"security_id": "X", "obs_month": m, "sector": "S",
+         "discount": -0.10, "nav_tr_cagr_5y": 0.06}
+        for m in pd.period_range("2022-01", "2026-08", freq="M").astype(str)])
+    live = pd.DataFrame([{"security_id": "X", "market": "UK", "name": "X",
+                          "sector": "S", "price": 70.0, "nta_est": 100.0,
+                          "discount_est": -0.30}])
+    got = forward_irr.build(live, panel, _params()).iloc[0]
+    assert got["irr_central"] is not None
+    assert got["irr_discount_only"] is not None
+    # narrowing from -30% to the own median -10% alone is a real return
+    assert got["irr_discount_only"] > 0.04
+    # the remainder is what the growth input and distributions add
+    assert got["irr_ex_discount"] == pytest.approx(
+        got["irr_central"] - got["irr_discount_only"], abs=1e-4)
+    assert got["g_source"] == "panel_tr_cagr"
+    assert got["g_used"] is not None
+
+
+def test_the_verdicts_carry_the_irr_decomposition_to_the_brief():
+    live = pd.DataFrame([{"security_id": "X", "market": "UK", "name": "X",
+                          "research_eligible": True, "z_adj": -3.0,
+                          "staleness_days": 1, "basis": 0,
+                          "discount_est": -0.30}])
+    irr = pd.DataFrame([{"security_id": "X", "irr_central": 0.22,
+                         "irr_discount_only": 0.09, "g_used": 0.062,
+                         "g_source": "own_nav_history"}])
+    got = opportunities.evaluate(live, None, irr, _params()).iloc[0]
+    assert got["irr_discount_only"] == 0.09
+    assert got["g_used"] == 0.062
+    assert got["g_source"] == "own_nav_history"
+    from cef_live import brief
+    v = pd.DataFrame([got])
+    html = brief.render_html("pre-LSE open", "2026-09-03", 1, v.iloc[0:0], v,
+                             v.iloc[0:0], v.iloc[0:0], -1.5, 0.15, {}, None,
+                             0, 1)
+    assert "of which disc. norm." in html and "NAV g" in html
+    assert "+9.0%" in html and "+6.2%" in html
+    assert "<sup" in html and ">h</sup>" in html, "growth source marked"

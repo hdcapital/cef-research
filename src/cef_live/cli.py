@@ -792,6 +792,13 @@ def ideas() -> int:
                        f"z {_num(r.z_adj, '+.2f')}  "
                        f"IRR {_num(r.irr_central, '+.1%')}"
                        f"  (hurdle {min_irr:+.1%})")
+            # how much of the IRR is discount normalisation (reliable) vs
+            # NAV growth (due diligence), and where the growth came from
+            g_src = getattr(r, "g_source", None)
+            out.append(f"    of which discount normalisation "
+                       f"{_num(getattr(r, 'irr_discount_only', None), '+.1%')}"
+                       f"; NAV growth used {_num(getattr(r, 'g_used', None), '+.1%')}"
+                       f" p.a. ({g_src if isinstance(g_src, str) else 'n/a'})")
             if isinstance(r.catalyst_class, str) and r.catalyst_class:
                 head_txt = (r.catalyst_headline
                             if isinstance(r.catalyst_headline, str) else "")
