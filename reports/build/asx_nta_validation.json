@@ -1,39 +1,15 @@
 {
-  "comparable_observations": 1083,
+  "comparable_observations": 1060,
   "by_verdict": {
-    "match": 677,
-    "mismatch": 376,
+    "match": 664,
+    "mismatch": 366,
     "unit_error": 30
   },
-  "agreement_rate": 0.6251,
-  "unit_error_rate": 0.0277,
+  "agreement_rate": 0.6264,
+  "unit_error_rate": 0.0283,
   "median_ratio": 1.0,
   "funds_compared": 63,
   "worst": [
-    {
-      "ticker": "HCF",
-      "month": "2025-11",
-      "nav_per_share": 4.12,
-      "nta_price": 0.01,
-      "ratio": 412.0,
-      "verdict": "mismatch"
-    },
-    {
-      "ticker": "HCF",
-      "month": "2025-12",
-      "nav_per_share": 4.12,
-      "nta_price": 0.01,
-      "ratio": 412.0,
-      "verdict": "mismatch"
-    },
-    {
-      "ticker": "HCF",
-      "month": "2025-10",
-      "nav_per_share": 4.12,
-      "nta_price": 0.011,
-      "ratio": 374.54545454545456,
-      "verdict": "mismatch"
-    },
     {
       "ticker": "HCF",
       "month": "2026-02",
@@ -45,30 +21,6 @@
     {
       "ticker": "HCF",
       "month": "2025-05",
-      "nav_per_share": 4.12,
-      "nta_price": 0.012,
-      "ratio": 343.3333333333333,
-      "verdict": "mismatch"
-    },
-    {
-      "ticker": "HCF",
-      "month": "2025-07",
-      "nav_per_share": 4.12,
-      "nta_price": 0.012,
-      "ratio": 343.3333333333333,
-      "verdict": "mismatch"
-    },
-    {
-      "ticker": "HCF",
-      "month": "2025-08",
-      "nav_per_share": 4.12,
-      "nta_price": 0.012,
-      "ratio": 343.3333333333333,
-      "verdict": "mismatch"
-    },
-    {
-      "ticker": "HCF",
-      "month": "2025-09",
       "nav_per_share": 4.12,
       "nta_price": 0.012,
       "ratio": 343.3333333333333,
@@ -89,14 +41,6 @@
       "nta_price": 0.029,
       "ratio": 142.06896551724137,
       "verdict": "unit_error"
-    },
-    {
-      "ticker": "OEQ",
-      "month": "2024-12",
-      "nav_per_share": 6.505,
-      "nta_price": 0.4157,
-      "ratio": 15.648304065431802,
-      "verdict": "mismatch"
     },
     {
       "ticker": "KIT",
@@ -129,10 +73,66 @@
       "nta_price": 2.0001,
       "ratio": 15.499225038748062,
       "verdict": "mismatch"
+    },
+    {
+      "ticker": "MXT",
+      "month": "2024-10",
+      "nav_per_share": 31.0,
+      "nta_price": 2.0002,
+      "ratio": 15.498450154984502,
+      "verdict": "mismatch"
+    },
+    {
+      "ticker": "MXT",
+      "month": "2025-01",
+      "nav_per_share": 31.0,
+      "nta_price": 2.0002,
+      "ratio": 15.498450154984502,
+      "verdict": "mismatch"
+    },
+    {
+      "ticker": "MXT",
+      "month": "2025-03",
+      "nav_per_share": 31.0,
+      "nta_price": 2.0002,
+      "ratio": 15.498450154984502,
+      "verdict": "mismatch"
+    },
+    {
+      "ticker": "MXT",
+      "month": "2025-10",
+      "nav_per_share": 31.0,
+      "nta_price": 2.0004,
+      "ratio": 15.496900619876024,
+      "verdict": "mismatch"
+    },
+    {
+      "ticker": "MXT",
+      "month": "2025-12",
+      "nav_per_share": 31.0,
+      "nta_price": 2.0004,
+      "ratio": 15.496900619876024,
+      "verdict": "mismatch"
+    },
+    {
+      "ticker": "KIT",
+      "month": "2026-05",
+      "nav_per_share": 31.05,
+      "nta_price": 2.0047,
+      "ratio": 15.488601785803361,
+      "verdict": "mismatch"
+    },
+    {
+      "ticker": "GCI",
+      "month": "2025-01",
+      "nav_per_share": 31.0,
+      "nta_price": 2.002,
+      "ratio": 15.484515484515486,
+      "verdict": "mismatch"
     }
   ],
   "extracted_observations": 38923,
-  "check_coverage": 0.0278,
+  "check_coverage": 0.0272,
   "note": "the exchange file starts in 2017 and lists only the funds it covers, so agreement is measured on this subset, not on the whole extraction",
   "quarantined_funds": [
     "CD1",
@@ -206,7 +206,7 @@
     {
       "ticker": "PCX",
       "label": "net asset value",
-      "n": 24,
+      "n": 23,
       "agree": 0,
       "agreement": 0.0
     },
@@ -223,8 +223,8 @@
     "after_value_dropna": 38923,
     "after_month_dropna_and_dedupe": 6457,
     "panel_in": 11830,
-    "panel_after_dropna": 2076,
-    "merged": 1083,
+    "panel_after_dropna": 2012,
+    "merged": 1060,
     "e_month_dtype": "object",
     "p_month_dtype": "object",
     "e_key_sample": [
@@ -233,10 +233,11 @@
       "8EC|2016-12"
     ],
     "p_key_sample": [
-      "8IH|2024-07",
-      "8IH|2024-08",
-      "8IH|2024-09"
-    ]
+      "8IH|2024-10",
+      "8IH|2025-10",
+      "8IH|2026-02"
+    ],
+    "panel_rows_implausible_vs_price": 64
   },
   "diagnostics": {
     "fact_rows_total": 70217,
