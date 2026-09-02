@@ -110,6 +110,24 @@ def classify(evidence: dict, as_of: date | None = None,
         return {**out, "status": STATUS_LIVE, "liveness_reason": "manual_entry",
                 "live_status_source": "manual_entry"}
 
+    # Corroborated delisting outranks the stale-NAV grace: when the
+    # AGGREGATOR has already delisted the fund AND its own filings have
+    # gone silent past the fresh-NAV window, both independent sources
+    # agree it is gone. Without this, wound-up funds lingered up to 550
+    # days as live_stale_nav - Keystone Positive Change, Jupiter Green and
+    # Henderson Opportunities all sat in the priced universe a year after
+    # their own liquidations, on the strength of their final NAVs.
+    agg_gone = str(evidence.get("aggregator_status") or "") in (
+        STATUS_DELISTED, STATUS_CANDIDATE)
+    newest = max((d_ for d_ in (nav, rep, ann) if d_ is not None),
+                 default=None)
+    if agg_gone and (newest is None or age(newest) > p["nav_days"]):
+        return {**out, "status": STATUS_CANDIDATE,
+                "liveness_reason": (
+                    "aggregator_delisted_and_own_filings_silent_"
+                    f"{age(newest) if newest else 'always'}d"),
+                "live_status_source": "corroborated_delisting"}
+
     if nav is not None and age(nav) <= p["nav_days"]:
         return {**out, "status": STATUS_LIVE,
                 "liveness_reason": f"nav_{age(nav)}d_old",

@@ -1208,3 +1208,25 @@ def test_a_short_history_gets_a_growing_z_that_prices_but_never_alerts():
                                 aux_discount_history=_aux(30), today=TODAY)
     assert out3.iloc[0]["z_status"] in ("computed", "within_error_band")
     assert out3.iloc[0]["z_window_months"] == 30
+
+
+def test_corroborated_delisting_outranks_the_stale_nav_grace():
+    """Keystone, Jupiter Green and Henderson Opportunities sat in the
+    priced universe a year after their own liquidations, alive on their
+    final NAVs inside the 550-day grace. When the aggregator has already
+    delisted a fund AND its own filings are silent past the fresh-NAV
+    window, both independent sources agree - it demotes to the review
+    queue. A fund the aggregator still lists keeps the grace unchanged.
+    """
+    gone = liveness.classify({"last_nav": "2025-08-01",
+                              "aggregator_status": "delisted"}, as_of=TODAY)
+    assert gone["status"] == liveness.STATUS_CANDIDATE
+    assert gone["live_status_source"] == "corroborated_delisting"
+    # same silence, but the aggregator still lists it: grace holds
+    listed = liveness.classify({"last_nav": "2025-08-01",
+                                "aggregator_status": "live"}, as_of=TODAY)
+    assert listed["status"] == liveness.STATUS_LIVE_STALE
+    # fresh own NAV always wins, whatever the aggregator thinks
+    fresh = liveness.classify({"last_nav": "2026-08-20",
+                               "aggregator_status": "delisted"}, as_of=TODAY)
+    assert fresh["status"] == liveness.STATUS_LIVE
