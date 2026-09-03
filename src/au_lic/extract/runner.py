@@ -757,6 +757,15 @@ def run_validate(limit: int = 0) -> dict:
     if not len(facts):
         return {"error": "no extracted facts found - run deterministic first"}
     nav = facts[facts["section"] == "nav_observations"].copy()
+    # the same own-series outlier mask the live feed applies
+    # (facts.nav_observations), so agreement is measured on what is served
+    outliers = 0
+    if {"ticker", "valuation_date", "nav_per_share"} <= set(nav.columns):
+        bad = AUF.own_series_outliers(nav, sid_col="ticker",
+                                      date_col="valuation_date",
+                                      value_col="nav_per_share")
+        outliers = int(bad.sum())
+        nav = nav[~bad]
 
     # The builder takes a config and REBUILDS from raw; the loader reads the
     # panel that was already built. Calling the builder with no argument
@@ -782,6 +791,7 @@ def run_validate(limit: int = 0) -> dict:
     cmp_df = V.compare(nav, panel)
     cls = V.classify(cmp_df)
     out = V.summarise(cls, extracted_total=len(nav))
+    out["own_series_outliers_dropped"] = outliers
 
     # Accountability per fund and per label rule. The exchange is the
     # answer key: a fund whose extracted series disagrees with it most of
