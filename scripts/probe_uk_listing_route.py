@@ -104,8 +104,46 @@ def main() -> int:
         except Exception as exc:  # noqa: BLE001
             ref["search_pages"].append({"url": u, "error": str(exc)})
         time.sleep(1.5)
+    # the advanced-search form's select options and its /draw endpoint,
+    # queried by ISIN - the identity route that cannot collide on a code
+    isins = {}
+    up = Path("outputs/live/uk_live_universe.csv")
+    if up.exists():
+        u = pd.read_csv(up, dtype=str)
+        icol = next((c for c in u.columns if c.lower() == "isin"), None)
+        if icol:
+            isins = {str(t).upper(): i for t, i in zip(u["ticker"], u[icol]) if isinstance(i, str)}
+    try:
+        ra = s.get("https://www.investegate.co.uk/advanced-search", timeout=30)
+        sa = BeautifulSoup(ra.text, "html.parser")
+        ref["advanced_selects"] = {sel.get("name"): [(o.get("value"), o.get_text(" ", strip=True)[:40])
+                                                     for o in sel.select("option")][:12]
+                                   for sel in sa.select("select")}
+        ref["advanced_scripts"] = [m for m in re.findall(r"draw[^\n]{0,300}", ra.text)][:6]
+    except Exception as exc:  # noqa: BLE001
+        ref["advanced_error"] = str(exc)
+    time.sleep(1.5)
+    ref["draw_trials"] = []
+    t0 = TICKERS[0] if TICKERS else "SHIP"
+    isin0 = isins.get(t0, "")
+    for method, params in (("GET", {"search_for": "isin", "search_word": isin0, "page": 1}),
+                           ("GET", {"search_for": "2", "search_word": isin0, "page": 1}),
+                           ("GET", {"search_for": "1", "search_word": t0, "page": 1}),
+                           ("POST", {"search_for": "isin", "search_word": isin0, "page": 1}),
+                           ("GET", {"words": nm.get(t0) or t0})):
+        u = "https://www.investegate.co.uk/search" if "words" in params else "https://www.investegate.co.uk/advanced-search/draw"
+        try:
+            r = s.get(u, params=params, timeout=30) if method == "GET" else s.post(u, data=params, timeout=30)
+            body = r.text
+            slugs = sorted(set(SLUG.findall(body)))[:10]
+            ref["draw_trials"].append({"method": method, "url": r.url, "status": r.status_code,
+                                       "content_type": r.headers.get("content-type"),
+                                       "slugs": slugs, "head": " ".join(body.split())[:700]})
+        except Exception as exc:  # noqa: BLE001
+            ref["draw_trials"].append({"method": method, "params": params, "error": str(exc)})
+        time.sleep(1.5)
     for t in TICKERS:
-        rec = {"ticker": t, "name": nm.get(t)}
+        rec = {"ticker": t, "name": nm.get(t), "isin": isins.get(t)}
         rec["company_page"] = page(s, f"https://www.investegate.co.uk/company/{t}")
         rows_ok = sum(n for sl, n in rec["company_page"].get("row_slugs", {}).items()
                       if uk_row_matches_ticker(f"/announcement/rns/{sl}/x/1", t))
