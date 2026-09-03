@@ -1,52 +1,55 @@
 {
-  "delist_candidates": 717,
+  "delist_candidates": 668,
   "vehicles": 1116,
   "by_market": {
     "AU": 172,
     "UK": 944
   },
-  "live": 347,
-  "live_stale_nav": 52,
+  "live": 368,
+  "live_stale_nav": 25,
   "status_before_evidence": {
     "delisted": 731,
     "live": 376,
     "delist_candidate": 9
   },
   "evidence_rows": 495,
+  "au_code_reuse_cutoffs": 77,
   "persisted_to": "data/universe/registry.parquet",
   "live_status_source": {
-    "corroborated_delisting": 706,
-    "own_nav_announcement": 323,
-    "own_periodic_report": 45,
+    "corroborated_delisting": 665,
+    "own_nav_announcement": 344,
+    "own_delisting_notice": 55,
     "registry_deferral_no_own_filings": 24,
-    "own_announcement_only": 10,
-    "own_nav_announcement_stale": 7,
+    "own_periodic_report": 21,
+    "own_nav_announcement_stale": 4,
+    "own_announcement_only": 2,
     "registry_last_seen": 1
   },
-  "revived_by_own_filings": 24,
-  "aggregator_said_live_evidence_says_not": 5,
+  "revived_by_own_filings": 19,
+  "aggregator_said_live_evidence_says_not": 4,
   "by_liveness_reason": {
     "aggregator_delisted_and_own_filings_silent_alwaysd": 597,
-    "nav": 329,
-    "aggregator_delisted_and_own_filings_silent": 109,
-    "periodic_report": 45,
+    "nav": 347,
+    "aggregator_delisted_and_own_filings_silent": 68,
+    "own_delisting_notice": 55,
     "no_own_filings_held_deferring_to_registry": 24,
-    "filings_but_no_nav_or_report": 10,
+    "periodic_report": 21,
+    "filings_but_no_nav_or_report": 2,
     "nav_-27d_old": 1,
     "registry_listed": 1
   },
-  "delisted": 0,
+  "delisted": 55,
   "priced_by_source": 638,
   "announcements_only": 478,
-  "live_announcements_only": 84,
+  "live_announcements_only": 99,
   "offshore": 195,
   "vct": 228,
   "live_by_domicile": {
-    "GB": 189,
-    "null": 99,
-    "GG": 34,
+    "GB": 205,
+    "null": 97,
+    "GG": 39,
+    "JE": 12,
     "BM": 11,
-    "JE": 10,
     "KY": 2,
     "IE": 1,
     "CA": 1
@@ -224,6 +227,15 @@
       "months_listed": 105
     },
     {
+      "security_id": "SEDOL:BMC7TM7",
+      "name": "Cordiant Digital Infrastructure",
+      "sector": "Infrastructure",
+      "domicile": "GG",
+      "isin": "GG00BMC7TM77",
+      "first_seen": "2021-02",
+      "months_listed": 65
+    },
+    {
       "security_id": "SEDOL:B1Z2SL4",
       "name": "Crystal Amber Fund",
       "sector": "Flexible Investment",
@@ -305,6 +317,15 @@
       "months_listed": 98
     },
     {
+      "security_id": "SEDOL:BFX3K77",
+      "name": "Gresham House Energy Storage",
+      "sector": "Renewable Energy Infrastructure",
+      "domicile": "GB",
+      "isin": "GB00BFX3K770",
+      "first_seen": "2018-11",
+      "months_listed": 93
+    },
+    {
       "security_id": "SEDOL:B0T4LH6",
       "name": "HICL Infrastructure",
       "sector": "Infrastructure",
@@ -332,6 +353,24 @@
       "months_listed": 220
     },
     {
+      "security_id": "SEDOL:BJP5HK1",
+      "name": "Home REIT",
+      "sector": "Property - UK Residential",
+      "domicile": "GB",
+      "isin": "GB00BJP5HK17",
+      "first_seen": "2020-10",
+      "months_listed": 70
+    },
+    {
+      "security_id": "SEDOL:B8C23S8",
+      "name": "ICG-Longbow Senior Secured UK Property Debt Invest",
+      "sector": "Property - Debt",
+      "domicile": "GG",
+      "isin": "GG00B8C23S81",
+      "first_seen": "2013-02",
+      "months_listed": 162
+    },
+    {
       "security_id": "SEDOL:B0P8RJ6",
       "name": "India Capital Growth Fund",
       "sector": "India / Indian Subcontinent",
@@ -339,6 +378,15 @@
       "isin": "GB00B0P8RJ60",
       "first_seen": "2008-12",
       "months_listed": 212
+    },
+    {
+      "security_id": "SEDOL:B188SR5",
+      "name": "International Public Partnerships",
+      "sector": "Infrastructure",
+      "domicile": "GB",
+      "isin": "GB00B188SR50",
+      "first_seen": "2008-02",
+      "months_listed": 222
     },
     {
       "security_id": "SEDOL:B07V0R2",
@@ -402,6 +450,15 @@
       "isin": "GB00BY7QYJ50",
       "first_seen": "2026-01",
       "months_listed": 7
+    },
+    {
+      "security_id": "SEDOL:BD96PR1",
+      "name": "NB Private Equity Partners",
+      "sector": "Private Equity",
+      "domicile": "GG",
+      "isin": "GG00BD96PR19",
+      "first_seen": "2018-05",
+      "months_listed": 77
     },
     {
       "security_id": "SEDOL:B1ZBD49",
@@ -476,6 +533,15 @@
       "months_listed": 137
     },
     {
+      "security_id": "SEDOL:0310505",
+      "name": "Oxford Technology 2 VCT - OT2 shares",
+      "sector": "VCT",
+      "domicile": "GB",
+      "isin": "GB0003105052",
+      "first_seen": "2022-08",
+      "months_listed": 48
+    },
+    {
       "security_id": "SEDOL:3142039",
       "name": "Oxford Technology 2 VCT - OT3 shares",
       "sector": "VCT",
@@ -539,6 +605,15 @@
       "months_listed": 137
     },
     {
+      "security_id": "SEDOL:B248KJ2",
+      "name": "Phoenix Spree Deutschland",
+      "sector": "Property - Europe",
+      "domicile": "JE",
+      "isin": "JE00BT7JKP71",
+      "first_seen": "2015-12",
+      "months_listed": 128
+    },
+    {
       "security_id": "SEDOL:BRC8992",
       "name": "Puma AIM VCT",
       "sector": "VCT AIM Quoted",
@@ -564,6 +639,15 @@
       "isin": "GB00B0HW5366",
       "first_seen": "2010-05",
       "months_listed": 195
+    },
+    {
+      "security_id": "SEDOL:BH4TCL6",
+      "name": "Regional REIT",
+      "sector": "Property Direct - UK",
+      "domicile": "GB",
+      "isin": "GB00BH4TCL65",
+      "first_seen": "2018-04",
+      "months_listed": 9
     },
     {
       "security_id": "SEDOL:BBHX2H9",
@@ -600,6 +684,15 @@
       "isin": "GG00BNDMJP11",
       "first_seen": "2014-11",
       "months_listed": 141
+    },
+    {
+      "security_id": "SEDOL:BBHXCL3",
+      "name": "Riverstone Energy",
+      "sector": "Commodities & Natural Resources",
+      "domicile": "GG",
+      "isin": "GG00BWZ6KH33",
+      "first_seen": "2014-01",
+      "months_listed": 151
     },
     {
       "security_id": "SEDOL:B018CS4",
@@ -647,6 +740,15 @@
       "months_listed": 115
     },
     {
+      "security_id": "SEDOL:BGHVZM4",
+      "name": "SDCL Efficiency Income",
+      "sector": "Renewable Energy Infrastructure",
+      "domicile": "GB",
+      "isin": "GB00BGHVZM47",
+      "first_seen": "2018-12",
+      "months_listed": 92
+    },
+    {
       "security_id": "SEDOL:BF78131",
       "name": "Schroder BSC Social Impact",
       "sector": "Flexible Investment",
@@ -654,6 +756,15 @@
       "isin": "GB00BF781319",
       "first_seen": "2021-03",
       "months_listed": 63
+    },
+    {
+      "security_id": "SEDOL:B01HM14",
+      "name": "Schroder Real Estate",
+      "sector": "Property - UK Commercial",
+      "domicile": "GB",
+      "isin": "GB00B01HM147",
+      "first_seen": "2007-01",
+      "months_listed": 235
     },
     {
       "security_id": "SEDOL:BV54HY6",
@@ -665,6 +776,15 @@
       "months_listed": 138
     },
     {
+      "security_id": "SEDOL:BKPG013",
+      "name": "Seraphim Space Investment Trust",
+      "sector": "Growth Capital",
+      "domicile": "GB",
+      "isin": "GB00BKPG0138",
+      "first_seen": "2021-08",
+      "months_listed": 60
+    },
+    {
       "security_id": "SEDOL:BW6HS59",
       "name": "Seraphim Space Investment Trust C shares",
       "sector": "Growth Capital",
@@ -672,6 +792,15 @@
       "isin": "GB00BW6HS596",
       "first_seen": "2026-06",
       "months_listed": 2
+    },
+    {
+      "security_id": "SEDOL:B8P59C0",
+      "name": "Syncona",
+      "sector": "Biotechnology & Healthcare",
+      "domicile": "GG",
+      "isin": "GG00B8P59C08",
+      "first_seen": "2013-03",
+      "months_listed": 51
     },
     {
       "security_id": "SEDOL:B95CGW7",
@@ -699,6 +828,15 @@
       "isin": "GB00BDTYGZ09",
       "first_seen": "2019-09",
       "months_listed": 80
+    },
+    {
+      "security_id": "SEDOL:BG49KP9",
+      "name": "Tritax Big Box REIT",
+      "sector": "Property - UK Logistics",
+      "domicile": "GB",
+      "isin": "GB00BG49KP99",
+      "first_seen": "2014-11",
+      "months_listed": 141
     },
     {
       "security_id": "SEDOL:BDFC164",
@@ -810,34 +948,37 @@
     }
   ],
   "live_announcements_only_by_sector": {
-    "VCT": 18,
-    "Renewable Energy Infrastructure": 7,
-    "Private Equity": 6,
+    "VCT": 19,
+    "Renewable Energy Infrastructure": 9,
+    "Private Equity": 7,
     "Flexible Investment": 6,
+    "Infrastructure": 6,
     "UK Smaller Companies": 5,
-    "Debt - Structured Finance": 4,
-    "Infrastructure": 4,
     "Australian Indices": 4,
-    "Country Specialist": 3,
+    "Debt - Structured Finance": 4,
     "Debt - Loans & Bonds": 3,
+    "Country Specialist": 3,
+    "Growth Capital": 3,
     "Hedge Funds": 3,
-    "Growth Capital": 2,
+    "Property - Debt": 2,
     "North America": 2,
+    "Property - UK Commercial": 2,
+    "Commodities & Natural Resources": 2,
+    "Property - Europe": 2,
     "Split Capital Trust": 2,
-    "Property - Rest of World": 1,
-    "Property - UK Commercial": 1,
+    "Biotechnology & Healthcare": 2,
     "Global Equity Income": 1,
+    "Property - Rest of World": 1,
     "Equity - Global Strategy": 1,
     "Global Emerging Markets": 1,
-    "Commodities & Natural Resources": 1,
-    "India / Indian Subcontinent": 1,
+    "Property - UK Residential": 1,
     "VCT AIM Quoted": 1,
-    "Biotechnology & Healthcare": 1,
+    "India / Indian Subcontinent": 1,
     "Property - UK Healthcare": 1,
-    "Property - Debt": 1,
+    "Property Direct - UK": 1,
+    "Property - UK Logistics": 1,
     "Leasing": 1,
     "Debt - Direct Lending": 1,
-    "VCT Specialist: Environmental": 1,
-    "Property - Europe": 1
+    "VCT Specialist: Environmental": 1
   }
 }
