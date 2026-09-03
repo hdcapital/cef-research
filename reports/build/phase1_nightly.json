@@ -10,7 +10,7 @@
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 152,
+  "alert_eligible": 153,
   "z_extremes": [
     {
       "security_id": "SEDOL:BL690L8",
@@ -32,8 +32,8 @@
     },
     {
       "security_id": "ASX:GCI",
-      "z_adj": -38.9676,
-      "discount_est": -0.926969,
+      "z_adj": -38.9611,
+      "discount_est": -0.926812,
       "staleness_days": 4.0
     },
     {
@@ -44,9 +44,9 @@
     },
     {
       "security_id": "SEDOL:B1G3N11",
-      "z_adj": -36.3353,
-      "discount_est": -0.889865,
-      "staleness_days": 2.0
+      "z_adj": -36.3289,
+      "discount_est": -0.889727,
+      "staleness_days": 1.0
     },
     {
       "security_id": "SEDOL:BKV46W4",
@@ -56,8 +56,8 @@
     },
     {
       "security_id": "ASX:ALR",
-      "z_adj": -32.9584,
-      "discount_est": -0.963766,
+      "z_adj": -32.9875,
+      "discount_est": -0.964554,
       "staleness_days": 2221.0
     },
     {
@@ -68,8 +68,8 @@
     },
     {
       "security_id": "ASX:MXT",
-      "z_adj": -27.7649,
-      "discount_est": -0.93311,
+      "z_adj": -27.7498,
+      "discount_est": -0.932598,
       "staleness_days": 5.0
     }
   ],
@@ -88,7 +88,7 @@
     "uk_aux_z_history_funds": 230,
     "uk_nav_validation": {
       "comparable_pairs": 5065,
-      "agreement_rate_pairs": 0.9692
+      "agreement_rate_pairs": 0.9686
     },
     "uk": {
       "tier0_navs": 217,
@@ -106,5 +106,5 @@
     }
   },
   "carried_forward_rows": 0,
-  "snapshot": "s3_uploaded:nta_live/2026-09-03.parquet"
+  "snapshot": "s3_exists_not_overwritten:nta_live/2026-09-03.parquet"
 }
