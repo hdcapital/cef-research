@@ -59,8 +59,8 @@ def _snapshot_s3(path: Path, key: str) -> str:
 # official list. Anchored so "cancellation of treasury shares" cannot match.
 DELIST_HEAD = re.compile(
     r"^\s*(?:cancellation|delisting)\s*[-\u2013:]|cancellation of (?:the )?"
-    r"(?:admission|listing)|scheme (?:of arrangement )?(?:becomes|has become|"
-    r"is now) effective|compulsory acquisition|removal from (?:the )?official list",
+    r"(?:admission|listing)|scheme (?:of arrangement )?(?:becomes |has become |"
+    r"is now |)effective|compulsory acquisition|removal from (?:the )?official list",
     re.I)
 
 REPORT_HEAD = re.compile(
@@ -551,6 +551,10 @@ def _uk_aux_discount_history() -> pd.DataFrame | None:
     return out[["security_id", "obs_month", "discount"]] if len(out) else None
 
 
+# a fund whose last price bar is older than this is not currently trading
+NOT_TRADING_DAYS = 14
+
+
 def _signal_coverage(live: pd.DataFrame, irr: pd.DataFrame | None,
                      live_sids: set | None = None) -> dict:
     """The objective function: can we PRICE the universe?
@@ -575,6 +579,19 @@ def _signal_coverage(live: pd.DataFrame, irr: pd.DataFrame | None,
     # would distort the target
     if live_sids is not None:
         df = df[df["security_id"].astype(str).isin(live_sids)]
+    # "currently trading" is the owner's denominator: a fund with no price
+    # bar in the last NOT_TRADING_DAYS cannot be traded whatever its NAV
+    # says - Diverse Income and Throgmorton after their schemes, Home REIT
+    # suspended since 2023. Counted and listed, never silently dropped.
+    not_trading = pd.Series(False, index=df.index)
+    if "price_date" in df.columns:
+        pdte = pd.to_datetime(df["price_date"], errors="coerce")
+        age = (pd.Timestamp.utcnow().tz_localize(None).normalize() - pdte).dt.days
+        not_trading = df["price"].isna() | pdte.isna() | (age > NOT_TRADING_DAYS) \
+            if "price" in df.columns else (pdte.isna() | (age > NOT_TRADING_DAYS))
+    excluded_not_trading = df[not_trading][["security_id", "name", "market"]] \
+        if "name" in df.columns else df[not_trading][["security_id", "market"]]
+    df = df[~not_trading]
     lim = df["staleness_limit_days"] if "staleness_limit_days" in df.columns \
         else 45.0
     if "nav_current" in df.columns:
@@ -613,7 +630,11 @@ def _signal_coverage(live: pd.DataFrame, irr: pd.DataFrame | None,
 
     summary: dict = {"generated_at": datetime.now(timezone.utc)
                      .isoformat(timespec="seconds"),
-                     "target_pct": 90.0, "markets": {}}
+                     "target_pct": 90.0, "markets": {},
+                     "excluded_not_trading": {
+                         "count": int(len(excluded_not_trading)),
+                         "rule": f"no price bar within {NOT_TRADING_DAYS} days",
+                         "funds": excluded_not_trading.to_dict("records")[:60]}}
     for mkt, g in per_fund.groupby("market"):
         summary["markets"][mkt] = {
             "denominator_live_research_eligible": int(len(g)),
