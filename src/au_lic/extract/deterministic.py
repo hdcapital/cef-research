@@ -44,6 +44,12 @@ def _parser_version() -> str:
     """
     import zlib as _z
     src = Path(__file__).read_bytes()
+    # the label path reads its candidates through label_discovery, so that
+    # module is parsing code too
+    try:
+        src += (Path(__file__).parent / "label_discovery.py").read_bytes()
+    except OSError:
+        pass
     try:
         src += (Path(__file__).resolve().parents[3]
                 / "scripts" / "sample_nta_pdfs.py").read_bytes()

@@ -118,7 +118,10 @@ jobs:
                    reports/build/asx_nta_validation.json \
                    reports/build/asx_label_discovery*.json \
                    outputs/au/au_nta_label_rules*.csv \
-                   outputs/au/au_nta_label_evidence*.csv; do
+                   outputs/au/au_nta_label_evidence*.csv \
+                   outputs/au/au_nta_quarantine.csv \
+                   outputs/au/au_nta_validation_per_fund.csv \
+                   outputs/au/au_nta_validation_per_label.csv; do
             [ -f "$f" ] && git add -f "$f"
           done
           if git diff --cached --quiet; then

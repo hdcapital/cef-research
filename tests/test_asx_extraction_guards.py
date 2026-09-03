@@ -857,3 +857,20 @@ def test_own_series_outliers_judge_by_monthly_medians_not_row_counts():
     df = pd.DataFrame(rows)
     bad = facts.own_series_outliers(df)
     assert bad.tolist() == [v == 31.0 for v in df["nav_value"]]
+
+
+def test_a_dotted_date_is_never_a_candidate_value():
+    """KIT/REV/MXT/GCI read 31.03 ("31.03.2026") under the learned label
+    'value date nta per unit'. A day.month before a year is a date."""
+    from au_lic.extract import label_discovery as LD
+    text = ("NTA per unit is as follows: Value date NTA per unit "
+            "31.03.2026 $2.0095 and at 30/06/2026 2.0140")
+    vals = [c["value"] for c in LD.candidates_from_text(text)]
+    assert 31.03 not in vals and 30.0 not in vals and 6.0 not in vals
+    assert 2.0095 in vals and 2.014 in vals
+    rows = [["NTA per unit", "31.03.2026", "2.0095"]]
+    vals = [c["value"] for c in LD.candidates_from_rows(rows)]
+    assert 31.03 not in vals and 2026.0 not in vals and 2.0095 in vals
+    # a genuine two-decimal figure with no year after it is untouched
+    assert 0.3103 in [c["value"] for c in LD.candidates_from_text("NTA per share 31.03 cents")]
+    assert 31.03 in [c["value"] for c in LD.candidates_from_text("NTA per share $31.03 as at")]

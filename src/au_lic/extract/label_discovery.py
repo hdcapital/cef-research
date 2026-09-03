@@ -105,10 +105,31 @@ def _values(raw: str, cents_marker: str | None, dollar: str) -> list[tuple[float
     return [(v, "dollars"), (v / 100.0, "cents")]
 
 
+# "31.03.2026" / "30.06.2026": the day and month of a dotted date read as a
+# value. KIT, REV, MXT and GCI all carried 31.03 against a ~$2.00 series -
+# the learned label "value date nta per unit" sits before the DATE column.
+_DATE_TAIL = re.compile(r"\s*[./-]\s*(?:19|20)?[0-9]{2}\b")
+
+
+def _is_date_part(text: str, m: "re.Match") -> bool:
+    """True when the matched number is a component of a dotted or slashed
+    date: day.month before a year, or anything that follows "<digit>/" or
+    "<digit>-" (the month or year of 30/06/2026)."""
+    tail = text[m.end():m.end() + 8]
+    raw = m.group(2)
+    if re.search(r"[0-9]\s*[/-]\s*$", text[:m.start()]):
+        return True
+    if re.fullmatch(r"[0-9]{1,2}\.[0-9]{2}", raw) and _DATE_TAIL.match(tail):
+        return True
+    return bool(re.fullmatch(r"[0-9]{1,2}", raw) and re.match(r"\s*[./-]\s*[0-9]{1,2}\s*[./-]\s*(?:19|20)?[0-9]{2}\b", tail))
+
+
 def candidates_from_text(text: str) -> list[dict]:
     """Every (label, value) pair the flowing text offers - not just a winner."""
     out: list[dict] = []
     for m in _NUM.finditer(text or ""):
+        if _is_date_part(text or "", m):
+            continue
         before = (text or "")[: m.start()]
         words = _WORD.findall(before)[-LABEL_WORDS:]
         label = normalise_label(" ".join(words))
@@ -135,6 +156,8 @@ def candidates_from_rows(rows: list[list[str]] | None) -> list[dict]:
             if "%" in c:
                 continue
             for m in _NUM.finditer(c):
+                if _is_date_part(c, m):
+                    continue
                 label = normalise_label(" ".join(label_parts))
                 if not label:
                     continue
