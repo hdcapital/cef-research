@@ -235,10 +235,16 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
     # history. A quarterly publisher whose NAV is 60 days old is CURRENT by
     # its own cadence; judging it on a daily publisher's 45-day cap wrote
     # off the whole infrastructure/property cohort as stale.
+    # The cadence is the fund's CURRENT one: the last nine publications
+    # (eight gaps), not the last twenty-four. Schroders Capital Global
+    # Innovation and Syncona published daily for years and quarterly since,
+    # and a 24-observation window still saw mostly daily gaps - a 45-day
+    # limit for a quarterly publisher, so their fresh quarterly NAVs read
+    # as stale.
     cadence_days: dict[str, float] = {}
     if own is not None and len(own):
         for s_, g_ in own.groupby("security_id"):
-            d_ = g_["nav_date"].sort_values().tail(24)
+            d_ = g_["nav_date"].sort_values().drop_duplicates().tail(9)
             if len(d_) >= 5:
                 gaps = d_.diff().dt.days.dropna()
                 gaps = gaps[gaps > 0]

@@ -1613,3 +1613,13 @@ def test_resolve_investegate_code_prefers_isin_then_name():
     assert H.resolve_investegate_code(s, "SHIP", isin="XX0000000000", name="Tufton Assets") == ("SHPP", "name_search")
     s = S()
     assert H.resolve_investegate_code(s, "USF", isin=None, name="US Solar Fund") == (None, "unresolved")
+
+
+def test_cadence_is_the_funds_current_one_not_its_history():
+    """A fund that published daily for years and quarterly since is judged
+    on the quarterly cadence (Schroders Capital Global Innovation, Syncona):
+    the last nine publications, not the last twenty-four."""
+    import pandas as pd
+    from cef_live import nta_live
+    src = __import__("inspect").getsource(nta_live)
+    assert 'drop_duplicates().tail(9)' in src and 'tail(24)' not in src
