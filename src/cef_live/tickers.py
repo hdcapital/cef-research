@@ -329,8 +329,13 @@ def resolve(registry: pd.DataFrame, budget: int = 400) -> pd.DataFrame:
     """
     cache = pd.read_csv(CACHE) if CACHE.exists() else pd.DataFrame(
         columns=["security_id", "ticker", "verified_name", "method", "status"])
-    # only skip funds already VERIFIED; unresolved ones are retried
-    known = set(cache.loc[cache["status"] == "verified", "security_id"])
+    # only skip funds already VERIFIED; unresolved ones are retried - except
+    # a MANUAL verdict, which is final whatever its status: a hand-rejected
+    # row (a SEDOL that is not the fund it was matched to) must not be
+    # re-resolved back into the same mistake by the next run
+    manual = cache["method"].fillna("").astype(str).str.startswith("manual_override") \
+        if "method" in cache.columns else pd.Series(False, index=cache.index)
+    known = set(cache.loc[(cache["status"] == "verified") | manual, "security_id"])
 
     # every ALIVE fund needs a ticker, `live_stale_nav` included - that
     # status means "trading, NAV not fresh", and an unresolved ticker is one

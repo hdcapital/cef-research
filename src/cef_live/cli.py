@@ -382,7 +382,8 @@ def _verified_tickers() -> pd.DataFrame:
         if status and status in t.columns:
             t = t[t[status] == "verified"]
         if {"security_id", "ticker"} <= set(t.columns):
-            frames.append(t[["security_id", "ticker"]])
+            keep = ["security_id", "ticker"] + (["method"] if "method" in t.columns else [])
+            frames.append(t[keep])
     if not frames:
         return pd.DataFrame(columns=["security_id", "ticker"])
     return pd.concat(frames, ignore_index=True).dropna(

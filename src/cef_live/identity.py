@@ -38,6 +38,8 @@ is that a case we cannot settle is visible rather than settled badly.
 
 from __future__ import annotations
 
+import re
+
 import pandas as pd
 
 STATUS_SOLE = "sole_claimant"
@@ -49,6 +51,15 @@ STATUS_NO_TICKER = "no_ticker"
 # statuses whose security may be priced from a live quote and may carry a
 # live signal. Everything else is excluded from signals by construction.
 PRICEABLE = (STATUS_SOLE, STATUS_INCUMBENT)
+
+# A ticker resolution grounded in the ISIN (OpenFIGI's exchange mapping, an
+# AIC key-facts ISIN match) or stated by hand outranks a NAME match: the
+# AIC lists a company's share classes and SEDOL vintages under one name,
+# so a name match hands the same ticker to every one of them, and eleven
+# trading funds (Rights & Issues, Vietnam Enterprise, EJF, Neuberger,
+# Regional REIT among them) went unpriced as "conflicts" between their
+# own line and their own ZDP or old SEDOL.
+GROUNDED_METHOD = re.compile(r"^(?:openfigi_isin|aic_keyfacts_isin|manual_override)", re.I)
 
 
 def _norm_ticker(v) -> str | None:
@@ -71,11 +82,15 @@ def resolve(registry: pd.DataFrame, tickers: pd.DataFrame,
     """
     reg = registry.copy()
     tmap = {}
+    tmethod: dict[str, str] = {}
     if tickers is not None and len(tickers):
         for r in tickers.itertuples(index=False):
             t = _norm_ticker(getattr(r, "ticker", None))
             if t:
                 tmap[str(r.security_id)] = t
+                m_ = getattr(r, "method", None)
+                if isinstance(m_, str) and m_:
+                    tmethod[str(r.security_id)] = m_
     reg["ticker"] = reg["security_id"].astype(str).map(tmap).astype("object")
     # an ASX security IS its code - there is no separate mapping to get wrong
     is_au = reg.get("market", pd.Series("", index=reg.index)).eq("AU")
@@ -119,6 +134,26 @@ def resolve(registry: pd.DataFrame, tickers: pd.DataFrame,
             continue
         live_claims = g[g["_alive"]]
         top = g.sort_values("_last").iloc[-1]
+        # among several LIVE claimants, exactly one grounded in the ISIN
+        # (or stated by hand) owns the ticker; the name matches are its
+        # other share classes / SEDOL vintages
+        grounded = [str(x) for x in live_claims["security_id"]
+                    if GROUNDED_METHOD.match(tmethod.get(str(x), ""))]
+        if len(live_claims) > 1 and len(grounded) == 1:
+            win = grounded[0]
+            inc_id.append(win)
+            inc_name.append(live_claims.loc[live_claims["security_id"].astype(str) == win, "name"].iloc[0]
+                            if "name" in live_claims.columns else None)
+            if str(r["security_id"]) == win:
+                status.append(STATUS_INCUMBENT)
+                reason.append(f"ticker {t} also claimed by {len(live_claims) - 1} live "
+                              f"name-matched security(ies); this one is the ISIN-grounded "
+                              f"resolution ({tmethod.get(win)})")
+            else:
+                status.append(STATUS_SUPERSEDED)
+                reason.append(f"ticker {t} belongs to {win} by ISIN-grounded resolution "
+                              f"({tmethod.get(win)}); this row is a name match")
+            continue
         inc_id.append(str(top["security_id"]))
         inc_name.append(top.get("name"))
         if len(live_claims) > 1:

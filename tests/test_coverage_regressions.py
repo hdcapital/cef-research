@@ -1623,3 +1623,54 @@ def test_cadence_is_the_funds_current_one_not_its_history():
     from cef_live import nta_live
     src = __import__("inspect").getsource(nta_live)
     assert 'drop_duplicates().tail(9)' in src and 'tail(24)' not in src
+
+
+def test_an_isin_grounded_resolution_owns_a_ticker_its_name_matches_share():
+    """Rights & Issues, Vietnam Enterprise, EJF, Neuberger, Regional REIT:
+    the AIC key-facts NAME match hands one ticker to every share class and
+    SEDOL vintage, and the identity layer refused to price any of them as
+    a 'conflict'. Exactly one claimant grounded in the ISIN (OpenFIGI) owns
+    the ticker; the name matches are superseded. Two grounded claimants,
+    or none, stay a conflict - nothing is guessed."""
+    import pandas as pd
+    from cef_live import identity
+    reg = pd.DataFrame([
+        {"security_id": "SEDOL:739207", "market": "UK", "name": "Rights & Issues", "status": "live", "last_seen": "2026-07"},
+        {"security_id": "NAME:rights and issues|preference", "market": "UK", "name": "Rights & Issues", "status": "live", "last_seen": "2026-07"},
+        {"security_id": "SEDOL:A", "market": "UK", "name": "Two Class", "status": "live", "last_seen": "2026-07"},
+        {"security_id": "SEDOL:B", "market": "UK", "name": "Two Class", "status": "live", "last_seen": "2026-07"},
+    ])
+    tickers = pd.DataFrame([
+        {"security_id": "SEDOL:739207", "ticker": "RIII", "method": "openfigi_isin+h1"},
+        {"security_id": "NAME:rights and issues|preference", "ticker": "RIII", "method": "aic_keyfacts_name"},
+        {"security_id": "SEDOL:A", "ticker": "TWO", "method": "aic_keyfacts_name"},
+        {"security_id": "SEDOL:B", "ticker": "TWO", "method": "aic_keyfacts_name"},
+    ])
+    out = identity.resolve(reg, tickers).set_index("security_id")
+    assert out.loc["SEDOL:739207", "identity_status"] == identity.STATUS_INCUMBENT
+    assert out.loc["SEDOL:739207", "identity_ok"]
+    assert out.loc["NAME:rights and issues|preference", "identity_status"] == identity.STATUS_SUPERSEDED
+    assert out.loc["SEDOL:A", "identity_status"] == identity.STATUS_CONFLICT
+    assert out.loc["SEDOL:B", "identity_status"] == identity.STATUS_CONFLICT
+    # without the method column nothing changes: still a conflict
+    out2 = identity.resolve(reg, tickers.drop(columns=["method"])).set_index("security_id")
+    assert out2.loc["SEDOL:739207", "identity_status"] == identity.STATUS_CONFLICT
+
+
+def test_a_manual_ticker_verdict_is_never_re_resolved(tmp_path, monkeypatch):
+    import pandas as pd
+    from cef_live import tickers as TK
+    cache = tmp_path / "resolved.csv"
+    cache.write_text("security_id,ticker,verified_name,method,status\n"
+                     "SEDOL:BFXW773,,Ventus VCT D shares,manual_override:not_veil,rejected\n"
+                     "SEDOL:X,,,,unresolved\n")
+    monkeypatch.setattr(TK, "CACHE", cache)
+    calls = []
+    monkeypatch.setattr(TK, "from_openfigi", lambda need, session=None: (calls.append(list(need["security_id"])), pd.DataFrame())[1])
+    reg = pd.DataFrame([{"security_id": "SEDOL:BFXW773", "market": "UK", "status": "live", "name": "Ventus VCT D", "isin": "GB00BFXW7731"},
+                        {"security_id": "SEDOL:X", "market": "UK", "status": "live", "name": "X", "isin": "GB00X"}])
+    try:
+        TK.resolve(reg, budget=0)
+    except Exception:  # noqa: BLE001  - network paths beyond the cache are not under test
+        pass
+    assert all("SEDOL:BFXW773" not in c for c in calls)
