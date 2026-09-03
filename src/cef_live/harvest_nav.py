@@ -746,6 +746,20 @@ UK_RULES = [
     ("cum_assumed", 4, _R(r"EPRA\s+(?:NTA|net tangible assets?)"
                           r"[^0-9]{0,80}?" + UK_PENCE, re.I)),
 
+    # TwentyFour Income (Northern Trust table): "FUND NAME NAV ISIN NAV DATE
+    # Twenty Four Income Fund Limited 106.38 GG00B90J5Z95 28th Aug 2026" -
+    # the pence figure sits between the fund name and the ISIN with no
+    # unit at all; 806 NAV announcements never parsed for want of a 'p'.
+    ("cum_assumed", 3, _R(r"FUND NAME\s+NAV\s+ISIN[\s\S]{0,160}?\s"
+                          r"([0-9]{1,5}\.[0-9]{2,4})\s+"
+                          r"(?:GB|GG|JE|IE|LU)[0-9A-Z]{10}\b", re.I)),
+    # Diverse Income: "Including current period revenue to 25th June 2026
+    # 119.51 per ordinary share" - no pence marker after the number
+    ("cum", 2, _R(r"Including current (?:period|year) revenue[^0-9]{0,80}?"
+                  r"(?:[0-9]{1,2}(?:st|nd|rd|th)?\s+\w{3,9}\s+20[0-9]{2}\s+)?"
+                  r"([0-9]{1,5}\.[0-9]{2})\s+per ordinary share", re.I)),
+    ("ex", 2, _R(r"Excluding current (?:period|year) revenue[^0-9]{0,40}?"
+                 r"([0-9]{1,5}\.[0-9]{2})\s+per ordinary share", re.I)),
     # Hydrogen Capital Growth: "quarterly NAV per share of the Company
     # (the "31 December NAV") was 30.54 pence"
     ("cum_assumed", 5, _R(r"NAV per share[\s\S]{0,140}?" + UK_PENCE, re.I)),
@@ -837,6 +851,11 @@ UK_RULES = [
 # (regex, kind, currency, multiplier) - matched only after UK_RULES fails,
 # so no announcement that already parses can change meaning.
 UK_CCY_RULES = [
+    # Ruffer (Apex table): "FUND NAME NAV SEDOL NAV DATE Ruffer Investment Co
+    # Ltd £3.0976 B018CS4" - pounds, then the SEDOL; 1,283 NAV announcements
+    # never parsed. Pounds become pence here, exactly once.
+    (_R(r"FUND NAME\s+NAV\s+SEDOL[\s\S]{0,160}?£\s*([0-9]{1,3}\.[0-9]{2,4})\s+[A-Z0-9]{7}\b", re.I),
+     "cum", "GBX", 100.0),
     # "Ordinary Share GBP 2.8157" (River UK Micro Cap)
     (_R(r"\bOrdinary Share\s+(?:GBP|£)\s*([0-9][0-9,]*\.[0-9]+)", re.I), "cum", "GBX", 100.0),
     # "GBP 3.645 per share" (VietNam Holding, VinaCapital) - the sterling

@@ -1285,3 +1285,31 @@ def test_the_verdicts_carry_the_irr_decomposition_to_the_brief():
     assert "of which disc. norm." in html and "NAV g" in html
     assert "+9.0%" in html and "+6.2%" in html
     assert "<sup" in html and ">h</sup>" in html, "growth source marked"
+
+
+def test_the_table_shaped_daily_nav_publishers_parse():
+    """TwentyFour Income and Ruffer publish a NAV every day and neither had
+    parsed once (806 and 1,283 announcements): the value sits in a table
+    with no unit marker - between the fund name and the ISIN for TFIF, as
+    pounds before the SEDOL for Ruffer. Diverse Income drops the pence
+    marker after its number. All three from the probe's real pages."""
+    from cef_live.harvest_nav import parse_uk_nav_text
+    tfif = ("Net Asset Value per Share FUND NAME NAV ISIN NAV DATE Twenty "
+            "Four Income Fund Limited 106.38 GG00B90J5Z95 28 th Aug 2026 "
+            "Twenty-four Income Fund Limited announces the following "
+            "unaudited, estimated net asset value per share as of 28 th "
+            "August 2026")
+    assert parse_uk_nav_text(tfif).get("nav_cum_pence") == 106.38
+    rica = ("LEI 21380068AHZKY7MKNO47 FUND NAME NAV SEDOL NAV DATE Ruffer "
+            "Investment Co Ltd £3.0976 B018CS4 01 st Sept 2026 Date: 02 st "
+            "Sept 2026 Par Value = Fair Value Pricing Marker = Bid")
+    got = parse_uk_nav_text(rica)
+    assert got.get("nav_cum_pence") == pytest.approx(309.76), got
+    divi = ("It is announced that at the close of business on 25 th Jun 2026 "
+            "the unaudited Net Asset Value per share of the Diverse Income "
+            "Trust plc is: With the portfolio valued on a fair value basis: "
+            "Including current period revenue to 25 th June 2026 119.51 per "
+            "ordinary share Excluding current period revenue 119.55 per "
+            "ordinary share")
+    got = parse_uk_nav_text(divi)
+    assert got.get("nav_cum_pence") == 119.51 and got.get("nav_ex_pence") == 119.55
