@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import sys
 import time
 from pathlib import Path
@@ -53,8 +54,8 @@ def main() -> int:
         rec["listing_rows"] = int(len(df))
         rec["newest_listed"] = df["date"].max() if "date" in df.columns else None
         heads = df["headline"].fillna("") if "headline" in df.columns else pd.Series(dtype=str)
-        pat = HEAD_RE if HEAD_RE else UK_NAV_HEAD
-        nav = df[heads.str.contains(pat, case=False, regex=True) & df["url"].notna()] \
+        pat = re.compile(HEAD_RE, re.I) if HEAD_RE else UK_NAV_HEAD
+        nav = df[heads.str.contains(pat) & df["url"].notna()] \
             if len(heads) else df.iloc[0:0]
         # what the fund has been filing lately, for the tickers whose NAV is
         # not under a NAV headline at all
