@@ -1,53 +1,53 @@
 {
-  "delist_candidates": 667,
+  "delist_candidates": 668,
   "vehicles": 1116,
   "by_market": {
     "AU": 172,
     "UK": 944
   },
-  "live": 369,
-  "live_stale_nav": 25,
+  "live": 358,
+  "live_stale_nav": 34,
   "status_before_evidence": {
     "delisted": 731,
     "live": 376,
     "delist_candidate": 9
   },
-  "evidence_rows": 497,
+  "evidence_rows": 510,
   "au_code_reuse_cutoffs": 77,
   "persisted_to": "data/universe/registry.parquet",
   "live_status_source": {
-    "corroborated_delisting": 664,
+    "corroborated_delisting": 662,
     "own_nav_announcement": 346,
-    "own_delisting_notice": 55,
-    "registry_deferral_no_own_filings": 23,
-    "own_periodic_report": 21,
+    "own_delisting_notice": 56,
+    "own_periodic_report": 30,
+    "registry_deferral_no_own_filings": 12,
+    "own_announcement_only": 5,
     "own_nav_announcement_stale": 4,
-    "own_announcement_only": 2,
     "registry_last_seen": 1
   },
   "revived_by_own_filings": 20,
-  "aggregator_said_live_evidence_says_not": 4,
+  "aggregator_said_live_evidence_says_not": 6,
   "by_liveness_reason": {
-    "aggregator_delisted_and_own_filings_silent_alwaysd": 596,
+    "aggregator_delisted_and_own_filings_silent_alwaysd": 594,
     "nav": 349,
     "aggregator_delisted_and_own_filings_silent": 68,
-    "own_delisting_notice": 55,
-    "no_own_filings_held_deferring_to_registry": 23,
-    "periodic_report": 21,
-    "filings_but_no_nav_or_report": 2,
+    "own_delisting_notice": 56,
+    "periodic_report": 30,
+    "no_own_filings_held_deferring_to_registry": 12,
+    "filings_but_no_nav_or_report": 5,
     "nav_-27d_old": 1,
     "registry_listed": 1
   },
-  "delisted": 55,
+  "delisted": 56,
   "priced_by_source": 638,
   "announcements_only": 478,
-  "live_announcements_only": 100,
+  "live_announcements_only": 92,
   "offshore": 195,
   "vct": 228,
   "live_by_domicile": {
-    "GB": 205,
+    "GB": 201,
     "null": 97,
-    "GG": 40,
+    "GG": 33,
     "JE": 12,
     "BM": 11,
     "KY": 2,
@@ -218,15 +218,6 @@
       "months_listed": 97
     },
     {
-      "security_id": "SEDOL:BWBSDM9",
-      "name": "Chenavari Toro Income Fund",
-      "sector": "Debt - Structured Finance",
-      "domicile": "GG",
-      "isin": "GG00BWBSDM98",
-      "first_seen": "2017-08",
-      "months_listed": 105
-    },
-    {
       "security_id": "SEDOL:BMC7TM7",
       "name": "Cordiant Digital Infrastructure",
       "sector": "Infrastructure",
@@ -306,15 +297,6 @@
       "isin": "GB00B68K3716",
       "first_seen": "2007-01",
       "months_listed": 235
-    },
-    {
-      "security_id": "SEDOL:BD8P074",
-      "name": "Gabelli Merchant Partners",
-      "sector": "Hedge Funds",
-      "domicile": "GB",
-      "isin": "GB00BD8P0741",
-      "first_seen": "2018-06",
-      "months_listed": 98
     },
     {
       "security_id": "SEDOL:BFX3K77",
@@ -587,15 +569,6 @@
       "months_listed": 56
     },
     {
-      "security_id": "SEDOL:B28C2R2",
-      "name": "Partners Group Private Equity",
-      "sector": "Private Equity",
-      "domicile": "GG",
-      "isin": "GG00B28C2R28",
-      "first_seen": "2008-02",
-      "months_listed": 222
-    },
-    {
       "security_id": "SEDOL:BQVC9S7",
       "name": "Pembroke VCT B shares",
       "sector": "VCT",
@@ -630,15 +603,6 @@
       "isin": "GB00BRC89928",
       "first_seen": "2025-04",
       "months_listed": 16
-    },
-    {
-      "security_id": "SEDOL:BKTRRM2",
-      "name": "RTW Biotech Opportunities",
-      "sector": "Biotechnology & Healthcare",
-      "domicile": "GG",
-      "isin": "GG00BKTRRM22",
-      "first_seen": "2019-11",
-      "months_listed": 81
     },
     {
       "security_id": "SEDOL:B0HW536",
@@ -821,24 +785,6 @@
       "months_listed": 154
     },
     {
-      "security_id": "SEDOL:B1RMC54",
-      "name": "Tetragon Financial Group",
-      "sector": "Flexible Investment",
-      "domicile": "GG",
-      "isin": "GG00B1RMC548",
-      "first_seen": "2016-09",
-      "months_listed": 119
-    },
-    {
-      "security_id": "SEDOL:BDTYGZ0",
-      "name": "Triple Point Venture VCT Venture shares",
-      "sector": "VCT",
-      "domicile": "GB",
-      "isin": "GB00BDTYGZ09",
-      "first_seen": "2019-09",
-      "months_listed": 80
-    },
-    {
       "security_id": "SEDOL:BG49KP9",
       "name": "Tritax Big Box REIT",
       "sector": "Property - UK Logistics",
@@ -846,15 +792,6 @@
       "isin": "GB00BG49KP99",
       "first_seen": "2014-11",
       "months_listed": 141
-    },
-    {
-      "security_id": "SEDOL:BDFC164",
-      "name": "Tufton Assets",
-      "sector": "Leasing",
-      "domicile": "GG",
-      "isin": "GG00BSFVPB94",
-      "first_seen": "2018-03",
-      "months_listed": 101
     },
     {
       "security_id": "SEDOL:B90J5Z9",
@@ -873,15 +810,6 @@
       "isin": "GG00BJVDZ946",
       "first_seen": "2014-03",
       "months_listed": 149
-    },
-    {
-      "security_id": "SEDOL:BJCWFX4",
-      "name": "US Solar Fund",
-      "sector": "Renewable Energy Infrastructure",
-      "domicile": "GB",
-      "isin": "GB00BJCWFX49",
-      "first_seen": "2019-04",
-      "months_listed": 88
     },
     {
       "security_id": "SEDOL:BNKVP75",
@@ -957,36 +885,35 @@
     }
   ],
   "live_announcements_only_by_sector": {
-    "VCT": 19,
-    "Renewable Energy Infrastructure": 9,
-    "Private Equity": 8,
-    "Flexible Investment": 6,
+    "VCT": 18,
+    "Renewable Energy Infrastructure": 8,
+    "Private Equity": 7,
     "Infrastructure": 6,
+    "Flexible Investment": 5,
     "UK Smaller Companies": 5,
     "Australian Indices": 4,
-    "Debt - Structured Finance": 4,
-    "Debt - Loans & Bonds": 3,
     "Country Specialist": 3,
     "Growth Capital": 3,
-    "Hedge Funds": 3,
-    "Property - Debt": 2,
-    "North America": 2,
+    "Debt - Loans & Bonds": 3,
+    "Debt - Structured Finance": 3,
     "Property - UK Commercial": 2,
+    "North America": 2,
+    "Hedge Funds": 2,
     "Commodities & Natural Resources": 2,
-    "Property - Europe": 2,
     "Split Capital Trust": 2,
-    "Biotechnology & Healthcare": 2,
-    "Global Equity Income": 1,
-    "Property - Rest of World": 1,
-    "Equity - Global Strategy": 1,
+    "Property - Europe": 2,
+    "Property - Debt": 2,
     "Global Emerging Markets": 1,
+    "Property - Rest of World": 1,
+    "Global Equity Income": 1,
+    "Equity - Global Strategy": 1,
+    "India / Indian Subcontinent": 1,
     "Property - UK Residential": 1,
     "VCT AIM Quoted": 1,
-    "India / Indian Subcontinent": 1,
-    "Property - UK Healthcare": 1,
+    "Biotechnology & Healthcare": 1,
     "Property Direct - UK": 1,
+    "Property - UK Healthcare": 1,
     "Property - UK Logistics": 1,
-    "Leasing": 1,
     "Debt - Direct Lending": 1,
     "VCT Specialist: Environmental": 1
   }

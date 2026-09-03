@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T12:44:36+00:00",
+  "generated_at": "2026-09-03T13:47:26+00:00",
   "target_pct": 90.0,
   "markets": {
     "AU": {
@@ -12,24 +12,19 @@
       "signal_complete_pct": 92.3
     },
     "UK": {
-      "denominator_live_research_eligible": 209,
-      "nav_ok": 194,
-      "z_ok": 198,
-      "growth_ok": 209,
-      "irr_ok": 198,
-      "signal_complete": 192,
-      "signal_complete_pct": 91.9
+      "denominator_live_research_eligible": 216,
+      "nav_ok": 203,
+      "z_ok": 202,
+      "growth_ok": 216,
+      "irr_ok": 202,
+      "signal_complete": 196,
+      "signal_complete_pct": 90.7
     }
   },
   "excluded_not_trading": {
-    "count": 14,
+    "count": 5,
     "rule": "no price bar within 14 days",
     "funds": [
-      {
-        "security_id": "SEDOL:BPJMQ25",
-        "name": "Aberforth Geared Value & Income Trust",
-        "market": "UK"
-      },
       {
         "security_id": "SEDOL:891055",
         "name": "BlackRock Throgmorton Trust",
@@ -41,18 +36,8 @@
         "market": "UK"
       },
       {
-        "security_id": "SEDOL:661582",
-        "name": "Chelverton UK Dividend Trust",
-        "market": "UK"
-      },
-      {
         "security_id": "SEDOL:B65TLW2",
         "name": "Diverse Income Trust",
-        "market": "UK"
-      },
-      {
-        "security_id": "SEDOL:BF0D1M2",
-        "name": "EJF Investments",
         "market": "UK"
       },
       {
@@ -64,48 +49,18 @@
         "security_id": "SEDOL:345035",
         "name": "JPMorgan India Growth & Income",
         "market": "UK"
-      },
-      {
-        "security_id": "SEDOL:B1ZBD49",
-        "name": "Neuberger Private Equity Partners",
-        "market": "UK"
-      },
-      {
-        "security_id": "SEDOL:B6832P1",
-        "name": "Polar Capital Global Healthcare",
-        "market": "UK"
-      },
-      {
-        "security_id": "SEDOL:BYV2ZQ3",
-        "name": "Regional REIT",
-        "market": "UK"
-      },
-      {
-        "security_id": "SEDOL:739207",
-        "name": "Rights & Issues Investment Trust",
-        "market": "UK"
-      },
-      {
-        "security_id": "SEDOL:B00KTN5",
-        "name": "UIL",
-        "market": "UK"
-      },
-      {
-        "security_id": "SEDOL:361H109",
-        "name": "Vietnam Enterprise Investments",
-        "market": "UK"
       }
     ]
   },
   "total": {
-    "denominator": 300,
-    "signal_complete": 276,
-    "signal_complete_pct": 92.0,
+    "denominator": 307,
+    "signal_complete": 280,
+    "signal_complete_pct": 91.2,
     "top_blockers": {
-      "nav+z:no_discount_history": 9,
       "nav": 8,
+      "nav+z:no_discount_history": 7,
+      "z:no_discount_history": 7,
       "nav+z:insufficient_history_3m": 2,
-      "z:no_discount_history": 2,
       "z:no_current_discount": 1,
       "z:insufficient_history_4m": 1,
       "z:insufficient_history_3m": 1
