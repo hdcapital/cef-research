@@ -13,6 +13,9 @@ on:
       state_groups:
         description: "S3 state groups to restore (comma list)"
         default: "raw_aic"
+      extra_env:
+        description: "extra environment for the script, KEY=VAL;KEY=VAL"
+        default: ""
   push:
     branches:
       - "claude/**"
