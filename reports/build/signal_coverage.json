@@ -1,34 +1,110 @@
 {
-  "generated_at": "2026-09-03T09:49:47+00:00",
+  "generated_at": "2026-09-03T12:11:42+00:00",
   "target_pct": 90.0,
   "markets": {
     "AU": {
       "denominator_live_research_eligible": 91,
-      "nav_ok": 81,
+      "nav_ok": 87,
       "z_ok": 86,
       "growth_ok": 91,
       "irr_ok": 89,
-      "signal_complete": 78,
-      "signal_complete_pct": 85.7
+      "signal_complete": 84,
+      "signal_complete_pct": 92.3
     },
     "UK": {
-      "denominator_live_research_eligible": 223,
-      "nav_ok": 200,
-      "z_ok": 198,
-      "growth_ok": 223,
-      "irr_ok": 198,
-      "signal_complete": 190,
-      "signal_complete_pct": 85.2
+      "denominator_live_research_eligible": 209,
+      "nav_ok": 190,
+      "z_ok": 190,
+      "growth_ok": 209,
+      "irr_ok": 190,
+      "signal_complete": 184,
+      "signal_complete_pct": 88.0
     }
   },
+  "excluded_not_trading": {
+    "count": 14,
+    "rule": "no price bar within 14 days",
+    "funds": [
+      {
+        "security_id": "SEDOL:BPJMQ25",
+        "name": "Aberforth Geared Value & Income Trust",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:891055",
+        "name": "BlackRock Throgmorton Trust",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:B62DS15",
+        "name": "Channel Islands Property",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:661582",
+        "name": "Chelverton UK Dividend Trust",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:B65TLW2",
+        "name": "Diverse Income Trust",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:BF0D1M2",
+        "name": "EJF Investments",
+        "market": "UK"
+      },
+      {
+        "security_id": "NAME:european opportunities|ordinary share",
+        "name": "European Opportunities Trust",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:345035",
+        "name": "JPMorgan India Growth & Income",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:B1ZBD49",
+        "name": "Neuberger Private Equity Partners",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:B6832P1",
+        "name": "Polar Capital Global Healthcare",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:BYV2ZQ3",
+        "name": "Regional REIT",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:739207",
+        "name": "Rights & Issues Investment Trust",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:B00KTN5",
+        "name": "UIL",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:361H109",
+        "name": "Vietnam Enterprise Investments",
+        "market": "UK"
+      }
+    ]
+  },
   "total": {
-    "denominator": 314,
+    "denominator": 300,
     "signal_complete": 268,
-    "signal_complete_pct": 85.4,
+    "signal_complete_pct": 89.3,
     "top_blockers": {
-      "nav": 16,
-      "nav+z:no_discount_history": 15,
-      "z:no_discount_history": 10,
+      "nav+z:no_discount_history": 13,
+      "nav": 8,
+      "z:no_discount_history": 6,
       "nav+z:insufficient_history_3m": 2,
       "z:no_current_discount": 1,
       "z:insufficient_history_4m": 1,

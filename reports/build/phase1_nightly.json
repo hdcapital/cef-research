@@ -1,16 +1,16 @@
 {
   "rows": 1116,
-  "rows_with_nav": 737,
-  "rows_without_nav": 379,
+  "rows_with_nav": 738,
+  "rows_without_nav": 378,
   "basis_counts": {
-    "nan": 379,
-    "0.0": 265,
-    "3.0": 257,
-    "1.0": 215
+    "nan": 378,
+    "0.0": 273,
+    "3.0": 255,
+    "1.0": 210
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 159,
+  "alert_eligible": 160,
   "z_extremes": [
     {
       "security_id": "SEDOL:BL690L8",
@@ -26,9 +26,9 @@
     },
     {
       "security_id": "SEDOL:BDHXP96",
-      "z_adj": -44.0555,
-      "discount_est": -0.719824,
-      "staleness_days": 1.0
+      "z_adj": -44.2671,
+      "discount_est": -0.723191,
+      "staleness_days": 0.0
     },
     {
       "security_id": "SEDOL:BNGFHX1",
@@ -38,8 +38,8 @@
     },
     {
       "security_id": "SEDOL:B1G3N11",
-      "z_adj": -36.337,
-      "discount_est": -0.889903,
+      "z_adj": -36.3381,
+      "discount_est": -0.889927,
       "staleness_days": 1.0
     },
     {
@@ -68,8 +68,8 @@
     },
     {
       "security_id": "SEDOL:B1XHSL1",
-      "z_adj": -21.4264,
-      "discount_est": -0.344262,
+      "z_adj": -21.4263,
+      "discount_est": -0.34426,
       "staleness_days": 1.0
     }
   ],
@@ -77,7 +77,7 @@
   "markets": {
     "au_identity_blocked": 0,
     "au": {
-      "tier0_navs": 71,
+      "tier0_navs": 81,
       "factors_monthly": true,
       "factors_daily": true,
       "live_prices": 100
@@ -85,7 +85,7 @@
     "uk_identity_blocked": 346,
     "uk_nav_targets": 298,
     "uk_registry_only_targets": 103,
-    "uk_aux_z_history_funds": 231,
+    "uk_aux_z_history_funds": 233,
     "uk_fx_pairs": [
       "CAD",
       "EUR",
@@ -96,18 +96,18 @@
       "agreement_rate_pairs": 0.9686
     },
     "uk": {
-      "tier0_navs": 228,
+      "tier0_navs": 229,
       "nav_publishers_found": 290,
       "daily_weekly": 188
     }
   },
   "catalysts": {
-    "catalysts": 29,
-    "funds": 20,
+    "catalysts": 30,
+    "funds": 21,
     "by_class": {
       "substantial_holder": 21,
       "tender_offer": 7,
-      "liquidation_wind_down": 1
+      "liquidation_wind_down": 2
     }
   },
   "carried_forward_rows": 0,
