@@ -43,6 +43,10 @@ pulse:
     expensive: ${EXPENSIVE_MODEL} # claude-fable-5   (repo variable)
 
 universe:
+  liveness:
+    # ASX re-issues delisted codes; filings after the exchange's LIC list
+    # last carried a fund + this grace belong to the code's new owner
+    au_code_reuse_gap_days: 120
   # A fund missing from its registry source for this many consecutive
   # monthly releases becomes a delisting candidate: excluded from alerting,
   # surfaced for review, never deleted (point-in-time discipline keeps the

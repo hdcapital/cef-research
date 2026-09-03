@@ -1435,3 +1435,56 @@ def test_a_dollar_nav_is_priced_against_a_pence_line_through_fx():
     assert not bool(n["has_nav"]), "no FX level: refused, not guessed"
     from cef_live import harvest_nav as HN
     assert '"unit": got.get("nav_ccy", "GBX")' in inspect.getsource(HN.harvest_uk)
+
+
+def test_a_reissued_asx_code_cannot_revive_a_delisted_lic():
+    """APL/ALF/PAF/BST: dead LICs whose codes now belong to other issuers.
+
+    The aggregator delisted them years ago; the index still carries fresh
+    filings under the code. With the cutoff those filings are not evidence,
+    and corroborated delisting takes the fund out of the universe."""
+    import pandas as pd
+    from cef_live import liveness
+    reg = pd.DataFrame([
+        {"security_id": "ASX:APL", "market": "AU", "status": "delisted",
+         "aggregator_status": "delisted", "last_seen": "2021-10-01"},
+        {"security_id": "ASX:LGF", "market": "AU", "status": "live",
+         "aggregator_status": "live", "last_seen": "2026-06-01"},
+        {"security_id": "SEDOL:X", "market": "UK", "status": "delisted",
+         "aggregator_status": "delisted", "last_seen": "2021-10-01"},
+    ])
+    cut = liveness.au_code_reuse_cutoffs(reg, {"universe": {"liveness": {"au_code_reuse_gap_days": 120}}})
+    assert cut == {"ASX:APL": "2022-02-28"}          # month-end + 120d
+    assert liveness.evidence_counts("ASX:APL", "2021-12-15", cut)
+    assert not liveness.evidence_counts("ASX:APL", "2026-08-26", cut)
+    assert liveness.evidence_counts("ASX:LGF", "2026-08-26", cut)
+    # the classification the cutoff produces: nothing recent survives, the
+    # aggregator says gone, so corroborated delisting fires
+    got = liveness.classify({"aggregator_status": "delisted",
+                             "last_nav": "2021-12-15", "last_report": "2021-12-15",
+                             "last_announcement": "2021-12-16",
+                             "registry_last_seen": "2021-10-01"},
+                            as_of=pd.Timestamp("2026-09-03").date())
+    assert got["status"] == liveness.STATUS_CANDIDATE
+    assert got["live_status_source"] == "corroborated_delisting"
+
+
+def test_liveness_evidence_honours_the_code_reuse_cutoff(monkeypatch, tmp_path):
+    import pandas as pd
+    from cef_live import cli
+    monkeypatch.chdir(tmp_path)
+    idx_dir = tmp_path / "data/asx_ann_cache/asx1"
+    idx_dir.mkdir(parents=True)
+    pd.DataFrame({
+        "id": ["1", "2"], "code": ["APL", "APL"],
+        "release_date": ["2021-04-19T18:48:18+1000", "2026-08-26T09:51:50+1000"],
+        "headline": ["Net Tangible Asset Backing", "Appendix 4E and Full Year Financial Statements"],
+        "url": ["u1", "u2"],
+    }).to_parquet(idx_dir / "lic_announcement_index.parquet")
+    monkeypatch.setattr(cli, "_own_nav_history", lambda market: pd.DataFrame())
+    ev = cli._liveness_evidence(code_reuse_cutoff={"ASX:APL": "2022-02-28"})
+    row = ev.set_index("security_id").loc["ASX:APL"]
+    assert row["last_nav"] == "2021-04-19"
+    assert row["last_announcement"] == "2021-04-19"       # the 2026 filing is the new owner's
+    ev2 = cli._liveness_evidence()
+    assert ev2.set_index("security_id").loc["ASX:APL"]["last_announcement"] == "2026-08-25"  # index dates are UTC

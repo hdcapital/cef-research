@@ -813,3 +813,30 @@ def test_a_stable_wrong_by_a_constant_factor_ratio_is_a_definition_gap():
         "accountability must count a definition gap as agreement")
     # coefficient-of-variation test on log ratios, not raw ratios
     assert "_lr" in src and "std" in src
+
+
+def test_own_series_outliers_drop_a_day_of_month_read_not_a_series():
+    """MXT/KIT/REV/GCI carried 31.0 against a ~$2.00 series - the day of the
+    month read as the value - on every third statement. A lone read far
+    from its own neighbours is dropped; a whole series in another unit,
+    and a short series, are left alone."""
+    import pandas as pd
+    from au_lic.extract import facts
+    months = pd.date_range("2024-01-31", periods=12, freq="ME")
+    vals = [2.00, 2.01, 31.0, 2.02, 2.00, 1.99, 31.0, 2.03, 2.01, 2.00, 2.02, 31.0]
+    df = pd.DataFrame({"security_id": "ASX:MXT", "nav_date": months,
+                       "nav_value": vals, "nav_unit": "AUD"})
+    bad = facts.own_series_outliers(df)
+    assert bad.tolist() == [v == 31.0 for v in vals]
+    # a whole series in cents is self-consistent: nothing flagged
+    cents = pd.DataFrame({"security_id": "ASX:C", "nav_date": months,
+                          "nav_value": [200 + i for i in range(12)], "nav_unit": "AUD"})
+    assert not facts.own_series_outliers(cents).any()
+    # a genuine 30% fall over a year is inside the band
+    fall = pd.DataFrame({"security_id": "ASX:F", "nav_date": months,
+                         "nav_value": [2.0 * (0.97 ** i) for i in range(12)], "nav_unit": "AUD"})
+    assert not facts.own_series_outliers(fall).any()
+    short = df.head(4)
+    assert not facts.own_series_outliers(short).any()
+    kept = facts.drop_own_series_outliers(df)
+    assert len(kept) == 9 and (kept["nav_value"] < 3).all()

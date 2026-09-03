@@ -4,6 +4,19 @@ Every change to `config/params.yaml` gets a dated entry here, committed in
 the same commit as the change, with a rationale. Parameters are never
 tuned against live outcomes.
 
+## 2026-09-03 — ASX code re-use cutoff for liveness evidence
+`universe.liveness.au_code_reuse_gap_days` = 120. The ASX announcement index
+is keyed by code alone, and the exchange re-issues a delisted company's code:
+Antipodes Global (APL), Australian Leaders Fund (ALF), PM Capital Asian
+Opportunities (PAF) and Barrack St (BST) were held in the priced universe
+1,200-1,800 days after their own last NTA on the strength of other issuers'
+Appendix 4Es, unit-holding notices and CDI statements filed under their old
+codes. For an AU fund the exchange's own LIC/LIT list has delisted, filings
+dated after the list last carried it plus 120 days are not its evidence.
+120 days: one full quarter of wind-up notices after the last listing month,
+before a re-issue could plausibly appear. AU only; the UK path verifies
+identity by the announcement URL slug instead.
+
 ## 2026-08-28 — Initial pre-specification
 All parameters set per the CEF-LIVE build brief before any live signal has
 been generated: z threshold −1.5 (matches the validated research spec's

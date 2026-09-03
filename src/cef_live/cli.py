@@ -71,7 +71,7 @@ REPORT_HEAD = re.compile(
 NAV_HEAD = harvest_nav.AU_NAV_HEAD
 
 
-def _liveness_evidence() -> pd.DataFrame:
+def _liveness_evidence(code_reuse_cutoff: dict[str, str] | None = None) -> pd.DataFrame:
     """When each fund last published a NAV, a periodic report, or anything.
 
     Read from what we already hold - the UK announcement archive, the ASX
@@ -84,6 +84,10 @@ def _liveness_evidence() -> pd.DataFrame:
     def note(sid, key, when):
         if not sid or when is None or pd.isna(when):
             return
+        # a filing indexed under a re-issued ASX code belongs to the code's
+        # new owner, not to the delisted fund (liveness.au_code_reuse_cutoffs)
+        if not liveness.evidence_counts(sid, when, code_reuse_cutoff):
+            return
         d = rows.setdefault(str(sid), {"security_id": str(sid)})
         prev = d.get(key)
         w = str(pd.Timestamp(when).date())
@@ -94,8 +98,10 @@ def _liveness_evidence() -> pd.DataFrame:
         own = _own_nav_history(market)
         if own is not None and len(own):
             for sid, g in own.groupby("security_id"):
-                note(sid, "last_nav", pd.to_datetime(g["nav_date"],
-                                                     errors="coerce").max())
+                dd = pd.to_datetime(g["nav_date"], errors="coerce")
+                if code_reuse_cutoff and str(sid) in code_reuse_cutoff:
+                    dd = dd[dd <= pd.Timestamp(code_reuse_cutoff[str(sid)])]
+                note(sid, "last_nav", dd.max())
 
     # AU: the market-wide announcement index carries every filing with a date
     idx_f = Path("data/asx_ann_cache/asx1/lic_announcement_index.parquet")
@@ -105,6 +111,12 @@ def _liveness_evidence() -> pd.DataFrame:
         idx = idx.dropna(subset=["d"])
         for code, g in idx.groupby("code"):
             sid = f"ASX:{str(code).upper()}"
+            if code_reuse_cutoff and sid in code_reuse_cutoff:
+                # filings after the cutoff are the code's next owner's
+                cut = pd.Timestamp(code_reuse_cutoff[sid], tz="UTC") + pd.Timedelta(days=1)
+                g = g[g["d"] < cut]
+                if not len(g):
+                    continue
             note(sid, "last_announcement", g["d"].max())
             rep = g[g["headline"].fillna("").str.contains(REPORT_HEAD)]
             if len(rep):
@@ -211,7 +223,8 @@ def build_universe() -> int:
     reg = universe.build(cfg_uk, _params())
     # liveness from the funds' own filings; the aggregator's status is kept
     # alongside as `aggregator_status` so the disagreement is measurable
-    ev = _liveness_evidence()
+    cutoffs = liveness.au_code_reuse_cutoffs(reg, _params())
+    ev = _liveness_evidence(code_reuse_cutoff=cutoffs)
     before = reg["status"].value_counts().to_dict()
     reg = liveness.apply(reg, ev, params=_params())
 
@@ -248,6 +261,7 @@ def build_universe() -> int:
         "live_stale_nav": int((reg["status"] == "live_stale_nav").sum()),
         "status_before_evidence": before,
         "evidence_rows": int(len(ev)),
+        "au_code_reuse_cutoffs": int(len(cutoffs)),
         "persisted_to": "data/universe/registry.parquet",
         "live_status_source": reg["live_status_source"].value_counts().to_dict(),
         "revived_by_own_filings": int(((reg["aggregator_status"] == "delisted")

@@ -124,6 +124,7 @@ def nav_observations(local_dir: Path = LOCAL_DIR,
         "nav_unit": "AUD",
     })
     out = out.dropna(subset=["nav_value"])
+    out = drop_own_series_outliers(out)
     # Quarantine: funds whose extracted series the exchange's own published
     # NTA contradicts most of the time (validate mode writes the list, e.g.
     # HCF's constant 4.12 face value). The rows stay in the store - this
@@ -143,3 +144,44 @@ def nav_observations(local_dir: Path = LOCAL_DIR,
                 log.info("quarantined %d NAV rows across %d funds "
                          "(au_nta_quarantine.csv)", before - len(out), len(q))
     return out
+
+
+# An NTA per share does not move 40% between neighbouring statements; a
+# read that does is a mis-read - the day of the month ("31 July") taken
+# for the value, a cents figure beside dollar ones, a face value. Judged
+# against the fund's OWN nearest observations, so a genuine re-basing
+# (a whole series in cents) is untouched and a lone wrong read is dropped.
+OWN_SERIES_WINDOW = 7
+OWN_SERIES_BAND = (0.6, 1.0 / 0.6)
+
+
+def own_series_outliers(df: pd.DataFrame, sid_col: str = "security_id",
+                        date_col: str = "nav_date",
+                        value_col: str = "nav_value") -> pd.Series:
+    """Boolean mask (True = outlier) of observations far from the centred
+    rolling median of their own fund's series. Needs >= 5 observations per
+    fund; anything smaller is left alone."""
+    bad = pd.Series(False, index=df.index)
+    if not len(df):
+        return bad
+    d = pd.to_datetime(df[date_col], errors="coerce")
+    for _, g in df.assign(_d=d).groupby(sid_col):
+        if len(g) < 5:
+            continue
+        g = g.sort_values("_d")
+        v = pd.to_numeric(g[value_col], errors="coerce").astype(float)
+        med = v.rolling(OWN_SERIES_WINDOW, center=True, min_periods=4).median()
+        ratio = v / med
+        flag = ((ratio < OWN_SERIES_BAND[0]) | (ratio > OWN_SERIES_BAND[1])).fillna(False)
+        bad.loc[g.index[flag.values]] = True
+    return bad
+
+
+def drop_own_series_outliers(out: pd.DataFrame) -> pd.DataFrame:
+    if not len(out):
+        return out
+    bad = own_series_outliers(out)
+    if bad.any():
+        log.info("dropped %d NAV observations as own-series outliers "
+                 "(ratio to neighbours outside %s)", int(bad.sum()), OWN_SERIES_BAND)
+    return out[~bad]

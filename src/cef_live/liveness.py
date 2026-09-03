@@ -48,6 +48,11 @@ DEFAULTS = {
     "any_announcement_days": 400,
     # how long a candidate sits for review before it is called delisted
     "review_grace_days": 90,
+    # ASX re-issues a delisted company's code to a new listing (APL, ALF,
+    # PAF and BST all belong to other issuers now). Filings indexed under
+    # the code after the exchange's own LIC list last carried the fund,
+    # plus this grace, are the new owner's and count for nothing.
+    "au_code_reuse_gap_days": 120,
 }
 
 STATUS_LIVE = "live"
@@ -236,3 +241,53 @@ def apply(registry: pd.DataFrame, evidence: pd.DataFrame,
     for c in got.columns:
         reg[c] = got[c]
     return reg
+
+
+def au_code_reuse_cutoffs(registry: pd.DataFrame,
+                          params: dict | None = None) -> dict[str, str]:
+    """security_id -> last date its own filings may be counted as evidence.
+
+    Only AU funds the AGGREGATOR (the exchange's monthly LIC/LIT list) has
+    delisted get a cutoff: the month it last listed them, plus the code-reuse
+    grace. The ASX announcement index is keyed by code alone, so after a
+    delisting every filing the code's next owner makes is indexed under the
+    dead fund - Antipodes Global sat in the priced universe four years after
+    its wind-up on the strength of another company's Appendix 4E.
+    """
+    p = {**DEFAULTS, **((params or {}).get("universe", {}).get("liveness", {}))}
+    if registry is None or not len(registry):
+        return {}
+    cols = set(registry.columns)
+    if not {"security_id", "last_seen"} <= cols:
+        return {}
+    mk = registry["market"].astype(str).str.upper() if "market" in cols \
+        else registry["security_id"].astype(str).str[:3].str.rstrip(":").str.upper()
+    agg = registry["aggregator_status"] if "aggregator_status" in cols \
+        else registry.get("status")
+    if agg is None:
+        return {}
+    gone = agg.astype(str).isin([STATUS_DELISTED, STATUS_CANDIDATE])
+    out: dict[str, str] = {}
+    for sid, seen in zip(registry.loc[(mk == "AU") & gone, "security_id"],
+                         registry.loc[(mk == "AU") & gone, "last_seen"]):
+        d = pd.to_datetime(str(seen), errors="coerce")
+        if pd.isna(d):
+            continue
+        end = (d + pd.offsets.MonthEnd(0)).normalize()
+        out[str(sid)] = (end + pd.Timedelta(days=int(p["au_code_reuse_gap_days"]))
+                         ).date().isoformat()
+    return out
+
+
+def evidence_counts(sid: str, when, cutoffs: dict[str, str] | None) -> bool:
+    """False when a filing dated after the fund's code-reuse cutoff would be
+    counted as that fund's own."""
+    if not cutoffs:
+        return True
+    c = cutoffs.get(str(sid))
+    if c is None:
+        return True
+    try:
+        return str(pd.Timestamp(when).date()) <= c
+    except Exception:  # noqa: BLE001
+        return True
