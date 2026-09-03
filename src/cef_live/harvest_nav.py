@@ -844,6 +844,14 @@ UK_RULES = [
     # always digits.
     ("cum", 6, _R(r"net asset value per ordinary share[^.]{0,120}?"
                   r"([0-9][0-9,]*\.[0-9]+)\s*pence", re.I)),
+    # EJF Investments' table: "NAV per share 1 Monthly performance
+    # (inclusive of dividends) 173 pence (USD Equivalent amount being 2.33)"
+    # - a footnote digit and a column heading sit between label and value.
+    ("cum", 3, _R(r"\bNAV per share\b[^0-9]{0,4}[0-9]?[^0-9]{0,80}?"
+                  r"([0-9]{2,4}(?:\.[0-9]+)?)\s*pence\s*\(USD Equivalent", re.I)),
+    # Ceiba: "NAV ... was USD0.87 ... the unaudited NAV in Sterling was 65.8p"
+    # - the sterling restatement is the one its London line trades against.
+    ("cum", 3, _R(r"\bNAV in Sterling was\s*" + UK_PENCE, re.I)),
     # plain fallback: "net asset value ... 123.45p"
     ("cum_assumed", 9, _R(r"net asset value[^0-9]{0,220}?" + UK_PENCE, re.I)),
 ]
@@ -873,7 +881,63 @@ UK_CCY_RULES = [
     # so this will usually end as a currency mismatch and no discount. That
     # is the correct outcome, and it is now a stated one rather than a gap.
     (_R(r"net asset value[^.]{0,40}per common share:?\s*\$?\s*([0-9][0-9,]*\.[0-9]+)", re.I), "cum", "CAD", 1.0),
+    # Marwyn: 'the estimated net asset value ( " NAV " ) per ordinary share
+    # of the Company based on ... is £2.59935 as at 31 August 2026'
+    (_R(r"\(\s*\"?\s*NAV\s*\"?\s*\)\s*per ordinary share[^£$€]{0,200}?\bis\s*£\s*([0-9]+\.[0-9]+)", re.I),
+     "cum", "GBX", 100.0),
+    # Riverstone Energy: "NAV per share of $15.97 (£12.09)" - the sterling
+    # restatement, as for HarbourVest above.
+    (_R(r"\bNAV per share of\s*(?:US)?\$\s*[0-9][0-9,]*\.[0-9]+\s*\(£\s*([0-9][0-9,]*\.[0-9]+)\)", re.I),
+     "cum", "GBX", 100.0),
+    # Schroder European Real Estate: "116.7 euro cents per share" - a euro
+    # NAV against a London pence price; converted at the cross-rate level
+    # downstream (nta_live._fx_convert), never assumed to be pence.
+    (_R(r"([0-9]{1,4}(?:\.[0-9]+)?)\s*euro\s*cents?\s*per\s+(?:ordinary\s+)?share", re.I),
+     "cum", "EUR", 0.01),
 ]
+
+# A multi-class NAV table names each class by its SEDOL: CVC Income & Growth
+# prints "Euro B9G79F5 € 1.0822 ... Sterling B9MRHZ5 £ 1.1851". Which line
+# is OURS is a fact about the security, not the text, so the caller passes
+# the SEDOL and the parser reads only that line - in the unit it states.
+UK_CLASS_SYMBOL = {"£": ("GBX", 100.0), "GBP": ("GBX", 100.0),
+                   "€": ("EUR", 1.0), "EUR": ("EUR", 1.0),
+                   "$": ("USD", 1.0), "US$": ("USD", 1.0), "USD": ("USD", 1.0)}
+
+
+def uk_class_line(text: str, sedol: str | None) -> dict:
+    """NAV per share for the share class identified by SEDOL, if the text
+    carries a "<SEDOL> <currency symbol> <value>" table line."""
+    sd = re.sub(r"^SEDOL:", "", str(sedol or "")).strip().upper()
+    if not re.fullmatch(r"[A-Z0-9]{7}", sd):
+        return {}
+    m = re.search(r"\b" + re.escape(sd) + r"\b\s*(£|€|US\$|\$|GBP|EUR|USD)\s*"
+                  r"([0-9][0-9,]*\.[0-9]+)", text)
+    if m is None:
+        return {}
+    ccy, mult = UK_CLASS_SYMBOL[m.group(1)]
+    return {"nav_cum_pence": float(m.group(2).replace(",", "")) * mult,
+            "nav_ccy": ccy, "class_sedol": sd}
+
+
+def sedol_by_ticker(path: Path = Path("config/resolved_tickers.csv")) -> dict[str, str]:
+    """ticker -> SEDOL:xxxxxxx from the committed resolution cache, so the
+    archive readers (which know only the ticker) can name the share class."""
+    try:
+        df = pd.read_csv(path, dtype=str)
+    except Exception:  # noqa: BLE001
+        return {}
+    if not {"security_id", "ticker"} <= set(df.columns):
+        return {}
+    df = df[df["security_id"].fillna("").str.startswith("SEDOL:")]
+    if "status" in df.columns:      # a verified line outranks a candidate
+        df = df.sort_values("status", key=lambda s: s.ne("verified"))
+    out: dict[str, str] = {}
+    for t, sid in zip(df["ticker"], df["security_id"]):
+        t = str(t or "").strip().upper()
+        if t and t != "NAN" and t not in out:
+            out[t] = sid
+    return out
 
 # A document that DECLARES its per-share unit and declares a foreign one is
 # not reporting pence, whatever else it contains. Schiehallion heads its
@@ -889,13 +953,16 @@ UK_FOREIGN_DECL = re.compile(
 UK_HDR_NAME = re.compile(r"Net Asset Value\(s\)\s+(.{5,90}?)\s+\d{1,2}\s+\w{3,9}\s+20\d\d")
 
 
-def parse_uk_nav_text(text: str) -> dict:
+def parse_uk_nav_text(text: str, sedol: str | None = None) -> dict:
     """Cum/ex-income NAV per share (pence) from RNS text - rule-list parser
     written against the committed corpus of real announcement pages.
 
     ZDP / preference-share entitlements are excluded per candidate match;
     fair-value-debt figures outrank par (panel basis FCCWETScum); the plain
     fallback is flagged cum_assumed. Ambiguity yields absence, never a guess.
+
+    sedol - when the caller knows the security, a multi-class table line
+    naming that SEDOL is read in preference to every rule (uk_class_line).
     """
     # A document that DECLARES a foreign per-share unit may still be read -
     # by the CURRENCY rules below, which record what unit the number is in.
@@ -938,8 +1005,10 @@ def parse_uk_nav_text(text: str) -> dict:
         except Exception:  # noqa: BLE001
             pass
 
-    best: dict = {}
-    for kind, prio, pat in (() if foreign_declared else UK_RULES):
+    best: dict = uk_class_line(text, sedol)
+    if best:
+        best["_cum_prio"] = -1        # our own class line outranks every rule
+    for kind, prio, pat in (() if (foreign_declared or best) else UK_RULES):
         if kind in ("cum", "cum_assumed") and best.get("_cum_prio", 99) <= prio:
             continue
         if kind == "ex" and best.get("_ex_prio", 99) <= prio:
@@ -1148,7 +1217,7 @@ def harvest_uk(ticker_map: pd.DataFrame, census: pd.DataFrame,
         except Exception:  # noqa: BLE001
             stats["detail_fail"] += 1
             continue
-        got = parse_uk_nav_text(text)
+        got = parse_uk_nav_text(text, sedol=tick2sid.get(tk))
         if "nav_cum_pence" not in got:
             stats["parse_fail"] += 1
             if len(stats["fail_samples"]) < 8:

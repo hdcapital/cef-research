@@ -53,7 +53,8 @@ from pathlib import Path
 
 import pandas as pd
 
-from .harvest_nav import parse_uk_nav_text, uk_row_matches_ticker
+from .harvest_nav import (parse_uk_nav_text, uk_row_matches_ticker,
+                          sedol_by_ticker)
 
 NAV_PREFIX = "uk/nav_announcements/"
 SNAPSHOT_PREFIX = "nta_live/"
@@ -196,6 +197,8 @@ def extract_from_archive(bucket: str, tickers: set[str] | None = None,
     if not todo:
         return pd.DataFrame(columns=COLUMNS), stats
 
+    sedols = sedol_by_ticker()
+
     def load(item: tuple[str, str]) -> dict | None:
         key, ann_id = item
         try:
@@ -212,7 +215,7 @@ def extract_from_archive(bucket: str, tickers: set[str] | None = None,
         # Re-parse the stored text rather than trust the stored verdict: the
         # rule list has grown since these were archived, so a row written as
         # no_nav_parsed may well be a real observation under today's parser.
-        got = parse_uk_nav_text(rec["text"]) if rec.get("text") else {}
+        got = parse_uk_nav_text(rec["text"], sedol=sedols.get(ticker)) if rec.get("text") else {}
         cum = got.get("nav_cum_pence", rec.get("nav_cum_pence"))
         if cum is None:
             return {"ticker": ticker, "ann_id": str(ann_id),

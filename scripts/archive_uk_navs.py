@@ -52,7 +52,11 @@ sys.path.insert(0, "src")
 import pandas as pd
 import requests
 
-from cef_live.harvest_nav import parse_uk_nav_text  # evidence-tested parser
+from cef_live.harvest_nav import (parse_uk_nav_text,  # evidence-tested parser
+                                  sedol_by_ticker)
+
+# ticker -> SEDOL so a multi-class NAV table reads OUR class line
+SEDOLS = sedol_by_ticker()
 
 BUCKET = os.environ.get("S3_BUCKET", "")
 # see archive_to_s3.py: shards split the queue deterministically so one run
@@ -208,7 +212,7 @@ def main() -> int:
         m = re.search(r"(?:LEI:|the \"Company\"|announces|Net Asset Value)", text)
         body = text[max(0, (m.start() - 200) if m else 0):]
         body = body.split("This information is provided by RNS")[0][:12000]
-        parsed = parse_uk_nav_text(body)
+        parsed = parse_uk_nav_text(body, sedol=SEDOLS.get(str(w["ticker"]).upper()))
         rec = {"ticker": w["ticker"], "ann_id": w["ann_id"], "ann_date": w["date"],
                "nav_date": parsed.get("asat", w["date"]),
                "nav_cum_pence": parsed.get("nav_cum_pence"),
@@ -318,7 +322,7 @@ def reparse() -> int:
             if not text:
                 unreadable += 1
                 continue
-            got = parse_uk_nav_text(text)
+            got = parse_uk_nav_text(text, sedol=SEDOLS.get(tk_))
             rows.append({
                 "ticker": rec.get("ticker"), "ann_id": rec.get("ann_id"),
                 "ann_date": rec.get("ann_date", ""),

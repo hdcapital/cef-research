@@ -151,7 +151,7 @@ def test_a_parser_fix_can_reach_announcements_already_recorded_as_failures():
     assert "get_object" in body and "uk/nav_announcements/" in body
     assert "requests" not in body and "sess.get" not in body, (
         "re-parse must not fetch anything - the text is already archived")
-    assert "parse_uk_nav_text(text)" in body
+    assert "parse_uk_nav_text(text" in body
 
     import yaml
     wf = yaml.safe_load(Path(".github/workflows/uk_archive.yml").read_text())

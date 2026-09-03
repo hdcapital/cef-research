@@ -1046,6 +1046,68 @@ def test_directional_nav_phrases_read_the_current_value():
     assert parse_uk_nav_text(thrl).get("nav_cum_pence") == 120.6
 
 
+def test_prose_and_class_table_variants_read_their_values():
+    """Real phrasings from the NAV-pages probe (2026-09-03): eight live funds
+    opened a fresh NAV announcement and read nothing out of it."""
+    from cef_live.harvest_nav import parse_uk_nav_text
+    ejfi = ("today announces its unaudited net asset value per share "
+            "(\" NAV per Share \") at the close of business on 31 July 2026 as "
+            "set out below: NAV per share 1 Monthly performance (inclusive of "
+            "dividends) 173 pence (USD Equivalent amount being 2.33) 1 1.11%")
+    got = parse_uk_nav_text(ejfi)
+    assert got.get("nav_cum_pence") == 173.0 and got["nav_ccy"] == "GBX"
+    cba = ("announces that its unaudited net asset value per share (\" NAV \") "
+           "as at 31 March 2026 was USD0.87 (31 December 2025: USD0.85). "
+           "Applying the GBP:USD exchange rate as at 31 March 2026 of "
+           "USD1.3188 : GBP1.00, the unaudited NAV in Sterling was 65.8p "
+           "(31 December 2025: 63.1p) per share.")
+    got = parse_uk_nav_text(cba)
+    assert got.get("nav_cum_pence") == 65.8 and got["nav_ccy"] == "GBX"
+    mvi = ("today announces that the estimated net asset value ( \" NAV \" ) "
+           "per ordinary share of the Company based on the estimated value of "
+           "its interests in Marwyn Value Investors L.P. is £2.59935 as at "
+           "31 August 2026 . As at 31 August 2026 , there were 55,490,360 "
+           "ordinary shares")
+    got = parse_uk_nav_text(mvi)
+    assert abs(got.get("nav_cum_pence") - 259.935) < 1e-6 and got["nav_ccy"] == "GBX"
+    rse = ("reported a Net Asset Value (NAV) of $117 million (£89 million) as "
+           "of March 31, 2026, with a NAV per share of $15.97 (£12.09), "
+           "representing a 1% decrease in USD")
+    got = parse_uk_nav_text(rse)
+    assert got.get("nav_cum_pence") == 1209.0 and got["nav_ccy"] == "GBX"
+    sere = ("reported an unaudited net asset value of €153.3 million, or "
+            "116.7 euro cents per share, as of 31 December 2025, reflecting a "
+            "0.8% NAV total return for the quarter. The company declared a "
+            "first interim dividend of 1.48 euro cents per share")
+    got = parse_uk_nav_text(sere)
+    assert abs(got.get("nav_cum_pence") - 1.167) < 1e-9 and got["nav_ccy"] == "EUR"
+    # CVC Income & Growth's two classes share one announcement; the SEDOL
+    # picks the line and the line states its own unit
+    cvc = ("the net asset values (\"NAV\") per share of each class of the "
+           "Company's shares are as follows: Share Class Sedol NAV per share "
+           "Monthly Performance % Year to date Performance % Euro B9G79F5 "
+           "€ 1.0822 -0.3316 4.6966 Sterling B9MRHZ5 £ 1.1851 -0.2189 5.5984")
+    g = parse_uk_nav_text(cvc, sedol="SEDOL:B9MRHZ5")
+    assert abs(g["nav_cum_pence"] - 118.51) < 1e-9 and g["nav_ccy"] == "GBX"
+    e = parse_uk_nav_text(cvc, sedol="B9G79F5")
+    assert abs(e["nav_cum_pence"] - 1.0822) < 1e-9 and e["nav_ccy"] == "EUR"
+    weekly = "Euro B9G79F5 € 1.0669 XD -0.5963 0.3145 Sterling B9MRHZ5 £ 1.1664 XD"
+    assert abs(parse_uk_nav_text(weekly, sedol="B9MRHZ5")["nav_cum_pence"] - 116.64) < 1e-9
+    # an unknown SEDOL changes nothing
+    assert "nav_cum_pence" not in parse_uk_nav_text(cvc, sedol="ZZZZZZZ")
+
+
+def test_sedol_by_ticker_prefers_the_verified_line(tmp_path):
+    from cef_live.harvest_nav import sedol_by_ticker
+    p = tmp_path / "t.csv"
+    p.write_text("security_id,ticker,verified_name,method,status\n"
+                 "SEDOL:AAAAAAA,BHMG,old line,x,candidate\n"
+                 "SEDOL:B1NPGV1,BHMG,live line,manual_override,verified\n"
+                 "NAME:foo,ANW,,mir,verified\n")
+    m = sedol_by_ticker(p)
+    assert m == {"BHMG": "SEDOL:B1NPGV1"}
+
+
 def test_the_corpus_still_parses_after_the_factsheet_rules():
     """New loose rules must never cost a previously-read announcement."""
     import gzip
