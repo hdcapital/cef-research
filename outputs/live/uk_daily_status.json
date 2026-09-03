@@ -1,15 +1,15 @@
 {
-  "run_at": "2026-09-03T08:56:37+00:00",
+  "run_at": "2026-09-03T10:18:26+00:00",
   "stages": [
     "nav",
     "prices",
     "discount"
   ],
-  "live_funds_addressed": 609,
+  "live_funds_addressed": 598,
   "bucket": true,
   "nav": {
     "held_rows": 570815,
-    "seed_rows": 729939,
+    "seed_rows": 720426,
     "archive": {
       "archive_objects": 730107,
       "queued": 0,
@@ -24,8 +24,8 @@
       "rows": 420,
       "read_failed": 0
     },
-    "raw_rows": 1301174,
-    "unparsed_rows": 167315,
+    "raw_rows": 1291661,
+    "unparsed_rows": 164949,
     "panel_rows": 570815,
     "panel_funds": 294,
     "quality": {
@@ -41,30 +41,32 @@
     }
   },
   "prices": {
-    "held_bars": 1392877,
-    "panel_bars": 1392931,
+    "held_bars": 1392931,
+    "panel_bars": 1392938,
     "funds_with_prices": 385,
-    "funds_no_history": 236
+    "funds_no_history": 230
   },
   "discount": {
-    "panel_rows": 1345362,
+    "panel_rows": 1345369,
     "funds": 385,
-    "days_with_discount": 792296,
-    "days_with_fresh_discount": 704985,
-    "funds_usable_today": 208,
+    "days_with_discount": 805932,
+    "days_with_fresh_discount": 711582,
+    "funds_usable_today": 210,
     "first_date": "2007-01-02",
     "last_date": "2026-09-03",
-    "funds_no_nav": 361,
+    "funds_no_nav": 352,
     "unit_status": {
       "ok": 227,
       "assumed_from_currency": 67,
       "unresolved_no_nav_no_currency": 52,
       "rescaled_x100": 9,
       "assumed_from_currency_thin_overlap": 9,
-      "unresolved_dispersed": 9,
+      "unresolved_dispersed": 6,
       "currency_mismatch": 5,
       "unresolved_scale": 3,
       "rescaled_x0.01": 3,
+      "ok_recent_window": 2,
+      "rescaled_x100_recent_window": 1,
       "unreliable_nav_series": 1
     },
     "unreliable_nav_funds": [
@@ -72,7 +74,7 @@
     ],
     "nav_readiness": {
       "unknown_listing_index_not_pulled": 315,
-      "archived": 294
+      "archived": 283
     },
     "funds_split_adjusted": 45,
     "frequency_mix": {
