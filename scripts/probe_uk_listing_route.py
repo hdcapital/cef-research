@@ -80,6 +80,30 @@ def main() -> int:
     except Exception as exc:  # noqa: BLE001
         ref["home_error"] = str(exc)
     time.sleep(1.5)
+    # the site's own company-search pages: their forms, fields and any API
+    # endpoint their scripts call - the route the page uses, not one guessed
+    ref["search_pages"] = []
+    for u in ("https://www.investegate.co.uk/search-company",
+              "https://www.investegate.co.uk/advanced-search",
+              "https://www.investegate.co.uk/search-company?q=Tufton",
+              "https://www.investegate.co.uk/search-company?term=Tufton",
+              "https://www.investegate.co.uk/search-company?name=Tufton",
+              "https://www.investegate.co.uk/search-company?company=Tufton",
+              "https://www.investegate.co.uk/search-company?search=Tufton"):
+        try:
+            r1 = s.get(u, timeout=30)
+            soup1 = BeautifulSoup(r1.text, "html.parser")
+            forms = [{"action": f.get("action"), "method": f.get("method"),
+                      "fields": [(i.name, i.get("name"), i.get("type")) for i in f.select("input,select,textarea,button")]}
+                     for f in soup1.select("form")][:6]
+            apis = sorted(set(re.findall(r"[\"'](/[A-Za-z0-9_./-]*(?:api|search|compan)[A-Za-z0-9_./?=&-]*)[\"']", r1.text)))[:30]
+            links = sorted({a["href"] for a in soup1.select("a[href]") if "/company/" in a["href"]})[:20]
+            ref["search_pages"].append({"url": u, "status": r1.status_code, "final_url": r1.url,
+                                        "forms": forms, "api_like": apis, "company_links": links,
+                                        "text_head": " ".join(soup1.get_text(" ").split())[:600]})
+        except Exception as exc:  # noqa: BLE001
+            ref["search_pages"].append({"url": u, "error": str(exc)})
+        time.sleep(1.5)
     for t in TICKERS:
         rec = {"ticker": t, "name": nm.get(t)}
         rec["company_page"] = page(s, f"https://www.investegate.co.uk/company/{t}")
