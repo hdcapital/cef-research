@@ -16,64 +16,64 @@
       "security_id": "SEDOL:BL690L8",
       "z_adj": -61.0706,
       "discount_est": -0.989873,
-      "staleness_days": 92.0
+      "staleness_days": 93.0
     },
     {
       "security_id": "SEDOL:BRC8992",
       "z_adj": -54.8883,
       "discount_est": -0.990132,
-      "staleness_days": 1.0
+      "staleness_days": 2.0
     },
     {
       "security_id": "SEDOL:BDHXP96",
       "z_adj": -44.0555,
       "discount_est": -0.719824,
-      "staleness_days": 0.0
+      "staleness_days": 1.0
     },
     {
       "security_id": "ASX:GCI",
-      "z_adj": -38.9597,
-      "discount_est": -0.926779,
-      "staleness_days": 3.0
+      "z_adj": -38.9676,
+      "discount_est": -0.926969,
+      "staleness_days": 4.0
+    },
+    {
+      "security_id": "SEDOL:BNGFHX1",
+      "z_adj": -37.4398,
+      "discount_est": -0.990494,
+      "staleness_days": 176.0
     },
     {
       "security_id": "SEDOL:B1G3N11",
-      "z_adj": -36.3489,
-      "discount_est": -0.890161,
-      "staleness_days": 1.0
+      "z_adj": -36.3353,
+      "discount_est": -0.889865,
+      "staleness_days": 2.0
     },
     {
       "security_id": "SEDOL:BKV46W4",
       "z_adj": -36.0335,
       "discount_est": -0.99072,
-      "staleness_days": 46.0
+      "staleness_days": 47.0
     },
     {
       "security_id": "ASX:ALR",
-      "z_adj": -32.9002,
-      "discount_est": -0.962191,
-      "staleness_days": 2220.0
+      "z_adj": -32.9584,
+      "discount_est": -0.963766,
+      "staleness_days": 2221.0
     },
     {
       "security_id": "ASX:CTN",
       "z_adj": -32.181,
       "discount_est": -0.952885,
-      "staleness_days": 2306.0
+      "staleness_days": 2307.0
     },
     {
       "security_id": "ASX:MXT",
-      "z_adj": -27.7518,
-      "discount_est": -0.932668,
-      "staleness_days": 4.0
-    },
-    {
-      "security_id": "ASX:OPH",
-      "z_adj": -23.1671,
-      "discount_est": -0.914543,
-      "staleness_days": 3.0
+      "z_adj": -27.7649,
+      "discount_est": -0.93311,
+      "staleness_days": 5.0
     }
   ],
-  "date": "2026-09-02",
+  "date": "2026-09-03",
   "markets": {
     "au_identity_blocked": 0,
     "au": {
@@ -85,10 +85,10 @@
     "uk_identity_blocked": 346,
     "uk_nav_targets": 299,
     "uk_registry_only_targets": 104,
-    "uk_aux_z_history_funds": 197,
+    "uk_aux_z_history_funds": 230,
     "uk_nav_validation": {
-      "comparable_pairs": 5061,
-      "agreement_rate_pairs": 0.9698
+      "comparable_pairs": 5065,
+      "agreement_rate_pairs": 0.9692
     },
     "uk": {
       "tier0_navs": 217,
@@ -97,15 +97,14 @@
     }
   },
   "catalysts": {
-    "catalysts": 31,
-    "funds": 22,
+    "catalysts": 29,
+    "funds": 20,
     "by_class": {
-      "substantial_holder": 22,
+      "substantial_holder": 21,
       "tender_offer": 7,
-      "liquidation_wind_down": 1,
-      "discount_control": 1
+      "liquidation_wind_down": 1
     }
   },
   "carried_forward_rows": 0,
-  "snapshot": "s3_exists_not_overwritten:nta_live/2026-09-02.parquet"
+  "snapshot": "s3_uploaded:nta_live/2026-09-03.parquet"
 }
