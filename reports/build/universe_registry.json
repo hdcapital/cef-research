@@ -1,38 +1,38 @@
 {
-  "delist_candidates": 668,
+  "delist_candidates": 667,
   "vehicles": 1116,
   "by_market": {
     "AU": 172,
     "UK": 944
   },
-  "live": 368,
+  "live": 369,
   "live_stale_nav": 25,
   "status_before_evidence": {
     "delisted": 731,
     "live": 376,
     "delist_candidate": 9
   },
-  "evidence_rows": 495,
+  "evidence_rows": 497,
   "au_code_reuse_cutoffs": 77,
   "persisted_to": "data/universe/registry.parquet",
   "live_status_source": {
-    "corroborated_delisting": 665,
-    "own_nav_announcement": 344,
+    "corroborated_delisting": 664,
+    "own_nav_announcement": 346,
     "own_delisting_notice": 55,
-    "registry_deferral_no_own_filings": 24,
+    "registry_deferral_no_own_filings": 23,
     "own_periodic_report": 21,
     "own_nav_announcement_stale": 4,
     "own_announcement_only": 2,
     "registry_last_seen": 1
   },
-  "revived_by_own_filings": 19,
+  "revived_by_own_filings": 20,
   "aggregator_said_live_evidence_says_not": 4,
   "by_liveness_reason": {
-    "aggregator_delisted_and_own_filings_silent_alwaysd": 597,
-    "nav": 347,
+    "aggregator_delisted_and_own_filings_silent_alwaysd": 596,
+    "nav": 349,
     "aggregator_delisted_and_own_filings_silent": 68,
     "own_delisting_notice": 55,
-    "no_own_filings_held_deferring_to_registry": 24,
+    "no_own_filings_held_deferring_to_registry": 23,
     "periodic_report": 21,
     "filings_but_no_nav_or_report": 2,
     "nav_-27d_old": 1,
@@ -41,13 +41,13 @@
   "delisted": 55,
   "priced_by_source": 638,
   "announcements_only": 478,
-  "live_announcements_only": 99,
+  "live_announcements_only": 100,
   "offshore": 195,
   "vct": 228,
   "live_by_domicile": {
     "GB": 205,
     "null": 97,
-    "GG": 39,
+    "GG": 40,
     "JE": 12,
     "BM": 11,
     "KY": 2,
@@ -450,6 +450,15 @@
       "isin": "GB00BY7QYJ50",
       "first_seen": "2026-01",
       "months_listed": 7
+    },
+    {
+      "security_id": "SEDOL:BD0FRW6",
+      "name": "NB Private Equity Partners",
+      "sector": "Private Equity",
+      "domicile": "GG",
+      "isin": "GG00BD0FRW63",
+      "first_seen": "2016-09",
+      "months_listed": 72
     },
     {
       "security_id": "SEDOL:BD96PR1",
@@ -950,7 +959,7 @@
   "live_announcements_only_by_sector": {
     "VCT": 19,
     "Renewable Energy Infrastructure": 9,
-    "Private Equity": 7,
+    "Private Equity": 8,
     "Flexible Investment": 6,
     "Infrastructure": 6,
     "UK Smaller Companies": 5,
