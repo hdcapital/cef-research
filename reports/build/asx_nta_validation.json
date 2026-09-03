@@ -1,12 +1,12 @@
 {
   "comparable_observations": 1060,
   "by_verdict": {
-    "match": 664,
-    "mismatch": 366,
-    "unit_error": 30
+    "match": 668,
+    "mismatch": 363,
+    "unit_error": 29
   },
-  "agreement_rate": 0.6264,
-  "unit_error_rate": 0.0283,
+  "agreement_rate": 0.6302,
+  "unit_error_rate": 0.0274,
   "median_ratio": 1.0,
   "funds_compared": 63,
   "worst": [
@@ -157,6 +157,13 @@
   ],
   "demoted_labels": [
     {
+      "ticker": "AMH",
+      "label": "pre tax nta per share",
+      "n": 4,
+      "agree": 1,
+      "agreement": 0.25
+    },
+    {
       "ticker": "GCI",
       "label": "on nta per unit as at",
       "n": 19,
@@ -165,10 +172,10 @@
     },
     {
       "ticker": "LSF",
-      "label": "ordinary share nta before tax nta after tax",
-      "n": 16,
+      "label": "nta after tax",
+      "n": 17,
       "agree": 1,
-      "agreement": 0.0625
+      "agreement": 0.0588
     }
   ],
   "compare_stages": {
@@ -237,11 +244,11 @@
     "ticker_overlap": 160,
     "nav_rows_with_value": 38923,
     "nav_key_sample": [
-      "RF1|2026-08",
-      "DJW|2026-08",
-      "MIR|2026-08",
       "GCI|2026-08",
-      "AMH|2026-01"
+      "GCI|2024-07",
+      "GCI|2026-08",
+      "GCI|2026-08",
+      "GCI|2026-08"
     ],
     "panel_key_sample": [
       "8EC|2016-12",
