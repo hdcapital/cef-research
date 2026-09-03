@@ -98,6 +98,50 @@ def nav_continuity(anchor_val, anchor_date, prior) -> dict:
     return {"ok": True, "reason": "", "prev": float(prev), "jump": float(jump)}
 
 
+# NAV currencies that can be converted into a market's canonical unit
+# through the FX levels (prices.fx_levels). Anything else stays excluded
+# upstream rather than guessed at here.
+FX_CONVERTIBLE = ("USD", "EUR", "CAD")
+
+
+def _fx_convert(market: str, value, unit: str | None, when,
+                price_ccy: str | None, fx_levels: dict | None):
+    """A NAV stated in a foreign currency, in the unit the price is in.
+
+    Returns (value, unit_label, note, fx_rate, fx_pair). Three cases:
+      - the price is quoted in that same currency (a USD line): keep the
+        NAV in it - price and NAV already agree, no conversion;
+      - the market has an FX level for it: convert into the canonical
+        unit at the level on the NAV's own date (GBP = value / rate, then
+        pence);
+      - otherwise: refuse - return None so the anchor is not used, because
+        a dollar NAV over a pence price is an exchange rate wearing a
+        discount.
+    Sterling/canonical units pass straight through to units.normalise.
+    """
+    u = str(unit or "").strip().upper()
+    if u not in FX_CONVERTIBLE:
+        val, lbl, note = U.normalise(market, value, unit)
+        return val, lbl, note, None, None
+    pc = str(price_ccy or "").strip().upper()
+    if pc == u:
+        return float(value), u, "nav_and_price_same_foreign_ccy", None, None
+    ser = (fx_levels or {}).get(u)
+    if ser is None or not len(ser):
+        return None, u, f"no_fx_level_for_{u}", None, None
+    ts = pd.Timestamp(when)
+    hist = ser[ser.index <= ts.normalize()]
+    if not len(hist):
+        return None, u, f"no_fx_level_before_{ts.date()}", None, None
+    rate = float(hist.iloc[-1])            # units of foreign ccy per 1 GBP
+    if not rate or rate <= 0:
+        return None, u, "fx_level_not_positive", None, None
+    canon = U.CANONICAL_UNIT.get(market, "")
+    per_gbp = float(value) / rate
+    val = per_gbp * 100.0 if canon == "GBX" else per_gbp
+    return val, canon, f"fx_{u}_to_{canon}@{rate:.4f}", rate, f"GBP{u}=X"
+
+
 def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
                 price_col: str, params: dict,
                 tier0: pd.DataFrame | None = None,
@@ -107,6 +151,7 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
                 registry: pd.DataFrame | None = None,
                 own_nav_history: pd.DataFrame | None = None,
                 aux_discount_history: pd.DataFrame | None = None,
+                fx_levels: dict | None = None,
                 today: date | None = None) -> pd.DataFrame:
     """Build the live table for one market, keyed on the REGISTRY.
 
@@ -222,6 +267,17 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
         # explicitly rather than by convention
         nav_unit = U.CANONICAL_UNIT.get(market, "")
         last = g.iloc[-1] if len(g) else None
+        # the price's currency is needed BEFORE the anchor is chosen: a NAV
+        # stated in dollars is converted only if the price is not also in
+        # dollars (see _fx_convert)
+        _pc = None
+        if live_prices is not None and len(live_prices) and "price_ccy" in live_prices.columns:
+            _lp = live_prices[live_prices["security_id"] == sid]
+            if len(_lp) and pd.notna(_lp["price_ccy"].iloc[0]):
+                _pc = str(_lp["price_ccy"].iloc[0])
+                if _pc.upper() in ("GBP", "GBX", "STG"):   # Yahoo's GBp = pence
+                    _pc = "GBX"
+        fx_rate = fx_pair = nav_unit_original = None
 
         # 3. aggregator LAST, and named so its use is countable
         if last is not None and pd.notna(last[nav_col]):
@@ -235,12 +291,17 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
             if len(o):
                 o = o.sort_values("nav_date").iloc[-1]
                 if anchor_date is None or pd.Timestamp(o["nav_date"]) > anchor_date:
-                    val, unit, _note = U.normalise(
-                        market, o["nav_value"], o.get("nav_unit"))
-                    anchor_val = float(val)
-                    nav_unit = unit
-                    anchor_date = pd.Timestamp(o["nav_date"])
-                    anchor_source = f"own_nav_history:{o['nav_date'].date()}"
+                    val, unit, _note, _r, _p = _fx_convert(
+                        market, o["nav_value"], o.get("nav_unit"),
+                        o["nav_date"], _pc, fx_levels)
+                    if val is not None:
+                        anchor_val = float(val)
+                        nav_unit = unit
+                        anchor_date = pd.Timestamp(o["nav_date"])
+                        anchor_source = f"own_nav_history:{o['nav_date'].date()}"
+                        fx_rate, fx_pair = _r, _p
+                        nav_unit_original = (str(o.get("nav_unit")).upper()
+                                             if _r is not None else None)
 
         # 1. a NAV the fund itself published wins outright
         if tier0 is not None and len(tier0):
@@ -251,14 +312,19 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
                     # harvest_au already reduces cents to dollars and records
                     # `unit`; harvest_uk returns pence. Either way the unit is
                     # stated, converted here if needed, and carried on the row.
-                    val, unit, _note = U.normalise(
+                    val, unit, _note, _r, _p = _fx_convert(
                         market, t0["nav_value"],
-                        t0["unit"] if "unit" in t0.index else None)
-                    anchor_val = float(val)
-                    nav_unit = unit
-                    anchor_date = pd.Timestamp(t0["nav_date"])
-                    anchor_source = str(t0["source"])
-                    basis = 0
+                        t0["unit"] if "unit" in t0.index else None,
+                        t0["nav_date"], _pc, fx_levels)
+                    if val is not None:
+                        anchor_val = float(val)
+                        nav_unit = unit
+                        anchor_date = pd.Timestamp(t0["nav_date"])
+                        anchor_source = str(t0["source"])
+                        basis = 0
+                        fx_rate, fx_pair = _r, _p
+                        nav_unit_original = (str(t0["unit"]).upper()
+                                             if _r is not None else None)
 
         # A fund with NO NAV from any source used to be dropped here. That
         # hid it twice over: it left the table with no row, so its FETCHED
@@ -514,6 +580,8 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
             "price_is_fallback": price_is_fallback,
             "price_panel": panel_price, "price_panel_month": panel_month,
             "nav_unit": nav_unit,
+            "nav_unit_original": nav_unit_original,
+            "fx_rate": fx_rate, "fx_pair": fx_pair,
             "discount_est": round(discount_est, 6) if pd.notna(discount_est) else np.nan,
             "disc_mu_36m": round(mu, 6) if pd.notna(mu) else np.nan,
             "disc_sigma_36m": round(sd, 6) if pd.notna(sd) else np.nan,

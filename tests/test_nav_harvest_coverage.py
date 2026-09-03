@@ -367,7 +367,7 @@ def test_a_reparsed_nav_reaches_the_live_table_and_the_audit(monkeypatch, tmp_pa
     # and the value itself must reach the live table's NAV anchor
     src = inspect.getsource(cli._own_nav_history)
     assert "uk_nav_panel" in src and "nav_pence" in src
-    assert '"nav_unit": "GBX"' in src
+    assert '"nav_unit": unit.values' in src and '"nav_unit": h_unit.values' in src
 
 
 def test_an_asx_nav_the_extractor_read_is_not_reported_as_a_parser_failure():

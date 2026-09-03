@@ -54,6 +54,7 @@ jobs:
             aic-raw-v1-
       - name: Run diagnostic script
         run: |
+          for kv in $(echo "${{ github.event.inputs.extra_env }}" | tr ";" " "); do export "$kv"; done
           python "${{ github.event.inputs.script || 'scripts/probe_ticker_sources.py' }}"
       - name: Commit probe results
         run: |

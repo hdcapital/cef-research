@@ -115,3 +115,14 @@ build — plus the honesty guard that alerting is unchanged: neither
 because the discount-reversion evidence was established at that depth.
 Below the floor no z is computed; six points is the least a standard
 deviation can be estimated from without being pure noise.
+
+## 2026-09-03 — Foreign-currency NAVs priced through FX levels
+Pershing Square, Riverstone, Tufton, US Solar, RTW and CVC had no NAV in
+the live table: every non-sterling observation was excluded before it.
+Rules now: a NAV the currency rules read in USD/EUR/CAD is kept with its
+unit stated; the live table converts it into the price currency at the
+GBP cross-rate level on the NAV's own date (`fx_rate`, `fx_pair`,
+`nav_unit_original` on the row); a fund whose price is quoted in the same
+foreign currency keeps both unconverted; a currency without an FX level is
+refused, never guessed. The Tier 0 harvest now states the currency it
+read - previously a dollar NAV could travel as pence.

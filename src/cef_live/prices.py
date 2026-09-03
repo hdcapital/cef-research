@@ -112,3 +112,25 @@ def latest_prices(s: requests.Session, symbols: dict[str, str],
                      "price_source": f"yahoo:{sym}",
                      "price_ccy": ser.attrs.get("ccy")})
     return pd.DataFrame(rows)
+
+
+# GBP cross rates as DAILY LEVELS (units of foreign currency per 1 GBP),
+# for converting a NAV a fund states in dollars or euros into the pence its
+# London line trades in. Levels, not returns: a conversion needs the rate on
+# the NAV's own date, and the factor series above are returns.
+FX_PAIRS = {"UK": {"USD": "GBPUSD=X", "EUR": "GBPEUR=X", "CAD": "GBPCAD=X"}}
+
+
+def fx_levels(s: requests.Session, market: str,
+              rng: str = "10y") -> dict[str, pd.Series]:
+    """{foreign ccy: daily level series} for the market's supported pairs.
+
+    A pair Yahoo does not serve is simply absent - the caller then leaves
+    that currency's NAVs unconverted (and unused) rather than guessing.
+    """
+    out: dict[str, pd.Series] = {}
+    for ccy, sym in FX_PAIRS.get(market, {}).items():
+        ser = _get(s, sym, rng, "1d")
+        if ser is not None and len(ser):
+            out[ccy] = ser
+    return out

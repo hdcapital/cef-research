@@ -414,18 +414,29 @@ def _own_nav_history(market: str) -> pd.DataFrame:
             # nav_pence without reading nav_ccy would put a $1.91 NAV into a
             # pence column against a 200p price - the unit bug, arriving
             # through a column that exists precisely to prevent it.
-            if "nav_ccy" in panel.columns:
-                ccy = panel["nav_ccy"].fillna("GBX").astype(str).str.upper()
-                foreign = int((~ccy.isin(("GBX", "GBP", "GBP_PENCE", "STG"))).sum())
-                if foreign:
-                    log.info("UK NAV panel: %d non-sterling observation(s) "
-                             "excluded from the pence anchor", foreign)
-                panel = panel[ccy.isin(("GBX", "GBP", "GBP_PENCE", "STG"))]
+            # Sterling rows are pence. A row the currency rules read in
+            # USD/EUR/CAD is kept WITH its unit stated (value in that
+            # currency's major unit) so nta_live can convert it into the
+            # price currency through the FX levels; any other currency is
+            # still excluded rather than guessed. Pershing Square,
+            # Riverstone, Tufton, US Solar, RTW and CVC had no NAV at all
+            # because every non-sterling observation was dropped here.
+            ccy = (panel["nav_ccy"].fillna("GBX").astype(str).str.upper()
+                   if "nav_ccy" in panel.columns
+                   else pd.Series("GBX", index=panel.index))
+            sterling = ccy.isin(("GBX", "GBP", "GBP_PENCE", "STG"))
+            fxable = ccy.isin(nta_live.FX_CONVERTIBLE)
+            dropped = int((~sterling & ~fxable).sum())
+            if dropped:
+                log.info("UK NAV panel: %d observation(s) in an unsupported "
+                         "currency excluded", dropped)
+            keep = panel[sterling | fxable]
+            unit = ccy[sterling | fxable].where(~sterling[sterling | fxable], "GBX")
             frames.append(pd.DataFrame({
-                "ticker": panel["ticker"].astype(str).str.upper(),
-                "nav_date": panel["nav_date"],
-                "nav_value": pd.to_numeric(panel["nav_pence"], errors="coerce"),
-                "nav_unit": "GBX",
+                "ticker": keep["ticker"].astype(str).str.upper(),
+                "nav_date": keep["nav_date"],
+                "nav_value": pd.to_numeric(keep["nav_pence"], errors="coerce"),
+                "nav_unit": unit.values,
             }))
         for f in sorted(Path("data").glob("uk_nav_history*.parquet")):
             try:
@@ -435,9 +446,11 @@ def _own_nav_history(market: str) -> pd.DataFrame:
             h = h[h.get("status").eq("parsed")] if "status" in h.columns else h
             if not {"ticker", "nav_cum_pence"} <= set(h.columns):
                 continue
-            if "nav_ccy" in h.columns:            # same rule for the shards
-                h = h[h["nav_ccy"].fillna("GBX").astype(str).str.upper().isin(
-                    ("GBX", "GBP", "GBP_PENCE", "STG"))]
+            h_ccy = (h["nav_ccy"].fillna("GBX").astype(str).str.upper()
+                     if "nav_ccy" in h.columns else pd.Series("GBX", index=h.index))
+            h_sterling = h_ccy.isin(("GBX", "GBP", "GBP_PENCE", "STG"))
+            h = h[h_sterling | h_ccy.isin(nta_live.FX_CONVERTIBLE)]
+            h_unit = h_ccy.loc[h.index].where(~h_sterling.loc[h.index], "GBX")
             # PENCE, not pounds. The UK canonical NAV unit is GBX
             # (units.CANONICAL_UNIT["UK"]) - the unit Yahoo quotes London
             # shares in, and the unit the AIC panel's nav_col and the Tier 0
@@ -454,7 +467,7 @@ def _own_nav_history(market: str) -> pd.DataFrame:
                 "ticker": h["ticker"].astype(str).str.upper(),
                 "nav_date": h.get("nav_date", h.get("ann_date")),
                 "nav_value": pd.to_numeric(h["nav_cum_pence"], errors="coerce"),
-                "nav_unit": "GBX",
+                "nav_unit": h_unit.values,
             }))
         if not frames:
             return pd.DataFrame()
@@ -1063,13 +1076,22 @@ def nightly(markets: list[str]) -> int:
             except Exception as exc:  # noqa: BLE001
                 notes["markets"]["uk_aux_z_history_error"] = str(exc)
             own_uk = _own_nav_history("UK")
+            # GBP cross-rate levels so a NAV stated in dollars or euros can be
+            # priced against its London line
+            try:
+                fx_uk = prices.fx_levels(ysess, "UK")
+                notes["markets"]["uk_fx_pairs"] = sorted(fx_uk)
+            except Exception as exc:  # noqa: BLE001
+                fx_uk = {}
+                notes["markets"]["uk_fx_error"] = str(exc)
             t = nta_live.build_table(
                 panel, "UK", ret_col="nav_total_return", nav_col=nav_col,
                 price_col=price_col, params=params, tier0=uk_tier0,
                 market_factors=mf, daily_factors=df, live_prices=live_px,
                 registry=_registry_for("UK"),
                 own_nav_history=own_uk,
-                aux_discount_history=aux_uk)
+                aux_discount_history=aux_uk,
+                fx_levels=fx_uk)
             tables.append(t)
             # our parser vs the AIC's independently collected NAV: the only
             # way a plausible-but-wrong number gets caught

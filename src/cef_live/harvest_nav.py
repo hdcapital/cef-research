@@ -1159,6 +1159,10 @@ def harvest_uk(ticker_map: pd.DataFrame, census: pd.DataFrame,
         rows.append({"security_id": tick2sid[tk],
                      "nav_date": got.get("asat", best["date"]),
                      "nav_value": got["nav_cum_pence"],
+                     # a NAV the currency rules read in dollars or euros
+                     # must say so: without this a $1.91 NAV travelled as
+                     # 1.91 PENCE against a 200p price
+                     "unit": got.get("nav_ccy", "GBX"),
                      "nav_ex": got.get("nav_ex_pence"),
                      "cum_assumed": got.get("cum_assumed", False),
                      "source": (f"investegate{'_fs' if best.get('route') else ''}"

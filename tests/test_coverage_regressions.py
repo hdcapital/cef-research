@@ -136,7 +136,12 @@ def test_uk_nav_history_is_read_in_pence_not_pounds():
     """
     src = inspect.getsource(cli._own_nav_history)
     assert 'pd.to_numeric(h["nav_cum_pence"], errors="coerce") / 100.0' not in src
-    assert '"nav_unit": "GBX"' in src, "the UK NAV unit must be stated on the frame"
+    # the unit is stated PER ROW now: sterling rows as GBX, a NAV the
+    # currency rules read in USD/EUR/CAD with that currency, so the live
+    # table can convert it through the FX levels instead of dropping it
+    assert '"nav_unit": unit.values' in src and '"nav_unit": h_unit.values' in src, (
+        "the UK NAV unit must be stated on the frame, per row")
+    assert '"GBX")' in src, "sterling rows must still be labelled GBX"
 
     from au_lic.extract import facts as AUF
     assert '"nav_unit": "AUD"' in inspect.getsource(AUF.nav_observations), (
@@ -1313,3 +1318,58 @@ def test_the_table_shaped_daily_nav_publishers_parse():
             "ordinary share")
     got = parse_uk_nav_text(divi)
     assert got.get("nav_cum_pence") == 119.51 and got.get("nav_ex_pence") == 119.55
+
+
+def test_a_dollar_nav_is_priced_against_a_pence_line_through_fx():
+    """Pershing Square, Riverstone, Tufton, US Solar, RTW and CVC had no
+    NAV at all: every non-sterling observation was dropped before the
+    live table. A NAV stated in USD is now converted into pence at the
+    GBPUSD level on its own date; a fund whose PRICE is also in USD keeps
+    both in dollars; a currency with no FX level is refused, never
+    guessed. The harvest must state the currency it read."""
+    params = _params()
+    empty_panel = pd.DataFrame(columns=["security_id", "obs_month", "sector",
+                                        "nav_total_return", "nav_per_share",
+                                        "share_price", "discount"])
+    registry = pd.DataFrame([
+        {"security_id": "GBX_LINE", "market": "UK", "status": "live",
+         "name": "Sterling line", "research_eligible": True, "identity_ok": True},
+        {"security_id": "USD_LINE", "market": "UK", "status": "live",
+         "name": "Dollar line", "research_eligible": True, "identity_ok": True},
+        {"security_id": "NOFX", "market": "UK", "status": "live",
+         "name": "No rate", "research_eligible": True, "identity_ok": True}])
+    own = pd.DataFrame([
+        {"security_id": "GBX_LINE", "nav_date": "2026-08-28", "nav_value": 2.50,
+         "nav_unit": "USD"},
+        {"security_id": "USD_LINE", "nav_date": "2026-08-28", "nav_value": 2.50,
+         "nav_unit": "USD"},
+        {"security_id": "NOFX", "nav_date": "2026-08-28", "nav_value": 2.50,
+         "nav_unit": "CAD"}])
+    px = pd.DataFrame([
+        {"security_id": "GBX_LINE", "price": 160.0, "price_source": "y",
+         "price_date": "2026-08-29", "price_ccy": "GBp"},
+        {"security_id": "USD_LINE", "price": 2.0, "price_source": "y",
+         "price_date": "2026-08-29", "price_ccy": "USD"},
+        {"security_id": "NOFX", "price": 160.0, "price_source": "y",
+         "price_date": "2026-08-29", "price_ccy": "GBp"}])
+    fx = {"USD": pd.Series([1.25, 1.30],
+                           index=pd.to_datetime(["2026-08-27", "2026-08-28"]))}
+    out = nta_live.build_table(empty_panel, "UK", "nav_total_return",
+                               "nav_per_share", "share_price", params,
+                               live_prices=px, registry=registry,
+                               own_nav_history=own, fx_levels=fx,
+                               today=TODAY).set_index("security_id")
+    g = out.loc["GBX_LINE"]
+    assert g["nav_anchor"] == pytest.approx(2.50 / 1.30 * 100.0), (
+        "USD 2.50 at 1.30 is 192.31p")
+    assert g["nav_unit"] == "GBX" and g["fx_pair"] == "GBPUSD=X"
+    assert g["fx_rate"] == pytest.approx(1.30) and g["nav_unit_original"] == "USD"
+    assert g["discount_est"] == pytest.approx(160.0 / (2.5 / 1.3 * 100) - 1, abs=1e-4)
+    u = out.loc["USD_LINE"]
+    assert u["nav_anchor"] == pytest.approx(2.50) and u["nav_unit"] == "USD", (
+        "price and NAV both in dollars: no conversion")
+    assert u["discount_est"] == pytest.approx(2.0 / 2.5 - 1, abs=1e-6)
+    n = out.loc["NOFX"]
+    assert not bool(n["has_nav"]), "no FX level: refused, not guessed"
+    from cef_live import harvest_nav as HN
+    assert '"unit": got.get("nav_ccy", "GBX")' in inspect.getsource(HN.harvest_uk)
