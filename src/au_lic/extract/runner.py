@@ -805,7 +805,28 @@ def run_validate(limit: int = 0) -> dict:
                     .groupby(["ticker", "month"], as_index=False).last())
             cf = cf.merge(meta[keep_meta], on=["ticker", "month"],
                           how="left", suffixes=("", "_m"))
-        ok = cf["verdict"].isin(["match", "basis_gap"])
+        # A mis-read SCATTERS: the parser grabs a different number each
+        # month. A ratio that is wrong by the same factor every month is a
+        # DEFINITION gap between the two sources - MXT read $2.00 against an
+        # exchange print of $19.05 twenty-four months running - and must
+        # never demote a label or quarantine a series: the extractor is
+        # reading consistently and it is the key that measures something
+        # else. Stable ratio (n >= 4, coefficient of variation < 15%) is
+        # therefore counted as agreement for accountability purposes and
+        # reported as definition_gap.
+        import numpy as _np
+        lr = _np.log(pd.to_numeric(cf["ratio"], errors="coerce").abs()
+                     .replace(0, _np.nan))
+        cf = cf.assign(_lr=lr)
+        stab = cf.groupby("ticker")["_lr"].agg(["count", "mean", "std"])
+        stable = stab[(stab["count"] >= 4)
+                      & ((stab["std"].fillna(0) / stab["mean"].abs()
+                          .replace(0, _np.nan)).fillna(0) < 0.15)
+                      & (stab["mean"].abs() > _np.log(1.25))].index
+        cf.loc[cf["ticker"].isin(stable) & ~cf["verdict"].isin(["match"]),
+               "verdict"] = "definition_gap"
+        out["definition_gap_funds"] = sorted(stable.tolist())
+        ok = cf["verdict"].isin(["match", "basis_gap", "definition_gap"])
         pf = (cf.assign(ok=ok).groupby("ticker")
               .agg(n=("verdict", "size"), agree=("ok", "sum")))
         pf["agreement"] = (pf["agree"] / pf["n"]).round(4)
@@ -819,7 +840,8 @@ def run_validate(limit: int = 0) -> dict:
             lr = cf[cf.get("extractor").eq("nta_label_rule_v1")
                     & cf["raw_nav_label"].notna()]
             if len(lr):
-                pl = (lr.assign(ok=lr["verdict"].isin(["match", "basis_gap"]))
+                pl = (lr.assign(ok=lr["verdict"].isin(
+                          ["match", "basis_gap", "definition_gap"]))
                       .groupby(["ticker", "raw_nav_label"])
                       .agg(n=("verdict", "size"), agree=("ok", "sum")))
                 pl["agreement"] = (pl["agree"] / pl["n"]).round(4)

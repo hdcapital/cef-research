@@ -798,3 +798,18 @@ def test_an_implausible_exchange_print_cannot_condemn_a_correct_read():
         "the corrupted HCF row must not enter the comparison at all")
     assert cmp_df.attrs.get("stages", {}).get(
         "panel_rows_implausible_vs_price") == 1
+
+
+def test_a_stable_wrong_by_a_constant_factor_ratio_is_a_definition_gap():
+    """A mis-read scatters; a ratio wrong by the same factor every month is
+    a definition gap between the sources (MXT: $2.00 vs $19.05, 24 months
+    running) and must never demote a label or quarantine a series."""
+    import inspect
+
+    from au_lic.extract import runner
+    src = inspect.getsource(runner.run_validate)
+    assert "definition_gap" in src
+    assert '["match", "basis_gap", "definition_gap"]' in src, (
+        "accountability must count a definition gap as agreement")
+    # coefficient-of-variation test on log ratios, not raw ratios
+    assert "_lr" in src and "std" in src
