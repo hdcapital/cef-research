@@ -874,3 +874,34 @@ def test_a_dotted_date_is_never_a_candidate_value():
     # a genuine two-decimal figure with no year after it is untouched
     assert 0.3103 in [c["value"] for c in LD.candidates_from_text("NTA per share 31.03 cents")]
     assert 31.03 in [c["value"] for c in LD.candidates_from_text("NTA per share $31.03 as at")]
+
+
+@pytest.mark.parametrize("text,value,unit", [
+    ("NET TANGIBLE ASSET (NTA) BACKING AS AT 21 AUGUST 2026 Cents per share Net "
+     "tangible asset value after tax on income and realised gains & losses, and "
+     "before tax on unrealised gains and losses 125.10 Tax on unrealised "
+     "gains/losses ( 3.11) Net tangible asset value after tax 121.99", 125.10, "cents"),
+    ("NTA at 21.08.26 Pre-tax 125.10 Post-tax 121.99 NET TANGIBLE ASSET", 125.10, "cents"),
+    ("Net tangible asset per share: Cents As at 31 July 2026 NTA before all "
+     "taxes1 96.85 NTA after providing all taxes 2 96.85", 96.85, "cents"),
+    ("ASX: WMA NTA NTA (before tax payment) (after tax payment) Tax paid 118.85c "
+     "118.45c 0.40c July 2026 117.99c", 118.85, "cents"),
+    ("NET TANGIBLE ASSET BACKING INVESTMENT RETURNS PER SHARE 31 Jul 26 Prior Month "
+     "NTA (Before Deferred Tax) $1.20 $1.21 Dividends paid", 1.20, "dollars"),
+    ("NET ASSET VALUE (NAV) AS AT 31 JULY 2026 Cents Per Unit Net asset value (CUM) "
+     "172.20 In accordance with the PE1 Valuation Policy", 172.20, "cents"),
+])
+def test_house_layouts_the_tier0_harvest_could_not_read(text, value, unit):
+    """Real statements from reports/build/asx_tier0_debug.json (2026-09-03):
+    seven monthly publishers sat 47 days stale because their own layout
+    carries no generic label."""
+    from au_lic.extract import deterministic as D
+    got = D.P.parse_nta_text(text)
+    assert got.get("stated_raw") == value and got.get("unit") == unit
+
+
+def test_a_headline_stated_nta_reaches_the_parser():
+    from au_lic.extract import deterministic as D
+    rows = D.extract_nta("Net tangible asset backing unaudited, see website.", [],
+                         "NTA at 21.08.26 Pre-tax 125.10 Post-tax 121.99", ticker=None)
+    assert rows and abs(rows[0]["nav_per_share"] - 1.2510) < 1e-9

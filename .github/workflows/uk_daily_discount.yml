@@ -29,9 +29,9 @@ on:
         type: boolean
         default: false
       reparse_unparsed:
-        description: "re-read the announcements stored no_nav_parsed with today's rules (S3 only, no crawling) - run this after any change to harvest_nav.UK_RULES"
+        description: "re-read the announcements stored no_nav_parsed with today's rules (S3 only, no crawling) - on by default, as for scheduled runs; a dispatch that left it false reparsed nothing (2026-09-03)"
         type: boolean
-        default: false
+        default: true
       diagnose_gaps:
         description: "also pull the listings index, to say WHY each short history is short"
         type: boolean

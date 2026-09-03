@@ -288,6 +288,11 @@ def extract_nta(text: str, rows: list[list[str]], headline: str,
                              "nav_basis": basis, "raw_nav_label": label,
                              "extractor": "nta_label_rule_v1"}]
     clean = normalise_nta_text(text)
+    # Pengana International states the figure in the HEADLINE itself:
+    # "NTA at 21.08.26 Pre-tax 125.10 Post-tax 121.99" - read it with the
+    # body, so the parser sees it where the body's own table is a summary
+    if headline and re.search(r"\bPre-?\s?tax\s+[0-9]+\.[0-9]+\s+Post-?\s?tax", headline, re.I):
+        clean = f"{headline} {clean}"
     got = P.derive_stated({"status": "extracted", "text": clean, "rows": rows})
     if got.get("status") != "parsed" and clean != text:
         got = P.derive_stated({"status": "extracted", "text": text, "rows": rows})

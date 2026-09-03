@@ -110,6 +110,18 @@ NTA_PATTERNS = [
 ]
 MILLIONS = re.compile(r"^\s*(?:million|billion|m\b|bn\b|'?000)", re.I)
 
+# (pattern, unit): unit "cents"/"dollars" when the layout states it in the
+# match, "context" when a "Cents per share" heading must precede it
+HOUSE_PATTERNS = [
+    (re.compile(r"after tax on income and realised gains[^0-9]{0,80}?before tax on "
+                r"unrealised gains[^0-9]{0,40}?" + _NUM, re.I), "context"),
+    (re.compile(r"\bPre-?\s?tax\s+" + _NUM + r"\s+Post-?\s?tax\s+[0-9]", re.I), "cents"),
+    (re.compile(r"\bNTA before all taxes\s*\d?\s+" + _NUM, re.I), "context"),
+    (re.compile(r"\bNTA\s*\(before tax payment\)[^0-9]{0,80}?" + _NUM + r"\s*c\b", re.I), "cents"),
+    (re.compile(r"\bNTA\s*\(before deferred tax\)\s*\$\s*" + _NUM, re.I), "dollars"),
+    (re.compile(r"\bNet asset value\s*\(CUM\)\s*" + _NUM, re.I), "context"),
+]
+
 # table-row labels, most specific first; "after tax" rows are rejected
 ROW_PRETAX = re.compile(r"(?:pre|before)[- ]tax", re.I)
 ROW_POSTTAX = re.compile(r"(?:post|after)[- ]tax", re.I)
@@ -541,6 +553,27 @@ def parse_nta_text(text: str) -> dict:
                          r"(?:share|security|unit)[^%$]{0,220}?" + _NUM +
                          r"\s*(?:cents|cps|c)\b", text, re.I | re.S):
         add(2, m.start(), {"stated_raw": float(m.group(1)), "unit": "cents"})
+
+    # score 3: house layouts the generic labels never reach, each from a
+    # real statement the Tier-0 harvest could not read (2026-09-03):
+    #   PIA  "Net tangible asset value after tax on income and realised
+    #         gains & losses, and before tax on unrealised gains and losses
+    #         125.10" under a "Cents per share" heading, and the headline
+    #         "NTA at 21.08.26 Pre-tax 125.10 Post-tax 121.99"
+    #   ECL  "NTA before all taxes1 96.85" (footnote digit glued) under "Cents"
+    #   WMA  "NTA (before tax payment) (after tax payment) Tax paid 118.85c"
+    #   WHI  "NTA (Before Deferred Tax) $1.20 $1.21"
+    #   PE1  "Cents Per Unit Net asset value (CUM) 172.20"
+    for pat, unit in HOUSE_PATTERNS:
+        for m in pat.finditer(text):
+            u = unit
+            if u == "context":
+                pre = text[max(0, m.start() - 160):m.start()]
+                u = "cents" if re.search(r"cents?\s+per\s+(?:share|unit|security)|\bcents\b",
+                                         pre, re.I) else None
+                if u is None:
+                    continue           # unit not stated: never guessed
+            add(3, m.start(), {"stated_raw": float(m.group(1)), "unit": u})
 
     # strict adjacency patterns: pre-tax labels score 3, per-share labels 2
     for pi, pat in enumerate(NTA_PATTERNS):
