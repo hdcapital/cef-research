@@ -335,6 +335,9 @@ RATIO_OK_LO, RATIO_OK_HI = 0.2, 5.0
 # how tight the ratio must cluster before a x100 correction is called
 # arithmetic rather than a guess (IQR of price/NAV in log10 terms)
 MAX_LOG_SPREAD = 0.5
+# when the whole history cannot be reconciled, the most recent overlap
+# window is tried on its own (a regime change earlier in the series)
+RECENT_WINDOW_DAYS = 250
 
 
 def reconcile_units(nav: pd.DataFrame, px: pd.DataFrame,
@@ -436,6 +439,29 @@ def reconcile_units(nav: pd.DataFrame, px: pd.DataFrame,
             status, scale = "unresolved_dispersed", None
         else:
             status, scale = f"rescaled_x{best:g}", best
+        if scale is None and len(m) > RECENT_WINDOW_DAYS:
+            # A whole-history fit is defeated by a regime change - a share
+            # sub-division (Rights & Issues), a redenomination, years of
+            # mis-parsed early NAVs - while the recent window is clean.
+            # The unit that prices TODAY's discount is the recent one.
+            r2 = (m.tail(RECENT_WINDOW_DAYS)["close_raw"]
+                  / m.tail(RECENT_WINDOW_DAYS)["nav_pence"]).astype(float)
+            med2 = float(r2.median())
+            lr2 = np.log10(r2.replace(0, np.nan).dropna())
+            spread2 = float(lr2.quantile(0.75) - lr2.quantile(0.25)) if len(lr2) else float("nan")
+            best2, best2_dist = None, None
+            for s in SCALE_CANDIDATES:
+                v = med2 * s
+                if not (RATIO_OK_LO <= v <= RATIO_OK_HI):
+                    continue
+                d = abs(np.log(v))
+                if best2 is None or d < best2_dist:
+                    best2, best2_dist = s, d
+            if best2 is not None and pd.notna(spread2) and spread2 <= MAX_LOG_SPREAD:
+                status = ("ok_recent_window" if best2 == 1.0
+                          else f"rescaled_x{best2:g}_recent_window")
+                scale = best2
+                med, spread, best = med2, spread2, best2
         rows.append({"ticker": tk, "price_scale": scale,
                      "price_unit_status": status, "ratio_raw": round(med, 6),
                      "ratio_scaled": round(med * best, 6) if best else None,

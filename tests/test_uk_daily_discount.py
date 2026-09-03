@@ -571,3 +571,29 @@ def test_a_wrongly_parsed_fund_is_re_read_not_left_alone():
         }).to_parquet(d / "uk_nav_history_t.parquet", index=False)
         assert NAV.ann_ids_for({"BAD"}, d) == {"1", "2"}
         assert NAV.unparsed_ann_ids(d) == set(), "these are all stored parsed"
+
+
+def test_a_regime_change_in_the_history_does_not_void_todays_unit():
+    """Rights & Issues sub-divided its shares: the first years of the
+    overlap sit at one ratio and the recent years at another, so a whole-
+    history fit is 'dispersed' and the fund had no discount at all, with
+    822 daily NAVs in hand. The unit that prices TODAY's discount is the
+    recent window's, and that one is clean."""
+    dates = pd.bdate_range("2021-01-01", "2024-06-30")
+    n = len(dates)
+    early = int(n * 0.7)
+    # the old regime dominates the history: ratio 0.0092 (would need x100)
+    # for years, then a clean 0.92 after the sub-division
+    nav = _nav("RIII", dates, dates, [250000.0] * early + [2500.0] * (n - early))
+    px = _px("RIII", dates, [2300.0] * n)
+    units = PH.reconcile_units(nav, px)
+    row = units.iloc[0]
+    assert row["price_scale"] == 1.0
+    assert row["price_unit_status"] == "ok_recent_window"
+    # the recent window is the same rule as the whole history: a ratio no
+    # candidate scale can bring into band stays unresolved
+    nav2 = _nav("RIII", dates, dates, [2500000.0] * early + [2500.0] * (n - early))
+    px2 = _px("RIII", dates, [37500.0] * n, ccy="XYZ")   # 0.015 then 15
+    row2 = PH.reconcile_units(nav2, px2).iloc[0]
+    assert row2["price_scale"] is None or pd.isna(row2["price_scale"])
+    assert row2["price_unit_status"] == "unresolved_dispersed"
