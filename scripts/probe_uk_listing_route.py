@@ -66,6 +66,20 @@ def main() -> int:
     s = requests.Session()
     s.headers.update(UA)
     out = []
+    # how a known announcement page links to its company page, and what the
+    # site's own search form posts to - the canonical route, not a guess
+    ref = page(s, "https://www.investegate.co.uk/announcement/bzw/"
+                  "pershing-square-holdings-ltd--psh/net-asset-value-s-/9750355")
+    try:
+        r0 = s.get("https://www.investegate.co.uk", timeout=30)
+        soup0 = BeautifulSoup(r0.text, "html.parser")
+        ref["home_forms"] = [{"action": f.get("action"), "inputs": [i.get("name") for i in f.select("input")]}
+                             for f in soup0.select("form")][:10]
+        ref["home_search_links"] = sorted({a["href"] for a in soup0.select("a[href]")
+                                           if "search" in a["href"].lower()})[:20]
+    except Exception as exc:  # noqa: BLE001
+        ref["home_error"] = str(exc)
+    time.sleep(1.5)
     for t in TICKERS:
         rec = {"ticker": t, "name": nm.get(t)}
         rec["company_page"] = page(s, f"https://www.investegate.co.uk/company/{t}")
@@ -75,8 +89,13 @@ def main() -> int:
         time.sleep(1.5)
         q = quote_plus((nm.get(t) or t).split("(")[0].strip())
         rec["searches"] = []
+        slug = re.sub(r"[^a-z0-9]+", "-", (nm.get(t) or "").lower()).strip("-")
         for u in (f"https://www.investegate.co.uk/search?q={q}",
-                  f"https://www.investegate.co.uk/companies?search={q}",
+                  f"https://www.investegate.co.uk/advanced-search?companyName={q}",
+                  f"https://www.investegate.co.uk/company/{slug}--{t.lower()}",
+                  f"https://www.investegate.co.uk/company/{slug}-limited--{t.lower()}",
+                  f"https://www.investegate.co.uk/company/{slug}-ltd--{t.lower()}",
+                  f"https://www.investegate.co.uk/company/{slug}-plc--{t.lower()}",
                   f"https://www.investegate.co.uk/company/{t.lower()}"):
             rec["searches"].append(page(s, u))
             time.sleep(1.5)
@@ -85,7 +104,7 @@ def main() -> int:
               "slugs", list(rec["company_page"].get("row_slugs", {}))[:3])
     Path("reports/build").mkdir(parents=True, exist_ok=True)
     Path("reports/build/uk_listing_route_probe.json").write_text(
-        json.dumps({"tickers": out}, indent=2, default=str))
+        json.dumps({"reference": ref, "tickers": out}, indent=2, default=str))
     return 0
 
 
