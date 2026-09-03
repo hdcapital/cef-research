@@ -1090,8 +1090,18 @@ def nightly(markets: list[str]) -> int:
                     notes["markets"]["uk_registry_only_targets"] = len(extra)
                 if tmap is not None and (len(census) or extra):
                     try:
+                        ident = rg[["security_id", "isin", "name"]] \
+                            if {"isin", "name"} <= set(rg.columns) else None
+                        isin_map, name_map = {}, {}
+                        if ident is not None:
+                            mm = tmap.merge(ident, on="security_id", how="left")
+                            isin_map = {str(t).upper(): i for t, i in zip(mm["ticker"], mm["isin"])
+                                        if isinstance(i, str) and i.strip()}
+                            name_map = {str(t).upper(): n for t, n in zip(mm["ticker"], mm["name"])
+                                        if isinstance(n, str) and n.strip()}
                         uk_tier0, uk_anns = harvest_nav.harvest_uk(
-                            tmap, census, extra_targets=extra)
+                            tmap, census, extra_targets=extra,
+                            isin_by_ticker=isin_map, name_by_ticker=name_map)
                         all_anns.extend(uk_anns)
                         if len(uk_tier0):
                             uk_tier0.to_csv("data/nta_live/uk_tier0_latest.csv", index=False)

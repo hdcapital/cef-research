@@ -71,18 +71,128 @@ UK_THIRD_PARTY = re.compile(
 _URL_TICKER = re.compile(r"--([a-z0-9.]{2,8})/")
 
 
+# Investegate keys a company page by ITS symbol, which is not always the
+# ticker the market feed resolved: Tufton Assets is SHIP to OpenFIGI and
+# SHPP to Investegate, and /company/SHIP silently serves the market-wide
+# feed. The alias file maps our ticker to Investegate's code, learned by
+# ISIN (or name) through the site's own search and committed so every
+# reader - harvest, archive, panel - judges a row's slug by the same code.
+INVESTEGATE_CODES = Path("config/investegate_codes.csv")
+_ALIASES: dict | None = None
+_ALIASES_MTIME: float | None = None
+
+
+def investegate_aliases(path: Path | None = None) -> dict[str, str]:
+    """ticker -> Investegate company code, from the committed alias file."""
+    global _ALIASES, _ALIASES_MTIME
+    p = path or INVESTEGATE_CODES
+    try:
+        mt = p.stat().st_mtime
+    except OSError:
+        return {}
+    if path is None and _ALIASES is not None and _ALIASES_MTIME == mt:
+        return _ALIASES
+    out: dict[str, str] = {}
+    try:
+        df = pd.read_csv(p, dtype=str)
+        for t, c in zip(df.get("ticker", []), df.get("investegate_code", [])):
+            if isinstance(t, str) and isinstance(c, str) and t.strip() and c.strip():
+                out[t.strip().upper()] = c.strip().upper()
+    except Exception:  # noqa: BLE001
+        out = {}
+    if path is None:
+        _ALIASES, _ALIASES_MTIME = out, mt
+    return out
+
+
+def record_investegate_code(ticker: str, code: str, isin: str | None,
+                            method: str, path: Path | None = None) -> None:
+    """Append (or update) one learned alias; the file is committed state."""
+    global _ALIASES
+    p = path or INVESTEGATE_CODES
+    cols = ["ticker", "investegate_code", "isin", "method", "resolved_at"]
+    row = {"ticker": str(ticker).upper(), "investegate_code": str(code).upper(),
+           "isin": isin or "", "method": method,
+           "resolved_at": datetime.now(timezone.utc).date().isoformat()}
+    try:
+        df = pd.read_csv(p, dtype=str) if p.exists() else pd.DataFrame(columns=cols)
+    except Exception:  # noqa: BLE001
+        df = pd.DataFrame(columns=cols)
+    df = df[df["ticker"].astype(str).str.upper() != row["ticker"]] if len(df) else df
+    df = pd.concat([df, pd.DataFrame([row])], ignore_index=True)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    df[cols].sort_values("ticker").to_csv(p, index=False)
+    _ALIASES = None
+
+
+_SEARCH_COMPANY = re.compile(r"/company/([A-Za-z0-9.]{2,8})\b")
+
+
+def parse_investegate_search(html: str, want_name: str | None = None) -> str | None:
+    """The company code the site's /search?words= page returns.
+
+    The page lists name, symbol and ISIN matches as
+    '<p class="search-company"><a href=".../company/SHPP">Tufton Assets
+    Limited (SHPP)</a></p>'. An ISIN query is exact, so the first result is
+    taken; a name query must name the fund (first two words) to count.
+    """
+    soup = BeautifulSoup(html or "", "html.parser")
+    links = soup.select("p.search-company a[href]") or soup.select("a[href*='/company/']")
+    need = None
+    if want_name:
+        words = [w for w in re.findall(r"[a-z0-9]+", want_name.lower())
+                 if w not in ("the", "plc", "limited", "ltd", "fund", "trust")][:2]
+        need = words or None
+    for a in links:
+        m = _SEARCH_COMPANY.search(a.get("href", ""))
+        if not m:
+            continue
+        if need and not all(w in a.get_text(" ", strip=True).lower() for w in need):
+            continue
+        return m.group(1).upper()
+    return None
+
+
+def resolve_investegate_code(session, ticker: str, isin: str | None = None,
+                             name: str | None = None) -> tuple[str | None, str]:
+    """Look the company up on Investegate by ISIN, then by name.
+
+    Returns (code, method). A code equal to the ticker is still returned -
+    it proves the page exists - and nothing is guessed.
+    """
+    base = "https://www.investegate.co.uk/search?words="
+    for q, method, want in ((isin, "isin_search", None), (name, "name_search", name)):
+        if not q or not str(q).strip():
+            continue
+        try:
+            r = session.get(base + requests.utils.quote(str(q).strip()), timeout=30)
+        except Exception:  # noqa: BLE001
+            continue
+        if r.status_code != 200:
+            continue
+        code = parse_investegate_search(r.text, want_name=want)
+        if code:
+            return code, method
+    return None, "unresolved"
+
+
 def uk_row_matches_ticker(url: str, ticker: str) -> bool:
     """Does this announcement URL belong to this ticker's company?
 
-    True when the URL's company-slug ticker suffix matches, and also when
-    the URL carries no recognisable slug (older cache rows) - absence of
-    evidence is not evidence of contamination. False only on a positive
-    mismatch, which is the market-feed fallback signature.
+    True when the URL's company-slug ticker suffix matches the ticker OR
+    the Investegate code the alias file maps it to, and also when the URL
+    carries no recognisable slug (older cache rows) - absence of evidence
+    is not evidence of contamination. False only on a positive mismatch,
+    which is the market-feed fallback signature.
     """
     m = _URL_TICKER.search(str(url or "").lower())
     if m is None:
         return True
-    return m.group(1) == str(ticker or "").lower()
+    t = str(ticker or "").lower()
+    if m.group(1) == t:
+        return True
+    alias = investegate_aliases().get(t.upper())
+    return bool(alias) and m.group(1) == alias.lower()
 
 
 # Investegate's model-generated summary panel is deliberately NOT stripped
@@ -1080,7 +1190,9 @@ def harvest_uk(ticker_map: pd.DataFrame, census: pd.DataFrame,
                lookback_days: int = 45, budget: int = 0,
                extra_targets: dict[str, str] | None = None,
                deadline_min: float = 60.0,
-               write_listing_cache: bool = True) -> pd.DataFrame:
+               write_listing_cache: bool = True,
+               isin_by_ticker: dict[str, str] | None = None,
+               name_by_ticker: dict[str, str] | None = None) -> pd.DataFrame:
     """Published NAV for EVERY fund we can address, from its own RNS page.
 
     The registry (AIC/ASX files) is used for identity only. Every live fund
@@ -1144,31 +1256,66 @@ def harvest_uk(ticker_map: pd.DataFrame, census: pd.DataFrame,
     # everything the listing page shows, keyed by ticker, for the cache the
     # archive job reads
     listing_rows: dict[str, list[dict]] = {}
+    aliases = dict(investegate_aliases())
+    isins = {str(k).upper(): v for k, v in (isin_by_ticker or {}).items()}
+    names = {str(k).upper(): v for k, v in (name_by_ticker or {}).items()}
+
+    def company_page(code: str):
+        r = s.get(f"https://www.investegate.co.uk/company/{code}", timeout=45)
+        if r.status_code != 200:
+            return None
+        soup = BeautifulSoup(r.text, "html.parser")
+        h1 = soup.find("h1")
+        h1_m = re.search(r"\(([A-Z0-9.]{2,8})\)\s+RNS",
+                         h1.get_text(" ", strip=True)) if h1 else None
+        return soup, (h1_m.group(1).upper() if h1_m else None)
+
     for tk in targets:
         if (_t.time() - started) > deadline_min * 60:
             stats["deadline_reached_after"] = len(rows)
             break
         _t.sleep(1.5)
+        code = aliases.get(tk.upper(), tk)
         try:
-            r = s.get(f"https://www.investegate.co.uk/company/{tk}", timeout=45)
-            if r.status_code != 200:
-                stats["listing_fail"] += 1
-                continue
-            soup = BeautifulSoup(r.text, "html.parser")
+            got = company_page(code)
         except Exception:  # noqa: BLE001
+            got = None
+        if got is None:
             stats["listing_fail"] += 1
             continue
+        soup, page_code = got
         # An unknown or dead ticker's page silently serves the MARKET-WIDE
         # feed - the crawler has guarded its H1 since day one, and this
         # harvest not doing the same resurrected 56 delisted funds with
         # other companies' announcement dates and polluted their listing
-        # caches. The page must name THIS ticker or nothing here is used.
-        h1 = soup.find("h1")
-        h1_m = re.search(r"\(([A-Z0-9.]{2,8})\)\s+RNS",
-                         h1.get_text(" ", strip=True)) if h1 else None
-        if h1_m is None or h1_m.group(1).upper() != tk.upper():
-            stats["identity_mismatch"] = stats.get("identity_mismatch", 0) + 1
-            continue
+        # caches. The page must name THIS company or nothing here is used.
+        # When it does not, and the fund's identity is known (ISIN, name),
+        # Investegate's own search says which code it files under - Tufton
+        # Assets is SHPP there, SHIP to the market feed - and the alias is
+        # committed so every reader judges the fund's rows by the same code.
+        if page_code is None or page_code != code.upper():
+            found, method = (None, "unresolved")
+            if tk.upper() not in aliases and (isins.get(tk.upper()) or names.get(tk.upper())):
+                _t.sleep(1.5)
+                found, method = resolve_investegate_code(
+                    s, tk, isin=isins.get(tk.upper()), name=names.get(tk.upper()))
+            if found and found.upper() != code.upper():
+                record_investegate_code(tk, found, isins.get(tk.upper()), method)
+                aliases[tk.upper()] = found.upper()
+                stats["alias_resolved"] = stats.get("alias_resolved", 0) + 1
+                _t.sleep(1.5)
+                try:
+                    got = company_page(found)
+                except Exception:  # noqa: BLE001
+                    got = None
+                if got is None or got[1] != found.upper():
+                    stats["identity_mismatch"] = stats.get("identity_mismatch", 0) + 1
+                    continue
+                soup, page_code = got
+                code = found
+            else:
+                stats["identity_mismatch"] = stats.get("identity_mismatch", 0) + 1
+                continue
         best = None
         for tr in soup.select("table.table-investegate tbody tr"):
             tds = tr.find_all("td")

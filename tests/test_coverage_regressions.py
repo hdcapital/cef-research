@@ -1558,3 +1558,58 @@ def test_a_funds_own_delisting_notice_ends_it():
     # a manual entry is never ended by a headline
     got = liveness.classify({"manual": True, "delisting_notice": "2026-06-26"}, as_of=as_of)
     assert got["status"] == liveness.STATUS_LIVE
+
+
+def test_investegate_alias_resolves_the_company_page_code(tmp_path, monkeypatch):
+    """Tufton Assets is SHIP to the market feed and SHPP to Investegate;
+    /company/SHIP serves the market-wide feed. The site's own search names
+    the code; the alias is committed; every reader judges the fund's rows
+    by it."""
+    from cef_live import harvest_nav as H
+    html = ('<h4>Company Results</h4><div class="col-12"><h5>Name results</h5></div>'
+            '<div class="col-12 col-md-6"><p class="search-company" title="Tufton Assets Limited">'
+            '<a href="https://www.investegate.co.uk/company/SHPP">Tufton Assets Limited (SHPP)</a></p></div>')
+    assert H.parse_investegate_search(html) == "SHPP"
+    assert H.parse_investegate_search(html, want_name="Tufton Assets") == "SHPP"
+    assert H.parse_investegate_search(html, want_name="US Solar Fund") is None
+    assert H.parse_investegate_search("<p>nothing</p>") is None
+    p = tmp_path / "codes.csv"
+    H.record_investegate_code("SHIP", "SHPP", "GG00BDFC1642", "isin_search", path=p)
+    H.record_investegate_code("SHIP", "SHPP", "GG00BDFC1642", "isin_search", path=p)
+    assert H.investegate_aliases(p) == {"SHIP": "SHPP"}
+    monkeypatch.setattr(H, "INVESTEGATE_CODES", p)
+    H._ALIASES = None
+    url = "https://www.investegate.co.uk/announcement/rns/tufton-assets-limited--shpp/portfolio-update/9750017"
+    assert H.uk_row_matches_ticker(url, "SHIP")
+    assert H.uk_row_matches_ticker(url, "SHPP")
+    assert not H.uk_row_matches_ticker(url, "USF")
+    assert not H.uk_row_matches_ticker(
+        "https://www.investegate.co.uk/announcement/rns/jadestone-energy--jse/x/1", "SHIP")
+
+
+def test_resolve_investegate_code_prefers_isin_then_name():
+    from cef_live import harvest_nav as H
+
+    class R:
+        def __init__(self, text, status=200):
+            self.text, self.status_code = text, status
+
+    class S:
+        def __init__(self):
+            self.calls = []
+
+        def get(self, url, timeout=30):
+            self.calls.append(url)
+            if "GG00BDFC1642" in url:
+                return R('<p class="search-company"><a href="/company/SHPP">Tufton Assets Limited (SHPP)</a></p>')
+            if "Tufton" in url:
+                return R('<p class="search-company"><a href="/company/SHPP">Tufton Assets Limited (SHPP)</a></p>')
+            return R("<p>none</p>")
+
+    s = S()
+    assert H.resolve_investegate_code(s, "SHIP", isin="GG00BDFC1642", name="Tufton Assets") == ("SHPP", "isin_search")
+    assert len(s.calls) == 1
+    s = S()
+    assert H.resolve_investegate_code(s, "SHIP", isin="XX0000000000", name="Tufton Assets") == ("SHPP", "name_search")
+    s = S()
+    assert H.resolve_investegate_code(s, "USF", isin=None, name="US Solar Fund") == (None, "unresolved")

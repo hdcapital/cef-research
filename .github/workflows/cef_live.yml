@@ -134,7 +134,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -f outputs/live reports/build data/universe data/forward_irr \
-            config/resolved_tickers.csv data/nta_live/latest.parquet \
+            config/resolved_tickers.csv config/investegate_codes.csv \
+            data/nta_live/latest.parquet \
             data/nta_live/*.csv || true
           if git diff --cached --quiet; then
             echo "no changes"
