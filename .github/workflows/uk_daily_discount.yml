@@ -101,10 +101,21 @@ jobs:
             echo "no change"
           else
             git commit -m "CI: UK daily discount panel ($(date -u +%Y-%m-%dT%H:%MZ))"
+            ours=$(git rev-parse HEAD)
             pushed=0
             for i in 1 2 3 4; do
-              if git pull --rebase --autostash origin "${GITHUB_REF_NAME}" \
+              if git pull --rebase --autostash -X theirs origin "${GITHUB_REF_NAME}" \
                  && git push origin "HEAD:${GITHUB_REF_NAME}"; then pushed=1; break; fi
+              # A rebase conflict (another job committed the same output
+              # file) left an hour's reparse unpushed on 2026-09-03. Start
+              # again from the branch tip and re-apply ONLY our files.
+              git rebase --abort 2>/dev/null || true
+              git fetch origin "${GITHUB_REF_NAME}" && git reset -q --hard "origin/${GITHUB_REF_NAME}"
+              git checkout "$ours" -- outputs/live/uk_daily_status.json 2>/dev/null || true
+              git checkout "$ours" -- $(git show --pretty=format: --name-only "$ours" | grep '^outputs/live/uk_' || true) 2>/dev/null || true
+              git add -A outputs/live/uk_*.csv outputs/live/uk_daily_status.json || true
+              git diff --cached --quiet || git commit -q -m "CI: UK daily discount panel ($(date -u +%Y-%m-%dT%H:%MZ), retry $i)"
+              ours=$(git rev-parse HEAD)
               sleep $((2 ** i))
             done
             if [ "$pushed" != 1 ]; then
