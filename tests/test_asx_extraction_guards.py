@@ -840,3 +840,20 @@ def test_own_series_outliers_drop_a_day_of_month_read_not_a_series():
     assert not facts.own_series_outliers(short).any()
     kept = facts.drop_own_series_outliers(df)
     assert len(kept) == 9 and (kept["nav_value"] < 3).all()
+
+
+def test_own_series_outliers_judge_by_monthly_medians_not_row_counts():
+    """Three label rules all reading "31 July" as 31.0 for one announcement
+    cannot outvote the one correct read: the reference is the rolling
+    median of monthly medians."""
+    import pandas as pd
+    from au_lic.extract import facts
+    rows = []
+    for i, m in enumerate(pd.date_range("2024-01-31", periods=10, freq="ME")):
+        rows.append({"security_id": "ASX:MXT", "nav_date": m, "nav_value": 2.0 + i / 100, "nav_unit": "AUD"})
+        if i % 3 == 1:
+            for _ in range(3):
+                rows.append({"security_id": "ASX:MXT", "nav_date": m, "nav_value": 31.0, "nav_unit": "AUD"})
+    df = pd.DataFrame(rows)
+    bad = facts.own_series_outliers(df)
+    assert bad.tolist() == [v == 31.0 for v in df["nav_value"]]

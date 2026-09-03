@@ -751,8 +751,19 @@ UK_RULES = [
     # the pence figure sits between the fund name and the ISIN with no
     # unit at all; 806 NAV announcements never parsed for want of a 'p'.
     ("cum_assumed", 3, _R(r"FUND NAME\s+NAV\s+ISIN[\s\S]{0,160}?\s"
-                          r"([0-9]{1,5}\.[0-9]{2,4})\s+"
+                          r"([0-9]{1,5}\.[0-9]{2,4})\s+(?:XD\s+)?"
                           r"(?:GB|GG|JE|IE|LU)[0-9A-Z]{10}\b", re.I)),
+    # abrdn European Logistics Income: "IFRS NAV per Ordinary Share of 33.6
+    # euro cents* (GBp - 29.3p)" - the sterling restatement; the plain
+    # fallback had read a footnote "1.0" as the NAV.
+    ("cum", 2, _R(r"NAV per Ordinary Share of\s*[0-9][0-9.,]*\s*euro\s*cents\*?\s*"
+                  r"\(GBp\s*[-:]\s*" + UK_PENCE + r"\)", re.I)),
+    # Schroder REIT's quarterly bridge: "£m pps Comments NAV as at 31 March
+    # 2026 297.9 60.9 ... NAV as at 30 June 2026 299.2 61.2" - the CLOSING
+    # line is the last "NAV as at" in the document, and its second figure
+    # is pence per share.
+    ("cum", 3, _R(r"\bNAV as at (?:\d{1,2}\s+\w+\s+\d{4})\s+[0-9][0-9,]*\.[0-9]+\s+"
+                  r"([0-9]{1,4}\.[0-9]{1,2})\b(?![\s\S]*?\bNAV as at \d)", re.I)),
     # Diverse Income: "Including current period revenue to 25th June 2026
     # 119.51 per ordinary share" - no pence marker after the number
     ("cum", 2, _R(r"Including current (?:period|year) revenue[^0-9]{0,80}?"
@@ -885,9 +896,20 @@ UK_CCY_RULES = [
     # of the Company based on ... is £2.59935 as at 31 August 2026'
     (_R(r"\(\s*\"?\s*NAV\s*\"?\s*\)\s*per ordinary share[^£$€]{0,200}?\bis\s*£\s*([0-9]+\.[0-9]+)", re.I),
      "cum", "GBX", 100.0),
-    # Riverstone Energy: "NAV per share of $15.97 (£12.09)" - the sterling
-    # restatement, as for HarbourVest above.
-    (_R(r"\bNAV per share of\s*(?:US)?\$\s*[0-9][0-9,]*\.[0-9]+\s*\(£\s*([0-9][0-9,]*\.[0-9]+)\)", re.I),
+    # Riverstone Energy: "NAV per share of $15.97 (£12.09)"; Neuberger:
+    # "NAV per share was $27.48 (£20.70)" - the sterling restatement, as for
+    # HarbourVest above.
+    (_R(r"\bNAV per share (?:of|was|is)\s*(?:US)?\$\s*[0-9][0-9,]*\.[0-9]+\s*\(£\s*([0-9][0-9,]*\.[0-9]+)\)", re.I),
+     "cum", "GBX", 100.0),
+    # Pershing Square's monthly report: "NAV/Share (in USD) $80.51 ...
+    # NAV/Share (in GBP) £59.42" - the sterling line its London shares
+    # trade against; the dollar line only if sterling is absent.
+    (_R(r"NAV/Share\s*\(in GBP\)\s*£\s*([0-9][0-9,]*\.[0-9]+)", re.I), "cum", "GBX", 100.0),
+    (_R(r"NAV/Share\s*\(in USD\)\s*\$\s*([0-9][0-9,]*\.[0-9]+)", re.I), "cum", "USD", 1.0),
+    # Castelnau (Apex table): "FUND NAME NAV PER ORDINARY SHARE ISIN NAV DATE
+    # Castelnau Group Limited 1.13 GBP* GG00BMWWJM28" - pounds before the ISIN
+    (_R(r"FUND NAME\s+NAV[\s\S]{0,40}?PER ORDINARY SHARE\s+ISIN[\s\S]{0,140}?\s"
+        r"([0-9]{1,4}\.[0-9]{1,4})\s*GBP\*?\s+(?:GB|GG|JE|IE|LU)[0-9A-Z]{10}\b", re.I),
      "cum", "GBX", 100.0),
     # Schroder European Real Estate: "116.7 euro cents per share" - a euro
     # NAV against a London pence price; converted at the cross-rate level

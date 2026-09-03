@@ -53,6 +53,16 @@ def _snapshot_s3(path: Path, key: str) -> str:
 
 
 
+# A headline that IS the fund's own delisting: the LSE "Cancellation - <name>"
+# notice, a cancellation of admission/listing, a scheme becoming effective
+# (merger or take-private), a compulsory acquisition; ASX: removal from the
+# official list. Anchored so "cancellation of treasury shares" cannot match.
+DELIST_HEAD = re.compile(
+    r"^\s*(?:cancellation|delisting)\s*[-\u2013:]|cancellation of (?:the )?"
+    r"(?:admission|listing)|scheme (?:of arrangement )?(?:becomes|has become|"
+    r"is now) effective|compulsory acquisition|removal from (?:the )?official list",
+    re.I)
+
 REPORT_HEAD = re.compile(
     r"annual report|half[\s-]?year(?:ly)? (?:report|result|account)|"
     r"preliminary final report|appendix 4[de]\b|financial report|"
@@ -121,6 +131,9 @@ def _liveness_evidence(code_reuse_cutoff: dict[str, str] | None = None) -> pd.Da
             rep = g[g["headline"].fillna("").str.contains(REPORT_HEAD)]
             if len(rep):
                 note(sid, "last_report", rep["d"].max())
+            dl = g[g["headline"].fillna("").str.contains(DELIST_HEAD)]
+            if len(dl):
+                note(sid, "delisting_notice", dl["d"].max())
             # a published NTA statement is a published NAV, whether or not
             # the PDF behind it parsed
             nav = g[g["headline"].fillna("").str.contains(NAV_HEAD)]
@@ -209,6 +222,10 @@ def _liveness_evidence(code_reuse_cutoff: dict[str, str] | None = None) -> pd.Da
                 dr = pd.to_datetime(rep["date"], errors="coerce").dropna()
                 if len(dr):
                     note(sid, "last_report", dr.max())
+                dl = df_[df_["headline"].fillna("").str.contains(DELIST_HEAD)]
+                dd = pd.to_datetime(dl["date"], errors="coerce").dropna()
+                if len(dd):
+                    note(sid, "delisting_notice", dd.max())
     return pd.DataFrame(list(rows.values())) if rows else pd.DataFrame(
         columns=["security_id", "last_nav", "last_report", "last_announcement"])
 

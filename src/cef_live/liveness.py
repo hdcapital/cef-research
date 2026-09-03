@@ -115,6 +115,17 @@ def classify(evidence: dict, as_of: date | None = None,
         return {**out, "status": STATUS_LIVE, "liveness_reason": "manual_entry",
                 "live_status_source": "manual_entry"}
 
+    # The fund's OWN delisting notice is the strongest evidence there is:
+    # "Cancellation - Augmentum Fintech plc", "CANCELLATION OF ADMISSION TO
+    # TRADING" (Amedeo Air Four Plus), "Scheme becomes Effective". A NAV
+    # published after it (a final NAV the same week) does not revive it.
+    dn = _d(evidence.get("delisting_notice"))
+    if dn is not None and (nav is None or (nav - dn).days <= 7):
+        return {**out, "status": STATUS_DELISTED,
+                "delisting_notice": dn.isoformat(),
+                "liveness_reason": f"own_delisting_notice_{age(dn)}d",
+                "live_status_source": "own_delisting_notice"}
+
     # Corroborated delisting outranks the stale-NAV grace: when the
     # AGGREGATOR has already delisted the fund AND its own filings have
     # gone silent past the fresh-NAV window, both independent sources

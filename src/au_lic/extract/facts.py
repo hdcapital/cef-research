@@ -158,21 +158,31 @@ OWN_SERIES_BAND = (0.6, 1.0 / 0.6)
 def own_series_outliers(df: pd.DataFrame, sid_col: str = "security_id",
                         date_col: str = "nav_date",
                         value_col: str = "nav_value") -> pd.Series:
-    """Boolean mask (True = outlier) of observations far from the centred
-    rolling median of their own fund's series. Needs >= 5 observations per
-    fund; anything smaller is left alone."""
+    """Boolean mask (True = outlier) of observations far from their own
+    fund's neighbouring months.
+
+    Reference = centred rolling median (7 months, >= 4 present) of the
+    fund's MONTHLY medians, so several wrong reads of one announcement
+    (three label rules all taking "31 July" for 31.0) cannot outvote the
+    right one. Needs >= 5 dated observations per fund; undated rows and
+    smaller series are left alone.
+    """
     bad = pd.Series(False, index=df.index)
     if not len(df):
         return bad
     d = pd.to_datetime(df[date_col], errors="coerce")
-    for _, g in df.assign(_d=d).groupby(sid_col):
+    v = pd.to_numeric(df[value_col], errors="coerce")
+    work = pd.DataFrame({"sid": df[sid_col], "m": d.dt.to_period("M"), "v": v},
+                        index=df.index).dropna(subset=["m", "v"])
+    for _, g in work.groupby("sid"):
         if len(g) < 5:
             continue
-        g = g.sort_values("_d")
-        v = pd.to_numeric(g[value_col], errors="coerce").astype(float)
-        med = v.rolling(OWN_SERIES_WINDOW, center=True, min_periods=4).median()
-        ratio = v / med
-        flag = ((ratio < OWN_SERIES_BAND[0]) | (ratio > OWN_SERIES_BAND[1])).fillna(False)
+        monthly = g.groupby("m")["v"].median().sort_index()
+        if len(monthly) < 4:
+            continue
+        ref = monthly.rolling(OWN_SERIES_WINDOW, center=True, min_periods=4).median()
+        r = g["v"] / g["m"].map(ref)
+        flag = ((r < OWN_SERIES_BAND[0]) | (r > OWN_SERIES_BAND[1])).fillna(False)
         bad.loc[g.index[flag.values]] = True
     return bad
 

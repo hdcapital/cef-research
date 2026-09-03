@@ -1488,3 +1488,73 @@ def test_liveness_evidence_honours_the_code_reuse_cutoff(monkeypatch, tmp_path):
     assert row["last_announcement"] == "2021-04-19"       # the 2026 filing is the new owner's
     ev2 = cli._liveness_evidence()
     assert ev2.set_index("security_id").loc["ASX:APL"]["last_announcement"] == "2026-08-25"  # index dates are UTC
+
+
+def test_second_probe_round_phrasings_read_their_values():
+    """Pershing Square, Neuberger, Castelnau, TwentyFour Select, abrdn
+    European Logistics, Schroder REIT - real bodies from the 2026-09-03
+    probe (20k characters this time)."""
+    from cef_live.harvest_nav import parse_uk_nav_text
+    psh = ("Net Performance 4.4% -5.2% Short 0 NAV/Share (in USD) $80.51 "
+           "Total 17 NAV/Share (in GBP) £59.42 Equity & Debt Exposure")
+    g = parse_uk_nav_text(psh)
+    assert abs(g["nav_cum_pence"] - 5942.0) < 1e-9 and g["nav_ccy"] == "GBX"
+    g = parse_uk_nav_text("Short 0 NAV/Share (in USD) $80.51 Total 17")
+    assert g["nav_cum_pence"] == 80.51 and g["nav_ccy"] == "USD"
+    nbpe = ("NAV Highlights (30 June 2026) NAV per share was $27.48 (£20.70), "
+            "a USD total return of 1.0% in the month")
+    g = parse_uk_nav_text(nbpe)
+    assert abs(g["nav_cum_pence"] - 2070.0) < 1e-9 and g["nav_ccy"] == "GBX"
+    cgl = ("Publication of Net Asset Value (\u201cNAV\u201d) FUND NAME NAV\u00ad PER "
+           "ORDINARY SHARE ISIN NAV DATE Castelnau Group Limited 1.13 GBP* "
+           "GG00BMWWJM28 30 th June 2026 *Cum-income NAV")
+    g = parse_uk_nav_text(cgl)
+    assert abs(g["nav_cum_pence"] - 113.0) < 1e-9 and g["nav_ccy"] == "GBX"
+    smif = ("Final Net Asset Value FUND NAME NAV ISIN NAV DATE Twenty-Four "
+            "Select Monthly Income Fund Limited 84.08 XD GG00BJVDZ946 28 th "
+            "August 2026 Enquiries:")
+    assert parse_uk_nav_text(smif)["nav_cum_pence"] == 84.08
+    asli = ("Summary - IFRS NAV per Ordinary Share of 33.6 euro cents* (GBp - "
+            "29.3p) (31 December 2025 NAV: 33.5 euro cents (GBp - 29.3p)). - "
+            "NAV per Ordinary Share including provision for estimated portfolio "
+            "disposal and Company structure liquidation costs of 32.9 euro "
+            "cents* (GBp - 28.7p) Note 1.0 net asset value 1.0p")
+    g = parse_uk_nav_text(asli)
+    assert g["nav_cum_pence"] == 29.3 and g["nav_ccy"] == "GBX"
+    srei = ("A breakdown of the quarterly movement in the NAV is set out below: "
+            "£m pps Comments NAV as at 31 March 2026 297.9 60.9 Calculation "
+            "based on 489,110,576 shares EPRA earnings 4.1 0.8 Dividend paid "
+            "(4.4) (0.9) NAV as at 30 June 2026 299.2 61.2 Calculation based on")
+    g = parse_uk_nav_text(srei)
+    assert g["nav_cum_pence"] == 61.2
+
+
+def test_a_funds_own_delisting_notice_ends_it():
+    """Amedeo Air Four Plus filed 'CANCELLATION OF ADMISSION TO TRADING' on
+    2026-06-26 and Augmentum 'Cancellation - Augmentum Fintech plc' on
+    2026-05-14; both sat in the priced universe for want of 120 days of
+    silence. The notice is the evidence; a final NAV the same week does
+    not revive the fund."""
+    import pandas as pd
+    from cef_live import liveness, cli
+    for h in ["Cancellation - Augmentum Fintech plc",
+              "CANCELLATION OF ADMISSION TO TRADING",
+              "Scheme becomes Effective", "Delisting - Foo plc",
+              "Removal from Official List"]:
+        assert cli.DELIST_HEAD.search(h), h
+    for h in ["Cancellation of treasury shares", "Proposed scheme of arrangement",
+              "Net Asset Value(s)", "Results of Second General Meeting"]:
+        assert not cli.DELIST_HEAD.search(h), h
+    as_of = pd.Timestamp("2026-09-03").date()
+    got = liveness.classify({"aggregator_status": "live", "last_nav": "2026-06-24",
+                             "last_announcement": "2026-06-26",
+                             "delisting_notice": "2026-06-26"}, as_of=as_of)
+    assert got["status"] == liveness.STATUS_DELISTED
+    assert got["live_status_source"] == "own_delisting_notice"
+    # a NAV well after the notice means it was not this fund's end
+    got = liveness.classify({"aggregator_status": "live", "last_nav": "2026-08-30",
+                             "delisting_notice": "2026-05-01"}, as_of=as_of)
+    assert got["status"] == liveness.STATUS_LIVE
+    # a manual entry is never ended by a headline
+    got = liveness.classify({"manual": True, "delisting_notice": "2026-06-26"}, as_of=as_of)
+    assert got["status"] == liveness.STATUS_LIVE

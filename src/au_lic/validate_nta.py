@@ -166,6 +166,8 @@ def summarise(classified: pd.DataFrame, extracted_total: int | None = None) -> d
         "funds_compared": int(classified["ticker"].nunique()),
         "worst": classified.nlargest(min(15, n), "rel_diff")[
             ["ticker", "month", "nav_per_share", "nta_price", "ratio", "verdict"]
+            + [c for c in ("extractor", "label", "announcement_id", "valuation_date")
+               if c in classified.columns]
         ].to_dict("records"),
     }
     if extracted_total:
