@@ -5,75 +5,75 @@
   "basis_counts": {
     "nan": 375,
     "0.0": 266,
-    "3.0": 261,
-    "1.0": 214
+    "3.0": 258,
+    "1.0": 217
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 188,
+  "alert_eligible": 166,
   "z_extremes": [
     {
       "security_id": "SEDOL:BL690L8",
       "z_adj": -61.0706,
       "discount_est": -0.989873,
-      "staleness_days": 93.0
+      "staleness_days": 94.0
     },
     {
       "security_id": "SEDOL:BRC8992",
       "z_adj": -54.8883,
       "discount_est": -0.990132,
-      "staleness_days": 2.0
+      "staleness_days": 3.0
     },
     {
       "security_id": "SEDOL:BDHXP96",
       "z_adj": -44.2671,
       "discount_est": -0.723191,
-      "staleness_days": 0.0
+      "staleness_days": 1.0
     },
     {
       "security_id": "SEDOL:BNGFHX1",
       "z_adj": -37.4398,
       "discount_est": -0.990494,
-      "staleness_days": 176.0
+      "staleness_days": 177.0
     },
     {
       "security_id": "SEDOL:B1G3N11",
-      "z_adj": -36.3285,
-      "discount_est": -0.889717,
-      "staleness_days": 1.0
+      "z_adj": -36.3274,
+      "discount_est": -0.889694,
+      "staleness_days": 2.0
     },
     {
       "security_id": "SEDOL:BKV46W4",
       "z_adj": -36.0335,
       "discount_est": -0.99072,
-      "staleness_days": 47.0
+      "staleness_days": 48.0
     },
     {
       "security_id": "ASX:ALR",
       "z_adj": -32.9293,
       "discount_est": -0.962978,
-      "staleness_days": 2221.0
+      "staleness_days": 2222.0
     },
     {
       "security_id": "ASX:CTN",
       "z_adj": -32.181,
       "discount_est": -0.952885,
-      "staleness_days": 2307.0
+      "staleness_days": 2308.0
     },
     {
       "security_id": "NAME:unicorn aim vct following conversion of unicorn aim vct ords and series 2 and merger with unicorn aim vct ii|ordinary share",
-      "z_adj": -27.2518,
-      "discount_est": -0.991726,
-      "staleness_days": 24.0
+      "z_adj": -27.2545,
+      "discount_est": -0.991813,
+      "staleness_days": 25.0
     },
     {
       "security_id": "SEDOL:1610207",
       "z_adj": -21.6105,
-      "discount_est": -0.495455,
-      "staleness_days": 1.0
+      "discount_est": -0.495454,
+      "staleness_days": 2.0
     }
   ],
-  "date": "2026-09-03",
+  "date": "2026-09-04",
   "markets": {
     "au_identity_blocked": 0,
     "au": {
@@ -111,5 +111,5 @@
     }
   },
   "carried_forward_rows": 0,
-  "snapshot": "s3_exists_not_overwritten:nta_live/2026-09-03.parquet"
+  "snapshot": "s3_uploaded:nta_live/2026-09-04.parquet"
 }
