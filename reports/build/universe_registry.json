@@ -5,8 +5,8 @@
     "AU": 172,
     "UK": 944
   },
-  "live": 359,
-  "live_stale_nav": 33,
+  "live": 361,
+  "live_stale_nav": 31,
   "status_before_evidence": {
     "delisted": 731,
     "live": 376,
@@ -17,12 +17,12 @@
   "persisted_to": "data/universe/registry.parquet",
   "live_status_source": {
     "corroborated_delisting": 654,
-    "own_nav_announcement": 348,
+    "own_nav_announcement": 350,
     "own_delisting_notice": 64,
     "own_periodic_report": 29,
     "registry_deferral_no_own_filings": 11,
     "own_announcement_only": 5,
-    "own_nav_announcement_stale": 4,
+    "own_nav_announcement_stale": 2,
     "registry_last_seen": 1
   },
   "revived_by_own_filings": 20,
@@ -41,14 +41,14 @@
   "delisted": 64,
   "priced_by_source": 638,
   "announcements_only": 478,
-  "live_announcements_only": 93,
+  "live_announcements_only": 95,
   "offshore": 195,
   "vct": 228,
   "live_by_domicile": {
     "GB": 202,
     "null": 97,
     "GG": 33,
-    "JE": 12,
+    "JE": 14,
     "BM": 11,
     "KY": 2,
     "IE": 1,
@@ -254,6 +254,24 @@
       "months_listed": 74
     },
     {
+      "security_id": "SEDOL:BF0D1M2",
+      "name": "EJF Investments",
+      "sector": "Debt - Structured Finance",
+      "domicile": "JE",
+      "isin": "JE00BF0D1M25",
+      "first_seen": "2017-04",
+      "months_listed": 112
+    },
+    {
+      "security_id": "SEDOL:BDG12N4",
+      "name": "EJF Investments",
+      "sector": "Debt - Structured Finance",
+      "domicile": "JE",
+      "isin": "JE00BDG12N48",
+      "first_seen": "2017-11",
+      "months_listed": 60
+    },
+    {
       "security_id": "SEDOL:BF00L34",
       "name": "Fair Oaks Income 2021",
       "sector": "Debt - Structured Finance",
@@ -434,15 +452,6 @@
       "months_listed": 7
     },
     {
-      "security_id": "SEDOL:BD96PR1",
-      "name": "NB Private Equity Partners",
-      "sector": "Private Equity",
-      "domicile": "GG",
-      "isin": "GG00BD96PR19",
-      "first_seen": "2018-05",
-      "months_listed": 77
-    },
-    {
       "security_id": "SEDOL:BD0FRW6",
       "name": "NB Private Equity Partners",
       "sector": "Private Equity",
@@ -450,6 +459,15 @@
       "isin": "GG00BD0FRW63",
       "first_seen": "2016-09",
       "months_listed": 72
+    },
+    {
+      "security_id": "SEDOL:BD96PR1",
+      "name": "NB Private Equity Partners",
+      "sector": "Private Equity",
+      "domicile": "GG",
+      "isin": "GG00BD96PR19",
+      "first_seen": "2018-05",
+      "months_listed": 77
     },
     {
       "security_id": "SEDOL:B1ZBD49",
@@ -900,11 +918,11 @@
     "Infrastructure": 6,
     "Flexible Investment": 5,
     "UK Smaller Companies": 5,
+    "Debt - Structured Finance": 5,
     "Australian Indices": 4,
-    "Country Specialist": 3,
     "Growth Capital": 3,
+    "Country Specialist": 3,
     "Debt - Loans & Bonds": 3,
-    "Debt - Structured Finance": 3,
     "Property - UK Commercial": 2,
     "North America": 2,
     "Hedge Funds": 2,

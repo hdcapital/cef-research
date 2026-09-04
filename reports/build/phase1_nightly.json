@@ -5,12 +5,12 @@
   "basis_counts": {
     "nan": 375,
     "0.0": 296,
-    "3.0": 258,
-    "1.0": 187
+    "3.0": 255,
+    "1.0": 190
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 189,
+  "alert_eligible": 176,
   "z_extremes": [
     {
       "security_id": "SEDOL:BL690L8",
@@ -38,8 +38,8 @@
     },
     {
       "security_id": "SEDOL:B1G3N11",
-      "z_adj": -36.3243,
-      "discount_est": -0.889627,
+      "z_adj": -36.3355,
+      "discount_est": -0.889869,
       "staleness_days": 1.0
     },
     {
@@ -68,7 +68,7 @@
     },
     {
       "security_id": "SEDOL:B631ZQ2",
-      "z_adj": -31.3411,
+      "z_adj": -30.7301,
       "discount_est": -0.990922,
       "staleness_days": 48.0
     }
@@ -85,7 +85,7 @@
     "uk_identity_blocked": 336,
     "uk_nav_targets": 297,
     "uk_registry_only_targets": 101,
-    "uk_aux_z_history_funds": 242,
+    "uk_aux_z_history_funds": 243,
     "uk_fx_pairs": [
       "CAD",
       "EUR",
@@ -93,7 +93,7 @@
     ],
     "uk_nav_validation": {
       "comparable_pairs": 5065,
-      "agreement_rate_pairs": 0.9684
+      "agreement_rate_pairs": 0.9686
     },
     "uk": {
       "tier0_navs": 229,
