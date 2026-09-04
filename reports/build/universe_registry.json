@@ -1,26 +1,26 @@
 {
-  "delist_candidates": 668,
+  "delist_candidates": 660,
   "vehicles": 1116,
   "by_market": {
     "AU": 172,
     "UK": 944
   },
-  "live": 358,
-  "live_stale_nav": 34,
+  "live": 359,
+  "live_stale_nav": 33,
   "status_before_evidence": {
     "delisted": 731,
     "live": 376,
     "delist_candidate": 9
   },
-  "evidence_rows": 510,
+  "evidence_rows": 511,
   "au_code_reuse_cutoffs": 77,
   "persisted_to": "data/universe/registry.parquet",
   "live_status_source": {
-    "corroborated_delisting": 662,
-    "own_nav_announcement": 346,
-    "own_delisting_notice": 56,
-    "own_periodic_report": 30,
-    "registry_deferral_no_own_filings": 12,
+    "corroborated_delisting": 654,
+    "own_nav_announcement": 348,
+    "own_delisting_notice": 64,
+    "own_periodic_report": 29,
+    "registry_deferral_no_own_filings": 11,
     "own_announcement_only": 5,
     "own_nav_announcement_stale": 4,
     "registry_last_seen": 1
@@ -29,23 +29,23 @@
   "aggregator_said_live_evidence_says_not": 6,
   "by_liveness_reason": {
     "aggregator_delisted_and_own_filings_silent_alwaysd": 594,
-    "nav": 349,
-    "aggregator_delisted_and_own_filings_silent": 68,
-    "own_delisting_notice": 56,
-    "periodic_report": 30,
-    "no_own_filings_held_deferring_to_registry": 12,
+    "nav": 351,
+    "own_delisting_notice": 64,
+    "aggregator_delisted_and_own_filings_silent": 60,
+    "periodic_report": 29,
+    "no_own_filings_held_deferring_to_registry": 11,
     "filings_but_no_nav_or_report": 5,
-    "nav_-27d_old": 1,
+    "nav_-26d_old": 1,
     "registry_listed": 1
   },
-  "delisted": 56,
+  "delisted": 64,
   "priced_by_source": 638,
   "announcements_only": 478,
-  "live_announcements_only": 92,
+  "live_announcements_only": 93,
   "offshore": 195,
   "vct": 228,
   "live_by_domicile": {
-    "GB": 201,
+    "GB": 202,
     "null": 97,
     "GG": 33,
     "JE": 12,
@@ -155,20 +155,20 @@
       "months_listed": 235
     },
     {
-      "security_id": "SEDOL:B9MRHZ5",
-      "name": "CVC Income & Growth",
-      "sector": "Debt - Loans & Bonds",
-      "domicile": "JE",
-      "isin": "JE00B9MRHZ51",
-      "first_seen": "2013-06",
-      "months_listed": 158
-    },
-    {
       "security_id": "SEDOL:B9G79F5",
       "name": "CVC Income & Growth",
       "sector": "Debt - Loans & Bonds",
       "domicile": "JE",
       "isin": "JE00B9G79F59",
+      "first_seen": "2013-06",
+      "months_listed": 158
+    },
+    {
+      "security_id": "SEDOL:B9MRHZ5",
+      "name": "CVC Income & Growth",
+      "sector": "Debt - Loans & Bonds",
+      "domicile": "JE",
+      "isin": "JE00B9MRHZ51",
       "first_seen": "2013-06",
       "months_listed": 158
     },
@@ -434,15 +434,6 @@
       "months_listed": 7
     },
     {
-      "security_id": "SEDOL:BD0FRW6",
-      "name": "NB Private Equity Partners",
-      "sector": "Private Equity",
-      "domicile": "GG",
-      "isin": "GG00BD0FRW63",
-      "first_seen": "2016-09",
-      "months_listed": 72
-    },
-    {
       "security_id": "SEDOL:BD96PR1",
       "name": "NB Private Equity Partners",
       "sector": "Private Equity",
@@ -450,6 +441,15 @@
       "isin": "GG00BD96PR19",
       "first_seen": "2018-05",
       "months_listed": 77
+    },
+    {
+      "security_id": "SEDOL:BD0FRW6",
+      "name": "NB Private Equity Partners",
+      "sector": "Private Equity",
+      "domicile": "GG",
+      "isin": "GG00BD0FRW63",
+      "first_seen": "2016-09",
+      "months_listed": 72
     },
     {
       "security_id": "SEDOL:B1ZBD49",
@@ -785,6 +785,15 @@
       "months_listed": 154
     },
     {
+      "security_id": "SEDOL:BDTYGZ0",
+      "name": "Triple Point Venture VCT Venture shares",
+      "sector": "VCT",
+      "domicile": "GB",
+      "isin": "GB00BDTYGZ09",
+      "first_seen": "2019-09",
+      "months_listed": 80
+    },
+    {
       "security_id": "SEDOL:BG49KP9",
       "name": "Tritax Big Box REIT",
       "sector": "Property - UK Logistics",
@@ -885,7 +894,7 @@
     }
   ],
   "live_announcements_only_by_sector": {
-    "VCT": 18,
+    "VCT": 19,
     "Renewable Energy Infrastructure": 8,
     "Private Equity": 7,
     "Infrastructure": 6,
