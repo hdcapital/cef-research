@@ -4,13 +4,13 @@
   "rows_without_nav": 375,
   "basis_counts": {
     "nan": 375,
-    "0.0": 266,
-    "3.0": 258,
-    "1.0": 217
+    "0.0": 275,
+    "3.0": 260,
+    "1.0": 206
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 166,
+  "alert_eligible": 183,
   "z_extremes": [
     {
       "security_id": "SEDOL:BL690L8",
@@ -26,9 +26,9 @@
     },
     {
       "security_id": "SEDOL:BDHXP96",
-      "z_adj": -44.2671,
-      "discount_est": -0.723191,
-      "staleness_days": 1.0
+      "z_adj": -44.2808,
+      "discount_est": -0.723409,
+      "staleness_days": 0.0
     },
     {
       "security_id": "SEDOL:BNGFHX1",
@@ -38,9 +38,9 @@
     },
     {
       "security_id": "SEDOL:B1G3N11",
-      "z_adj": -36.3274,
-      "discount_est": -0.889694,
-      "staleness_days": 2.0
+      "z_adj": -36.3243,
+      "discount_est": -0.889627,
+      "staleness_days": 1.0
     },
     {
       "security_id": "SEDOL:BKV46W4",
@@ -50,27 +50,27 @@
     },
     {
       "security_id": "ASX:ALR",
-      "z_adj": -32.9293,
-      "discount_est": -0.962978,
+      "z_adj": -32.8421,
+      "discount_est": -0.960615,
       "staleness_days": 2222.0
     },
     {
       "security_id": "ASX:CTN",
-      "z_adj": -32.181,
-      "discount_est": -0.952885,
+      "z_adj": -32.2532,
+      "discount_est": -0.954808,
       "staleness_days": 2308.0
     },
     {
       "security_id": "NAME:unicorn aim vct following conversion of unicorn aim vct ords and series 2 and merger with unicorn aim vct ii|ordinary share",
-      "z_adj": -27.2545,
-      "discount_est": -0.991813,
+      "z_adj": -27.2518,
+      "discount_est": -0.991726,
       "staleness_days": 25.0
     },
     {
       "security_id": "SEDOL:1610207",
-      "z_adj": -21.6105,
-      "discount_est": -0.495454,
-      "staleness_days": 2.0
+      "z_adj": -21.521,
+      "discount_est": -0.493501,
+      "staleness_days": 1.0
     }
   ],
   "date": "2026-09-04",
@@ -93,7 +93,7 @@
     ],
     "uk_nav_validation": {
       "comparable_pairs": 5065,
-      "agreement_rate_pairs": 0.968
+      "agreement_rate_pairs": 0.9684
     },
     "uk": {
       "tier0_navs": 229,
@@ -111,5 +111,5 @@
     }
   },
   "carried_forward_rows": 0,
-  "snapshot": "s3_uploaded:nta_live/2026-09-04.parquet"
+  "snapshot": "s3_exists_not_overwritten:nta_live/2026-09-04.parquet"
 }
