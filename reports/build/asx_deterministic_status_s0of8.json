@@ -1,17 +1,21 @@
 {
-  "documents": 0,
+  "documents": 20,
   "no_pdf": 0,
   "unreadable": 0,
-  "image_only": 0,
-  "parsed": 0,
-  "escalated": 0,
-  "by_family": {},
+  "image_only": 1,
+  "parsed": 16,
+  "escalated": 3,
+  "by_family": {
+    "nta": 12,
+    "buyback_daily": 3,
+    "substantial_holder": 1
+  },
   "parser_version": "c636789d",
-  "already_done_this_version": 10637,
-  "fact_rows": 0,
-  "escalation_rows": 0,
-  "parse_rate": 0.0,
-  "parse_rate_text_bearing": 0.0,
+  "already_done_this_version": 84627,
+  "fact_rows": 16,
+  "escalation_rows": 4,
+  "parse_rate": 0.8,
+  "parse_rate_text_bearing": 0.8421,
   "shard": 0,
   "shards": 8
 }
