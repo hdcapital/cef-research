@@ -182,3 +182,16 @@ def test_the_panel_verdict_comes_first():
     bad = nav_continuity(634.32, T("2026-07-31"), [(T("2026-08-31"), 2597.82)],
                          own=[(T("2026-06-30"), 616.54)])
     assert bad["ok"] is False and bad["prev"] == 2597.82
+
+
+def test_one_stray_own_observation_does_not_quarantine_a_right_anchor():
+    """Digital 9: 8.6p at June 2026 beside 9.3p at December and a stray 32.7."""
+    out = nav_continuity(8.6, T("2026-06-30"), [],
+                         own=[(T("2025-12-31"), 9.3), (T("2025-12-31"), 32.7)])
+    assert out["ok"] is True and out["prev"] == 9.3
+
+
+def test_an_own_history_that_disagrees_throughout_quarantines():
+    out = nav_continuity(0.70, T("2026-06-30"), [],
+                         own=[(T("2025-12-31"), 699.67), (T("2026-03-31"), 690.0)])
+    assert out["ok"] is False and out["reason"].endswith("_vs_own")

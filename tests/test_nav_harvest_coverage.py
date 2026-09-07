@@ -870,3 +870,20 @@ def test_bridge_table_column_order_is_read_from_the_header():
     srei = ("£m pps Comments NAV as at 31 March 2026 297.9 60.9 Unrealised gain 1.3 0.3 "
             "NAV as at 30 June 2026 299.2 61.2 Dividends paid")
     assert parse_uk_nav_text(srei)["nav_cum_pence"] == 61.2
+
+
+def test_a_dividend_target_far_from_its_label_is_not_a_nav():
+    """TRIG Q2 2026: the loose "NAV per share ... 7.55p" rule read the
+    dividend target because its guard window was drawn at the label, 100
+    characters before the number; the real line has the date between the
+    label and the figure."""
+    from cef_live.harvest_nav import parse_uk_nav_text
+    text = ("TRIG announces an estimated unaudited Net Asset Value as at 30 June 2026 "
+            "of 101.1 pence per share, a decrease of 3.0 pence per share in the quarter. "
+            "The benefit to NAV per share from share buybacks. The Board reaffirms the "
+            "dividend target for FY 2026 at 7.55p per share, representing a c.10% yield.")
+    got = parse_uk_nav_text(text)
+    assert got["nav_cum_pence"] == 101.1
+    tail = ("The benefit to NAV per share from share buybacks. The Board reaffirms the "
+            "dividend target for FY 2026 at 7.55p per share, representing a c.10% yield.")
+    assert "nav_cum_pence" not in parse_uk_nav_text(tail)

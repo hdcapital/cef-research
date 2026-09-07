@@ -935,6 +935,11 @@ UK_RULES = [
     # Trust administrator table used by BACIT/Syncona and Castelnau
     ("cum_assumed", 5, _R(r"FUND NAME[\s\S]{0,140}?NAV[\s\S]{0,200}?"
                           + UK_PENCE, re.I)),
+    # TRIG: "estimated unaudited Net Asset Value as at 30 June 2026 of 101.1
+    # pence per share" - the date sits between the label and the figure
+    ("cum_assumed", 4, _R(r"net asset value\s+(?:\(\"?NAV\"?\)\s+)?(?:per\s+(?:ordinary\s+)?share\s+)?"
+                          r"(?:as\s+)?at\s+\d{1,2}(?:st|nd|rd|th)?\s+\w{3,9}\s+\d{4}\s+"
+                          r"(?:of|was|is)\s+" + UK_PENCE + r"\s*(?:per\s+(?:ordinary\s+)?share)?", re.I)),
     # "net asset value ("NAV") per share at 30th September 2013 of 1,283.3p"
     # (Pantheon). Anchored on "per share" with a SHORT gap: the same rule
     # written loosely - NAV within 160 characters of any "of N pence" -
@@ -1134,7 +1139,12 @@ def parse_uk_nav_text(text: str, sedol: str | None = None) -> dict:
             if UK_NOMINAL.search(before[-30:]):
                 continue          # a nominal/par value, not a NAV
             if loose:
-                near = text[max(0, m.start() - 40):m.end() + 25]
+                # the window is around the NUMBER, not the match start: a
+                # loose rule can reach 140 characters from its label to its
+                # number, and TRIG's "NAV per share from share buybacks. The
+                # Board reaffirms the dividend target for FY 2026 at 7.55p"
+                # put the word "dividend" outside a window drawn at the label
+                near = text[max(0, m.start(1) - 60):m.end(1) + 25]
                 if UK_DIVIDEND.search(near):
                     continue      # a distribution, not a valuation
                 if UK_FOREIGN.search(near):

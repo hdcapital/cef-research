@@ -114,6 +114,21 @@ def _months_since(month: str | None, today) -> int:
         return 10 ** 6
 
 
+def _in_window(anchor_date, rows):
+    """Usable (date, value) pairs within NAV_PRIOR_MAX_AGE_DAYS of the
+    anchor on either side, the anchor's own date excluded."""
+    out = []
+    for d, v in rows:
+        if d is None or v is None or not pd.notna(v) or v <= 0:
+            continue
+        if anchor_date is not None:
+            gap = abs((pd.Timestamp(anchor_date) - pd.Timestamp(d)).days)
+            if gap == 0 or gap > NAV_PRIOR_MAX_AGE_DAYS:
+                continue
+        out.append((d, v))
+    return out
+
+
 def nav_continuity(anchor_val, anchor_date, prior, own=None, prev_anchor=None) -> dict:
     """Is this anchor plausible against what else is known of the fund's NAV?
 
@@ -155,18 +170,37 @@ def nav_continuity(anchor_val, anchor_date, prior, own=None, prev_anchor=None) -
         # the independent comparator agrees: that is the verdict, and a
         # stray in our own history does not overrule it
         return out
-    for label, rows in (("own", own or []), ("yesterday", [prev_anchor] if prev_anchor else [])):
-        n = _nearest(anchor_date, rows)
-        if n is None:
-            continue
-        d, v = n
-        jump = abs(a - float(v)) / float(v)
-        ratio = a / float(v)
-        if jump > NAV_JUMP_ALERT_LIMIT and not _unit_like(ratio):
-            return {"ok": False, "reason": f"nav_jump_{jump:.0%}_vs_{label}",
+    # own history: ANY observation in the window that agrees clears the
+    # anchor - one stray parse (Digital 9's 32.7 beside 9.3 and 8.6,
+    # Syncona's 4.96 beside 170.6) must not quarantine a right number;
+    # only a history that disagrees throughout does.
+    own_rows = _in_window(anchor_date, own or [])
+    if own_rows:
+        agree = [(d, v) for d, v in own_rows
+                 if abs(a - float(v)) / float(v) <= NAV_JUMP_ALERT_LIMIT]
+        real = [(d, v) for d, v in own_rows
+                if abs(a - float(v)) / float(v) > NAV_JUMP_ALERT_LIMIT
+                and not _unit_like(a / float(v))]
+        if agree:
+            d, v = min(agree, key=lambda t: abs((pd.Timestamp(anchor_date) - pd.Timestamp(t[0])).days)
+                       if anchor_date is not None else 0)
+            if out["prev"] is None:
+                out.update(prev=float(v), jump=abs(a - float(v)) / float(v))
+        elif real:
+            d, v = real[0]
+            jump = abs(a - float(v)) / float(v)
+            return {"ok": False, "reason": f"nav_jump_{jump:.0%}_vs_own",
                     "prev": float(v), "jump": float(jump)}
-        if out["prev"] is None:
-            out.update(prev=float(v), jump=float(jump))
+    if prev_anchor:
+        n = _nearest(anchor_date, [prev_anchor])
+        if n is not None:
+            d, v = n
+            jump = abs(a - float(v)) / float(v)
+            if jump > NAV_JUMP_ALERT_LIMIT and not _unit_like(a / float(v)):
+                return {"ok": False, "reason": f"nav_jump_{jump:.0%}_vs_yesterday",
+                        "prev": float(v), "jump": float(jump)}
+            if out["prev"] is None:
+                out.update(prev=float(v), jump=float(jump))
     if out["prev"] is None:
         out["reason"] = "no_recent_prior_nav"
     return out
