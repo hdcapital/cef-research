@@ -415,6 +415,14 @@ def _load_index_union() -> pd.DataFrame:
     return out.reset_index(drop=True)
 
 
+def shard_mask(ids: pd.Series, shard: int, shards: int) -> pd.Series:
+    """A BOOLEAN Series selecting this shard's announcements - explicitly
+    boolean, because an empty object-dtype Series used as a row mask is
+    read by pandas as COLUMN selection and drops every column."""
+    return pd.Series([zlib.crc32(str(i).encode()) % shards == shard for i in ids],
+                     index=ids.index, dtype=bool)
+
+
 def run_deterministic(limit: int = 0, deadline_min: float = 300.0) -> dict:
     """Parse the prescribed-form route in Python, straight from the archive.
 
@@ -472,8 +480,17 @@ def run_deterministic(limit: int = 0, deadline_min: float = 300.0) -> dict:
     idx = idx.rename(columns={"code": "ticker"})
     idx["day"] = idx["published_at"]
     if SHARDS > 1:
-        idx = idx[idx["announcement_id"].map(
-            lambda i: zlib.crc32(i.encode()) % SHARDS == SHARD)]
+        idx = idx[shard_mask(idx["announcement_id"], SHARD, SHARDS)]
+    if not len(idx):
+        # Nothing new under this parser version for this shard: the normal
+        # state of a nightly once the corpus is parsed, not a failure. The
+        # scheduled runs of 2026-09-04 and 09-06 died here - an empty
+        # object-dtype mask read as column selection and emptied the frame's
+        # columns, so the "published_at is gone" guard fired on a no-op.
+        print(f"deterministic: nothing new under parser version {PARSER_VERSION} "
+              f"(shard {SHARD + 1}/{SHARDS}); {len(done)} announcement(s) already done")
+        return {"documents": 0, "parsed": 0, "escalated": 0, "status": "nothing_new",
+                "parser_version": PARSER_VERSION, "already_done": int(len(done))}
     if "published_at" not in idx.columns:
         # it WAS present a few lines above; say what happened rather than
         # let pandas raise a bare KeyError from inside sort_values

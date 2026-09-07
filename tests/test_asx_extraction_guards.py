@@ -905,3 +905,19 @@ def test_a_headline_stated_nta_reaches_the_parser():
     rows = D.extract_nta("Net tangible asset backing unaudited, see website.", [],
                          "NTA at 21.08.26 Pre-tax 125.10 Post-tax 121.99", ticker=None)
     assert rows and abs(rows[0]["nav_per_share"] - 1.2510) < 1e-9
+
+
+def test_an_empty_shard_mask_is_boolean_not_column_selection():
+    """The scheduled deterministic runs of 2026-09-04/06 failed on a
+    fully-parsed corpus: an empty object-dtype mask emptied the frame's
+    COLUMNS and the published_at guard fired on a no-op."""
+    import pandas as pd
+    from au_lic.extract import runner as R
+    df = pd.DataFrame({"announcement_id": pd.Series([], dtype=object), "published_at": pd.Series([], dtype=object)})
+    m = R.shard_mask(df["announcement_id"], 0, 8)
+    assert m.dtype == bool and len(m) == 0
+    out = df[m]
+    assert list(out.columns) == ["announcement_id", "published_at"] and len(out) == 0
+    df2 = pd.DataFrame({"announcement_id": [str(i) for i in range(200)]})
+    parts = [df2[R.shard_mask(df2["announcement_id"], k, 8)] for k in range(8)]
+    assert sum(len(x) for x in parts) == 200 and all(len(x) > 0 for x in parts)
