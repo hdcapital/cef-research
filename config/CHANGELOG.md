@@ -28,6 +28,15 @@ FX-converted never reads the daily panel's history (status
 `history_unit_mismatch` when nothing else exists). Follow-up: FX-convert
 foreign NAVs inside uk_discount.build so that cohort gets a real history.
 
+## 2026-09-07 — The brief gate keys on the window, not on elapsed hours
+The 06:20 UTC cron fired at 12:40 UTC, six hours late and past the gate's
+four-hour "recently sent" test, and a third email went at 13:35 UTC. The
+gate now asks whether THIS window's brief has already gone: the firing's
+label (`cef_live.brief_window.label_for`, the same rule the scan uses to
+title the email) must match the last brief's and the last brief must have
+been emailed within `WINDOW_HOURS` (6). A late firing for a sent window is
+skipped however late it is; the next window is never skipped.
+
 ## 2026-09-07 — Brief schedule made delay-tolerant (still two emails a day)
 GitHub's cron started the scheduled ideas runs 1h44m, 5h03m and 1h45m late
 over 2026-09-04..07, so the pre-LSE brief was arriving after the open. Each

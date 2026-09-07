@@ -53,22 +53,18 @@ jobs:
       - uses: actions/checkout@v4
       - id: check
         run: |
-          python - <<'PY'
-          import datetime as dt, json, os, pathlib
-          skip = False
+          PYTHONPATH=src python - <<'PY'
+          import json, os, pathlib
+          from cef_live.brief_window import already_sent
+          last = None
           p = pathlib.Path("reports/build/ideas.json")
           if p.exists():
               try:
-                  d = json.load(open(p))
-                  t = dt.datetime.fromisoformat(str(d["generated_at"]))
-                  if t.tzinfo is None:
-                      t = t.replace(tzinfo=dt.timezone.utc)
-                  age_h = (dt.datetime.now(dt.timezone.utc) - t).total_seconds() / 3600
-                  skip = bool(d.get("emailed")) and age_h < 4
-                  print(f"last brief {d.get('brief')!r} {age_h:.1f}h ago, emailed={d.get('emailed')}")
+                  last = json.load(open(p))
               except Exception as exc:  # noqa: BLE001
                   print(f"gate could not read ideas.json ({exc}); running")
-          print("SKIP: this window's brief already went" if skip else "RUN")
+          skip, why = already_sent(last)
+          print(("SKIP: " if skip else "RUN: ") + why)
           with open(os.environ["GITHUB_OUTPUT"], "a") as f:
               f.write(f"skip={'true' if skip else 'false'}\n")
           PY

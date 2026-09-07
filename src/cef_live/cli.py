@@ -1001,8 +1001,8 @@ def ideas() -> int:
 
     # which open is this brief for? The scheduler runs 06:20 UTC (pre-LSE)
     # and 23:10 UTC (pre-ASX); anything late still labels itself correctly.
-    hour = datetime.now(timezone.utc).hour
-    label = "pre-ASX open" if (hour >= 15 or hour < 3) else "pre-LSE open"
+    from .brief_window import label_for
+    label = label_for(datetime.now(timezone.utc).hour)
     subject = (f"{label}: {len(opps)} actionable, {len(watch)} watch"
                if len(verdicts) else f"{label}: no new ideas")
 
