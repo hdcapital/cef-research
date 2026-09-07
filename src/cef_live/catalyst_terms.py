@@ -166,12 +166,41 @@ def fetch_body(url: str, session, throttle: float = 1.5) -> str:
     return " ".join(BeautifulSoup(r.text, "html.parser").get_text(" ").split())
 
 
+def make_client():
+    """The Anthropic client for the extractor. A key that is not scoped to
+    a workspace must send the workspace id as a header (the first
+    production run failed every document on exactly that); it is read
+    from ANTHROPIC_WORKSPACE_ID when set."""
+    import anthropic
+    ws = os.environ.get("ANTHROPIC_WORKSPACE_ID", "").strip()
+    if ws:
+        return anthropic.Anthropic(default_headers={"anthropic-workspace-id": ws})
+    return anthropic.Anthropic()
+
+
+def _is_error_terms(t) -> bool:
+    if not isinstance(t, str):
+        return False
+    try:
+        return json.loads(t).get("llm") == "error"
+    except Exception:  # noqa: BLE001
+        return False
+
+
+MAX_CONSECUTIVE_ERRORS = 3
+
+
 def candidates(events: pd.DataFrame, days: int = 45, min_abs_weight: int = 3) -> pd.DataFrame:
+    """Unread catalyst bodies in the window - and the ones a previous run
+    could not read because the CALL failed (auth, network): an error is
+    not a verdict, so it is retried; a rejection or an unreadable body is
+    not."""
     if not len(events):
         return events
     cutoff = (datetime.now(timezone.utc) - timedelta(days=days)).date().isoformat()
+    retry = events["terms"].map(_is_error_terms)
     ev = events[(events["date"] >= cutoff) & (events["weight"].abs() >= min_abs_weight)
-                & events["url"].notna() & events["terms"].isna()]
+                & events["url"].notna() & (events["terms"].isna() | retry)]
     return ev.sort_values(["date", "weight"], key=lambda s: s.abs() if s.name == "weight" else s,
                           ascending=[False, False])
 
@@ -181,7 +210,7 @@ def run(events: pd.DataFrame, session, budget_docs: int = 40, client=None,
     """Read up to budget_docs catalyst bodies; store accepted terms (or the
     rejection) in events.terms so nothing is read twice."""
     stats = {"candidates": 0, "read": 0, "accepted": 0, "rejected": 0, "fetch_failed": 0,
-             "input_tokens": 0, "output_tokens": 0, "model": model_name()}
+             "errors": 0, "input_tokens": 0, "output_tokens": 0, "model": model_name()}
     if not len(events):
         return events, stats
     cand = candidates(events)
@@ -189,11 +218,16 @@ def run(events: pd.DataFrame, session, budget_docs: int = 40, client=None,
     if not len(cand):
         return events, stats
     if client is None:
-        import anthropic
-        client = anthropic.Anthropic()
+        client = make_client()
     ev = events.copy()
+    consecutive_errors = 0
     for i, (idx, r) in enumerate(cand.iterrows()):
         if i >= budget_docs:
+            break
+        if consecutive_errors >= MAX_CONSECUTIVE_ERRORS:
+            # the same failure three times running is the key, the model
+            # name or the network, not the document; stop spending fetches
+            stats["aborted"] = f"{consecutive_errors} consecutive errors: {stats.get('last_error', '')}"
             break
         try:
             text = fetch(r["url"]) if fetch is not None else fetch_body(r["url"], session)
@@ -208,9 +242,12 @@ def run(events: pd.DataFrame, session, budget_docs: int = 40, client=None,
             rec, audit = extract_one(client, str(r["headline"]), str(r["security_id"]),
                                      str(r["date"]), text)
         except Exception as exc:  # noqa: BLE001
-            stats["rejected"] += 1
+            stats["errors"] += 1
+            consecutive_errors += 1
+            stats["last_error"] = str(exc)[:200]
             ev.at[idx, "terms"] = json.dumps({"llm": "error", "error": str(exc)[:200]})
             continue
+        consecutive_errors = 0
         stats["input_tokens"] += int(audit.get("input_tokens") or 0)
         stats["output_tokens"] += int(audit.get("output_tokens") or 0)
         if rec is None:

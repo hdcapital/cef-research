@@ -113,3 +113,33 @@ def test_calendar_and_summary_come_from_accepted_terms_only():
     line = CT.terms_summary(out.set_index("security_id").loc["SEDOL:1", "terms"])
     assert "15% of shares" in line and "record date 2026-09-26" in line
     assert CT.terms_summary(out.set_index("security_id").loc["SEDOL:2", "terms"]) == ""
+
+
+def test_call_errors_are_retried_and_abort_after_three(monkeypatch):
+    """An API error is not a verdict on the document: the row stays a
+    candidate, and three in a row stop the run before the budget burns."""
+    import pandas as pd
+    from cef_live import catalyst_terms as CT, events as EV
+
+    class Boom:
+        class messages:
+            @staticmethod
+            def create(**kw):
+                raise RuntimeError("Error code: 400 - workspace header required")
+
+    rows = []
+    for i in range(6):
+        r = {c: None for c in EV.COLUMNS}
+        r.update(security_id=f"S{i}", date="2026-09-01", headline="Tender Offer",
+                 url=f"http://x/{i}", event_class="tender_offer", weight=4,
+                 direction="positive", event_id=f"e{i}")
+        rows.append(r)
+    ev = pd.DataFrame(rows)
+    ev.loc[0, "terms"] = '{"llm": "error", "error": "old"}'      # retried
+    ev.loc[1, "terms"] = '{"llm": "rejected"}'                    # not retried
+    assert set(CT.candidates(ev)["security_id"]) == {"S0", "S2", "S3", "S4", "S5"}
+    out, stats = CT.run(ev, None, budget_docs=40, client=Boom(),
+                        fetch=lambda u: "x" * 500)
+    assert stats["errors"] == 3 and "aborted" in stats
+    assert stats["rejected"] == 0
+    assert sum(CT._is_error_terms(t) for t in out["terms"]) == 3

@@ -616,8 +616,9 @@ def test_the_nightly_restores_the_uk_daily_nav_panel_it_reads():
     import yaml as _yaml
     for wf in (".github/workflows/cef_live.yml", ".github/workflows/ideas.yml"):
         doc = _yaml.safe_load(Path(wf).read_text())
-        job = next(iter(doc["jobs"].values()))
-        pulls = [str(s.get("run", "")) for s in job["steps"]
+        # the scan job restores state; ideas.yml has a gate job before it
+        pulls = [str(s.get("run", "")) for job in doc["jobs"].values()
+                 for s in job["steps"]
                  if "sync_state.py pull" in str(s.get("run", ""))]
         assert pulls, f"{wf} restores no state at all"
         assert any("uk_daily" in p for p in pulls), (

@@ -4,6 +4,15 @@ Every change to `config/params.yaml` gets a dated entry here, committed in
 the same commit as the change, with a rationale. Parameters are never
 tuned against live outcomes.
 
+## 2026-09-07 — Brief schedule made delay-tolerant (still two emails a day)
+GitHub's cron started the scheduled ideas runs 1h44m, 5h03m and 1h45m late
+over 2026-09-04..07, so the pre-LSE brief was arriving after the open. Each
+window now has three cron firings 15 minutes apart (06:20/06:35/06:50 UTC;
+23:10/23:25/23:40 UTC) and a gate job that exits before any work when the
+window's brief already went (ideas.json emailed within 4 hours). The owner's
+two-emails-a-day rule is unchanged; the gate is what enforces it, and it
+also makes a manual dispatch safe. Nothing else in the brief changed.
+
 ## 2026-09-07 — Phase 3a layer 1: why the discount moved
 `attribution.lookback_days` = 21, `attribution.bars_budget` = 60. Every
 verdict row in the brief now carries a "why" line: the discount change over
