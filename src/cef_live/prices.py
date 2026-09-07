@@ -95,6 +95,29 @@ def daily_factor_returns(s: requests.Session, market: str,
     return out.dropna(how="all")
 
 
+def daily_bars(s: requests.Session, sym: str, rng: str = "3mo") -> pd.DataFrame | None:
+    """Daily close and volume for one symbol (date-indexed), or None."""
+    global _last
+    wait = 1.5 - (time.time() - _last)
+    if wait > 0:
+        time.sleep(wait)
+    _last = time.time()
+    try:
+        r = s.get(CHART.format(sym=sym, rng=rng, iv="1d"), timeout=45)
+        if r.status_code != 200:
+            return None
+        j = r.json()["chart"]["result"][0]
+        ts = j.get("timestamp") or []
+        q = j["indicators"]["quote"][0]
+        idx = pd.to_datetime(ts, unit="s", utc=True).tz_convert(None).normalize()
+        df = pd.DataFrame({"close": q.get("close"), "volume": q.get("volume")},
+                          index=idx, dtype=float).dropna(subset=["close"])
+        df = df[~df.index.duplicated(keep="last")]
+        return df if len(df) else None
+    except Exception:  # noqa: BLE001
+        return None
+
+
 def latest_prices(s: requests.Session, symbols: dict[str, str],
                   rng: str = "5d") -> pd.DataFrame:
     """Latest close per security_id. symbols: {security_id: yahoo_symbol}.

@@ -59,43 +59,94 @@ NAV_JUMP_ALERT_LIMIT = 0.35
 NAV_PRIOR_MAX_AGE_DAYS = 400
 
 
-def nav_continuity(anchor_val, anchor_date, prior) -> dict:
-    """Is this anchor plausible against the fund's own previous NAV?
+# A ratio in this band against a comparator is a unit artefact (pence vs
+# pounds, cents vs dollars, a total in millions), not a NAV that moved.
+UNIT_LIKE = (50.0, 200.0)
 
-    `prior` is (date, value) pairs in the SAME unit as the anchor - mixing
-    units here would manufacture exactly the false alarm the check exists to
-    prevent. Returns ok=True when there is nothing to compare against:
-    absence of history is not evidence of a bad parse.
+
+def _unit_like(ratio: float) -> bool:
+    lo, hi = UNIT_LIKE
+    return (lo <= ratio <= hi) or (1 / hi <= ratio <= 1 / lo)
+
+
+def _nearest(anchor_date, rows, exclude_same_date=True):
+    """The (date, value) nearest in time to the anchor on EITHER side within
+    NAV_PRIOR_MAX_AGE_DAYS; the anchor's own print (same date) is not a
+    comparator for itself."""
+    usable = []
+    for d, v in rows:
+        if d is None or v is None or not pd.notna(v) or v <= 0:
+            continue
+        if anchor_date is None:
+            usable.append((0, d, v))
+            continue
+        gap = abs((pd.Timestamp(anchor_date) - pd.Timestamp(d)).days)
+        if exclude_same_date and gap == 0:
+            continue
+        if gap <= NAV_PRIOR_MAX_AGE_DAYS:
+            usable.append((gap, d, v))
+    if not usable:
+        return None
+    _g, d, v = min(usable, key=lambda t: t[0])
+    return d, v
+
+
+def nav_continuity(anchor_val, anchor_date, prior, own=None, prev_anchor=None) -> dict:
+    """Is this anchor plausible against what else is known of the fund's NAV?
+
+    Three comparators, each in the SAME unit as the anchor:
+      prior       - the aggregator panel's prints; independent of our parser,
+                    so it may contradict it in either direction. The print
+                    nearest in time on either side is used: a July print is
+                    as good a comparator for a June anchor as a May one, and
+                    a fund whose first parsed NAV lands before its first
+                    panel print (Octopus Renewables: 454.7 parsed against
+                    86.18 a month later) had no predecessor at all under
+                    the strictly-before rule.
+      own         - the fund's other NAV observations from our own sources.
+                    Our sources do not agree on units (RIT 3106 against 39),
+                    so a unit-like ratio here is an artefact of ours and is
+                    NOT evidence; a ratio between the limit and the unit band
+                    (a 5x) is a bad parse and quarantines.
+      prev_anchor - yesterday's anchor from the daily live history; same
+                    rule as own.
+    Returns ok=True when there is nothing to compare against: absence of
+    history is not evidence of a bad parse. The row is quarantined from
+    ALERTING, never corrected.
     """
     if anchor_val is None or not pd.notna(anchor_val) or anchor_val <= 0:
         return {"ok": True, "reason": "", "prev": None, "jump": None}
-    usable = [(d, v) for d, v in prior
-              if d is not None and v is not None and pd.notna(v) and v > 0
-              and (anchor_date is None
-                   or pd.Timestamp(d) < pd.Timestamp(anchor_date))
-              and (anchor_date is None
-                   or (pd.Timestamp(anchor_date) - pd.Timestamp(d)).days
-                   <= NAV_PRIOR_MAX_AGE_DAYS)]
-    if not usable:
-        return {"ok": True, "reason": "no_recent_prior_nav",
-                "prev": None, "jump": None}
-    _d, prev = max(usable, key=lambda t: pd.Timestamp(t[0]))
-    jump = abs(float(anchor_val) - float(prev)) / float(prev)
-    if jump > NAV_JUMP_ALERT_LIMIT:
-        # Distinguish the two causes, because they need different fixes. A
-        # ratio near 100 (or 1/100) is a pence-vs-pounds mismatch, not a
-        # NAV that moved: the panel is not reliably canonical either -
-        # Lindsell Train's print of 7.09 is pounds against a 698.83 pence
-        # anchor. Both are quarantined, since a number we cannot trust must
-        # not alert, but calling a unit bug a "jump" would send anyone
-        # looking at it in the wrong direction.
-        ratio = float(anchor_val) / float(prev)
-        unit_like = (70 <= ratio <= 130) or (1 / 130 <= ratio <= 1 / 70)
-        return {"ok": False,
-                "reason": (f"nav_unit_mismatch_{ratio:.0f}x_vs_prior" if unit_like
-                           else f"nav_jump_{jump:.0%}_vs_prior"),
-                "prev": float(prev), "jump": float(jump)}
-    return {"ok": True, "reason": "", "prev": float(prev), "jump": float(jump)}
+    a = float(anchor_val)
+    out = {"ok": True, "reason": "", "prev": None, "jump": None}
+    near = _nearest(anchor_date, prior or [])
+    if near is not None:
+        _d, prev = near
+        jump = abs(a - float(prev)) / float(prev)
+        out.update(prev=float(prev), jump=float(jump))
+        if jump > NAV_JUMP_ALERT_LIMIT:
+            ratio = a / float(prev)
+            return {"ok": False,
+                    "reason": (f"nav_unit_mismatch_{ratio:.0f}x_vs_prior" if _unit_like(ratio)
+                               else f"nav_jump_{jump:.0%}_vs_prior"),
+                    "prev": float(prev), "jump": float(jump)}
+        # the independent comparator agrees: that is the verdict, and a
+        # stray in our own history does not overrule it
+        return out
+    for label, rows in (("own", own or []), ("yesterday", [prev_anchor] if prev_anchor else [])):
+        n = _nearest(anchor_date, rows)
+        if n is None:
+            continue
+        d, v = n
+        jump = abs(a - float(v)) / float(v)
+        ratio = a / float(v)
+        if jump > NAV_JUMP_ALERT_LIMIT and not _unit_like(ratio):
+            return {"ok": False, "reason": f"nav_jump_{jump:.0%}_vs_{label}",
+                    "prev": float(v), "jump": float(jump)}
+        if out["prev"] is None:
+            out.update(prev=float(v), jump=float(jump))
+    if out["prev"] is None:
+        out["reason"] = "no_recent_prior_nav"
+    return out
 
 
 # NAV currencies that can be converted into a market's canonical unit
@@ -152,8 +203,12 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
                 own_nav_history: pd.DataFrame | None = None,
                 aux_discount_history: pd.DataFrame | None = None,
                 fx_levels: dict | None = None,
-                today: date | None = None) -> pd.DataFrame:
+                today: date | None = None,
+                prev_anchors: dict | None = None) -> pd.DataFrame:
     """Build the live table for one market, keyed on the REGISTRY.
+
+    prev_anchors: {security_id: (date, nav_anchor)} from the daily live
+    history - yesterday's anchor, the third continuity comparator.
 
     The aggregator files (AIC MIR, ASX monthly reports) say who exists. They
     do not price this table. Iterating the research panel meant a fund the
@@ -508,7 +563,20 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
                         continue
         # an anchor carrying a non-canonical unit is not comparable to the
         # panel; skip rather than manufacture a jump
-        cont = (nav_continuity(anchor_val if has_nav else None, anchor_date, _prior)
+        # our own other observations of this fund, in the canonical unit
+        # (rows with a stated foreign unit are not comparable unconverted)
+        _own_rows = []
+        if own is not None and len(own):
+            _o = own[own["security_id"] == sid]
+            for _, _r in _o.iterrows():
+                _u = str(_r.get("nav_unit") or "").upper()
+                if _u and _u not in ("GBX", U.CANONICAL_UNIT.get(market, "")):
+                    continue
+                if pd.notna(_r.get("nav_value")):
+                    _own_rows.append((pd.Timestamp(_r["nav_date"]), float(_r["nav_value"])))
+        _prev_anchor = (prev_anchors or {}).get(sid)
+        cont = (nav_continuity(anchor_val if has_nav else None, anchor_date, _prior,
+                               own=_own_rows, prev_anchor=_prev_anchor)
                 if nav_unit == U.CANONICAL_UNIT.get(market, "")
                 else {"ok": True, "reason": "unit_not_canonical",
                       "prev": None, "jump": None})

@@ -4,6 +4,20 @@ Every change to `config/params.yaml` gets a dated entry here, committed in
 the same commit as the change, with a rationale. Parameters are never
 tuned against live outcomes.
 
+## 2026-09-07 — Phase 3a layer 1: why the discount moved
+`attribution.lookback_days` = 21, `attribution.bars_budget` = 60. Every
+verdict row in the brief now carries a "why" line: the discount change over
+the window decomposed exactly into its price leg and NAV leg (price-led /
+NAV-led / mixed, or "series break - verify units" when either moved by more
+than half); the median move of the fund's market+sector peers over the same
+dates (sector-wide / partly sector / idiosyncratic, quoted only with >= 4
+peers); volume over the last 5 bars against the prior 60; holder-notice
+churn from the events store. The nightly appends the live table to
+`data/live_history/live_daily.parquet` (one row per fund per day) - the
+history the decomposition and the peer medians read; the UK daily discount
+panel is used where the runner holds it and is deeper. Nothing is estimated
+where a source is missing: the line says what it could not measure.
+
 ## 2026-09-07 — Phase 3: catalyst terms read by the model
 `events.llm_docs_per_night` = 40. The bodies of catalyst announcements the
 signed taxonomy rated |weight| >= 3 are read by the repo's cheap bulk model

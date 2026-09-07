@@ -788,6 +788,58 @@ def universe_sheet(email: bool = False) -> int:
     return 0
 
 
+def _attribute_verdicts(verdicts: pd.DataFrame, live: pd.DataFrame,
+                        params: dict) -> tuple[pd.DataFrame, dict]:
+    """Attach `why` (and the measured attribution record) to each verdict.
+
+    Bars are fetched for the alert funds only, opportunities and
+    dislocations first, under attribution.bars_budget symbols.
+    """
+    from . import attribution as AT
+    from . import events as EV
+    if verdicts is None or not len(verdicts):
+        return verdicts, {"attributed": 0}
+    ap = params.get("attribution", {}) or {}
+    lookback = int(ap.get("lookback_days", AT.LOOKBACK_DAYS))
+    budget = int(ap.get("bars_budget", 60))
+    store = AT.load_store()
+    tick = {}
+    ulu = Path("outputs/live/uk_live_universe.csv")
+    if ulu.exists():
+        u = pd.read_csv(ulu).dropna(subset=["ticker"])
+        tick = dict(zip(u["security_id"].astype(str), u["ticker"].astype(str)))
+    uk_hist = AT.uk_panel_histories(tick)
+    # bars: the verdict order is OPPORTUNITY first, then by gates and z
+    src = live.set_index("security_id")["price_source"] \
+        if "price_source" in live.columns else pd.Series(dtype=object)
+    bars = {}
+    ysess = prices.session()
+    for sid in verdicts["security_id"]:
+        if len(bars) >= budget:
+            break
+        ps = src.get(sid)
+        if isinstance(ps, str) and ps.startswith("yahoo:"):
+            b = prices.daily_bars(ysess, ps.split(":", 1)[1])
+            if b is not None:
+                bars[sid] = b
+    att = AT.attribute_all(verdicts, live, store, bars, EV.load(), uk_hist, lookback)
+    cols = ["why", "driver", "scope", "window_days", "delta_d", "price_ret",
+            "nav_ret", "sector_delta", "sector_n", "volume_ratio"]
+    for c in cols:
+        if c not in att.columns:
+            att[c] = None
+    keep = att[["security_id"] + cols]
+    merged = verdicts.drop(columns=[c for c in cols if c in verdicts.columns]) \
+        .merge(keep, on="security_id", how="left")
+    summ = {"attributed": int(att["window_days"].notna().sum()),
+            "verdicts": int(len(verdicts)), "bars_fetched": len(bars),
+            "uk_panel_histories": len(uk_hist),
+            "store_days": int(store["date"].nunique()) if len(store) else 0,
+            "drivers": att["driver"].value_counts(dropna=True).to_dict(),
+            "scopes": att["scope"].value_counts(dropna=True).to_dict()}
+    return merged, summ
+
+
 def ideas() -> int:
     """Pre-open brief: the day's actionable ideas + the universe workbook.
 
@@ -833,6 +885,15 @@ def ideas() -> int:
         print(f"universe filter: {before} -> {len(live)} live funds evaluated")
 
     verdicts = opportunities.evaluate(live, cats, irr, params)
+    # WHY each one moved (Phase 3a, layer 1): price-led or NAV-led, sector
+    # or idiosyncratic, on volume or not - carried on the verdict row so
+    # the ledger records the attribution the reader saw
+    attr_summary = {}
+    try:
+        verdicts, attr_summary = _attribute_verdicts(verdicts, live, params)
+    except Exception as exc:  # noqa: BLE001
+        print(f"attribution failed ({exc}); brief goes without why-lines")
+        attr_summary = {"error": str(exc)}
     # ledger write and signal emission are one step: the email is rendered
     # FROM the ledger rows, so an idea cannot be sent without being recorded
     rows = opportunities.append_ledger(verdicts, "data/ledger/signals.parquet")
@@ -870,6 +931,9 @@ def ideas() -> int:
                             if isinstance(r.catalyst_headline, str) else "")
                 out.append(f"    catalyst: {r.catalyst_class} "
                            f"({r.catalyst_date}) - {head_txt[:80]}")
+            why = getattr(r, "why", None)
+            if isinstance(why, str) and why:
+                out.append(f"    why: {why}")
             gates = [g for g, ok in (("dislocation", r.gate1_dislocation),
                                      ("catalyst", r.gate2_catalyst),
                                      ("return", r.gate3_return)) if ok]
@@ -1011,6 +1075,7 @@ def ideas() -> int:
                "watch": int(len(watch)), "ledger_rows": rows,
                "min_irr_central": min_irr,
                "new_events": int(len(new_ev)),
+               "attribution": attr_summary,
                "emailed": bool(sent),
                "workbook": None if wb_path is None else str(wb_path),
                "workbook_error": wb_error}
@@ -1027,6 +1092,19 @@ def nightly(markets: list[str]) -> int:
     all_anns: list[dict] = []
     notes = {"date": today.isoformat(), "markets": {}}
     ysess = prices.session()
+    # yesterday's anchor per fund, the third NAV-continuity comparator
+    prev_anchors: dict = {}
+    try:
+        from . import attribution as AT
+        _st = AT.load_store()
+        _st = _st[(_st["date"] < today.isoformat()) & _st["nav_anchor"].notna()
+                  & (_st["nav_anchor"] > 0)]
+        if len(_st):
+            _last = _st.sort_values("date").groupby("security_id").tail(1)
+            prev_anchors = {str(r.security_id): (pd.Timestamp(r.date), float(r.nav_anchor))
+                            for r in _last.itertuples(index=False)}
+    except Exception as exc:  # noqa: BLE001
+        print(f"previous anchors unavailable ({exc})")
 
     if "au" in markets:
         # A missing panel must not raise before anything has been attempted.
@@ -1066,7 +1144,8 @@ def nightly(markets: list[str]) -> int:
             panel, "AU", ret_col="nta_total_return", nav_col="nta_derived",
             price_col="share_price", params=params, tier0=tier0,
             market_factors=mf, daily_factors=df, live_prices=live_px,
-            registry=au_reg, own_nav_history=_own_nav_history("AU"))
+            registry=au_reg, own_nav_history=_own_nav_history("AU"),
+            prev_anchors=prev_anchors)
         tables.append(t)
         if len(tier0):
             Path("data/nta_live").mkdir(parents=True, exist_ok=True)
@@ -1195,7 +1274,7 @@ def nightly(markets: list[str]) -> int:
                 price_col=price_col, params=params, tier0=uk_tier0,
                 market_factors=mf, daily_factors=df, live_prices=live_px,
                 registry=_registry_for("UK"),
-                own_nav_history=own_uk,
+                own_nav_history=own_uk, prev_anchors=prev_anchors,
                 aux_discount_history=aux_uk,
                 fx_levels=fx_uk)
             tables.append(t)
@@ -1294,6 +1373,24 @@ def nightly(markets: list[str]) -> int:
     out.to_parquet("data/nta_live/latest.parquet", index=False)
     Path("outputs/live").mkdir(parents=True, exist_ok=True)
     out.to_csv("outputs/live/nta_live_latest.csv", index=False)
+    # the parser work list: every live row the quality gate quarantined,
+    # with the number, its source and the comparator that contradicted it
+    try:
+        q = out[~out["data_quality_ok"].fillna(True).astype(bool)]
+        if "research_eligible" in q.columns:
+            q = q[q["research_eligible"].fillna(False).astype(bool)]
+        qcols = [c for c in ("security_id", "market", "name", "price", "price_source",
+                             "nav_anchor", "anchor_date", "anchor_source", "nav_prev",
+                             "nav_jump", "unit_check_status", "data_quality_reason",
+                             "z_adj") if c in q.columns]
+        q[qcols].sort_values(["market", "data_quality_reason"]).to_csv(
+            "outputs/live/nav_quarantine.csv", index=False)
+        notes["nav_quarantine"] = {"rows": int(len(q)),
+                                   "by_reason": q["data_quality_reason"]
+                                   .str.replace(r"_\d+%?x?_", "_N_", regex=True)
+                                   .value_counts().head(12).to_dict()}
+    except Exception as exc:  # noqa: BLE001
+        print(f"quarantine list failed: {exc}")
     notes["snapshot"] = _snapshot_s3(Path("data/nta_live/latest.parquet"),
                                      f"nta_live/{today.isoformat()}.parquet")
 
@@ -1322,6 +1419,16 @@ def nightly(markets: list[str]) -> int:
     Path("reports/build").mkdir(parents=True, exist_ok=True)
     Path("reports/build/phase1_nightly.json").write_text(
         json.dumps(accept, indent=2, default=str))
+
+    # the daily snapshot store the widening attribution reads (Phase 3a)
+    try:
+        from . import attribution as AT
+        st = AT.snapshot(out)
+        notes["live_history"] = {"rows": int(len(st)),
+                                 "days": int(st["date"].nunique())}
+    except Exception as exc:  # noqa: BLE001
+        print(f"live snapshot failed: {exc}")
+        notes["live_history_error"] = str(exc)
 
     # the fund file: one record per fund, materialised from everything above
     try:

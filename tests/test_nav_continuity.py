@@ -143,3 +143,42 @@ def test_a_pence_pounds_mismatch_is_named_as_one():
 def test_a_real_jump_is_still_called_a_jump():
     out = nav_continuity(5.00, T("2026-08-24"), [(T("2026-06-30"), 2.75)])
     assert out["ok"] is False and out["reason"].startswith("nav_jump")
+
+
+def test_a_later_panel_print_is_a_comparator_too():
+    """Octopus Renewables: 454.7 parsed for 30 June, the panel's only print
+    86.18 a month later. Strictly-before found nothing to compare."""
+    out = nav_continuity(454.7, T("2026-06-30"), [(T("2026-07-31"), 86.18)])
+    assert out["ok"] is False and out["prev"] == 86.18
+    assert "nav_jump" in out["reason"]
+
+
+def test_own_history_five_x_apart_quarantines():
+    out = nav_continuity(454.7, T("2026-06-30"), [],
+                         own=[(T("2026-03-31"), 86.18)])
+    assert out["ok"] is False and out["reason"].endswith("_vs_own")
+
+
+def test_own_history_unit_artefact_is_not_evidence():
+    """RIT: 3106 pence against our own 39 (pounds mis-tagged). 80x is a
+    unit, not a jump; the panel is the arbiter for those."""
+    out = nav_continuity(3106.0, T("2026-07-31"), [],
+                         own=[(T("2026-06-30"), 39.0)])
+    assert out["ok"] is True
+
+
+def test_yesterdays_anchor_quarantines_a_new_parse_that_disagrees():
+    out = nav_continuity(4663.5, T("2026-09-04"), [],
+                         prev_anchor=(T("2026-09-03"), 1500.0))
+    assert out["ok"] is False and out["reason"].endswith("_vs_yesterday")
+
+
+def test_the_panel_verdict_comes_first():
+    """A panel that agrees makes the row ok even when our own history holds
+    a stray; a panel that disagrees quarantines whatever own history says."""
+    ok = nav_continuity(2.80, T("2026-07-31"), [(T("2026-06-30"), 2.75)],
+                        own=[(T("2026-05-31"), 9.0)])
+    assert ok["ok"] is True and ok["prev"] == 2.75
+    bad = nav_continuity(634.32, T("2026-07-31"), [(T("2026-08-31"), 2597.82)],
+                         own=[(T("2026-06-30"), 616.54)])
+    assert bad["ok"] is False and bad["prev"] == 2597.82

@@ -117,3 +117,10 @@ events:
   # catalyst bodies (|weight| >= 3, last 45 days, unread) the model reads
   # per nightly for their terms and dates; each record quote-guarded
   llm_docs_per_night: 40
+
+attribution:
+  # widening attribution (Phase 3a, layer 1): the window the discount
+  # change is decomposed over, in trading days, and the number of alert
+  # funds whose daily bars are fetched for the volume signature per brief
+  lookback_days: 21
+  bars_budget: 60

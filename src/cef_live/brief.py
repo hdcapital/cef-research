@@ -72,6 +72,10 @@ def _fund_rows(df: pd.DataFrame) -> str:
                    f'padding-top:3px;">▸ {_esc(r.catalyst_class)} '
                    f'({_esc(getattr(r, "catalyst_date", ""))})'
                    f'{" — " + _esc(head) if head else ""}</div>')
+        why = getattr(r, "why", None)
+        if isinstance(why, str) and why:
+            cat += (f'<div style="{_FONT}font-size:12px;color:{MUTED};'
+                    f'padding-top:3px;">{_esc(why)}</div>')
         num_td = (f'style="{_NUMFONT}font-size:13px;color:{INK};'
                   f'padding:9px 6px;border-bottom:1px solid {RULE};'
                   f'text-align:right;white-space:nowrap;vertical-align:top;"')
