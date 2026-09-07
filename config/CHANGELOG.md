@@ -4,6 +4,17 @@ Every change to `config/params.yaml` gets a dated entry here, committed in
 the same commit as the change, with a rationale. Parameters are never
 tuned against live outcomes.
 
+## 2026-09-07 — Phase 3: catalyst terms read by the model
+`events.llm_docs_per_night` = 40. The bodies of catalyst announcements the
+signed taxonomy rated |weight| >= 3 are read by the repo's cheap bulk model
+(CHEAP_MODEL; Opus 5 when unset) for their TERMS - tender size and price
+basis, offer price and counterparty, wind-down return, dividend change - and
+every DATE they state, which build `data/fund_events/calendar.csv`, the
+forward calendar the brief shows. Every record is guarded: the supporting
+quote must be verbatim in the document, confidence >= 0.6, no computed
+field accepted. 40 bodies at ~10k input tokens on a cached instruction
+block is well inside the pulse USD cap; a body is never read twice.
+
 ## 2026-09-07 — Phase 3: events store and TR-1 budget
 `events.tr1_fetch_budget` = 40. The nightly now classifies every announcement
 row it already sees against a SIGNED taxonomy (negative catalysts added:

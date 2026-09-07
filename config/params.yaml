@@ -114,3 +114,6 @@ events:
   # TR-1 (holdings notification) bodies read per nightly, newest first,
   # for holder-overhang detection; ~1.5s each, S3/Investegate reads only
   tr1_fetch_budget: 40
+  # catalyst bodies (|weight| >= 3, last 45 days, unread) the model reads
+  # per nightly for their terms and dates; each record quote-guarded
+  llm_docs_per_night: 40

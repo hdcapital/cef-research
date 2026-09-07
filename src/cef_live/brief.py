@@ -135,7 +135,8 @@ def render_html(label: str, date_str: str, evaluated: int,
                 z_threshold: float, min_irr: float,
                 wb_summary: dict, wb_error: str | None,
                 n_delist: int, n_watch: int,
-                new_events: pd.DataFrame | None = None) -> str:
+                new_events: pd.DataFrame | None = None,
+                calendar: pd.DataFrame | None = None) -> str:
     """The complete HTML body for one pre-open brief."""
     parts: list[str] = []
 
@@ -210,11 +211,30 @@ def render_html(label: str, date_str: str, evaluated: int,
                 f'<div style="font-size:12px;color:{col};">{_esc(getattr(r, "event_class", ""))} '
                 f'({sign}{w})</div>'
                 f'<div style="font-size:12px;color:{MUTED};">{_esc(_txt(getattr(r, "headline", ""))[:110])}</div>'
-                f'</td></tr>')
+                + (f'<div style="font-size:12px;color:{INK};">{_esc(_txt(getattr(r, "terms_line", "")))}</div>'
+                   if _txt(getattr(r, "terms_line", "")) else "")
+                + f'</td></tr>')
         n_neg = int((new_events["weight"] < 0).sum()) if "weight" in new_events.columns else 0
         parts.append(_section_header(
             f"New announcements since the last brief ({len(new_events)})",
             f"{n_neg} negative · shown once, then remembered in the fund file"))
+        parts.append(f'<tr><td style="padding:0 24px 8px 24px;">'
+                     f'<table role="presentation" cellpadding="0" cellspacing="0" width="100%">'
+                     + "".join(rows) + "</table></td></tr>")
+
+    # the forward calendar: every dated term the model read and the guards accepted
+    if calendar is not None and len(calendar):
+        rows = []
+        for r in calendar.head(30).itertuples(index=False):
+            rows.append(
+                f'<tr><td style="{_FONT}font-size:12px;color:{INK};padding:4px 8px 4px 0;'
+                f'white-space:nowrap;vertical-align:top;"><b>{_esc(getattr(r, "date", ""))}</b></td>'
+                f'<td style="{_FONT}font-size:12px;color:{INK};padding:4px 8px 4px 0;vertical-align:top;">'
+                f'{_esc(_txt(getattr(r, "name", "")) or getattr(r, "security_id", ""))} '
+                f'<span style="color:{MUTED};">{_esc(getattr(r, "event_class", ""))}: '
+                f'{_esc(_txt(getattr(r, "what", "")))}</span></td></tr>')
+        parts.append(_section_header(f"Dated catalysts ahead ({len(calendar)})",
+                                     "votes, tender closes, settlements, effective dates the announcements state"))
         parts.append(f'<tr><td style="padding:0 24px 8px 24px;">'
                      f'<table role="presentation" cellpadding="0" cellspacing="0" width="100%">'
                      + "".join(rows) + "</table></td></tr>")

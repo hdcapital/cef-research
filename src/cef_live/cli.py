@@ -957,11 +957,29 @@ def ideas() -> int:
     except Exception as exc:  # noqa: BLE001
         print(f"new-events section failed ({exc})")
         new_ev = pd.DataFrame()
+    from . import catalyst_terms as CT
     if len(new_ev):
+        new_ev = new_ev.assign(terms_line=[CT.terms_summary(t) for t in new_ev["terms"]])
         body.append(f"\nNew announcements since the last brief ({len(new_ev)}):")
         for r in new_ev.head(40).itertuples(index=False):
             body.append(f"  {r.date}  {str(r.name)[:38]:<38} {r.event_class} "
-                        f"({'+' if r.weight > 0 else ''}{r.weight})  {str(r.headline)[:80]}")
+                        f"({'+' if r.weight > 0 else ''}{r.weight})  {str(r.headline)[:80]}"
+                        + (f"\n{'':50}{r.terms_line}" if r.terms_line else ""))
+    calendar = pd.DataFrame()
+    cp_cal = Path("data/fund_events/calendar.csv")
+    if cp_cal.exists():
+        try:
+            calendar = pd.read_csv(cp_cal, dtype=str)
+            if len(calendar):
+                calendar = calendar.merge(live[["security_id", "name"]].drop_duplicates("security_id"),
+                                          on="security_id", how="left")
+                calendar = calendar[calendar["security_id"].isin(live_ids)].head(30)
+        except Exception as exc:  # noqa: BLE001
+            print(f"calendar unreadable ({exc})")
+    if len(calendar):
+        body.append(f"\nDated catalysts ahead ({len(calendar)}):")
+        for r in calendar.itertuples(index=False):
+            body.append(f"  {r.date}  {str(r.name)[:38]:<38} {r.event_class}: {r.what}")
     html = None
     try:
         html = brief.render_html(
@@ -970,7 +988,8 @@ def ideas() -> int:
             cat_led=cat_led,
             z_threshold=float(params["opportunity"]["z_threshold"]),
             min_irr=min_irr, wb_summary=wb_summary, wb_error=wb_error,
-            n_delist=n_delist, n_watch=len(watch), new_events=new_ev)
+            n_delist=n_delist, n_watch=len(watch), new_events=new_ev,
+            calendar=calendar)
     except Exception as exc:  # noqa: BLE001
         # the text body is canonical; a rendering bug must cost the styling,
         # never the brief
@@ -1226,8 +1245,21 @@ def nightly(markets: list[str]) -> int:
         _es.headers["User-Agent"] = prices.UA
         ev, hstats = EV.enrich_holdings(ev, _es, budget=int(
             _params().get("events", {}).get("tr1_fetch_budget", 40)))
+        # the TERMS of the catalysts (tender size/price/dates, vote dates,
+        # wind-down timelines): a bounded number of bodies read by the
+        # model each night, every record guarded; skipped without a key
+        from . import catalyst_terms as CT
+        if os.environ.get("ANTHROPIC_API_KEY"):
+            ev, tstats = CT.run(ev, _es, budget_docs=int(
+                _params().get("events", {}).get("llm_docs_per_night", 40)))
+        else:
+            tstats = {"skipped": "no ANTHROPIC_API_KEY"}
         EV.save(ev)
-        notes["events"] = {**EV.summarise(ev), "tr1": hstats}
+        cal = CT.calendar(ev)
+        Path("data/fund_events").mkdir(parents=True, exist_ok=True)
+        cal.to_csv("data/fund_events/calendar.csv", index=False)
+        notes["events"] = {**EV.summarise(ev), "tr1": hstats, "terms": tstats,
+                           "calendar_rows": int(len(cal))}
     except Exception as exc:  # noqa: BLE001
         notes["events_error"] = str(exc)
 
