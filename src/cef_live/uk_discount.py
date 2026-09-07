@@ -61,6 +61,65 @@ def staleness_limit(median_gap_days: float | None) -> float:
                      max(STALE_FLOOR_DAYS, STALE_MULTIPLE * float(median_gap_days))))
 
 
+STERLING = {"GBX", "GBP", "GBP_PENCE", "STG", "GBp"}
+
+
+def convert_foreign_navs(nav: pd.DataFrame, fx_levels: dict | None,
+                         price_ccy: dict[str, str] | None = None
+                         ) -> tuple[pd.DataFrame, dict]:
+    """Restate a NAV the fund published in dollars, euros or Canadian
+    dollars into pence, at the GBP cross-rate level on the NAV's own date.
+
+    Canadian General's daily discount history was a CAD figure under a
+    pence price - a mean discount of -67% and a live z of +10.5. A fund
+    whose PRICE is quoted in the same foreign currency keeps both
+    unconverted (the reconciliation compares like with like). A foreign
+    NAV with no rate for its currency is dropped from the panel rather
+    than divided into a pence price: the discount is then absent, which
+    is the truth, instead of an exchange rate wearing a discount's clothing.
+    Returns the restated frame and {converted, dropped, by_ccy}.
+    """
+    stats = {"converted": 0, "dropped": 0, "by_ccy": {}}
+    if nav is None or not len(nav) or "nav_ccy" not in nav.columns:
+        return nav, stats
+    n = nav.copy()
+    ccy = n["nav_ccy"].fillna("GBX").astype(str).str.upper()
+    foreign = ~ccy.isin({c.upper() for c in STERLING})
+    if not foreign.any():
+        return n, stats
+    price_ccy = {k: str(v).upper() for k, v in (price_ccy or {}).items()}
+    fx_levels = fx_levels or {}
+    n["nav_ccy_original"] = None
+    n["nav_fx_rate"] = pd.NA
+    keep = pd.Series(True, index=n.index)
+    for idx in n.index[foreign]:
+        c = ccy[idx]
+        tk = str(n.at[idx, "ticker"]).upper()
+        if price_ccy.get(tk) == c:
+            continue                      # both sides in the same currency
+        lv = fx_levels.get(c)
+        rate = None
+        if lv is not None and len(lv):
+            d = pd.Timestamp(n.at[idx, "nav_date"])
+            ser = lv[lv.index <= d]
+            if len(ser) and (d - ser.index[-1]).days <= 7:
+                rate = float(ser.iloc[-1])
+        if rate is None or not rate > 0:
+            keep[idx] = False
+            stats["dropped"] += 1
+            stats["by_ccy"][c] = stats["by_ccy"].get(c, 0) + 1
+            continue
+        for col in ("nav_pence", "nav_pence_adj", "nav_ex_pence"):
+            if col in n.columns and pd.notna(n.at[idx, col]):
+                n.at[idx, col] = float(n.at[idx, col]) / rate * 100.0
+        n.at[idx, "nav_ccy_original"] = c
+        n.at[idx, "nav_fx_rate"] = rate
+        n.at[idx, "nav_ccy"] = "GBX"
+        stats["converted"] += 1
+        stats["by_ccy"][c] = stats["by_ccy"].get(c, 0) + 1
+    return n[keep], stats
+
+
 def build(nav: pd.DataFrame, px: pd.DataFrame,
           frequency: pd.DataFrame | None = None,
           units: pd.DataFrame | None = None,

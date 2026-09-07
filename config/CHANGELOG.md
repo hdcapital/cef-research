@@ -4,6 +4,16 @@ Every change to `config/params.yaml` gets a dated entry here, committed in
 the same commit as the change, with a rationale. Parameters are never
 tuned against live outcomes.
 
+## 2026-09-07 — Foreign-currency NAVs restated into pence in the UK daily panel
+The daily discount panel (uk_daily, `uk_discount.build`) divided a pence
+price by a NAV the fund published in dollars, euros or Canadian dollars -
+Canadian General's history read as a -67% mean discount. Before the unit
+reconciliation and the discount, a foreign NAV is now restated into pence
+at the GBP cross-rate level on its own date (`nav_ccy_original`,
+`nav_fx_rate` on the row); a fund priced in the same foreign currency
+keeps both unconverted; a foreign NAV with no rate is dropped from the
+panel rather than guessed. Counts land in uk_daily_status.json under `fx`.
+
 ## 2026-09-07 — A z needs a CURRENT history, in the anchor's unit
 `live_nta.z_adjustment.max_history_gap_months` = 6. The first brief with
 why-lines (run 157) showed North Atlantic Smaller Companies at z -5.75 on

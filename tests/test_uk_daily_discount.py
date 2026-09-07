@@ -597,3 +597,40 @@ def test_a_regime_change_in_the_history_does_not_void_todays_unit():
     row2 = PH.reconcile_units(nav2, px2).iloc[0]
     assert row2["price_scale"] is None or pd.isna(row2["price_scale"])
     assert row2["price_unit_status"] == "unresolved_dispersed"
+
+
+# ------------------------------------------------ foreign-currency NAVs
+def test_a_dollar_nav_is_restated_into_pence_before_the_discount():
+    """Canadian General: a CAD NAV under a pence price made a -67% history."""
+    nav = _nav("CGI", ["2026-08-28"], ["2026-08-27"], [89.02])
+    nav["nav_ccy"] = "CAD"
+    px = _px("CGI", ["2026-08-29"], [2860.0])
+    fx = {"CAD": pd.Series([1.87, 1.87], index=pd.to_datetime(["2026-08-26", "2026-08-27"]))}
+    out, st = DISC.convert_foreign_navs(nav, fx, {"CGI": "GBp"})
+    assert st["converted"] == 1 and out.iloc[0]["nav_ccy"] == "GBX"
+    assert out.iloc[0]["nav_pence"] == pytest.approx(89.02 / 1.87 * 100)
+    assert out.iloc[0]["nav_ccy_original"] == "CAD"
+    panel = DISC.build(out, px)
+    assert panel.iloc[0]["discount"] == pytest.approx(2860.0 / (89.02 / 1.87 * 100) - 1, abs=1e-4)
+
+
+def test_a_foreign_nav_without_a_rate_is_dropped_not_divided():
+    nav = _nav("XYZ", ["2026-08-28"], ["2026-08-27"], [2.5])
+    nav["nav_ccy"] = "USD"
+    out, st = DISC.convert_foreign_navs(nav, {}, {"XYZ": "GBp"})
+    assert st["dropped"] == 1 and len(out) == 0
+
+
+def test_a_fund_priced_in_its_nav_currency_is_left_alone():
+    nav = _nav("USDL", ["2026-08-28"], ["2026-08-27"], [2.5])
+    nav["nav_ccy"] = "USD"
+    fx = {"USD": pd.Series([1.3], index=pd.to_datetime(["2026-08-27"]))}
+    out, st = DISC.convert_foreign_navs(nav, fx, {"USDL": "USD"})
+    assert st["converted"] == 0 and out.iloc[0]["nav_pence"] == 2.5
+
+
+def test_sterling_navs_pass_through_untouched():
+    nav = _nav("AAA", ["2026-08-28"], ["2026-08-27"], [100.0])
+    nav["nav_ccy"] = "GBX"
+    out, st = DISC.convert_foreign_navs(nav, {}, {})
+    assert st == {"converted": 0, "dropped": 0, "by_ccy": {}} and len(out) == 1

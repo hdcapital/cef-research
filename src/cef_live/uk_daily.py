@@ -120,12 +120,24 @@ def stage_prices(universe: pd.DataFrame, *, deadline_min: float,
 
 
 def stage_discount(universe: pd.DataFrame, nav: pd.DataFrame,
-                   px: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
+                   px: pd.DataFrame, fx_levels: dict | None = None) -> tuple[pd.DataFrame, dict]:
     freq = NAV.publication_frequency(nav)
     # Yahoo's close is split-adjusted and a published NAV is not, so the NAV
     # is restated onto the price series' share basis before either the unit
     # reconciliation or the discount touches it.
     nav = PH.nav_on_price_basis(nav, PH.read_splits())
+    # ...and a NAV published in dollars or euros is restated into pence at
+    # the rate on its own date before anything divides a price by it
+    if fx_levels is None:
+        try:
+            from . import prices
+            fx_levels = prices.fx_levels(prices.session(), "UK")
+        except Exception as exc:  # noqa: BLE001
+            print(f"FX levels unavailable ({exc}); foreign NAVs are dropped, not guessed")
+            fx_levels = {}
+    px_ccy = (px.sort_values("date").groupby("ticker")["price_ccy"].last().to_dict()
+              if len(px) and "price_ccy" in px.columns else {})
+    nav, fx_stats = DISC.convert_foreign_navs(nav, fx_levels, px_ccy)
     qual, _ = NAV.quality_report(nav)
     unreliable = set(qual.loc[~qual["reliable"], "ticker"]) if len(qual) else set()
     ccy_by_ticker = (nav.sort_values("published_at").groupby("ticker")["nav_ccy"]
@@ -136,6 +148,7 @@ def stage_discount(universe: pd.DataFrame, nav: pd.DataFrame,
                        unreliable=unreliable)
     if len(panel):
         DISC.write_panel(panel)
+    stats_fx = fx_stats
     _write_csv(units, OUT_DIR / "uk_price_unit_reconciliation.csv")
 
     latest = DISC.latest_snapshot(DISC.with_zscores(panel), universe)
@@ -158,7 +171,7 @@ def stage_discount(universe: pd.DataFrame, nav: pd.DataFrame,
         _write_csv(latest[latest["usable"]][keep].round(6),
                    OUT_DIR / "uk_discount_today.csv")
 
-    stats = {
+    stats = {"fx": stats_fx, 
         "panel_rows": int(len(panel)),
         "funds": int(panel["ticker"].nunique()) if len(panel) else 0,
         "days_with_discount": int(panel["discount"].notna().sum()) if len(panel) else 0,
