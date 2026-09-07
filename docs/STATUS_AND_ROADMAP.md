@@ -241,6 +241,23 @@ Everything here has a named fix in `coverage_failures.csv`:
 
 ### Phase 3a — Widening attribution: why did the discount widen, and is it rational?
 
+> **2026-09-07 — layer 1 shipped; the anchor guard it exposed.** Every verdict
+> row in the brief now carries a "why" line (`cef_live.attribution`): the
+> discount change over 21 trading days decomposed exactly into its price leg
+> and NAV leg (price-led / NAV-led / mixed / "series break - verify units"),
+> the market+sector peer median over the same dates (sector-wide / partly /
+> idiosyncratic, ≥4 peers or it says so), volume over the last 5 bars vs the
+> prior 60, and holder-notice churn. It reads a new daily store,
+> `data/live_history/live_daily.parquet` (one row per fund per day, seeded
+> from the eight committed workbooks). The first decomposition over that
+> store found the ANCHOR unstable: 128 day-over-day NAV jumps >35% in eight
+> days, ~15 of them on alert-eligible rows (ORIT 454.7 vs 86.18 - the £m
+> total read as pence; NAS 634.32 vs the panel's 2597.82; Canadian General
+> 54x). `nav_continuity` now reads three comparators (panel print nearest on
+> either side; own other observations; yesterday's anchor) and the nightly
+> writes `outputs/live/nav_quarantine.csv` as the parser work list. Layer 2
+> (event attribution, holder overhang) shipped with Phase 3 on 2026-09-07.
+
 A z says a fund is cheap against its own history, not whether it deserves
 to be. Attribution conditions the entry, in a ladder from cheap to
 sophisticated; layers 1–2 ship as soon as Phase 3 starts because the brief
