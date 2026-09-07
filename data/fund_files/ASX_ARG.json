@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 9.4399995803833,
+  "price": 9.430000305175781,
   "ccy": "AUD",
   "date": "2026-09-07",
   "source": "yahoo:ARG.AX"
  },
  "discount": {
-  "estimate": -0.138686,
-  "z": -0.7756,
+  "estimate": -0.139599,
+  "z": -0.7931,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1763,
-  "discount_only": 0.0206,
+  "central": 0.177,
+  "discount_only": 0.0212,
   "g_used": 0.1358,
   "g_source": "panel_tr_cagr"
  },
@@ -50,14 +50,14 @@
  "events_90d": [
   {
    "date": "2026-08-20",
-   "class": "substantial_holder",
-   "weight": 2,
-   "direction": "positive",
+   "class": "portfolio_holding",
+   "weight": 0,
+   "direction": "neutral",
    "headline": "Change in substantial holding for AOV",
    "url": "https://announcements.asx.com.au/asxpdf/20260820/pdf/07304w7chmchgh.pdf",
    "alerted_at": null,
    "terms": null
   }
  ],
- "updated_at": "2026-09-07T04:57:51+00:00"
+ "updated_at": "2026-09-07T06:14:48+00:00"
 }

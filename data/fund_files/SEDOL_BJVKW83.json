@@ -33,7 +33,7 @@
  "discount": {
   "estimate": -0.106631,
   "z": 1.2445,
-  "z_status": "within_error_band",
+  "z_status": "computed_growing_13m",
   "z_source": "own_daily_panel",
   "z_window_months": 13,
   "mu_36m": -0.163823,
@@ -56,7 +56,10 @@
    "headline": "Result of EGM and Entry into Voluntary Liquidation",
    "url": "https://www.investegate.co.uk/announcement/rns/jpmorgan-global-core-real-assets-limited-npv-eur---jare/result-of-egm-and-entry-into-voluntary-liquidation/9743834",
    "alerted_at": null,
-   "terms": null
+   "terms": {
+    "llm": "error",
+    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'This API key is not scoped to a workspace, so this request must include the anthropic-workspace-id header wit"
+   }
   },
   {
    "date": "2026-08-24",
@@ -66,7 +69,10 @@
    "headline": "Suspension of shares from trading on main market",
    "url": "https://www.investegate.co.uk/announcement/rns/jpmorgan-global-core-real-assets-limited-npv-eur---jare/suspension-of-shares-from-trading-on-main-market/9737224",
    "alerted_at": null,
-   "terms": null
+   "terms": {
+    "llm": "error",
+    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'This API key is not scoped to a workspace, so this request must include the anthropic-workspace-id header wit"
+   }
   },
   {
    "date": "2026-08-06",
@@ -89,5 +95,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-07T04:57:51+00:00"
+ "updated_at": "2026-09-07T06:14:49+00:00"
 }

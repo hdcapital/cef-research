@@ -41,9 +41,9 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0631,
+  "central": 0.069,
   "discount_only": -0.0155,
-  "g_used": 0.0697,
+  "g_used": 0.0757,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
@@ -56,8 +56,11 @@
    "headline": "Conditional Tender Offer - Performance Update",
    "url": "https://www.investegate.co.uk/announcement/rns/aberdeen-new-india-investment-trust--anii/conditional-tender-offer-performance-update/9731980",
    "alerted_at": null,
-   "terms": null
+   "terms": {
+    "llm": "error",
+    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'This API key is not scoped to a workspace, so this request must include the anthropic-workspace-id header wit"
+   }
   }
  ],
- "updated_at": "2026-09-07T04:57:51+00:00"
+ "updated_at": "2026-09-07T06:14:49+00:00"
 }

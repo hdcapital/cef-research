@@ -15,7 +15,7 @@
   "anchor": 2.75,
   "anchor_date": "2026-08-31",
   "anchor_source": "own_nav_history:2026-08-31",
-  "estimate": 2.749739,
+  "estimate": 2.749999,
   "basis": 1.0,
   "staleness_days": 5.0,
   "staleness_limit_days": 45.0,
@@ -31,8 +31,8 @@
   "source": "yahoo:MIR.AX"
  },
  "discount": {
-  "estimate": -0.090823,
-  "z": -1.4352,
+  "estimate": -0.090909,
+  "z": -1.4367,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1586,
-  "discount_only": 0.0199,
+  "central": 0.1612,
+  "discount_only": 0.0222,
   "g_used": 0.0991,
   "g_source": "panel_tr_cagr"
  },
@@ -50,14 +50,14 @@
  "events_90d": [
   {
    "date": "2026-08-24",
-   "class": "substantial_holder",
-   "weight": 2,
-   "direction": "positive",
+   "class": "portfolio_holding",
+   "weight": 0,
+   "direction": "neutral",
    "headline": "Change in substantial holding for EGL",
    "url": "https://announcements.asx.com.au/asxpdf/20260824/pdf/0734j840zfp288.pdf",
    "alerted_at": null,
    "terms": null
   }
  ],
- "updated_at": "2026-09-07T04:57:51+00:00"
+ "updated_at": "2026-09-07T06:14:48+00:00"
 }

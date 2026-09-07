@@ -41,9 +41,9 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0369,
+  "central": 0.0555,
   "discount_only": -0.0078,
-  "g_used": 0.0451,
+  "g_used": 0.0638,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
@@ -56,7 +56,10 @@
    "headline": "Total Voting Rights and Completion of Tender Offer",
    "url": "https://www.investegate.co.uk/announcement/rns/rit-capital-partners--rcp/total-voting-rights-and-completion-of-tender-offer/9689785",
    "alerted_at": null,
-   "terms": null
+   "terms": {
+    "llm": "error",
+    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'This API key is not scoped to a workspace, so this request must include the anthropic-workspace-id header wit"
+   }
   },
   {
    "date": "2026-07-24",
@@ -66,8 +69,11 @@
    "headline": "Result of Tender Offer",
    "url": "https://www.investegate.co.uk/announcement/rns/rit-capital-partners--rcp/result-of-tender-offer/9686752",
    "alerted_at": null,
-   "terms": null
+   "terms": {
+    "llm": "error",
+    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'This API key is not scoped to a workspace, so this request must include the anthropic-workspace-id header wit"
+   }
   }
  ],
- "updated_at": "2026-09-07T04:57:51+00:00"
+ "updated_at": "2026-09-07T06:14:49+00:00"
 }

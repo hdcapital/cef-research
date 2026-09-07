@@ -15,7 +15,7 @@
   "anchor": 1.222,
   "anchor_date": "2026-06-30",
   "anchor_source": "aggregator_panel:2026-06",
-  "estimate": 1.27241,
+  "estimate": 1.272592,
   "basis": 1.0,
   "staleness_days": 49.0,
   "staleness_limit_days": 135.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1.2300000190734863,
+  "price": 1.2350000143051147,
   "ccy": "AUD",
   "date": "2026-09-07",
   "source": "yahoo:WAM.AX"
  },
  "discount": {
-  "estimate": -0.03333,
-  "z": -0.9005,
+  "estimate": -0.029539,
+  "z": -0.8688,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,7 +41,7 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.2628,
+  "central": 0.2627,
   "discount_only": 0.0345,
   "g_used": 0.1438,
   "g_source": "panel_tr_cagr"
@@ -50,9 +50,9 @@
  "events_90d": [
   {
    "date": "2026-08-26",
-   "class": "substantial_holder",
-   "weight": 2,
-   "direction": "positive",
+   "class": "portfolio_holding",
+   "weight": 0,
+   "direction": "neutral",
    "headline": "Change in substantial holding for LGI",
    "url": "https://announcements.asx.com.au/asxpdf/20260826/pdf/0738h5ny9ygnxr.pdf",
    "alerted_at": null,
@@ -60,14 +60,14 @@
   },
   {
    "date": "2026-08-07",
-   "class": "substantial_holder",
-   "weight": 2,
-   "direction": "positive",
+   "class": "portfolio_holding",
+   "weight": 0,
+   "direction": "neutral",
    "headline": "Change in substantial holding for CWP",
    "url": "https://announcements.asx.com.au/asxpdf/20260807/pdf/072jxbwls9tlr3.pdf",
    "alerted_at": null,
    "terms": null
   }
  ],
- "updated_at": "2026-09-07T04:57:51+00:00"
+ "updated_at": "2026-09-07T06:14:48+00:00"
 }

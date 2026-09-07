@@ -33,12 +33,12 @@
  "discount": {
   "estimate": -0.031564,
   "z": 0.6618,
-  "z_status": "within_error_band",
+  "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.051521,
   "sigma_36m": 0.030155,
-  "alert_eligible": false
+  "alert_eligible": true
  },
  "forward_irr": {
   "central": 0.159,
@@ -61,5 +61,5 @@
    }
   }
  ],
- "updated_at": "2026-09-07T04:57:51+00:00"
+ "updated_at": "2026-09-07T06:14:49+00:00"
 }

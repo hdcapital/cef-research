@@ -33,7 +33,7 @@
  "discount": {
   "estimate": -0.999639,
   "z": -1.9782,
-  "z_status": "computed_growing_20m",
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 20,
   "mu_36m": -0.498323,
@@ -56,7 +56,10 @@
    "headline": "Termination of potential Reverse Takeover",
    "url": "https://www.investegate.co.uk/announcement/rns/grit-investment-trust--grit/termination-of-potential-reverse-takeover/9721266",
    "alerted_at": null,
-   "terms": null
+   "terms": {
+    "llm": "error",
+    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'This API key is not scoped to a workspace, so this request must include the anthropic-workspace-id header wit"
+   }
   },
   {
    "date": "2026-07-30",
@@ -69,5 +72,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-07T04:57:51+00:00"
+ "updated_at": "2026-09-07T06:14:49+00:00"
 }
