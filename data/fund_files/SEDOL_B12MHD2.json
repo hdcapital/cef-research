@@ -21,24 +21,24 @@
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
-  "quality_ok": false,
-  "quality_reason": "unit_suspect_scale"
+  "quality_ok": true,
+  "quality_reason": ""
  },
  "price": {
-  "price": 0.15600000321865082,
+  "price": 15.600000381469727,
   "ccy": "GBp",
-  "date": "2026-09-04",
+  "date": "2026-09-07",
   "source": "yahoo:LMS.L"
  },
  "discount": {
-  "estimate": -0.99527,
-  "z": -5.3107,
+  "estimate": -0.526986,
+  "z": 0.7848,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.586328,
-  "sigma_36m": 0.077003,
-  "alert_eligible": false
+  "mu_36m": -0.587409,
+  "sigma_36m": 0.076992,
+  "alert_eligible": true
  },
  "forward_irr": {
   "central": 1.6308,
@@ -48,5 +48,5 @@
  },
  "holder_churn": null,
  "events_90d": [],
- "updated_at": "2026-09-07T06:14:49+00:00"
+ "updated_at": "2026-09-07T21:58:30+00:00"
 }

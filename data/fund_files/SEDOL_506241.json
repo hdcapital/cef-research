@@ -9,15 +9,15 @@
   "reason": "nav_4d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-03",
-  "last_announcement": "2026-09-04"
+  "last_announcement": "2026-09-07"
  },
  "nav": {
-  "anchor": 47.7,
-  "anchor_date": "2026-09-03",
-  "anchor_source": "investegate:9756704",
-  "estimate": 47.7,
+  "anchor": 47.81,
+  "anchor_date": "2026-09-04",
+  "anchor_source": "investegate:9759299",
+  "estimate": 47.81,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -27,12 +27,12 @@
  "price": {
   "price": 50.599998474121094,
   "ccy": "GBp",
-  "date": "2026-09-04",
+  "date": "2026-09-07",
   "source": "yahoo:NCYF.L"
  },
  "discount": {
-  "estimate": 0.060797,
-  "z": 0.1525,
+  "estimate": 0.058356,
+  "z": 0.0272,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -48,6 +48,16 @@
  },
  "holder_churn": null,
  "events_90d": [
+  {
+   "date": "2026-09-07",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/cqs-new-city-high-yield-fund-limited--ncyf/issue-of-equity/9759613",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-09-04",
    "class": "issuance",
@@ -179,5 +189,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-07T06:14:49+00:00"
+ "updated_at": "2026-09-07T21:58:29+00:00"
 }

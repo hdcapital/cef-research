@@ -25,20 +25,20 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 85.80000305175781,
+  "price": 85.4000015258789,
   "ccy": "GBp",
-  "date": "2026-09-04",
+  "date": "2026-09-07",
   "source": "yahoo:SMIF.L"
  },
  "discount": {
-  "estimate": 0.02289,
-  "z": 0.5537,
-  "z_status": "computed",
+  "estimate": 0.018121,
+  "z": 0.2211,
+  "z_status": "within_error_band",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": 0.015133,
-  "sigma_36m": 0.01401,
-  "alert_eligible": true
+  "mu_36m": 0.015034,
+  "sigma_36m": 0.013966,
+  "alert_eligible": false
  },
  "forward_irr": {
   "central": 0.0309,
@@ -48,6 +48,16 @@
  },
  "holder_churn": null,
  "events_90d": [
+  {
+   "date": "2026-09-07",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/prn/twentyfour-select-monthly-income-fund-limited--smif/issue-of-equity/9759625",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-09-03",
    "class": "issuance",
@@ -109,5 +119,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-07T06:14:49+00:00"
+ "updated_at": "2026-09-07T21:58:30+00:00"
 }

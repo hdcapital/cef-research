@@ -25,19 +25,19 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 117.5,
+  "price": 118.0,
   "ccy": "GBp",
-  "date": "2026-09-04",
+  "date": "2026-09-07",
   "source": "yahoo:CVCG.L"
  },
  "discount": {
-  "estimate": 0.005821,
-  "z": 0.484,
+  "estimate": 0.010101,
+  "z": 0.6138,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.006681,
-  "sigma_36m": 0.02583,
+  "mu_36m": -0.005398,
+  "sigma_36m": 0.025249,
   "alert_eligible": true
  },
  "forward_irr": {
@@ -75,7 +75,7 @@
    "direction": "positive",
    "headline": "Result of Tender Offer",
    "url": "https://www.investegate.co.uk/announcement/rns/cvc-income-growth-limited-npv-gbp--cvcg/result-of-tender-offer/9722546",
-   "alerted_at": null,
+   "alerted_at": "2026-09-07T07:45:12+00:00",
    "terms": {
     "llm": "error",
     "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'This API key is not scoped to a workspace, so this request must include the anthropic-workspace-id header wit"
@@ -142,5 +142,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-07T06:14:49+00:00"
+ "updated_at": "2026-09-07T21:58:29+00:00"
 }

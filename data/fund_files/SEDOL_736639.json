@@ -25,19 +25,19 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 2505.0,
+  "price": 2475.0,
   "ccy": "GBp",
-  "date": "2026-09-04",
+  "date": "2026-09-07",
   "source": "yahoo:RCP.L"
  },
  "discount": {
-  "estimate": -0.193496,
-  "z": -3.4731,
+  "estimate": -0.203155,
+  "z": 1.6004,
   "z_status": "computed",
-  "z_source": "aggregator_panel",
+  "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": 0.000605,
-  "sigma_36m": 0.055886,
+  "mu_36m": -0.254859,
+  "sigma_36m": 0.032306,
   "alert_eligible": true
  },
  "forward_irr": {
@@ -55,7 +55,7 @@
    "direction": "positive",
    "headline": "Total Voting Rights and Completion of Tender Offer",
    "url": "https://www.investegate.co.uk/announcement/rns/rit-capital-partners--rcp/total-voting-rights-and-completion-of-tender-offer/9689785",
-   "alerted_at": null,
+   "alerted_at": "2026-09-07T07:45:12+00:00",
    "terms": {
     "llm": "error",
     "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'This API key is not scoped to a workspace, so this request must include the anthropic-workspace-id header wit"
@@ -68,12 +68,12 @@
    "direction": "positive",
    "headline": "Result of Tender Offer",
    "url": "https://www.investegate.co.uk/announcement/rns/rit-capital-partners--rcp/result-of-tender-offer/9686752",
-   "alerted_at": null,
+   "alerted_at": "2026-09-07T07:45:12+00:00",
    "terms": {
     "llm": "error",
     "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'This API key is not scoped to a workspace, so this request must include the anthropic-workspace-id header wit"
    }
   }
  ],
- "updated_at": "2026-09-07T06:14:49+00:00"
+ "updated_at": "2026-09-07T21:58:30+00:00"
 }
