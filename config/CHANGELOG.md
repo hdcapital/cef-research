@@ -4,6 +4,20 @@ Every change to `config/params.yaml` gets a dated entry here, committed in
 the same commit as the change, with a rationale. Parameters are never
 tuned against live outcomes.
 
+## 2026-09-07 — A z needs a CURRENT history, in the anchor's unit
+`live_nta.z_adjustment.max_history_gap_months` = 6. The first brief with
+why-lines (run 157) showed North Atlantic Smaller Companies at z -5.75 on
+an aggregator history that ended 2015-09 and RIT at -3.47 on one ending
+2012-08; Canadian General at z +10.5 on a daily-panel history whose NAV was
+an unconverted CAD figure under a pence price (mean discount -67%). Now:
+the history's last month must be within the gap of today, else the z is
+computed (status `history_stale_<YYYY-MM>`, `z_history_end` on the row) and
+never alert-eligible, and the daily panel's series REPLACES a stale
+aggregator series when its own is current; a fund whose anchor was
+FX-converted never reads the daily panel's history (status
+`history_unit_mismatch` when nothing else exists). Follow-up: FX-convert
+foreign NAVs inside uk_discount.build so that cohort gets a real history.
+
 ## 2026-09-07 — Brief schedule made delay-tolerant (still two emails a day)
 GitHub's cron started the scheduled ideas runs 1h44m, 5h03m and 1h45m late
 over 2026-09-04..07, so the pre-LSE brief was arriving after the open. Each

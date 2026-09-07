@@ -30,6 +30,11 @@ live_nta:
     # into the full spec as live grabs accumulate, never alert-eligible
     # until it does. Below the floor a z would be two points and a prayer.
     min_months: 24
+    # the history must also be CURRENT: its last observation within this
+    # many months of today, or the z is computed (status
+    # history_stale_<YYYY-MM>) and never alert-eligible. North Atlantic
+    # Smaller Companies alerted at z -5.75 against a panel ending 2015-09.
+    max_history_gap_months: 6
     min_months_floor: 6
     error_sanity_k: 1.0           # |discount_est - mu| must exceed k * est_error
 

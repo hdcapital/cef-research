@@ -91,6 +91,29 @@ def _nearest(anchor_date, rows, exclude_same_date=True):
     return d, v
 
 
+def _series_end_month(hist: pd.DataFrame, h: pd.Series) -> str | None:
+    """YYYY-MM of the last observation in the discount series `h` (index
+    aligned with `hist`), or None."""
+    if not len(h) or "obs_month" not in hist.columns:
+        return None
+    try:
+        return str(hist.loc[h.index[-1], "obs_month"])
+    except Exception:  # noqa: BLE001
+        return None
+
+
+def _months_since(month: str | None, today) -> int:
+    """Whole months from YYYY-MM to today; a bad month reads as very old."""
+    if not month:
+        return 10 ** 6
+    try:
+        p = pd.Period(str(month)[:7], freq="M")
+        t = pd.Period(pd.Timestamp(today), freq="M")
+        return int((t - p).n)
+    except Exception:  # noqa: BLE001
+        return 10 ** 6
+
+
 def nav_continuity(anchor_val, anchor_date, prior, own=None, prev_anchor=None) -> dict:
     """Is this anchor plausible against what else is known of the fund's NAV?
 
@@ -478,18 +501,37 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
         z_window = 0
         z_floor = int(zp.get("min_months_floor", zp["min_months"]))
         h = hist[dcol].dropna() if dcol is not None else pd.Series(dtype=float)
+        # when the history ENDS matters as much as how deep it is: North
+        # Atlantic Smaller Companies came through at z -5.75 against a
+        # panel that ended 2015-09, RIT at -3.47 against one ending
+        # 2012-08. A discount history that stopped years ago is not this
+        # fund's own history any more.
+        max_gap = int(zp.get("max_history_gap_months", 6))
+        h_end = _series_end_month(hist, h)
+        h_stale = _months_since(h_end, today) > max_gap if h_end else False
         if len(h):
             z_source = "aggregator_panel"
-        # the panel stays primary; the daily-panel resample only ADDS
-        # history where the panel's series is the shallower of the two
-        if len(h) < zp["min_months"] and sid in aux_by_sid:
-            ah = (aux_by_sid[sid]["discount"].tail(zp["window_months"])
-                  .dropna())
-            if len(ah) > len(h):
-                # adopt the deeper series even below the floor: no z is
-                # computed there, but "insufficient_history_4m" names how
-                # close the fund is, where "no_discount_history" hides it
+        # the daily-panel resample: ADDS history where the panel's series is
+        # the shallower of the two, and REPLACES it where the panel's has
+        # gone stale and the daily panel's is current. It is unusable when
+        # the anchor was converted from a foreign currency: the daily panel
+        # holds that NAV unconverted (Canadian General: z +10.5 against a
+        # mean discount of -67% that was a CAD NAV under a pence price).
+        aux_ok = sid in aux_by_sid and nav_unit_original is None
+        if aux_ok and (len(h) < zp["min_months"] or h_stale):
+            ag = aux_by_sid[sid]
+            ah = ag["discount"].tail(zp["window_months"]).dropna()
+            a_end = str(ag["obs_month"].iloc[-1]) if len(ag) else None
+            a_stale = _months_since(a_end, today) > max_gap if a_end else True
+            if (len(ah) > len(h) and not (a_stale and not h_stale)) or (h_stale and not a_stale and len(ah) >= z_floor):
+                # adopt the deeper (or the current) series even below the
+                # floor: no z is computed there, but "insufficient_history_4m"
+                # names how close the fund is, where "no_discount_history"
+                # hides it
                 h, z_source = ah, "own_daily_panel"
+                h_end, h_stale = a_end, a_stale
+        elif sid in aux_by_sid and nav_unit_original is not None and not len(h):
+            z_status = "history_unit_mismatch"
         if len(h) or z_source is not None:
             z_window = int(len(h))
             if len(h) < z_floor:
@@ -515,6 +557,10 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
                             zp["error_sanity_k"] * est_error:
                         z_within_error = True
                         z_status = "within_error_band"
+                    elif h_stale:
+                        # computed, so the universe is priced, but a history
+                        # that ended months ago is not alert evidence
+                        z_status = f"history_stale_{h_end}"
                     elif z_window < zp["min_months"]:
                         # a GROWING z: short of the depth the alert evidence
                         # was built on, real enough to price with, and it
@@ -678,6 +724,7 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
             "z_within_error": z_within_error,
             "z_source": z_source,
             "z_window_months": z_window,
+            "z_history_end": h_end,
             "staleness_limit_days": stale_limit,
             # basis states PROVENANCE (0 = the fund's own announcement,
             # 1 = factor roll-forward, 3 = carried anchor); nav_current
@@ -697,6 +744,7 @@ def build_table(panel: pd.DataFrame, market: str, ret_col: str, nav_col: str,
                 # a growing z prices the fund; only a full-depth z - the
                 # depth the alert evidence was validated on - may alert
                 and z_window >= int(zp["min_months"])
+                and not h_stale
                 and pd.notna(staleness) and staleness <= stale_limit
                 and pd.notna(basis)),
             "model_factors": m["factors"] if has_model else None,

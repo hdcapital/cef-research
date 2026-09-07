@@ -1394,6 +1394,16 @@ def nightly(markets: list[str]) -> int:
     notes["snapshot"] = _snapshot_s3(Path("data/nta_live/latest.parquet"),
                                      f"nta_live/{today.isoformat()}.parquet")
 
+    # the daily snapshot store the widening attribution reads (Phase 3a)
+    try:
+        from . import attribution as AT
+        st = AT.snapshot(out)
+        notes["live_history"] = {"rows": int(len(st)),
+                                 "days": int(st["date"].nunique())}
+    except Exception as exc:  # noqa: BLE001
+        print(f"live snapshot failed: {exc}")
+        notes["live_history_error"] = str(exc)
+
     # ---- Phase 1 acceptance metrics ----
     basis_counts = out["basis"].value_counts(dropna=False).to_dict()
     # rows with NO NAV from any source are now kept (so their price and the
@@ -1419,16 +1429,6 @@ def nightly(markets: list[str]) -> int:
     Path("reports/build").mkdir(parents=True, exist_ok=True)
     Path("reports/build/phase1_nightly.json").write_text(
         json.dumps(accept, indent=2, default=str))
-
-    # the daily snapshot store the widening attribution reads (Phase 3a)
-    try:
-        from . import attribution as AT
-        st = AT.snapshot(out)
-        notes["live_history"] = {"rows": int(len(st)),
-                                 "days": int(st["date"].nunique())}
-    except Exception as exc:  # noqa: BLE001
-        print(f"live snapshot failed: {exc}")
-        notes["live_history_error"] = str(exc)
 
     # the fund file: one record per fund, materialised from everything above
     try:

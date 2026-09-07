@@ -1675,3 +1675,96 @@ def test_a_manual_ticker_verdict_is_never_re_resolved(tmp_path, monkeypatch):
     except Exception:  # noqa: BLE001  - network paths beyond the cache are not under test
         pass
     assert all("SEDOL:BFXW773" not in c for c in calls)
+
+
+# ------------------------------------------------ z history must be current
+
+def _stale_panel_fixture(end="2015-09"):
+    months = pd.period_range("2012-10", end, freq="M").astype(str)
+    panel = pd.DataFrame([
+        {"security_id": "SEDOL:NAS", "obs_month": m, "sector": "UK Smaller Companies",
+         "nav_total_return": 0.004, "nav_per_share": 2500.0,
+         "share_price": 2000.0 + (i % 5), "company_name": "North Atlantic",
+         "discount": -0.20 + (i % 5) / 100.0}
+        for i, m in enumerate(months)])
+    registry = pd.DataFrame([{"security_id": "SEDOL:NAS", "market": "UK",
+                              "status": "live", "name": "North Atlantic",
+                              "research_eligible": True, "identity_ok": True}])
+    tier0 = pd.DataFrame([{"security_id": "SEDOL:NAS", "nav_date": "2026-07-31",
+                           "nav_value": 634.32, "unit": "GBX",
+                           "source": "investegate:9723569"}])
+    px = pd.DataFrame([{"security_id": "SEDOL:NAS", "price": 415.0,
+                        "price_source": "yahoo:NAS.L", "price_date": "2026-08-28",
+                        "price_ccy": "GBp"}])
+    return panel, registry, tier0, px
+
+
+def test_a_z_against_a_history_that_ended_years_ago_cannot_alert():
+    """North Atlantic Smaller Companies: z -5.75 on a panel ending 2015-09.
+    The z is still computed (the universe is priced), the status names
+    when the history ended, and it is not alert evidence."""
+    panel, registry, tier0, px = _stale_panel_fixture()
+    out = nta_live.build_table(panel, "UK", "nav_total_return", "nav_per_share",
+                               "share_price", _params(), tier0=tier0,
+                               live_prices=px, registry=registry, today=TODAY)
+    r = out[out["security_id"] == "SEDOL:NAS"].iloc[0]
+    assert pd.notna(r["z_adj"])
+    assert r["z_status"] == "history_stale_2015-09"
+    assert r["z_history_end"] == "2015-09"
+    assert not r["alert_eligible"]
+
+
+def test_a_current_daily_panel_history_replaces_a_stale_aggregator_one():
+    panel, registry, tier0, px = _stale_panel_fixture()
+    months = pd.period_range("2023-01", "2026-08", freq="M").astype(str)
+    aux = pd.DataFrame([{"security_id": "SEDOL:NAS", "obs_month": m,
+                         "discount": -0.30 + 0.02 * (i % 4)}
+                        for i, m in enumerate(months)])
+    out = nta_live.build_table(panel, "UK", "nav_total_return", "nav_per_share",
+                               "share_price", _params(), tier0=tier0,
+                               live_prices=px, registry=registry,
+                               aux_discount_history=aux, today=TODAY)
+    r = out[out["security_id"] == "SEDOL:NAS"].iloc[0]
+    assert r["z_source"] == "own_daily_panel" and r["z_history_end"] == "2026-08"
+    assert r["z_status"] in ("computed", "within_error_band")
+
+
+def test_a_recent_history_is_unaffected_by_the_recency_gate():
+    panel, registry, tier0, px = _stale_panel_fixture(end="2026-07")
+    out = nta_live.build_table(panel, "UK", "nav_total_return", "nav_per_share",
+                               "share_price", _params(), tier0=tier0,
+                               live_prices=px, registry=registry, today=TODAY)
+    r = out[out["security_id"] == "SEDOL:NAS"].iloc[0]
+    assert not str(r["z_status"]).startswith("history_stale")
+
+
+def test_an_fx_converted_anchor_never_uses_the_unconverted_daily_panel_history():
+    """Canadian General: z +10.5 against a daily-panel history whose NAV was
+    a CAD figure under a pence price (mean discount -67%)."""
+    params = _params()
+    empty_panel = pd.DataFrame(columns=["security_id", "obs_month", "sector",
+                                        "nav_total_return", "nav_per_share",
+                                        "share_price", "discount"])
+    registry = pd.DataFrame([{"security_id": "SEDOL:CGI", "market": "UK",
+                              "status": "live", "name": "Canadian General",
+                              "research_eligible": True, "identity_ok": True}])
+    own = pd.DataFrame([{"security_id": "SEDOL:CGI", "nav_date": "2026-08-28",
+                         "nav_value": 89.02, "nav_unit": "CAD"}])
+    px = pd.DataFrame([{"security_id": "SEDOL:CGI", "price": 2860.0,
+                        "price_source": "yahoo:CGI.L", "price_date": "2026-08-29",
+                        "price_ccy": "GBp"}])
+    fx = {"CAD": pd.Series([1.87, 1.87],
+                           index=pd.to_datetime(["2026-08-27", "2026-08-28"]))}
+    months = pd.period_range("2023-01", "2026-08", freq="M").astype(str)
+    aux = pd.DataFrame([{"security_id": "SEDOL:CGI", "obs_month": m,
+                         "discount": -0.67 + 0.02 * (i % 3)}
+                        for i, m in enumerate(months)])
+    out = nta_live.build_table(empty_panel, "UK", "nav_total_return",
+                               "nav_per_share", "share_price", params,
+                               live_prices=px, registry=registry,
+                               own_nav_history=own, fx_levels=fx,
+                               aux_discount_history=aux, today=TODAY)
+    r = out[out["security_id"] == "SEDOL:CGI"].iloc[0]
+    assert r["nav_unit_original"] == "CAD"
+    assert pd.isna(r["z_adj"]) and r["z_status"] == "history_unit_mismatch"
+    assert not r["alert_eligible"]
