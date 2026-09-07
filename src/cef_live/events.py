@@ -134,10 +134,10 @@ def merge_events(new: pd.DataFrame, path: Path = EVENTS_PATH) -> pd.DataFrame:
 _PCT = r"([0-9]{1,2}(?:\.[0-9]{1,3})?)\s*%"
 _TR1_RESULT = re.compile(r"Resulting situation[^%]{0,260}?" + _PCT, re.I)
 _TR1_PREV = re.compile(r"Position of previous notification[^%]{0,200}?" + _PCT, re.I)
-_TR1_HOLDER = re.compile(r"(?:Full name of shareholder\(s\)|Name of the shareholder|"
-                         r"Details of person subject to the notification obligation)\s*:?\s*"
-                         r"(?:\([^)]{0,80}\))?\s*(?:\d\.\s*)?(?:Name\s*:?\s*)?([A-Z][A-Za-z0-9&.,'\- ]{3,90}?)"
-                         r"(?=\s+(?:City|Registered|4\.|5\.|Country|\d+\.\s|Date))", re.I)
+_TR1_HOLDER = re.compile(
+    r"(?:notification obligation|Full name of shareholder\(s\))\s*:?\s*(?:\d\.\s*)?"
+    r"(?:Name\s*:?\s*)?([A-Z][A-Za-z0-9&.,'()\- ]{3,90}?)\s+"
+    r"(?=City|Registered|Country|\d\.\s|Date)", re.I)
 
 
 def parse_tr1(text: str) -> dict:

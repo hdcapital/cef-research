@@ -943,7 +943,25 @@ def ideas() -> int:
                if len(verdicts) else f"{label}: no new ideas")
 
     from . import brief
+    from . import events as EV
     from .notify import notify
+    # Phase 3: announcements no brief has shown yet - shown once, then
+    # remembered. Names from the live table; the store holds ids.
+    ev_all = EV.load()
+    try:
+        live_ids = set(live["security_id"].astype(str))
+        new_ev = EV.new_events(ev_all, live_sids=live_ids)
+        if len(new_ev):
+            new_ev = new_ev.merge(live[["security_id", "name"]].drop_duplicates("security_id"),
+                                  on="security_id", how="left")
+    except Exception as exc:  # noqa: BLE001
+        print(f"new-events section failed ({exc})")
+        new_ev = pd.DataFrame()
+    if len(new_ev):
+        body.append(f"\nNew announcements since the last brief ({len(new_ev)}):")
+        for r in new_ev.head(40).itertuples(index=False):
+            body.append(f"  {r.date}  {str(r.name)[:38]:<38} {r.event_class} "
+                        f"({'+' if r.weight > 0 else ''}{r.weight})  {str(r.headline)[:80]}")
     html = None
     try:
         html = brief.render_html(
@@ -952,7 +970,7 @@ def ideas() -> int:
             cat_led=cat_led,
             z_threshold=float(params["opportunity"]["z_threshold"]),
             min_irr=min_irr, wb_summary=wb_summary, wb_error=wb_error,
-            n_delist=n_delist, n_watch=len(watch))
+            n_delist=n_delist, n_watch=len(watch), new_events=new_ev)
     except Exception as exc:  # noqa: BLE001
         # the text body is canonical; a rendering bug must cost the styling,
         # never the brief
@@ -962,12 +980,18 @@ def ideas() -> int:
                   attachments=[str(wb_path)] if wb_path else None,
                   html=html)
 
+    if sent and len(new_ev):
+        try:
+            EV.mark_alerted(ev_all, new_ev["event_id"])
+        except Exception as exc:  # noqa: BLE001
+            print(f"could not mark events alerted ({exc})")
     summary = {"generated_at": datetime.now(timezone.utc)
                .isoformat(timespec="seconds"),
                "brief": label,
                "evaluated": int(len(live)), "opportunities": int(len(opps)),
                "watch": int(len(watch)), "ledger_rows": rows,
                "min_irr_central": min_irr,
+               "new_events": int(len(new_ev)),
                "emailed": bool(sent),
                "workbook": None if wb_path is None else str(wb_path),
                "workbook_error": wb_error}
@@ -1190,6 +1214,23 @@ def nightly(markets: list[str]) -> int:
         cats.to_csv("outputs/live/catalysts_recent.csv", index=False)
     notes["catalysts"] = catalysts.summarise(cats)
 
+    # ---- Phase 3: the events store - every classified announcement, with
+    # first_seen / alerted_at memory, and the TR-1 bodies behind recent UK
+    # holdings notifications (bounded, throttled) for holder overhang ----
+    from . import events as EV
+    ev = pd.DataFrame()
+    try:
+        ev = EV.merge_events(EV.build_events(all_anns, au_idx))
+        import requests as _rq
+        _es = _rq.Session()
+        _es.headers["User-Agent"] = prices.UA
+        ev, hstats = EV.enrich_holdings(ev, _es, budget=int(
+            _params().get("events", {}).get("tr1_fetch_budget", 40)))
+        EV.save(ev)
+        notes["events"] = {**EV.summarise(ev), "tr1": hstats}
+    except Exception as exc:  # noqa: BLE001
+        notes["events_error"] = str(exc)
+
     if not tables:
         print("no market tables built"); return 1
     out = pd.concat(tables, ignore_index=True)
@@ -1249,6 +1290,19 @@ def nightly(markets: list[str]) -> int:
     Path("reports/build").mkdir(parents=True, exist_ok=True)
     Path("reports/build/phase1_nightly.json").write_text(
         json.dumps(accept, indent=2, default=str))
+
+    # the fund file: one record per fund, materialised from everything above
+    try:
+        reg_ff = pd.read_parquet("data/universe/registry.parquet") \
+            if Path("data/universe/registry.parquet").exists() else None
+        irr_ff = pd.read_parquet("data/forward_irr/latest.parquet") \
+            if Path("data/forward_irr/latest.parquet").exists() else None
+        live_ff = out[out["research_eligible"].fillna(False)] \
+            if "research_eligible" in out.columns else out
+        ffs = EV.write_fund_files(live_ff, EV.load(), reg_ff, irr_ff)
+        print(f"fund files: {ffs}")
+    except Exception as exc:  # noqa: BLE001
+        print(f"fund files failed: {exc}")
 
     # NOT emailed: the two daily pre-open briefs are the only scheduled
     # emails (owner instruction 2026-09-01, config/CHANGELOG.md). The

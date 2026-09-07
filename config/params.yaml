@@ -108,3 +108,9 @@ ledger:
   cash_yield: 0.0
   base_notional: 100.0
   report_ccy: AUD
+
+# Phase 3 announcement intelligence
+events:
+  # TR-1 (holdings notification) bodies read per nightly, newest first,
+  # for holder-overhang detection; ~1.5s each, S3/Investegate reads only
+  tr1_fetch_budget: 40

@@ -73,7 +73,8 @@ NEGATIVE_CLASSES: list[tuple[str, int, re.Pattern]] = [
         r"|resolution\s+not\s+passed|not\s+to\s+continue", re.I)),
     ("offer_withdrawn", -3, re.compile(
         r"no\s+intention\s+to\s+(?:bid|make\s+an\s+offer)|offer\s+(?:lapse|withdrawn|lapsed)"
-        r"|termination\s+of\s+(?:possible\s+)?offer|potential\s+(?:reverse\s+)?takeover\s+terminat", re.I)),
+        r"|termination\s+of\s+(?:possible\s+|potential\s+)?(?:offer|(?:reverse\s+)?takeover)"
+        r"|potential\s+(?:reverse\s+)?takeover\s+terminat", re.I)),
     ("covenant_gearing", -3, re.compile(
         r"covenant\s+(?:breach|waiver|test)|breach\s+of\s+(?:covenant|banking|facility)"
         r"|lender\s+(?:waiver|standstill)|standstill\s+agreement|event\s+of\s+default"

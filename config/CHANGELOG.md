@@ -4,6 +4,17 @@ Every change to `config/params.yaml` gets a dated entry here, committed in
 the same commit as the change, with a rationale. Parameters are never
 tuned against live outcomes.
 
+## 2026-09-07 — Phase 3: events store and TR-1 budget
+`events.tr1_fetch_budget` = 40. The nightly now classifies every announcement
+row it already sees against a SIGNED taxonomy (negative catalysts added:
+suspension, failed continuation, offer withdrawn, covenant/gearing, dividend
+cut, NAV write-down, legal/sanctions, going-concern/accounts delay, manager
+exit) into `data/fund_events/events.parquet`, and reads up to 40 recent UK
+TR-1 bodies a night for the holder's previous/resulting stake (holder
+overhang). The pre-open brief shows each event once ("new since the last
+brief") and records `alerted_at`. 40 pages at 1.5s is one minute of the
+nightly; nothing is fetched twice.
+
 ## 2026-09-03 — ASX code re-use cutoff for liveness evidence
 `universe.liveness.au_code_reuse_gap_days` = 120. The ASX announcement index
 is keyed by code alone, and the exchange re-issues a delisted company's code:
