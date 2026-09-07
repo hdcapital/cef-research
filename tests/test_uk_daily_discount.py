@@ -634,3 +634,50 @@ def test_sterling_navs_pass_through_untouched():
     nav["nav_ccy"] = "GBX"
     out, st = DISC.convert_foreign_navs(nav, {}, {})
     assert st == {"converted": 0, "dropped": 0, "by_ccy": {}} and len(out) == 1
+
+
+# ------------------------------------------------ reparse replaces held rows
+def test_a_reparsed_announcement_no_longer_keeps_its_old_wrong_row(monkeypatch, tmp_path):
+    """TRIG's 7.55 was stored `parsed`; re-read with today's rules the
+    announcement yields no NAV, and the held row must go with it."""
+    from cef_live import uk_daily as UD
+    held = pd.DataFrame({"ticker": ["TRIG", "TRIG"], "ann_id": ["1", "2"],
+                         "published_at": pd.to_datetime(["2026-07-31", "2026-08-07"]),
+                         "nav_date": pd.to_datetime(["2026-06-30", "2026-06-30"]),
+                         "nav_pence": [7.55, 101.1], "nav_ex_pence": [None, None],
+                         "cum_assumed": [True, True], "nav_ccy": ["GBX", "GBX"],
+                         "nav_source": ["archive", "archive"], "quality": ["parsed", "parsed"]})
+    universe = pd.DataFrame({"security_id": ["SEDOL:BBHX2H9"], "ticker": ["TRIG"]})
+    q = tmp_path / "nav_quarantine.csv"
+    pd.DataFrame({"security_id": ["SEDOL:BBHX2H9"], "market": ["UK"],
+                  "data_quality_reason": ["nav_jump_1239%_vs_yesterday"]}).to_csv(q, index=False)
+    monkeypatch.setattr(UD, "QUARANTINE_CSV", q)
+    monkeypatch.setattr(NAV, "read_panel", lambda: held)
+    monkeypatch.setattr(NAV, "extract_from_committed", lambda tickers=None: held.iloc[0:0])
+    monkeypatch.setattr(NAV, "known_ann_ids", lambda: {"1", "2"})
+    monkeypatch.setattr(NAV, "unparsed_ann_ids", lambda tickers=None: set())
+    monkeypatch.setattr(NAV, "quality_report", lambda h: (pd.DataFrame({"ticker": ["TRIG"], "reliable": [True]}), {}))
+    monkeypatch.setattr(NAV, "ann_ids_for", lambda tk: {"1", "2"} if "TRIG" in tk else set())
+    seen = {}
+
+    def fake_archive(bucket, tickers=None, skip_ann_ids=None, deadline_min=0, shard=0, shards=1):
+        seen["skip"] = set(skip_ann_ids or ())
+        # today's rules: announcement 1 has no NAV, announcement 2 reads 101.1
+        return held[held["ann_id"] == "2"].copy(), {"read": 2}
+    monkeypatch.setattr(NAV, "extract_from_archive", fake_archive)
+    monkeypatch.setattr(NAV, "extract_from_snapshots", lambda *a, **k: (held.iloc[0:0], {}))
+    panel, stats = UD.stage_nav(universe, "bucket", deadline_min=1, reparse_unparsed=True)
+    assert stats["reparse_quarantined_funds"] == ["TRIG"]
+    assert "1" not in seen["skip"] and "2" not in seen["skip"]
+    assert set(panel["ann_id"].astype(str)) == {"2"}, "the wrong row must not survive its reparse"
+
+
+def test_quarantined_tickers_reads_only_parser_reasons(tmp_path):
+    from cef_live import uk_daily as UD
+    q = tmp_path / "q.csv"
+    pd.DataFrame({"security_id": ["S1", "S2", "S3", "S4"], "market": ["UK", "UK", "AU", "UK"],
+                  "data_quality_reason": ["nav_jump_81%_vs_yesterday", "stale_panel_price_only",
+                                          "nav_jump_50%_vs_prior", "unit_suspect_scale"]}).to_csv(q, index=False)
+    universe = pd.DataFrame({"security_id": ["S1", "S2", "S3", "S4"], "ticker": ["AAA", "BBB", "CCC", "DDD"]})
+    assert UD.quarantined_tickers(universe, q) == {"AAA", "DDD"}
+    assert UD.quarantined_tickers(universe, tmp_path / "missing.csv") == set()

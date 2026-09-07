@@ -41,6 +41,33 @@ def _write_csv(df: pd.DataFrame, path: Path) -> None:
     df.to_csv(path, index=False)
 
 
+QUARANTINE_CSV = Path("outputs/live/nav_quarantine.csv")
+_REPARSE_REASONS = ("nav_jump", "nav_unit_mismatch", "unit_suspect")
+
+
+def quarantined_tickers(universe: pd.DataFrame,
+                        path: Path = QUARANTINE_CSV) -> set[str]:
+    """UK funds the nightly quarantined for a NAV that disagrees with what
+    else is known of them - the parser work list, as tickers."""
+    if not Path(path).exists():
+        return set()
+    try:
+        q = pd.read_csv(path)
+    except Exception:  # noqa: BLE001
+        return set()
+    if not len(q) or "data_quality_reason" not in q.columns:
+        return set()
+    reason = q["data_quality_reason"].fillna("").astype(str)
+    hit = q[reason.str.startswith(_REPARSE_REASONS)]
+    if "market" in hit.columns:
+        hit = hit[hit["market"].astype(str).str.upper() == "UK"]
+    sid_to_ticker = dict(zip(universe["security_id"].astype(str),
+                             universe["ticker"].astype(str)))
+    return {sid_to_ticker[s] for s in hit["security_id"].astype(str)
+            if s in sid_to_ticker and isinstance(sid_to_ticker[s], str)
+            and sid_to_ticker[s] not in ("nan", "")}
+
+
 def stage_nav(universe: pd.DataFrame, bucket: str, *, deadline_min: float,
               shard: int = 0, shards: int = 1, use_snapshots: bool = True,
               reparse_unparsed: bool = False) -> tuple[pd.DataFrame, dict]:
@@ -72,8 +99,25 @@ def stage_nav(universe: pd.DataFrame, bucket: str, *, deadline_min: float,
                 if bad:
                     retry |= NAV.ann_ids_for(bad)
                     stats["reparse_unreliable_funds"] = sorted(bad)
+            # ...and the funds the nightly's continuity guard quarantined:
+            # a stray own observation (TRIG's 7.55, Syncona's 4.96) is a
+            # row the OLD rules answered wrongly, stored `parsed`, and the
+            # quality report's thresholds do not always reach it
+            quarantined = quarantined_tickers(universe)
+            if quarantined:
+                retry |= NAV.ann_ids_for(quarantined)
+                stats["reparse_quarantined_funds"] = sorted(quarantined)
             skip -= retry
             stats["reparse_candidates"] = len(retry)
+            if retry:
+                # the fresh verdict REPLACES the held row: normalise() keeps
+                # one row per (ticker, ann_id) by source rank, so an
+                # announcement re-read to "no NAV" would otherwise keep the
+                # wrong number it had before
+                r = {str(a) for a in retry}
+                held = held[~held["ann_id"].astype(str).isin(r)] if len(held) else held
+                seed = seed[~seed["ann_id"].astype(str).isin(r)] if len(seed) else seed
+                frames = [f for f in (held, seed) if len(f)]
         arch, s1 = NAV.extract_from_archive(
             bucket, tickers=tickers, skip_ann_ids=skip,
             deadline_min=deadline_min, shard=shard, shards=shards)
