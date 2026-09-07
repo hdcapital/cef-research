@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:BYYS2J0",
+ "name": "GCP Asset Backed Income C shares",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Sector Specialist: Debt",
+ "liveness": {
+  "status": "delist_candidate",
+  "reason": "aggregator_delisted_and_own_filings_silent_981d",
+  "source": "corroborated_delisting",
+  "last_nav": "2023-12-31",
+  "last_announcement": null
+ },
+ "nav": {
+  "anchor": 93.21,
+  "anchor_date": "2023-12-31",
+  "anchor_source": "own_nav_history:2023-12-31",
+  "estimate": 93.21,
+  "basis": 3.0,
+  "staleness_days": 700.0,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "GBX",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 1.04,
+  "ccy": null,
+  "date": "2017-06",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": -0.988842,
+  "z": null,
+  "z_status": "insufficient_history_2m",
+  "z_source": "aggregator_panel",
+  "z_window_months": 2,
+  "mu_36m": null,
+  "sigma_36m": null,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 1.7581,
+  "discount_only": 1.4789,
+  "g_used": 0.1126,
+  "g_source": "sector_median"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

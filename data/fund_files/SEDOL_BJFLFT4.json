@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:BJFLFT4",
+ "name": "Custodian Property Income REIT",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Property - UK Commercial",
+ "liveness": {
+  "status": "delist_candidate",
+  "reason": "filings_but_no_nav_or_report_28d",
+  "source": "own_announcement_only",
+  "last_nav": "2022-12-14",
+  "last_announcement": "2026-08-10"
+ },
+ "nav": {
+  "anchor": 119.7,
+  "anchor_date": "2022-03-31",
+  "anchor_source": "own_nav_history:2022-03-31",
+  "estimate": 119.7,
+  "basis": 3.0,
+  "staleness_days": 1157.0,
+  "staleness_limit_days": 200.0,
+  "current": false,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 82.80000305175781,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:CREI.L"
+ },
+ "discount": {
+  "estimate": -0.308271,
+  "z": -2.3894,
+  "z_status": "computed",
+  "z_source": "own_daily_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.03955,
+  "sigma_36m": 0.112462,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.1408,
+  "discount_only": 0.085,
+  "g_used": 0.0515,
+  "g_source": "market_median"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

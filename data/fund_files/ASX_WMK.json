@@ -1,0 +1,52 @@
+{
+ "security_id": "ASX:WMK",
+ "name": "Watermark Market Neutral Fund Limited",
+ "market": "AU",
+ "ticker": null,
+ "sector": "Equity - Australia Strategy",
+ "liveness": {
+  "status": "delisted",
+  "reason": "own_delisting_notice_2688d",
+  "source": "own_delisting_notice",
+  "last_nav": "2019-04-12",
+  "last_announcement": "2019-04-29"
+ },
+ "nav": {
+  "anchor": 0.8804191616766467,
+  "anchor_date": "2019-02-28",
+  "anchor_source": "aggregator_panel:2019-02",
+  "estimate": 0.880419,
+  "basis": 3.0,
+  "staleness_days": 1962.0,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "AUD",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 0.845,
+  "ccy": null,
+  "date": "2019-02",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": -0.04023,
+  "z": 0.2636,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 20,
+  "mu_36m": -0.057733,
+  "sigma_36m": 0.066409,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.1029,
+  "discount_only": -0.0016,
+  "g_used": 0.0783,
+  "g_source": "sector_median"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

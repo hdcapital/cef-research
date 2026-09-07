@@ -1,0 +1,52 @@
+{
+ "security_id": "ASX:GCI",
+ "name": "Gryphon Capital Income Trust",
+ "market": "AU",
+ "ticker": null,
+ "sector": "Fixed Income - Australian Dollar",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_7d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-08-31",
+  "last_announcement": "2026-08-31"
+ },
+ "nav": {
+  "anchor": 2.018,
+  "anchor_date": "2026-08-28",
+  "anchor_source": "asx_ann:03133390",
+  "estimate": 2.018,
+  "basis": 0.0,
+  "staleness_days": 6.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "AUD",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 2.059999942779541,
+  "ccy": "AUD",
+  "date": "2026-09-07",
+  "source": "yahoo:GCI.AX"
+ },
+ "discount": {
+  "estimate": 0.020813,
+  "z": 0.5766,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": 0.006994,
+  "sigma_36m": 0.023968,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.1629,
+  "discount_only": -0.0033,
+  "g_used": 0.1061,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

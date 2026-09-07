@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:B3PHCS8",
+ "name": "Henderson International Income",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Global Equity Income",
+ "liveness": {
+  "status": "delisted",
+  "reason": "own_delisting_notice_357d",
+  "source": "own_delisting_notice",
+  "last_nav": "2025-05-23",
+  "last_announcement": "2025-09-15"
+ },
+ "nav": {
+  "anchor": 174.9,
+  "anchor_date": "2025-05-21",
+  "anchor_source": "own_nav_history:2025-05-21",
+  "estimate": 186.216463,
+  "basis": 1.0,
+  "staleness_days": 338.0,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "GBX",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 171.5,
+  "ccy": null,
+  "date": "2025-04",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": -0.079029,
+  "z": 0.1807,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.085433,
+  "sigma_36m": 0.035447,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.1259,
+  "discount_only": 0.0029,
+  "g_used": 0.0896,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:52+00:00"
+}

@@ -1,0 +1,113 @@
+{
+ "security_id": "SEDOL:BJVDZ94",
+ "name": "TwentyFour Select Monthly Income",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Debt - Loans & Bonds",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_4d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-03",
+  "last_announcement": "2026-09-03"
+ },
+ "nav": {
+  "anchor": 83.88,
+  "anchor_date": "2026-09-03",
+  "anchor_source": "investegate:9755045",
+  "estimate": 83.88,
+  "basis": 0.0,
+  "staleness_days": 2.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 85.80000305175781,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:SMIF.L"
+ },
+ "discount": {
+  "estimate": 0.02289,
+  "z": 0.5537,
+  "z_status": "within_error_band",
+  "z_source": "own_daily_panel",
+  "z_window_months": 36,
+  "mu_36m": 0.015133,
+  "sigma_36m": 0.01401,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.0309,
+  "discount_only": -0.001,
+  "g_used": 0.032,
+  "g_source": "own_nav_history"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-09-03",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/prn/twentyfour-select-monthly-income-fund-limited--smif/issue-of-equity/9754786",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-17",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/prn/twentyfour-select-monthly-income-fund-limited--smif/issue-of-equity/9725994",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-14",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/prn/twentyfour-select-monthly-income-fund-limited--smif/issue-of-equity/9723600",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-07",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/prn/twentyfour-select-monthly-income-fund-limited--smif/issue-of-equity/9711717",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-07-31",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/prn/twentyfour-select-monthly-income-fund-limited--smif/issue-of-equity/9699349",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-07-24",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/prn/twentyfour-select-monthly-income-fund-limited--smif/issue-of-equity/9687441",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:52+00:00"
+}

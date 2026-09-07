@@ -1,0 +1,183 @@
+{
+ "security_id": "SEDOL:B7W0XJ6",
+ "name": "BlackRock American Income",
+ "market": "UK",
+ "ticker": null,
+ "sector": "North America",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_4d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-03",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 279.38,
+  "anchor_date": "2026-09-03",
+  "anchor_source": "investegate:9756764",
+  "estimate": 279.38,
+  "basis": 0.0,
+  "staleness_days": 2.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 281.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:BRAI.L"
+ },
+ "discount": {
+  "estimate": 0.005799,
+  "z": 1.6563,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.061734,
+  "sigma_36m": 0.040773,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.1148,
+  "discount_only": -0.0132,
+  "g_used": 0.1159,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-09-04",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/prn/blackrock-american-income-trust-plc--brai/issue-of-equity/9757353",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-09-02",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/prn/blackrock-american-income-trust-plc--brai/issue-of-equity/9752667",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-26",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/prn/blackrock-american-income-trust-plc--brai/issue-of-equity/9741950",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-21",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/prn/blackrock-american-income-trust-plc--brai/issue-of-equity/9735129",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-19",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/prn/blackrock-american-income-trust-plc--brai/issue-of-equity/9730666",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-18",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/prn/blackrock-american-income-trust-plc--brai/issue-of-equity/9728370",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-17",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/prn/blackrock-american-income-trust-plc--brai/issue-of-equity/9726059",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-12",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/prn/blackrock-american-income-trust-plc--brai/issue-of-equity/9718866",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-11",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/prn/blackrock-american-income-trust-plc--brai/issue-of-equity/9716500",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-10",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/prn/blackrock-american-income-trust-plc--brai/issue-of-equity/9714052",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-07",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/prn/blackrock-american-income-trust-plc--brai/issue-of-equity/9711755",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-06",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/prn/blackrock-american-income-trust-plc--brai/issue-of-equity/9709563",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-05",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/prn/blackrock-american-income-trust-plc--brai/issue-of-equity/9707030",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

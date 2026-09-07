@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:290481",
+ "name": "JZ Capital Partners",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Flexible Investment",
+ "liveness": {
+  "status": "delist_candidate",
+  "reason": "aggregator_delisted_and_own_filings_silent_alwaysd",
+  "source": "corroborated_delisting",
+  "last_nav": null,
+  "last_announcement": null
+ },
+ "nav": {
+  "anchor": 188.12,
+  "anchor_date": "2008-02-29",
+  "anchor_source": "aggregator_panel:2008-02",
+  "estimate": 188.12,
+  "basis": 3.0,
+  "staleness_days": 4831.0,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "GBX",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 118.75,
+  "ccy": null,
+  "date": "2008-02",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": -0.368754,
+  "z": -0.669,
+  "z_status": "computed_growing_9m",
+  "z_source": "aggregator_panel",
+  "z_window_months": 9,
+  "mu_36m": -0.278057,
+  "sigma_36m": 0.13557,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": null,
+  "discount_only": null,
+  "g_used": 0.0488,
+  "g_source": "sector_median"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

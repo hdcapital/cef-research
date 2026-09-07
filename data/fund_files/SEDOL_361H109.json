@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:361H109",
+ "name": "Vietnam Enterprise Investments",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Country Specialist",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_3d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-04",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 836.9999999999999,
+  "anchor_date": "2026-09-04",
+  "anchor_source": "investegate:9755321",
+  "estimate": 837.0,
+  "basis": 0.0,
+  "staleness_days": 1.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 738.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:VEIL.L"
+ },
+ "discount": {
+  "estimate": -0.11828,
+  "z": null,
+  "z_status": "no_discount_history",
+  "z_source": null,
+  "z_window_months": 0,
+  "mu_36m": null,
+  "sigma_36m": null,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": null,
+  "discount_only": null,
+  "g_used": 0.0486,
+  "g_source": "own_nav_history"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:52+00:00"
+}

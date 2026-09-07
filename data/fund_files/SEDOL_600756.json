@@ -1,0 +1,63 @@
+{
+ "security_id": "SEDOL:600756",
+ "name": "Montanaro UK Smaller Companies",
+ "market": "UK",
+ "ticker": null,
+ "sector": "UK Smaller Companies",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_4d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-03",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 116.75,
+  "anchor_date": "2026-09-03",
+  "anchor_source": "investegate:9756793",
+  "estimate": 116.75,
+  "basis": 0.0,
+  "staleness_days": 2.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 110.5,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:MTU.L"
+ },
+ "discount": {
+  "estimate": -0.053533,
+  "z": 0.9704,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.093695,
+  "sigma_36m": 0.041385,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.0023,
+  "discount_only": -0.0062,
+  "g_used": -0.0196,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-08-06",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/montanaro-uk-smaller-companies-inv-trust--mtu/holding-s-in-company/9709461",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

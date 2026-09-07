@@ -1,0 +1,73 @@
+{
+ "security_id": "SEDOL:BDFGHW4",
+ "name": "Baillie Gifford US Growth",
+ "market": "UK",
+ "ticker": null,
+ "sector": "North America",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_3d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-04",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 366.36,
+  "anchor_date": "2026-09-04",
+  "anchor_source": "investegate:9756635",
+  "estimate": 366.36,
+  "basis": 0.0,
+  "staleness_days": 1.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 349.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:USA.L"
+ },
+ "discount": {
+  "estimate": -0.047385,
+  "z": 0.8285,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.09564,
+  "sigma_36m": 0.058243,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.1229,
+  "discount_only": -0.013,
+  "g_used": 0.0544,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-08-14",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/baillie-gifford-us-growth-trust--usa/holding-s-in-company/9723609",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-05",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/baillie-gifford-us-growth-trust--usa/holding-s-in-company/9706869",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

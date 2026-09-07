@@ -1,0 +1,93 @@
+{
+ "security_id": "SEDOL:BJVKW83",
+ "name": "JPMorgan Global Core Real Assets",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Flexible Investment",
+ "liveness": {
+  "status": "live_stale_nav",
+  "reason": "periodic_report_283d_old_no_recent_nav",
+  "source": "own_periodic_report",
+  "last_nav": "2026-03-16",
+  "last_announcement": "2026-08-27"
+ },
+ "nav": {
+  "anchor": 94.25,
+  "anchor_date": "2026-05-07",
+  "anchor_source": "investegate_fs:9556993",
+  "estimate": 94.25,
+  "basis": 0.0,
+  "staleness_days": 87.0,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 84.19999694824219,
+  "ccy": "GBp",
+  "date": "2026-09-01",
+  "source": "yahoo:JARA.L"
+ },
+ "discount": {
+  "estimate": -0.106631,
+  "z": 1.2445,
+  "z_status": "within_error_band",
+  "z_source": "own_daily_panel",
+  "z_window_months": 13,
+  "mu_36m": -0.163823,
+  "sigma_36m": 0.045956,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.0319,
+  "discount_only": -0.0161,
+  "g_used": 0.0488,
+  "g_source": "sector_median"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-08-27",
+   "class": "liquidation_wind_down",
+   "weight": 5,
+   "direction": "positive",
+   "headline": "Result of EGM and Entry into Voluntary Liquidation",
+   "url": "https://www.investegate.co.uk/announcement/rns/jpmorgan-global-core-real-assets-limited-npv-eur---jare/result-of-egm-and-entry-into-voluntary-liquidation/9743834",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-24",
+   "class": "suspension",
+   "weight": -4,
+   "direction": "negative",
+   "headline": "Suspension of shares from trading on main market",
+   "url": "https://www.investegate.co.uk/announcement/rns/jpmorgan-global-core-real-assets-limited-npv-eur---jare/suspension-of-shares-from-trading-on-main-market/9737224",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-06",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/jpmorgan-global-core-real-assets-limited-npv-eur---jare/holding-s-in-company/9709525",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-05",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/jpmorgan-global-core-real-assets-limited-npv-eur---jare/holding-s-in-company/9706620",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

@@ -1,0 +1,93 @@
+{
+ "security_id": "ASX:ECL",
+ "name": "Excelsior Capital Ltd",
+ "market": "AU",
+ "ticker": null,
+ "sector": "Equity - Australia Small/Mid Cap",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_24d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-08-14",
+  "last_announcement": "2026-08-28"
+ },
+ "nav": {
+  "anchor": 0.9684999999999999,
+  "anchor_date": "2026-07-31",
+  "anchor_source": "asx_ann:03125235",
+  "estimate": 0.9685,
+  "basis": 0.0,
+  "staleness_days": 26.0,
+  "staleness_limit_days": 93.0,
+  "current": true,
+  "unit": "AUD",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 0.949999988079071,
+  "ccy": "AUD",
+  "date": "2026-09-04",
+  "source": "yahoo:ECL.AX"
+ },
+ "discount": {
+  "estimate": -0.019102,
+  "z": -0.0227,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.013284,
+  "sigma_36m": 0.255886,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.2084,
+  "discount_only": 0.0188,
+  "g_used": 0.15,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-08-28",
+   "class": "tender_offer",
+   "weight": 4,
+   "direction": "positive",
+   "headline": "Completion of Capital Return & Request to Defer Delisting",
+   "url": "https://announcements.asx.com.au/asxpdf/20260828/pdf/073f85sb4dc3xx.pdf",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-19",
+   "class": "substantial_holder",
+   "weight": 2,
+   "direction": "positive",
+   "headline": "Change in substantial holding",
+   "url": "https://announcements.asx.com.au/asxpdf/20260819/pdf/072yg12ms49gzh.pdf",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-17",
+   "class": "tender_offer",
+   "weight": 4,
+   "direction": "positive",
+   "headline": "Capital Return - Further Update",
+   "url": "https://announcements.asx.com.au/asxpdf/20260818/pdf/072w5mv2jrz5wr.pdf",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-17",
+   "class": "tender_offer",
+   "weight": 4,
+   "direction": "positive",
+   "headline": "Results of General Meeting and Capital Return Update",
+   "url": "https://announcements.asx.com.au/asxpdf/20260817/pdf/072twy6cj8m2kc.pdf",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

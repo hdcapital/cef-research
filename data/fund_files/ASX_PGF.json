@@ -1,0 +1,52 @@
+{
+ "security_id": "ASX:PGF",
+ "name": "PM Capital Global Opportunities Fund Limited",
+ "market": "AU",
+ "ticker": null,
+ "sector": "Equity - Global",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_8d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-08-30",
+  "last_announcement": "2026-08-30"
+ },
+ "nav": {
+  "anchor": 3.09,
+  "anchor_date": "2026-08-28",
+  "anchor_source": "asx_ann:03133167",
+  "estimate": 3.09,
+  "basis": 0.0,
+  "staleness_days": 6.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "AUD",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 3.244999885559082,
+  "ccy": "AUD",
+  "date": "2026-09-07",
+  "source": "yahoo:PGF.AX"
+ },
+ "discount": {
+  "estimate": 0.050162,
+  "z": 0.2304,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": 0.041822,
+  "sigma_36m": 0.036202,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.1796,
+  "discount_only": -0.0038,
+  "g_used": 0.15,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

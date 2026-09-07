@@ -1,0 +1,63 @@
+{
+ "security_id": "SEDOL:BVG6X43",
+ "name": "VPC Specialty Lending Investments",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Debt - Direct Lending",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_14d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-08-24",
+  "last_announcement": "2026-08-24"
+ },
+ "nav": {
+  "anchor": 20.6,
+  "anchor_date": "2026-06-30",
+  "anchor_source": "investegate:9735275",
+  "estimate": 20.6,
+  "basis": 0.0,
+  "staleness_days": 49.0,
+  "staleness_limit_days": 200.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 10.574999809265137,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:VSL.L"
+ },
+ "discount": {
+  "estimate": -0.48665,
+  "z": -0.3758,
+  "z_status": "within_error_band",
+  "z_source": "own_daily_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.447359,
+  "sigma_36m": 0.104556,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": -0.0093,
+  "discount_only": 0.0428,
+  "g_used": -0.05,
+  "g_source": "own_nav_history"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-07-27",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/vpc-specialty-lending-investments--vsl/holding-s-in-company/9689656",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:52+00:00"
+}

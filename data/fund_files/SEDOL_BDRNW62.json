@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:BDRNW62",
+ "name": "BioPharma Credit C shares",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Sector Specialist: Debt",
+ "liveness": {
+  "status": "delist_candidate",
+  "reason": "aggregator_delisted_and_own_filings_silent_alwaysd",
+  "source": "corroborated_delisting",
+  "last_nav": null,
+  "last_announcement": null
+ },
+ "nav": {
+  "anchor": 1.0,
+  "anchor_date": "2018-09-30",
+  "anchor_source": "aggregator_panel:2018-09",
+  "estimate": 1.0,
+  "basis": 3.0,
+  "staleness_days": 2070.0,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "GBX",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 1.06,
+  "ccy": null,
+  "date": "2018-09",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": 0.06,
+  "z": -1.7882,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 6,
+  "mu_36m": 0.060917,
+  "sigma_36m": 0.000513,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.1129,
+  "discount_only": 0.0002,
+  "g_used": 0.1126,
+  "g_source": "sector_median"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

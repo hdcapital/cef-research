@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:0068417",
+ "name": "SVM UK Emerging Fund",
+ "market": "UK",
+ "ticker": null,
+ "sector": "UK Smaller Companies",
+ "liveness": {
+  "status": "delisted",
+  "reason": "own_delisting_notice_551d",
+  "source": "own_delisting_notice",
+  "last_nav": "2025-03-04",
+  "last_announcement": "2025-03-05"
+ },
+ "nav": {
+  "anchor": 96.29,
+  "anchor_date": "2025-02-28",
+  "anchor_source": "own_nav_history:2025-02-28",
+  "estimate": 110.377075,
+  "basis": 1.0,
+  "staleness_days": 396.0,
+  "staleness_limit_days": 93.0,
+  "current": false,
+  "unit": "GBX",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 77.75,
+  "ccy": null,
+  "date": "2025-01",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": -0.295596,
+  "z": -0.3781,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.275212,
+  "sigma_36m": 0.053909,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": -0.0062,
+  "discount_only": 0.0058,
+  "g_used": -0.0119,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:52+00:00"
+}

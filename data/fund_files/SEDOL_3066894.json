@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:3066894",
+ "name": "SR Europe",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Europe",
+ "liveness": {
+  "status": "delist_candidate",
+  "reason": "aggregator_delisted_and_own_filings_silent_alwaysd",
+  "source": "corroborated_delisting",
+  "last_nav": null,
+  "last_announcement": null
+ },
+ "nav": {
+  "anchor": 187.01,
+  "anchor_date": "2012-03-31",
+  "anchor_source": "aggregator_panel:2012-03",
+  "estimate": 199.854861,
+  "basis": 1.0,
+  "staleness_days": 3765.0,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "GBX",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 180.0,
+  "ccy": null,
+  "date": "2012-03",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": -0.099346,
+  "z": 0.5855,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.122283,
+  "sigma_36m": 0.039173,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.0777,
+  "discount_only": -0.0035,
+  "g_used": 0.0653,
+  "g_source": "sector_median"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:52+00:00"
+}

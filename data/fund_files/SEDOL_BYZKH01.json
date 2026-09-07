@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:BYZKH01",
+ "name": "Ranger Direct Lending C shares",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Sector Specialist: Debt",
+ "liveness": {
+  "status": "delist_candidate",
+  "reason": "aggregator_delisted_and_own_filings_silent_alwaysd",
+  "source": "corroborated_delisting",
+  "last_nav": null,
+  "last_announcement": null
+ },
+ "nav": {
+  "anchor": 9.84,
+  "anchor_date": "2017-02-28",
+  "anchor_source": "aggregator_panel:2017-02",
+  "estimate": 9.84,
+  "basis": 3.0,
+  "staleness_days": 2484.0,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "GBX",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 9.95,
+  "ccy": null,
+  "date": "2017-02",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": 0.011179,
+  "z": null,
+  "z_status": "insufficient_history_1m",
+  "z_source": "aggregator_panel",
+  "z_window_months": 1,
+  "mu_36m": null,
+  "sigma_36m": null,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.1625,
+  "discount_only": 0.0,
+  "g_used": 0.1126,
+  "g_source": "sector_median"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

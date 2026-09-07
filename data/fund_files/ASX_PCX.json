@@ -1,0 +1,52 @@
+{
+ "security_id": "ASX:PCX",
+ "name": "Pengana Global Private Credit Trust",
+ "market": "AU",
+ "ticker": null,
+ "sector": "Fixed Income - Global Dollar",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_29d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-08-09",
+  "last_announcement": "2026-08-31"
+ },
+ "nav": {
+  "anchor": 1.9788999999999999,
+  "anchor_date": "2026-07-31",
+  "anchor_source": "asx_ann:03123454",
+  "estimate": 1.9789,
+  "basis": 0.0,
+  "staleness_days": 26.0,
+  "staleness_limit_days": 93.0,
+  "current": true,
+  "unit": "AUD",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 1.9950000047683716,
+  "ccy": "AUD",
+  "date": "2026-09-07",
+  "source": "yahoo:PCX.AX"
+ },
+ "discount": {
+  "estimate": 0.008136,
+  "z": 0.0041,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 25,
+  "mu_36m": 0.008056,
+  "sigma_36m": 0.019658,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.1172,
+  "discount_only": -0.0002,
+  "g_used": 0.0517,
+  "g_source": "own_nav_history"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

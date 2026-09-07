@@ -1,0 +1,52 @@
+{
+ "security_id": "ASX:AFI",
+ "name": "Australian Foundation Investment Company Limited",
+ "market": "AU",
+ "ticker": null,
+ "sector": "Equity - Australia",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_8d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-08-30",
+  "last_announcement": "2026-08-31"
+ },
+ "nav": {
+  "anchor": 8.06,
+  "anchor_date": "2026-08-31",
+  "anchor_source": "own_nav_history:2026-08-31",
+  "estimate": 8.059277,
+  "basis": 1.0,
+  "staleness_days": 5.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "AUD",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 6.840000152587891,
+  "ccy": "AUD",
+  "date": "2026-09-07",
+  "source": "yahoo:AFI.AX"
+ },
+ "discount": {
+  "estimate": -0.151289,
+  "z": -1.1642,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.073495,
+  "sigma_36m": 0.066822,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.1866,
+  "discount_only": 0.0285,
+  "g_used": 0.1231,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

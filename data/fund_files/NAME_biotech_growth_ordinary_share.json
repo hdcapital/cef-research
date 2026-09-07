@@ -1,0 +1,52 @@
+{
+ "security_id": "NAME:biotech growth|ordinary share",
+ "name": "Biotech Growth Trust",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Biotechnology & Healthcare",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_4d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-03",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 1844.64,
+  "anchor_date": "2026-09-03",
+  "anchor_source": "investegate:9756879",
+  "estimate": 1844.64,
+  "basis": 0.0,
+  "staleness_days": 2.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 1712.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:BIOG.L"
+ },
+ "discount": {
+  "estimate": -0.071906,
+  "z": 0.7455,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.083894,
+  "sigma_36m": 0.016081,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.1525,
+  "discount_only": -0.0021,
+  "g_used": 0.0526,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

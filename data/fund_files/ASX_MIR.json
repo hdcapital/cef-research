@@ -1,0 +1,63 @@
+{
+ "security_id": "ASX:MIR",
+ "name": "Mirrabooka Investments Limited",
+ "market": "AU",
+ "ticker": null,
+ "sector": "Equity - Australia",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_8d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-08-30",
+  "last_announcement": "2026-08-30"
+ },
+ "nav": {
+  "anchor": 2.75,
+  "anchor_date": "2026-08-31",
+  "anchor_source": "own_nav_history:2026-08-31",
+  "estimate": 2.749739,
+  "basis": 1.0,
+  "staleness_days": 5.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "AUD",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 2.5,
+  "ccy": "AUD",
+  "date": "2026-09-07",
+  "source": "yahoo:MIR.AX"
+ },
+ "discount": {
+  "estimate": -0.090823,
+  "z": -1.4352,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.008795,
+  "sigma_36m": 0.057154,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.1586,
+  "discount_only": 0.0199,
+  "g_used": 0.0991,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-08-24",
+   "class": "substantial_holder",
+   "weight": 2,
+   "direction": "positive",
+   "headline": "Change in substantial holding for EGL",
+   "url": "https://announcements.asx.com.au/asxpdf/20260824/pdf/0734j840zfp288.pdf",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

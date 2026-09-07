@@ -1,0 +1,52 @@
+{
+ "security_id": "NAME:cqs natural resources growth and income|ordinary share",
+ "name": "CQS Natural Resources Growth & Income",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Commodities & Natural Resources",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_4d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-03",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 418.2,
+  "anchor_date": "2026-09-03",
+  "anchor_source": "investegate:9757220",
+  "estimate": 418.2,
+  "basis": 0.0,
+  "staleness_days": 2.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 425.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:CYN.L"
+ },
+ "discount": {
+  "estimate": 0.01626,
+  "z": 1.7038,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.083843,
+  "sigma_36m": 0.058753,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.1187,
+  "discount_only": -0.0272,
+  "g_used": 0.15,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

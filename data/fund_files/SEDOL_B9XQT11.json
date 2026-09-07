@@ -1,0 +1,126 @@
+{
+ "security_id": "SEDOL:B9XQT11",
+ "name": "Polar Capital Global Financials",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Financials & Financial Innovation",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_3d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-04",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 261.04,
+  "anchor_date": "2026-09-04",
+  "anchor_source": "investegate:9756770",
+  "estimate": 261.04,
+  "basis": 0.0,
+  "staleness_days": 1.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 256.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:PCFT.L"
+ },
+ "discount": {
+  "estimate": -0.019307,
+  "z": 1.5086,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.061543,
+  "sigma_36m": 0.027997,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.1315,
+  "discount_only": -0.0079,
+  "g_used": 0.129,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": {
+  "filings": 3,
+  "sellers": 0,
+  "buyers": 0,
+  "largest_move": null,
+  "holder": null,
+  "direction": "churn"
+ },
+ "events_90d": [
+  {
+   "date": "2026-08-28",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/polar-capital-global-financials-trust--pcft/holding-s-in-company/9746249",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Rathbones Investment Management Ltd"
+   }
+  },
+  {
+   "date": "2026-08-27",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/polar-capital-global-financials-trust--pcft/holding-s-in-company/9744030",
+   "alerted_at": null,
+   "terms": {
+    "holder": "TrinityBridge Limited"
+   }
+  },
+  {
+   "date": "2026-08-26",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/polar-capital-global-financials-trust--pcft/holding-s-in-company/9741730",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Rathbones Investment Management Ltd"
+   }
+  },
+  {
+   "date": "2026-08-06",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/polar-capital-global-financials-trust--pcft/holding-s-in-company/9708937",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-03",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/polar-capital-global-financials-trust--pcft/holding-s-in-company/9701695",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-07-27",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/polar-capital-global-financials-trust--pcft/holding-s-in-company/9689424",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

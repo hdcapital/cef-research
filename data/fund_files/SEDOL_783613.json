@@ -1,0 +1,63 @@
+{
+ "security_id": "SEDOL:783613",
+ "name": "Scottish Oriental Smaller Companies",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Asia Pacific Smaller Companies",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_4d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-03",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 302.63,
+  "anchor_date": "2026-09-03",
+  "anchor_source": "investegate:9756732",
+  "estimate": 302.63,
+  "basis": 0.0,
+  "staleness_days": 2.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 277.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:SST.L"
+ },
+ "discount": {
+  "estimate": -0.084691,
+  "z": 2.0278,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.130827,
+  "sigma_36m": 0.022751,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.0862,
+  "discount_only": -0.0096,
+  "g_used": 0.0721,
+  "g_source": "own_nav_history"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-09-02",
+   "class": "tender_offer",
+   "weight": 4,
+   "direction": "positive",
+   "headline": "Conditional Tender Offer",
+   "url": "https://www.investegate.co.uk/announcement/rns/scottish-oriental-smaller-companies-trust--sst/conditional-tender-offer/9750382",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:52+00:00"
+}

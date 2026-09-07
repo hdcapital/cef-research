@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:297437",
+ "name": "Directors' Dealing",
+ "market": "UK",
+ "ticker": null,
+ "sector": "UK Smaller Companies",
+ "liveness": {
+  "status": "delist_candidate",
+  "reason": "aggregator_delisted_and_own_filings_silent_alwaysd",
+  "source": "corroborated_delisting",
+  "last_nav": null,
+  "last_announcement": null
+ },
+ "nav": {
+  "anchor": 353.23,
+  "anchor_date": "2009-11-30",
+  "anchor_source": "aggregator_panel:2009-11",
+  "estimate": 353.23,
+  "basis": 3.0,
+  "staleness_days": 4375.0,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "GBX",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 301.0,
+  "ccy": null,
+  "date": "2009-11",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": -0.147864,
+  "z": 1.4929,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 19,
+  "mu_36m": -0.23208,
+  "sigma_36m": 0.056412,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.0005,
+  "discount_only": -0.0198,
+  "g_used": 0.0,
+  "g_source": "sector_median"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

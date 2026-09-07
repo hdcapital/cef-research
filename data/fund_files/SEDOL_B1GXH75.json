@@ -1,0 +1,233 @@
+{
+ "security_id": "SEDOL:B1GXH75",
+ "name": "Henderson Far East Income",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Asia Pacific Equity Income",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_4d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-03",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 255.8,
+  "anchor_date": "2026-09-03",
+  "anchor_source": "investegate:9757012",
+  "estimate": 255.8,
+  "basis": 0.0,
+  "staleness_days": 2.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 265.5,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:HFEL.L"
+ },
+ "discount": {
+  "estimate": 0.03792,
+  "z": 0.6207,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": 0.017622,
+  "sigma_36m": 0.0327,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.0872,
+  "discount_only": -0.0024,
+  "g_used": 0.0898,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-09-02",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/henderson-far-east-income-ltd---hfel/issue-of-equity/9752653",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-28",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/henderson-far-east-income-ltd---hfel/issue-of-equity/9746507",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-26",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/henderson-far-east-income-ltd---hfel/issue-of-equity/9741953",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-25",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/henderson-far-east-income-ltd---hfel/issue-of-equity/9739791",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-19",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/henderson-far-east-income-ltd---hfel/issue-of-equity/9730621",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-17",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/henderson-far-east-income-ltd---hfel/issue-of-equity/9726018",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-13",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/henderson-far-east-income-ltd---hfel/issue-of-equity/9721399",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-12",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/henderson-far-east-income-ltd---hfel/issue-of-equity/9718859",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-11",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/henderson-far-east-income-ltd---hfel/issue-of-equity/9716498",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-10",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/henderson-far-east-income-ltd---hfel/issue-of-equity/9714050",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-07",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/henderson-far-east-income-ltd---hfel/issue-of-equity/9711686",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-06",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/henderson-far-east-income-ltd---hfel/issue-of-equity/9709508",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-04",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/henderson-far-east-income-ltd---hfel/issue-of-equity/9704660",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-03",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/henderson-far-east-income-ltd---hfel/issue-of-equity/9702152",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-07-31",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/henderson-far-east-income-ltd---hfel/issue-of-equity/9699377",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-07-29",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/henderson-far-east-income-ltd---hfel/issue-of-equity/9694405",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-07-28",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/henderson-far-east-income-ltd---hfel/issue-of-equity/9692026",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-07-27",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/henderson-far-east-income-ltd---hfel/issue-of-equity/9689726",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

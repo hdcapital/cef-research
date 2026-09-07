@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:B1Y1NS4",
+ "name": "Henderson Diversified Income",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Debt - Loans & Bonds",
+ "liveness": {
+  "status": "delist_candidate",
+  "reason": "aggregator_delisted_and_own_filings_silent_970d",
+  "source": "corroborated_delisting",
+  "last_nav": "2024-01-11",
+  "last_announcement": "2024-01-11"
+ },
+ "nav": {
+  "anchor": 71.8,
+  "anchor_date": "2024-01-10",
+  "anchor_source": "own_nav_history:2024-01-10",
+  "estimate": 76.340218,
+  "basis": 1.0,
+  "staleness_days": 693.0,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "GBX",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 70.0,
+  "ccy": null,
+  "date": "2023-12",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": -0.083052,
+  "z": -0.6963,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.06139,
+  "sigma_36m": 0.031111,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.1004,
+  "discount_only": 0.0084,
+  "g_used": 0.0396,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

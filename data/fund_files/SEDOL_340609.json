@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:340609",
+ "name": "Dunedin Income Growth",
+ "market": "UK",
+ "ticker": null,
+ "sector": "UK Equity Income",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_4d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-03",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 345.04,
+  "anchor_date": "2026-09-03",
+  "anchor_source": "investegate:9756696",
+  "estimate": 345.04,
+  "basis": 0.0,
+  "staleness_days": 2.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 319.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:DIG.L"
+ },
+ "discount": {
+  "estimate": -0.07547,
+  "z": 1.1053,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.093447,
+  "sigma_36m": 0.016264,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.0977,
+  "discount_only": -0.0007,
+  "g_used": 0.0651,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

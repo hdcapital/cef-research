@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:974406",
+ "name": "Witan Investment Trust",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Global",
+ "liveness": {
+  "status": "delist_candidate",
+  "reason": "aggregator_delisted_and_own_filings_silent_705d",
+  "source": "corroborated_delisting",
+  "last_nav": "2024-10-02",
+  "last_announcement": "2024-10-02"
+ },
+ "nav": {
+  "anchor": 283.4,
+  "anchor_date": "2024-10-01",
+  "anchor_source": "own_nav_history:2024-10-01",
+  "estimate": 312.405652,
+  "basis": 1.0,
+  "staleness_days": 504.0,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "GBX",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 266.0,
+  "ccy": null,
+  "date": "2024-09",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": -0.148543,
+  "z": -4.3424,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.079953,
+  "sigma_36m": 0.015795,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.1142,
+  "discount_only": 0.017,
+  "g_used": 0.0757,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:52+00:00"
+}

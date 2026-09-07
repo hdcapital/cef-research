@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:906506",
+ "name": "Henderson Smaller Companies",
+ "market": "UK",
+ "ticker": null,
+ "sector": "UK Smaller Companies",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_4d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-03",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 1055.2,
+  "anchor_date": "2026-09-03",
+  "anchor_source": "investegate:9757017",
+  "estimate": 1055.2,
+  "basis": 0.0,
+  "staleness_days": 2.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 964.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:HSL.L"
+ },
+ "discount": {
+  "estimate": -0.086429,
+  "z": 1.03,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.108779,
+  "sigma_36m": 0.0217,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": -0.0299,
+  "discount_only": -0.0052,
+  "g_used": -0.0248,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

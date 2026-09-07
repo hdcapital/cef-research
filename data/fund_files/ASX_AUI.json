@@ -1,0 +1,52 @@
+{
+ "security_id": "ASX:AUI",
+ "name": "Australian United Investment Company Limited",
+ "market": "AU",
+ "ticker": null,
+ "sector": "Equity - Australia",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_14d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-08-24",
+  "last_announcement": "2026-08-24"
+ },
+ "nav": {
+  "anchor": 13.99,
+  "anchor_date": "2026-08-28",
+  "anchor_source": "own_nav_history:2026-08-28",
+  "estimate": 13.96869,
+  "basis": 1.0,
+  "staleness_days": 6.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "AUD",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 12.0,
+  "ccy": "AUD",
+  "date": "2026-09-07",
+  "source": "yahoo:AUI.AX"
+ },
+ "discount": {
+  "estimate": -0.140936,
+  "z": -0.2481,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.12923,
+  "sigma_36m": 0.04718,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.1931,
+  "discount_only": 0.0148,
+  "g_used": 0.1485,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

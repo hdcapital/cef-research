@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:5825107",
+ "name": "Canadian General Investments",
+ "market": "UK",
+ "ticker": null,
+ "sector": "North America",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_3d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-04",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 4772.21786839445,
+  "anchor_date": "2026-09-04",
+  "anchor_source": "investegate:9755098",
+  "estimate": 4772.217868,
+  "basis": 0.0,
+  "staleness_days": 1.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 2860.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:CGI.L"
+ },
+ "discount": {
+  "estimate": -0.400698,
+  "z": 10.4563,
+  "z_status": "computed",
+  "z_source": "own_daily_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.672541,
+  "sigma_36m": 0.025998,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.0357,
+  "discount_only": -0.0994,
+  "g_used": 0.15,
+  "g_source": "own_nav_history"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

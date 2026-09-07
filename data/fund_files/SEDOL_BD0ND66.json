@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:BD0ND66",
+ "name": "Develop North",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Property - Debt",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_32d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-08-06",
+  "last_announcement": "2026-08-28"
+ },
+ "nav": {
+  "anchor": 74.82,
+  "anchor_date": "2026-05-31",
+  "anchor_source": "investegate:9708653",
+  "estimate": 74.82,
+  "basis": 0.0,
+  "staleness_days": 70.0,
+  "staleness_limit_days": 200.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 74.5,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:DVNO.L"
+ },
+ "discount": {
+  "estimate": -0.004277,
+  "z": 0.5128,
+  "z_status": "within_error_band",
+  "z_source": "own_daily_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.022892,
+  "sigma_36m": 0.036302,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.0988,
+  "discount_only": 0.0082,
+  "g_used": 0.0515,
+  "g_source": "market_median"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

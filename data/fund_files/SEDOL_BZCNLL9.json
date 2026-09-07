@@ -1,0 +1,63 @@
+{
+ "security_id": "SEDOL:BZCNLL9",
+ "name": "CT Healthcare Trust",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Biotechnology & Healthcare",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_5d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-02",
+  "last_announcement": "2026-09-02"
+ },
+ "nav": {
+  "anchor": 140.16,
+  "anchor_date": "2026-09-02",
+  "anchor_source": "investegate:9752103",
+  "estimate": 140.16,
+  "basis": 0.0,
+  "staleness_days": 3.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 132.39999389648438,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:CTHT.L"
+ },
+ "discount": {
+  "estimate": -0.055365,
+  "z": -0.0878,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.052377,
+  "sigma_36m": 0.034039,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": -0.0032,
+  "discount_only": 0.001,
+  "g_used": -0.0043,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-08-07",
+   "class": "tender_offer",
+   "weight": 4,
+   "direction": "positive",
+   "headline": "Quarterly Tender Offer",
+   "url": "https://www.investegate.co.uk/announcement/rns/ct-healthcare-trust-plc--ctht/quarterly-tender-offer/9709639",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

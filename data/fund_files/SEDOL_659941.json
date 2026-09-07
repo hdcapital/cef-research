@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:659941",
+ "name": "Old Mutual South Africa",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Country Specialists: Other",
+ "liveness": {
+  "status": "delist_candidate",
+  "reason": "aggregator_delisted_and_own_filings_silent_alwaysd",
+  "source": "corroborated_delisting",
+  "last_nav": null,
+  "last_announcement": null
+ },
+ "nav": {
+  "anchor": 193.07,
+  "anchor_date": "2007-01-31",
+  "anchor_source": "aggregator_panel:2007-01",
+  "estimate": 193.07,
+  "basis": 3.0,
+  "staleness_days": 5113.0,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "GBX",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 187.75,
+  "ccy": null,
+  "date": "2007-01",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": -0.027555,
+  "z": null,
+  "z_status": "insufficient_history_1m",
+  "z_source": "aggregator_panel",
+  "z_window_months": 1,
+  "mu_36m": null,
+  "sigma_36m": null,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.0515,
+  "discount_only": 0.0,
+  "g_used": 0.0515,
+  "g_source": "market_median"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:B2PKXF4",
+ "name": "New City Energy",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Sector Specialist: Commodities & Natural Resources",
+ "liveness": {
+  "status": "delist_candidate",
+  "reason": "aggregator_delisted_and_own_filings_silent_alwaysd",
+  "source": "corroborated_delisting",
+  "last_nav": null,
+  "last_announcement": null
+ },
+ "nav": {
+  "anchor": 18.14,
+  "anchor_date": "2017-01-31",
+  "anchor_source": "aggregator_panel:2017-01",
+  "estimate": 20.496026,
+  "basis": 1.0,
+  "staleness_days": 2504.0,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "GBX",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 15.38,
+  "ccy": null,
+  "date": "2017-01",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": -0.249611,
+  "z": -0.6079,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.209662,
+  "sigma_36m": 0.065716,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": -0.0382,
+  "discount_only": 0.0124,
+  "g_used": -0.05,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

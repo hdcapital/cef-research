@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:B01RDH7",
+ "name": "BlackRock Greater Europe",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Europe",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_4d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-03",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 640.69,
+  "anchor_date": "2026-09-03",
+  "anchor_source": "investegate:9756762",
+  "estimate": 640.69,
+  "basis": 0.0,
+  "staleness_days": 2.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 601.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:BRGE.L"
+ },
+ "discount": {
+  "estimate": -0.061949,
+  "z": -0.2627,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.058828,
+  "sigma_36m": 0.011883,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.115,
+  "discount_only": 0.0018,
+  "g_used": 0.0925,
+  "g_source": "own_nav_history"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

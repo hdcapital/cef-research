@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:3353790",
+ "name": "Premier Miton Global Renewables",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Infrastructure Securities",
+ "liveness": {
+  "status": "delist_candidate",
+  "reason": "aggregator_delisted_and_own_filings_silent_283d",
+  "source": "corroborated_delisting",
+  "last_nav": "2025-11-28",
+  "last_announcement": null
+ },
+ "nav": {
+  "anchor": 118.49,
+  "anchor_date": "2025-11-30",
+  "anchor_source": "aggregator_panel:2025-11",
+  "estimate": 123.936605,
+  "basis": 1.0,
+  "staleness_days": 200.0,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "GBX",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 114.5,
+  "ccy": null,
+  "date": "2025-11",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": -0.076141,
+  "z": 1.3308,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.131964,
+  "sigma_36m": 0.041948,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.0531,
+  "discount_only": -0.0109,
+  "g_used": 0.0227,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

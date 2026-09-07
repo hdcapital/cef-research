@@ -1,0 +1,65 @@
+{
+ "security_id": "SEDOL:579403",
+ "name": "Mercantile Investment Trust",
+ "market": "UK",
+ "ticker": null,
+ "sector": "UK All Companies",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_3d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-04",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 313.3,
+  "anchor_date": "2026-09-04",
+  "anchor_source": "investegate:9756502",
+  "estimate": 313.3,
+  "basis": 0.0,
+  "staleness_days": 1.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 283.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:MRC.L"
+ },
+ "discount": {
+  "estimate": -0.096712,
+  "z": 0.5276,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.105052,
+  "sigma_36m": 0.015807,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.0571,
+  "discount_only": -0.002,
+  "g_used": 0.0348,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-08-24",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/mercantile-investment-trust-the---mrc/holding-s-in-company/9736825",
+   "alerted_at": null,
+   "terms": {
+    "holder": "JM Finn & Co"
+   }
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

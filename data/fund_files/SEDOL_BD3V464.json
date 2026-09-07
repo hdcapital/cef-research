@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:BD3V464",
+ "name": "Ecofin Global Utilities and Infrastructure",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Infrastructure Securities",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_4d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-03",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 256.72,
+  "anchor_date": "2026-09-03",
+  "anchor_source": "investegate:9757184",
+  "estimate": 256.72,
+  "basis": 0.0,
+  "staleness_days": 2.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 256.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:EGL.L"
+ },
+ "discount": {
+  "estimate": -0.002805,
+  "z": 2.1345,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.101239,
+  "sigma_36m": 0.046116,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.0606,
+  "discount_only": -0.0157,
+  "g_used": 0.0775,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

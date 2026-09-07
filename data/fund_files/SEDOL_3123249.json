@@ -1,0 +1,65 @@
+{
+ "security_id": "SEDOL:3123249",
+ "name": "Impax Environmental Markets",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Environmental",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_4d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-03",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 492.59,
+  "anchor_date": "2026-09-03",
+  "anchor_source": "investegate:9756534",
+  "estimate": 492.59,
+  "basis": 0.0,
+  "staleness_days": 2.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 439.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:IEM.L"
+ },
+ "discount": {
+  "estimate": -0.108792,
+  "z": -0.4562,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.098288,
+  "sigma_36m": 0.023027,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.0634,
+  "discount_only": 0.0068,
+  "g_used": 0.041,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-09-02",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/impax-environmental-markets--iem/holding-s-in-company/9752662",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Harwood Capital LLP"
+   }
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

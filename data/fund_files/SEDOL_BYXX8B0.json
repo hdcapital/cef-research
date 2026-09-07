@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:BYXX8B0",
+ "name": "GCP Asset Backed Income",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Debt - Direct Lending",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_52d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-07-17",
+  "last_announcement": "2026-08-06"
+ },
+ "nav": {
+  "anchor": 70.22,
+  "anchor_date": "2025-12-31",
+  "anchor_source": "own_nav_history:2025-12-31",
+  "estimate": 70.22,
+  "basis": 3.0,
+  "staleness_days": 178.0,
+  "staleness_limit_days": 200.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 60.5,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:GABI.L"
+ },
+ "discount": {
+  "estimate": -0.138422,
+  "z": 0.7058,
+  "z_status": "within_error_band",
+  "z_source": "own_daily_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.208238,
+  "sigma_36m": 0.09892,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.0527,
+  "discount_only": 0.0012,
+  "g_used": 0.0515,
+  "g_source": "market_median"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

@@ -1,0 +1,52 @@
+{
+ "security_id": "ASX:SVS",
+ "name": "Sunvest Corporation Limited",
+ "market": "AU",
+ "ticker": null,
+ "sector": "Equity - Global",
+ "liveness": {
+  "status": "delisted",
+  "reason": "own_delisting_notice_1419d",
+  "source": "own_delisting_notice",
+  "last_nav": "2022-10-16",
+  "last_announcement": "2022-10-19"
+ },
+ "nav": {
+  "anchor": 0.606,
+  "anchor_date": "2022-08-31",
+  "anchor_source": "aggregator_panel:2022-08",
+  "estimate": 0.659189,
+  "basis": 1.0,
+  "staleness_days": 1048.0,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "AUD",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 0.6,
+  "ccy": null,
+  "date": "2022-08",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": -0.08979,
+  "z": 1.3709,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.359734,
+  "sigma_36m": 0.196904,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": -0.0098,
+  "discount_only": -0.0862,
+  "g_used": 0.0836,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

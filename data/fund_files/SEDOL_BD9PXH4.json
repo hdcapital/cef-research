@@ -1,0 +1,63 @@
+{
+ "security_id": "SEDOL:BD9PXH4",
+ "name": "abrdn European Logistics Income",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Property - Europe",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_102d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-05-28",
+  "last_announcement": "2026-09-01"
+ },
+ "nav": {
+  "anchor": 1.0,
+  "anchor_date": "2026-03-31",
+  "anchor_source": "own_nav_history:2026-03-31",
+  "estimate": 1.0,
+  "basis": 3.0,
+  "staleness_days": 114.0,
+  "staleness_limit_days": 200.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": false,
+  "quality_reason": "unit_suspect_scale"
+ },
+ "price": {
+  "price": 10.699999809265137,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:ASLI.L"
+ },
+ "discount": {
+  "estimate": 9.7,
+  "z": null,
+  "z_status": "no_discount_history",
+  "z_source": null,
+  "z_window_months": 0,
+  "mu_36m": null,
+  "sigma_36m": null,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": null,
+  "discount_only": null,
+  "g_used": 0.0515,
+  "g_source": "market_median"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-08-20",
+   "class": "liquidation_wind_down",
+   "weight": 5,
+   "direction": "positive",
+   "headline": "1st Interim Dividend and Wind Down Update",
+   "url": "https://www.investegate.co.uk/announcement/rns/abrdn-european-logistics-income--asli/1st-interim-dividend-and-wind-down-update/9732858",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:52+00:00"
+}

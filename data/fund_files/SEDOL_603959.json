@@ -1,0 +1,133 @@
+{
+ "security_id": "SEDOL:603959",
+ "name": "Aberdeen Equity Income Trust",
+ "market": "UK",
+ "ticker": null,
+ "sector": "UK Equity Income",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_4d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-03",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 462.73,
+  "anchor_date": "2026-09-03",
+  "anchor_source": "investegate:9756701",
+  "estimate": 462.73,
+  "basis": 0.0,
+  "staleness_days": 2.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 451.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:AEI.L"
+ },
+ "discount": {
+  "estimate": -0.02535,
+  "z": -0.2565,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.017137,
+  "sigma_36m": 0.032021,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.0605,
+  "discount_only": -0.0002,
+  "g_used": 0.0215,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-08-11",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/aberdeen-equity-income-trust--aei/issue-of-equity/9716534",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-06",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/aberdeen-equity-income-trust--aei/issue-of-equity/9709543",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-05",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/aberdeen-equity-income-trust--aei/issue-of-equity/9707098",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-03",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/aberdeen-equity-income-trust--aei/issue-of-equity/9702173",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-07-30",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/aberdeen-equity-income-trust--aei/issue-of-equity/9696857",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-07-29",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/aberdeen-equity-income-trust--aei/issue-of-equity/9694493",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-07-28",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/aberdeen-equity-income-trust--aei/issue-of-equity/9692103",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-07-27",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/aberdeen-equity-income-trust--aei/issue-of-equity/9689671",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

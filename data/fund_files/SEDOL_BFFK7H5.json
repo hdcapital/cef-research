@@ -1,0 +1,226 @@
+{
+ "security_id": "SEDOL:BFFK7H5",
+ "name": "Odyssean Investment Trust",
+ "market": "UK",
+ "ticker": null,
+ "sector": "UK Smaller Companies",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_4d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-03",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 228.46,
+  "anchor_date": "2026-09-03",
+  "anchor_source": "investegate:9756852",
+  "estimate": 228.46,
+  "basis": 0.0,
+  "staleness_days": 2.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 233.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:OIT.L"
+ },
+ "discount": {
+  "estimate": 0.019872,
+  "z": 1.1072,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.004046,
+  "sigma_36m": 0.021603,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.0327,
+  "discount_only": -0.0026,
+  "g_used": 0.0354,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": {
+  "filings": 3,
+  "sellers": 0,
+  "buyers": 0,
+  "largest_move": null,
+  "holder": null,
+  "direction": "churn"
+ },
+ "events_90d": [
+  {
+   "date": "2026-09-03",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/odyssean-investment-trust--oit/holding-s-in-company/9752792",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Odyssean Investment Trust PLC"
+   }
+  },
+  {
+   "date": "2026-09-02",
+   "class": "substantial_holder",
+   "weight": 2,
+   "direction": "positive",
+   "headline": "Notification of Major Holdings",
+   "url": "https://www.investegate.co.uk/announcement/rns/odyssean-investment-trust--oit/notification-of-major-holdings/9751978",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-27",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/odyssean-investment-trust--oit/issue-of-equity/9744116",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-26",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/odyssean-investment-trust--oit/issue-of-equity/9741945",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-25",
+   "class": "substantial_holder",
+   "weight": 2,
+   "direction": "positive",
+   "headline": "Holding(s) in Company - Replacement",
+   "url": "https://www.investegate.co.uk/announcement/rns/odyssean-investment-trust--oit/holding-s-in-company-replacement-/9739377",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-24",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/odyssean-investment-trust--oit/issue-of-equity/9737401",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-21",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/odyssean-investment-trust--oit/issue-of-equity/9735024",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-21",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/odyssean-investment-trust--oit/holding-s-in-company/9734795",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Odyssean Investment Trust PLC"
+   }
+  },
+  {
+   "date": "2026-08-20",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/odyssean-investment-trust--oit/holding-s-in-company/9732862",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Odyssean Investment Trust PLC"
+   }
+  },
+  {
+   "date": "2026-08-19",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/odyssean-investment-trust--oit/issue-of-equity/9730545",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-18",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/odyssean-investment-trust--oit/issue-of-equity/9728088",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-13",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/odyssean-investment-trust--oit/issue-of-equity/9721312",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-12",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/odyssean-investment-trust--oit/issue-of-equity/9718803",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-07",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/odyssean-investment-trust--oit/issue-of-equity/9711680",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-06",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/odyssean-investment-trust--oit/holding-s-in-company/9708442",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-04",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/odyssean-investment-trust--oit/issue-of-equity/9704552",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

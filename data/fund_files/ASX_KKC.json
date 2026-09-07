@@ -1,0 +1,52 @@
+{
+ "security_id": "ASX:KKC",
+ "name": "KKR Credit Income Fund",
+ "market": "AU",
+ "ticker": null,
+ "sector": "Fixed Income - Global Dollar",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_8d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-08-30",
+  "last_announcement": "2026-08-30"
+ },
+ "nav": {
+  "anchor": 2.3196,
+  "anchor_date": "2026-08-30",
+  "anchor_source": "asx_ann:03132990",
+  "estimate": 2.3196,
+  "basis": 0.0,
+  "staleness_days": 5.0,
+  "staleness_limit_days": 93.0,
+  "current": true,
+  "unit": "AUD",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 2.1449999809265137,
+  "ccy": "AUD",
+  "date": "2026-09-07",
+  "source": "yahoo:KKC.AX"
+ },
+ "discount": {
+  "estimate": -0.075272,
+  "z": 0.0267,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.076235,
+  "sigma_36m": 0.03605,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.1926,
+  "discount_only": -0.005,
+  "g_used": 0.1206,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

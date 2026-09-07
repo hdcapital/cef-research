@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:611112",
+ "name": "Murray Income Trust",
+ "market": "UK",
+ "ticker": null,
+ "sector": "UK Equity Income",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_3d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-04",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 1062.75,
+  "anchor_date": "2026-09-04",
+  "anchor_source": "investegate:9756600",
+  "estimate": 1062.75,
+  "basis": 0.0,
+  "staleness_days": 1.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 994.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:MUT.L"
+ },
+ "discount": {
+  "estimate": -0.064691,
+  "z": 1.4106,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.089007,
+  "sigma_36m": 0.017238,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.0804,
+  "discount_only": -0.003,
+  "g_used": 0.0506,
+  "g_source": "own_nav_history"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

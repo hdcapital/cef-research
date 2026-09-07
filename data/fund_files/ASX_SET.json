@@ -1,0 +1,52 @@
+{
+ "security_id": "ASX:SET",
+ "name": "Solaris Australian Equity Income Plus Limited",
+ "market": "AU",
+ "ticker": null,
+ "sector": "Equity - Australia Strategy",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_10d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-08-28",
+  "last_announcement": "2026-08-28"
+ },
+ "nav": {
+  "anchor": 2.044,
+  "anchor_date": "2026-09-03",
+  "anchor_source": "own_nav_history:2026-09-03",
+  "estimate": 2.044,
+  "basis": 3.0,
+  "staleness_days": 2.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "AUD",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 2.140000104904175,
+  "ccy": "AUD",
+  "date": "2026-09-07",
+  "source": "yahoo:SET.AX"
+ },
+ "discount": {
+  "estimate": 0.046967,
+  "z": null,
+  "z_status": "insufficient_history_3m",
+  "z_source": "aggregator_panel",
+  "z_window_months": 3,
+  "mu_36m": null,
+  "sigma_36m": null,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.0866,
+  "discount_only": 0.0077,
+  "g_used": 0.0783,
+  "g_source": "sector_median"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

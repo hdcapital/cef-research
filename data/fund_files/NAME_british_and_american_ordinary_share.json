@@ -1,0 +1,52 @@
+{
+ "security_id": "NAME:british and american|ordinary share",
+ "name": "British & American",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Global Equity Income",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_32d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-08-06",
+  "last_announcement": "2026-08-06"
+ },
+ "nav": {
+  "anchor": 8.0,
+  "anchor_date": "2026-08-06",
+  "anchor_source": "investegate:9709325",
+  "estimate": 8.0,
+  "basis": 0.0,
+  "staleness_days": 22.0,
+  "staleness_limit_days": 88.5,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 8.5,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:BAF.L"
+ },
+ "discount": {
+  "estimate": 0.0625,
+  "z": -0.2026,
+  "z_status": "computed",
+  "z_source": "own_daily_panel",
+  "z_window_months": 36,
+  "mu_36m": 0.138187,
+  "sigma_36m": 0.373549,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": -0.047,
+  "discount_only": 0.0032,
+  "g_used": -0.05,
+  "g_source": "own_nav_history"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

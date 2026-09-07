@@ -1,0 +1,52 @@
+{
+ "security_id": "ASX:AIB",
+ "name": "Aurora Global Income Trust",
+ "market": "AU",
+ "ticker": null,
+ "sector": "Equity - Global",
+ "liveness": {
+  "status": "delisted",
+  "reason": "own_delisting_notice_1106d",
+  "source": "own_delisting_notice",
+  "last_nav": "2023-08-22",
+  "last_announcement": "2023-08-28"
+ },
+ "nav": {
+  "anchor": 0.1145,
+  "anchor_date": "2023-08-31",
+  "anchor_source": "aggregator_panel:2023-08",
+  "estimate": 0.115065,
+  "basis": 1.0,
+  "staleness_days": 787.0,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "AUD",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 0.1,
+  "ccy": null,
+  "date": "2023-08",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": -0.130929,
+  "z": -0.2215,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.07845,
+  "sigma_36m": 0.236938,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.048,
+  "discount_only": -0.0046,
+  "g_used": 0.0528,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:3073827",
+ "name": "CT Private Equity Trust",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Private Equity",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_10d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-08-28",
+  "last_announcement": "2026-09-01"
+ },
+ "nav": {
+  "anchor": 0.7,
+  "anchor_date": "2026-06-30",
+  "anchor_source": "investegate_fs:9744356",
+  "estimate": 0.7,
+  "basis": 0.0,
+  "staleness_days": 49.0,
+  "staleness_limit_days": 200.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": false,
+  "quality_reason": "unit_suspect_scale"
+ },
+ "price": {
+  "price": 472.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:CTPE.L"
+ },
+ "discount": {
+  "estimate": 673.285714,
+  "z": 14812.0519,
+  "z_status": "computed",
+  "z_source": "own_daily_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.306358,
+  "sigma_36m": 0.045476,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": -0.7363,
+  "discount_only": -0.7479,
+  "g_used": 0.0458,
+  "g_source": "sector_median"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

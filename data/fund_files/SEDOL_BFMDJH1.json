@@ -1,0 +1,113 @@
+{
+ "security_id": "SEDOL:BFMDJH1",
+ "name": "Ceiba Investments",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Property - Rest of World",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_73d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-06-26",
+  "last_announcement": "2026-08-19"
+ },
+ "nav": {
+  "anchor": 65.8,
+  "anchor_date": "2026-03-31",
+  "anchor_source": "own_nav_history:2026-03-31",
+  "estimate": 65.8,
+  "basis": 3.0,
+  "staleness_days": 114.0,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "GBX",
+  "quality_ok": false,
+  "quality_reason": "unit_suspect_scale"
+ },
+ "price": {
+  "price": 0.28999999165534973,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:CBA.L"
+ },
+ "discount": {
+  "estimate": -0.995593,
+  "z": -4.8888,
+  "z_status": "computed",
+  "z_source": "own_daily_panel",
+  "z_window_months": 24,
+  "mu_36m": -0.501536,
+  "sigma_36m": 0.10106,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 1.731,
+  "discount_only": 1.5973,
+  "g_used": 0.0515,
+  "g_source": "market_median"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-08-19",
+   "class": "legal_sanctions",
+   "weight": -3,
+   "direction": "negative",
+   "headline": "Notice of an Order of the Royal Court of Guernsey",
+   "url": "https://www.investegate.co.uk/announcement/rns/ceiba-investments-limited-npv--cba/notice-of-an-order-of-the-royal-court-of-guernsey/9730286",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-18",
+   "class": "manager_exit",
+   "weight": -2,
+   "direction": "negative",
+   "headline": "Update: Board & Management Resignations",
+   "url": "https://www.investegate.co.uk/announcement/rns/ceiba-investments-limited-npv--cba/update-board-management-resignations/9726182",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-10",
+   "class": "manager_exit",
+   "weight": -2,
+   "direction": "negative",
+   "headline": "Resignation of Administrator",
+   "url": "https://www.investegate.co.uk/announcement/rns/ceiba-investments-limited-npv--cba/resignation-of-administrator/9713425",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-07-24",
+   "class": "legal_sanctions",
+   "weight": -3,
+   "direction": "negative",
+   "headline": "Further re U.S. Sanctions Designation",
+   "url": "https://www.investegate.co.uk/announcement/rns/ceiba-investments-limited-npv--cba/further-re-u-s-sanctions-designation-/9687464",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-07-24",
+   "class": "suspension",
+   "weight": -4,
+   "direction": "negative",
+   "headline": "Suspension - Ceiba Investments Limited",
+   "url": "https://www.investegate.co.uk/announcement/rns/ceiba-investments-limited-npv--cba/suspension-ceiba-investments-limited/9686703",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-07-24",
+   "class": "legal_sanctions",
+   "weight": -3,
+   "direction": "negative",
+   "headline": "Statement re U.S. Sanctions Designation",
+   "url": "https://www.investegate.co.uk/announcement/rns/ceiba-investments-limited-npv--cba/statement-re-u-s-sanctions-designation/9686649",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

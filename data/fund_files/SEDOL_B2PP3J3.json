@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:B2PP3J3",
+ "name": "CT Global Managed Portfolio Income",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Flexible Investment",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_3d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-04",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 133.05,
+  "anchor_date": "2026-09-04",
+  "anchor_source": "investegate:9756805",
+  "estimate": 133.05,
+  "basis": 0.0,
+  "staleness_days": 1.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 131.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:CMPI.L"
+ },
+ "discount": {
+  "estimate": -0.015408,
+  "z": -0.9553,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": 0.001898,
+  "sigma_36m": 0.018115,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.0765,
+  "discount_only": 0.0044,
+  "g_used": 0.0447,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

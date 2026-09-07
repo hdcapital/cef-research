@@ -1,0 +1,63 @@
+{
+ "security_id": "SEDOL:BRGCGK0",
+ "name": "River UK Micro Cap",
+ "market": "UK",
+ "ticker": null,
+ "sector": "UK Smaller Companies",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_4d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-03",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 287.86,
+  "anchor_date": "2026-09-03",
+  "anchor_source": "investegate:9757162",
+  "estimate": 287.86,
+  "basis": 0.0,
+  "staleness_days": 2.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 245.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:RMMC.L"
+ },
+ "discount": {
+  "estimate": -0.148892,
+  "z": 0.2153,
+  "z_status": "within_error_band",
+  "z_source": "own_daily_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.153863,
+  "sigma_36m": 0.023091,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": -0.0126,
+  "discount_only": -0.0021,
+  "g_used": -0.0105,
+  "g_source": "own_nav_history"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-08-06",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/river-uk-micro-cap-limited--rmmc/holding-s-in-company/9709521",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:52+00:00"
+}

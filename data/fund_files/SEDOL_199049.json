@@ -1,0 +1,73 @@
+{
+ "security_id": "SEDOL:199049",
+ "name": "City of London Investment Trust",
+ "market": "UK",
+ "ticker": null,
+ "sector": "UK Equity Income",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_4d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-03",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 573.6,
+  "anchor_date": "2026-09-03",
+  "anchor_source": "investegate:9757020",
+  "estimate": 573.6,
+  "basis": 0.0,
+  "staleness_days": 2.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 587.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:CTY.L"
+ },
+ "discount": {
+  "estimate": 0.023361,
+  "z": 1.3187,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": 0.001505,
+  "sigma_36m": 0.016574,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.1419,
+  "discount_only": -0.0027,
+  "g_used": 0.1112,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-08-28",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/city-of-london-inv-trust--cty/issue-of-equity/9746519",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-18",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/city-of-london-inv-trust--cty/issue-of-equity/9728311",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

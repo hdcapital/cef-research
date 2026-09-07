@@ -1,0 +1,52 @@
+{
+ "security_id": "ASX:MRE",
+ "name": "Metrics Real Estate Multi-Strategy Fund",
+ "market": "AU",
+ "ticker": null,
+ "sector": "Fixed Income - Australian Dollar",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_17d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-08-21",
+  "last_announcement": "2026-08-31"
+ },
+ "nav": {
+  "anchor": 2.5445,
+  "anchor_date": "2026-07-31",
+  "anchor_source": "asx_ann:03123109",
+  "estimate": 2.5445,
+  "basis": 0.0,
+  "staleness_days": 26.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "AUD",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 1.7450000047683716,
+  "ccy": "AUD",
+  "date": "2026-09-07",
+  "source": "yahoo:MRE.AX"
+ },
+ "discount": {
+  "estimate": -0.314207,
+  "z": -2.3325,
+  "z_status": "computed_growing_21m",
+  "z_source": "aggregator_panel",
+  "z_window_months": 21,
+  "mu_36m": -0.130831,
+  "sigma_36m": 0.078617,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.2241,
+  "discount_only": 0.0484,
+  "g_used": 0.1237,
+  "g_source": "sector_median"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

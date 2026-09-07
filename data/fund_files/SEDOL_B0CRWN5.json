@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:B0CRWN5",
+ "name": "Schroder Oriental Income",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Asia Pacific Equity Income",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_3d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-04",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 469.96,
+  "anchor_date": "2026-09-04",
+  "anchor_source": "investegate:9756638",
+  "estimate": 469.96,
+  "basis": 0.0,
+  "staleness_days": 1.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 458.5,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:SOI.L"
+ },
+ "discount": {
+  "estimate": -0.024385,
+  "z": 1.8323,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.04642,
+  "sigma_36m": 0.012026,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.1433,
+  "discount_only": -0.0044,
+  "g_used": 0.1244,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:52+00:00"
+}

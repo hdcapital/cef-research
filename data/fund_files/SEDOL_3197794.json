@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:3197794",
+ "name": "Lindsell Train Investment Trust",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Global",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_13d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-08-25",
+  "last_announcement": "2026-08-25"
+ },
+ "nav": {
+  "anchor": 698.83,
+  "anchor_date": "2026-08-25",
+  "anchor_source": "investegate:9739747",
+  "estimate": 698.83,
+  "basis": 0.0,
+  "staleness_days": 9.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": false,
+  "quality_reason": "nav_unit_mismatch_99x_vs_prior"
+ },
+ "price": {
+  "price": 5.599999904632568,
+  "ccy": "GBP",
+  "date": "2026-09-04",
+  "source": "yahoo:LTI.L"
+ },
+ "discount": {
+  "estimate": -0.991987,
+  "z": -19.3394,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.173128,
+  "sigma_36m": 0.042341,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 1.8317,
+  "discount_only": 1.5476,
+  "g_used": 0.0801,
+  "g_source": "sector_median"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

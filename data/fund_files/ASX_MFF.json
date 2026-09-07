@@ -1,0 +1,52 @@
+{
+ "security_id": "ASX:MFF",
+ "name": "MFF Capital Investments Limited",
+ "market": "AU",
+ "ticker": null,
+ "sector": "Equity - Global",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_14d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-08-24",
+  "last_announcement": "2026-08-24"
+ },
+ "nav": {
+  "anchor": 4.355,
+  "anchor_date": "2026-08-28",
+  "anchor_source": "own_nav_history:2026-08-28",
+  "estimate": 4.342084,
+  "basis": 1.0,
+  "staleness_days": 6.0,
+  "staleness_limit_days": 52.5,
+  "current": true,
+  "unit": "AUD",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 5.46999979019165,
+  "ccy": "AUD",
+  "date": "2026-09-07",
+  "source": "yahoo:MFF.AX"
+ },
+ "discount": {
+  "estimate": 0.259764,
+  "z": 6.2467,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.104498,
+  "sigma_36m": 0.058312,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.1407,
+  "discount_only": -0.0362,
+  "g_used": 0.15,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

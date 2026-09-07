@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:B06T260",
+ "name": "Worsley Investors",
+ "market": "UK",
+ "ticker": null,
+ "sector": "UK Smaller Companies",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_6d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-01",
+  "last_announcement": "2026-09-01"
+ },
+ "nav": {
+  "anchor": 49.1,
+  "anchor_date": "2026-06-30",
+  "anchor_source": "investegate:9747202",
+  "estimate": 49.1,
+  "basis": 0.0,
+  "staleness_days": 49.0,
+  "staleness_limit_days": 200.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 28.200000762939453,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:WINV.L"
+ },
+ "discount": {
+  "estimate": -0.425662,
+  "z": -0.675,
+  "z_status": "within_error_band",
+  "z_source": "own_daily_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.398703,
+  "sigma_36m": 0.039937,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.0611,
+  "discount_only": 0.0171,
+  "g_used": 0.0433,
+  "g_source": "own_nav_history"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:52+00:00"
+}

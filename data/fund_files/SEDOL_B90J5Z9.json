@@ -1,0 +1,93 @@
+{
+ "security_id": "SEDOL:B90J5Z9",
+ "name": "TwentyFour Income Fund",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Debt - Structured Finance",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_5d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-02",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 106.38,
+  "anchor_date": "2026-09-02",
+  "anchor_source": "investegate:9751502",
+  "estimate": 106.38,
+  "basis": 0.0,
+  "staleness_days": 3.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 108.4000015258789,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:TFIF.L"
+ },
+ "discount": {
+  "estimate": 0.018989,
+  "z": 0.9801,
+  "z_status": "computed",
+  "z_source": "own_daily_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.011617,
+  "sigma_36m": 0.031228,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.0389,
+  "discount_only": -0.0059,
+  "g_used": 0.045,
+  "g_source": "own_nav_history"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-08-07",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/prn/twentyfour-income-fund-limited-ord-red--tfif/issue-of-equity/9711742",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-06",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/prn/twentyfour-income-fund-limited-ord-red--tfif/issue-of-equity/9709524",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-05",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/prn/twentyfour-income-fund-limited-ord-red--tfif/issue-of-equity/9706998",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-07-31",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/prn/twentyfour-income-fund-limited-ord-red--tfif/issue-of-equity/9699285",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:52+00:00"
+}

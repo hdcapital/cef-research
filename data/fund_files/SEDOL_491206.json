@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:491206",
+ "name": "Keystone Positive Change",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Global",
+ "liveness": {
+  "status": "delist_candidate",
+  "reason": "aggregator_delisted_and_own_filings_silent_537d",
+  "source": "corroborated_delisting",
+  "last_nav": "2025-03-18",
+  "last_announcement": "2025-03-19"
+ },
+ "nav": {
+  "anchor": 238.25,
+  "anchor_date": "2025-03-18",
+  "anchor_source": "own_nav_history:2025-03-18",
+  "estimate": 270.910869,
+  "basis": 1.0,
+  "staleness_days": 384.0,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "GBX",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 247.0,
+  "ccy": null,
+  "date": "2025-02",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": -0.088261,
+  "z": 0.7334,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.118484,
+  "sigma_36m": 0.041211,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.396,
+  "discount_only": -0.0071,
+  "g_used": -0.0038,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:B40HG88",
+ "name": "BlackRock Hedge Selector Cash",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Hedge Funds",
+ "liveness": {
+  "status": "delist_candidate",
+  "reason": "aggregator_delisted_and_own_filings_silent_alwaysd",
+  "source": "corroborated_delisting",
+  "last_nav": null,
+  "last_announcement": null
+ },
+ "nav": {
+  "anchor": 99.85,
+  "anchor_date": "2013-01-31",
+  "anchor_source": "aggregator_panel:2013-01",
+  "estimate": 99.85,
+  "basis": 3.0,
+  "staleness_days": 3547.0,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "GBX",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 100.13,
+  "ccy": null,
+  "date": "2013-01",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": 0.002804,
+  "z": 1.4791,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.013768,
+  "sigma_36m": 0.011204,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": -0.1264,
+  "discount_only": -0.0037,
+  "g_used": 0.0206,
+  "g_source": "sector_median"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

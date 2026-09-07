@@ -1,0 +1,102 @@
+{
+ "security_id": "SEDOL:BFX3K77",
+ "name": "Gresham House Energy Storage",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Renewable Energy Infrastructure",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_108d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-05-22",
+  "last_announcement": "2026-09-02"
+ },
+ "nav": {
+  "anchor": 131.3,
+  "anchor_date": "2026-09-02",
+  "anchor_source": "investegate_fs:9750396",
+  "estimate": 131.3,
+  "basis": 0.0,
+  "staleness_days": 3.0,
+  "staleness_limit_days": 200.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 102.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:GRID.L"
+ },
+ "discount": {
+  "estimate": -0.223153,
+  "z": 0.7607,
+  "z_status": "computed",
+  "z_source": "own_daily_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.372172,
+  "sigma_36m": 0.195904,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.0677,
+  "discount_only": 0.0155,
+  "g_used": 0.0515,
+  "g_source": "market_median"
+ },
+ "holder_churn": {
+  "filings": 4,
+  "sellers": 0,
+  "buyers": 0,
+  "largest_move": null,
+  "holder": null,
+  "direction": "churn"
+ },
+ "events_90d": [
+  {
+   "date": "2026-08-19",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/gresham-house-energy-storage-fund--grid/holding-s-in-company/9730103",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Schroders Plc"
+   }
+  },
+  {
+   "date": "2026-08-18",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/gresham-house-energy-storage-fund--grid/holding-s-in-company/9727859",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-13",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/gresham-house-energy-storage-fund--grid/holding-s-in-company/9720870",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-12",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/gresham-house-energy-storage-fund--grid/holding-s-in-company/9718833",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

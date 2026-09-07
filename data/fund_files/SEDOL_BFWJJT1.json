@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:BFWJJT1",
+ "name": "JPMorgan Multi-Asset Growth & Income",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Flexible Investment",
+ "liveness": {
+  "status": "delisted",
+  "reason": "own_delisting_notice_894d",
+  "source": "own_delisting_notice",
+  "last_nav": "2024-03-26",
+  "last_announcement": "2024-03-27"
+ },
+ "nav": {
+  "anchor": 103.06,
+  "anchor_date": "2024-03-26",
+  "anchor_source": "own_nav_history:2024-03-26",
+  "estimate": 109.639618,
+  "basis": 1.0,
+  "staleness_days": 639.0,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "GBX",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 98.25,
+  "ccy": null,
+  "date": "2024-02",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": -0.103882,
+  "z": -3.9453,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.031097,
+  "sigma_36m": 0.018449,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.037,
+  "discount_only": 0.0128,
+  "g_used": 0.002,
+  "g_source": "own_nav_history"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:52+00:00"
+}

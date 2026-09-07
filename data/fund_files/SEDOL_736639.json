@@ -1,0 +1,73 @@
+{
+ "security_id": "SEDOL:736639",
+ "name": "RIT Capital Partners",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Flexible Investment",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_24d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-08-14",
+  "last_announcement": "2026-09-02"
+ },
+ "nav": {
+  "anchor": 3106.0,
+  "anchor_date": "2026-07-31",
+  "anchor_source": "investegate:9721545",
+  "estimate": 3106.0,
+  "basis": 0.0,
+  "staleness_days": 26.0,
+  "staleness_limit_days": 93.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 2505.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:RCP.L"
+ },
+ "discount": {
+  "estimate": -0.193496,
+  "z": -3.4731,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": 0.000605,
+  "sigma_36m": 0.055886,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.0369,
+  "discount_only": -0.0078,
+  "g_used": 0.0451,
+  "g_source": "own_nav_history"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-07-27",
+   "class": "tender_offer",
+   "weight": 4,
+   "direction": "positive",
+   "headline": "Total Voting Rights and Completion of Tender Offer",
+   "url": "https://www.investegate.co.uk/announcement/rns/rit-capital-partners--rcp/total-voting-rights-and-completion-of-tender-offer/9689785",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-07-24",
+   "class": "tender_offer",
+   "weight": 4,
+   "direction": "positive",
+   "headline": "Result of Tender Offer",
+   "url": "https://www.investegate.co.uk/announcement/rns/rit-capital-partners--rcp/result-of-tender-offer/9686752",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

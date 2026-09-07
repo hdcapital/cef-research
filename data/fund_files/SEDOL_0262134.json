@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:0262134",
+ "name": "Chelverton Growth Trust",
+ "market": "UK",
+ "ticker": null,
+ "sector": "UK Smaller Companies",
+ "liveness": {
+  "status": "delisted",
+  "reason": "own_delisting_notice_1013d",
+  "source": "own_delisting_notice",
+  "last_nav": "2023-11-14",
+  "last_announcement": "2023-11-29"
+ },
+ "nav": {
+  "anchor": 1.0,
+  "anchor_date": "2023-10-31",
+  "anchor_source": "own_nav_history:2023-10-31",
+  "estimate": 1.0,
+  "basis": 3.0,
+  "staleness_days": 744.0,
+  "staleness_limit_days": 93.0,
+  "current": false,
+  "unit": "GBX",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 30.0,
+  "ccy": null,
+  "date": "2020-05",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": 29.0,
+  "z": 336.569,
+  "z_status": "computed",
+  "z_source": "own_daily_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.663056,
+  "sigma_36m": 0.088134,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": -0.516,
+  "discount_only": -0.516,
+  "g_used": 0.0,
+  "g_source": "sector_median"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:52+00:00"
+}

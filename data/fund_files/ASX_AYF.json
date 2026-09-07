@@ -1,0 +1,52 @@
+{
+ "security_id": "ASX:AYF",
+ "name": "Australian Enhanced Income Fund",
+ "market": "AU",
+ "ticker": null,
+ "sector": "Equity - Australia Strategy",
+ "liveness": {
+  "status": "delist_candidate",
+  "reason": "aggregator_delisted_and_own_filings_silent_2166d",
+  "source": "corroborated_delisting",
+  "last_nav": "2020-09-08",
+  "last_announcement": "2020-10-02"
+ },
+ "nav": {
+  "anchor": 5.453591549295775,
+  "anchor_date": "2020-08-31",
+  "anchor_source": "aggregator_panel:2020-08",
+  "estimate": 5.35577,
+  "basis": 1.0,
+  "staleness_days": 1570.0,
+  "staleness_limit_days": 200.0,
+  "current": false,
+  "unit": "AUD",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 5.2,
+  "ccy": null,
+  "date": "2020-08",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": -0.029085,
+  "z": -0.3073,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.017549,
+  "sigma_36m": 0.037534,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.0832,
+  "discount_only": 0.0029,
+  "g_used": 0.0466,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

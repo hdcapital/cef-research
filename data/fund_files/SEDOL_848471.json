@@ -1,0 +1,63 @@
+{
+ "security_id": "SEDOL:848471",
+ "name": "Value and Indexed Property Income Trust",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Property - UK Commercial",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_83d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-06-16",
+  "last_announcement": "2026-08-05"
+ },
+ "nav": {
+  "anchor": 212.0,
+  "anchor_date": "2026-03-31",
+  "anchor_source": "own_nav_history:2026-03-31",
+  "estimate": 228.649655,
+  "basis": 1.0,
+  "staleness_days": 114.0,
+  "staleness_limit_days": 200.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 209.5,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:VIP.L"
+ },
+ "discount": {
+  "estimate": -0.083751,
+  "z": 1.4137,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.191265,
+  "sigma_36m": 0.076051,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.0852,
+  "discount_only": -0.0099,
+  "g_used": 0.0515,
+  "g_source": "market_median"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-08-05",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Shares from Treasury",
+   "url": "https://www.investegate.co.uk/announcement/rns/value-and-indexed-property-income-trust--vip/issue-of-shares-from-treasury/9704834",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:52+00:00"
+}

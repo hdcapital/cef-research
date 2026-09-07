@@ -1,0 +1,52 @@
+{
+ "security_id": "ASX:AEG",
+ "name": "Absolute Equity Performance Fund Limited",
+ "market": "AU",
+ "ticker": null,
+ "sector": "Equity - Australia Strategy",
+ "liveness": {
+  "status": "delisted",
+  "reason": "own_delisting_notice_1434d",
+  "source": "own_delisting_notice",
+  "last_nav": "2022-09-26",
+  "last_announcement": "2022-10-04"
+ },
+ "nav": {
+  "anchor": 0.99,
+  "anchor_date": "2022-08-31",
+  "anchor_source": "aggregator_panel:2022-08",
+  "estimate": 0.96845,
+  "basis": 1.0,
+  "staleness_days": 1048.0,
+  "staleness_limit_days": 93.0,
+  "current": false,
+  "unit": "AUD",
+  "quality_ok": false,
+  "quality_reason": "unit_suspect_scale"
+ },
+ "price": {
+  "price": 0.08299999684095383,
+  "ccy": "AUD",
+  "date": "2026-09-07",
+  "source": "yahoo:AEG.AX"
+ },
+ "discount": {
+  "estimate": -0.914296,
+  "z": -20.3576,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.081109,
+  "sigma_36m": 0.040928,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.717,
+  "discount_only": 0.6014,
+  "g_used": 0.0722,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

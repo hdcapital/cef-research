@@ -1,0 +1,193 @@
+{
+ "security_id": "SEDOL:B1DQ647",
+ "name": "Invesco Global Equity Income Trust",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Global Equity Income",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_3d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-04",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 405.45,
+  "anchor_date": "2026-09-04",
+  "anchor_source": "investegate:9756586",
+  "estimate": 405.45,
+  "basis": 0.0,
+  "staleness_days": 1.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 411.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:IGET.L"
+ },
+ "discount": {
+  "estimate": 0.013688,
+  "z": 0.9464,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.049796,
+  "sigma_36m": 0.06708,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.1312,
+  "discount_only": -0.0188,
+  "g_used": 0.1346,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-09-02",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/mfn/invesco-global-equity-income-trust-plc--iget/issue-of-equity/9752661",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-09-01",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/mfn/invesco-global-equity-income-trust-plc--iget/issue-of-equity/9750188",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-28",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/mfn/invesco-global-equity-income-trust-plc--iget/issue-of-equity/9746457",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-26",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/mfn/invesco-global-equity-income-trust-plc--iget/issue-of-equity/9741943",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-25",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/mfn/invesco-global-equity-income-trust-plc--iget/issue-of-equity/9739704",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-11",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/mfn/invesco-global-equity-income-trust-plc--iget/issue-of-equity/9716503",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-10",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/mfn/invesco-global-equity-income-trust-plc--iget/issue-of-equity/9714063",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-07",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/mfn/invesco-global-equity-income-trust-plc--iget/issue-of-equity/9711689",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-06",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/mfn/invesco-global-equity-income-trust-plc--iget/issue-of-equity/9709502",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-04",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/mfn/invesco-global-equity-income-trust-plc--iget/issue-of-equity/9704620",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-03",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/mfn/invesco-global-equity-income-trust-plc--iget/issue-of-equity/9702168",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-07-30",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/mfn/invesco-global-equity-income-trust-plc--iget/issue-of-equity/9696831",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-07-29",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/mfn/invesco-global-equity-income-trust-plc--iget/issue-of-equity/9694435",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-07-27",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/mfn/invesco-global-equity-income-trust-plc--iget/issue-of-equity/9689664",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

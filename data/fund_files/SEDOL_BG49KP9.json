@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:BG49KP9",
+ "name": "Tritax Big Box REIT",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Property - UK Logistics",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_33d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-08-05",
+  "last_announcement": "2026-08-28"
+ },
+ "nav": {
+  "anchor": 187.76,
+  "anchor_date": "2026-06-30",
+  "anchor_source": "investegate_fs:9707045",
+  "estimate": 187.76,
+  "basis": 0.0,
+  "staleness_days": 49.0,
+  "staleness_limit_days": 200.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 154.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:BBOX.L"
+ },
+ "discount": {
+  "estimate": -0.179804,
+  "z": -2.0105,
+  "z_status": "computed",
+  "z_source": "own_daily_panel",
+  "z_window_months": 36,
+  "mu_36m": 0.006941,
+  "sigma_36m": 0.092883,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.1089,
+  "discount_only": 0.0546,
+  "g_used": 0.0515,
+  "g_source": "market_median"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:52+00:00"
+}

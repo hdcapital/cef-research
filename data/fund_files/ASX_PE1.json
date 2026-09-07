@@ -1,0 +1,52 @@
+{
+ "security_id": "ASX:PE1",
+ "name": "Pengana Private Equity Trust",
+ "market": "AU",
+ "ticker": null,
+ "sector": "Equity - Global Strategy",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_26d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-08-12",
+  "last_announcement": "2026-08-27"
+ },
+ "nav": {
+  "anchor": 1.722,
+  "anchor_date": "2026-07-31",
+  "anchor_source": "asx_ann:03124818",
+  "estimate": 1.722,
+  "basis": 0.0,
+  "staleness_days": 26.0,
+  "staleness_limit_days": 93.0,
+  "current": true,
+  "unit": "AUD",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 1.5449999570846558,
+  "ccy": "AUD",
+  "date": "2026-09-07",
+  "source": "yahoo:PE1.AX"
+ },
+ "discount": {
+  "estimate": -0.102787,
+  "z": 0.3148,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.141187,
+  "sigma_36m": 0.121974,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.1987,
+  "discount_only": 0.0113,
+  "g_used": 0.15,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

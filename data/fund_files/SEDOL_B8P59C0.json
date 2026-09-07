@@ -1,0 +1,97 @@
+{
+ "security_id": "SEDOL:B8P59C0",
+ "name": "Syncona",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Biotechnology & Healthcare",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_81d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-06-18",
+  "last_announcement": "2026-08-25"
+ },
+ "nav": {
+  "anchor": 170.63,
+  "anchor_date": "2026-03-31",
+  "anchor_source": "investegate_fs:9624409",
+  "estimate": 170.63,
+  "basis": 0.0,
+  "staleness_days": 114.0,
+  "staleness_limit_days": 96.0,
+  "current": false,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 112.80000305175781,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:SYNC.L"
+ },
+ "discount": {
+  "estimate": -0.33892,
+  "z": -3.5288,
+  "z_status": "computed",
+  "z_source": "own_daily_panel",
+  "z_window_months": 36,
+  "mu_36m": 0.381049,
+  "sigma_36m": 0.204024,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.1773,
+  "discount_only": 0.1266,
+  "g_used": 0.0451,
+  "g_source": "sector_median"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-08-25",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/syncona-limited-npv--sync/holding-s-in-company/9739770",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Jefferies Financial Group Inc"
+   }
+  },
+  {
+   "date": "2026-08-21",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/syncona-limited-npv--sync/holding-s-in-company/9733858",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Saba Capital Management, L.P"
+   }
+  },
+  {
+   "date": "2026-08-04",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/syncona-limited-npv--sync/holding-s-in-company/9704314",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-07-30",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/syncona-limited-npv--sync/holding-s-in-company/9696557",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:52+00:00"
+}

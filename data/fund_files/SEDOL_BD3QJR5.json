@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:BD3QJR5",
+ "name": "Foresight Solar Fund",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Renewable Energy Infrastructure",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_27d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-08-11",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 94.9,
+  "anchor_date": "2026-06-30",
+  "anchor_source": "investegate:9714371",
+  "estimate": 94.9,
+  "basis": 0.0,
+  "staleness_days": 49.0,
+  "staleness_limit_days": 200.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 70.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:FSFL.L"
+ },
+ "discount": {
+  "estimate": -0.262381,
+  "z": 0.2192,
+  "z_status": "within_error_band",
+  "z_source": "own_daily_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.27697,
+  "sigma_36m": 0.066558,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.0635,
+  "discount_only": 0.0114,
+  "g_used": 0.0515,
+  "g_source": "market_median"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

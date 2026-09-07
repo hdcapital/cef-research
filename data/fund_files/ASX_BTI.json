@@ -1,0 +1,52 @@
+{
+ "security_id": "ASX:BTI",
+ "name": "Bailador Technology Investments Limited",
+ "market": "AU",
+ "ticker": null,
+ "sector": "Equity - Australia Small/Mid Cap",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_28d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-08-10",
+  "last_announcement": "2026-08-25"
+ },
+ "nav": {
+  "anchor": 2.2,
+  "anchor_date": "2026-08-10",
+  "anchor_source": "asx_ann:03123790",
+  "estimate": 2.2,
+  "basis": 0.0,
+  "staleness_days": 20.0,
+  "staleness_limit_days": 200.0,
+  "current": true,
+  "unit": "AUD",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 0.9700000286102295,
+  "ccy": "AUD",
+  "date": "2026-09-07",
+  "source": "yahoo:BTI.AX"
+ },
+ "discount": {
+  "estimate": -0.559091,
+  "z": -3.9309,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.334277,
+  "sigma_36m": 0.057192,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.3186,
+  "discount_only": 0.0927,
+  "g_used": 0.15,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

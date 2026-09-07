@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:309019",
+ "name": "Electric & General",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Global Growth",
+ "liveness": {
+  "status": "delist_candidate",
+  "reason": "aggregator_delisted_and_own_filings_silent_alwaysd",
+  "source": "corroborated_delisting",
+  "last_nav": null,
+  "last_announcement": null
+ },
+ "nav": {
+  "anchor": 465.58,
+  "anchor_date": "2011-07-31",
+  "anchor_source": "aggregator_panel:2011-07",
+  "estimate": 496.413263,
+  "basis": 1.0,
+  "staleness_days": 3940.0,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "GBX",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 456.5,
+  "ccy": null,
+  "date": "2011-07",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": -0.080403,
+  "z": 0.7835,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.117253,
+  "sigma_36m": 0.04703,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.0697,
+  "discount_only": -0.0086,
+  "g_used": 0.0515,
+  "g_source": "market_median"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:B17XWW4",
+ "name": "JPMorgan European Income",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Europe",
+ "liveness": {
+  "status": "delist_candidate",
+  "reason": "aggregator_delisted_and_own_filings_silent_alwaysd",
+  "source": "corroborated_delisting",
+  "last_nav": null,
+  "last_announcement": null
+ },
+ "nav": {
+  "anchor": 172.48,
+  "anchor_date": "2022-01-31",
+  "anchor_source": "aggregator_panel:2022-01",
+  "estimate": 193.841969,
+  "basis": 1.0,
+  "staleness_days": 1200.0,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "GBX",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 154.25,
+  "ccy": null,
+  "date": "2022-01",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": -0.204249,
+  "z": -4.1184,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.113195,
+  "sigma_36m": 0.022109,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.1216,
+  "discount_only": 0.024,
+  "g_used": 0.0653,
+  "g_source": "sector_median"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

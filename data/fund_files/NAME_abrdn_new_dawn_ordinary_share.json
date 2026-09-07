@@ -1,0 +1,52 @@
+{
+ "security_id": "NAME:abrdn new dawn|ordinary share",
+ "name": "abrdn New Dawn Investment Trust",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Asia Pacific",
+ "liveness": {
+  "status": "delist_candidate",
+  "reason": "aggregator_delisted_and_own_filings_silent_1036d",
+  "source": "corroborated_delisting",
+  "last_nav": "2023-11-06",
+  "last_announcement": "2023-11-06"
+ },
+ "nav": {
+  "anchor": 273.21,
+  "anchor_date": "2023-11-02",
+  "anchor_source": "own_nav_history:2023-11-02",
+  "estimate": 293.094065,
+  "basis": 1.0,
+  "staleness_days": 742.0,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "GBX",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 249.0,
+  "ccy": null,
+  "date": "2023-09",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": -0.150443,
+  "z": -2.9663,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.118932,
+  "sigma_36m": 0.010623,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.057,
+  "discount_only": 0.0053,
+  "g_used": 0.0514,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:52+00:00"
+}

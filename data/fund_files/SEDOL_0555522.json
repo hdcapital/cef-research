@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:0555522",
+ "name": "Majedie Investments",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Flexible Investment",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_13d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-08-25",
+  "last_announcement": "2026-09-01"
+ },
+ "nav": {
+  "anchor": 340.39,
+  "anchor_date": "2026-08-14",
+  "anchor_source": "investegate:9739526",
+  "estimate": 340.39,
+  "basis": 0.0,
+  "staleness_days": 16.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 337.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:MAJE.L"
+ },
+ "discount": {
+  "estimate": -0.009959,
+  "z": 2.1697,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.118854,
+  "sigma_36m": 0.05019,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.0591,
+  "discount_only": -0.0299,
+  "g_used": 0.0917,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

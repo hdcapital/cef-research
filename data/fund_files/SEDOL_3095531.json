@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:3095531",
+ "name": "Henderson Private Equity",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Private Equity",
+ "liveness": {
+  "status": "delist_candidate",
+  "reason": "aggregator_delisted_and_own_filings_silent_alwaysd",
+  "source": "corroborated_delisting",
+  "last_nav": null,
+  "last_announcement": null
+ },
+ "nav": {
+  "anchor": 319.51,
+  "anchor_date": "2009-04-30",
+  "anchor_source": "aggregator_panel:2009-04",
+  "estimate": 319.51,
+  "basis": 3.0,
+  "staleness_days": 4527.0,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "GBX",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 96.5,
+  "ccy": null,
+  "date": "2009-04",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": -0.697975,
+  "z": null,
+  "z_status": "insufficient_history_5m",
+  "z_source": "aggregator_panel",
+  "z_window_months": 5,
+  "mu_36m": null,
+  "sigma_36m": null,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.0224,
+  "discount_only": -0.0223,
+  "g_used": 0.0458,
+  "g_source": "sector_median"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:B06GDT1",
+ "name": "Alternative Investment Strategies",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Hedge Funds",
+ "liveness": {
+  "status": "delist_candidate",
+  "reason": "aggregator_delisted_and_own_filings_silent_alwaysd",
+  "source": "corroborated_delisting",
+  "last_nav": null,
+  "last_announcement": null
+ },
+ "nav": {
+  "anchor": 139.44,
+  "anchor_date": "2013-09-30",
+  "anchor_source": "aggregator_panel:2013-09",
+  "estimate": 140.912813,
+  "basis": 1.0,
+  "staleness_days": 3375.0,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "GBX",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 132.0,
+  "ccy": null,
+  "date": "2013-09",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": -0.063251,
+  "z": 1.2229,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.116559,
+  "sigma_36m": 0.043593,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.0034,
+  "discount_only": -0.0169,
+  "g_used": 0.0206,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

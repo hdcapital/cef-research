@@ -1,0 +1,52 @@
+{
+ "security_id": "ASX:EAI",
+ "name": "Ellerston Asian Investments Limited",
+ "market": "AU",
+ "ticker": null,
+ "sector": "Equity - Asia",
+ "liveness": {
+  "status": "delisted",
+  "reason": "own_delisting_notice_1190d",
+  "source": "own_delisting_notice",
+  "last_nav": "2023-05-25",
+  "last_announcement": "2023-06-05"
+ },
+ "nav": {
+  "anchor": 0.8278,
+  "anchor_date": "2023-05-24",
+  "anchor_source": "own_nav_history:2023-05-24",
+  "estimate": 0.820251,
+  "basis": 1.0,
+  "staleness_days": 858.0,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "AUD",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 0.79,
+  "ccy": null,
+  "date": "2023-04",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": -0.036881,
+  "z": 1.7285,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.103879,
+  "sigma_36m": 0.03876,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.1343,
+  "discount_only": -0.0184,
+  "g_used": 0.0175,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

@@ -1,0 +1,52 @@
+{
+ "security_id": "ASX:CIN",
+ "name": "Carlton Investments Limited",
+ "market": "AU",
+ "ticker": null,
+ "sector": "Equity - Australia",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_7d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-08-31",
+  "last_announcement": "2026-08-31"
+ },
+ "nav": {
+  "anchor": 45.82,
+  "anchor_date": "2026-06-30",
+  "anchor_source": "aggregator_panel:2026-06",
+  "estimate": 47.2972,
+  "basis": 1.0,
+  "staleness_days": 49.0,
+  "staleness_limit_days": 93.0,
+  "current": true,
+  "unit": "AUD",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 35.310001373291016,
+  "ccy": "AUD",
+  "date": "2026-09-07",
+  "source": "yahoo:CIN.AX"
+ },
+ "discount": {
+  "estimate": -0.253444,
+  "z": 0.0336,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.256919,
+  "sigma_36m": 0.103345,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.1613,
+  "discount_only": 0.0064,
+  "g_used": 0.1259,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

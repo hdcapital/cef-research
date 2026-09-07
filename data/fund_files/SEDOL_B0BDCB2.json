@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:B0BDCB2",
+ "name": "Strategic Equity Capital",
+ "market": "UK",
+ "ticker": null,
+ "sector": "UK Smaller Companies",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_4d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-03",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 395.68,
+  "anchor_date": "2026-09-03",
+  "anchor_source": "investegate:9756831",
+  "estimate": 395.68,
+  "basis": 0.0,
+  "staleness_days": 2.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 364.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:SEC.L"
+ },
+ "discount": {
+  "estimate": -0.080065,
+  "z": -0.0538,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.079088,
+  "sigma_36m": 0.018143,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.0247,
+  "discount_only": -0.0005,
+  "g_used": 0.0038,
+  "g_source": "own_nav_history"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:52+00:00"
+}

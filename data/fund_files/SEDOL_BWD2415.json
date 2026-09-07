@@ -1,0 +1,63 @@
+{
+ "security_id": "SEDOL:BWD2415",
+ "name": "AEW UK REIT",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Property - UK Commercial",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_73d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-06-26",
+  "last_announcement": "2026-09-01"
+ },
+ "nav": {
+  "anchor": 109.09,
+  "anchor_date": "2025-09-30",
+  "anchor_source": "own_nav_history:2025-09-30",
+  "estimate": 109.09,
+  "basis": 3.0,
+  "staleness_days": 244.0,
+  "staleness_limit_days": 200.0,
+  "current": false,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 104.4000015258789,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:AEWU.L"
+ },
+ "discount": {
+  "estimate": -0.042992,
+  "z": -0.0236,
+  "z_status": "within_error_band",
+  "z_source": "own_daily_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.040942,
+  "sigma_36m": 0.087022,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.1202,
+  "discount_only": 0.0023,
+  "g_used": 0.0515,
+  "g_source": "market_median"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-08-26",
+   "class": "offer_withdrawn",
+   "weight": -3,
+   "direction": "negative",
+   "headline": "No Intention to Bid Statement",
+   "url": "https://www.investegate.co.uk/announcement/rns/aew-uk-reit--aewu/no-intention-to-bid-statement-/9739892",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

@@ -1,0 +1,73 @@
+{
+ "security_id": "ASX:RYD",
+ "name": "Ryder Capital Limited",
+ "market": "AU",
+ "ticker": null,
+ "sector": "Equity - Australia Small/Mid Cap",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_28d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-08-10",
+  "last_announcement": "2026-08-25"
+ },
+ "nav": {
+  "anchor": 2.024,
+  "anchor_date": "2026-08-10",
+  "anchor_source": "asx_ann:03123841",
+  "estimate": 2.024,
+  "basis": 0.0,
+  "staleness_days": 20.0,
+  "staleness_limit_days": 93.0,
+  "current": true,
+  "unit": "AUD",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 2.140000104904175,
+  "ccy": "AUD",
+  "date": "2026-09-07",
+  "source": "yahoo:RYD.AX"
+ },
+ "discount": {
+  "estimate": 0.057312,
+  "z": 3.614,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.142399,
+  "sigma_36m": 0.05526,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.1731,
+  "discount_only": -0.039,
+  "g_used": 0.15,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-08-17",
+   "class": "substantial_holder",
+   "weight": 2,
+   "direction": "positive",
+   "headline": "Change in substantial holding for JAN",
+   "url": "https://announcements.asx.com.au/asxpdf/20260817/pdf/072tx2r1yts4m9.pdf",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-12",
+   "class": "substantial_holder",
+   "weight": 2,
+   "direction": "positive",
+   "headline": "Change in substantial holding for JAN",
+   "url": "https://announcements.asx.com.au/asxpdf/20260813/pdf/072q86v6qx19d6.pdf",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

@@ -1,0 +1,65 @@
+{
+ "security_id": "SEDOL:B18JK16",
+ "name": "JPMorgan European Growth & Income",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Europe",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_3d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-04",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 149.8,
+  "anchor_date": "2026-09-04",
+  "anchor_source": "investegate:9756503",
+  "estimate": 149.8,
+  "basis": 0.0,
+  "staleness_days": 1.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 146.1999969482422,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:JEGI.L"
+ },
+ "discount": {
+  "estimate": -0.024032,
+  "z": 0.9387,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.068653,
+  "sigma_36m": 0.047532,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.1059,
+  "discount_only": -0.0179,
+  "g_used": 0.1014,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-08-20",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/jpmorgan-european-growth-income--jegi/holding-s-in-company/9732838",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Allspring Global Investments Holdings, LLC"
+   }
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

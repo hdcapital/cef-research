@@ -5,8 +5,8 @@
     "AU": 172,
     "UK": 944
   },
-  "live": 361,
-  "live_stale_nav": 31,
+  "live": 359,
+  "live_stale_nav": 33,
   "status_before_evidence": {
     "delisted": 731,
     "live": 376,
@@ -17,9 +17,9 @@
   "persisted_to": "data/universe/registry.parquet",
   "live_status_source": {
     "corroborated_delisting": 654,
-    "own_nav_announcement": 350,
+    "own_nav_announcement": 348,
     "own_delisting_notice": 64,
-    "own_periodic_report": 29,
+    "own_periodic_report": 31,
     "registry_deferral_no_own_filings": 11,
     "own_announcement_only": 5,
     "own_nav_announcement_stale": 2,
@@ -29,25 +29,25 @@
   "aggregator_said_live_evidence_says_not": 6,
   "by_liveness_reason": {
     "aggregator_delisted_and_own_filings_silent_alwaysd": 594,
-    "nav": 351,
+    "nav": 349,
     "own_delisting_notice": 64,
     "aggregator_delisted_and_own_filings_silent": 60,
-    "periodic_report": 29,
+    "periodic_report": 31,
     "no_own_filings_held_deferring_to_registry": 11,
     "filings_but_no_nav_or_report": 5,
-    "nav_-26d_old": 1,
+    "nav_-23d_old": 1,
     "registry_listed": 1
   },
   "delisted": 64,
   "priced_by_source": 638,
   "announcements_only": 478,
-  "live_announcements_only": 95,
+  "live_announcements_only": 94,
   "offshore": 195,
   "vct": 228,
   "live_by_domicile": {
-    "GB": 202,
+    "GB": 201,
     "null": 97,
-    "GG": 33,
+    "GG": 32,
     "JE": 14,
     "BM": 11,
     "KY": 2,
@@ -155,20 +155,20 @@
       "months_listed": 235
     },
     {
-      "security_id": "SEDOL:B9G79F5",
-      "name": "CVC Income & Growth",
-      "sector": "Debt - Loans & Bonds",
-      "domicile": "JE",
-      "isin": "JE00B9G79F59",
-      "first_seen": "2013-06",
-      "months_listed": 158
-    },
-    {
       "security_id": "SEDOL:B9MRHZ5",
       "name": "CVC Income & Growth",
       "sector": "Debt - Loans & Bonds",
       "domicile": "JE",
       "isin": "JE00B9MRHZ51",
+      "first_seen": "2013-06",
+      "months_listed": 158
+    },
+    {
+      "security_id": "SEDOL:B9G79F5",
+      "name": "CVC Income & Growth",
+      "sector": "Debt - Loans & Bonds",
+      "domicile": "JE",
+      "isin": "JE00B9G79F59",
       "first_seen": "2013-06",
       "months_listed": 158
     },
@@ -245,15 +245,6 @@
       "months_listed": 63
     },
     {
-      "security_id": "SEDOL:BK1WV90",
-      "name": "EJF Investments",
-      "sector": "Debt - Structured Finance",
-      "domicile": "JE",
-      "isin": "JE00BRZSNL95",
-      "first_seen": "2020-06",
-      "months_listed": 74
-    },
-    {
       "security_id": "SEDOL:BF0D1M2",
       "name": "EJF Investments",
       "sector": "Debt - Structured Finance",
@@ -261,6 +252,15 @@
       "isin": "JE00BF0D1M25",
       "first_seen": "2017-04",
       "months_listed": 112
+    },
+    {
+      "security_id": "SEDOL:BK1WV90",
+      "name": "EJF Investments",
+      "sector": "Debt - Structured Finance",
+      "domicile": "JE",
+      "isin": "JE00BRZSNL95",
+      "first_seen": "2020-06",
+      "months_listed": 74
     },
     {
       "security_id": "SEDOL:BDG12N4",
@@ -360,15 +360,6 @@
       "isin": "GB00BJP5HK17",
       "first_seen": "2020-10",
       "months_listed": 70
-    },
-    {
-      "security_id": "SEDOL:B8C23S8",
-      "name": "ICG-Longbow Senior Secured UK Property Debt Invest",
-      "sector": "Property - Debt",
-      "domicile": "GG",
-      "isin": "GG00B8C23S81",
-      "first_seen": "2013-02",
-      "months_listed": 162
     },
     {
       "security_id": "SEDOL:B0P8RJ6",
@@ -927,16 +918,16 @@
     "North America": 2,
     "Hedge Funds": 2,
     "Commodities & Natural Resources": 2,
-    "Split Capital Trust": 2,
     "Property - Europe": 2,
-    "Property - Debt": 2,
+    "Split Capital Trust": 2,
+    "Equity - Global Strategy": 1,
     "Global Emerging Markets": 1,
     "Property - Rest of World": 1,
     "Global Equity Income": 1,
-    "Equity - Global Strategy": 1,
     "India / Indian Subcontinent": 1,
     "Property - UK Residential": 1,
     "VCT AIM Quoted": 1,
+    "Property - Debt": 1,
     "Biotechnology & Healthcare": 1,
     "Property Direct - UK": 1,
     "Property - UK Healthcare": 1,

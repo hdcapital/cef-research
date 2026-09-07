@@ -1,0 +1,52 @@
+{
+ "security_id": "ASX:MOT",
+ "name": "Metrics Income Opportunities Trust",
+ "market": "AU",
+ "ticker": null,
+ "sector": "Fixed Income - Australian Dollar",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_10d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-08-28",
+  "last_announcement": "2026-08-31"
+ },
+ "nav": {
+  "anchor": 2.1467,
+  "anchor_date": "2026-09-03",
+  "anchor_source": "own_nav_history:2026-09-03",
+  "estimate": 2.145357,
+  "basis": 1.0,
+  "staleness_days": 2.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "AUD",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 1.565000057220459,
+  "ccy": "AUD",
+  "date": "2026-09-07",
+  "source": "yahoo:MOT.AX"
+ },
+ "discount": {
+  "estimate": -0.270518,
+  "z": -2.7343,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.059273,
+  "sigma_36m": 0.077257,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.2824,
+  "discount_only": 0.0583,
+  "g_used": 0.1445,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

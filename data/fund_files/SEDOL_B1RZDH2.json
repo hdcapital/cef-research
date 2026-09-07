@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:B1RZDH2",
+ "name": "JPMorgan Progressive Multi-Strategy (AIM)",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Hedge Funds",
+ "liveness": {
+  "status": "delist_candidate",
+  "reason": "aggregator_delisted_and_own_filings_silent_alwaysd",
+  "source": "corroborated_delisting",
+  "last_nav": null,
+  "last_announcement": null
+ },
+ "nav": {
+  "anchor": 79.74,
+  "anchor_date": "2009-09-30",
+  "anchor_source": "aggregator_panel:2009-09",
+  "estimate": 79.74,
+  "basis": 3.0,
+  "staleness_days": 4418.0,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "GBX",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 77.0,
+  "ccy": null,
+  "date": "2009-09",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": -0.034362,
+  "z": -0.3333,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 20,
+  "mu_36m": -0.015434,
+  "sigma_36m": 0.056787,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.0248,
+  "discount_only": 0.0041,
+  "g_used": 0.0206,
+  "g_source": "sector_median"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

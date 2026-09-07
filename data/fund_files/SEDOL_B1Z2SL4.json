@@ -1,0 +1,63 @@
+{
+ "security_id": "SEDOL:B1Z2SL4",
+ "name": "Crystal Amber Fund",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Flexible Investment",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_68d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-07-01",
+  "last_announcement": "2026-09-03"
+ },
+ "nav": {
+  "anchor": 177.77,
+  "anchor_date": "2026-06-30",
+  "anchor_source": "investegate:9754999",
+  "estimate": 177.77,
+  "basis": 0.0,
+  "staleness_days": 49.0,
+  "staleness_limit_days": 91.5,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 82.5,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:CRS.L"
+ },
+ "discount": {
+  "estimate": -0.535917,
+  "z": -1.999,
+  "z_status": "computed",
+  "z_source": "own_daily_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.31764,
+  "sigma_36m": 0.109192,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.1455,
+  "discount_only": 0.0858,
+  "g_used": 0.055,
+  "g_source": "own_nav_history"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-07-29",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/crystal-amber-fund-ltd---crs/holding-s-in-company/9693896",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

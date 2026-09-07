@@ -1,0 +1,65 @@
+{
+ "security_id": "SEDOL:B95CGW7",
+ "name": "Target Healthcare REIT",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Property - UK Healthcare",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_33d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-08-05",
+  "last_announcement": "2026-08-18"
+ },
+ "nav": {
+  "anchor": 122.2,
+  "anchor_date": "2026-06-30",
+  "anchor_source": "investegate:9704905",
+  "estimate": 122.2,
+  "basis": 0.0,
+  "staleness_days": 49.0,
+  "staleness_limit_days": 200.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 113.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:THRL.L"
+ },
+ "discount": {
+  "estimate": -0.075286,
+  "z": 1.3696,
+  "z_status": "computed",
+  "z_source": "own_daily_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.181873,
+  "sigma_36m": 0.077823,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.0408,
+  "discount_only": -0.0102,
+  "g_used": 0.0515,
+  "g_source": "market_median"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-08-18",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/target-healthcare-reit-ltd--thrl/holding-s-in-company/9726194",
+   "alerted_at": null,
+   "terms": {
+    "holder": "BlackRock, Inc"
+   }
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:52+00:00"
+}

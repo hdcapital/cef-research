@@ -1,0 +1,75 @@
+{
+ "security_id": "NAME:aberforth smaller companies|ordinary share",
+ "name": "Aberforth Smaller Companies",
+ "market": "UK",
+ "ticker": null,
+ "sector": "UK Smaller Companies",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_4d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-03",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 1963.29,
+  "anchor_date": "2026-09-03",
+  "anchor_source": "investegate:9756388",
+  "estimate": 1963.29,
+  "basis": 0.0,
+  "staleness_days": 2.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 1760.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:ASL.L"
+ },
+ "discount": {
+  "estimate": -0.103546,
+  "z": 0.2484,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.107876,
+  "sigma_36m": 0.017433,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.018,
+  "discount_only": -0.0027,
+  "g_used": 0.0208,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-09-04",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/prn/aberforth-smaller-companies-trust--asl/holding-s-in-company/9756917",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Rathbones Investment Management Ltd"
+   }
+  },
+  {
+   "date": "2026-08-07",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/prn/aberforth-smaller-companies-trust--asl/holding-s-in-company/9711688",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

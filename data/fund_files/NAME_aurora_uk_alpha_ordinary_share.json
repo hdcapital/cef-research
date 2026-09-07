@@ -1,0 +1,63 @@
+{
+ "security_id": "NAME:aurora uk alpha|ordinary share",
+ "name": "Aurora UK Alpha",
+ "market": "UK",
+ "ticker": null,
+ "sector": "UK All Companies",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_4d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-03",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 282.5,
+  "anchor_date": "2026-09-03",
+  "anchor_source": "investegate:9756857",
+  "estimate": 282.5,
+  "basis": 0.0,
+  "staleness_days": 2.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 253.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:ARR.L"
+ },
+ "discount": {
+  "estimate": -0.104425,
+  "z": -0.3049,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.100051,
+  "sigma_36m": 0.014345,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.0415,
+  "discount_only": 0.0022,
+  "g_used": 0.0189,
+  "g_source": "own_nav_history"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-08-13",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/aurora-uk-alpha-plc--arr/holding-s-in-company/9721123",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

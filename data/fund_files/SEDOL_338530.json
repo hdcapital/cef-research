@@ -1,0 +1,85 @@
+{
+ "security_id": "SEDOL:338530",
+ "name": "Worldwide Healthcare Trust",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Biotechnology & Healthcare",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_4d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-03",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 419.34,
+  "anchor_date": "2026-09-03",
+  "anchor_source": "investegate:9756880",
+  "estimate": 419.34,
+  "basis": 0.0,
+  "staleness_days": 2.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 387.5,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:WWH.L"
+ },
+ "discount": {
+  "estimate": -0.075929,
+  "z": 0.7337,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.093595,
+  "sigma_36m": 0.024077,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.4168,
+  "discount_only": -0.0021,
+  "g_used": 0.0328,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-09-02",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/prn/worldwide-healthcare-trust--wwh/holding-s-in-company/9752576",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Rathbones Investment Management Ltd"
+   }
+  },
+  {
+   "date": "2026-08-11",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/prn/worldwide-healthcare-trust--wwh/holding-s-in-company/9716483",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-06",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/prn/worldwide-healthcare-trust--wwh/holding-s-in-company/9709430",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:52+00:00"
+}

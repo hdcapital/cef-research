@@ -1,0 +1,52 @@
+{
+ "security_id": "ASX:WLS",
+ "name": "WCM Global Long Short Limited",
+ "market": "AU",
+ "ticker": null,
+ "sector": "Equity - Global Strategy",
+ "liveness": {
+  "status": "delisted",
+  "reason": "own_delisting_notice_1334d",
+  "source": "own_delisting_notice",
+  "last_nav": "2022-12-08",
+  "last_announcement": "2023-01-12"
+ },
+ "nav": {
+  "anchor": 0.6192931034482758,
+  "anchor_date": "2022-11-30",
+  "anchor_source": "aggregator_panel:2022-11",
+  "estimate": 0.619293,
+  "basis": 3.0,
+  "staleness_days": 983.0,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "AUD",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 0.585,
+  "ccy": null,
+  "date": "2022-11",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": -0.055375,
+  "z": 1.2617,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 18,
+  "mu_36m": -0.119634,
+  "sigma_36m": 0.05093,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.1387,
+  "discount_only": -0.0098,
+  "g_used": 0.15,
+  "g_source": "sector_median"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

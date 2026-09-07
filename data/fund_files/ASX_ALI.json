@@ -1,0 +1,52 @@
+{
+ "security_id": "ASX:ALI",
+ "name": "Argo Global Listed Infrastructure Limited",
+ "market": "AU",
+ "ticker": null,
+ "sector": "Equity - Infrastructure",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_14d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-08-24",
+  "last_announcement": "2026-08-28"
+ },
+ "nav": {
+  "anchor": 5.0,
+  "anchor_date": "2026-08-24",
+  "anchor_source": "asx_ann:03129550",
+  "estimate": 5.0,
+  "basis": 0.0,
+  "staleness_days": 10.0,
+  "staleness_limit_days": 93.0,
+  "current": true,
+  "unit": "AUD",
+  "quality_ok": false,
+  "quality_reason": "nav_jump_82%_vs_prior"
+ },
+ "price": {
+  "price": 2.559999942779541,
+  "ccy": "AUD",
+  "date": "2026-09-07",
+  "source": "yahoo:ALI.AX"
+ },
+ "discount": {
+  "estimate": -0.488,
+  "z": -10.1245,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.10814,
+  "sigma_36m": 0.037519,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.3242,
+  "discount_only": 0.1246,
+  "g_used": 0.15,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:345035",
+ "name": "JPMorgan India Growth & Income",
+ "market": "UK",
+ "ticker": null,
+ "sector": "India / Indian Subcontinent",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_3d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-04",
+  "last_announcement": null
+ },
+ "nav": {
+  "anchor": 961.92,
+  "anchor_date": "2026-09-04",
+  "anchor_source": "investegate:9756507",
+  "estimate": 961.92,
+  "basis": 0.0,
+  "staleness_days": 1.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 882.0,
+  "ccy": null,
+  "date": "2026-07",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": -0.083084,
+  "z": 1.0403,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.135467,
+  "sigma_36m": 0.050355,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.0463,
+  "discount_only": -0.0202,
+  "g_used": 0.0535,
+  "g_source": "own_nav_history"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

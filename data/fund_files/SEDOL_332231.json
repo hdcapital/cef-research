@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:332231",
+ "name": "Fidelity Asian Values",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Asia Pacific Smaller Companies",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_3d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-04",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 653.77,
+  "anchor_date": "2026-09-04",
+  "anchor_source": "investegate:9755925",
+  "estimate": 653.77,
+  "basis": 0.0,
+  "staleness_days": 1.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 636.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:FAS.L"
+ },
+ "discount": {
+  "estimate": -0.027181,
+  "z": 1.7207,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.075493,
+  "sigma_36m": 0.028076,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.108,
+  "discount_only": -0.0098,
+  "g_used": 0.0755,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

@@ -1,0 +1,63 @@
+{
+ "security_id": "SEDOL:BY7R8K7",
+ "name": "Schroder European Real Estate",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Property - Europe",
+ "liveness": {
+  "status": "live_stale_nav",
+  "reason": "periodic_report_75d_old_no_recent_nav",
+  "source": "own_periodic_report",
+  "last_nav": "2026-03-19",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 99.90452503824558,
+  "anchor_date": "2026-06-19",
+  "anchor_source": "investegate_fs:9633057",
+  "estimate": 99.904525,
+  "basis": 0.0,
+  "staleness_days": 56.0,
+  "staleness_limit_days": 200.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 63.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:SERE.L"
+ },
+ "discount": {
+  "estimate": -0.369398,
+  "z": 0.3227,
+  "z_status": "within_error_band",
+  "z_source": "own_daily_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.396744,
+  "sigma_36m": 0.084753,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.058,
+  "discount_only": 0.0062,
+  "g_used": 0.0515,
+  "g_source": "market_median"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-08-12",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/schroder-european-real-estate-investment-trust--sere/holding-s-in-company/9716742",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:52+00:00"
+}

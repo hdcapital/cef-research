@@ -1,0 +1,73 @@
+{
+ "security_id": "SEDOL:741600",
+ "name": "JPMorgan UK Small Cap Growth & Income",
+ "market": "UK",
+ "ticker": null,
+ "sector": "UK Smaller Companies",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_3d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-04",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 376.32,
+  "anchor_date": "2026-09-04",
+  "anchor_source": "investegate:9756504",
+  "estimate": 376.32,
+  "basis": 0.0,
+  "staleness_days": 1.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 346.5,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:JUGI.L"
+ },
+ "discount": {
+  "estimate": -0.079241,
+  "z": 0.4323,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.093979,
+  "sigma_36m": 0.034093,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.0185,
+  "discount_only": -0.0056,
+  "g_used": 0.0,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-07-28",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/jpmorgan-uk-small-cap-growth-income--jugi/holding-s-in-company/9692027",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-07-24",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/jpmorgan-uk-small-cap-growth-income--jugi/holding-s-in-company/9687142",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

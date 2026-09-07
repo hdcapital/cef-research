@@ -1,0 +1,63 @@
+{
+ "security_id": "ASX:WAX",
+ "name": "WAM Research Limited",
+ "market": "AU",
+ "ticker": null,
+ "sector": "Equity - Australia Small/Mid Cap",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_26d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-08-12",
+  "last_announcement": "2026-08-23"
+ },
+ "nav": {
+  "anchor": 0.7827999999999999,
+  "anchor_date": "2026-06-30",
+  "anchor_source": "aggregator_panel:2026-06",
+  "estimate": 0.832388,
+  "basis": 1.0,
+  "staleness_days": 49.0,
+  "staleness_limit_days": 135.0,
+  "current": true,
+  "unit": "AUD",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 0.875,
+  "ccy": "AUD",
+  "date": "2026-09-07",
+  "source": "yahoo:WAX.AX"
+ },
+ "discount": {
+  "estimate": 0.051192,
+  "z": -0.5503,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": 0.125379,
+  "sigma_36m": 0.134812,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.2377,
+  "discount_only": 0.0276,
+  "g_used": 0.1303,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-07-30",
+   "class": "substantial_holder",
+   "weight": 2,
+   "direction": "positive",
+   "headline": "Change in substantial holding for WRK",
+   "url": "https://announcements.asx.com.au/asxpdf/20260730/pdf/0727gvh1zb8thg.pdf",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

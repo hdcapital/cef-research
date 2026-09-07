@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:3408009",
+ "name": "JPMorgan Elect Managed Cash",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Liquidity Funds",
+ "liveness": {
+  "status": "delist_candidate",
+  "reason": "aggregator_delisted_and_own_filings_silent_alwaysd",
+  "source": "corroborated_delisting",
+  "last_nav": null,
+  "last_announcement": null
+ },
+ "nav": {
+  "anchor": 103.55,
+  "anchor_date": "2022-11-30",
+  "anchor_source": "aggregator_panel:2022-11",
+  "estimate": 103.706358,
+  "basis": 1.0,
+  "staleness_days": 983.0,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "GBX",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 103.0,
+  "ccy": null,
+  "date": "2022-11",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": -0.006811,
+  "z": 0.8847,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.008491,
+  "sigma_36m": 0.001899,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.2359,
+  "discount_only": -0.0006,
+  "g_used": 0.0037,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

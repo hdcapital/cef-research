@@ -1,0 +1,52 @@
+{
+ "security_id": "ASX:IPE",
+ "name": "IPE Limited",
+ "market": "AU",
+ "ticker": null,
+ "sector": "Equity - Australia Strategy",
+ "liveness": {
+  "status": "delisted",
+  "reason": "own_delisting_notice_2880d",
+  "source": "own_delisting_notice",
+  "last_nav": "2018-08-12",
+  "last_announcement": "2018-10-19"
+ },
+ "nav": {
+  "anchor": 0.07,
+  "anchor_date": "2018-08-31",
+  "anchor_source": "aggregator_panel:2018-08",
+  "estimate": 0.07,
+  "basis": 3.0,
+  "staleness_days": 2091.0,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "AUD",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 0.077,
+  "ccy": null,
+  "date": "2018-08",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": 0.1,
+  "z": 1.2372,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 21,
+  "mu_36m": -0.056637,
+  "sigma_36m": 0.126602,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.328,
+  "discount_only": -0.0247,
+  "g_used": 0.0783,
+  "g_source": "sector_median"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

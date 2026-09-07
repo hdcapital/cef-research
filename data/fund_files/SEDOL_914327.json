@@ -1,0 +1,63 @@
+{
+ "security_id": "SEDOL:914327",
+ "name": "JPMorgan Global Growth & Income",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Global Equity Income",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_3d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-04",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 625.96,
+  "anchor_date": "2026-09-04",
+  "anchor_source": "investegate:9756501",
+  "estimate": 625.96,
+  "basis": 0.0,
+  "staleness_days": 1.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 613.5,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:JGGI.L"
+ },
+ "discount": {
+  "estimate": -0.019905,
+  "z": -0.7042,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.005318,
+  "sigma_36m": 0.020714,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.1441,
+  "discount_only": 0.0054,
+  "g_used": 0.1239,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-09-02",
+   "class": "manager_exit",
+   "weight": -2,
+   "direction": "negative",
+   "headline": "Retirement of Portfolio Manager",
+   "url": "https://www.investegate.co.uk/announcement/rns/jpmorgan-global-growth-income--jggi/retirement-of-portfolio-manager-/9751184",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

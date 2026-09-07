@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:787972",
+ "name": "Hansa Investment Company",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Flexible Investment",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_4d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-03",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 547.23,
+  "anchor_date": "2026-09-03",
+  "anchor_source": "investegate:9756720",
+  "estimate": 547.23,
+  "basis": 0.0,
+  "staleness_days": 2.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 336.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:HAN.L"
+ },
+ "discount": {
+  "estimate": -0.385999,
+  "z": 1.1031,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.420589,
+  "sigma_36m": 0.031357,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.0529,
+  "discount_only": -0.0089,
+  "g_used": 0.0481,
+  "g_source": "own_nav_history"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

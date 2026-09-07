@@ -1,0 +1,52 @@
+{
+ "security_id": "ASX:NSC",
+ "name": "Naos Small Cap Opportunities Company Limited",
+ "market": "AU",
+ "ticker": null,
+ "sector": "Equity - Australia Small/Mid Cap",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_27d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-08-11",
+  "last_announcement": "2026-08-30"
+ },
+ "nav": {
+  "anchor": 0.28,
+  "anchor_date": "2026-07-31",
+  "anchor_source": "asx_ann:03124216",
+  "estimate": 0.28,
+  "basis": 0.0,
+  "staleness_days": 26.0,
+  "staleness_limit_days": 93.0,
+  "current": true,
+  "unit": "AUD",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 0.32499998807907104,
+  "ccy": "AUD",
+  "date": "2026-09-07",
+  "source": "yahoo:NSC.AX"
+ },
+ "discount": {
+  "estimate": 0.160714,
+  "z": 2.3672,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.07772,
+  "sigma_36m": 0.100725,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.1703,
+  "discount_only": -0.0507,
+  "g_used": 0.1086,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

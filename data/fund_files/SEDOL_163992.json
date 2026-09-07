@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:163992",
+ "name": "Caledonia Investments",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Flexible Investment",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_7d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-08-31",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 594.3,
+  "anchor_date": "2026-08-31",
+  "anchor_source": "investegate:9756297",
+  "estimate": 594.3,
+  "basis": 0.0,
+  "staleness_days": 5.0,
+  "staleness_limit_days": 93.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 395.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:CLDN.L"
+ },
+ "discount": {
+  "estimate": -0.335353,
+  "z": 0.3952,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.347334,
+  "sigma_36m": 0.030318,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.0578,
+  "discount_only": 0.0017,
+  "g_used": 0.0428,
+  "g_source": "own_nav_history"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

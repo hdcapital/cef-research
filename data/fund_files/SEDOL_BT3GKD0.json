@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:BT3GKD0",
+ "name": "Achilles Investment Company",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Flexible Investment",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_31d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-08-07",
+  "last_announcement": "2026-08-19"
+ },
+ "nav": {
+  "anchor": 112.34,
+  "anchor_date": "2026-07-31",
+  "anchor_source": "investegate:9711515",
+  "estimate": 112.34,
+  "basis": 0.0,
+  "staleness_days": 26.0,
+  "staleness_limit_days": 93.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 97.5,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:AIC.L"
+ },
+ "discount": {
+  "estimate": -0.132099,
+  "z": -1.9068,
+  "z_status": "computed_growing_19m",
+  "z_source": "own_daily_panel",
+  "z_window_months": 19,
+  "mu_36m": -0.020204,
+  "sigma_36m": 0.058681,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.0783,
+  "discount_only": 0.0282,
+  "g_used": 0.0488,
+  "g_source": "sector_median"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

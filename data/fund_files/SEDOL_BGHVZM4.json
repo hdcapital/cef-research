@@ -1,0 +1,113 @@
+{
+ "security_id": "SEDOL:BGHVZM4",
+ "name": "SDCL Efficiency Income",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Renewable Energy Infrastructure",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_74d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-06-25",
+  "last_announcement": "2026-08-28"
+ },
+ "nav": {
+  "anchor": 77.8,
+  "anchor_date": "2026-03-31",
+  "anchor_source": "investegate_fs:9635404",
+  "estimate": 77.8,
+  "basis": 0.0,
+  "staleness_days": 114.0,
+  "staleness_limit_days": 200.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 36.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:SEIT.L"
+ },
+ "discount": {
+  "estimate": -0.537275,
+  "z": -1.3791,
+  "z_status": "computed",
+  "z_source": "own_daily_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.227272,
+  "sigma_36m": 0.224786,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.1753,
+  "discount_only": 0.1178,
+  "g_used": 0.0515,
+  "g_source": "market_median"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-08-28",
+   "class": "substantial_holder",
+   "weight": 2,
+   "direction": "positive",
+   "headline": "TR-1 Notification of Major Holdings",
+   "url": "https://www.investegate.co.uk/announcement/rns/sdcl-efficiency-income-trust--seit/tr-1-notification-of-major-holdings/9745661",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-18",
+   "class": "substantial_holder",
+   "weight": 2,
+   "direction": "positive",
+   "headline": "TR-1 Notification of Major Holdings",
+   "url": "https://www.investegate.co.uk/announcement/rns/sdcl-efficiency-income-trust--seit/tr-1-notification-of-major-holdings/9728101",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-07-31",
+   "class": "substantial_holder",
+   "weight": 2,
+   "direction": "positive",
+   "headline": "TR-1 Notification of Major Holdings",
+   "url": "https://www.investegate.co.uk/announcement/rns/sdcl-efficiency-income-trust--seit/tr-1-notification-of-major-holdings/9698791",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-07-30",
+   "class": "substantial_holder",
+   "weight": 2,
+   "direction": "positive",
+   "headline": "TR-1 Notification of Major Holdings",
+   "url": "https://www.investegate.co.uk/announcement/rns/sdcl-efficiency-income-trust--seit/tr-1-notification-of-major-holdings/9696793",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-07-27",
+   "class": "substantial_holder",
+   "weight": 2,
+   "direction": "positive",
+   "headline": "TR-1 Notification of Major Holdings",
+   "url": "https://www.investegate.co.uk/announcement/rns/sdcl-efficiency-income-trust--seit/tr-1-notification-of-major-holdings/9688803",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-07-24",
+   "class": "substantial_holder",
+   "weight": 2,
+   "direction": "positive",
+   "headline": "TR-1 Notification of Major Holdings",
+   "url": "https://www.investegate.co.uk/announcement/rns/sdcl-efficiency-income-trust--seit/tr-1-notification-of-major-holdings/9687374",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:52+00:00"
+}

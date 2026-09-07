@@ -1,0 +1,63 @@
+{
+ "security_id": "SEDOL:BGJYPP4",
+ "name": "Chrysalis Investments",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Growth Capital",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_35d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-08-03",
+  "last_announcement": "2026-08-21"
+ },
+ "nav": {
+  "anchor": 131.09,
+  "anchor_date": "2026-06-30",
+  "anchor_source": "investegate:9699761",
+  "estimate": 131.09,
+  "basis": 0.0,
+  "staleness_days": 49.0,
+  "staleness_limit_days": 200.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 72.0999984741211,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:CHRY.L"
+ },
+ "discount": {
+  "estimate": -0.449996,
+  "z": -0.7055,
+  "z_status": "computed",
+  "z_source": "own_daily_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.397664,
+  "sigma_36m": 0.074178,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": -0.0422,
+  "discount_only": 0.0082,
+  "g_used": -0.05,
+  "g_source": "sector_median"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-07-31",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/chrysalis-investments-limited-npv--chry/holding-s-in-company/9698867",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

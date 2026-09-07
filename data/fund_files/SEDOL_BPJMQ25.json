@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:BPJMQ25",
+ "name": "Aberforth Geared Value & Income Trust",
+ "market": "UK",
+ "ticker": null,
+ "sector": "UK Smaller Companies",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_4d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-03",
+  "last_announcement": null
+ },
+ "nav": {
+  "anchor": 101.45,
+  "anchor_date": "2026-09-03",
+  "anchor_source": "own_nav_history:2026-09-03",
+  "estimate": 101.45,
+  "basis": 3.0,
+  "staleness_days": 2.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 92.5,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:AGVI.L"
+ },
+ "discount": {
+  "estimate": -0.088221,
+  "z": 1.105,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 25,
+  "mu_36m": -0.130291,
+  "sigma_36m": 0.038071,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.0512,
+  "discount_only": -0.012,
+  "g_used": 0.0177,
+  "g_source": "own_nav_history"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

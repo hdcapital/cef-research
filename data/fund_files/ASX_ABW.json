@@ -1,0 +1,52 @@
+{
+ "security_id": "ASX:ABW",
+ "name": "Aurora Absolute Return Fund",
+ "market": "AU",
+ "ticker": null,
+ "sector": "Equity - Australia Strategy",
+ "liveness": {
+  "status": "delisted",
+  "reason": "own_delisting_notice_2017d",
+  "source": "own_delisting_notice",
+  "last_nav": "2021-02-26",
+  "last_announcement": "2021-02-28"
+ },
+ "nav": {
+  "anchor": 0.1425,
+  "anchor_date": "2021-02-25",
+  "anchor_source": "own_nav_history:2021-02-25",
+  "estimate": 0.149391,
+  "basis": 1.0,
+  "staleness_days": 1442.0,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "AUD",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 0.19,
+  "ccy": null,
+  "date": "2021-01",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": 0.271834,
+  "z": 1.6425,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.090709,
+  "sigma_36m": 0.220722,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": -0.1368,
+  "discount_only": -0.0914,
+  "g_used": -0.05,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

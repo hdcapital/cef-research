@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:526885",
+ "name": "Henderson European Trust",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Europe",
+ "liveness": {
+  "status": "delist_candidate",
+  "reason": "aggregator_delisted_and_own_filings_silent_348d",
+  "source": "corroborated_delisting",
+  "last_nav": "2025-09-22",
+  "last_announcement": "2025-09-24"
+ },
+ "nav": {
+  "anchor": 210.5,
+  "anchor_date": "2025-09-19",
+  "anchor_source": "own_nav_history:2025-09-19",
+  "estimate": 230.265708,
+  "basis": 1.0,
+  "staleness_days": 251.0,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "GBX",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 204.0,
+  "ccy": null,
+  "date": "2025-08",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": -0.114067,
+  "z": -0.3739,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.103987,
+  "sigma_36m": 0.026957,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.066,
+  "discount_only": 0.0029,
+  "g_used": 0.0357,
+  "g_source": "own_nav_history"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

@@ -1,0 +1,93 @@
+{
+ "security_id": "SEDOL:339072",
+ "name": "Allianz Technology Trust",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Technology & Technology Innovation",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_3d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-04",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 758.8,
+  "anchor_date": "2026-09-04",
+  "anchor_source": "investegate:9756903",
+  "estimate": 758.8,
+  "basis": 0.0,
+  "staleness_days": 1.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 704.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:ATT.L"
+ },
+ "discount": {
+  "estimate": -0.072219,
+  "z": 0.88,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.088707,
+  "sigma_36m": 0.018736,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.3856,
+  "discount_only": -0.0041,
+  "g_used": 0.15,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-08-05",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/allianz-technology-trust--att/holding-s-in-company/9706983",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-04",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/allianz-technology-trust--att/holding-s-in-company/9704582",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-07-31",
+   "class": "substantial_holder",
+   "weight": 2,
+   "direction": "positive",
+   "headline": "Holding(s) in Company (Second)",
+   "url": "https://www.investegate.co.uk/announcement/rns/allianz-technology-trust--att/holding-s-in-company-second-/9699174",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-07-31",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/allianz-technology-trust--att/holding-s-in-company/9698785",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

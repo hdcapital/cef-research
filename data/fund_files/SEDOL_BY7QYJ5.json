@@ -1,0 +1,186 @@
+{
+ "security_id": "SEDOL:BY7QYJ5",
+ "name": "Molten Ventures",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Growth Capital",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_90d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-06-09",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 671.0,
+  "anchor_date": "2026-06-09",
+  "anchor_source": "own_nav_history:2026-06-09",
+  "estimate": 671.0,
+  "basis": 3.0,
+  "staleness_days": 64.0,
+  "staleness_limit_days": 200.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 683.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:GROW.L"
+ },
+ "discount": {
+  "estimate": 0.017884,
+  "z": 2.2249,
+  "z_status": "computed",
+  "z_source": "own_daily_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.434761,
+  "sigma_36m": 0.203448,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": -0.1785,
+  "discount_only": -0.1353,
+  "g_used": -0.05,
+  "g_source": "sector_median"
+ },
+ "holder_churn": {
+  "filings": 6,
+  "sellers": 0,
+  "buyers": 0,
+  "largest_move": null,
+  "holder": null,
+  "direction": "churn"
+ },
+ "events_90d": [
+  {
+   "date": "2026-09-04",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/eqs/molten-ventures--grow/holding-s-in-company/9757408",
+   "alerted_at": null,
+   "terms": {
+    "holder": "BlackRock, Inc"
+   }
+  },
+  {
+   "date": "2026-09-02",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/eqs/molten-ventures--grow/holding-s-in-company/9752735",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Bank of America Corporation"
+   }
+  },
+  {
+   "date": "2026-09-01",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/eqs/molten-ventures--grow/holding-s-in-company/9750259",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Bank of America Corporation"
+   }
+  },
+  {
+   "date": "2026-08-17",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/eqs/molten-ventures--grow/holding-s-in-company/9726066",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-12",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/eqs/molten-ventures--grow/holding-s-in-company/9718895",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-11",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/eqs/molten-ventures--grow/holding-s-in-company/9715515",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-07",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/eqs/molten-ventures--grow/holding-s-in-company/9710748",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-05",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/eqs/molten-ventures--grow/holding-s-in-company/9707135",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-03",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/eqs/molten-ventures--grow/holding-s-in-company/9702262",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-07-31",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/eqs/molten-ventures--grow/holding-s-in-company/9699467",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-07-30",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/eqs/molten-ventures--grow/holding-s-in-company/9696920",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-07-30",
+   "class": "discount_control",
+   "weight": 3,
+   "direction": "positive",
+   "headline": "Extension of Share Buyback Programme by \u00a315 m...",
+   "url": "https://www.investegate.co.uk/announcement/eqs/molten-ventures--grow/extension-of-share-buyback-programme-by-15-m-/9696686",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

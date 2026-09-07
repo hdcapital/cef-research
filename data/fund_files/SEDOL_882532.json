@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:882532",
+ "name": "Temple Bar Investment Trust",
+ "market": "UK",
+ "ticker": null,
+ "sector": "UK Equity Income",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_4d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-03",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 416.99,
+  "anchor_date": "2026-09-03",
+  "anchor_source": "investegate:9757263",
+  "estimate": 416.99,
+  "basis": 0.0,
+  "staleness_days": 2.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 418.5,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:TMPL.L"
+ },
+ "discount": {
+  "estimate": 0.003621,
+  "z": 1.0662,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.035014,
+  "sigma_36m": 0.036235,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.1425,
+  "discount_only": -0.0115,
+  "g_used": 0.1301,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:52+00:00"
+}

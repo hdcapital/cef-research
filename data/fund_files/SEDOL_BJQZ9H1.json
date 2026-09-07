@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:BJQZ9H1",
+ "name": "VietNam Holding",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Country Specialist",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_3d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-04",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 369.20000000000005,
+  "anchor_date": "2026-09-04",
+  "anchor_source": "investegate:9756481",
+  "estimate": 369.2,
+  "basis": 0.0,
+  "staleness_days": 1.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 341.5,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:VNH.L"
+ },
+ "discount": {
+  "estimate": -0.075027,
+  "z": -0.2588,
+  "z_status": "computed",
+  "z_source": "own_daily_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.066082,
+  "sigma_36m": 0.034564,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": -0.0258,
+  "discount_only": -0.0037,
+  "g_used": -0.0221,
+  "g_source": "own_nav_history"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:52+00:00"
+}

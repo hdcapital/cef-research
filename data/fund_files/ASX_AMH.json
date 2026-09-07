@@ -1,0 +1,52 @@
+{
+ "security_id": "ASX:AMH",
+ "name": "AMCIL Limited",
+ "market": "AU",
+ "ticker": null,
+ "sector": "Equity - Australia",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_8d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-08-30",
+  "last_announcement": "2026-08-31"
+ },
+ "nav": {
+  "anchor": 1.09,
+  "anchor_date": "2026-08-31",
+  "anchor_source": "own_nav_history:2026-08-31",
+  "estimate": 1.089023,
+  "basis": 1.0,
+  "staleness_days": 5.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "AUD",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 0.925000011920929,
+  "ccy": "AUD",
+  "date": "2026-09-07",
+  "source": "yahoo:AMH.AX"
+ },
+ "discount": {
+  "estimate": -0.150614,
+  "z": -1.1241,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.117189,
+  "sigma_36m": 0.029736,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.1559,
+  "discount_only": 0.0105,
+  "g_used": 0.1111,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:3216473",
+ "name": "JPMorgan Emerging Europe, Middle East & Africa",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Global Emerging Markets",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_3d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-04",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 71.76,
+  "anchor_date": "2026-09-04",
+  "anchor_source": "investegate:9756513",
+  "estimate": 71.76,
+  "basis": 0.0,
+  "staleness_days": 1.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 235.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:JEMA.L"
+ },
+ "discount": {
+  "estimate": 2.274805,
+  "z": -0.0343,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": 2.301312,
+  "sigma_36m": 0.773276,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.0614,
+  "discount_only": -0.0464,
+  "g_used": 0.0765,
+  "g_source": "sector_median"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

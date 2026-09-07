@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:3051726",
+ "name": "Monks Investment Trust",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Global",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_3d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-04",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 1717.16,
+  "anchor_date": "2026-09-04",
+  "anchor_source": "investegate:9756654",
+  "estimate": 1717.16,
+  "basis": 0.0,
+  "staleness_days": 1.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 1626.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:MNKS.L"
+ },
+ "discount": {
+  "estimate": -0.053088,
+  "z": 1.4233,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.089469,
+  "sigma_36m": 0.025562,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.0829,
+  "discount_only": -0.0086,
+  "g_used": 0.0822,
+  "g_source": "own_nav_history"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

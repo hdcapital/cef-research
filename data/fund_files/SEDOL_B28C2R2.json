@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:B28C2R2",
+ "name": "Partners Group Private Equity",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Private Equity",
+ "liveness": {
+  "status": "live_stale_nav",
+  "reason": "periodic_report_11d_old_no_recent_nav",
+  "source": "own_periodic_report",
+  "last_nav": null,
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": null,
+  "anchor_date": null,
+  "anchor_source": null,
+  "estimate": null,
+  "basis": null,
+  "staleness_days": null,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "GBX",
+  "quality_ok": false,
+  "quality_reason": "nav_not_positive"
+ },
+ "price": {
+  "price": 7.21999979019165,
+  "ccy": "EUR",
+  "date": "2026-09-04",
+  "source": "yahoo:PEY.L"
+ },
+ "discount": {
+  "estimate": null,
+  "z": null,
+  "z_status": "no_discount_history",
+  "z_source": null,
+  "z_window_months": 0,
+  "mu_36m": null,
+  "sigma_36m": null,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": null,
+  "discount_only": null,
+  "g_used": 0.0458,
+  "g_source": "sector_median"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

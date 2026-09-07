@@ -1,0 +1,52 @@
+{
+ "security_id": "ASX:URB",
+ "name": "URB Investments Limited",
+ "market": "AU",
+ "ticker": null,
+ "sector": "Equity - Australia Strategy",
+ "liveness": {
+  "status": "delisted",
+  "reason": "own_delisting_notice_2451d",
+  "source": "own_delisting_notice",
+  "last_nav": "2019-12-05",
+  "last_announcement": "2019-12-22"
+ },
+ "nav": {
+  "anchor": 1.1229223744292238,
+  "anchor_date": "2019-10-31",
+  "anchor_source": "aggregator_panel:2019-10",
+  "estimate": 1.122922,
+  "basis": 3.0,
+  "staleness_days": 1787.0,
+  "staleness_limit_days": 93.0,
+  "current": false,
+  "unit": "AUD",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 1.06,
+  "ccy": null,
+  "date": "2019-10",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": -0.056034,
+  "z": 0.6935,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 25,
+  "mu_36m": -0.096683,
+  "sigma_36m": 0.058614,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.0895,
+  "discount_only": -0.0074,
+  "g_used": 0.0783,
+  "g_source": "sector_median"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

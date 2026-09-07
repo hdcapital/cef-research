@@ -1,0 +1,63 @@
+{
+ "security_id": "SEDOL:604877",
+ "name": "Aberdeen New India Investment Trust",
+ "market": "UK",
+ "ticker": null,
+ "sector": "India / Indian Subcontinent",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_4d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-03",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 810.26,
+  "anchor_date": "2026-09-03",
+  "anchor_source": "investegate:9756698",
+  "estimate": 810.26,
+  "basis": 0.0,
+  "staleness_days": 2.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 726.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:ANII.L"
+ },
+ "discount": {
+  "estimate": -0.103991,
+  "z": 0.9192,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.143338,
+  "sigma_36m": 0.042804,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.0631,
+  "discount_only": -0.0155,
+  "g_used": 0.0697,
+  "g_source": "own_nav_history"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-08-20",
+   "class": "tender_offer",
+   "weight": 4,
+   "direction": "positive",
+   "headline": "Conditional Tender Offer - Performance Update",
+   "url": "https://www.investegate.co.uk/announcement/rns/aberdeen-new-india-investment-trust--anii/conditional-tender-offer-performance-update/9731980",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

@@ -1,0 +1,52 @@
+{
+ "security_id": "ASX:PGG",
+ "name": "Partners Group Global Income Fund",
+ "market": "AU",
+ "ticker": null,
+ "sector": "Fixed Income - Global Dollar",
+ "liveness": {
+  "status": "delisted",
+  "reason": "own_delisting_notice_1021d",
+  "source": "own_delisting_notice",
+  "last_nav": "2023-11-17",
+  "last_announcement": "2023-11-21"
+ },
+ "nav": {
+  "anchor": 1.85,
+  "anchor_date": "2023-11-10",
+  "anchor_source": "own_nav_history:2023-11-10",
+  "estimate": 1.97696,
+  "basis": 1.0,
+  "staleness_days": 736.0,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "AUD",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 1.74,
+  "ccy": null,
+  "date": "2023-09",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": -0.119861,
+  "z": -1.2573,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.058436,
+  "sigma_36m": 0.048855,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.1725,
+  "discount_only": 0.016,
+  "g_used": 0.0821,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

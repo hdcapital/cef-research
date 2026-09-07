@@ -1,0 +1,52 @@
+{
+ "security_id": "ASX:BST",
+ "name": "Barrack St Investments Limited",
+ "market": "AU",
+ "ticker": null,
+ "sector": "Equity - Australia Small/Mid Cap",
+ "liveness": {
+  "status": "delist_candidate",
+  "reason": "aggregator_delisted_and_own_filings_silent_2485d",
+  "source": "corroborated_delisting",
+  "last_nav": "2019-11-04",
+  "last_announcement": "2019-11-18"
+ },
+ "nav": {
+  "anchor": 1.2902399999999998,
+  "anchor_date": "2019-09-30",
+  "anchor_source": "aggregator_panel:2019-09",
+  "estimate": 1.29024,
+  "basis": 3.0,
+  "staleness_days": 1810.0,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "AUD",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 0.3499999940395355,
+  "ccy": "AUD",
+  "date": "2026-09-07",
+  "source": "yahoo:BST.AX"
+ },
+ "discount": {
+  "estimate": -0.728733,
+  "z": -13.672,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 34,
+  "mu_36m": -0.193854,
+  "sigma_36m": 0.039122,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.4807,
+  "discount_only": 0.2714,
+  "g_used": 0.1394,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

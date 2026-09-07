@@ -1,0 +1,52 @@
+{
+ "security_id": "ASX:CIE",
+ "name": "Contango Income Generator  Limited",
+ "market": "AU",
+ "ticker": null,
+ "sector": "Equity - Australia",
+ "liveness": {
+  "status": "delist_candidate",
+  "reason": "aggregator_delisted_and_own_filings_silent_1879d",
+  "source": "corroborated_delisting",
+  "last_nav": "2021-07-14",
+  "last_announcement": "2021-07-16"
+ },
+ "nav": {
+  "anchor": 0.775,
+  "anchor_date": "2021-06-30",
+  "anchor_source": "own_nav_history:2021-06-30",
+  "estimate": 0.867367,
+  "basis": 1.0,
+  "staleness_days": 1353.0,
+  "staleness_limit_days": 87.0,
+  "current": false,
+  "unit": "AUD",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 0.62,
+  "ccy": null,
+  "date": "2021-05",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": -0.285193,
+  "z": -3.2209,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.117944,
+  "sigma_36m": 0.051926,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.0888,
+  "discount_only": 0.0493,
+  "g_used": 0.0376,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

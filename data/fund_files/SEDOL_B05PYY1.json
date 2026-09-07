@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:B05PYY1",
+ "name": "Absolute Return Trust",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Hedge Funds",
+ "liveness": {
+  "status": "delist_candidate",
+  "reason": "aggregator_delisted_and_own_filings_silent_alwaysd",
+  "source": "corroborated_delisting",
+  "last_nav": null,
+  "last_announcement": null
+ },
+ "nav": {
+  "anchor": null,
+  "anchor_date": null,
+  "anchor_source": null,
+  "estimate": null,
+  "basis": null,
+  "staleness_days": null,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "GBX",
+  "quality_ok": false,
+  "quality_reason": "nav_not_positive"
+ },
+ "price": {
+  "price": null,
+  "ccy": null,
+  "date": null,
+  "source": "none"
+ },
+ "discount": {
+  "estimate": null,
+  "z": null,
+  "z_status": "no_discount_history",
+  "z_source": null,
+  "z_window_months": 0,
+  "mu_36m": null,
+  "sigma_36m": null,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": null,
+  "discount_only": null,
+  "g_used": 0.0206,
+  "g_source": "sector_median"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

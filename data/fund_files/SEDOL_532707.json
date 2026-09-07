@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:532707",
+ "name": "Blue Planet Investment Trust",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Global",
+ "liveness": {
+  "status": "delist_candidate",
+  "reason": "aggregator_delisted_and_own_filings_silent_alwaysd",
+  "source": "corroborated_delisting",
+  "last_nav": null,
+  "last_announcement": null
+ },
+ "nav": {
+  "anchor": 11.74,
+  "anchor_date": "2022-11-30",
+  "anchor_source": "aggregator_panel:2022-11",
+  "estimate": 13.447972,
+  "basis": 1.0,
+  "staleness_days": 983.0,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "GBX",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 9.5,
+  "ccy": null,
+  "date": "2022-11",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": -0.293574,
+  "z": -1.2563,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.183689,
+  "sigma_36m": 0.087468,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.1232,
+  "discount_only": 0.0308,
+  "g_used": 0.0801,
+  "g_source": "sector_median"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

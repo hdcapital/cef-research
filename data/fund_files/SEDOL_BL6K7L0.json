@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:BL6K7L0",
+ "name": "HydrogenOne Capital Growth",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Renewable Energy Infrastructure",
+ "liveness": {
+  "status": "delisted",
+  "reason": "own_delisting_notice_130d",
+  "source": "own_delisting_notice",
+  "last_nav": "2026-02-09",
+  "last_announcement": "2026-04-30"
+ },
+ "nav": {
+  "anchor": 30.54,
+  "anchor_date": "2025-12-31",
+  "anchor_source": "own_nav_history:2025-12-31",
+  "estimate": 30.54,
+  "basis": 3.0,
+  "staleness_days": 178.0,
+  "staleness_limit_days": 200.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 83.4,
+  "ccy": null,
+  "date": "2022-10",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": 1.730845,
+  "z": 15.5401,
+  "z_status": "computed_growing_11m",
+  "z_source": "aggregator_panel",
+  "z_window_months": 11,
+  "mu_36m": 0.016222,
+  "sigma_36m": 0.110335,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.0791,
+  "discount_only": -0.1833,
+  "g_used": 0.0174,
+  "g_source": "own_nav_history"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:52+00:00"
+}

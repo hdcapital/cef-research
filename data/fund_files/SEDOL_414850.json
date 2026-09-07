@@ -1,0 +1,63 @@
+{
+ "security_id": "SEDOL:414850",
+ "name": "Pantheon International",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Private Equity",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_34d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-08-04",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 517.9,
+  "anchor_date": "2026-05-31",
+  "anchor_source": "investegate_fs:9702588",
+  "estimate": 517.9,
+  "basis": 0.0,
+  "staleness_days": 70.0,
+  "staleness_limit_days": 200.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 392.5,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:PIN.L"
+ },
+ "discount": {
+  "estimate": -0.242132,
+  "z": 0.7038,
+  "z_status": "computed",
+  "z_source": "own_daily_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.327401,
+  "sigma_36m": 0.121164,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.0386,
+  "discount_only": -0.0068,
+  "g_used": 0.0458,
+  "g_source": "sector_median"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-08-17",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/pantheon-international--pin/holding-s-in-company/9726012",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

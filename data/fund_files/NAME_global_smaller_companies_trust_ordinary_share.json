@@ -1,0 +1,52 @@
+{
+ "security_id": "NAME:global smaller companies trust|ordinary share",
+ "name": "The Global Smaller Companies Trust",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Global Smaller Companies",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_3d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-04",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 202.02,
+  "anchor_date": "2026-09-04",
+  "anchor_source": "investegate:9756809",
+  "estimate": 202.02,
+  "basis": 0.0,
+  "staleness_days": 1.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 192.1999969482422,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:GSCT.L"
+ },
+ "discount": {
+  "estimate": -0.048609,
+  "z": 1.8022,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.101813,
+  "sigma_36m": 0.029521,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.0075,
+  "discount_only": -0.0132,
+  "g_used": 0.0023,
+  "g_source": "own_nav_history"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:52+00:00"
+}

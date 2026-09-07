@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:0121600",
+ "name": "Henderson Alternative Strategies",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Flexible Investment",
+ "liveness": {
+  "status": "delist_candidate",
+  "reason": "aggregator_delisted_and_own_filings_silent_alwaysd",
+  "source": "corroborated_delisting",
+  "last_nav": null,
+  "last_announcement": null
+ },
+ "nav": {
+  "anchor": 314.96,
+  "anchor_date": "2020-08-31",
+  "anchor_source": "aggregator_panel:2020-08",
+  "estimate": 328.07118,
+  "basis": 1.0,
+  "staleness_days": 1570.0,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "GBX",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 282.0,
+  "ccy": null,
+  "date": "2020-08",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": -0.14043,
+  "z": 0.6645,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.165862,
+  "sigma_36m": 0.038269,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.4435,
+  "discount_only": -0.0092,
+  "g_used": 0.0488,
+  "g_source": "sector_median"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

@@ -1,0 +1,52 @@
+{
+ "security_id": "ASX:ALF",
+ "name": "Australian Leaders Fund Limited",
+ "market": "AU",
+ "ticker": null,
+ "sector": "Equity - Australia Strategy",
+ "liveness": {
+  "status": "delisted",
+  "reason": "own_delisting_notice_1989d",
+  "source": "own_delisting_notice",
+  "last_nav": "2021-03-12",
+  "last_announcement": "2021-03-28"
+ },
+ "nav": {
+  "anchor": 1.0828382352941175,
+  "anchor_date": "2021-01-31",
+  "anchor_source": "aggregator_panel:2021-01",
+  "estimate": 1.083262,
+  "basis": 1.0,
+  "staleness_days": 1460.0,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "AUD",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 1.005,
+  "ccy": null,
+  "date": "2021-01",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": -0.072247,
+  "z": 2.1971,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.169553,
+  "sigma_36m": 0.044289,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.0534,
+  "discount_only": -0.0187,
+  "g_used": 0.0499,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

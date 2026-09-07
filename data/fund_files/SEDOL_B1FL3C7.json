@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:B1FL3C7",
+ "name": "Artemis UK Future Leaders",
+ "market": "UK",
+ "ticker": null,
+ "sector": "UK Smaller Companies",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_4d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-03",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 439.99,
+  "anchor_date": "2026-09-03",
+  "anchor_source": "investegate:9756543",
+  "estimate": 439.99,
+  "basis": 0.0,
+  "staleness_days": 2.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 391.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:AFL.L"
+ },
+ "discount": {
+  "estimate": -0.111343,
+  "z": 0.6294,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.128198,
+  "sigma_36m": 0.026778,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.0038,
+  "discount_only": -0.0043,
+  "g_used": -0.0285,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

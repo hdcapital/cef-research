@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:BJ0JVY0",
+ "name": "NextEnergy Solar Fund",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Renewable Energy Infrastructure",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_18d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-08-20",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 76.1,
+  "anchor_date": "2026-06-02",
+  "anchor_source": "own_nav_history:2026-06-02",
+  "estimate": 76.1,
+  "basis": 3.0,
+  "staleness_days": 69.0,
+  "staleness_limit_days": 200.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 49.5,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:NESF.L"
+ },
+ "discount": {
+  "estimate": -0.34954,
+  "z": -0.4213,
+  "z_status": "within_error_band",
+  "z_source": "own_daily_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.313763,
+  "sigma_36m": 0.084928,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.0919,
+  "discount_only": 0.0384,
+  "g_used": 0.0515,
+  "g_source": "market_median"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

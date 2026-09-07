@@ -1,0 +1,63 @@
+{
+ "security_id": "SEDOL:536806",
+ "name": "Lowland Investment Company",
+ "market": "UK",
+ "ticker": null,
+ "sector": "UK Equity Income",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_4d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-03",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 200.4,
+  "anchor_date": "2026-09-03",
+  "anchor_source": "investegate:9757022",
+  "estimate": 200.4,
+  "basis": 0.0,
+  "staleness_days": 2.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 187.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:LWI.L"
+ },
+ "discount": {
+  "estimate": -0.066866,
+  "z": 1.5522,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.103618,
+  "sigma_36m": 0.023677,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.1222,
+  "discount_only": -0.0062,
+  "g_used": 0.0954,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-07-24",
+   "class": "manager_exit",
+   "weight": -2,
+   "direction": "negative",
+   "headline": "Future retirement of Fund Manager",
+   "url": "https://www.investegate.co.uk/announcement/rns/lowland-investment-co--lwi/future-retirement-of-fund-manager/9685494",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

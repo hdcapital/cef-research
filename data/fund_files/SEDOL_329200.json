@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:329200",
+ "name": "ICG Enterprise Trust",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Private Equity",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_111d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-05-19",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 2045.0,
+  "anchor_date": "2026-01-31",
+  "anchor_source": "own_nav_history:2026-01-31",
+  "estimate": 2045.0,
+  "basis": 3.0,
+  "staleness_days": 155.0,
+  "staleness_limit_days": 200.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 1476.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:ICGT.L"
+ },
+ "discount": {
+  "estimate": -0.27824,
+  "z": -0.3325,
+  "z_status": "within_error_band",
+  "z_source": "own_daily_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.249195,
+  "sigma_36m": 0.087358,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.071,
+  "discount_only": 0.0241,
+  "g_used": 0.0458,
+  "g_source": "sector_median"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

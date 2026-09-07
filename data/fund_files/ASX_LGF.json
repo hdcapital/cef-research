@@ -1,0 +1,63 @@
+{
+ "security_id": "ASX:LGF",
+ "name": "L1 Gold Fund Limited",
+ "market": "AU",
+ "ticker": null,
+ "sector": "Equity - Global Strategy",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_11d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-08-27",
+  "last_announcement": "2026-08-30"
+ },
+ "nav": {
+  "anchor": 1.7534,
+  "anchor_date": "2026-06-30",
+  "anchor_source": "aggregator_panel:2026-06",
+  "estimate": 1.7534,
+  "basis": 3.0,
+  "staleness_days": 49.0,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "AUD",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 2.25,
+  "ccy": "AUD",
+  "date": "2026-09-07",
+  "source": "yahoo:LGF.AX"
+ },
+ "discount": {
+  "estimate": 0.283221,
+  "z": null,
+  "z_status": "insufficient_history_3m",
+  "z_source": "aggregator_panel",
+  "z_window_months": 3,
+  "mu_36m": null,
+  "sigma_36m": null,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.1174,
+  "discount_only": -0.0283,
+  "g_used": 0.15,
+  "g_source": "sector_median"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-08-25",
+   "class": "substantial_holder",
+   "weight": 2,
+   "direction": "positive",
+   "headline": "Becoming a substantial holder",
+   "url": "https://announcements.asx.com.au/asxpdf/20260825/pdf/0736bghx0pv0y6.pdf",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

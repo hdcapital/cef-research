@@ -1,0 +1,103 @@
+{
+ "security_id": "SEDOL:291633",
+ "name": "Edinburgh Worldwide",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Global Smaller Companies",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_3d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-04",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 286.88,
+  "anchor_date": "2026-09-04",
+  "anchor_source": "investegate:9756644",
+  "estimate": 286.88,
+  "basis": 0.0,
+  "staleness_days": 1.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 264.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:EWI.L"
+ },
+ "discount": {
+  "estimate": -0.079755,
+  "z": -0.1267,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.073048,
+  "sigma_36m": 0.052934,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.0463,
+  "discount_only": -0.0002,
+  "g_used": -0.0406,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-08-11",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/edinburgh-worldwide-inv-trust--ewi/holding-s-in-company/9716482",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-10",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/edinburgh-worldwide-inv-trust--ewi/holding-s-in-company/9713857",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-07",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/edinburgh-worldwide-inv-trust--ewi/holding-s-in-company/9711613",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-06",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/edinburgh-worldwide-inv-trust--ewi/holding-s-in-company/9709320",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-07-31",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/edinburgh-worldwide-inv-trust--ewi/holding-s-in-company/9699287",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

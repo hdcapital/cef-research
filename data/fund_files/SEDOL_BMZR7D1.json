@@ -1,0 +1,85 @@
+{
+ "security_id": "SEDOL:BMZR7D1",
+ "name": "Ashoka WhiteOak Emerging Markets",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Global Emerging Markets",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_4d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-03",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 185.97,
+  "anchor_date": "2026-09-03",
+  "anchor_source": "investegate:9757002",
+  "estimate": 185.97,
+  "basis": 0.0,
+  "staleness_days": 2.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 178.5,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:AWEM.L"
+ },
+ "discount": {
+  "estimate": -0.040168,
+  "z": -1.903,
+  "z_status": "computed",
+  "z_source": "own_daily_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.002491,
+  "sigma_36m": 0.019798,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.1518,
+  "discount_only": 0.0083,
+  "g_used": 0.1423,
+  "g_source": "own_nav_history"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-08-21",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/prn/ashoka-whiteoak-emerging-markets-trust--awem/holding-s-in-company/9734221",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Killik & Co LLP"
+   }
+  },
+  {
+   "date": "2026-07-29",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/prn/ashoka-whiteoak-emerging-markets-trust--awem/holding-s-in-company/9694114",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-07-24",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Ordinary Shares",
+   "url": "https://www.investegate.co.uk/announcement/prn/ashoka-whiteoak-emerging-markets-trust--awem/issue-of-ordinary-shares/9687364",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

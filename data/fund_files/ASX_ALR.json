@@ -1,0 +1,52 @@
+{
+ "security_id": "ASX:ALR",
+ "name": "Aberdeen Leaders Limited",
+ "market": "AU",
+ "ticker": null,
+ "sector": "Equity - Australia",
+ "liveness": {
+  "status": "delist_candidate",
+  "reason": "aggregator_delisted_and_own_filings_silent_3073d",
+  "source": "corroborated_delisting",
+  "last_nav": "2018-03-20",
+  "last_announcement": "2018-04-09"
+ },
+ "nav": {
+  "anchor": 1.2695238095238095,
+  "anchor_date": "2018-02-28",
+  "anchor_source": "aggregator_panel:2018-02",
+  "estimate": 1.269524,
+  "basis": 3.0,
+  "staleness_days": 2223.0,
+  "staleness_limit_days": 93.0,
+  "current": false,
+  "unit": "AUD",
+  "quality_ok": false,
+  "quality_reason": "unit_suspect_scale"
+ },
+ "price": {
+  "price": 0.04800000041723251,
+  "ccy": "AUD",
+  "date": "2026-09-07",
+  "source": "yahoo:ALR.AX"
+ },
+ "discount": {
+  "estimate": -0.962191,
+  "z": -32.9002,
+  "z_status": "computed_growing_15m",
+  "z_source": "aggregator_panel",
+  "z_window_months": 15,
+  "mu_36m": -0.071373,
+  "sigma_36m": 0.027076,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 1.1604,
+  "discount_only": 0.8815,
+  "g_used": 0.1241,
+  "g_source": "sector_median"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

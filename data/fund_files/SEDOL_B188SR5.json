@@ -1,0 +1,63 @@
+{
+ "security_id": "SEDOL:B188SR5",
+ "name": "International Public Partnerships",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Infrastructure",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_12d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-08-26",
+  "last_announcement": "2026-08-26"
+ },
+ "nav": {
+  "anchor": 6.8,
+  "anchor_date": "2025-12-31",
+  "anchor_source": "own_nav_history:2025-12-31",
+  "estimate": 6.8,
+  "basis": 3.0,
+  "staleness_days": 178.0,
+  "staleness_limit_days": 200.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": false,
+  "quality_reason": "unit_suspect_scale"
+ },
+ "price": {
+  "price": 139.1999969482422,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:INPP.L"
+ },
+ "discount": {
+  "estimate": 19.470588,
+  "z": 316.4276,
+  "z_status": "computed",
+  "z_source": "own_daily_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.141496,
+  "sigma_36m": 0.06198,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": -0.4333,
+  "discount_only": -0.4611,
+  "g_used": 0.0515,
+  "g_source": "market_median"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-08-03",
+   "class": "discount_control",
+   "weight": 3,
+   "direction": "positive",
+   "headline": "Share Buyback Management",
+   "url": "https://www.investegate.co.uk/announcement/rns/international-public-partnerships-ltd---inpp/share-buyback-management/9699765",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

@@ -1,0 +1,173 @@
+{
+ "security_id": "SEDOL:BFYYL32",
+ "name": "M&G Credit Income",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Debt - Loans & Bonds",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_83d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-06-16",
+  "last_announcement": "2026-09-01"
+ },
+ "nav": {
+  "anchor": 89.96,
+  "anchor_date": "2026-07-31",
+  "anchor_source": "aggregator_panel:2026-07",
+  "estimate": 93.531926,
+  "basis": 1.0,
+  "staleness_days": 26.0,
+  "staleness_limit_days": 94.5,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 91.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:MGCI.L"
+ },
+ "discount": {
+  "estimate": -0.02707,
+  "z": -0.2277,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": 0.015502,
+  "sigma_36m": 0.186984,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.2587,
+  "discount_only": -0.0011,
+  "g_used": -0.0023,
+  "g_source": "own_nav_history"
+ },
+ "holder_churn": null,
+ "events_90d": [
+  {
+   "date": "2026-08-28",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/eqs/m-g-credit-income-investment-trust--mgci/issue-of-equity/9746461",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-27",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/eqs/m-g-credit-income-investment-trust--mgci/issue-of-equity/9744171",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-13",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/eqs/m-g-credit-income-investment-trust--mgci/issue-of-equity/9721382",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-13",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/eqs/m-g-credit-income-investment-trust--mgci/holding-s-in-company/9720594",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-12",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/eqs/m-g-credit-income-investment-trust--mgci/issue-of-equity/9718813",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-11",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/eqs/m-g-credit-income-investment-trust--mgci/issue-of-equity-/9716466",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-07",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/eqs/m-g-credit-income-investment-trust--mgci/issue-of-equity/9711665",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-06",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/eqs/m-g-credit-income-investment-trust--mgci/issue-of-equity/9709505",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-03",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/eqs/m-g-credit-income-investment-trust--mgci/issue-of-equity-/9702228",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-07-31",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/eqs/m-g-credit-income-investment-trust--mgci/issue-of-equity/9698876",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-07-29",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/eqs/m-g-credit-income-investment-trust--mgci/issue-of-equity/9694409",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-07-27",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/eqs/m-g-credit-income-investment-trust--mgci/issue-of-equity/9689750",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

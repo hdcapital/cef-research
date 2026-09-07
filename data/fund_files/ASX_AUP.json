@@ -1,0 +1,52 @@
+{
+ "security_id": "ASX:AUP",
+ "name": "Aurora Property Buy-Write Income Trust",
+ "market": "AU",
+ "ticker": null,
+ "sector": "Equity - Australia Strategy",
+ "liveness": {
+  "status": "delisted",
+  "reason": "own_delisting_notice_1593d",
+  "source": "own_delisting_notice",
+  "last_nav": "2022-04-29",
+  "last_announcement": "2022-04-29"
+ },
+ "nav": {
+  "anchor": 3.51,
+  "anchor_date": "2022-04-28",
+  "anchor_source": "own_nav_history:2022-04-28",
+  "estimate": 3.320137,
+  "basis": 1.0,
+  "staleness_days": 1137.0,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "AUD",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 2.99,
+  "ccy": null,
+  "date": "2022-02",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": -0.099435,
+  "z": 1.0694,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.322676,
+  "sigma_36m": 0.20876,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": -0.0125,
+  "discount_only": -0.0093,
+  "g_used": -0.0032,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

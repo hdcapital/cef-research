@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:B07V0H2",
+ "name": "JPEL Private Equity",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Private Equity",
+ "liveness": {
+  "status": "delist_candidate",
+  "reason": "registry_listed_68d_no_own_filings",
+  "source": "registry_last_seen",
+  "last_nav": "2016-01-31",
+  "last_announcement": null
+ },
+ "nav": {
+  "anchor": 7936.0,
+  "anchor_date": "2016-01-31",
+  "anchor_source": "own_nav_history:2016-01-31",
+  "estimate": 7936.0,
+  "basis": 3.0,
+  "staleness_days": 2765.0,
+  "staleness_limit_days": 200.0,
+  "current": false,
+  "unit": "GBX",
+  "quality_ok": false,
+  "quality_reason": "unit_suspect_scale"
+ },
+ "price": {
+  "price": 1.2400000095367432,
+  "ccy": "USD",
+  "date": "2026-09-04",
+  "source": "yahoo:JPEL.L"
+ },
+ "discount": {
+  "estimate": -0.999844,
+  "z": null,
+  "z_status": "no_discount_history",
+  "z_source": null,
+  "z_window_months": 0,
+  "mu_36m": null,
+  "sigma_36m": null,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": null,
+  "discount_only": null,
+  "g_used": 0.0458,
+  "g_source": "sector_median"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

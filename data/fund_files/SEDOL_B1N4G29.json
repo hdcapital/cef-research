@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:B1N4G29",
+ "name": "CT UK High Income Trust",
+ "market": "UK",
+ "ticker": null,
+ "sector": "UK Equity Income",
+ "liveness": {
+  "status": "live",
+  "reason": "nav_3d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-09-04",
+  "last_announcement": "2026-09-04"
+ },
+ "nav": {
+  "anchor": 120.44,
+  "anchor_date": "2026-09-04",
+  "anchor_source": "investegate:9756807",
+  "estimate": 120.44,
+  "basis": 0.0,
+  "staleness_days": 1.0,
+  "staleness_limit_days": 45.0,
+  "current": true,
+  "unit": "GBX",
+  "quality_ok": true,
+  "quality_reason": ""
+ },
+ "price": {
+  "price": 114.0,
+  "ccy": "GBp",
+  "date": "2026-09-04",
+  "source": "yahoo:CHI.L"
+ },
+ "discount": {
+  "estimate": -0.053471,
+  "z": -0.2747,
+  "z_status": "computed",
+  "z_source": "aggregator_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.041794,
+  "sigma_36m": 0.042504,
+  "alert_eligible": true
+ },
+ "forward_irr": {
+  "central": 0.122,
+  "discount_only": -0.0011,
+  "g_used": 0.0895,
+  "g_source": "panel_tr_cagr"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}

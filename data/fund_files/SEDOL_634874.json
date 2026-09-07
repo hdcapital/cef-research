@@ -1,0 +1,52 @@
+{
+ "security_id": "SEDOL:634874",
+ "name": "New Zealand",
+ "market": "UK",
+ "ticker": null,
+ "sector": "Country Specialists: Asia Pacific",
+ "liveness": {
+  "status": "delist_candidate",
+  "reason": "aggregator_delisted_and_own_filings_silent_alwaysd",
+  "source": "corroborated_delisting",
+  "last_nav": null,
+  "last_announcement": null
+ },
+ "nav": {
+  "anchor": 452.15,
+  "anchor_date": "2008-01-31",
+  "anchor_source": "aggregator_panel:2008-01",
+  "estimate": 452.15,
+  "basis": 3.0,
+  "staleness_days": 4852.0,
+  "staleness_limit_days": 45.0,
+  "current": false,
+  "unit": "GBX",
+  "quality_ok": false,
+  "quality_reason": "stale_panel_price_only"
+ },
+ "price": {
+  "price": 427.25,
+  "ccy": null,
+  "date": "2008-01",
+  "source": "aggregator_panel"
+ },
+ "discount": {
+  "estimate": -0.05507,
+  "z": 1.0867,
+  "z_status": "within_error_band",
+  "z_source": "aggregator_panel",
+  "z_window_months": 12,
+  "mu_36m": -0.070133,
+  "sigma_36m": 0.013861,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 0.0486,
+  "discount_only": -0.0027,
+  "g_used": 0.0515,
+  "g_source": "market_median"
+ },
+ "holder_churn": null,
+ "events_90d": [],
+ "updated_at": "2026-09-07T04:57:51+00:00"
+}
