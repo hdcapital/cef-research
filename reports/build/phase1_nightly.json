@@ -4,8 +4,8 @@
   "rows_without_nav": 375,
   "basis_counts": {
     "nan": 375,
-    "0.0": 274,
-    "3.0": 263,
+    "0.0": 275,
+    "3.0": 262,
     "1.0": 204
   },
   "share_basis_le3_labelled": 1.0,
@@ -34,7 +34,7 @@
       "security_id": "SEDOL:BNGFHX1",
       "z_adj": -37.4398,
       "discount_est": -0.990494,
-      "staleness_days": 178.0
+      "staleness_days": 49.0
     },
     {
       "security_id": "SEDOL:B1G3N11",
@@ -96,7 +96,7 @@
       "agreement_rate_pairs": 0.9686
     },
     "uk": {
-      "tier0_navs": 227,
+      "tier0_navs": 228,
       "nav_publishers_found": 299,
       "daily_weekly": 190
     }
@@ -138,23 +138,29 @@
     "unalerted": 379,
     "holdings_with_terms": 62,
     "tr1": {
-      "candidates": 22,
-      "fetched": 22,
-      "parsed": 21,
+      "candidates": 0,
+      "fetched": 0,
+      "parsed": 0,
       "failed": 0
     },
     "terms": {
-      "candidates": 23,
-      "read": 23,
-      "accepted": 0,
-      "rejected": 23,
-      "fetch_failed": 0,
-      "input_tokens": 0,
-      "output_tokens": 0,
-      "model": "claude-haiku-4-5"
+      "skipped": "no ANTHROPIC_API_KEY"
     },
     "calendar_rows": 0
   },
   "carried_forward_rows": 0,
+  "nav_quarantine": {
+    "rows": 466,
+    "by_reason": {
+      "nav_not_positive": 218,
+      "stale_panel_price_only": 215,
+      "unit_suspect_scale": 10,
+      "nav_jump_N_vs_own": 8,
+      "nav_jump_N_vs_prior": 7,
+      "no_price": 5,
+      "nav_unit_mismatch_N_vs_prior": 2,
+      "nav_jump_N_vs_yesterday": 1
+    }
+  },
   "snapshot": "s3_exists_not_overwritten:nta_live/2026-09-07.parquet"
 }
