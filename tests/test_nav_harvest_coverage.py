@@ -887,3 +887,37 @@ def test_a_dividend_target_far_from_its_label_is_not_a_nav():
     tail = ("The benefit to NAV per share from share buybacks. The Board reaffirms the "
             "dividend target for FY 2026 at 7.55p per share, representing a c.10% yield.")
     assert "nav_cum_pence" not in parse_uk_nav_text(tail)
+
+
+def test_a_per_share_return_is_not_a_nav():
+    """CT Private Equity half-year: the results table lists the return per
+    share one line above the NAV per share, and the bare 'Per Ordinary
+    Share' rule read the first one it met (0.70p, real 695.07p)."""
+    from cef_live.harvest_nav import parse_uk_nav_text
+    text = ("Profit for period/total comprehensive income 501 (1,328) (827) "
+            "Return per Ordinary Share 0.70p (1.86)p (1.16)p The Company ... "
+            "Shareholders' funds 496,992 482,043 507,908 "
+            "Net asset value per Ordinary Share 695.07p 674.16p 710.33p")
+    assert parse_uk_nav_text(text)["nav_cum_pence"] == 695.07
+
+
+def test_a_nav_movement_reads_the_destination_not_the_change():
+    """INPP full-year results: 'NAV per share increased by 6.8p or 4.7% from
+    144.7p (31 December 2024) to 151.5p (31 December 2025)'."""
+    from cef_live.harvest_nav import parse_uk_nav_text
+    text = ("FINANCIAL highlights NAV · Net Asset Value ('NAV') per share increased by "
+            "6.8p or 4.7% from 144.7p (31 December 2024) to 151.5p (31 December 2025).")
+    assert parse_uk_nav_text(text)["nav_cum_pence"] == 151.5
+
+
+def test_another_companys_epra_nta_is_not_this_funds():
+    """Residential Secure Income interim: a deal paragraph quotes SOHO's EPRA
+    NTA (94.23p); the fund's own line is 'EPRA NTA per share 1 61.2p' with a
+    footnote marker between label and figure."""
+    from cef_live.harvest_nav import parse_uk_nav_text
+    text = ("approximately £63.3 million in new SOHO shares at SOHO's 31 December 2025 "
+            "EPRA NTA of 94.23 pence), subject to a completion-accounts adjustment. "
+            "IFRS NAV per share 71.0p 72.5p (2)% IFRS Portfolio Valuation £282.2mn "
+            "EPRA NTA per share 1 61.2p 63.3p (3)% EPRA NTA Total Return (0.2)%")
+    got = parse_uk_nav_text(text)
+    assert got["nav_cum_pence"] == 61.2, got

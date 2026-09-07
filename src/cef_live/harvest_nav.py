@@ -667,6 +667,17 @@ UK_NOMINAL = re.compile(r"(?:ordinary\s+|preference\s+|\beach\s+)?shares?\s+of\s
 # for the "was N pence" family reached these before the guard existed:
 # Gore Street came back at 1.9p and NextEnergy at 1.79p, both of which are
 # the quarterly distribution, against real NAVs near 100p.
+# A per-share RETURN sits in every results table one line above the NAV
+# ("Return per Ordinary Share 0.70p ... Net asset value per Ordinary Share
+# 695.07p", CT Private Equity) and the bare "Per Ordinary Share" rule read
+# the first one it met.
+UK_RETURN_PER_SHARE = re.compile(
+    r"\b(?:return|earnings|revenue|profit|loss|dividends?|distributions?)s?\s+per\s+"
+    r"(?:ordinary\s+)?share", re.I)
+UK_BY = re.compile(r"\bby\s+$", re.I)
+# a figure introduced as some other company's ("at SOHO's 31 December 2025
+# EPRA NTA", "acquired at X plc's NAV") belongs to that company
+UK_OTHER_COMPANY = re.compile(r"\b[A-Z][A-Za-z0-9&]{1,20}'s\s+(?:\d{1,2}\s+\w+\s+\d{4}\s+)?(?:EPRA|NAV|NTA|net asset)", re.I)
 UK_DIVIDEND = re.compile(r"\bdividend\b|\bdistribution\b", re.I)
 # ...and a number sitting next to a FOREIGN unit is not pence. Schiehallion
 # publishes "Cum NAV* 161.54cents" in US cents; reading that as pence is the
@@ -853,8 +864,13 @@ UK_RULES = [
                           + UK_PNUM, re.I)),
     # THRL / the REIT cohort: "EPRA Net Tangible Assets per share to
     # 120.6 pence" - EPRA NTA is that cohort's published NAV basis
+    # A footnote marker may sit between the label and the figure ("EPRA NTA
+    # per share 1 61.2p", Residential Secure Income); and another company's
+    # NTA quoted in a deal ("...new SOHO shares at SOHO's 31 December 2025
+    # EPRA NTA of 94.23 pence") is not this fund's - the possessive guard
+    # in hits() refuses it.
     ("cum_assumed", 4, _R(r"EPRA\s+(?:NTA|net tangible assets?)"
-                          r"[^0-9]{0,80}?" + UK_PENCE, re.I)),
+                          r"[^0-9]{0,80}?(?:\d\s+)?" + UK_PENCE, re.I)),
 
     # TwentyFour Income (Northern Trust table): "FUND NAME NAV ISIN NAV DATE
     # Twenty Four Income Fund Limited 106.38 GG00B90J5Z95 28th Aug 2026" -
@@ -935,6 +951,10 @@ UK_RULES = [
     # Trust administrator table used by BACIT/Syncona and Castelnau
     ("cum_assumed", 5, _R(r"FUND NAME[\s\S]{0,140}?NAV[\s\S]{0,200}?"
                           + UK_PENCE, re.I)),
+    # INPP: "NAV per share increased by 6.8p or 4.7% from 144.7p (31 December
+    # 2024) to 151.5p (31 December 2025)" - the level is the "to" figure
+    ("cum_assumed", 4, _R(r"(?:net asset value|\bNAV\b)[^.]{0,60}?\b(?:increased|decreased|rose|fell|up|down)\s+by\s+"
+                          r"[0-9][0-9,]*(?:\.[0-9]+)?\s*p(?:ence)?\b[\s\S]{0,120}?\bto\s+" + UK_PENCE, re.I)),
     # TRIG: "estimated unaudited Net Asset Value as at 30 June 2026 of 101.1
     # pence per share" - the date sits between the label and the figure
     ("cum_assumed", 4, _R(r"net asset value\s+(?:\(\"?NAV\"?\)\s+)?(?:per\s+(?:ordinary\s+)?share\s+)?"
@@ -1138,6 +1158,12 @@ def parse_uk_nav_text(text: str, sedol: str | None = None) -> dict:
                 continue
             if UK_NOMINAL.search(before[-30:]):
                 continue          # a nominal/par value, not a NAV
+            if UK_OTHER_COMPANY.search(before[-70:] + text[m.start():m.start() + 12]):
+                continue          # "at SOHO's ... EPRA NTA of 94.23 pence"
+            if UK_RETURN_PER_SHARE.search(before[-60:] + text[m.start():m.start(1)]):
+                continue          # "Return per Ordinary Share 0.70p" (CTPE)
+            if UK_BY.search(text[max(0, m.start(1) - 6):m.start(1)]):
+                continue          # "increased by 6.8p" is a change, not a level
             if loose:
                 # the window is around the NUMBER, not the match start: a
                 # loose rule can reach 140 characters from its label to its
