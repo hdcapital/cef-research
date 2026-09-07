@@ -872,6 +872,18 @@ UK_RULES = [
     # 2026 297.9 60.9 ... NAV as at 30 June 2026 299.2 61.2" - the CLOSING
     # line is the last "NAV as at" in the document, and its second figure
     # is pence per share.
+    # The column ORDER is the table's, not the rule's. Octopus Renewables'
+    # bridge is "Pence per Ordinary Share* £m ... Unaudited NAV as at 30
+    # June 2026 86.18 454.7" and the second-figure reading took the £454.7
+    # MILLION as a per-share NAV (z -6.0, a WATCH in the brief). The two
+    # header-aware forms come first; the bare second-figure form stays as
+    # the fallback for a bridge with no readable header.
+    ("cum", 2, _R(r"\b(?:pence|pps)\b[^£\n]{0,60}£\s*m\b[\s\S]{0,900}?"
+                  r"\bNAV as at (?:\d{1,2}\s+\w+\s+\d{4})\s+([0-9]{1,4}\.[0-9]{1,2})\s+"
+                  r"\(?[0-9][0-9,]*\.[0-9]+\)?\b(?![\s\S]*?\bNAV as at \d)", re.I)),
+    ("cum", 2, _R(r"£\s*m\b[^0-9\n]{0,60}\b(?:pence|pps)\b[\s\S]{0,900}?"
+                  r"\bNAV as at (?:\d{1,2}\s+\w+\s+\d{4})\s+[0-9][0-9,]*\.[0-9]+\s+"
+                  r"([0-9]{1,4}\.[0-9]{1,2})\b(?![\s\S]*?\bNAV as at \d)", re.I)),
     ("cum", 3, _R(r"\bNAV as at (?:\d{1,2}\s+\w+\s+\d{4})\s+[0-9][0-9,]*\.[0-9]+\s+"
                   r"([0-9]{1,4}\.[0-9]{1,2})\b(?![\s\S]*?\bNAV as at \d)", re.I)),
     # Diverse Income: "Including current period revenue to 25th June 2026

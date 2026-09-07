@@ -855,3 +855,18 @@ def test_the_layouts_that_already_parsed_still_parse_the_same_way():
         assert got["nav_per_share"] == pytest.approx(want)
         assert got["extractor"] == "nta_scored_v1", (
             "an existing layout was taken over by the new rule")
+
+
+def test_bridge_table_column_order_is_read_from_the_header():
+    """Octopus Renewables lists pence first and £m second; Schroder REIT
+    the other way round. Both closing lines must read the per-share
+    figure (ORIT came through as 454.7 - the £454.7 million)."""
+    from cef_live.harvest_nav import parse_uk_nav_text
+    orit = ("Pence per Ordinary Share* £m Unaudited NAV as at 31 March 2026 93.15 491.5 "
+            "Market price assumptions (1.80) (9.5) Discount rates (2.00) (10.6) "
+            "Q2 2026 interim dividend (1.55) (8.2) Other movements 2.43 12.8 "
+            "Unaudited NAV as at 30 June 2026 86.18 454.7 * Totals may not sum exactly")
+    assert parse_uk_nav_text(orit)["nav_cum_pence"] == 86.18
+    srei = ("£m pps Comments NAV as at 31 March 2026 297.9 60.9 Unrealised gain 1.3 0.3 "
+            "NAV as at 30 June 2026 299.2 61.2 Dividends paid")
+    assert parse_uk_nav_text(srei)["nav_cum_pence"] == 61.2
