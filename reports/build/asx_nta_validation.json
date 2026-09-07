@@ -1,15 +1,15 @@
 {
-  "comparable_observations": 1041,
+  "comparable_observations": 1110,
   "by_verdict": {
-    "match": 662,
-    "mismatch": 350,
+    "match": 805,
+    "mismatch": 266,
     "unit_error": 25,
-    "basis_gap": 4
+    "basis_gap": 14
   },
-  "agreement_rate": 0.6359,
-  "unit_error_rate": 0.024,
+  "agreement_rate": 0.7252,
+  "unit_error_rate": 0.0225,
   "median_ratio": 1.0,
-  "funds_compared": 61,
+  "funds_compared": 64,
   "worst": [
     {
       "ticker": "HCF",
@@ -56,140 +56,135 @@
       "valuation_date": "2025-04-30"
     },
     {
-      "ticker": "KIT",
-      "month": "2026-03",
-      "nav_per_share": 31.03,
-      "nta_price": 1.9975,
-      "ratio": 15.534418022528161,
-      "verdict": "mismatch",
-      "extractor": "nta_label_rule_v1",
-      "announcement_id": "03081051",
-      "valuation_date": "2026-03-31"
-    },
-    {
-      "ticker": "REV",
+      "ticker": "GCI",
       "month": "2026-05",
-      "nav_per_share": 31.05,
-      "nta_price": 2.0008,
-      "ratio": 15.518792483006798,
+      "nav_per_share": 27.0,
+      "nta_price": 2.0186,
+      "ratio": 13.375606856236995,
       "verdict": "mismatch",
       "extractor": "nta_label_rule_v1",
-      "announcement_id": "03102681",
-      "valuation_date": "2026-05-31"
+      "announcement_id": "03098604",
+      "valuation_date": "2026-05-27"
     },
     {
-      "ticker": "KIT",
-      "month": "2026-05",
-      "nav_per_share": 31.05,
-      "nta_price": 2.0047,
-      "ratio": 15.488601785803361,
+      "ticker": "GCI",
+      "month": "2024-09",
+      "nav_per_share": 26.0,
+      "nta_price": 2.0022,
+      "ratio": 12.985715712716011,
       "verdict": "mismatch",
       "extractor": "nta_label_rule_v1",
-      "announcement_id": "03100211",
-      "valuation_date": "2026-05-31"
+      "announcement_id": "02859654",
+      "valuation_date": "2024-09-26"
     },
     {
-      "ticker": "REV",
-      "month": "2025-10",
-      "nav_per_share": 31.1,
-      "nta_price": 2.015,
-      "ratio": 15.43424317617866,
+      "ticker": "GCI",
+      "month": "2026-06",
+      "nav_per_share": 26.0,
+      "nta_price": 2.0051,
+      "ratio": 12.966934317490399,
       "verdict": "mismatch",
       "extractor": "nta_label_rule_v1",
-      "announcement_id": "03023792",
-      "valuation_date": "2025-10-31"
+      "announcement_id": "03108927",
+      "valuation_date": "2026-06-26"
     },
     {
-      "ticker": "REV",
-      "month": "2025-12",
-      "nav_per_share": 31.12,
-      "nta_price": 2.0167,
-      "ratio": 15.431149898348787,
-      "verdict": "mismatch",
-      "extractor": "nta_label_rule_v1",
-      "announcement_id": "03049003",
-      "valuation_date": "2025-12-31"
-    },
-    {
-      "ticker": "REV",
+      "ticker": "GCI",
       "month": "2026-03",
-      "nav_per_share": 31.03,
-      "nta_price": 2.0133,
-      "ratio": 15.412506829583272,
+      "nav_per_share": 26.0,
+      "nta_price": 2.0068,
+      "ratio": 12.95594977077935,
       "verdict": "mismatch",
       "extractor": "nta_label_rule_v1",
-      "announcement_id": "03081917",
-      "valuation_date": "2026-03-31"
+      "announcement_id": "03076764",
+      "valuation_date": "2026-03-26"
     },
     {
-      "ticker": "REV",
-      "month": "2026-01",
-      "nav_per_share": 31.01,
-      "nta_price": 2.0155,
-      "ratio": 15.385760357231458,
+      "ticker": "GCI",
+      "month": "2026-02",
+      "nav_per_share": 26.0,
+      "nta_price": 2.0089,
+      "ratio": 12.942406292000596,
       "verdict": "mismatch",
       "extractor": "nta_label_rule_v1",
-      "announcement_id": "03058299",
-      "valuation_date": "2026-01-31"
+      "announcement_id": "03066710",
+      "valuation_date": "2026-02-26"
     },
     {
-      "ticker": "REV",
-      "month": "2025-11",
-      "nav_per_share": 30.11,
-      "nta_price": 2.0012,
-      "ratio": 15.04597241655007,
-      "verdict": "mismatch",
-      "extractor": "nta_label_rule_v1",
-      "announcement_id": "03040115",
-      "valuation_date": "2025-11-30"
-    },
-    {
-      "ticker": "REV",
-      "month": "2026-06",
-      "nav_per_share": 30.06,
-      "nta_price": 2.0014,
-      "ratio": 15.019486359548317,
-      "verdict": "mismatch",
-      "extractor": "nta_label_rule_v1",
-      "announcement_id": "03110341",
-      "valuation_date": "2026-06-30"
-    },
-    {
-      "ticker": "REV",
-      "month": "2025-09",
-      "nav_per_share": 30.09,
-      "nta_price": 2.0044,
-      "ratio": 15.011973657952504,
-      "verdict": "mismatch",
-      "extractor": "nta_label_rule_v1",
-      "announcement_id": "03004322",
-      "valuation_date": "2025-09-30"
-    },
-    {
-      "ticker": "KIT",
-      "month": "2026-06",
-      "nav_per_share": 30.06,
+      "ticker": "GCI",
+      "month": "2025-08",
+      "nav_per_share": 26.0,
       "nta_price": 2.0095,
-      "ratio": 14.958945011196814,
+      "ratio": 12.938541925852201,
       "verdict": "mismatch",
       "extractor": "nta_label_rule_v1",
-      "announcement_id": "03111009",
-      "valuation_date": "2026-06-30"
+      "announcement_id": "02986513",
+      "valuation_date": "2025-08-26"
+    },
+    {
+      "ticker": "GCI",
+      "month": "2025-11",
+      "nav_per_share": 26.0,
+      "nta_price": 2.0207,
+      "ratio": 12.866828326817439,
+      "verdict": "mismatch",
+      "extractor": "nta_label_rule_v1",
+      "announcement_id": "03033243",
+      "valuation_date": "2025-11-26"
+    },
+    {
+      "ticker": "GCI",
+      "month": "2024-11",
+      "nav_per_share": 26.0,
+      "nta_price": 2.022,
+      "ratio": 12.858555885262119,
+      "verdict": "mismatch",
+      "extractor": "nta_label_rule_v1",
+      "announcement_id": "02887864",
+      "valuation_date": "2024-11-26"
+    },
+    {
+      "ticker": "GCI",
+      "month": "2024-08",
+      "nav_per_share": 26.0,
+      "nta_price": 2.0228,
+      "ratio": 12.853470437017993,
+      "verdict": "mismatch",
+      "extractor": "nta_label_rule_v1",
+      "announcement_id": "02844830",
+      "valuation_date": "2024-08-26"
+    },
+    {
+      "ticker": "GCI",
+      "month": "2025-02",
+      "nav_per_share": 25.0,
+      "nta_price": 2.0027,
+      "ratio": 12.483147750536776,
+      "verdict": "mismatch",
+      "extractor": "nta_label_rule_v1",
+      "announcement_id": "02919383",
+      "valuation_date": "2025-02-25"
+    },
+    {
+      "ticker": "GCI",
+      "month": "2024-07",
+      "nav_per_share": 25.0,
+      "nta_price": 2.008,
+      "ratio": 12.450199203187251,
+      "verdict": "mismatch",
+      "extractor": "nta_label_rule_v1",
+      "announcement_id": "02832607",
+      "valuation_date": "2024-07-25"
     }
   ],
-  "extracted_observations": 36483,
-  "check_coverage": 0.0285,
+  "extracted_observations": 37901,
+  "check_coverage": 0.0293,
   "note": "the exchange file starts in 2017 and lists only the funds it covers, so agreement is measured on this subset, not on the whole extraction",
-  "own_series_outliers_dropped": 2440,
+  "own_series_outliers_dropped": 1674,
   "definition_gap_funds": [
     "CD3",
     "GCI",
-    "KIT",
-    "MOT",
-    "MXT",
-    "OPH",
     "PCX",
-    "REV",
     "TEK"
   ],
   "quarantined_funds": [
@@ -203,27 +198,27 @@
   ],
   "demoted_labels": [
     {
-      "ticker": "AMH",
-      "label": "pre tax nta per share",
-      "n": 4,
-      "agree": 0,
-      "agreement": 0.0
+      "ticker": "LSF",
+      "label": "ordinary share nta before tax nta after tax",
+      "n": 16,
+      "agree": 1,
+      "agreement": 0.0625
     },
     {
-      "ticker": "LSF",
-      "label": "nta after tax",
-      "n": 17,
+      "ticker": "OPH",
+      "label": "is as follows value date nav per unit",
+      "n": 3,
       "agree": 1,
-      "agreement": 0.0588
+      "agreement": 0.3333
     }
   ],
   "compare_stages": {
-    "extracted_in": 36483,
-    "after_value_dropna": 36483,
-    "after_month_dropna_and_dedupe": 6337,
+    "extracted_in": 37901,
+    "after_value_dropna": 37901,
+    "after_month_dropna_and_dedupe": 6490,
     "panel_in": 11830,
     "panel_after_dropna": 2012,
-    "merged": 1041,
+    "merged": 1110,
     "e_month_dtype": "object",
     "p_month_dtype": "object",
     "e_key_sample": [
@@ -239,10 +234,10 @@
     "panel_rows_implausible_vs_price": 64
   },
   "diagnostics": {
-    "fact_rows_total": 70217,
-    "nav_rows": 36483,
-    "nav_rows_with_valuation_date": 26926,
-    "nav_tickers": 160,
+    "fact_rows_total": 70914,
+    "nav_rows": 37901,
+    "nav_rows_with_valuation_date": 28126,
+    "nav_tickers": 161,
     "nav_months_sample": [
       "2008-10",
       "2009-09",
@@ -252,20 +247,20 @@
       "2016-10"
     ],
     "nav_month_min": "2008-10",
-    "nav_month_max": "2026-08",
+    "nav_month_max": "2026-09",
     "nav_rows_by_year": {
       "2009": 3,
       "2016": 335,
       "2017": 2113,
-      "2018": 2275,
-      "2019": 2880,
-      "2020": 3782,
-      "2021": 3638,
-      "2022": 2604,
-      "2023": 2513,
-      "2024": 2298,
-      "2025": 2672,
-      "2026": 1812
+      "2018": 2290,
+      "2019": 2929,
+      "2020": 3766,
+      "2021": 3642,
+      "2022": 2648,
+      "2023": 2719,
+      "2024": 2588,
+      "2025": 3004,
+      "2026": 2088
     },
     "panel_rows": 11830,
     "panel_has_nta_price": true,
@@ -280,14 +275,14 @@
     ],
     "panel_month_min": "2016-12",
     "panel_month_max": "2026-06",
-    "ticker_overlap": 160,
-    "nav_rows_with_value": 36483,
+    "ticker_overlap": 161,
+    "nav_rows_with_value": 37901,
     "nav_key_sample": [
-      "GCI|2026-08",
-      "GCI|2026-08",
-      "GCI|2026-07",
-      "GCI|2026-06",
-      "GCI|2026-05"
+      "RF1|2026-08",
+      "DJW|2026-08",
+      "MIR|2026-08",
+      "AMH|2026-01",
+      "RF1|2026-01"
     ],
     "panel_key_sample": [
       "8EC|2016-12",
@@ -296,8 +291,8 @@
       "8EC|2017-03",
       "8EC|2017-04"
     ],
-    "composite_key_overlap": 6111,
-    "nav_unique_keys": 6337,
+    "composite_key_overlap": 6248,
+    "nav_unique_keys": 6490,
     "panel_unique_keys": 11830,
     "key_overlap_sample": [
       "8EC|2016-12",
