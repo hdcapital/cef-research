@@ -207,6 +207,20 @@ Everything here has a named fix in `coverage_failures.csv`:
   earns its cost).
 - Decide on the 17-hour slow crawl to close the ASX 2024–25 index hole.
 
+> **2026-09-07 — coverage target met.** The 2026-09-07 01:45Z nightly measured
+> signal coverage at **91.2%** of currently-trading, research-eligible funds
+> (UK 196/216 = 90.7%, AU 84/91 = 92.3%; denominator 307 after 5 untraded
+> funds are excluded by name). Trajectory since the metric was introduced on
+> 2026-09-01: 47.0 → 63.3 → 69.4 → 73.2 → 77.3 → 82.6 → 83.2 → 85.4 → 91.2.
+> UK NAV validation against the AIC key-facts stands at 97.1% agreement
+> (5,047 pairs); ASX validation against the exchange's NTA file is the
+> open accountability loop (definition gaps and quarantine listed in
+> `reports/build/asx_nta_validation.json`). Remaining blockers are named
+> per fund in `outputs/live/signal_coverage.csv` (Cadence's image-only NTA
+> table → OCR; three new ASX funds without history; a handful of UK funds
+> whose discount history is still building). Phase 2 is closed; Phase 3
+> starts here.
+
 ### Phase 3 — Announcement intelligence: read everything, keep a fund file (3–6 weeks)
 
 - **Per-fund file**: one canonical record per fund (identity, liveness, NAV
