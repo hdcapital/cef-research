@@ -137,3 +137,31 @@ def test_fund_file_is_one_record_per_fund(tmp_path):
     assert rec["events_90d"][0]["class"] == "tender_offer"
     idx = json.loads((tmp_path / "index.json").read_text())
     assert idx["funds"] == 1
+
+
+@pytest.mark.parametrize("headline,cls,direction", [
+    ("Update on Offer for Subscription", "issuance", "neutral"),
+    ("Intention to Launch an Offer for Subscription", "issuance", "neutral"),
+    ("New combined offer for subscription", "issuance", "neutral"),
+    ("Change in substantial holding for AOV", "portfolio_holding", "neutral"),
+    ("Becoming a substantial holder for VYS", "portfolio_holding", "neutral"),
+    ("Change in substantial holding from WAR", "substantial_holder", "positive"),
+    ("Recommended Cash Offer for Augmentum Fintech plc", "takeover_offer", "positive"),
+])
+def test_issuance_and_portfolio_holdings_are_not_catalysts(headline, cls, direction):
+    got = catalysts.classify_signed(headline)
+    assert got["class"] == cls and got["direction"] == direction
+
+
+def test_merge_reclassifies_held_rows(tmp_path):
+    path = tmp_path / "EV.parquet"
+    row = {c: None for c in EV.COLUMNS}
+    row.update(security_id="SEDOL:263193", date="2026-09-04",
+               headline="Update on Offer for Subscription", url="u",
+               event_class="takeover_offer", weight=5, direction="positive",
+               first_seen="2026-09-05T00:00:00+00:00")
+    row["event_id"] = EV.event_id(row["security_id"], row["date"], row["headline"])
+    EV.save(pd.DataFrame([row]), path)
+    merged = EV.merge_events(pd.DataFrame(columns=EV.COLUMNS), path)
+    assert merged.loc[0, "event_class"] == "issuance" and int(merged.loc[0, "weight"]) == 0
+    assert merged.loc[0, "first_seen"] == "2026-09-05T00:00:00+00:00"

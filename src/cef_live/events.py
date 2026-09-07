@@ -117,8 +117,10 @@ def save(df: pd.DataFrame, path: Path = EVENTS_PATH) -> Path:
 def merge_events(new: pd.DataFrame, path: Path = EVENTS_PATH) -> pd.DataFrame:
     """Union new rows into the store; an existing event keeps its first_seen,
     alerted_at and terms - the store is append-only memory."""
-    held = load(path)
+    held = reclassify(load(path))
     if not len(new):
+        if len(held):
+            save(held, path)
         return held
     if len(held):
         known = set(held["event_id"])
@@ -128,6 +130,24 @@ def merge_events(new: pd.DataFrame, path: Path = EVENTS_PATH) -> pd.DataFrame:
         merged = new.copy()
     save(merged, path)
     return merged
+
+
+def reclassify(events: pd.DataFrame) -> pd.DataFrame:
+    """Re-derive class/weight/direction from the headline so a taxonomy fix
+    reaches events already in the store (event_id is headline-keyed, so
+    identity is unchanged; first_seen/alerted_at/terms are kept). A row
+    the taxonomy no longer recognises is dropped."""
+    if not len(events):
+        return events
+    ev = events.copy()
+    got = ev["headline"].map(lambda h: catalysts.classify_signed(h) or {})
+    keep = got.map(bool)
+    ev = ev[keep].copy()
+    got = got[keep]
+    ev["event_class"] = got.map(lambda g: g["class"]).values
+    ev["weight"] = got.map(lambda g: int(g["weight"])).values
+    ev["direction"] = got.map(lambda g: g["direction"]).values
+    return ev.reset_index(drop=True)
 
 
 # ---------------------------------------------------------------- TR-1

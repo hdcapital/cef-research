@@ -55,7 +55,7 @@ CATALYST_CLASSES: list[tuple[str, int, re.Pattern]] = [
 # "no intention to bid" is its withdrawal and sits in the negative list.
 TAKEOVER = ("takeover_offer", 5, re.compile(
     r"possible\s+offer|firm\s+intention|recommended\s+(?:cash\s+)?(?:offer|acquisition|"
-    r"final\s+offer)|\boffer\s+for\s+|rule\s+2\.7|statement\s+re(?:garding)?\s+"
+    r"final\s+offer)|\boffer\s+for\s+(?!subscription)|rule\s+2\.7|statement\s+re(?:garding)?\s+"
     r"(?:possible\s+)?offer|offer\s+period|approach\s+from", re.I))
 
 # NEGATIVE catalysts (Phase 3a, layer 2): the events that make a widening
@@ -104,12 +104,21 @@ NEGATIVE_CLASSES: list[tuple[str, int, re.Pattern]] = [
 # catalyst on their own (an issue of equity is a premium fund's routine).
 NEUTRAL_CLASSES: list[tuple[str, int, re.Pattern]] = [
     ("issuance", 0, re.compile(
-        r"\bplacing\b|open\s+offer|issue\s+of\s+(?:new\s+)?(?:ordinary\s+)?(?:shares|equity)"
+        r"\bplacing\b|open\s+offer|offer\s+for\s+subscription"
+        r"|issue\s+of\s+(?:new\s+)?(?:ordinary\s+)?(?:shares|equity)"
         r"|subscription\s+shares|c\s+share\s+issue|tap\s+issue", re.I)),
+    # ASX: "Change in substantial holding for XYZ" is the fund notifying
+    # ITS stake in XYZ - portfolio activity, not a holder of the fund.
+    # "... from XYZ" is a holder of the fund and stays substantial_holder.
+    ("portfolio_holding", 0, re.compile(
+        r"substantial\s+(?:holder|holding)\s+(?:for|in)\s+[A-Z0-9]{2,5}\b")),
     ("holdings_notification", 0, re.compile(
         r"holding\(s\)\s+in\s+company|notification\s+of\s+major\s+(?:holdings|interest)"
         r"|\bTR-?1\b|substantial\s+(?:holder|holding)\s+notice", re.I)),
 ]
+
+# Neutral classes that must win over a positive pattern they also match.
+PRE_POSITIVE_NEUTRAL = {"portfolio_holding"}
 
 # Routine filings that match a pattern above but carry no information -
 # excluded so the digest stays worth reading.
@@ -145,6 +154,9 @@ def classify_signed(headline: str) -> dict | None:
             return {"class": name, "weight": weight, "direction": "negative"}
     if TAKEOVER[2].search(h):
         return {"class": TAKEOVER[0], "weight": TAKEOVER[1], "direction": "positive"}
+    for name, weight, pat in NEUTRAL_CLASSES:
+        if name in PRE_POSITIVE_NEUTRAL and pat.search(h):
+            return {"class": name, "weight": weight, "direction": "neutral"}
     for name, weight, pat in CATALYST_CLASSES:
         if pat.search(h):
             if weight <= 3 and NOISE.search(h):
