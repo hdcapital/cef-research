@@ -41,5 +41,20 @@
     "headline_feature_rows": 3135,
     "funds_with_headline_features": 165,
     "uk_listing_cache_present": true
+  },
+  "extract": {
+    "run_at": "2026-09-08T08:16:24+00:00",
+    "candidates": 687,
+    "read": 25,
+    "accepted": 9,
+    "rejected": 16,
+    "empty": 0,
+    "errors": 0,
+    "aborted": false,
+    "skipped_done": 0,
+    "features": "data/learning/features_all.parquet",
+    "rejects": "data/learning/rejects_all.parquet",
+    "model": "claude-haiku-4-5",
+    "prompt_version": "v1:b1dc1b09d39ba28f"
   }
 }
