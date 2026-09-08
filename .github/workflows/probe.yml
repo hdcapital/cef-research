@@ -56,6 +56,14 @@ jobs:
           restore-keys: |
             aic-raw-v1-
       - name: Run diagnostic script
+        env:
+          # credential probe (scripts/probe_api_key.py): each secret under
+          # its own name so the verdict says WHICH one works; GitHub masks
+          # the values in the log, the script prints only a key's prefix
+          CLAUDE_SECRET_KEY: ${{ secrets.CLAUDE_SECRET_KEY }}
+          ANTHROPIC_API_KEY_SECRET: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_WORKSPACE_ID: ${{ vars.ANTHROPIC_WORKSPACE_ID || secrets.ANTHROPIC_WORKSPACE_ID }}
+          CHEAP_MODEL: ${{ vars.CHEAP_MODEL }}
         run: |
           for kv in $(echo "${{ github.event.inputs.extra_env }}" | tr ";" " "); do export "$kv"; done
           python "${{ github.event.inputs.script || 'scripts/probe_ticker_sources.py' }}"
