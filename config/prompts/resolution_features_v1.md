@@ -50,6 +50,16 @@ Definitions:
   - the document reports a write-down.
 - The silent value (the first in each list) is right whenever the document
   does not address the question. Silence is a fact, not a failure.
+- A stage is what HAS happened by the document's date, never what would
+  happen if a condition is met: "the combination, if approved by
+  shareholders, will be effected by a scheme" is proposal_announced, not
+  shareholder_approved; "shareholders voted in favour" is
+  shareholder_approved.
+- Every feature describes THIS fund - the one named in security_id and
+  headline. A merger partner's, an acquirer's or a target's arrangements
+  (its continuation vote, its buyback, its manager) are that company's, and
+  leave this fund's feature silent unless the document states the same for
+  this fund.
 
 Rules:
 - Every feature that is NOT its silent value must have a quote; the quote is
