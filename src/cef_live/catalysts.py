@@ -46,6 +46,14 @@ CATALYST_CLASSES: list[tuple[str, int, re.Pattern]] = [
     ("substantial_holder", 2, re.compile(
         r"holding\(s\)\s+in\s+company|substantial\s+(?:holder|shareholder|holding)"
         r"|notification\s+of\s+major\s+(?:holdings|interest)|becoming\s+a\s+substantial", re.I)),
+    # a disposal, sale or realisation of an investment: the fund's own NAV
+    # tested against a price (Phase 3a layer 3, NAV credibility). Weight 1:
+    # it never alerts on its own, the fund file and the why-line read it.
+    ("realisation", 1, re.compile(
+        r"\b(?:disposal|sale|realisation)\s+of\s+(?!own\s+shares|treasury)"
+        r"|completion\s+of\s+(?:the\s+)?(?:sale|disposal)\b|\bexit\s+from\b"
+        r"|\bsells?\s+(?:its\s+)?(?:stake|interest|holding|investment)"
+        r"|\bportfolio\s+(?:disposal|realisation)s?\b|\brealisation\s+of\b", re.I)),
     ("distribution_policy", 2, re.compile(
         r"dividend\s+policy|distribution\s+policy|revised\s+(?:dividend|distribution)"
         r"|target\s+dividend", re.I)),

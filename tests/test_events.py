@@ -165,3 +165,61 @@ def test_merge_reclassifies_held_rows(tmp_path):
     merged = EV.merge_events(pd.DataFrame(columns=EV.COLUMNS), path)
     assert merged.loc[0, "event_class"] == "issuance" and int(merged.loc[0, "weight"]) == 0
     assert merged.loc[0, "first_seen"] == "2026-09-05T00:00:00+00:00"
+
+
+# ------------------------------------------------ realisations (Phase 3a layer 3)
+@pytest.mark.parametrize("text,pct,basis", [
+    ("The disposal was completed at a premium of 12.5% to the 31 March 2026 carrying value.", 12.5, "carrying value"),
+    ("Proceeds represent a 7% premium to the last published valuation of the asset.", 7.0, "valuation"),
+    ("The sale price represents a discount of approximately 15% to book value.", -15.0, "book value"),
+    ("The investment was sold in line with its carrying value.", 0.0, "carrying value"),
+    ("an uplift of 22% to the holding value at 30 June 2026", 22.0, "holding value"),
+])
+def test_realisation_terms_read_the_stated_premium_or_discount(text, pct, basis):
+    got = EV.parse_realisation(text)
+    assert got["vs_carrying_pct"] == pct and got["basis"] == basis
+
+
+def test_a_body_without_a_carrying_value_comparison_yields_nothing():
+    assert EV.parse_realisation("The Company has sold its stake in XYZ for £45 million.") == {}
+    assert EV.parse_realisation("") == {}
+
+
+@pytest.mark.parametrize("headline,cls", [
+    ("Disposal of investment in Alpha Holdings", "realisation"),
+    ("Completion of the sale of the Retirement Portfolio", "realisation"),
+    ("Exit from Beta Ventures", "realisation"),
+    ("Transaction in Own Shares", None),
+])
+def test_disposal_headlines_class_as_realisation(headline, cls):
+    got = catalysts.classify_signed(headline)
+    assert (got["class"] if got else None) == cls
+
+
+def test_realisation_evidence_and_line():
+    rows = []
+    for i, (d, pct) in enumerate([("2026-03-01", 10.0), ("2026-06-01", 15.0), ("2026-08-20", -4.0)]):
+        r = {c: None for c in EV.COLUMNS}
+        r.update(security_id="F", date=d, headline=f"Disposal {i}", url=f"u{i}",
+                 event_class="realisation", weight=1, direction="positive",
+                 event_id=f"e{i}", terms=json.dumps({"realisation": {"vs_carrying_pct": pct, "basis": "carrying value"}}))
+        rows.append(r)
+    ev = pd.DataFrame(rows)
+    got = EV.realisation_evidence(ev, "F")
+    assert got["n"] == 3 and got["avg_vs_carrying_pct"] == 7.0 and got["last"]["vs_carrying_pct"] == -4.0
+    line = EV.realisation_line(got)
+    assert line.startswith("3 realisations in 12m at +7.0% to carrying value")
+    assert EV.realisation_evidence(ev, "G") is None and EV.realisation_line(None) == ""
+
+
+def test_enrich_realisations_reads_bodies_once():
+    r = {c: None for c in EV.COLUMNS}
+    r.update(security_id="F", date=datetime.now(timezone.utc).date().isoformat(),
+             headline="Disposal of investment", url="u", event_class="realisation",
+             weight=1, direction="positive", event_id="e")
+    ev = pd.DataFrame([r])
+    out, st = EV.enrich_realisations(ev, None, fetch=lambda u: "sold at a premium of 9% to carrying value")
+    assert st == {"candidates": 1, "fetched": 1, "parsed": 1, "failed": 0}
+    assert json.loads(out.loc[0, "terms"])["realisation"]["vs_carrying_pct"] == 9.0
+    out2, st2 = EV.enrich_realisations(out, None, fetch=lambda u: "x")
+    assert st2["candidates"] == 0

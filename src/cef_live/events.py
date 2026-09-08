@@ -219,6 +219,123 @@ def enrich_holdings(events: pd.DataFrame, session, budget: int = 40,
     return ev, stats
 
 
+# ---------------------------------------------------------- realisations
+_PCT_NUM = r"(?:approximately\s+|around\s+|c\.?\s*|circa\s+)?([0-9]{1,3}(?:\.[0-9]+)?)\s*(?:%|per\s*cent)"
+_BASIS = (r"(?:its|the)?\s*(?:[0-9]{1,2}\s+\w+\s+\d{4}\s+|(?:most\s+recent|last|latest|previous|prior)\s+"
+          r"(?:published\s+|reported\s+|audited\s+|unaudited\s+)?)?"
+          r"(carrying\s+value|book\s+value|holding\s+value|(?:published\s+|reported\s+)?valuation"
+          r"|net\s+asset\s+value|\bNAV\b)")
+_REAL_A = re.compile(r"\b(premium|uplift|discount)\s+of\s+" + _PCT_NUM
+                     + r"\s+(?:to|over|above|below|on)\s+" + _BASIS, re.I)
+_REAL_B = re.compile(_PCT_NUM + r"\s+(premium|uplift|discount)\s+(?:to|over|above|below|on)\s+" + _BASIS, re.I)
+_REAL_C = re.compile(r"\b(?:in\s+line\s+with|at|equal\s+to)\s+" + _BASIS + r"\b", re.I)
+_REAL_UP = re.compile(r"\b(?:uplift|increase)\s+of\s+" + _PCT_NUM + r"\s+(?:to|over|on|against)\s+" + _BASIS, re.I)
+REALISATION_WINDOW_DAYS = 365
+
+
+def parse_realisation(text: str) -> dict:
+    """The price a disposal achieved against the fund's own carrying value,
+    as the announcement states it: {"vs_carrying_pct": +12.0, "basis":
+    "carrying value", "quote": "..."}. A discount is negative; "in line
+    with carrying value" is 0. Absent when the body does not say."""
+    t = " ".join((text or "").split())
+    for pat, order in ((_REAL_A, "wb"), (_REAL_B, "bw"), (_REAL_UP, "up")):
+        m = pat.search(t)
+        if not m:
+            continue
+        if order == "wb":
+            word, pct, basis = m.group(1), m.group(2), m.group(3)
+        elif order == "bw":
+            pct, word, basis = m.group(1), m.group(2), m.group(3)
+        else:
+            word, pct, basis = "uplift", m.group(1), m.group(2)
+        try:
+            v = float(pct)
+        except ValueError:
+            continue
+        if v > 300:
+            continue
+        sign = -1.0 if word.lower() == "discount" else 1.0
+        return {"vs_carrying_pct": round(sign * v, 2), "basis": " ".join(basis.lower().split()),
+                "quote": t[max(0, m.start() - 60):m.end() + 40]}
+    m = _REAL_C.search(t)
+    if m and re.search(r"\b(?:sold|sale|dispos|realis)", t, re.I):
+        return {"vs_carrying_pct": 0.0, "basis": " ".join(m.group(1).lower().split()),
+                "quote": t[max(0, m.start() - 60):m.end() + 40]}
+    return {}
+
+
+def enrich_realisations(events: pd.DataFrame, session, budget: int = 30,
+                        days: int = REALISATION_WINDOW_DAYS, fetch=None) -> tuple[pd.DataFrame, dict]:
+    """Read the bodies of recent realisation announcements that carry no
+    terms yet (both markets; ASX PDFs through the same reader the term
+    extractor uses), bounded by `budget` fetches."""
+    stats = {"candidates": 0, "fetched": 0, "parsed": 0, "failed": 0}
+    if not len(events):
+        return events, stats
+    cutoff = (datetime.now(timezone.utc) - timedelta(days=days)).date().isoformat()
+    ev = events.copy()
+    cand = ev[(ev["event_class"] == "realisation") & ev["terms"].isna()
+              & (ev["date"] >= cutoff) & ev["url"].notna()]
+    stats["candidates"] = int(len(cand))
+    for i, (idx, r) in enumerate(cand.sort_values("date", ascending=False).iterrows()):
+        if i >= budget:
+            break
+        try:
+            if fetch is not None:
+                text = fetch(r["url"])
+            else:
+                from . import catalyst_terms as CT
+                text = CT.fetch_body(r["url"], session)
+            stats["fetched"] += 1
+        except Exception:  # noqa: BLE001
+            stats["failed"] += 1
+            continue
+        got = parse_realisation(text)
+        if got:
+            stats["parsed"] += 1
+            ev.at[idx, "terms"] = json.dumps({"realisation": got})
+        else:
+            ev.at[idx, "terms"] = json.dumps({"unparsed": True})
+    return ev, stats
+
+
+def realisation_evidence(events: pd.DataFrame, sid: str,
+                         days: int = REALISATION_WINDOW_DAYS) -> dict | None:
+    """What the fund's own disposals said about its NAV in the window:
+    count, mean and last stated premium/discount to carrying value."""
+    if events is None or not len(events):
+        return None
+    cutoff = (datetime.now(timezone.utc) - timedelta(days=days)).date().isoformat()
+    g = events[(events["security_id"].astype(str) == str(sid))
+               & (events["event_class"] == "realisation") & (events["date"] >= cutoff)
+               & events["terms"].notna()].sort_values("date")
+    rows = []
+    for r in g.itertuples(index=False):
+        try:
+            t = json.loads(r.terms) if isinstance(r.terms, str) else dict(r.terms)
+        except Exception:  # noqa: BLE001
+            continue
+        rl = t.get("realisation") if isinstance(t, dict) else None
+        if rl and rl.get("vs_carrying_pct") is not None:
+            rows.append({"date": r.date, "vs_carrying_pct": float(rl["vs_carrying_pct"]),
+                         "basis": rl.get("basis"), "headline": r.headline, "url": r.url})
+    if not rows:
+        return None
+    vals = [x["vs_carrying_pct"] for x in rows]
+    return {"n": len(rows), "avg_vs_carrying_pct": round(sum(vals) / len(vals), 2),
+            "min_vs_carrying_pct": min(vals), "max_vs_carrying_pct": max(vals),
+            "last": rows[-1], "window_days": days}
+
+
+def realisation_line(ev: dict | None) -> str:
+    if not ev:
+        return ""
+    n, avg = ev["n"], ev["avg_vs_carrying_pct"]
+    what = "in line with carrying value" if abs(avg) < 0.05 else f"at {avg:+.1f}% to carrying value"
+    return f"{n} realisation{'s' if n != 1 else ''} in 12m {what} (last {ev['last']['date']}: {ev['last']['vs_carrying_pct']:+.1f}%)"
+
+
 def holder_churn(events: pd.DataFrame, days: int = CHURN_WINDOW_DAYS,
                  min_filings: int = CHURN_MIN_FILINGS) -> pd.DataFrame:
     """Per fund: holdings notifications in the window and, where TR-1 terms
@@ -352,6 +469,7 @@ def fund_record(live_row: pd.Series, events: pd.DataFrame,
         "forward_irr": {"central": ir("irr_central"), "discount_only": ir("irr_discount_only"),
                         "g_used": ir("g_used"), "g_source": ir("g_source")},
         "holder_churn": ({k: _f(v) for k, v in churn_row.items()} if churn_row is not None else None),
+        "realisations": realisation_evidence(events, sid),
         "events_90d": ev_list,
         "updated_at": _now(),
     }

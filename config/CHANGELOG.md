@@ -28,6 +28,17 @@ FX-converted never reads the daily panel's history (status
 `history_unit_mismatch` when nothing else exists). Follow-up: FX-convert
 foreign NAVs inside uk_discount.build so that cohort gets a real history.
 
+## 2026-09-08 — Phase 3a layer 3: what the fund's own disposals say about its NAV
+`events.realisation_fetch_budget` = 30. A disposal, sale or exit
+announcement is classed `realisation` (weight 1: informational, never an
+alert on its own); the nightly reads up to 30 such bodies a night and
+records the price achieved against the fund's own carrying value as the
+announcement states it ("premium of 12% to carrying value", "in line with
+book value"; a discount is negative). The fund file carries
+`realisations` (count, mean, range, last in 12 months) and the why-line
+ends with it - a NAV-led widening against disposals at a premium is a
+lagging price; against disposals at a discount it is the NAV catching down.
+
 ## 2026-09-07 — The brief gate keys on the window, not on elapsed hours
 The 06:20 UTC cron fired at 12:40 UTC, six hours late and past the gate's
 four-hour "recently sent" test, and a third email went at 13:35 UTC. The

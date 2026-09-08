@@ -238,6 +238,16 @@ def volume_ratio(bars: pd.DataFrame | None, recent: int = VOLUME_RECENT_DAYS,
     return float(r.mean() / b.mean())
 
 
+def nav_note(sid: str, events: pd.DataFrame | None) -> str:
+    """What the fund's own disposals said about its NAV (Phase 3a layer 3):
+    a NAV-led widening against realisations at a premium to carrying value
+    is a lagging price; against realisations at a discount it is the NAV
+    catching down."""
+    if events is None or not len(events):
+        return ""
+    return EV.realisation_line(EV.realisation_evidence(events, sid))
+
+
 def flow_note(sid: str, churn: pd.DataFrame | None, vol_ratio: float | None) -> str:
     parts = []
     if vol_ratio is not None:
@@ -270,6 +280,8 @@ def why_line(a: dict) -> str:
         s += f"; sector: too few peers with history (n={a['sector_n']})"
     if a.get("flow"):
         s += f"; {a['flow']}"
+    if a.get("nav_evidence"):
+        s += f"; {a['nav_evidence']}"
     return s
 
 
@@ -277,7 +289,8 @@ def attribute(sid: str, market: str, sector: str | None,
               histories: dict[str, pd.DataFrame], peers: list[str],
               bars: pd.DataFrame | None = None,
               churn: pd.DataFrame | None = None,
-              lookback: int = LOOKBACK_DAYS) -> dict:
+              lookback: int = LOOKBACK_DAYS,
+              events: pd.DataFrame | None = None) -> dict:
     """The attribution record for one fund; `why` is the rendered line."""
     h = histories.get(sid)
     a: dict = {"security_id": sid, "window_days": None, "driver": None}
@@ -295,6 +308,7 @@ def attribute(sid: str, market: str, sector: str | None,
     a["scope"] = scope(dec["delta_d"], a.get("sector_delta"))
     a["volume_ratio"] = volume_ratio(bars)
     a["flow"] = flow_note(sid, churn, a["volume_ratio"])
+    a["nav_evidence"] = nav_note(sid, events)
     a["why"] = why_line(a)
     return a
 
@@ -325,7 +339,8 @@ def attribute_all(verdicts: pd.DataFrame, live: pd.DataFrame,
                  if sect.get(s) == sector and mkt.get(s) == market] \
             if isinstance(sector, str) else []
         bars = (bars_by_sid or {}).get(sid)
-        rows.append(attribute(sid, market, sector, histories, peers, bars, churn, lookback))
+        rows.append(attribute(sid, market, sector, histories, peers, bars, churn, lookback,
+                              events=events))
     return pd.DataFrame(rows)
 
 

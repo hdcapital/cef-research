@@ -1335,6 +1335,9 @@ def nightly(markets: list[str]) -> int:
         _es.headers["User-Agent"] = prices.UA
         ev, hstats = EV.enrich_holdings(ev, _es, budget=int(
             _params().get("events", {}).get("tr1_fetch_budget", 40)))
+        # what the fund's own disposals said about its NAV (Phase 3a layer 3)
+        ev, rstats = EV.enrich_realisations(ev, _es, budget=int(
+            _params().get("events", {}).get("realisation_fetch_budget", 30)))
         # the TERMS of the catalysts (tender size/price/dates, vote dates,
         # wind-down timelines): a bounded number of bodies read by the
         # model each night, every record guarded; skipped without a key
@@ -1348,7 +1351,8 @@ def nightly(markets: list[str]) -> int:
         cal = CT.calendar(ev)
         Path("data/fund_events").mkdir(parents=True, exist_ok=True)
         cal.to_csv("data/fund_events/calendar.csv", index=False)
-        notes["events"] = {**EV.summarise(ev), "tr1": hstats, "terms": tstats,
+        notes["events"] = {**EV.summarise(ev), "tr1": hstats, "realisations": rstats,
+                           "terms": tstats,
                            "calendar_rows": int(len(cal))}
     except Exception as exc:  # noqa: BLE001
         notes["events_error"] = str(exc)

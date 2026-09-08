@@ -109,3 +109,17 @@ def test_attribute_all_merges_store_and_deeper_uk_panel():
     assert att.loc[0, "window_days"] == 21          # the deeper panel history won
     assert att.loc[0, "scope"] in ("sector-wide", "partly sector")
     assert att.loc[0, "why"].startswith("Discount widened")
+
+
+def test_the_why_line_carries_realisation_evidence():
+    import json
+    from cef_live import events as EV
+    r = {c: None for c in EV.COLUMNS}
+    r.update(security_id="F", date="2026-08-01", headline="Disposal", url="u",
+             event_class="realisation", weight=1, direction="positive", event_id="e",
+             terms=json.dumps({"realisation": {"vs_carrying_pct": 12.0, "basis": "carrying value"}}))
+    ev = pd.DataFrame([r])
+    fund = _hist([100] * 8, [110, 111, 112, 114, 116, 118, 120, 122])
+    a = AT.attribute("F", "UK", "PE", {"F": fund}, [], events=ev)
+    assert a["driver"] == "NAV-led"
+    assert "1 realisation in 12m at +12.0% to carrying value" in a["why"]
