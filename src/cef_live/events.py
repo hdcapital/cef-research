@@ -230,14 +230,37 @@ _REAL_A = re.compile(r"\b(premium|uplift|discount)\s+of\s+" + _PCT_NUM
 _REAL_B = re.compile(_PCT_NUM + r"\s+(premium|uplift|discount)\s+(?:to|over|above|below|on)\s+" + _BASIS, re.I)
 _REAL_C = re.compile(r"\b(?:in\s+line\s+with|at|equal\s+to)\s+" + _BASIS + r"\b", re.I)
 _REAL_UP = re.compile(r"\b(?:uplift|increase)\s+of\s+" + _PCT_NUM + r"\s+(?:to|over|on|against)\s+" + _BASIS, re.I)
+# the owner and qualifier words that sit between a figure and its basis:
+# "92% of THEIR net asset value", "105% of THE ASSET'S NAV", "no less than
+# THE ASSETS' RECENT Net Asset Value", "a premium to ITS LAST PUBLISHED valuation"
+_OWNER = (r"(?:(?:its|their|the|the\s+company['\u2019]?s|the\s+assets?['\u2019]?s?)\s+)?"
+          r"(?:(?:recent|last|latest|most\s+recent(?:ly)?|previous|prior)\s+)?"
+          r"(?:(?:published|reported|audited|unaudited)\s+)?")
+_BASIS2 = (r"(carrying\s+value|book\s+value|holding\s+value|valuations?|net\s+asset\s+value"
+           r"|\bNAV\b|values?\s+ascribed)")
+# "representing 92% of their net asset value", "deliver approximately 105%
+# of the asset's NAV": the price as a share of the carrying value
+_REAL_PCT_OF = re.compile(r"\b(?:representing|represents|deliver(?:ing|s)?|equivalent\s+to|equal\s+to)\s+"
+                          + _PCT_NUM + r"\s+of\s+" + _OWNER + _BASIS2, re.I)
+# "no less than the assets' recent Net Asset Value", "at or above valuation"
+_REAL_ATLEAST = re.compile(r"\b(?:no\s+less\s+than|not\s+less\s+than|at\s+least|at\s+or\s+above)\s+"
+                           + _OWNER + _BASIS2, re.I)
+# "a premium to its last published valuation" with no figure: the sign alone
+_REAL_UNQ = re.compile(r"\b(premium|discount)\s+to\s+" + _OWNER + _BASIS2, re.I)
 REALISATION_WINDOW_DAYS = 365
+REALISATION_PARSER = "r2"      # bumped when the rules change; unparsed rows are re-read
+
+
+def _basis(b: str) -> str:
+    return " ".join(b.lower().split())
 
 
 def parse_realisation(text: str) -> dict:
     """The price a disposal achieved against the fund's own carrying value,
     as the announcement states it: {"vs_carrying_pct": +12.0, "basis":
     "carrying value", "quote": "..."}. A discount is negative; "in line
-    with carrying value" is 0. Absent when the body does not say."""
+    with carrying value" is 0; a premium stated without a figure carries
+    "sign" and no percentage. Absent when the body does not say."""
     t = " ".join((text or "").split())
     for pat, order in ((_REAL_A, "wb"), (_REAL_B, "bw"), (_REAL_UP, "up")):
         m = pat.search(t)
@@ -256,11 +279,29 @@ def parse_realisation(text: str) -> dict:
         if v > 300:
             continue
         sign = -1.0 if word.lower() == "discount" else 1.0
-        return {"vs_carrying_pct": round(sign * v, 2), "basis": " ".join(basis.lower().split()),
+        return {"vs_carrying_pct": round(sign * v, 2), "sign": int(sign), "basis": _basis(basis),
+                "quote": t[max(0, m.start() - 60):m.end() + 40]}
+    m = _REAL_PCT_OF.search(t)
+    if m:
+        try:
+            v = float(m.group(1)) - 100.0
+        except ValueError:
+            v = None
+        if v is not None and -100 < v <= 200:
+            return {"vs_carrying_pct": round(v, 2), "sign": (v > 0) - (v < 0),
+                    "basis": _basis(m.group(2)), "quote": t[max(0, m.start() - 60):m.end() + 40]}
+    m = _REAL_ATLEAST.search(t)
+    if m and re.search(r"\b(?:sold|sale|dispos|realis|achiev)", t, re.I):
+        return {"vs_carrying_pct": 0.0, "sign": 0, "at_least": True, "basis": _basis(m.group(1)),
                 "quote": t[max(0, m.start() - 60):m.end() + 40]}
     m = _REAL_C.search(t)
     if m and re.search(r"\b(?:sold|sale|dispos|realis)", t, re.I):
-        return {"vs_carrying_pct": 0.0, "basis": " ".join(m.group(1).lower().split()),
+        return {"vs_carrying_pct": 0.0, "sign": 0, "basis": _basis(m.group(1)),
+                "quote": t[max(0, m.start() - 60):m.end() + 40]}
+    m = _REAL_UNQ.search(t)
+    if m and re.search(r"\b(?:sold|sale|sell|dispos|realis)", t, re.I):
+        sign = -1 if m.group(1).lower() == "discount" else 1
+        return {"vs_carrying_pct": None, "sign": sign, "basis": _basis(m.group(2)),
                 "quote": t[max(0, m.start() - 60):m.end() + 40]}
     return {}
 
@@ -275,7 +316,15 @@ def enrich_realisations(events: pd.DataFrame, session, budget: int = 30,
         return events, stats
     cutoff = (datetime.now(timezone.utc) - timedelta(days=days)).date().isoformat()
     ev = events.copy()
-    cand = ev[(ev["event_class"] == "realisation") & ev["terms"].isna()
+    def _stale(t) -> bool:
+        if t is None or (isinstance(t, float) and pd.isna(t)):
+            return True
+        try:
+            d = json.loads(t) if isinstance(t, str) else dict(t)
+        except Exception:  # noqa: BLE001
+            return False
+        return bool(d.get("unparsed")) and d.get("parser") != REALISATION_PARSER
+    cand = ev[(ev["event_class"] == "realisation") & ev["terms"].map(_stale)
               & (ev["date"] >= cutoff) & ev["url"].notna()]
     stats["candidates"] = int(len(cand))
     for i, (idx, r) in enumerate(cand.sort_values("date", ascending=False).iterrows()):
@@ -296,7 +345,7 @@ def enrich_realisations(events: pd.DataFrame, session, budget: int = 30,
             stats["parsed"] += 1
             ev.at[idx, "terms"] = json.dumps({"realisation": got})
         else:
-            ev.at[idx, "terms"] = json.dumps({"unparsed": True})
+            ev.at[idx, "terms"] = json.dumps({"unparsed": True, "parser": REALISATION_PARSER})
     return ev, stats
 
 
@@ -317,23 +366,43 @@ def realisation_evidence(events: pd.DataFrame, sid: str,
         except Exception:  # noqa: BLE001
             continue
         rl = t.get("realisation") if isinstance(t, dict) else None
-        if rl and rl.get("vs_carrying_pct") is not None:
-            rows.append({"date": r.date, "vs_carrying_pct": float(rl["vs_carrying_pct"]),
-                         "basis": rl.get("basis"), "headline": r.headline, "url": r.url})
+        if not rl or "sign" not in rl and rl.get("vs_carrying_pct") is None:
+            continue
+        pct = rl.get("vs_carrying_pct")
+        sign = rl.get("sign")
+        if sign is None and pct is not None:
+            sign = (pct > 0) - (pct < 0)
+        rows.append({"date": r.date, "vs_carrying_pct": float(pct) if pct is not None else None,
+                     "sign": int(sign), "at_least": bool(rl.get("at_least")),
+                     "basis": rl.get("basis"), "headline": r.headline, "url": r.url})
     if not rows:
         return None
-    vals = [x["vs_carrying_pct"] for x in rows]
-    return {"n": len(rows), "avg_vs_carrying_pct": round(sum(vals) / len(vals), 2),
-            "min_vs_carrying_pct": min(vals), "max_vs_carrying_pct": max(vals),
+    vals = [x["vs_carrying_pct"] for x in rows if x["vs_carrying_pct"] is not None]
+    signs = [x["sign"] for x in rows]
+    return {"n": len(rows), "n_quantified": len(vals),
+            "avg_vs_carrying_pct": round(sum(vals) / len(vals), 2) if vals else None,
+            "min_vs_carrying_pct": min(vals) if vals else None,
+            "max_vs_carrying_pct": max(vals) if vals else None,
+            "premiums": sum(1 for x in signs if x > 0), "discounts": sum(1 for x in signs if x < 0),
+            "in_line": sum(1 for x in signs if x == 0),
             "last": rows[-1], "window_days": days}
 
 
 def realisation_line(ev: dict | None) -> str:
     if not ev:
         return ""
-    n, avg = ev["n"], ev["avg_vs_carrying_pct"]
-    what = "in line with carrying value" if abs(avg) < 0.05 else f"at {avg:+.1f}% to carrying value"
-    return f"{n} realisation{'s' if n != 1 else ''} in 12m {what} (last {ev['last']['date']}: {ev['last']['vs_carrying_pct']:+.1f}%)"
+    n, avg = ev["n"], ev.get("avg_vs_carrying_pct")
+    if avg is None:
+        p, d, i = ev.get("premiums", 0), ev.get("discounts", 0), ev.get("in_line", 0)
+        what = ", ".join(x for x in (f"{p} at a premium" if p else "", f"{d} at a discount" if d else "",
+                                     f"{i} in line" if i else "") if x)
+        what = f"{what} to carrying value (unquantified)"
+    else:
+        what = "in line with carrying value" if abs(avg) < 0.05 else f"at {avg:+.1f}% to carrying value"
+    last = ev["last"]
+    last_s = (f"{last['vs_carrying_pct']:+.1f}%" if last.get("vs_carrying_pct") is not None
+              else {1: "premium", -1: "discount", 0: "in line"}.get(last.get("sign"), "stated"))
+    return f"{n} realisation{'s' if n != 1 else ''} in 12m {what} (last {last['date']}: {last_s})"
 
 
 def holder_churn(events: pd.DataFrame, days: int = CHURN_WINDOW_DAYS,

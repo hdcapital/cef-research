@@ -223,3 +223,58 @@ def test_enrich_realisations_reads_bodies_once():
     assert json.loads(out.loc[0, "terms"])["realisation"]["vs_carrying_pct"] == 9.0
     out2, st2 = EV.enrich_realisations(out, None, fetch=lambda u: "x")
     assert st2["candidates"] == 0
+
+
+@pytest.mark.parametrize("text, pct, sign", [
+    # VH Global Energy, 2026-09-02: a share of NAV
+    ("The total consideration for the Assets will be at least R$38.4 million, representing 92% "
+     "of the Assets' NAV as of 31 March 2026.", -8.0, -1),
+    ("The sale, representing 92% of their net asset value as of March 31, 2026, completes the "
+     "Brazilian exit.", -8.0, -1),
+    # VH Global Energy, 2026-09-01: above NAV
+    ("This transaction, part of the company's asset realization strategy, is expected to deliver "
+     "approximately 105% of the asset's net asset value as of December 31, 2024.", 5.0, 1),
+    # Gore Street, 2026-08-20: a floor, no figure
+    ("The Company can confirm that it achieved no less than the values ascribed for these assets "
+     "in the most recently published NAV following the sale.", 0.0, 0),
+    ("The disposals, with independent valuation, achieved prices no less than the assets' recent "
+     "Net Asset Value.", 0.0, 0),
+    # INPP, 2026-08-19: a premium, no figure
+    ("International Public Partnerships Limited has agreed to sell nine UK PPP projects for gross "
+     "proceeds exceeding £58 million, representing a premium to its last published valuation.",
+     None, 1),
+])
+def test_realisation_terms_read_the_wording_the_first_nightly_missed(text, pct, sign):
+    got = EV.parse_realisation(text)
+    assert got, text
+    assert got["vs_carrying_pct"] == pct and got["sign"] == sign
+
+
+def test_realisation_share_of_portfolio_is_not_a_share_of_value():
+    assert EV.parse_realisation("INPP has realised over £440 million, approximately 17% of its "
+                                "portfolio, since 2022.") == {}
+
+
+def test_unparsed_rows_are_read_again_when_the_parser_changes():
+    ev = pd.DataFrame([{"security_id": "S", "market": "UK", "date": "2026-09-01",
+                        "headline": "Disposal of assets", "url": "u", "event_class": "realisation",
+                        "terms": json.dumps({"unparsed": True, "parser": "r1"})},
+                       {"security_id": "S", "market": "UK", "date": "2026-09-02",
+                        "headline": "Disposal of more assets", "url": "u2", "event_class": "realisation",
+                        "terms": json.dumps({"unparsed": True, "parser": EV.REALISATION_PARSER})}])
+    calls = []
+    out, stats = EV.enrich_realisations(ev, None, fetch=lambda u: calls.append(u) or
+                                        "sold at a premium of 12% to carrying value")
+    assert calls == ["u"] and stats["parsed"] == 1
+    assert json.loads(out.iloc[0]["terms"])["realisation"]["vs_carrying_pct"] == 12.0
+
+
+def test_unquantified_premiums_reach_the_evidence_and_the_line():
+    ev = pd.DataFrame([{"security_id": "S", "market": "UK", "date": "2026-08-19",
+                        "headline": "Disposal at a premium", "url": "u", "event_class": "realisation",
+                        "terms": json.dumps({"realisation": {"vs_carrying_pct": None, "sign": 1,
+                                                             "basis": "valuation"}})}])
+    e = EV.realisation_evidence(ev, "S")
+    assert e["n"] == 1 and e["n_quantified"] == 0 and e["premiums"] == 1
+    line = EV.realisation_line(e)
+    assert "1 at a premium" in line and "unquantified" in line and "premium)" in line
