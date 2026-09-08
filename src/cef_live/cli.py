@@ -470,6 +470,13 @@ def _own_nav_history(market: str) -> pd.DataFrame:
                 "nav_value": pd.to_numeric(keep["nav_pence"], errors="coerce"),
                 "nav_unit": unit.values,
             }))
+        # The panel is the MAINTAINED store: it is re-parsed when the rules
+        # grow and its reparse replaces a wrong row. The committed legacy
+        # shards are not - Syncona's 4.96 and TRIG's 7.55 stayed in them
+        # after the panel had let them go, and the union resurrected both
+        # as own history every night. A shard contributes only the funds
+        # the panel does not cover at all.
+        panel_tickers = set(frames[0]["ticker"]) if frames else set()
         for f in sorted(Path("data").glob("uk_nav_history*.parquet")):
             try:
                 h = pd.read_parquet(f)
@@ -477,6 +484,10 @@ def _own_nav_history(market: str) -> pd.DataFrame:
                 continue
             h = h[h.get("status").eq("parsed")] if "status" in h.columns else h
             if not {"ticker", "nav_cum_pence"} <= set(h.columns):
+                continue
+            if panel_tickers:
+                h = h[~h["ticker"].astype(str).str.upper().isin(panel_tickers)]
+            if not len(h):
                 continue
             h_ccy = (h["nav_ccy"].fillna("GBX").astype(str).str.upper()
                      if "nav_ccy" in h.columns else pd.Series("GBX", index=h.index))

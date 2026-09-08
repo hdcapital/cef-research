@@ -1768,3 +1768,28 @@ def test_an_fx_converted_anchor_never_uses_the_unconverted_daily_panel_history()
     assert r["nav_unit_original"] == "CAD"
     assert pd.isna(r["z_adj"]) and r["z_status"] == "history_unit_mismatch"
     assert not r["alert_eligible"]
+
+
+def test_legacy_nav_shards_never_override_a_fund_the_panel_covers(monkeypatch, tmp_path):
+    """Syncona's 4.96 (a stray the panel had re-parsed away) and TRIG's 7.55
+    came back every night from the committed legacy shards, which are not
+    re-parsed. A shard contributes only funds the panel does not cover."""
+    import cef_live.cli as C
+    from cef_live import uk_nav_panel as UKP
+    panel = pd.DataFrame({"ticker": ["SYNC", "SYNC"], "nav_date": pd.to_datetime(["2026-03-31", "2026-06-30"]),
+                          "nav_pence": [170.63, 170.6], "nav_ccy": ["GBX", "GBX"]})
+    monkeypatch.setattr(UKP, "read_panel", lambda: panel)
+    shard = pd.DataFrame({"ticker": ["SYNC", "OTHR"], "ann_id": ["1", "2"],
+                          "ann_date": ["2025-06-19", "2026-06-01"],
+                          "nav_date": ["2025-03-31", "2026-05-31"],
+                          "nav_cum_pence": [4.96, 88.0], "status": ["parsed", "parsed"]})
+    monkeypatch.chdir(tmp_path)
+    (tmp_path / "data").mkdir()
+    shard.to_parquet(tmp_path / "data" / "uk_nav_history_s0.parquet", index=False)
+    (tmp_path / "config").mkdir()
+    pd.DataFrame({"security_id": ["SEDOL:SYNC", "SEDOL:OTHR"], "ticker": ["SYNC", "OTHR"],
+                  "status": ["verified", "verified"]}).to_csv(tmp_path / "config" / "resolved_tickers.csv", index=False)
+    own = C._own_nav_history("UK")
+    sync = own[own["security_id"] == "SEDOL:SYNC"]["nav_value"].tolist()
+    assert 4.96 not in sync and 170.63 in sync
+    assert 88.0 in own[own["security_id"] == "SEDOL:OTHR"]["nav_value"].tolist()
