@@ -49,6 +49,21 @@ jobs:
       - run: pip install -r requirements.txt boto3 anthropic pdfplumber && pip install -e .
       # the contract is enforced in code; a regression fails before any spend
       - run: python -m pytest tests/test_learning.py -q
+      # the evaluate mode needs the monthly research panel: the raw AIC
+      # archive is restored the way the nightly restores it (path list
+      # exactly as the source workflow saves it), with the S3 group as the
+      # fallback when the cache has expired
+      - name: Restore AIC raw cache (evaluate mode)
+        if: github.event.inputs.mode == 'evaluate'
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            data/raw
+            data/cache
+            data/manifest.csv
+          key: aic-raw-v1-${{ github.run_id }}
+          restore-keys: |
+            aic-raw-v1-
       - name: Restore state from S3
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -58,7 +73,8 @@ jobs:
         run: |
           python scripts/sync_state.py pull --groups uk_announcements asx_index tickers
           if [ "${{ github.event.inputs.mode }}" = "evaluate" ]; then
-            python scripts/sync_state.py pull --groups raw_aic
+            [ -d data/raw/aic ] || python scripts/sync_state.py pull --groups raw_aic
+            python -m uk_cef.cli build-entities
             python -m uk_cef.cli build-panel
           fi
       - name: Run
