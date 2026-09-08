@@ -50,7 +50,8 @@ CATALYST_CLASSES: list[tuple[str, int, re.Pattern]] = [
     # tested against a price (Phase 3a layer 3, NAV credibility). Weight 1:
     # it never alerts on its own, the fund file and the why-line read it.
     ("realisation", 1, re.compile(
-        r"\b(?:disposal|sale|realisation)\s+of\s+(?!own\s+shares|treasury)"
+        r"\b(?:disposal|sale|realisation)\s+of\s+(?!own\s+shares|treasury"
+        r"|(?:ordinary\s+|new\s+)?shares\s+(?:from|held\s+in|out\s+of)\s+treasury)"
         r"|completion\s+of\s+(?:the\s+)?(?:sale|disposal)\b|\bexit\s+from\b"
         r"|\bsells?\s+(?:its\s+)?(?:stake|interest|holding|investment)"
         r"|\bportfolio\s+(?:disposal|realisation)s?\b|\brealisation\s+of\b", re.I)),
