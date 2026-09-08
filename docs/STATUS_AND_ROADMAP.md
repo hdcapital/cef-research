@@ -257,6 +257,19 @@ Everything here has a named fix in `coverage_failures.csv`:
 > either side; own other observations; yesterday's anchor) and the nightly
 > writes `outputs/live/nav_quarantine.csv` as the parser work list. Layer 2
 > (event attribution, holder overhang) shipped with Phase 3 on 2026-09-07.
+>
+> **2026-09-08 — layer 3 shipped; the brief's delivery hardened.** A disposal,
+> sale or exit announcement is classed `realisation`; the nightly reads up to
+> 30 bodies a night for the stated premium/discount to carrying value; the
+> fund file carries `realisations` and the why-line ends with it. The brief's
+> schedule now has three cron firings per window and a gate keyed on the
+> window label that reads the branch tip's ideas.json (GitHub's cron ran up
+> to six hours late and a queued run is pinned to a stale commit - both sent
+> a duplicate once before the gate learned them). The z now needs a history
+> ending within six months, in the anchor's unit; the NAV anchor is checked
+> against the panel, the fund's own other observations and yesterday's
+> anchor, and the quarantine list drives the daily panel's reparse. Open:
+> the term extractor waits on ANTHROPIC_WORKSPACE_ID.
 
 A z says a fund is cheap against its own history, not whether it deserves
 to be. Attribution conditions the entry, in a ladder from cheap to
