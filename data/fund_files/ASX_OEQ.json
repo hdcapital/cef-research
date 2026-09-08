@@ -12,17 +12,17 @@
   "last_announcement": "2026-08-28"
  },
  "nav": {
-  "anchor": 0.0426,
-  "anchor_date": "2026-07-31",
-  "anchor_source": "asx_ann:03124107",
-  "estimate": 0.0426,
-  "basis": 0.0,
-  "staleness_days": 27.0,
-  "staleness_limit_days": 91.5,
+  "anchor": 0.428,
+  "anchor_date": "2026-08-31",
+  "anchor_source": "own_nav_history:2026-08-31",
+  "estimate": 0.435533,
+  "basis": 1.0,
+  "staleness_days": 6.0,
+  "staleness_limit_days": 93.0,
   "current": true,
   "unit": "AUD",
-  "quality_ok": false,
-  "quality_reason": "nav_jump_90%_vs_prior"
+  "quality_ok": true,
+  "quality_reason": ""
  },
  "price": {
   "price": 0.17499999701976776,
@@ -31,9 +31,9 @@
   "source": "yahoo:OEQ.AX"
  },
  "discount": {
-  "estimate": 3.107981,
-  "z": 13.2863,
-  "z_status": "computed",
+  "estimate": -0.598193,
+  "z": -0.4319,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.481502,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-08T09:37:57+00:00"
+ "updated_at": "2026-09-08T21:51:07+00:00"
 }

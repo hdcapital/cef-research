@@ -12,12 +12,12 @@
   "last_announcement": "2026-09-07"
  },
  "nav": {
-  "anchor": 520.52,
-  "anchor_date": "2026-09-04",
-  "anchor_source": "investegate:9759198",
-  "estimate": 520.52,
+  "anchor": 520.16,
+  "anchor_date": "2026-09-07",
+  "anchor_source": "investegate:9761320",
+  "estimate": 520.16,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 521.4276733398438,
+  "price": 520.0,
   "ccy": "GBp",
   "date": "2026-09-08",
   "source": "yahoo:CGT.L"
  },
  "discount": {
-  "estimate": 0.001744,
-  "z": 2.436,
+  "estimate": -0.000308,
+  "z": 2.2229,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,38 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.055,
-  "discount_only": -0.003,
+  "central": 0.0541,
+  "discount_only": -0.004,
   "g_used": 0.0377,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [
-  {
-   "date": "2026-08-25",
-   "class": "realisation",
-   "weight": 1,
-   "direction": "positive",
-   "headline": "Sale of Shares from Treasury",
-   "url": "https://www.investegate.co.uk/announcement/prn/capital-gearing-trust--cgt/sale-of-shares-from-treasury/9739782",
-   "alerted_at": null,
-   "terms": {
-    "unparsed": true
-   }
-  },
-  {
-   "date": "2026-08-14",
-   "class": "realisation",
-   "weight": 1,
-   "direction": "positive",
-   "headline": "Sale of Shares from Treasury",
-   "url": "https://www.investegate.co.uk/announcement/prn/capital-gearing-trust--cgt/sale-of-shares-from-treasury/9723679",
-   "alerted_at": null,
-   "terms": {
-    "unparsed": true
-   }
-  }
- ],
- "updated_at": "2026-09-08T09:37:58+00:00"
+ "events_90d": [],
+ "updated_at": "2026-09-08T21:51:08+00:00"
 }

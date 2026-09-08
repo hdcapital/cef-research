@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 412.6532897949219,
+  "price": 418.0,
   "ccy": "GBp",
   "date": "2026-09-08",
   "source": "yahoo:HGT.L"
  },
  "discount": {
-  "estimate": -0.222436,
-  "z": -0.9166,
+  "estimate": -0.212361,
+  "z": -0.823,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,14 +41,24 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0973,
-  "discount_only": 0.0253,
+  "central": 0.102,
+  "discount_only": 0.0299,
   "g_used": 0.0458,
   "g_source": "sector_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-09-08",
+   "class": "substantial_holder",
+   "weight": 2,
+   "direction": "positive",
+   "headline": "Holding(s) in Company & Update on Hg Shareholding",
+   "url": "https://www.investegate.co.uk/announcement/rns/hgcapital-trust--hgt/holding-s-in-company-update-on-hg-shareholding/9761183",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-08-27",
    "class": "holdings_notification",
@@ -77,5 +87,5 @@
    }
   }
  ],
- "updated_at": "2026-09-08T09:37:59+00:00"
+ "updated_at": "2026-09-08T21:51:08+00:00"
 }

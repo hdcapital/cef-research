@@ -25,29 +25,48 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 137.681396484375,
+  "price": 138.60000610351562,
   "ccy": "GBp",
   "date": "2026-09-08",
   "source": "yahoo:INPP.L"
  },
  "discount": {
-  "estimate": -0.091212,
-  "z": 1.0644,
-  "z_status": "within_error_band",
+  "estimate": -0.085148,
+  "z": 1.176,
+  "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
   "mu_36m": -0.148999,
   "sigma_36m": 0.054293,
-  "alert_eligible": false
+  "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0512,
-  "discount_only": -0.0003,
+  "central": 0.0535,
+  "discount_only": 0.0019,
   "g_used": 0.0515,
   "g_source": "market_median"
  },
  "holder_churn": null,
- "realisations": null,
+ "realisations": {
+  "n": 1,
+  "n_quantified": 1,
+  "avg_vs_carrying_pct": 0.0,
+  "min_vs_carrying_pct": 0.0,
+  "max_vs_carrying_pct": 0.0,
+  "premiums": 0,
+  "discounts": 0,
+  "in_line": 1,
+  "last": {
+   "date": "2026-08-19",
+   "vs_carrying_pct": 0.0,
+   "sign": 0,
+   "at_least": true,
+   "basis": "valuation",
+   "headline": "Disposal of nine UK PPP projects at a premium",
+   "url": "https://www.investegate.co.uk/announcement/rns/international-public-partnerships-ltd---inpp/disposal-of-nine-uk-ppp-projects-at-a-premium/9728502"
+  },
+  "window_days": 365
+ },
  "events_90d": [
   {
    "date": "2026-08-19",
@@ -58,7 +77,13 @@
    "url": "https://www.investegate.co.uk/announcement/rns/international-public-partnerships-ltd---inpp/disposal-of-nine-uk-ppp-projects-at-a-premium/9728502",
    "alerted_at": null,
    "terms": {
-    "unparsed": true
+    "realisation": {
+     "vs_carrying_pct": 0.0,
+     "sign": 0,
+     "at_least": true,
+     "basis": "valuation",
+     "quote": "million, approximately 17% of its portfolio, with all sales at or above valuation, while reinvesting approximately \u00a3480 m"
+    }
    }
   },
   {
@@ -83,5 +108,5 @@
    }
   }
  ],
- "updated_at": "2026-09-08T09:37:59+00:00"
+ "updated_at": "2026-09-08T21:51:08+00:00"
 }

@@ -25,29 +25,48 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 70.06999969482422,
+  "price": 70.4000015258789,
   "ccy": "GBp",
   "date": "2026-09-08",
   "source": "yahoo:ENRG.L"
  },
  "discount": {
-  "estimate": -0.291076,
-  "z": 0.3979,
-  "z_status": "within_error_band",
+  "estimate": -0.287738,
+  "z": 0.4378,
+  "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
   "mu_36m": -0.324419,
   "sigma_36m": 0.083795,
-  "alert_eligible": false
+  "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0515,
-  "discount_only": 0.0,
+  "central": 0.0543,
+  "discount_only": 0.0026,
   "g_used": 0.0515,
   "g_source": "market_median"
  },
  "holder_churn": null,
- "realisations": null,
+ "realisations": {
+  "n": 2,
+  "n_quantified": 2,
+  "avg_vs_carrying_pct": -1.5,
+  "min_vs_carrying_pct": -8.0,
+  "max_vs_carrying_pct": 5.0,
+  "premiums": 1,
+  "discounts": 1,
+  "in_line": 0,
+  "last": {
+   "date": "2026-09-02",
+   "vs_carrying_pct": -8.0,
+   "sign": -1,
+   "at_least": false,
+   "basis": "net asset value",
+   "headline": "Disposal of Six Brazilian Solar PV Assets",
+   "url": "https://www.investegate.co.uk/announcement/rns/vh-global-energy-infrastructure-plc--enrg/disposal-of-six-brazilian-solar-pv-assets-/9750412"
+  },
+  "window_days": 365
+ },
  "events_90d": [
   {
    "date": "2026-09-02",
@@ -58,7 +77,12 @@
    "url": "https://www.investegate.co.uk/announcement/rns/vh-global-energy-infrastructure-plc--enrg/disposal-of-six-brazilian-solar-pv-assets-/9750412",
    "alerted_at": null,
    "terms": {
-    "unparsed": true
+    "realisation": {
+     "vs_carrying_pct": -8.0,
+     "sign": -1,
+     "basis": "net asset value",
+     "quote": "Wp for at least R$38.0 million, approximately \u00a35.4 million, representing 92% of their net asset value as of March 31, 2026. The transaction i"
+    }
    }
   },
   {
@@ -70,9 +94,14 @@
    "url": "https://www.investegate.co.uk/announcement/rns/vh-global-energy-infrastructure-plc--enrg/disposal-of-us-liquid-storage-assets/9747212",
    "alerted_at": null,
    "terms": {
-    "unparsed": true
+    "realisation": {
+     "vs_carrying_pct": 5.0,
+     "sign": 1,
+     "basis": "net asset value",
+     "quote": "of the company's asset realization strategy, is expected to deliver approximately 105% of the asset's net asset value as of December 31, 2024, and has genera"
+    }
    }
   }
  ],
- "updated_at": "2026-09-08T09:37:59+00:00"
+ "updated_at": "2026-09-08T21:51:08+00:00"
 }

@@ -15,8 +15,8 @@
   "anchor": 64.95,
   "anchor_date": "2020-10-31",
   "anchor_source": "aggregator_panel:2020-10",
-  "estimate": 73.000295,
-  "basis": 1.0,
+  "estimate": 64.95,
+  "basis": 3.0,
   "staleness_days": 1526.0,
   "staleness_limit_days": 45.0,
   "current": false,
@@ -31,8 +31,8 @@
   "source": "aggregator_panel"
  },
  "discount": {
-  "estimate": -0.130141,
-  "z": 0.5774,
+  "estimate": -0.022325,
+  "z": 2.9247,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.06,
-  "discount_only": -0.003,
+  "central": 0.0592,
+  "discount_only": -0.0038,
   "g_used": 0.0515,
   "g_source": "market_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-08T09:37:59+00:00"
+ "updated_at": "2026-09-08T21:51:08+00:00"
 }

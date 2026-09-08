@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 44.29999923706055,
+  "price": 44.0,
   "ccy": "GBp",
   "date": "2026-09-08",
   "source": "yahoo:SREI.L"
  },
  "discount": {
-  "estimate": -0.267769,
-  "z": -0.8672,
+  "estimate": -0.272727,
+  "z": -0.934,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,13 +41,35 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0729,
-  "discount_only": 0.0204,
+  "central": 0.0643,
+  "discount_only": 0.0122,
   "g_used": 0.0515,
   "g_source": "market_median"
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [],
- "updated_at": "2026-09-08T09:37:59+00:00"
+ "events_90d": [
+  {
+   "date": "2026-09-08",
+   "class": "scheme_merger_rollover",
+   "weight": 5,
+   "direction": "positive",
+   "headline": "Court Sanction of Scheme of Arrangement",
+   "url": "https://www.investegate.co.uk/announcement/rns/schroder-real-estate-investment-trust-ltd--srei/court-sanction-of-scheme-of-arrangement/9761150",
+   "alerted_at": null,
+   "terms": {
+    "llm": "rejected",
+    "model": "claude-haiku-4-5",
+    "prompt_version": "v1:8e1a87976ca0",
+    "stop_reason": "end_turn",
+    "input_tokens": 8259,
+    "output_tokens": 374,
+    "cache_read": 0,
+    "rejected": [
+     "computed_signal_field:expected_return_pct_of_nav"
+    ]
+   }
+  }
+ ],
+ "updated_at": "2026-09-08T21:51:08+00:00"
 }
