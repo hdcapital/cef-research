@@ -52,12 +52,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - id: check
+        # A queued run is pinned to the commit it was CREATED on, not the
+        # branch tip when it finally starts: the 23:10 firing of 2026-09-07
+        # arrived at 01:07, waited behind the manual run that sent the
+        # brief at 01:12, then read the ideas.json of its own stale commit
+        # and ran again. The gate reads the branch tip's ideas.json.
         run: |
+          git fetch --depth=1 origin "${GITHUB_REF_NAME}"
+          git show "FETCH_HEAD:reports/build/ideas.json" > /tmp/ideas_tip.json \
+            || cp reports/build/ideas.json /tmp/ideas_tip.json || true
           PYTHONPATH=src python - <<'PY'
           import json, os, pathlib
           from cef_live.brief_window import already_sent
           last = None
-          p = pathlib.Path("reports/build/ideas.json")
+          p = pathlib.Path("/tmp/ideas_tip.json")
           if p.exists():
               try:
                   last = json.load(open(p))

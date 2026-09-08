@@ -48,3 +48,9 @@ def test_the_gate_and_the_scan_share_one_rule():
     assert "label_for(" in inspect.getsource(cli.ideas)
     wf = open(".github/workflows/ideas.yml").read()
     assert "from cef_live.brief_window import already_sent" in wf
+
+
+def test_the_gate_reads_the_branch_tip_not_the_pinned_checkout():
+    wf = open(".github/workflows/ideas.yml").read()
+    assert 'git show "FETCH_HEAD:reports/build/ideas.json"' in wf
+    assert 'pathlib.Path("/tmp/ideas_tip.json")' in wf

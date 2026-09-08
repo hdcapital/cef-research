@@ -103,7 +103,7 @@ def stage_nav(universe: pd.DataFrame, bucket: str, *, deadline_min: float,
             # a stray own observation (TRIG's 7.55, Syncona's 4.96) is a
             # row the OLD rules answered wrongly, stored `parsed`, and the
             # quality report's thresholds do not always reach it
-            quarantined = quarantined_tickers(universe)
+            quarantined = quarantined_tickers(universe, QUARANTINE_CSV)
             if quarantined:
                 retry |= NAV.ann_ids_for(quarantined)
                 stats["reparse_quarantined_funds"] = sorted(quarantined)
