@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T01:11:09+00:00",
+  "generated_at": "2026-09-08T08:33:01+00:00",
   "target_pct": 90.0,
   "markets": {
     "AU": {
@@ -12,17 +12,17 @@
       "signal_complete_pct": 90.1
     },
     "UK": {
-      "denominator_live_research_eligible": 216,
+      "denominator_live_research_eligible": 215,
       "nav_ok": 204,
-      "z_ok": 198,
-      "growth_ok": 216,
-      "irr_ok": 203,
+      "z_ok": 197,
+      "growth_ok": 215,
+      "irr_ok": 202,
       "signal_complete": 192,
-      "signal_complete_pct": 88.9
+      "signal_complete_pct": 89.3
     }
   },
   "excluded_not_trading": {
-    "count": 5,
+    "count": 6,
     "rule": "no price bar within 14 days",
     "funds": [
       {
@@ -46,6 +46,11 @@
         "market": "UK"
       },
       {
+        "security_id": "SEDOL:BJVKW83",
+        "name": "JPMorgan Global Core Real Assets",
+        "market": "UK"
+      },
+      {
         "security_id": "SEDOL:345035",
         "name": "JPMorgan India Growth & Income",
         "market": "UK"
@@ -53,12 +58,12 @@
     ]
   },
   "total": {
-    "denominator": 307,
+    "denominator": 306,
     "signal_complete": 274,
-    "signal_complete_pct": 89.3,
+    "signal_complete_pct": 89.5,
     "top_blockers": {
-      "nav": 10,
       "z:no_discount_history": 10,
+      "nav": 9,
       "nav+z:no_discount_history": 7,
       "z:history_unit_mismatch": 2,
       "z:insufficient_history_4m": 1,
