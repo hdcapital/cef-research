@@ -6,10 +6,10 @@
  "sector": "UK Equity Income",
  "liveness": {
   "status": "live",
-  "reason": "nav_4d_old",
+  "reason": "nav_1d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-09-04",
-  "last_announcement": "2026-09-07"
+  "last_nav": "2026-09-07",
+  "last_announcement": "2026-09-08"
  },
  "nav": {
   "anchor": 120.34,
@@ -27,7 +27,7 @@
  "price": {
   "price": 117.0,
   "ccy": "GBp",
-  "date": "2026-09-08",
+  "date": "2026-09-07",
   "source": "yahoo:CHI.L"
  },
  "discount": {
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1189,
-  "discount_only": -0.0028,
+  "central": 0.1151,
+  "discount_only": -0.0064,
   "g_used": 0.0806,
   "g_source": "sector_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-08T21:51:07+00:00"
+ "updated_at": "2026-09-08T23:45:42+00:00"
 }

@@ -5,8 +5,8 @@
     "AU": 172,
     "UK": 944
   },
-  "live": 359,
-  "live_stale_nav": 33,
+  "live": 360,
+  "live_stale_nav": 32,
   "status_before_evidence": {
     "delisted": 731,
     "live": 376,
@@ -17,9 +17,9 @@
   "persisted_to": "data/universe/registry.parquet",
   "live_status_source": {
     "corroborated_delisting": 654,
-    "own_nav_announcement": 348,
+    "own_nav_announcement": 349,
     "own_delisting_notice": 64,
-    "own_periodic_report": 31,
+    "own_periodic_report": 30,
     "registry_deferral_no_own_filings": 11,
     "own_announcement_only": 5,
     "own_nav_announcement_stale": 2,
@@ -29,10 +29,10 @@
   "aggregator_said_live_evidence_says_not": 6,
   "by_liveness_reason": {
     "aggregator_delisted_and_own_filings_silent_alwaysd": 594,
-    "nav": 350,
+    "nav": 351,
     "own_delisting_notice": 64,
     "aggregator_delisted_and_own_filings_silent": 60,
-    "periodic_report": 31,
+    "periodic_report": 30,
     "no_own_filings_held_deferring_to_registry": 11,
     "filings_but_no_nav_or_report": 5,
     "registry_listed": 1
@@ -40,11 +40,11 @@
   "delisted": 64,
   "priced_by_source": 638,
   "announcements_only": 478,
-  "live_announcements_only": 94,
+  "live_announcements_only": 95,
   "offshore": 195,
   "vct": 228,
   "live_by_domicile": {
-    "GB": 201,
+    "GB": 202,
     "null": 97,
     "GG": 32,
     "JE": 14,
@@ -154,20 +154,20 @@
       "months_listed": 235
     },
     {
-      "security_id": "SEDOL:B9MRHZ5",
-      "name": "CVC Income & Growth",
-      "sector": "Debt - Loans & Bonds",
-      "domicile": "JE",
-      "isin": "JE00B9MRHZ51",
-      "first_seen": "2013-06",
-      "months_listed": 158
-    },
-    {
       "security_id": "SEDOL:B9G79F5",
       "name": "CVC Income & Growth",
       "sector": "Debt - Loans & Bonds",
       "domicile": "JE",
       "isin": "JE00B9G79F59",
+      "first_seen": "2013-06",
+      "months_listed": 158
+    },
+    {
+      "security_id": "SEDOL:B9MRHZ5",
+      "name": "CVC Income & Growth",
+      "sector": "Debt - Loans & Bonds",
+      "domicile": "JE",
+      "isin": "JE00B9MRHZ51",
       "first_seen": "2013-06",
       "months_listed": 158
     },
@@ -244,15 +244,6 @@
       "months_listed": 63
     },
     {
-      "security_id": "SEDOL:BF0D1M2",
-      "name": "EJF Investments",
-      "sector": "Debt - Structured Finance",
-      "domicile": "JE",
-      "isin": "JE00BF0D1M25",
-      "first_seen": "2017-04",
-      "months_listed": 112
-    },
-    {
       "security_id": "SEDOL:BK1WV90",
       "name": "EJF Investments",
       "sector": "Debt - Structured Finance",
@@ -260,6 +251,15 @@
       "isin": "JE00BRZSNL95",
       "first_seen": "2020-06",
       "months_listed": 74
+    },
+    {
+      "security_id": "SEDOL:BF0D1M2",
+      "name": "EJF Investments",
+      "sector": "Debt - Structured Finance",
+      "domicile": "JE",
+      "isin": "JE00BF0D1M25",
+      "first_seen": "2017-04",
+      "months_listed": 112
     },
     {
       "security_id": "SEDOL:BDG12N4",
@@ -442,15 +442,6 @@
       "months_listed": 7
     },
     {
-      "security_id": "SEDOL:BD0FRW6",
-      "name": "NB Private Equity Partners",
-      "sector": "Private Equity",
-      "domicile": "GG",
-      "isin": "GG00BD0FRW63",
-      "first_seen": "2016-09",
-      "months_listed": 72
-    },
-    {
       "security_id": "SEDOL:BD96PR1",
       "name": "NB Private Equity Partners",
       "sector": "Private Equity",
@@ -458,6 +449,15 @@
       "isin": "GG00BD96PR19",
       "first_seen": "2018-05",
       "months_listed": 77
+    },
+    {
+      "security_id": "SEDOL:BD0FRW6",
+      "name": "NB Private Equity Partners",
+      "sector": "Private Equity",
+      "domicile": "GG",
+      "isin": "GG00BD0FRW63",
+      "first_seen": "2016-09",
+      "months_listed": 72
     },
     {
       "security_id": "SEDOL:B1ZBD49",
@@ -503,6 +503,15 @@
       "isin": "GB0006450703",
       "first_seen": "2007-01",
       "months_listed": 235
+    },
+    {
+      "security_id": "SEDOL:BNGFHX1",
+      "name": "Octopus Future Generations VCT",
+      "sector": "VCT",
+      "domicile": "GB",
+      "isin": "GB00BNGFHX14",
+      "first_seen": "2022-05",
+      "months_listed": 50
     },
     {
       "security_id": "SEDOL:BJM0293",
@@ -902,7 +911,7 @@
     }
   ],
   "live_announcements_only_by_sector": {
-    "VCT": 19,
+    "VCT": 20,
     "Renewable Energy Infrastructure": 8,
     "Private Equity": 7,
     "Infrastructure": 6,

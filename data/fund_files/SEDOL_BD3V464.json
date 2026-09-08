@@ -6,10 +6,10 @@
  "sector": "Infrastructure Securities",
  "liveness": {
   "status": "live",
-  "reason": "nav_5d_old",
+  "reason": "nav_4d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-09-03",
-  "last_announcement": "2026-09-07"
+  "last_nav": "2026-09-04",
+  "last_announcement": "2026-09-08"
  },
  "nav": {
   "anchor": 257.42,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 259.0,
+  "price": 255.0,
   "ccy": "GBp",
-  "date": "2026-09-08",
+  "date": "2026-09-07",
   "source": "yahoo:EGL.L"
  },
  "discount": {
-  "estimate": 0.006138,
-  "z": 2.3284,
+  "estimate": -0.009401,
+  "z": 1.9914,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0574,
-  "discount_only": -0.0187,
+  "central": 0.0587,
+  "discount_only": -0.0174,
   "g_used": 0.0775,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-08T21:51:08+00:00"
+ "updated_at": "2026-09-08T23:45:42+00:00"
 }
