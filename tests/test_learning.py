@@ -149,26 +149,68 @@ def _rec(**over):
 
 
 def test_contract_accepts_a_quoted_record():
-    assert X.guard(_rec(), DOC) == []
+    problems, feature_problems, matches = X.guard(_rec(), DOC)
+    assert problems == [] and feature_problems == {}
+    assert matches == {"discount_stance": "exact", "buyback_commitment": "exact"}
 
 
 def test_contract_needs_a_quote_for_every_non_silent_value():
     r = _rec(features={**_rec()["features"], "nav_marking": "independent_valuation"})
-    assert X.guard(r, DOC) == ["no_quote:nav_marking"]
+    assert X.guard(r, DOC)[1] == {"nav_marking": "no_quote"}
     r["quotes"]["nav_marking"] = "An independent valuer values the portfolio each quarter."
-    assert X.guard(r, DOC) == []
+    assert X.guard(r, DOC)[1] == {}
 
 
-def test_contract_rejects_a_quote_not_in_the_document():
+def test_an_unquotable_feature_lapses_to_silent_and_the_rest_survives():
     r = _rec(quotes={**_rec()["quotes"], "discount_stance": "The Board is delighted."})
-    assert X.guard(r, DOC) == ["quote_not_in_document:discount_stance"]
+    problems, feature_problems, _ = X.guard(r, DOC)
+    assert problems == [] and feature_problems == {"discount_stance": "quote_not_in_document"}
+    kept = X.apply_feature_problems(r, feature_problems)
+    assert kept["features"]["discount_stance"] == "not_mentioned"
+    assert kept["features"]["buyback_commitment"] == "specific_target"
+    assert "discount_stance" not in kept["quotes"]
 
 
 def test_contract_rejects_vocabulary_drift_and_computed_signals():
-    assert "enum:winddown_path='thinking about it'" in X.guard(
-        _rec(features={**_rec()["features"], "winddown_path": "thinking about it"}), DOC)
-    assert "computed_signal_field:discount_z" in X.guard(_rec(discount_z=-2.1), DOC)
-    assert any(p.startswith("confidence_below_floor") for p in X.guard(_rec(confidence=0.2), DOC))
+    assert X.guard(_rec(features={**_rec()["features"], "winddown_path": "thinking about it"}),
+                   DOC)[1] == {"winddown_path": "enum:'thinking about it'"}
+    assert "computed_signal_field:discount_z" in X.guard(_rec(discount_z=-2.1), DOC)[0]
+    assert any(p.startswith("confidence_below_floor") for p in X.guard(_rec(confidence=0.2), DOC)[0])
+
+
+def test_quote_matching_survives_pdf_layout_but_not_a_changed_number():
+    pdf = ("The Board acknowledges the persistent dis-\ncount to net asset\n--- PAGE 2 ---\n"
+           "value, and will buy back shares at discounts wider than 10%.")
+    assert X.quote_match("The Board acknowledges the persistent discount to net asset value", pdf) == "exact"
+    assert X.quote_match("The Board acknowledges the persistent discount to net asset value, and will "
+                         "buy back shares at discounts wider than 10 per cent", pdf) == "fuzzy"
+    assert X.quote_match("will buy back shares at discounts wider than 15%", pdf) is None
+    assert X.quote_match("Board acknowledges", pdf) == "exact"
+    assert X.quote_match("the persistent Board wider buy", pdf) is None
+
+
+def test_rejected_documents_are_read_again_after_a_guard_change():
+    class Client:
+        class messages:  # noqa: N801
+            @staticmethod
+            def create(**kw):
+                class R:
+                    stop_reason = "end_turn"
+                    usage = None
+                    content = [type("B", (), {"type": "text", "text": "not json"})()]
+                return R()
+    docs = pd.DataFrame([{"security_id": "NAME:1", "market": "UK", "ticker": "T", "ann_id": "1",
+                          "date": "2020-01-01", "obs_month": "2020-01", "end_month": "2020-06",
+                          "headline": "Final Results", "family": "narrative", "url": ""}])
+    done: set = set()
+    rows, rejects, stats = X.run(docs, budget=10, client=Client(), done=done, text_fn=lambda d: DOC * 3)
+    assert stats["rejected"] == 1 and rejects[0]["reasons"] == "unparseable"
+    assert done == {f"NAME:1|1|{X.prompt_version()}|{X.GUARD_VERSION}"}
+    _, _, again = X.run(docs, budget=10, client=Client(), done=done, text_fn=lambda d: DOC * 3)
+    assert again["skipped_done"] == 1
+    other = {k.replace(X.GUARD_VERSION, "g0") for k in done}
+    _, _, reread = X.run(docs, budget=10, client=Client(), done=other, text_fn=lambda d: DOC * 3)
+    assert reread["read"] == 1
 
 
 def test_run_records_rejections_and_aborts_on_repeated_errors():
