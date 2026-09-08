@@ -62,7 +62,7 @@ jobs:
           # the values in the log, the script prints only a key's prefix
           CLAUDE_SECRET_KEY: ${{ secrets.CLAUDE_SECRET_KEY }}
           ANTHROPIC_API_KEY_SECRET: ${{ secrets.ANTHROPIC_API_KEY }}
-          ANTHROPIC_WORKSPACE_ID: ${{ vars.ANTHROPIC_WORKSPACE_ID || secrets.ANTHROPIC_WORKSPACE_ID }}
+          ANTHROPIC_WORKSPACE_ID: ${{ vars.ANTHROPIC_WORKSPACE_ID || secrets.ANTHROPIC_WORKSPACE_ID || 'wrkspc_01NVjA6YTNSHqpQkpXxPfMEJ' }}
           CHEAP_MODEL: ${{ vars.CHEAP_MODEL }}
         run: |
           for kv in $(echo "${{ github.event.inputs.extra_env }}" | tr ";" " "); do export "$kv"; done
