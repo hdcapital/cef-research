@@ -132,3 +132,15 @@ attribution:
   # funds whose daily bars are fetched for the volume signature per brief
   lookback_days: 21
   bars_budget: 60
+
+learning:
+  # Phase 3b, the learning layer. The announcement window before each
+  # known ending, in months; the documents read per fund from that window
+  # (newest first); documents the extractor reads per run and its wall-
+  # clock bound; how long a stated stance persists on the monthly panel
+  # before lapsing to silent.
+  window_months_before: 18
+  docs_per_fund_cap: 40
+  docs_per_run: 200
+  deadline_min: 240
+  persist_months: 6

@@ -1,0 +1,100 @@
+name: learning
+
+# Phase 3b, the learning layer. Dispatch-only: the free modes (episodes,
+# windows) read what the repository and the state groups already hold; the
+# extract mode spends under config/params.yaml learning.* and the repo's
+# model variables; evaluate needs the monthly research panel.
+#
+# Skips cleanly when ANTHROPIC_API_KEY is absent.
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "episodes | windows | extract | evaluate"
+        default: "windows"
+      limit:
+        description: "documents to read (extract mode; 0 = learning.docs_per_run)"
+        default: "0"
+      market:
+        description: "UK | AU | (blank = both)"
+        default: ""
+      shards:
+        description: "extract shards (1-4)"
+        default: "1"
+      tier:
+        description: "cheap | expensive"
+        default: "cheap"
+
+permissions:
+  contents: write
+
+jobs:
+  learn:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: ${{ github.event.inputs.shards == '4' && fromJSON('[0,1,2,3]') || github.event.inputs.shards == '2' && fromJSON('[0,1]') || fromJSON('[0]') }}
+    concurrency:
+      group: learning-${{ github.ref }}-${{ matrix.shard }}
+      cancel-in-progress: false
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt boto3 anthropic pdfplumber && pip install -e .
+      # the contract is enforced in code; a regression fails before any spend
+      - run: python -m pytest tests/test_learning.py -q
+      - name: Restore state from S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+        run: |
+          python scripts/sync_state.py pull --groups uk_announcements asx_index tickers
+          if [ "${{ github.event.inputs.mode }}" = "evaluate" ]; then
+            python scripts/sync_state.py pull --groups raw_aic
+            python -m uk_cef.cli build-panel
+          fi
+      - name: Run
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+          ANTHROPIC_API_KEY: ${{ secrets.CLAUDE_SECRET_KEY || secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_WORKSPACE_ID: ${{ vars.ANTHROPIC_WORKSPACE_ID || secrets.ANTHROPIC_WORKSPACE_ID || 'wrkspc_01NVjA6YTNSHqpQkpXxPfMEJ' }}
+          LEARNING_MODEL: ${{ github.event.inputs.tier == 'expensive' && vars.EXPENSIVE_MODEL || vars.CHEAP_MODEL }}
+          CHEAP_MODEL: ${{ vars.CHEAP_MODEL }}
+          SHARD_INDEX: ${{ matrix.shard }}
+          SHARD_COUNT: ${{ github.event.inputs.shards || '1' }}
+        run: |
+          python -m learning.runner "${{ github.event.inputs.mode || 'windows' }}" \
+            --limit "${{ github.event.inputs.limit || '0' }}" \
+            --market "${{ github.event.inputs.market }}"
+      - name: Commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for f in data/learning/episodes.parquet data/learning/episodes.csv \
+                   data/learning/window_docs.parquet data/learning/headline_features.parquet \
+                   data/learning/features_*.parquet data/learning/rejects_*.parquet \
+                   outputs/learning/anticipation.csv outputs/learning/cheap_cohort_returns.csv \
+                   reports/build/learning_status.json; do
+            [ -f "$f" ] && git add -f "$f"
+          done
+          if git diff --cached --quiet; then
+            echo "no changes"
+          else
+            git commit -m "CI: learning layer ${{ github.event.inputs.mode || 'windows' }} ($(date -u +%Y-%m-%dT%H:%MZ))"
+            for i in 1 2 3 4 5 6; do
+              git pull --rebase --autostash -X theirs origin "${GITHUB_REF_NAME}" || true
+              if git push origin "HEAD:${GITHUB_REF_NAME}"; then break; fi
+              sleep $((RANDOM % 15 + 5))
+            done
+          fi

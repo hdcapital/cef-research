@@ -4,6 +4,21 @@ Every change to `config/params.yaml` gets a dated entry here, committed in
 the same commit as the change, with a rationale. Parameters are never
 tuned against live outcomes.
 
+## 2026-09-08 — Phase 3b: the learning layer's window and budgets
+`learning.window_months_before` = 18, `docs_per_fund_cap` = 40,
+`docs_per_run` = 200, `deadline_min` = 240, `persist_months` = 6. The
+resolution-episode table (716 known endings: 664 UK from the panel's
+terminal classification, 52 AU from own delisting notices; 386 value-
+realising) is the label set; the extractor reads the corporate, meeting
+and narrative announcements in the 18 months before each ending, at most
+40 per fund newest first, 200 a run, for ten pre-specified enum features
+with verbatim quotes (config/prompts/resolution_features_v1.md). On the
+monthly panel a stated stance persists six months, then lapses to silent -
+long enough to span the half-yearly reporting gap, short enough that a
+2019 strategic review does not label 2021. None of these were chosen
+against outcomes; the anticipation test (outputs/learning/anticipation.csv)
+is where outcomes are first looked at, on the 2022+ holdout separately.
+
 ## 2026-09-07 — Foreign-currency NAVs restated into pence in the UK daily panel
 The daily discount panel (uk_daily, `uk_discount.build`) divided a pence
 price by a NAV the fund published in dollars, euros or Canadian dollars -

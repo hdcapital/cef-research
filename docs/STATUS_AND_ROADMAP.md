@@ -308,6 +308,29 @@ benefits immediately, layer 3 rides Phase 3's rule work, layer 4 is Phase
 
 ### Phase 3b — The learning layer: mine the dead funds (after Phase 3)
 
+> **2026-09-08 — the substrate shipped (src/learning).** `episodes` builds
+> the resolution table from the panel's terminal classification and the
+> registry's own-notice delistings (716 endings, 386 value-realising, 418
+> with a ticker); `labels` attaches resolved-within-6/12/18m to any
+> (security_id, obs_month) frame; `windows` selects the corporate, meeting
+> and narrative announcements in the 18 months before each ending (AU from
+> the committed index: 687 documents over 52 funds; UK from the Investegate
+> listing cache on the runner) and derives point-in-time headline features
+> that need no model (buyback executions, holder filings, months since a
+> strategic review or continuation vote, a wind-up headline seen);
+> `extract` reads those documents for ten fixed enum features under the
+> ASX extraction's contract (verbatim quote per non-silent value, no
+> computed-signal keys, controlled vocabulary, confidence floor), AU from
+> the archived PDFs, UK fetched once and archived under uk/announcements/;
+> `evaluate` carries features to the monthly panel point-in-time and runs
+> the anticipation test (resolution-rate lift per value against the base
+> rate, development vs 2022+ holdout; next-month return on the cheap cohort
+> with vs without). Workflow `learning.yml` (dispatch-only; modes episodes,
+> windows, extract, evaluate). Open: the UK corpus holds NAV announcement
+> bodies only, so UK window documents are fetched on first read (1.5s
+> throttle; ~365 UK episodes with a ticker x up to 40 documents); the first
+> extraction run and the first evaluation are the next steps.
+
 The corpus is the moat: ~750k UK announcements plus the ASX archive,
 *including every gone fund*, aligned with point-in-time prices, NAVs and
 known terminal outcomes. Almost nobody holds a survivorship-free text
