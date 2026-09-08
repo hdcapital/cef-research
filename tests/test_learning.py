@@ -222,3 +222,15 @@ def test_anticipation_reports_lift_against_the_base_rate():
     dev = ant[(ant["period"] == "development") & (ant["value"] == "strategic_review")].iloc[0]
     assert dev["rate"] == 1.0 and dev["lift"] > 1 and dev["z_vs_rest"] > 3
     assert {"development", "holdout_2022+", "all"} == set(ant["period"])
+
+
+def test_listing_coverage_explains_an_empty_window(tmp_path):
+    ep = pd.DataFrame([
+        {"security_id": "NAME:a|ordinary share", "market": "UK", "ticker": "AAA", "end_month": "2020-12"},
+        {"security_id": "NAME:old|ordinary share", "market": "UK", "ticker": "AAA", "end_month": "2010-06"},
+        {"security_id": "NAME:none|ordinary share", "market": "UK", "ticker": "NOPE", "end_month": "2020-12"}])
+    cov = W.listing_coverage(ep, before=18, listings_dir=_listing(tmp_path),
+                             au=pd.DataFrame()).set_index("security_id")
+    assert cov.loc["NAME:a|ordinary share", "reaches_window"] and cov.loc["NAME:a|ordinary share", "window_rows"] == 8
+    assert not cov.loc["NAME:old|ordinary share", "reaches_window"]     # listing starts after the ending
+    assert cov.loc["NAME:none|ordinary share", "listing_rows"] == 0

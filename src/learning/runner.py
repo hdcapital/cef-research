@@ -78,7 +78,18 @@ def mode_windows() -> int:
     E.OUT_DIR.mkdir(parents=True, exist_ok=True)
     docs.to_parquet(E.OUT_DIR / "window_docs.parquet", index=False)
     hf.to_parquet(E.OUT_DIR / "headline_features.parquet", index=False)
+    cov = W.listing_coverage(ep, before=int(prm.get("window_months_before", 18)))
+    cov.to_csv(E.OUT_DIR / "window_coverage.csv", index=False)
+    cov_note = {}
+    if len(cov):
+        for mkt, g in cov.groupby("market"):
+            cov_note[mkt] = {
+                "episodes_with_ticker": int(len(g)),
+                "listing_present": int((g["listing_rows"] > 0).sum()),
+                "listing_reaches_window": int(g["reaches_window"].sum()),
+                "window_has_rows": int((g["window_rows"] > 0).sum())}
     _status("windows", {
+        "listing_coverage": cov_note,
         "documents": int(len(docs)), "funds_with_documents": int(docs["security_id"].nunique()),
         "by_market": docs["market"].value_counts().to_dict() if len(docs) else {},
         "by_family": docs["family"].value_counts().to_dict() if len(docs) else {},

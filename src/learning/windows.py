@@ -194,3 +194,36 @@ def _since(upto: pd.DataFrame, col: str, m: str):
         return None
     first = pd.Period(hit["month"].min(), freq="M")
     return int((pd.Period(m, freq="M") - first).n)
+
+
+def listing_coverage(episodes: pd.DataFrame, before: int = 18,
+                     listings_dir: Path = UK_LISTINGS,
+                     au: pd.DataFrame | None = None) -> pd.DataFrame:
+    """Per episode with a ticker: does a headline index exist, how far does
+    it reach, and does it reach the window? The reason a fund's window is
+    empty must be known - no listing, a listing that starts after the
+    ending, or a listing with nothing to read - before the extractor's
+    silence is read as the fund's."""
+    if au is None:
+        au = au_index()
+    out = []
+    for ep in episodes.itertuples(index=False):
+        if not isinstance(ep.ticker, str) or not ep.ticker:
+            continue
+        rows = (au[au["ticker"].eq(ep.ticker)] if (ep.market == "AU" and len(au))
+                else uk_listing(ep.ticker, listings_dir) if ep.market != "AU"
+                else pd.DataFrame())
+        start = str(pd.Period(ep.end_month, freq="M") - before)
+        rec = {"security_id": ep.security_id, "market": ep.market, "ticker": ep.ticker,
+               "end_month": ep.end_month, "window_start": start,
+               "listing_rows": int(len(rows)), "listing_first": None, "listing_last": None,
+               "reaches_window": False, "window_rows": 0}
+        if len(rows):
+            d = rows["date"].fillna("")
+            d = d[d.str.match(r"\d{4}-\d{2}")]
+            if len(d):
+                rec["listing_first"], rec["listing_last"] = d.min()[:10], d.max()[:10]
+                rec["reaches_window"] = d.min()[:7] <= ep.end_month
+                rec["window_rows"] = int(((d.str[:7] >= start) & (d.str[:7] <= ep.end_month)).sum())
+        out.append(rec)
+    return pd.DataFrame(out)
