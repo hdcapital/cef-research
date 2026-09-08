@@ -6,7 +6,7 @@
  "sector": "India / Indian Subcontinent",
  "liveness": {
   "status": "live",
-  "reason": "nav_4d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-03",
   "last_announcement": "2026-09-07"
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9759129",
   "estimate": 807.25,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 2.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 726.0,
+  "price": 726.8800048828125,
   "ccy": "GBp",
-  "date": "2026-09-04",
+  "date": "2026-09-08",
   "source": "yahoo:ANII.L"
  },
  "discount": {
-  "estimate": -0.10065,
-  "z": 0.9973,
+  "estimate": -0.09956,
+  "z": 1.0228,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,12 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0688,
-  "discount_only": -0.0157,
+  "central": 0.0682,
+  "discount_only": -0.0163,
   "g_used": 0.0757,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
+ "realisations": null,
  "events_90d": [
   {
    "date": "2026-08-20",
@@ -57,10 +58,18 @@
    "url": "https://www.investegate.co.uk/announcement/rns/aberdeen-new-india-investment-trust--anii/conditional-tender-offer-performance-update/9731980",
    "alerted_at": "2026-09-07T07:45:12+00:00",
    "terms": {
-    "llm": "error",
-    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'This API key is not scoped to a workspace, so this request must include the anthropic-workspace-id header wit"
+    "llm": "rejected",
+    "model": "claude-haiku-4-5",
+    "prompt_version": "v1:8e1a87976ca0",
+    "stop_reason": "end_turn",
+    "input_tokens": 2750,
+    "output_tokens": 364,
+    "cache_read": 0,
+    "rejected": [
+     "computed_signal_field:expected_return_pct_of_nav"
+    ]
    }
   }
  ],
- "updated_at": "2026-09-07T23:54:20+00:00"
+ "updated_at": "2026-09-08T09:37:58+00:00"
 }

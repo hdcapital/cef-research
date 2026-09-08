@@ -6,20 +6,20 @@
  "sector": "Renewable Energy Infrastructure",
  "liveness": {
   "status": "delisted",
-  "reason": "own_delisting_notice_130d",
+  "reason": "own_delisting_notice_131d",
   "source": "own_delisting_notice",
   "last_nav": "2026-02-09",
   "last_announcement": "2026-04-30"
  },
  "nav": {
-  "anchor": 30.54,
-  "anchor_date": "2025-12-31",
-  "anchor_source": "own_nav_history:2025-12-31",
-  "estimate": 30.54,
+  "anchor": 34.23,
+  "anchor_date": "2025-06-30",
+  "anchor_source": "own_nav_history:2025-06-30",
+  "estimate": 34.23,
   "basis": 3.0,
-  "staleness_days": 178.0,
+  "staleness_days": 311.0,
   "staleness_limit_days": 200.0,
-  "current": true,
+  "current": false,
   "unit": "GBX",
   "quality_ok": false,
   "quality_reason": "stale_panel_price_only"
@@ -31,8 +31,8 @@
   "source": "aggregator_panel"
  },
  "discount": {
-  "estimate": 1.730845,
-  "z": 15.5401,
+  "estimate": 1.436459,
+  "z": 12.872,
   "z_status": "history_stale_2022-10",
   "z_source": "aggregator_panel",
   "z_window_months": 11,
@@ -41,12 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0586,
+  "central": 0.096,
   "discount_only": -0.1833,
-  "g_used": -0.0122,
+  "g_used": 0.0418,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
+ "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-07T23:54:21+00:00"
+ "updated_at": "2026-09-08T09:38:00+00:00"
 }

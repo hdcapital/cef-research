@@ -6,7 +6,7 @@
  "sector": "Equity - Australia Small/Mid Cap",
  "liveness": {
   "status": "delist_candidate",
-  "reason": "aggregator_delisted_and_own_filings_silent_3205d",
+  "reason": "aggregator_delisted_and_own_filings_silent_3206d",
   "source": "corroborated_delisting",
   "last_nav": "2017-11-09",
   "last_announcement": "2017-11-28"
@@ -17,7 +17,7 @@
   "anchor_source": "own_nav_history:2017-10-31",
   "estimate": 1.04,
   "basis": 3.0,
-  "staleness_days": 2309.0,
+  "staleness_days": 2310.0,
   "staleness_limit_days": 93.0,
   "current": false,
   "unit": "AUD",
@@ -25,14 +25,14 @@
   "quality_reason": "unit_suspect_scale"
  },
  "price": {
-  "price": 0.04699999839067459,
+  "price": 0.04600000008940697,
   "ccy": "AUD",
-  "date": "2026-09-07",
+  "date": "2026-09-08",
   "source": "yahoo:CTN.AX"
  },
  "discount": {
-  "estimate": -0.954808,
-  "z": -32.2532,
+  "estimate": -0.955769,
+  "z": -32.2893,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 10,
@@ -47,6 +47,7 @@
   "g_source": "sector_median"
  },
  "holder_churn": null,
+ "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-07T23:54:20+00:00"
+ "updated_at": "2026-09-08T09:37:57+00:00"
 }

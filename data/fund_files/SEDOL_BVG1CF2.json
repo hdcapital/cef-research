@@ -6,7 +6,7 @@
  "sector": "Growth Capital",
  "liveness": {
   "status": "live_stale_nav",
-  "reason": "periodic_report_159d_old_no_recent_nav",
+  "reason": "periodic_report_160d_old_no_recent_nav",
   "source": "own_periodic_report",
   "last_nav": "2026-05-07",
   "last_announcement": "2026-08-13"
@@ -15,9 +15,9 @@
   "anchor": 21.66,
   "anchor_date": "2026-03-31",
   "anchor_source": "own_nav_history:2026-03-31",
-  "estimate": 22.483122,
+  "estimate": 22.437299,
   "basis": 1.0,
-  "staleness_days": 114.0,
+  "staleness_days": 115.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 17.450000762939453,
+  "price": 17.399999618530273,
   "ccy": "GBp",
-  "date": "2026-09-04",
+  "date": "2026-09-07",
   "source": "yahoo:INOV.L"
  },
  "discount": {
-  "estimate": -0.223862,
-  "z": 1.5861,
+  "estimate": -0.224506,
+  "z": 1.5801,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,12 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": -0.018,
-  "discount_only": -0.0646,
+  "central": -0.0126,
+  "discount_only": -0.0582,
   "g_used": -0.05,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
+ "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-07T23:54:21+00:00"
+ "updated_at": "2026-09-08T09:37:59+00:00"
 }

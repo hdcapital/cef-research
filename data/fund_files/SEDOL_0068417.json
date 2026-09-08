@@ -6,19 +6,19 @@
  "sector": "UK Smaller Companies",
  "liveness": {
   "status": "delisted",
-  "reason": "own_delisting_notice_551d",
+  "reason": "own_delisting_notice_552d",
   "source": "own_delisting_notice",
   "last_nav": "2025-03-04",
   "last_announcement": "2025-03-05"
  },
  "nav": {
-  "anchor": 96.29,
-  "anchor_date": "2025-02-28",
-  "anchor_source": "own_nav_history:2025-02-28",
-  "estimate": 110.397069,
+  "anchor": 99.75,
+  "anchor_date": "2025-01-31",
+  "anchor_source": "aggregator_panel:2025-01",
+  "estimate": 114.442975,
   "basis": 1.0,
-  "staleness_days": 396.0,
-  "staleness_limit_days": 93.0,
+  "staleness_days": 417.0,
+  "staleness_limit_days": 200.0,
   "current": false,
   "unit": "GBX",
   "quality_ok": false,
@@ -31,8 +31,8 @@
   "source": "aggregator_panel"
  },
  "discount": {
-  "estimate": -0.295724,
-  "z": -0.3805,
+  "estimate": -0.320622,
+  "z": -0.8423,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,12 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": -0.0326,
-  "discount_only": -0.0209,
+  "central": -0.0057,
+  "discount_only": 0.0063,
   "g_used": -0.0119,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
+ "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-07T23:54:21+00:00"
+ "updated_at": "2026-09-08T09:38:00+00:00"
 }

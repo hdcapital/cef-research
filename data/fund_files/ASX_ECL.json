@@ -6,7 +6,7 @@
  "sector": "Equity - Australia Small/Mid Cap",
  "liveness": {
   "status": "live",
-  "reason": "nav_24d_old",
+  "reason": "nav_25d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-08-14",
   "last_announcement": "2026-08-28"
@@ -17,7 +17,7 @@
   "anchor_source": "asx_ann:03125235",
   "estimate": 0.9685,
   "basis": 0.0,
-  "staleness_days": 26.0,
+  "staleness_days": 27.0,
   "staleness_limit_days": 93.0,
   "current": true,
   "unit": "AUD",
@@ -27,7 +27,7 @@
  "price": {
   "price": 0.949999988079071,
   "ccy": "AUD",
-  "date": "2026-09-07",
+  "date": "2026-09-08",
   "source": "yahoo:ECL.AX"
  },
  "discount": {
@@ -47,6 +47,7 @@
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
+ "realisations": null,
  "events_90d": [
   {
    "date": "2026-08-28",
@@ -57,8 +58,16 @@
    "url": "https://announcements.asx.com.au/asxpdf/20260828/pdf/073f85sb4dc3xx.pdf",
    "alerted_at": "2026-09-07T07:45:12+00:00",
    "terms": {
-    "llm": "error",
-    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'This API key is not scoped to a workspace, so this request must include the anthropic-workspace-id header wit"
+    "llm": "rejected",
+    "model": "claude-haiku-4-5",
+    "prompt_version": "v1:8e1a87976ca0",
+    "stop_reason": "end_turn",
+    "input_tokens": 1383,
+    "output_tokens": 319,
+    "cache_read": 0,
+    "rejected": [
+     "computed_signal_field:expected_return_pct_of_nav"
+    ]
    }
   },
   {
@@ -80,8 +89,16 @@
    "url": "https://announcements.asx.com.au/asxpdf/20260818/pdf/072w5mv2jrz5wr.pdf",
    "alerted_at": "2026-09-07T07:45:12+00:00",
    "terms": {
-    "llm": "error",
-    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'This API key is not scoped to a workspace, so this request must include the anthropic-workspace-id header wit"
+    "llm": "rejected",
+    "model": "claude-haiku-4-5",
+    "prompt_version": "v1:8e1a87976ca0",
+    "stop_reason": "end_turn",
+    "input_tokens": 1468,
+    "output_tokens": 445,
+    "cache_read": 0,
+    "rejected": [
+     "computed_signal_field:expected_return_pct_of_nav"
+    ]
    }
   },
   {
@@ -93,10 +110,18 @@
    "url": "https://announcements.asx.com.au/asxpdf/20260817/pdf/072twy6cj8m2kc.pdf",
    "alerted_at": "2026-09-07T07:45:12+00:00",
    "terms": {
-    "llm": "error",
-    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'This API key is not scoped to a workspace, so this request must include the anthropic-workspace-id header wit"
+    "llm": "rejected",
+    "model": "claude-haiku-4-5",
+    "prompt_version": "v1:8e1a87976ca0",
+    "stop_reason": "end_turn",
+    "input_tokens": 1602,
+    "output_tokens": 354,
+    "cache_read": 0,
+    "rejected": [
+     "computed_signal_field:expected_return_pct_of_nav"
+    ]
    }
   }
  ],
- "updated_at": "2026-09-07T23:54:20+00:00"
+ "updated_at": "2026-09-08T09:37:57+00:00"
 }

@@ -6,7 +6,7 @@
  "sector": "UK Equity Income",
  "liveness": {
   "status": "live",
-  "reason": "nav_4d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-03",
   "last_announcement": "2026-09-07"
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9759207",
   "estimate": 417.69,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 2.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 418.5,
+  "price": 416.2192077636719,
   "ccy": "GBp",
-  "date": "2026-09-04",
+  "date": "2026-09-08",
   "source": "yahoo:TMPL.L"
  },
  "discount": {
-  "estimate": 0.001939,
-  "z": 1.0198,
+  "estimate": -0.003521,
+  "z": 0.8691,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,12 +41,98 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1437,
-  "discount_only": -0.0104,
+  "central": 0.1429,
+  "discount_only": -0.0111,
   "g_used": 0.1301,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
- "events_90d": [],
- "updated_at": "2026-09-07T23:54:21+00:00"
+ "realisations": null,
+ "events_90d": [
+  {
+   "date": "2026-08-26",
+   "class": "realisation",
+   "weight": 1,
+   "direction": "positive",
+   "headline": "Sale of Shares from Treasury",
+   "url": "https://www.investegate.co.uk/announcement/prn/temple-bar-inv-trust--tmpl/sale-of-shares-from-treasury/9741929",
+   "alerted_at": null,
+   "terms": {
+    "unparsed": true
+   }
+  },
+  {
+   "date": "2026-08-25",
+   "class": "realisation",
+   "weight": 1,
+   "direction": "positive",
+   "headline": "Sale of Shares from Treasury",
+   "url": "https://www.investegate.co.uk/announcement/prn/temple-bar-inv-trust--tmpl/sale-of-shares-from-treasury/9739659",
+   "alerted_at": null,
+   "terms": {
+    "unparsed": true
+   }
+  },
+  {
+   "date": "2026-08-13",
+   "class": "realisation",
+   "weight": 1,
+   "direction": "positive",
+   "headline": "Sale of Shares from Treasury",
+   "url": "https://www.investegate.co.uk/announcement/prn/temple-bar-inv-trust--tmpl/sale-of-shares-from-treasury/9721275",
+   "alerted_at": null,
+   "terms": {
+    "unparsed": true
+   }
+  },
+  {
+   "date": "2026-08-11",
+   "class": "realisation",
+   "weight": 1,
+   "direction": "positive",
+   "headline": "Sale of Shares from Treasury",
+   "url": "https://www.investegate.co.uk/announcement/prn/temple-bar-inv-trust--tmpl/sale-of-shares-from-treasury/9716495",
+   "alerted_at": null,
+   "terms": {
+    "unparsed": true
+   }
+  },
+  {
+   "date": "2026-08-04",
+   "class": "realisation",
+   "weight": 1,
+   "direction": "positive",
+   "headline": "Sale of Shares from Treasury",
+   "url": "https://www.investegate.co.uk/announcement/prn/temple-bar-inv-trust--tmpl/sale-of-shares-from-treasury/9704661",
+   "alerted_at": null,
+   "terms": {
+    "unparsed": true
+   }
+  },
+  {
+   "date": "2026-08-03",
+   "class": "realisation",
+   "weight": 1,
+   "direction": "positive",
+   "headline": "Sale of Shares from Treasury",
+   "url": "https://www.investegate.co.uk/announcement/prn/temple-bar-inv-trust--tmpl/sale-of-shares-from-treasury/9702182",
+   "alerted_at": null,
+   "terms": {
+    "unparsed": true
+   }
+  },
+  {
+   "date": "2026-07-30",
+   "class": "realisation",
+   "weight": 1,
+   "direction": "positive",
+   "headline": "Sale of Shares from Treasury",
+   "url": "https://www.investegate.co.uk/announcement/prn/temple-bar-inv-trust--tmpl/sale-of-shares-from-treasury/9696837",
+   "alerted_at": null,
+   "terms": {
+    "unparsed": true
+   }
+  }
+ ],
+ "updated_at": "2026-09-08T09:37:59+00:00"
 }

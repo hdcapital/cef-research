@@ -6,33 +6,33 @@
  "sector": "Property - Europe",
  "liveness": {
   "status": "live",
-  "reason": "nav_102d_old",
+  "reason": "nav_103d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-05-28",
-  "last_announcement": "2026-09-01"
+  "last_announcement": "2026-09-08"
  },
  "nav": {
-  "anchor": 1.0,
-  "anchor_date": "2026-03-31",
-  "anchor_source": "own_nav_history:2026-03-31",
-  "estimate": 1.0,
-  "basis": 3.0,
-  "staleness_days": 114.0,
+  "anchor": 22.5,
+  "anchor_date": "2026-06-30",
+  "anchor_source": "investegate:9759865",
+  "estimate": 22.5,
+  "basis": 0.0,
+  "staleness_days": 50.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
   "quality_ok": false,
-  "quality_reason": "unit_suspect_scale"
+  "quality_reason": "nav_jump_2150%_vs_yesterday"
  },
  "price": {
-  "price": 10.699999809265137,
+  "price": 11.3100004196167,
   "ccy": "GBp",
-  "date": "2026-09-04",
+  "date": "2026-09-08",
   "source": "yahoo:ASLI.L"
  },
  "discount": {
-  "estimate": 9.7,
-  "z": 80.1443,
+  "estimate": -0.497333,
+  "z": -0.6081,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,12 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": null,
-  "discount_only": null,
+  "central": -0.395,
+  "discount_only": -0.4247,
   "g_used": 0.0515,
   "g_source": "market_median"
  },
  "holder_churn": null,
+ "realisations": null,
  "events_90d": [
   {
    "date": "2026-08-20",
@@ -57,10 +58,18 @@
    "url": "https://www.investegate.co.uk/announcement/rns/abrdn-european-logistics-income--asli/1st-interim-dividend-and-wind-down-update/9732858",
    "alerted_at": "2026-09-07T07:45:12+00:00",
    "terms": {
-    "llm": "error",
-    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'This API key is not scoped to a workspace, so this request must include the anthropic-workspace-id header wit"
+    "llm": "rejected",
+    "model": "claude-haiku-4-5",
+    "prompt_version": "v1:8e1a87976ca0",
+    "stop_reason": "end_turn",
+    "input_tokens": 2707,
+    "output_tokens": 385,
+    "cache_read": 0,
+    "rejected": [
+     "computed_signal_field:expected_return_pct_of_nav"
+    ]
    }
   }
  ],
- "updated_at": "2026-09-07T23:54:21+00:00"
+ "updated_at": "2026-09-08T09:38:00+00:00"
 }

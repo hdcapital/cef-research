@@ -6,7 +6,7 @@
  "sector": "Debt - Loans & Bonds",
  "liveness": {
   "status": "live",
-  "reason": "nav_6d_old",
+  "reason": "nav_7d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-01",
   "last_announcement": "2026-09-04"
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9756580",
   "estimate": 1.068,
   "basis": 0.0,
-  "staleness_days": 6.0,
+  "staleness_days": 7.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "EUR",
@@ -43,10 +43,11 @@
  "forward_irr": {
   "central": null,
   "discount_only": null,
-  "g_used": 0.0381,
+  "g_used": 0.0385,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
+ "realisations": null,
  "events_90d": [
   {
    "date": "2026-09-03",
@@ -77,8 +78,17 @@
    "url": "https://www.investegate.co.uk/announcement/rns/cvc-income-growth-limited-npv-euro--cvce/result-of-tender-offer/9722546",
    "alerted_at": "2026-09-07T07:45:12+00:00",
    "terms": {
-    "llm": "error",
-    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'This API key is not scoped to a workspace, so this request must include the anthropic-workspace-id header wit"
+    "llm": "rejected",
+    "model": "claude-haiku-4-5",
+    "prompt_version": "v1:8e1a87976ca0",
+    "stop_reason": "end_turn",
+    "input_tokens": 2159,
+    "output_tokens": 300,
+    "cache_read": 0,
+    "rejected": [
+     "quote_not_in_document",
+     "computed_signal_field:expected_return_pct_of_nav"
+    ]
    }
   },
   {
@@ -142,5 +152,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-07T23:54:20+00:00"
+ "updated_at": "2026-09-08T09:37:58+00:00"
 }

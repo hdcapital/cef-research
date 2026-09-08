@@ -9,7 +9,7 @@
   "reason": "filings_but_no_nav_or_report_0d",
   "source": "own_announcement_only",
   "last_nav": null,
-  "last_announcement": "2026-09-07"
+  "last_announcement": "2026-09-08"
  },
  "nav": {
   "anchor": 90.79,
@@ -17,7 +17,7 @@
   "anchor_source": "aggregator_panel:2018-03",
   "estimate": 90.79,
   "basis": 3.0,
-  "staleness_days": 2200.0,
+  "staleness_days": 2201.0,
   "staleness_limit_days": 45.0,
   "current": false,
   "unit": "GBX",
@@ -47,6 +47,7 @@
   "g_source": "market_median"
  },
  "holder_churn": null,
+ "realisations": null,
  "events_90d": [
   {
    "date": "2026-08-28",
@@ -69,10 +70,18 @@
    "url": "https://www.investegate.co.uk/announcement/rns/alternative-income-reit--aire/no-intention-to-bid-statement-/9739892",
    "alerted_at": null,
    "terms": {
-    "llm": "error",
-    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'This API key is not scoped to a workspace, so this request must include the anthropic-workspace-id header wit"
+    "llm": "rejected",
+    "model": "claude-haiku-4-5",
+    "prompt_version": "v1:8e1a87976ca0",
+    "stop_reason": "end_turn",
+    "input_tokens": 3355,
+    "output_tokens": 249,
+    "cache_read": 0,
+    "rejected": [
+     "computed_signal_field:expected_return_pct_of_nav"
+    ]
    }
   }
  ],
- "updated_at": "2026-09-07T23:54:20+00:00"
+ "updated_at": "2026-09-08T09:37:58+00:00"
 }

@@ -6,7 +6,7 @@
  "sector": "Infrastructure",
  "liveness": {
   "status": "live",
-  "reason": "nav_80d_old",
+  "reason": "nav_81d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-06-19",
   "last_announcement": "2026-08-27"
@@ -17,7 +17,7 @@
   "anchor_source": "investegate_fs:9626420",
   "estimate": 146.0,
   "basis": 0.0,
-  "staleness_days": 114.0,
+  "staleness_days": 115.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 125.5,
+  "price": 125.04000091552734,
   "ccy": "GBp",
-  "date": "2026-09-04",
+  "date": "2026-09-08",
   "source": "yahoo:CORD.L"
  },
  "discount": {
-  "estimate": -0.140411,
-  "z": 1.559,
+  "estimate": -0.143562,
+  "z": 1.519,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,12 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0268,
-  "discount_only": -0.0235,
+  "central": 0.0251,
+  "discount_only": -0.0251,
   "g_used": 0.0515,
   "g_source": "market_median"
  },
  "holder_churn": null,
+ "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-07T23:54:20+00:00"
+ "updated_at": "2026-09-08T09:37:58+00:00"
 }

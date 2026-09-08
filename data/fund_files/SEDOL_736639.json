@@ -6,10 +6,10 @@
  "sector": "Flexible Investment",
  "liveness": {
   "status": "live",
-  "reason": "nav_24d_old",
+  "reason": "nav_25d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-08-14",
-  "last_announcement": "2026-09-02"
+  "last_announcement": "2026-09-08"
  },
  "nav": {
   "anchor": 3106.0,
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9721545",
   "estimate": 3106.0,
   "basis": 0.0,
-  "staleness_days": 26.0,
+  "staleness_days": 27.0,
   "staleness_limit_days": 93.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 2505.0,
+  "price": 2480.1005859375,
   "ccy": "GBp",
-  "date": "2026-09-04",
+  "date": "2026-09-08",
   "source": "yahoo:RCP.L"
  },
  "discount": {
-  "estimate": -0.193496,
-  "z": 1.9329,
+  "estimate": -0.201513,
+  "z": 1.6814,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,12 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0394,
-  "discount_only": -0.0054,
-  "g_used": 0.0451,
+  "central": 0.0298,
+  "discount_only": -0.0078,
+  "g_used": 0.0379,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
+ "realisations": null,
  "events_90d": [
   {
    "date": "2026-07-27",
@@ -57,8 +58,16 @@
    "url": "https://www.investegate.co.uk/announcement/rns/rit-capital-partners--rcp/total-voting-rights-and-completion-of-tender-offer/9689785",
    "alerted_at": "2026-09-07T07:45:12+00:00",
    "terms": {
-    "llm": "error",
-    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'This API key is not scoped to a workspace, so this request must include the anthropic-workspace-id header wit"
+    "llm": "rejected",
+    "model": "claude-haiku-4-5",
+    "prompt_version": "v1:8e1a87976ca0",
+    "stop_reason": "end_turn",
+    "input_tokens": 2259,
+    "output_tokens": 285,
+    "cache_read": 0,
+    "rejected": [
+     "computed_signal_field:expected_return_pct_of_nav"
+    ]
    }
   },
   {
@@ -75,5 +84,5 @@
    }
   }
  ],
- "updated_at": "2026-09-07T23:54:21+00:00"
+ "updated_at": "2026-09-08T09:37:59+00:00"
 }

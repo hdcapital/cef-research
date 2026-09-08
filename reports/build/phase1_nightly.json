@@ -5,12 +5,12 @@
   "basis_counts": {
     "nan": 375,
     "0.0": 272,
-    "3.0": 260,
-    "1.0": 209
+    "3.0": 257,
+    "1.0": 212
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 181,
+  "alert_eligible": 152,
   "z_extremes": [
     {
       "security_id": "SEDOL:B0JQZZ8",
@@ -44,8 +44,8 @@
     },
     {
       "security_id": "SEDOL:B1G3N11",
-      "z_adj": -36.3564,
-      "discount_est": -0.890324,
+      "z_adj": -36.3656,
+      "discount_est": -0.890523,
       "staleness_days": 2.0
     },
     {
@@ -146,13 +146,21 @@
       "failed": 0
     },
     "realisations": {
-      "candidates": 35,
-      "fetched": 30,
+      "candidates": 5,
+      "fetched": 5,
       "parsed": 0,
       "failed": 0
     },
     "terms": {
-      "skipped": "no ANTHROPIC_API_KEY"
+      "candidates": 18,
+      "read": 18,
+      "accepted": 0,
+      "rejected": 18,
+      "fetch_failed": 0,
+      "errors": 0,
+      "input_tokens": 47951,
+      "output_tokens": 6045,
+      "model": "claude-haiku-4-5"
     },
     "calendar_rows": 0
   },

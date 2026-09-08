@@ -6,18 +6,18 @@
  "sector": "Infrastructure",
  "liveness": {
   "status": "live",
-  "reason": "nav_-23d_old",
+  "reason": "nav_36d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-09-30",
+  "last_nav": "2026-08-03",
   "last_announcement": "2026-09-03"
  },
  "nav": {
   "anchor": 1.0,
-  "anchor_date": "2026-09-30",
-  "anchor_source": "own_nav_history:2026-09-30",
+  "anchor_date": "2026-08-03",
+  "anchor_source": "own_nav_history:2026-08-03",
   "estimate": 1.0,
   "basis": 3.0,
-  "staleness_days": 0.0,
+  "staleness_days": 26.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": "unit_suspect_scale"
  },
  "price": {
-  "price": 135.1999969482422,
+  "price": 134.84449768066406,
   "ccy": "GBp",
-  "date": "2026-09-04",
+  "date": "2026-09-08",
   "source": "yahoo:HICL.L"
  },
  "discount": {
-  "estimate": 134.199997,
-  "z": 1088.1796,
+  "estimate": 133.844498,
+  "z": 1085.3003,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,12 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": -0.6089,
-  "discount_only": -0.628,
+  "central": -0.6086,
+  "discount_only": -0.6278,
   "g_used": 0.0515,
   "g_source": "market_median"
  },
  "holder_churn": null,
+ "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-07T23:54:21+00:00"
+ "updated_at": "2026-09-08T09:37:59+00:00"
 }

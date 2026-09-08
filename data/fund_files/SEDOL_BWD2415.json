@@ -6,7 +6,7 @@
  "sector": "Property - UK Commercial",
  "liveness": {
   "status": "live",
-  "reason": "nav_73d_old",
+  "reason": "nav_74d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-06-26",
   "last_announcement": "2026-09-01"
@@ -17,7 +17,7 @@
   "anchor_source": "own_nav_history:2025-09-30",
   "estimate": 109.09,
   "basis": 3.0,
-  "staleness_days": 244.0,
+  "staleness_days": 245.0,
   "staleness_limit_days": 200.0,
   "current": false,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 104.4000015258789,
+  "price": 103.4000015258789,
   "ccy": "GBp",
-  "date": "2026-09-04",
+  "date": "2026-09-08",
   "source": "yahoo:AEWU.L"
  },
  "discount": {
-  "estimate": -0.042992,
-  "z": -0.0236,
+  "estimate": -0.052159,
+  "z": -0.1289,
   "z_status": "within_error_band",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -47,6 +47,7 @@
   "g_source": "market_median"
  },
  "holder_churn": null,
+ "realisations": null,
  "events_90d": [
   {
    "date": "2026-08-26",
@@ -57,10 +58,18 @@
    "url": "https://www.investegate.co.uk/announcement/rns/aew-uk-reit--aewu/no-intention-to-bid-statement-/9739892",
    "alerted_at": "2026-09-07T07:45:12+00:00",
    "terms": {
-    "llm": "error",
-    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'This API key is not scoped to a workspace, so this request must include the anthropic-workspace-id header wit"
+    "llm": "rejected",
+    "model": "claude-haiku-4-5",
+    "prompt_version": "v1:8e1a87976ca0",
+    "stop_reason": "end_turn",
+    "input_tokens": 3354,
+    "output_tokens": 247,
+    "cache_read": 0,
+    "rejected": [
+     "computed_signal_field:expected_return_pct_of_nav"
+    ]
    }
   }
  ],
- "updated_at": "2026-09-07T23:54:20+00:00"
+ "updated_at": "2026-09-08T09:37:58+00:00"
 }

@@ -6,16 +6,16 @@
  "sector": "Country Specialist",
  "liveness": {
   "status": "live",
-  "reason": "nav_4d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-03",
-  "last_announcement": "2026-09-07"
+  "last_announcement": "2026-09-08"
  },
  "nav": {
-  "anchor": 544.0,
-  "anchor_date": "2026-09-04",
-  "anchor_source": "investegate:9758998",
-  "estimate": 544.0,
+  "anchor": 538.0,
+  "anchor_date": "2026-09-07",
+  "anchor_source": "investegate:9760919",
+  "estimate": 538.0,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 443.0,
+  "price": 439.6686096191406,
   "ccy": "GBp",
-  "date": "2026-09-04",
+  "date": "2026-09-08",
   "source": "yahoo:VOF.L"
  },
  "discount": {
-  "estimate": -0.185662,
-  "z": 0.9305,
+  "estimate": -0.182772,
+  "z": 1.0521,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,12 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": -0.0166,
-  "discount_only": -0.0025,
+  "central": -0.017,
+  "discount_only": -0.0029,
   "g_used": -0.0142,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
+ "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-07T23:54:21+00:00"
+ "updated_at": "2026-09-08T09:38:00+00:00"
 }

@@ -6,7 +6,7 @@
  "sector": "Flexible Investment",
  "liveness": {
   "status": "live_stale_nav",
-  "reason": "periodic_report_283d_old_no_recent_nav",
+  "reason": "periodic_report_284d_old_no_recent_nav",
   "source": "own_periodic_report",
   "last_nav": "2026-03-16",
   "last_announcement": "2026-08-27"
@@ -17,22 +17,22 @@
   "anchor_source": "investegate_fs:9556993",
   "estimate": 94.25,
   "basis": 0.0,
-  "staleness_days": 87.0,
+  "staleness_days": 88.0,
   "staleness_limit_days": 45.0,
   "current": false,
   "unit": "GBX",
   "quality_ok": false,
-  "quality_reason": "unit_suspect_scale"
+  "quality_reason": "stale_panel_price_only"
  },
  "price": {
-  "price": 0.8420000076293945,
-  "ccy": "GBp",
-  "date": "2026-09-01",
-  "source": "yahoo:JARA.L"
+  "price": 110.0,
+  "ccy": null,
+  "date": "2020-05",
+  "source": "aggregator_panel"
  },
  "discount": {
-  "estimate": -0.991066,
-  "z": -18.3863,
+  "estimate": 0.167109,
+  "z": 7.4997,
   "z_status": "computed_growing_12m",
   "z_source": "own_daily_panel",
   "z_window_months": 12,
@@ -47,6 +47,7 @@
   "g_source": "sector_median"
  },
  "holder_churn": null,
+ "realisations": null,
  "events_90d": [
   {
    "date": "2026-08-27",
@@ -57,8 +58,16 @@
    "url": "https://www.investegate.co.uk/announcement/rns/jpmorgan-global-core-real-assets-limited-npv-eur---jare/result-of-egm-and-entry-into-voluntary-liquidation/9743834",
    "alerted_at": "2026-09-07T07:45:12+00:00",
    "terms": {
-    "llm": "error",
-    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'This API key is not scoped to a workspace, so this request must include the anthropic-workspace-id header wit"
+    "llm": "rejected",
+    "model": "claude-haiku-4-5",
+    "prompt_version": "v1:8e1a87976ca0",
+    "stop_reason": "end_turn",
+    "input_tokens": 2799,
+    "output_tokens": 344,
+    "cache_read": 0,
+    "rejected": [
+     "computed_signal_field:expected_return_pct_of_nav"
+    ]
    }
   },
   {
@@ -70,8 +79,16 @@
    "url": "https://www.investegate.co.uk/announcement/rns/jpmorgan-global-core-real-assets-limited-npv-eur---jare/suspension-of-shares-from-trading-on-main-market/9737224",
    "alerted_at": "2026-09-07T07:45:12+00:00",
    "terms": {
-    "llm": "error",
-    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'This API key is not scoped to a workspace, so this request must include the anthropic-workspace-id header wit"
+    "llm": "rejected",
+    "model": "claude-haiku-4-5",
+    "prompt_version": "v1:8e1a87976ca0",
+    "stop_reason": "end_turn",
+    "input_tokens": 2538,
+    "output_tokens": 348,
+    "cache_read": 0,
+    "rejected": [
+     "computed_signal_field:expected_return_pct_of_nav"
+    ]
    }
   },
   {
@@ -95,5 +112,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-07T23:54:21+00:00"
+ "updated_at": "2026-09-08T09:37:59+00:00"
 }

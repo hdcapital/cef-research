@@ -15,9 +15,9 @@
   "anchor": 234.19,
   "anchor_date": "2021-02-28",
   "anchor_source": "aggregator_panel:2021-02",
-  "estimate": 267.698734,
+  "estimate": 269.063665,
   "basis": 1.0,
-  "staleness_days": 1440.0,
+  "staleness_days": 1441.0,
   "staleness_limit_days": 45.0,
   "current": false,
   "unit": "GBX",
@@ -31,8 +31,8 @@
   "source": "aggregator_panel"
  },
  "discount": {
-  "estimate": -0.178181,
-  "z": -5.4259,
+  "estimate": -0.18235,
+  "z": -5.5851,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,12 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0594,
-  "discount_only": 0.0082,
+  "central": 0.0872,
+  "discount_only": 0.0355,
   "g_used": 0.0305,
   "g_source": "sector_median"
  },
  "holder_churn": null,
+ "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-07T23:54:21+00:00"
+ "updated_at": "2026-09-08T09:37:59+00:00"
 }
