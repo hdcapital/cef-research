@@ -43,20 +43,20 @@
     "uk_listing_cache_present": true
   },
   "extract": {
-    "run_at": "2026-09-08T08:46:10+00:00",
-    "candidates": 645,
-    "read": 20,
-    "accepted": 17,
-    "rejected": 3,
-    "empty": 0,
+    "run_at": "2026-09-08T09:16:41+00:00",
+    "candidates": 687,
+    "read": 200,
+    "accepted": 195,
+    "rejected": 5,
+    "empty": 1,
     "errors": 0,
     "aborted": false,
-    "skipped_done": 0,
-    "features_lapsed": 1,
-    "features_fuzzy": 5,
+    "skipped_done": 39,
+    "features_lapsed": 44,
+    "features_fuzzy": 146,
     "features": "data/learning/features_all.parquet",
     "rejects": "data/learning/rejects_all.parquet",
     "model": "claude-haiku-4-5",
-    "prompt_version": "v1:b1dc1b09d39ba28f"
+    "prompt_version": "v1:f2eb3ac3715fc46a"
   }
 }
