@@ -26,7 +26,7 @@
     },
     {
       "security_id": "SEDOL:BRC8992",
-      "z_adj": -54.8962,
+      "z_adj": -56.3742,
       "discount_est": -0.99027,
       "staleness_days": 1.0
     },
@@ -44,9 +44,9 @@
     },
     {
       "security_id": "SEDOL:B1G3N11",
-      "z_adj": -36.3526,
-      "discount_est": -0.890243,
-      "staleness_days": 2.0
+      "z_adj": -36.3111,
+      "discount_est": -0.889339,
+      "staleness_days": 1.0
     },
     {
       "security_id": "ASX:ALR",
@@ -137,15 +137,15 @@
       "offer_withdrawn": 3,
       "liquidation_wind_down": 2,
       "scheme_merger_rollover": 1,
-      "suspension": 1,
-      "legal_sanctions": 1
+      "takeover_offer": 1,
+      "suspension": 1
     },
     "unalerted": 352,
     "holdings_with_terms": 67,
     "tr1": {
-      "candidates": 1,
-      "fetched": 1,
-      "parsed": 1,
+      "candidates": 0,
+      "fetched": 0,
+      "parsed": 0,
       "failed": 0
     },
     "realisations": {
@@ -155,29 +155,29 @@
       "failed": 0
     },
     "terms": {
-      "candidates": 1,
-      "read": 1,
+      "candidates": 0,
+      "read": 0,
       "accepted": 0,
-      "rejected": 1,
+      "rejected": 0,
       "fetch_failed": 0,
       "errors": 0,
-      "input_tokens": 2589,
-      "output_tokens": 303,
+      "input_tokens": 0,
+      "output_tokens": 0,
       "model": "claude-haiku-4-5"
     },
     "calendar_rows": 0
   },
   "carried_forward_rows": 0,
   "nav_quarantine": {
-    "rows": 460,
+    "rows": 461,
     "by_reason": {
       "nav_not_positive": 218,
       "stale_panel_price_only": 216,
       "unit_suspect_scale": 7,
       "nav_jump_N_vs_prior": 6,
       "no_price": 5,
-      "nav_unit_mismatch_N_vs_prior": 4,
-      "nav_jump_N_vs_own": 4
+      "nav_jump_N_vs_own": 5,
+      "nav_unit_mismatch_N_vs_prior": 4
     }
   },
   "snapshot": "s3_exists_not_overwritten:nta_live/2026-09-09.parquet",

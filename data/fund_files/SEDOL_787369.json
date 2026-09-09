@@ -6,9 +6,9 @@
  "sector": "Global Equity Income",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_1d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-09-07",
+  "last_nav": "2026-09-08",
   "last_announcement": "2026-09-09"
  },
  "nav": {
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 547.0,
+  "price": 554.0,
   "ccy": "GBp",
-  "date": "2026-09-09",
+  "date": "2026-09-08",
   "source": "yahoo:SAIN.L"
  },
  "discount": {
-  "estimate": -0.085942,
-  "z": -0.1531,
+  "estimate": -0.074244,
+  "z": 0.3273,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1093,
-  "discount_only": 0.0023,
+  "central": 0.1123,
+  "discount_only": 0.0052,
   "g_used": 0.0768,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-09T21:55:32+00:00"
+ "updated_at": "2026-09-09T23:34:50+00:00"
 }

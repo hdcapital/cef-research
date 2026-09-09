@@ -6,10 +6,10 @@
  "sector": "UK Equity Income",
  "liveness": {
   "status": "live",
-  "reason": "nav_5d_old",
+  "reason": "nav_2d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-09-04",
-  "last_announcement": "2026-09-08"
+  "last_nav": "2026-09-07",
+  "last_announcement": "2026-09-09"
  },
  "nav": {
   "anchor": 862.04,
@@ -25,29 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 786.0,
+  "price": 802.0,
   "ccy": "GBp",
-  "date": "2026-09-09",
+  "date": "2026-09-08",
   "source": "yahoo:FGT.L"
  },
  "discount": {
-  "estimate": -0.088209,
-  "z": -1.5577,
-  "z_status": "computed",
+  "estimate": -0.069649,
+  "z": 0.0255,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.069948,
   "sigma_36m": 0.011723,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0753,
-  "discount_only": 0.0024,
+  "central": 0.0783,
+  "discount_only": 0.0054,
   "g_used": 0.0414,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-09T21:55:31+00:00"
+ "updated_at": "2026-09-09T23:34:50+00:00"
 }

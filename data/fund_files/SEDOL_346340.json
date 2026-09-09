@@ -6,9 +6,9 @@
  "sector": "North American Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_1d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-09-07",
+  "last_nav": "2026-09-08",
   "last_announcement": "2026-09-09"
  },
  "nav": {
@@ -25,29 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1585.0,
+  "price": 1587.5,
   "ccy": "GBp",
-  "date": "2026-09-09",
+  "date": "2026-09-08",
   "source": "yahoo:BASC.L"
  },
  "discount": {
-  "estimate": -0.060674,
-  "z": 1.7987,
+  "estimate": -0.059192,
+  "z": 1.8639,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.09952,
-  "sigma_36m": 0.021597,
+  "mu_36m": -0.099499,
+  "sigma_36m": 0.021625,
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.4146,
-  "discount_only": -0.0126,
+  "central": 0.4136,
+  "discount_only": -0.0136,
   "g_used": 0.0622,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-09T21:55:31+00:00"
+ "updated_at": "2026-09-09T23:34:49+00:00"
 }

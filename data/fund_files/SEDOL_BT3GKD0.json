@@ -6,10 +6,10 @@
  "sector": "Flexible Investment",
  "liveness": {
   "status": "live",
-  "reason": "nav_33d_old",
+  "reason": "nav_9d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-08-07",
-  "last_announcement": "2026-09-08"
+  "last_nav": "2026-08-31",
+  "last_announcement": "2026-09-09"
  },
  "nav": {
   "anchor": 112.21,
@@ -25,29 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 102.5,
+  "price": 102.0,
   "ccy": "GBp",
-  "date": "2026-09-09",
+  "date": "2026-09-08",
   "source": "yahoo:AIC.L"
  },
  "discount": {
-  "estimate": -0.086534,
-  "z": -1.2433,
+  "estimate": -0.09099,
+  "z": -1.3392,
   "z_status": "computed_growing_19m",
   "z_source": "own_daily_panel",
   "z_window_months": 19,
-  "mu_36m": -0.018096,
-  "sigma_36m": 0.055044,
+  "mu_36m": -0.017806,
+  "sigma_36m": 0.054646,
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0753,
-  "discount_only": 0.0253,
+  "central": 0.0674,
+  "discount_only": 0.0177,
   "g_used": 0.0488,
   "g_source": "sector_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-09T21:55:31+00:00"
+ "updated_at": "2026-09-09T23:34:49+00:00"
 }
