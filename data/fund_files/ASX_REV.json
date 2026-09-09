@@ -6,18 +6,18 @@
  "sector": "Fixed Income - Australian Dollar",
  "liveness": {
   "status": "live",
-  "reason": "nav_13d_old",
+  "reason": "nav_14d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-08-26",
   "last_announcement": "2026-08-27"
  },
  "nav": {
-  "anchor": 2.0167,
-  "anchor_date": "2026-09-01",
-  "anchor_source": "own_nav_history:2026-09-01",
-  "estimate": 2.0167,
+  "anchor": 2.0056,
+  "anchor_date": "2026-09-08",
+  "anchor_source": "own_nav_history:2026-09-08",
+  "estimate": 2.0056,
   "basis": 3.0,
-  "staleness_days": 5.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "AUD",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1.9600000381469727,
+  "price": 1.965000033378601,
   "ccy": "AUD",
-  "date": "2026-09-08",
+  "date": "2026-09-09",
   "source": "yahoo:REV.AX"
  },
  "discount": {
-  "estimate": -0.028115,
-  "z": -2.3493,
+  "estimate": -0.020243,
+  "z": -1.6335,
   "z_status": "computed_growing_10m",
   "z_source": "aggregator_panel",
   "z_window_months": 10,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-08T23:45:42+00:00"
+ "updated_at": "2026-09-09T21:55:30+00:00"
 }

@@ -6,16 +6,16 @@
  "sector": "UK All Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_1d_old",
+  "reason": "nav_2d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-07",
-  "last_announcement": "2026-09-08"
+  "last_announcement": "2026-09-09"
  },
  "nav": {
-  "anchor": 242.97,
-  "anchor_date": "2026-09-08",
-  "anchor_source": "investegate:9761083",
-  "estimate": 242.97,
+  "anchor": 240.29,
+  "anchor_date": "2026-09-09",
+  "anchor_source": "investegate:9763426",
+  "estimate": 240.29,
   "basis": 0.0,
   "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 220.0,
+  "price": 214.0,
   "ccy": "GBp",
-  "date": "2026-09-07",
+  "date": "2026-09-09",
   "source": "yahoo:BGUK.L"
  },
  "discount": {
-  "estimate": -0.094538,
-  "z": 0.974,
+  "estimate": -0.109409,
+  "z": 0.3481,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0603,
-  "discount_only": -0.0033,
+  "central": 0.0575,
+  "discount_only": -0.006,
   "g_used": 0.0489,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-08T23:45:42+00:00"
+ "updated_at": "2026-09-09T21:55:31+00:00"
 }

@@ -6,16 +6,16 @@
  "sector": "North America",
  "liveness": {
   "status": "live",
-  "reason": "nav_1d_old",
+  "reason": "nav_2d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-07",
-  "last_announcement": "2026-09-08"
+  "last_announcement": "2026-09-09"
  },
  "nav": {
-  "anchor": 1253.49,
-  "anchor_date": "2026-09-08",
-  "anchor_source": "investegate:9761010",
-  "estimate": 1253.49,
+  "anchor": 1247.26,
+  "anchor_date": "2026-09-09",
+  "anchor_source": "investegate:9763407",
+  "estimate": 1247.26,
   "basis": 0.0,
   "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1204.0,
+  "price": 1190.0,
   "ccy": "GBp",
-  "date": "2026-09-07",
+  "date": "2026-09-09",
   "source": "yahoo:JAM.L"
  },
  "discount": {
-  "estimate": -0.039482,
-  "z": -0.8765,
+  "estimate": -0.045909,
+  "z": -1.2031,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1653,
-  "discount_only": 0.0014,
+  "central": 0.1657,
+  "discount_only": 0.0017,
   "g_used": 0.1458,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-08T23:45:43+00:00"
+ "updated_at": "2026-09-09T21:55:32+00:00"
 }

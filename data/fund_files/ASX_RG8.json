@@ -6,7 +6,7 @@
  "sector": "Equity - Asia",
  "liveness": {
   "status": "live",
-  "reason": "nav_9d_old",
+  "reason": "nav_10d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-08-30",
   "last_announcement": "2026-08-30"
@@ -17,7 +17,7 @@
   "anchor_source": "asx_ann:03133159",
   "estimate": 3.1,
   "basis": 0.0,
-  "staleness_days": 6.0,
+  "staleness_days": 7.0,
   "staleness_limit_days": 93.0,
   "current": true,
   "unit": "AUD",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 2.619999885559082,
+  "price": 2.640000104904175,
   "ccy": "AUD",
-  "date": "2026-09-08",
+  "date": "2026-09-09",
   "source": "yahoo:RG8.AX"
  },
  "discount": {
-  "estimate": -0.154839,
-  "z": -0.0956,
+  "estimate": -0.148387,
+  "z": 0.0685,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-08T23:45:42+00:00"
+ "updated_at": "2026-09-09T21:55:30+00:00"
 }

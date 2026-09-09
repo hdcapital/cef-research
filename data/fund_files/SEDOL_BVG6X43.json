@@ -6,7 +6,7 @@
  "sector": "Debt - Direct Lending",
  "liveness": {
   "status": "live",
-  "reason": "nav_15d_old",
+  "reason": "nav_16d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-08-24",
   "last_announcement": "2026-08-24"
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9735275",
   "estimate": 20.6,
   "basis": 0.0,
-  "staleness_days": 50.0,
+  "staleness_days": 51.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -27,7 +27,7 @@
  "price": {
   "price": 10.574999809265137,
   "ccy": "GBp",
-  "date": "2026-09-07",
+  "date": "2026-09-09",
   "source": "yahoo:VSL.L"
  },
  "discount": {
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": -0.0102,
-  "discount_only": 0.0419,
+  "central": -0.0093,
+  "discount_only": 0.0428,
   "g_used": -0.05,
   "g_source": "own_nav_history"
  },
@@ -60,5 +60,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-08T23:45:44+00:00"
+ "updated_at": "2026-09-09T21:55:33+00:00"
 }

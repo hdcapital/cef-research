@@ -6,16 +6,16 @@
  "sector": "UK Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_4d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-04",
-  "last_announcement": "2026-09-08"
+  "last_announcement": "2026-09-09"
  },
  "nav": {
-  "anchor": 230.61,
-  "anchor_date": "2026-09-07",
-  "anchor_source": "investegate:9761288",
-  "estimate": 230.61,
+  "anchor": 230.21,
+  "anchor_date": "2026-09-08",
+  "anchor_source": "investegate:9763618",
+  "estimate": 230.21,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 233.0,
+  "price": 232.0,
   "ccy": "GBp",
-  "date": "2026-09-07",
+  "date": "2026-09-09",
   "source": "yahoo:OIT.L"
  },
  "discount": {
-  "estimate": 0.010364,
-  "z": 0.667,
+  "estimate": 0.007776,
+  "z": 0.5472,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0333,
-  "discount_only": -0.002,
+  "central": 0.0346,
+  "discount_only": -0.0007,
   "g_used": 0.0354,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": {
-  "filings": 3,
+  "filings": 4,
   "sellers": 0,
   "buyers": 0,
   "largest_move": null,
@@ -56,6 +56,18 @@
  },
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-09-09",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/odyssean-investment-trust--oit/holding-s-in-company/9763190",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Odyssean Investment Trust PLC"
+   }
+  },
   {
    "date": "2026-09-07",
    "class": "issuance",
@@ -233,5 +245,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-08T23:45:43+00:00"
+ "updated_at": "2026-09-09T21:55:32+00:00"
 }

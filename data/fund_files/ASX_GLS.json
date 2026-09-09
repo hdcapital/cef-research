@@ -6,33 +6,33 @@
  "sector": "Equity - Global",
  "liveness": {
   "status": "live",
-  "reason": "nav_14d_old",
+  "reason": "nav_15d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-08-25",
   "last_announcement": "2026-08-27"
  },
  "nav": {
-  "anchor": 1.77,
-  "anchor_date": "2026-07-31",
-  "anchor_source": "asx_ann:03124243",
-  "estimate": 1.77,
-  "basis": 0.0,
-  "staleness_days": 27.0,
+  "anchor": 0.02,
+  "anchor_date": "2026-09-04",
+  "anchor_source": "own_nav_history:2026-09-04",
+  "estimate": 0.02,
+  "basis": 3.0,
+  "staleness_days": 3.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "AUD",
-  "quality_ok": true,
-  "quality_reason": ""
+  "quality_ok": false,
+  "quality_reason": "nav_unit_mismatch_0x_vs_prior"
  },
  "price": {
-  "price": 2.130000114440918,
+  "price": 2.0799999237060547,
   "ccy": "AUD",
-  "date": "2026-09-08",
+  "date": "2026-09-09",
   "source": "yahoo:GLS.AX"
  },
  "discount": {
-  "estimate": 0.20339,
-  "z": 2.1592,
+  "estimate": 102.999996,
+  "z": 1835.7344,
   "z_status": "computed_growing_8m",
   "z_source": "aggregator_panel",
   "z_window_months": 8,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-08T23:45:41+00:00"
+ "updated_at": "2026-09-09T21:55:30+00:00"
 }

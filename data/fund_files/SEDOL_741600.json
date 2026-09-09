@@ -6,16 +6,16 @@
  "sector": "UK Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_1d_old",
+  "reason": "nav_2d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-07",
-  "last_announcement": "2026-09-08"
+  "last_announcement": "2026-09-09"
  },
  "nav": {
-  "anchor": 376.43,
-  "anchor_date": "2026-09-08",
-  "anchor_source": "investegate:9761015",
-  "estimate": 376.43,
+  "anchor": 370.94,
+  "anchor_date": "2026-09-09",
+  "anchor_source": "investegate:9763412",
+  "estimate": 370.94,
   "basis": 0.0,
   "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 349.0,
+  "price": 337.0,
   "ccy": "GBp",
-  "date": "2026-09-07",
+  "date": "2026-09-09",
   "source": "yahoo:JUGI.L"
  },
  "discount": {
-  "estimate": -0.072869,
-  "z": 0.6192,
-  "z_status": "computed",
+  "estimate": -0.091497,
+  "z": 0.0728,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.093979,
   "sigma_36m": 0.034093,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.02,
-  "discount_only": -0.0041,
+  "central": 0.0172,
+  "discount_only": -0.0069,
   "g_used": 0.0,
   "g_source": "panel_tr_cagr"
  },
@@ -70,5 +70,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-08T23:45:43+00:00"
+ "updated_at": "2026-09-09T21:55:32+00:00"
 }

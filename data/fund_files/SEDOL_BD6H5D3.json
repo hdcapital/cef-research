@@ -6,16 +6,16 @@
  "sector": "Japanese Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_4d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-04",
   "last_announcement": "2026-09-08"
  },
  "nav": {
-  "anchor": 181.99,
-  "anchor_date": "2026-09-07",
-  "anchor_source": "investegate:9761048",
-  "estimate": 181.99,
+  "anchor": 179.4,
+  "anchor_date": "2026-09-08",
+  "anchor_source": "investegate:9763801",
+  "estimate": 179.4,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 174.0,
+  "price": 170.5,
   "ccy": "GBp",
-  "date": "2026-09-07",
+  "date": "2026-09-09",
   "source": "yahoo:AJOT.L"
  },
  "discount": {
-  "estimate": -0.043904,
-  "z": -0.7912,
+  "estimate": -0.04961,
+  "z": -1.0953,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,35 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0982,
-  "discount_only": 0.0065,
+  "central": 0.0958,
+  "discount_only": 0.0042,
   "g_used": 0.0658,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [],
- "updated_at": "2026-09-08T23:45:42+00:00"
+ "events_90d": [
+  {
+   "date": "2026-09-09",
+   "class": "takeover_offer",
+   "weight": 5,
+   "direction": "positive",
+   "headline": "Tender Offer for Largest Portfolio Holding",
+   "url": "https://www.investegate.co.uk/announcement/rns/avi-japan-opportunity-trust--ajot/tender-offer-for-largest-portfolio-holding/9764000",
+   "alerted_at": null,
+   "terms": {
+    "llm": "rejected",
+    "model": "claude-haiku-4-5",
+    "prompt_version": "v1:8e1a87976ca0",
+    "stop_reason": "end_turn",
+    "input_tokens": 2589,
+    "output_tokens": 303,
+    "cache_read": 0,
+    "rejected": [
+     "computed_signal_field:expected_return_pct_of_nav"
+    ]
+   }
+  }
+ ],
+ "updated_at": "2026-09-09T21:55:31+00:00"
 }

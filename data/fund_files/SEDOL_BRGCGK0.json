@@ -6,16 +6,16 @@
  "sector": "UK Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_4d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-04",
   "last_announcement": "2026-09-08"
  },
  "nav": {
-  "anchor": 290.7,
-  "anchor_date": "2026-09-07",
-  "anchor_source": "investegate:9761476",
-  "estimate": 290.7,
+  "anchor": 289.67,
+  "anchor_date": "2026-09-08",
+  "anchor_source": "investegate:9763876",
+  "estimate": 289.67,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,25 +25,25 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 245.0,
+  "price": 248.0,
   "ccy": "GBp",
-  "date": "2026-09-07",
+  "date": "2026-09-09",
   "source": "yahoo:RMMC.L"
  },
  "discount": {
-  "estimate": -0.157207,
-  "z": -0.1612,
-  "z_status": "within_error_band",
+  "estimate": -0.143853,
+  "z": 0.41,
+  "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
   "mu_36m": -0.153438,
   "sigma_36m": 0.023376,
-  "alert_eligible": false
+  "alert_eligible": true
  },
  "forward_irr": {
-  "central": -0.0056,
-  "discount_only": -0.0041,
-  "g_used": -0.0014,
+  "central": -0.0038,
+  "discount_only": -0.0001,
+  "g_used": -0.0037,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
@@ -60,5 +60,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-08T23:45:43+00:00"
+ "updated_at": "2026-09-09T21:55:32+00:00"
 }
