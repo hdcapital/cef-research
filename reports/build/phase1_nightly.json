@@ -32,9 +32,9 @@
     },
     {
       "security_id": "SEDOL:BDHXP96",
-      "z_adj": -44.0796,
-      "discount_est": -0.720207,
-      "staleness_days": 1.0
+      "z_adj": -43.9393,
+      "discount_est": -0.717974,
+      "staleness_days": 0.0
     },
     {
       "security_id": "SEDOL:BNGFHX1",
@@ -44,8 +44,8 @@
     },
     {
       "security_id": "SEDOL:B1G3N11",
-      "z_adj": -36.3527,
-      "discount_est": -0.890244,
+      "z_adj": -36.3519,
+      "discount_est": -0.890225,
       "staleness_days": 2.0
     },
     {
@@ -117,17 +117,17 @@
     }
   },
   "events": {
-    "events_total": 392,
-    "events_30d": 220,
+    "events_total": 393,
+    "events_30d": 221,
     "funds_30d": 96,
     "by_direction_30d": {
-      "neutral": 190,
+      "neutral": 191,
       "positive": 22,
       "negative": 8
     },
     "by_class_30d": {
       "issuance": 113,
-      "holdings_notification": 67,
+      "holdings_notification": 68,
       "portfolio_holding": 10,
       "substantial_holder": 8,
       "tender_offer": 7,
@@ -139,12 +139,12 @@
       "suspension": 1,
       "legal_sanctions": 1
     },
-    "unalerted": 349,
-    "holdings_with_terms": 65,
+    "unalerted": 348,
+    "holdings_with_terms": 66,
     "tr1": {
-      "candidates": 0,
-      "fetched": 0,
-      "parsed": 0,
+      "candidates": 1,
+      "fetched": 1,
+      "parsed": 1,
       "failed": 0
     },
     "realisations": {
@@ -171,7 +171,7 @@
       "nav_unit_mismatch_N_vs_prior": 2
     }
   },
-  "snapshot": "s3_uploaded:nta_live/2026-09-09.parquet",
+  "snapshot": "s3_exists_not_overwritten:nta_live/2026-09-09.parquet",
   "live_history": {
     "rows": 11160,
     "days": 10
