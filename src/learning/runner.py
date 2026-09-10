@@ -159,6 +159,49 @@ def mode_extract(limit: int, market: str | None) -> int:
     return 0
 
 
+def mode_listings(budget_minutes: float, limit: int = 0) -> int:
+    """Index the announcements of the UK endings whose Investegate listing
+    the crawl never reached (listings only, identity verified by the
+    crawler's H1 check, sharded by SHARD_INDEX/COUNT). The workflow pushes
+    the uk_announcements state group afterwards."""
+    from uk_cef.data_sources.investegate import InvestegateCrawler
+    ep = _episodes()
+    todo = W.listing_targets(ep)
+    shard = int(os.environ.get("SHARD_INDEX", "0"))
+    shards = max(1, int(os.environ.get("SHARD_COUNT", "1")))
+    if shards > 1 and len(todo):
+        todo = todo[todo["ticker"].astype(str).map(lambda t: zlib.crc32(t.encode()) % shards == shard)]
+    if limit:
+        todo = todo.head(limit)
+    print(f"shard {shard + 1}/{shards}: {len(todo)} endings to index")
+    crawler = InvestegateCrawler(budget_minutes=budget_minutes, listings_only=True)
+    results = []
+    for r in todo.itertuples(index=False):
+        names = [r.name] if isinstance(r.name, str) else []
+        status = crawler.crawl_company(r.security_id, str(r.ticker), names)
+        f = crawler.listings / f"{r.ticker}.csv"
+        rows = 0
+        if f.exists():
+            try:
+                rows = int(len(pd.read_csv(f, dtype=str)))
+            except Exception:  # noqa: BLE001
+                rows = 0
+        results.append({"security_id": r.security_id, "ticker": r.ticker, "end_month": r.end_month,
+                        "status": status, "rows_indexed": rows})
+        print(f"  {r.ticker:6s} {r.end_month} {status} rows={rows}")
+        if status == "budget_exhausted":
+            break
+    res = pd.DataFrame(results)
+    OUT.mkdir(parents=True, exist_ok=True)
+    res.to_csv(OUT / f"listings_s{shard}of{shards}.csv", index=False)
+    _status("listings" if shards == 1 else f"listings_s{shard}of{shards}", {
+        "targets": int(len(todo)), "attempted": int(len(res)),
+        "status_counts": res["status"].value_counts().to_dict() if len(res) else {},
+        "indexed": int((res["rows_indexed"] > 0).sum()) if len(res) else 0,
+        "rows_indexed": int(res["rows_indexed"].sum()) if len(res) else 0})
+    return 0
+
+
 def mode_evaluate() -> int:
     prm = _params()
     from uk_cef.config import load_config
@@ -238,10 +281,13 @@ def mode_evaluate() -> int:
 
 def main(argv: list[str]) -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("mode", choices=["episodes", "windows", "extract", "evaluate"])
+    ap.add_argument("mode", choices=["episodes", "windows", "extract", "evaluate", "listings"])
     ap.add_argument("--limit", type=int, default=0)
     ap.add_argument("--market", default="")
+    ap.add_argument("--budget-minutes", type=float, default=240.0)
     a = ap.parse_args(argv)
+    if a.mode == "listings":
+        return mode_listings(a.budget_minutes, a.limit)
     if a.mode == "episodes":
         return mode_episodes()
     if a.mode == "windows":

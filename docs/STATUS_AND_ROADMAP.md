@@ -287,6 +287,23 @@ Everything here has a named fix in `coverage_failures.csv`:
 > Extraction is paused on the API's credit balance; the term extractor
 > itself was unblocked twice (the workspace header, then a field name its
 > own guard forbade) and now waits on the same balance.
+>
+> **2026-09-10, later — the first honest numbers.** With both monthly panels
+> (52,128 fund-months, 467 funds; 12-month resolution base rate 3.4%) and
+> the model-free headline features computed for every listed fund and
+> month (74,617 fund-months, 555 funds), the 2022+ holdout says: a wind-up
+> headline seen raises the 12-month resolution rate to 11.1% (2.2x, z 7.6),
+> a strategic-review headline to 10.3% (2.1x, z 5.8), holder churn barely
+> (1.19x, z 1.9); an active buyback runs below base, and a fund with a
+> continuation vote on the tape did not end within a year in 305
+> fund-months. None of them moves next-month return on the cheap cohort
+> (every p above 0.27): the free features anticipate endings, not
+> re-ratings. The development period reads as the opposite, because the
+> Investegate listing crawl was seeded from the aggregator's priced
+> universe and reached 113 of the 366 UK endings with a ticker: pre-2022
+> the universe's headlines are survivors' headlines. The `listings` mode
+> indexes the endings the crawl never reached; the extracted-feature test
+> waits on the control cohort's documents and the API balance.
 
 A z says a fund is cheap against its own history, not whether it deserves
 to be. Attribution conditions the entry, in a ladder from cheap to

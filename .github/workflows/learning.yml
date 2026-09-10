@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "episodes | windows | extract | evaluate"
+        description: "episodes | windows | extract | evaluate | listings"
         default: "windows"
       limit:
         description: "documents to read (extract mode; 0 = learning.docs_per_run)"
@@ -25,6 +25,9 @@ on:
       tier:
         description: "cheap | expensive"
         default: "cheap"
+      budget_minutes:
+        description: "wall-clock budget for the listings crawl"
+        default: "240"
 
 permissions:
   contents: write
@@ -106,7 +109,18 @@ jobs:
         run: |
           python -m learning.runner "${{ github.event.inputs.mode || 'windows' }}" \
             --limit "${{ github.event.inputs.limit || '0' }}" \
-            --market "${{ github.event.inputs.market }}"
+            --market "${{ github.event.inputs.market }}" \
+            --budget-minutes "${{ github.event.inputs.budget_minutes || '240' }}"
+      # the listings mode writes into the Investegate cache, which lives in
+      # the bucket's uk_announcements state group, not in git
+      - name: Persist the listings index to S3 (listings mode)
+        if: always() && github.event.inputs.mode == 'listings'
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+        run: python scripts/sync_state.py push --groups uk_announcements
       - name: Commit results
         run: |
           git config user.name "github-actions[bot]"
@@ -114,7 +128,7 @@ jobs:
           for f in data/learning/episodes.parquet data/learning/episodes.csv \
                    data/learning/window_docs.parquet data/learning/headline_features.parquet data/learning/headline_features_universe.parquet data/learning/controls.csv data/learning/window_coverage.csv \
                    data/learning/features_*.parquet data/learning/rejects_*.parquet \
-                   outputs/learning/anticipation.csv outputs/learning/cheap_cohort_returns.csv \
+                   outputs/learning/anticipation.csv outputs/learning/cheap_cohort_returns.csv outputs/learning/listings_s*.csv \
                    reports/build/learning_status.json; do
             [ -f "$f" ] && git add -f "$f"
           done

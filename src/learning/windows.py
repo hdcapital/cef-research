@@ -350,3 +350,21 @@ def headline_features_universe(registry: pd.DataFrame, listings_dir: Path = UK_L
                                      "months_since_strategic_review", "months_since_continuation",
                                      "windup_headline_seen", "announcements_3m"])
     return pd.concat([o for o in out if len(o)], ignore_index=True)
+
+
+def listing_targets(episodes: pd.DataFrame, listings_dir: Path = UK_LISTINGS,
+                    before: int = 18) -> pd.DataFrame:
+    """UK episodes with a ticker whose headline index is missing or starts
+    after the window: the funds the survivorship-free corpus is FOR, and
+    the ones the listing crawl (seeded from the aggregator's priced
+    universe) never reached. 113 of 366 had an index on 2026-09-10 and 66
+    reached their window; pre-2022 the universe headline features were
+    therefore survivors' features, and read as the opposite of a signal."""
+    cov = listing_coverage(episodes[episodes["market"].eq("UK")], before=before,
+                           listings_dir=listings_dir, au=pd.DataFrame())
+    if not len(cov):
+        return cov
+    want = cov[(cov["listing_rows"] == 0) | ~cov["reaches_window"]].copy()
+    names = episodes.drop_duplicates("security_id").set_index("security_id")["name"]
+    want["name"] = want["security_id"].map(names)
+    return want.sort_values("end_month", ascending=False)

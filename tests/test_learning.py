@@ -341,3 +341,14 @@ def test_documented_marks_only_the_months_after_a_read_document():
     months = pd.DataFrame({"security_id": ["NAME:a"] * 3 + ["NAME:b"],
                            "obs_month": ["2019-12", "2020-04", "2020-09", "2020-02"]})
     assert V.documented(rows, months, persist_months=6).tolist() == [False, True, False, False]
+
+
+def test_listing_targets_are_the_endings_the_crawl_never_reached(tmp_path):
+    ep = pd.DataFrame([
+        {"security_id": "NAME:a|ordinary share", "market": "UK", "ticker": "AAA", "end_month": "2020-12", "name": "A"},
+        {"security_id": "NAME:old|ordinary share", "market": "UK", "ticker": "AAA", "end_month": "2010-06", "name": "Old"},
+        {"security_id": "NAME:none|ordinary share", "market": "UK", "ticker": "NOPE", "end_month": "2020-12", "name": "None"},
+        {"security_id": "ASX:ZZZ", "market": "AU", "ticker": "ZZZ", "end_month": "2022-08", "name": "Zed"}])
+    t = W.listing_targets(ep, listings_dir=_listing(tmp_path))
+    assert set(t["security_id"]) == {"NAME:old|ordinary share", "NAME:none|ordinary share"}
+    assert t.set_index("security_id").loc["NAME:none|ordinary share", "name"] == "None"
