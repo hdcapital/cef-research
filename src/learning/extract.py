@@ -156,11 +156,11 @@ def guard(rec, doc_text: str) -> tuple[list[str], dict[str, str], dict[str, str]
             feature_problems[name] = "quote_not_in_document"
         else:
             matches[name] = m
-    for d in rec.get("stated_dates") or []:
-        if not isinstance(d, dict) or not isinstance(d.get("date"), str) \
-                or not re.fullmatch(r"\d{4}-\d{2}-\d{2}", d["date"]):
-            problems.append("bad_date")
-            break
+    # a stated date that is not a date is dropped, not a reason to lose the
+    # ten features (15 of the first 51 rejections were "2020-03" and the like)
+    rec["stated_dates"] = [d for d in (rec.get("stated_dates") or [])
+                           if isinstance(d, dict) and isinstance(d.get("date"), str)
+                           and re.fullmatch(r"\d{4}-\d{2}-\d{2}", d["date"])]
     conf = rec.get("confidence")
     if not isinstance(conf, (int, float)):
         problems.append("confidence_missing")
@@ -247,13 +247,37 @@ def _s3():
 
 
 def read_manifest(s3) -> set[str]:
+    """What has been read: every accepted row in the committed feature
+    store, every rejection under the current prompt and guard, and the
+    bucket's manifest (empties, and runs whose commit did not land).
+
+    The store is the source of truth because two runs that both appended
+    to one file and both committed lost the first run's rows to the
+    second's rebase (195 accepted AU rows on 2026-09-08); anything the
+    store does not hold is read again."""
+    done: set[str] = set()
+    try:
+        f = load_features(OUT_DIR)
+        done |= {f"{a}|{b}" for a, b in zip(f["security_id"], f["ann_id"])}
+    except Exception:  # noqa: BLE001
+        pass
+    try:
+        for p in sorted(OUT_DIR.glob("rejects_*.parquet")):
+            r = pd.read_parquet(p)
+            if {"security_id", "ann_id", "prompt_version", "guard_version"} <= set(r.columns):
+                done |= {f"{a}|{b}|{pv}|{gv}" for a, b, pv, gv in zip(
+                    r["security_id"], r["ann_id"], r["prompt_version"], r["guard_version"])}
+    except Exception:  # noqa: BLE001
+        pass
     if s3 is None:
-        return set()
+        return done
     try:
         body = s3.get_object(Bucket=BUCKET, Key=MANIFEST_KEY)["Body"].read()
-        return set(json.loads(body).get("ids", []))
+        done |= {k for k in json.loads(body).get("ids", []) if k.count("|") == 3
+                 and k.endswith(f"|{GUARD_VERSION}") or k.count("|") == 1 and k in done}
     except Exception:  # noqa: BLE001
-        return set()
+        pass
+    return done
 
 
 def write_manifest(s3, done: set[str]) -> None:
@@ -352,7 +376,8 @@ def run(docs: pd.DataFrame, budget: int = 200, deadline_min: float = 240.0,
             rejects.append({**{k: doc.get(k) for k in ("security_id", "market", "ann_id",
                                                         "date", "headline")},
                             "reasons": "|".join(audit.get("rejected") or []),
-                            "feature_rejects": json.dumps(audit.get("feature_rejects") or {})})
+                            "feature_rejects": json.dumps(audit.get("feature_rejects") or {}),
+                            "prompt_version": prompt_version(), "guard_version": GUARD_VERSION})
             continue
         done.add(key)
         stats["accepted"] += 1
@@ -367,23 +392,19 @@ def run(docs: pd.DataFrame, budget: int = 200, deadline_min: float = 240.0,
 
 def write_outputs(rows: list[dict], rejects: list[dict], tag: str,
                   out_dir: Path = OUT_DIR, s3=None) -> dict:
+    """One file per run. Two runs that appended to the same file and both
+    committed lost the first run's rows to the second's rebase; a file
+    named for the run cannot collide, and load_features unions them."""
     out_dir.mkdir(parents=True, exist_ok=True)
     written = {}
+    stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
     if rows:
-        p = out_dir / f"features_{tag}.parquet"
-        new = pd.DataFrame(rows)
-        if p.exists():
-            old = pd.read_parquet(p)
-            new = pd.concat([old, new], ignore_index=True).drop_duplicates(
-                ["security_id", "ann_id"], keep="last")
-        new.to_parquet(p, index=False)
+        p = out_dir / f"features_{tag}_{stamp}.parquet"
+        pd.DataFrame(rows).to_parquet(p, index=False)
         written["features"] = str(p)
     if rejects:
-        p = out_dir / f"rejects_{tag}.parquet"
-        new = pd.DataFrame(rejects)
-        if p.exists():
-            new = pd.concat([pd.read_parquet(p), new], ignore_index=True)
-        new.to_parquet(p, index=False)
+        p = out_dir / f"rejects_{tag}_{stamp}.parquet"
+        pd.DataFrame(rejects).to_parquet(p, index=False)
         written["rejects"] = str(p)
     if s3 is not None:
         for p in written.values():

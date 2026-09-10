@@ -213,6 +213,29 @@ def test_rejected_documents_are_read_again_after_a_guard_change():
     assert reread["read"] == 1
 
 
+def test_a_bad_stated_date_is_dropped_not_the_document():
+    r = _rec(stated_dates=[{"what": "AGM", "date": "2020-03"}, {"what": "EGM", "date": "2020-03-31"}])
+    problems, feature_problems, _ = X.guard(r, DOC)
+    assert problems == [] and r["stated_dates"] == [{"what": "EGM", "date": "2020-03-31"}]
+
+
+def test_each_run_writes_its_own_file_and_the_store_is_the_done_set(tmp_path, monkeypatch):
+    monkeypatch.setattr(X, "OUT_DIR", tmp_path)
+    doc = {"security_id": "NAME:a", "market": "UK", "ticker": "AAA", "ann_id": "1",
+           "date": "2020-01-15", "obs_month": "2020-01", "end_month": "2020-12",
+           "headline": "Final Results", "family": "narrative"}
+    row = X.flatten(_rec(), doc, {"model": "m", "prompt_version": X.prompt_version()})
+    a = X.write_outputs([row], [], "all", out_dir=tmp_path)
+    b = X.write_outputs([dict(row, ann_id="2")], [{"security_id": "NAME:a", "ann_id": "3",
+                                                    "prompt_version": X.prompt_version(),
+                                                    "guard_version": X.GUARD_VERSION, "reasons": "x"}],
+                        "all", out_dir=tmp_path)
+    assert a["features"] != b["features"]
+    assert len(X.load_features(tmp_path)) == 2
+    done = X.read_manifest(None)
+    assert {"NAME:a|1", "NAME:a|2", f"NAME:a|3|{X.prompt_version()}|{X.GUARD_VERSION}"} <= done
+
+
 def test_run_records_rejections_and_aborts_on_repeated_errors():
     class Client:
         calls = 0
