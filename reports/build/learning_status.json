@@ -81,7 +81,7 @@
     "prompt_version": "v1:f2eb3ac3715fc46a"
   },
   "evaluate": {
-    "run_at": "2026-09-10T14:38:49+00:00",
+    "run_at": "2026-09-10T14:46:06+00:00",
     "panel_rows": 52128,
     "funds": 467,
     "panels": [
@@ -207,6 +207,54 @@
         "rate": 0.008860011813349085,
         "base_rate": 0.029143710416559394,
         "z_vs_rest": -9.217574087618532
+      }
+    ],
+    "listed_universe_fund_months": 82049,
+    "base_rates_listed_universe": {
+      "resolved_within_6m": 0.016282952869626686,
+      "resolved_within_12m": 0.030006459554656365,
+      "resolved_within_18m": 0.04349839729917488
+    },
+    "strongest_12m_development_listed": [
+      {
+        "feature": "hf_buyback_active",
+        "value": "active",
+        "n": 11437,
+        "rate": 0.02194631459298767,
+        "base_rate": 0.01911282513039194,
+        "z_vs_rest": 2.465587492589287
+      },
+      {
+        "feature": "hf_continuation",
+        "value": "seen",
+        "n": 1059,
+        "rate": 0.024551463644948063,
+        "base_rate": 0.01911282513039194,
+        "z_vs_rest": 1.3043933857572698
+      },
+      {
+        "feature": "hf_strategic_review",
+        "value": "seen",
+        "n": 613,
+        "rate": 0.021207177814029365,
+        "base_rate": 0.01911282513039194,
+        "z_vs_rest": 0.3806986989918485
+      },
+      {
+        "feature": "hf_windup",
+        "value": "seen",
+        "n": 647,
+        "rate": 0.02009273570324575,
+        "base_rate": 0.01911282513039194,
+        "z_vs_rest": 0.18304872573335262
+      },
+      {
+        "feature": "hf_holder_churn",
+        "value": "churn",
+        "n": 7403,
+        "rate": 0.009590706470349859,
+        "base_rate": 0.01911282513039194,
+        "z_vs_rest": -6.399600436400003
       }
     ],
     "cheap_cohort": [
