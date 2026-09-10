@@ -137,7 +137,7 @@ def test_call_errors_are_retried_and_abort_after_three(monkeypatch):
         rows.append(r)
     ev = pd.DataFrame(rows)
     ev.loc[0, "terms"] = '{"llm": "error", "error": "old"}'      # retried
-    ev.loc[1, "terms"] = '{"llm": "rejected"}'                    # not retried
+    ev.loc[1, "terms"] = json.dumps({"llm": "rejected", "prompt_version": CT.prompt_version()})  # this prompt's verdict: not retried
     assert set(CT.candidates(ev)["security_id"]) == {"S0", "S2", "S3", "S4", "S5"}
     out, stats = CT.run(ev, None, budget_docs=40, client=Boom(),
                         fetch=lambda u: "x" * 500)
