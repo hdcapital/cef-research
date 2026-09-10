@@ -6,7 +6,7 @@
  "sector": "Property - Debt",
  "liveness": {
   "status": "live_stale_nav",
-  "reason": "periodic_report_125d_old_no_recent_nav",
+  "reason": "periodic_report_126d_old_no_recent_nav",
   "source": "own_periodic_report",
   "last_nav": "2026-05-07",
   "last_announcement": "2026-06-18"
@@ -17,7 +17,7 @@
   "anchor_source": "investegate_fs:9555897",
   "estimate": 17.15,
   "basis": 0.0,
-  "staleness_days": 157.0,
+  "staleness_days": 158.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1085,
-  "discount_only": 0.0542,
+  "central": 0.1165,
+  "discount_only": 0.0618,
   "g_used": 0.0515,
   "g_source": "market_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-09T23:34:50+00:00"
+ "updated_at": "2026-09-10T08:34:16+00:00"
 }

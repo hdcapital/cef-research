@@ -6,7 +6,7 @@
  "sector": "Japanese Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-07",
   "last_announcement": "2026-09-09"
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9763801",
   "estimate": 179.4,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 2.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 172.0,
+  "price": 175.0,
   "ccy": "GBp",
-  "date": "2026-09-08",
+  "date": "2026-09-10",
   "source": "yahoo:AJOT.L"
  },
  "discount": {
-  "estimate": -0.041249,
-  "z": -0.6498,
-  "z_status": "computed",
+  "estimate": -0.024526,
+  "z": 0.2414,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.029056,
   "sigma_36m": 0.018765,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0971,
-  "discount_only": 0.0054,
+  "central": 0.0952,
+  "discount_only": 0.0036,
   "g_used": 0.0658,
   "g_source": "own_nav_history"
  },
@@ -56,20 +56,12 @@
    "direction": "positive",
    "headline": "Tender Offer for Largest Portfolio Holding",
    "url": "https://www.investegate.co.uk/announcement/rns/avi-japan-opportunity-trust--ajot/tender-offer-for-largest-portfolio-holding/9764000",
-   "alerted_at": null,
+   "alerted_at": "2026-09-10T01:53:11+00:00",
    "terms": {
-    "llm": "rejected",
-    "model": "claude-haiku-4-5",
-    "prompt_version": "v1:8e1a87976ca0",
-    "stop_reason": "end_turn",
-    "input_tokens": 2589,
-    "output_tokens": 303,
-    "cache_read": 0,
-    "rejected": [
-     "computed_signal_field:expected_return_pct_of_nav"
-    ]
+    "llm": "error",
+    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
    }
   }
  ],
- "updated_at": "2026-09-09T23:34:49+00:00"
+ "updated_at": "2026-09-10T08:34:15+00:00"
 }

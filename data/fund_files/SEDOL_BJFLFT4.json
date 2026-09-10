@@ -6,7 +6,7 @@
  "sector": "Property - UK Commercial",
  "liveness": {
   "status": "delist_candidate",
-  "reason": "filings_but_no_nav_or_report_30d",
+  "reason": "filings_but_no_nav_or_report_31d",
   "source": "own_announcement_only",
   "last_nav": "2022-12-14",
   "last_announcement": "2026-08-10"
@@ -17,7 +17,7 @@
   "anchor_source": "own_nav_history:2022-03-31",
   "estimate": 119.7,
   "basis": 3.0,
-  "staleness_days": 1159.0,
+  "staleness_days": 1160.0,
   "staleness_limit_days": 200.0,
   "current": false,
   "unit": "GBX",
@@ -25,13 +25,13 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 83.69999694824219,
+  "price": 82.9000015258789,
   "ccy": "GBp",
-  "date": "2026-09-08",
+  "date": "2026-09-10",
   "source": "yahoo:CREI.L"
  },
  "discount": {
-  "estimate": -0.300752,
+  "estimate": -0.307435,
   "z": null,
   "z_status": "no_discount_history",
   "z_source": null,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1428,
-  "discount_only": 0.0868,
+  "central": 0.1384,
+  "discount_only": 0.0826,
   "g_used": 0.0515,
   "g_source": "market_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-09T23:34:49+00:00"
+ "updated_at": "2026-09-10T08:34:16+00:00"
 }

@@ -6,7 +6,7 @@
  "sector": "Property - Europe",
  "liveness": {
   "status": "live",
-  "reason": "nav_71d_old",
+  "reason": "nav_72d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-06-30",
   "last_announcement": "2026-09-08"
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9759865",
   "estimate": 22.5,
   "basis": 0.0,
-  "staleness_days": 51.0,
+  "staleness_days": 52.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": "nav_jump_2150%_vs_own"
  },
  "price": {
-  "price": 10.640000343322754,
+  "price": 10.865099906921387,
   "ccy": "GBp",
-  "date": "2026-09-08",
+  "date": "2026-09-10",
   "source": "yahoo:ASLI.L"
  },
  "discount": {
-  "estimate": -0.527111,
-  "z": -0.2626,
+  "estimate": -0.517107,
+  "z": -0.2046,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1263,
-  "discount_only": 0.0712,
+  "central": 0.1129,
+  "discount_only": 0.0584,
   "g_used": 0.0515,
   "g_source": "market_median"
  },
@@ -71,5 +71,5 @@
    }
   }
  ],
- "updated_at": "2026-09-09T23:34:51+00:00"
+ "updated_at": "2026-09-10T08:34:17+00:00"
 }
