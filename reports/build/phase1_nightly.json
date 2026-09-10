@@ -1,22 +1,22 @@
 {
   "rows": 1116,
-  "rows_with_nav": 741,
-  "rows_without_nav": 375,
+  "rows_with_nav": 747,
+  "rows_without_nav": 369,
   "basis_counts": {
-    "nan": 375,
-    "3.0": 265,
-    "0.0": 264,
-    "1.0": 212
+    "nan": 369,
+    "0.0": 266,
+    "3.0": 263,
+    "1.0": 218
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 164,
+  "alert_eligible": 149,
   "z_extremes": [
     {
       "security_id": "SEDOL:B0JQZZ8",
-      "z_adj": -132.5534,
-      "discount_est": -0.990503,
-      "staleness_days": 13.0
+      "z_adj": -132.5618,
+      "discount_est": -0.990563,
+      "staleness_days": 8.0
     },
     {
       "security_id": "SEDOL:BL690L8",
@@ -32,9 +32,9 @@
     },
     {
       "security_id": "SEDOL:BDHXP96",
-      "z_adj": -43.9393,
-      "discount_est": -0.717974,
-      "staleness_days": 1.0
+      "z_adj": -43.793,
+      "discount_est": -0.715646,
+      "staleness_days": 0.0
     },
     {
       "security_id": "SEDOL:BNGFHX1",
@@ -44,8 +44,8 @@
     },
     {
       "security_id": "SEDOL:B1G3N11",
-      "z_adj": -36.3111,
-      "discount_est": -0.889339,
+      "z_adj": -36.2944,
+      "discount_est": -0.888975,
       "staleness_days": 2.0
     },
     {
@@ -67,10 +67,10 @@
       "staleness_days": 117.0
     },
     {
-      "security_id": "SEDOL:B631ZQ2",
-      "z_adj": -30.7301,
-      "discount_est": -0.990922,
-      "staleness_days": 52.0
+      "security_id": "SEDOL:1610207",
+      "z_adj": -21.2852,
+      "discount_est": -0.488355,
+      "staleness_days": 2.0
     }
   ],
   "date": "2026-09-10",
@@ -83,8 +83,8 @@
       "live_prices": 100
     },
     "uk_identity_blocked": 336,
-    "uk_nav_targets": 297,
-    "uk_registry_only_targets": 101,
+    "uk_nav_targets": 308,
+    "uk_registry_only_targets": 112,
     "uk_aux_z_history_funds": 241,
     "uk_fx_pairs": [
       "CAD",
@@ -96,9 +96,9 @@
       "agreement_rate_pairs": 0.9689
     },
     "uk": {
-      "tier0_navs": 227,
-      "nav_publishers_found": 299,
-      "daily_weekly": 190
+      "tier0_navs": 232,
+      "nav_publishers_found": 348,
+      "daily_weekly": 201
     }
   },
   "catalysts": {
@@ -111,41 +111,41 @@
       "offer_withdrawn": 3,
       "liquidation_wind_down": 2,
       "manager_exit": 2,
-      "scheme_merger_rollover": 1,
       "takeover_offer": 1,
+      "scheme_merger_rollover": 1,
       "legal_sanctions": 1,
       "suspension": 1
     }
   },
   "events": {
-    "events_total": 397,
-    "events_30d": 218,
-    "funds_30d": 96,
+    "events_total": 408,
+    "events_30d": 227,
+    "funds_30d": 100,
     "by_direction_30d": {
-      "neutral": 188,
-      "positive": 23,
+      "neutral": 196,
+      "positive": 24,
       "negative": 7
     },
     "by_class_30d": {
-      "issuance": 111,
-      "holdings_notification": 68,
+      "issuance": 113,
+      "holdings_notification": 74,
       "portfolio_holding": 9,
       "substantial_holder": 8,
       "tender_offer": 7,
       "realisation": 4,
       "offer_withdrawn": 3,
       "manager_exit": 2,
+      "scheme_merger_rollover": 2,
       "liquidation_wind_down": 2,
-      "scheme_merger_rollover": 1,
       "takeover_offer": 1,
       "suspension": 1
     },
-    "unalerted": 351,
-    "holdings_with_terms": 66,
+    "unalerted": 362,
+    "holdings_with_terms": 72,
     "tr1": {
-      "candidates": 0,
-      "fetched": 0,
-      "parsed": 0,
+      "candidates": 6,
+      "fetched": 6,
+      "parsed": 6,
       "failed": 0
     },
     "realisations": {
@@ -155,7 +155,7 @@
       "failed": 0
     },
     "terms": {
-      "candidates": 20,
+      "candidates": 21,
       "read": 3,
       "accepted": 0,
       "rejected": 0,
@@ -171,11 +171,11 @@
   },
   "carried_forward_rows": 0,
   "nav_quarantine": {
-    "rows": 461,
+    "rows": 459,
     "by_reason": {
-      "nav_not_positive": 218,
-      "stale_panel_price_only": 216,
-      "unit_suspect_scale": 7,
+      "nav_not_positive": 216,
+      "stale_panel_price_only": 215,
+      "unit_suspect_scale": 8,
       "nav_jump_N_vs_prior": 6,
       "no_price": 5,
       "nav_jump_N_vs_own": 5,

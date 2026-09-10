@@ -12,12 +12,12 @@
   "last_announcement": "2026-09-09"
  },
  "nav": {
-  "anchor": 240.29,
-  "anchor_date": "2026-09-09",
-  "anchor_source": "investegate:9763426",
-  "estimate": 240.29,
+  "anchor": 237.33,
+  "anchor_date": "2026-09-10",
+  "anchor_source": "investegate:9765753",
+  "estimate": 237.33,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 214.0,
+  "price": 212.0,
   "ccy": "GBp",
   "date": "2026-09-10",
   "source": "yahoo:BGUK.L"
  },
  "discount": {
-  "estimate": -0.109409,
-  "z": 0.3481,
+  "estimate": -0.106729,
+  "z": 0.4609,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,26 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.058,
-  "discount_only": -0.0055,
+  "central": 0.0609,
+  "discount_only": -0.0027,
   "g_used": 0.0489,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [],
- "updated_at": "2026-09-10T08:34:15+00:00"
+ "events_90d": [
+  {
+   "date": "2026-09-10",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/baillie-gifford-uk-growth-trust--bguk/holding-s-in-company/9766426",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Rathbones Investment Management Ltd"
+   }
+  }
+ ],
+ "updated_at": "2026-09-10T21:53:56+00:00"
 }

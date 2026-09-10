@@ -5,33 +5,33 @@
  "ticker": null,
  "sector": "Technology & Technology Innovation",
  "liveness": {
-  "status": "delist_candidate",
-  "reason": "aggregator_delisted_and_own_filings_silent_alwaysd",
-  "source": "corroborated_delisting",
+  "status": "live_stale_nav",
+  "reason": "periodic_report_43d_old_no_recent_nav",
+  "source": "own_periodic_report",
   "last_nav": null,
-  "last_announcement": null
+  "last_announcement": "2026-09-02"
  },
  "nav": {
-  "anchor": null,
-  "anchor_date": null,
-  "anchor_source": null,
-  "estimate": null,
-  "basis": null,
-  "staleness_days": null,
+  "anchor": 117.94,
+  "anchor_date": "2026-03-31",
+  "anchor_source": "investegate_fs:9694528",
+  "estimate": 117.94,
+  "basis": 0.0,
+  "staleness_days": 117.0,
   "staleness_limit_days": 45.0,
   "current": false,
   "unit": "GBX",
-  "quality_ok": false,
-  "quality_reason": "nav_not_positive"
+  "quality_ok": true,
+  "quality_reason": ""
  },
  "price": {
   "price": 30.0,
   "ccy": "GBp",
-  "date": "2026-09-08",
+  "date": "2026-09-09",
   "source": "yahoo:SURE.L"
  },
  "discount": {
-  "estimate": null,
+  "estimate": -0.745633,
   "z": null,
   "z_status": "no_discount_history",
   "z_source": null,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-10T08:34:16+00:00"
+ "updated_at": "2026-09-10T21:53:57+00:00"
 }

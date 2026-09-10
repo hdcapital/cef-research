@@ -5,11 +5,11 @@
  "ticker": null,
  "sector": "Renewable Energy Infrastructure",
  "liveness": {
-  "status": "delist_candidate",
-  "reason": "aggregator_delisted_and_own_filings_silent_alwaysd",
-  "source": "corroborated_delisting",
+  "status": "live_stale_nav",
+  "reason": "periodic_report_345d_old_no_recent_nav",
+  "source": "own_periodic_report",
   "last_nav": null,
-  "last_announcement": null
+  "last_announcement": "2026-09-09"
  },
  "nav": {
   "anchor": null,
@@ -25,9 +25,9 @@
   "quality_reason": "nav_not_positive"
  },
  "price": {
-  "price": 0.17649999260902405,
+  "price": 0.1720000058412552,
   "ccy": "EUR",
-  "date": "2026-09-08",
+  "date": "2026-09-10",
   "source": "yahoo:AERI.L"
  },
  "discount": {
@@ -48,6 +48,31 @@
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [],
- "updated_at": "2026-09-10T08:34:15+00:00"
+ "events_90d": [
+  {
+   "date": "2026-09-09",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/aquila-european-renewables--aeri/holding-s-in-company/9764006",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Bank of America Corporation"
+   }
+  },
+  {
+   "date": "2026-09-08",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/aquila-european-renewables--aeri/holding-s-in-company/9760942",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Bank of America Corporation"
+   }
+  }
+ ],
+ "updated_at": "2026-09-10T21:53:56+00:00"
 }

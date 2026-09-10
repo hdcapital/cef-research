@@ -12,12 +12,12 @@
   "last_announcement": "2026-08-30"
  },
  "nav": {
-  "anchor": 0.54,
-  "anchor_date": "2026-07-31",
-  "anchor_source": "asx_ann:03124210",
-  "estimate": 0.54,
-  "basis": 0.0,
-  "staleness_days": 29.0,
+  "anchor": 0.51,
+  "anchor_date": "2026-08-31",
+  "anchor_source": "own_nav_history:2026-08-31",
+  "estimate": 0.496255,
+  "basis": 1.0,
+  "staleness_days": 8.0,
   "staleness_limit_days": 93.0,
   "current": true,
   "unit": "AUD",
@@ -31,8 +31,8 @@
   "source": "yahoo:NCC.AX"
  },
  "discount": {
-  "estimate": -0.138889,
-  "z": -0.3083,
+  "estimate": -0.062982,
+  "z": 0.3331,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1806,
-  "discount_only": 0.011,
+  "central": 0.1761,
+  "discount_only": 0.0067,
   "g_used": 0.0815,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-10T08:34:15+00:00"
+ "updated_at": "2026-09-10T21:53:56+00:00"
 }

@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 42.650001525878906,
+  "price": 41.150001525878906,
   "ccy": "GBp",
   "date": "2026-09-10",
   "source": "yahoo:SREI.L"
  },
  "discount": {
-  "estimate": -0.295041,
-  "z": -1.2077,
+  "estimate": -0.319835,
+  "z": -1.5375,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,14 +41,27 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0657,
-  "discount_only": 0.0136,
+  "central": 0.0724,
+  "discount_only": 0.0199,
   "g_used": 0.0515,
   "g_source": "market_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-09-10",
+   "class": "scheme_merger_rollover",
+   "weight": 5,
+   "direction": "positive",
+   "headline": "SCHEME OF ARRANGEMENT BECOMES EFFECTIVE",
+   "url": "https://www.investegate.co.uk/announcement/rns/schroder-real-estate-investment-trust-ltd--srei/scheme-of-arrangement-becomes-effective/9765569",
+   "alerted_at": null,
+   "terms": {
+    "llm": "error",
+    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
+   }
+  },
   {
    "date": "2026-09-08",
    "class": "scheme_merger_rollover",
@@ -63,5 +76,5 @@
    }
   }
  ],
- "updated_at": "2026-09-10T08:34:16+00:00"
+ "updated_at": "2026-09-10T21:53:57+00:00"
 }

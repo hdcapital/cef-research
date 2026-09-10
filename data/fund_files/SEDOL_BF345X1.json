@@ -5,33 +5,33 @@
  "ticker": null,
  "sector": "Property - UK Commercial",
  "liveness": {
-  "status": "delist_candidate",
-  "reason": "aggregator_delisted_and_own_filings_silent_alwaysd",
-  "source": "corroborated_delisting",
+  "status": "live_stale_nav",
+  "reason": "periodic_report_197d_old_no_recent_nav",
+  "source": "own_periodic_report",
   "last_nav": null,
-  "last_announcement": null
+  "last_announcement": "2026-09-01"
  },
  "nav": {
-  "anchor": null,
-  "anchor_date": null,
-  "anchor_source": null,
-  "estimate": null,
-  "basis": null,
-  "staleness_days": null,
+  "anchor": 87.5,
+  "anchor_date": "2025-12-31",
+  "anchor_source": "investegate_fs:9468075",
+  "estimate": 87.5,
+  "basis": 0.0,
+  "staleness_days": 181.0,
   "staleness_limit_days": 45.0,
   "current": false,
   "unit": "GBX",
-  "quality_ok": false,
-  "quality_reason": "nav_not_positive"
+  "quality_ok": true,
+  "quality_reason": ""
  },
  "price": {
-  "price": 82.9000015258789,
+  "price": 82.19999694824219,
   "ccy": "GBp",
   "date": "2026-09-10",
   "source": "yahoo:SUPR.L"
  },
  "discount": {
-  "estimate": null,
+  "estimate": -0.060571,
   "z": null,
   "z_status": "no_discount_history",
   "z_source": null,
@@ -48,6 +48,27 @@
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [],
- "updated_at": "2026-09-10T08:34:16+00:00"
+ "events_90d": [
+  {
+   "date": "2026-08-10",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/supermarket-income-reit--supr/holding-s-in-company/9713892",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-08-06",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/supermarket-income-reit--supr/holding-s-in-company/9709223",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-10T21:53:57+00:00"
 }

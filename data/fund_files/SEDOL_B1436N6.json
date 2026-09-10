@@ -5,11 +5,11 @@
  "ticker": null,
  "sector": "Property - Rest of World",
  "liveness": {
-  "status": "delist_candidate",
-  "reason": "aggregator_delisted_and_own_filings_silent_alwaysd",
-  "source": "corroborated_delisting",
+  "status": "live_stale_nav",
+  "reason": "periodic_report_314d_old_no_recent_nav",
+  "source": "own_periodic_report",
   "last_nav": null,
-  "last_announcement": null
+  "last_announcement": "2026-07-24"
  },
  "nav": {
   "anchor": null,
@@ -27,7 +27,7 @@
  "price": {
   "price": 5.150000095367432,
   "ccy": "GBp",
-  "date": "2026-09-08",
+  "date": "2026-09-09",
   "source": "yahoo:MPO.L"
  },
  "discount": {
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-10T08:34:16+00:00"
+ "updated_at": "2026-09-10T21:53:57+00:00"
 }

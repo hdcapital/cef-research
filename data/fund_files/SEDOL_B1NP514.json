@@ -5,33 +5,33 @@
  "ticker": null,
  "sector": "Hedge Funds",
  "liveness": {
-  "status": "delist_candidate",
-  "reason": "aggregator_delisted_and_own_filings_silent_alwaysd",
-  "source": "corroborated_delisting",
+  "status": "live_stale_nav",
+  "reason": "periodic_report_163d_old_no_recent_nav",
+  "source": "own_periodic_report",
   "last_nav": null,
-  "last_announcement": null
+  "last_announcement": "2026-09-09"
  },
  "nav": {
-  "anchor": null,
-  "anchor_date": null,
-  "anchor_source": null,
-  "estimate": null,
-  "basis": null,
-  "staleness_days": null,
+  "anchor": 451.0,
+  "anchor_date": "2026-09-08",
+  "anchor_source": "investegate:9761494",
+  "estimate": 451.0,
+  "basis": 0.0,
+  "staleness_days": 2.0,
   "staleness_limit_days": 45.0,
-  "current": false,
+  "current": true,
   "unit": "GBX",
-  "quality_ok": false,
-  "quality_reason": "nav_not_positive"
+  "quality_ok": true,
+  "quality_reason": ""
  },
  "price": {
-  "price": 426.0,
+  "price": 424.5,
   "ccy": "GBp",
   "date": "2026-09-10",
   "source": "yahoo:BHMG.L"
  },
  "discount": {
-  "estimate": null,
+  "estimate": -0.058758,
   "z": null,
   "z_status": "no_discount_history",
   "z_source": null,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-10T08:34:15+00:00"
+ "updated_at": "2026-09-10T21:53:56+00:00"
 }
