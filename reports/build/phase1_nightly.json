@@ -10,70 +10,70 @@
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 176,
+  "alert_eligible": 173,
   "z_extremes": [
     {
       "security_id": "SEDOL:B0JQZZ8",
       "z_adj": -132.5534,
       "discount_est": -0.990503,
-      "staleness_days": 12.0
+      "staleness_days": 13.0
     },
     {
       "security_id": "SEDOL:BL690L8",
       "z_adj": -61.0706,
       "discount_est": -0.989873,
-      "staleness_days": 97.0
+      "staleness_days": 98.0
     },
     {
       "security_id": "SEDOL:BRC8992",
       "z_adj": -56.3742,
       "discount_est": -0.99027,
-      "staleness_days": 1.0
+      "staleness_days": 2.0
     },
     {
       "security_id": "SEDOL:BDHXP96",
       "z_adj": -43.9393,
       "discount_est": -0.717974,
-      "staleness_days": 0.0
+      "staleness_days": 1.0
     },
     {
       "security_id": "SEDOL:BNGFHX1",
       "z_adj": -37.4398,
       "discount_est": -0.990494,
-      "staleness_days": 51.0
+      "staleness_days": 52.0
     },
     {
       "security_id": "SEDOL:B1G3N11",
       "z_adj": -36.3111,
       "discount_est": -0.889339,
-      "staleness_days": 1.0
+      "staleness_days": 2.0
     },
     {
       "security_id": "ASX:ALR",
-      "z_adj": -32.9002,
-      "discount_est": -0.962191,
-      "staleness_days": 2225.0
+      "z_adj": -32.9584,
+      "discount_est": -0.963766,
+      "staleness_days": 2226.0
     },
     {
       "security_id": "ASX:CTN",
       "z_adj": -32.2893,
       "discount_est": -0.955769,
-      "staleness_days": 2311.0
+      "staleness_days": 2312.0
     },
     {
       "security_id": "SEDOL:257743",
       "z_adj": -31.4548,
       "discount_est": -0.990683,
-      "staleness_days": 116.0
+      "staleness_days": 117.0
     },
     {
       "security_id": "SEDOL:B631ZQ2",
       "z_adj": -30.7301,
       "discount_est": -0.990922,
-      "staleness_days": 51.0
+      "staleness_days": 52.0
     }
   ],
-  "date": "2026-09-09",
+  "date": "2026-09-10",
   "markets": {
     "au_identity_blocked": 0,
     "au": {
@@ -102,15 +102,15 @@
     }
   },
   "catalysts": {
-    "catalysts": 33,
+    "catalysts": 32,
     "funds": 22,
     "by_class": {
       "substantial_holder": 10,
       "tender_offer": 7,
       "realisation": 4,
-      "manager_exit": 3,
       "offer_withdrawn": 3,
       "liquidation_wind_down": 2,
+      "manager_exit": 2,
       "scheme_merger_rollover": 1,
       "takeover_offer": 1,
       "legal_sanctions": 1,
@@ -119,29 +119,29 @@
   },
   "events": {
     "events_total": 397,
-    "events_30d": 225,
-    "funds_30d": 97,
+    "events_30d": 218,
+    "funds_30d": 96,
     "by_direction_30d": {
-      "neutral": 194,
+      "neutral": 188,
       "positive": 23,
-      "negative": 8
+      "negative": 7
     },
     "by_class_30d": {
-      "issuance": 115,
-      "holdings_notification": 69,
-      "portfolio_holding": 10,
+      "issuance": 111,
+      "holdings_notification": 68,
+      "portfolio_holding": 9,
       "substantial_holder": 8,
       "tender_offer": 7,
       "realisation": 4,
-      "manager_exit": 3,
       "offer_withdrawn": 3,
+      "manager_exit": 2,
       "liquidation_wind_down": 2,
       "scheme_merger_rollover": 1,
       "takeover_offer": 1,
       "suspension": 1
     },
     "unalerted": 352,
-    "holdings_with_terms": 67,
+    "holdings_with_terms": 66,
     "tr1": {
       "candidates": 0,
       "fetched": 0,
@@ -155,15 +155,7 @@
       "failed": 0
     },
     "terms": {
-      "candidates": 0,
-      "read": 0,
-      "accepted": 0,
-      "rejected": 0,
-      "fetch_failed": 0,
-      "errors": 0,
-      "input_tokens": 0,
-      "output_tokens": 0,
-      "model": "claude-haiku-4-5"
+      "skipped": "no ANTHROPIC_API_KEY"
     },
     "calendar_rows": 0
   },
@@ -180,9 +172,9 @@
       "nav_unit_mismatch_N_vs_prior": 4
     }
   },
-  "snapshot": "s3_exists_not_overwritten:nta_live/2026-09-09.parquet",
+  "snapshot": "s3_uploaded:nta_live/2026-09-10.parquet",
   "live_history": {
-    "rows": 11160,
-    "days": 10
+    "rows": 12276,
+    "days": 11
   }
 }
