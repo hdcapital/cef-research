@@ -24,19 +24,40 @@
     ]
   },
   "windows": {
-    "run_at": "2026-09-08T08:06:43+00:00",
-    "documents": 1332,
-    "funds_with_documents": 115,
+    "run_at": "2026-09-10T08:58:46+00:00",
+    "listing_coverage": {
+      "AU": {
+        "episodes_with_ticker": 52,
+        "listing_present": 52,
+        "listing_reaches_window": 52,
+        "window_has_rows": 52
+      },
+      "UK": {
+        "episodes_with_ticker": 366,
+        "listing_present": 113,
+        "listing_reaches_window": 66,
+        "window_has_rows": 66
+      }
+    },
+    "by_cohort": {
+      "control": 2817,
+      "case": 1332
+    },
+    "controls": 411,
+    "universe_headline_feature_rows": 74617,
+    "universe_funds": 555,
+    "documents": 4149,
+    "funds_with_documents": 306,
     "by_market": {
-      "AU": 687,
-      "UK": 645
+      "UK": 2970,
+      "AU": 1179
     },
     "by_family": {
-      "narrative": 458,
-      "narrative_report": 345,
-      "catalyst": 187,
-      "corporate_action": 182,
-      "meeting": 160
+      "narrative": 2537,
+      "narrative_report": 723,
+      "catalyst": 433,
+      "meeting": 254,
+      "corporate_action": 202
     },
     "headline_feature_rows": 3135,
     "funds_with_headline_features": 165,
