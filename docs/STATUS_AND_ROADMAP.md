@@ -304,6 +304,24 @@ Everything here has a named fix in `coverage_failures.csv`:
 > the universe's headlines are survivors' headlines. The `listings` mode
 > indexes the endings the crawl never reached; the extracted-feature test
 > waits on the control cohort's documents and the API balance.
+>
+> **2026-09-10, evening — after the backfill.** The listings crawl reached
+> 117 more UK endings (95,700 announcement rows); 207 dead tickers have no
+> Investegate page any more and 14 were identity mismatches, both recorded,
+> never indexed. Over every listed fund-month the headline index covers
+> (82,049 fund-months, 624 funds; 12-month resolution base rate 3.0%): a
+> strategic-review headline seen raises the 12-month rate to 8.3% (2.8x,
+> z 12.5) and the 6-month rate to 5.3% (3.3x); a wind-up headline to 7.0%
+> (2.3x, z 9.8) and 4.8% (2.9x). Buybacks, continuation votes and holder
+> churn carry no lift over the whole period. On the 2022+ holdout the
+> two hold (2.1x, z 8.8; 1.7x, z 6.1) and holder churn appears (1.37x,
+> z 5.0); before 2022 the index still holds mostly survivors' tapes (the
+> pages of the older endings are gone from Investegate), so the
+> development period cannot yet test anticipation. Next source for the
+> older endings: the AIC corporate-activity records the panel's terminal
+> classification already reads (tender, buyback, reconstruction,
+> realisation policy, manager change), which cover 2007 onward for every
+> fund the MIR listed.
 
 A z says a fund is cheap against its own history, not whether it deserves
 to be. Attribution conditions the entry, in a ladder from cheap to
