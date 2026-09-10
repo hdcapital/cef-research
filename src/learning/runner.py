@@ -207,6 +207,7 @@ def mode_evaluate() -> int:
     from uk_cef.config import load_config
     from uk_cef.signals import build_all_signals
     panels = []
+    full_panels = []
     z_col = "discount_z_36m"
     for cfg_path, loader in (("config/default.yaml", "uk"), ("config/au_default.yaml", "au")):
         try:
@@ -224,6 +225,7 @@ def mode_evaluate() -> int:
         z_col = f"discount_z_{cfg['signals']['zscore_window_months']}m"
         elig["panel_market"] = loader.upper()
         panels.append(elig)
+        full_panels.append(panel[["security_id", "obs_month"]].assign(panel_market=loader.upper()))
     if not panels:
         _status("evaluate", {"error": "no monthly panel available"})
         return 1
@@ -248,14 +250,25 @@ def mode_evaluate() -> int:
             lab[c] = lab[c].fillna(V.HEADLINE_SILENT[c])
     hcols = list(V.HEADLINE_SILENT)
     doc = lab[lab["documented"]]
+    # the resolution test needs no price: the headline features are tested
+    # over every listed fund-month the headline index covers (the funds the
+    # aggregator never priced are exactly the endings the crawl just
+    # reached, and they have no eligible panel row to join)
+    listed = None
+    if hfu.exists():
+        u = pd.read_parquet(hfu)
+        listed = L.attach(u[["security_id", "obs_month"]], ep)
+        listed = listed.merge(V.headline_feature_flags(u), on=["security_id", "obs_month"], how="left")
     cohorts = {}
     for c in ("case", "control"):
         if "cohort" in feats.columns:
             sids = set(feats.loc[feats["cohort"].eq(c), "security_id"])
             cohorts[c] = int(doc["security_id"].isin(sids).sum())
-    ant = pd.concat([V.anticipation(doc, cols).assign(universe="documented"),
-                     V.anticipation(lab, hcols).assign(universe="all_funds" if hfu.exists() else "episodes")],
-                    ignore_index=True)
+    frames = [V.anticipation(doc, cols).assign(universe="documented"),
+              V.anticipation(lab, hcols).assign(universe="all_funds" if hfu.exists() else "episodes")]
+    if listed is not None and len(listed):
+        frames.append(V.anticipation(listed, hcols).assign(universe="listed_universe"))
+    ant = pd.concat(frames, ignore_index=True)
     cheap = pd.concat([V.cheap_cohort_returns(doc, cols, z_col=z_col).assign(universe="documented"),
                        V.cheap_cohort_returns(lab, hcols, z_col=z_col).assign(universe="all_funds")],
                       ignore_index=True)
@@ -275,6 +288,9 @@ def mode_evaluate() -> int:
         "base_rates_all": L.base_rates(lab), "base_rates_documented": L.base_rates(doc),
         "strongest_12m_development_documented": _top("documented"),
         "strongest_12m_development_headline": _top("all_funds" if hfu.exists() else "episodes"),
+        "listed_universe_fund_months": int(len(listed)) if listed is not None else 0,
+        "base_rates_listed_universe": L.base_rates(listed) if listed is not None and len(listed) else {},
+        "strongest_12m_development_listed": _top("listed_universe") if listed is not None else [],
         "cheap_cohort": cheap.to_dict("records")})
     return 0
 
