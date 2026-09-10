@@ -6,10 +6,10 @@
  "sector": "UK Equity Income",
  "liveness": {
   "status": "live",
-  "reason": "nav_3d_old",
+  "reason": "nav_2d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-09-07",
-  "last_announcement": "2026-09-09"
+  "last_nav": "2026-09-08",
+  "last_announcement": "2026-09-10"
  },
  "nav": {
   "anchor": 256.83,
@@ -27,7 +27,7 @@
  "price": {
   "price": 231.0,
   "ccy": "GBp",
-  "date": "2026-09-10",
+  "date": "2026-09-09",
   "source": "yahoo:BRIG.L"
  },
  "discount": {
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.092,
-  "discount_only": 0.0034,
+  "central": 0.0864,
+  "discount_only": -0.002,
   "g_used": 0.0608,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-10T21:53:56+00:00"
+ "updated_at": "2026-09-10T23:36:15+00:00"
 }

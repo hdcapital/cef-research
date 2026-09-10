@@ -6,10 +6,10 @@
  "sector": "Debt - Loans & Bonds",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_1d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-09-08",
-  "last_announcement": "2026-09-09"
+  "last_nav": "2026-09-09",
+  "last_announcement": "2026-09-10"
  },
  "nav": {
   "anchor": 168.52,
@@ -27,7 +27,7 @@
  "price": {
   "price": 171.5,
   "ccy": "GBp",
-  "date": "2026-09-10",
+  "date": "2026-09-09",
   "source": "yahoo:BIPS.L"
  },
  "discount": {
@@ -41,8 +41,8 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0987,
-  "discount_only": -0.0003,
+  "central": 0.0981,
+  "discount_only": -0.0009,
   "g_used": 0.0389,
   "g_source": "panel_tr_cagr"
  },
@@ -230,5 +230,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-10T21:53:57+00:00"
+ "updated_at": "2026-09-10T23:36:15+00:00"
 }

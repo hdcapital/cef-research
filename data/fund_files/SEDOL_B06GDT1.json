@@ -15,7 +15,7 @@
   "anchor": 139.44,
   "anchor_date": "2013-09-30",
   "anchor_source": "aggregator_panel:2013-09",
-  "estimate": 140.680368,
+  "estimate": 139.44,
   "basis": 1.0,
   "staleness_days": 3378.0,
   "staleness_limit_days": 45.0,
@@ -31,8 +31,8 @@
   "source": "aggregator_panel"
  },
  "discount": {
-  "estimate": -0.061703,
-  "z": 1.2584,
+  "estimate": -0.053356,
+  "z": 1.4498,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0013,
-  "discount_only": -0.0189,
+  "central": 0.0031,
+  "discount_only": -0.0172,
   "g_used": 0.0206,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-10T21:53:56+00:00"
+ "updated_at": "2026-09-10T23:36:15+00:00"
 }

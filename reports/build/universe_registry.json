@@ -5,7 +5,7 @@
     "AU": 172,
     "UK": 944
   },
-  "live": 360,
+  "live": 359,
   "live_stale_nav": 43,
   "status_before_evidence": {
     "delisted": 731,
@@ -17,8 +17,8 @@
   "persisted_to": "data/universe/registry.parquet",
   "live_status_source": {
     "corroborated_delisting": 606,
-    "own_nav_announcement": 349,
-    "own_delisting_notice": 99,
+    "own_nav_announcement": 348,
+    "own_delisting_notice": 100,
     "own_periodic_report": 42,
     "registry_deferral_no_own_filings": 11,
     "own_announcement_only": 7,
@@ -26,25 +26,25 @@
     "registry_last_seen": 1
   },
   "revived_by_own_filings": 31,
-  "aggregator_said_live_evidence_says_not": 6,
+  "aggregator_said_live_evidence_says_not": 7,
   "by_liveness_reason": {
     "aggregator_delisted_and_own_filings_silent_alwaysd": 527,
-    "nav": 350,
-    "own_delisting_notice": 99,
+    "nav": 349,
+    "own_delisting_notice": 100,
     "aggregator_delisted_and_own_filings_silent": 79,
     "periodic_report": 42,
     "no_own_filings_held_deferring_to_registry": 11,
     "filings_but_no_nav_or_report": 7,
     "registry_listed": 1
   },
-  "delisted": 99,
+  "delisted": 100,
   "priced_by_source": 638,
   "announcements_only": 478,
-  "live_announcements_only": 96,
+  "live_announcements_only": 95,
   "offshore": 195,
   "vct": 228,
   "live_by_domicile": {
-    "GB": 202,
+    "GB": 201,
     "null": 97,
     "GG": 33,
     "JE": 13,
@@ -757,15 +757,6 @@
       "months_listed": 63
     },
     {
-      "security_id": "SEDOL:B01HM14",
-      "name": "Schroder Real Estate",
-      "sector": "Property - UK Commercial",
-      "domicile": "GB",
-      "isin": "GB00B01HM147",
-      "first_seen": "2007-01",
-      "months_listed": 235
-    },
-    {
       "security_id": "SEDOL:BV54HY6",
       "name": "Sequoia Economic Infrastructure Income",
       "sector": "Infrastructure",
@@ -929,9 +920,9 @@
     "Debt - Structured Finance": 5,
     "Australian Indices": 4,
     "Growth Capital": 3,
-    "Property - UK Commercial": 3,
-    "Debt - Loans & Bonds": 3,
     "Country Specialist": 3,
+    "Debt - Loans & Bonds": 3,
+    "Property - UK Commercial": 2,
     "North America": 2,
     "Hedge Funds": 2,
     "Commodities & Natural Resources": 2,

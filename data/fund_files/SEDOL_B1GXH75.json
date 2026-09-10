@@ -6,10 +6,10 @@
  "sector": "Asia Pacific Equity Income",
  "liveness": {
   "status": "live",
-  "reason": "nav_3d_old",
+  "reason": "nav_2d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-09-07",
-  "last_announcement": "2026-09-09"
+  "last_nav": "2026-09-08",
+  "last_announcement": "2026-09-10"
  },
  "nav": {
   "anchor": 261.7,
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 262.5,
+  "price": 265.5,
   "ccy": "GBp",
-  "date": "2026-09-10",
+  "date": "2026-09-09",
   "source": "yahoo:HFEL.L"
  },
  "discount": {
-  "estimate": 0.003057,
-  "z": -0.4454,
-  "z_status": "computed",
+  "estimate": 0.01452,
+  "z": -0.0949,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": 0.017622,
   "sigma_36m": 0.0327,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.092,
-  "discount_only": 0.002,
+  "central": 0.0946,
+  "discount_only": 0.0044,
   "g_used": 0.0898,
   "g_source": "panel_tr_cagr"
  },
@@ -230,5 +230,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-10T21:53:57+00:00"
+ "updated_at": "2026-09-10T23:36:15+00:00"
 }

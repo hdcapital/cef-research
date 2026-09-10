@@ -6,10 +6,10 @@
  "sector": "North America",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_1d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-09-08",
-  "last_announcement": "2026-09-09"
+  "last_nav": "2026-09-09",
+  "last_announcement": "2026-09-10"
  },
  "nav": {
   "anchor": 359.63,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 349.0,
+  "price": 352.0,
   "ccy": "GBp",
-  "date": "2026-09-10",
+  "date": "2026-09-09",
   "source": "yahoo:USA.L"
  },
  "discount": {
-  "estimate": -0.029558,
-  "z": 1.1346,
+  "estimate": -0.021216,
+  "z": 1.2778,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1189,
-  "discount_only": -0.017,
+  "central": 0.1193,
+  "discount_only": -0.0166,
   "g_used": 0.0544,
   "g_source": "panel_tr_cagr"
  },
@@ -84,5 +84,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-10T21:53:56+00:00"
+ "updated_at": "2026-09-10T23:36:15+00:00"
 }

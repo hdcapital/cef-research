@@ -6,10 +6,10 @@
  "sector": "Flexible Investment",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_1d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-09-08",
-  "last_announcement": "2026-09-09"
+  "last_nav": "2026-09-09",
+  "last_announcement": "2026-09-10"
  },
  "nav": {
   "anchor": 131.8,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 130.0,
+  "price": 131.0,
   "ccy": "GBp",
-  "date": "2026-09-10",
+  "date": "2026-09-09",
   "source": "yahoo:CMPI.L"
  },
  "discount": {
-  "estimate": -0.013657,
-  "z": -0.8587,
+  "estimate": -0.00607,
+  "z": -0.4398,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0766,
-  "discount_only": 0.0045,
+  "central": 0.0761,
+  "discount_only": 0.004,
   "g_used": 0.0447,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-10T21:53:56+00:00"
+ "updated_at": "2026-09-10T23:36:15+00:00"
 }
