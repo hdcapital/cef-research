@@ -1342,9 +1342,15 @@ def nightly(markets: list[str]) -> int:
         # wind-down timelines): a bounded number of bodies read by the
         # model each night, every record guarded; skipped without a key
         from . import catalyst_terms as CT
+        # the extractor's failure is its own note, never the events store's:
+        # this morning's pre-open run lost the store, the fund files and
+        # the brief's new-event section to "No module named 'anthropic'"
         if os.environ.get("ANTHROPIC_API_KEY"):
-            ev, tstats = CT.run(ev, _es, budget_docs=int(
-                _params().get("events", {}).get("llm_docs_per_night", 40)))
+            try:
+                ev, tstats = CT.run(ev, _es, budget_docs=int(
+                    _params().get("events", {}).get("llm_docs_per_night", 40)))
+            except Exception as exc:  # noqa: BLE001
+                tstats = {"error": str(exc)[:200]}
         else:
             tstats = {"skipped": "no ANTHROPIC_API_KEY"}
         EV.save(ev)
