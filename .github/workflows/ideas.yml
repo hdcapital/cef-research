@@ -161,6 +161,9 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
           S3_BUCKET: ${{ secrets.S3_BUCKET }}
+          ANTHROPIC_API_KEY: ${{ secrets.CLAUDE_SECRET_KEY || secrets.ANTHROPIC_API_KEY }}
+          CHEAP_MODEL: ${{ vars.CHEAP_MODEL }}
+          ANTHROPIC_WORKSPACE_ID: ${{ vars.ANTHROPIC_WORKSPACE_ID || secrets.ANTHROPIC_WORKSPACE_ID || 'wrkspc_01NVjA6YTNSHqpQkpXxPfMEJ' }}
         run: python -m cef_live.cli nightly --markets au,uk
 
       - name: Score ideas and email the brief

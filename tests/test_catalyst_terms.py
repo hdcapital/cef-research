@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 from datetime import datetime, timedelta, timezone
 from types import SimpleNamespace
 
@@ -143,3 +144,24 @@ def test_call_errors_are_retried_and_abort_after_three(monkeypatch):
     assert stats["errors"] == 3 and "aborted" in stats
     assert stats["rejected"] == 0
     assert sum(CT._is_error_terms(t) for t in out["terms"]) == 3
+
+
+def test_every_term_the_prompt_asks_for_passes_the_guard():
+    """The first keyed nightly rejected all 20 documents it read: the prompt
+    asked for expected_return_pct_of_nav and the guard forbids any key with
+    'expected_return' in it. The prompt's own vocabulary must be storable."""
+    text = CT.prompt_text()
+    block = text[text.index('"terms": {'):text.index('"dates"')]
+    keys = re.findall(r'"([a-z_]+)":', block)
+    assert len(keys) >= 8
+    rec = dict(GOOD, terms={k: 1 for k in keys if k != "terms"})
+    assert [p for p in CT.guard(rec, DOC) if p.startswith("computed_signal_field")] == []
+
+
+def test_a_rejection_under_an_older_prompt_is_read_again():
+    old = json.dumps({"llm": "rejected", "prompt_version": "v1:0000000000000000",
+                      "rejected": ["computed_signal_field:x"]})
+    cur = json.dumps({"llm": "rejected", "prompt_version": CT.prompt_version(),
+                      "rejected": ["quote_not_in_document"]})
+    err = json.dumps({"llm": "error", "error": "boom"})
+    assert CT._is_error_terms(old) and CT._is_error_terms(err) and not CT._is_error_terms(cur)

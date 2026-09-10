@@ -24,7 +24,7 @@ Return exactly one JSON object and nothing else:
     "offer_price": string or null,             // takeover: price with currency
     "consideration": string or null,           // "cash", "shares", "mixed"
     "counterparty": string or null,            // bidder / merger partner / new manager
-    "expected_return_pct_of_nav": number or null, // wind-down: % of NAV to be returned
+    "capital_return_pct_of_nav": number or null, // wind-down: % of NAV to be returned
     "dividend_change": string or null,         // e.g. "rebased from 2.5p to 1.5p per quarter"
     "amount": string or null                   // any headline monetary figure with unit
   },

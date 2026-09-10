@@ -179,12 +179,17 @@ def make_client():
 
 
 def _is_error_terms(t) -> bool:
+    """A call that failed (auth, network) or a rejection under a PREVIOUS
+    prompt: neither is a verdict on the document under this prompt."""
     if not isinstance(t, str):
         return False
     try:
-        return json.loads(t).get("llm") == "error"
+        d = json.loads(t)
     except Exception:  # noqa: BLE001
         return False
+    if d.get("llm") == "error":
+        return True
+    return d.get("llm") == "rejected" and d.get("prompt_version") != prompt_version()
 
 
 MAX_CONSECUTIVE_ERRORS = 3
@@ -192,9 +197,9 @@ MAX_CONSECUTIVE_ERRORS = 3
 
 def candidates(events: pd.DataFrame, days: int = 45, min_abs_weight: int = 3) -> pd.DataFrame:
     """Unread catalyst bodies in the window - and the ones a previous run
-    could not read because the CALL failed (auth, network): an error is
-    not a verdict, so it is retried; a rejection or an unreadable body is
-    not."""
+    could not read because the CALL failed (auth, network) or rejected
+    under an older prompt: neither is a verdict under this prompt, so they
+    are read again; a rejection under this prompt is not."""
     if not len(events):
         return events
     cutoff = (datetime.now(timezone.utc) - timedelta(days=days)).date().isoformat()
@@ -305,8 +310,8 @@ def terms_summary(terms_json) -> str:
         bits.append(f"at {tm['price_basis']}")
     if tm.get("offer_price"):
         bits.append(f"offer {tm['offer_price']}")
-    if tm.get("expected_return_pct_of_nav") is not None:
-        bits.append(f"{tm['expected_return_pct_of_nav']:g}% of NAV returned")
+    if tm.get("capital_return_pct_of_nav") is not None:
+        bits.append(f"{tm['capital_return_pct_of_nav']:g}% of NAV returned")
     if tm.get("dividend_change"):
         bits.append(tm["dividend_change"])
     if tm.get("counterparty"):
