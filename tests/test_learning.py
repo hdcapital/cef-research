@@ -299,3 +299,45 @@ def test_listing_coverage_explains_an_empty_window(tmp_path):
     assert cov.loc["NAME:a|ordinary share", "reaches_window"] and cov.loc["NAME:a|ordinary share", "window_rows"] == 8
     assert not cov.loc["NAME:old|ordinary share", "reaches_window"]     # listing starts after the ending
     assert cov.loc["NAME:none|ordinary share", "listing_rows"] == 0
+
+
+def _registry():
+    return pd.DataFrame({
+        "security_id": ["NAME:a|ordinary share", "NAME:surv|ordinary share", "NAME:young|ordinary share",
+                        "NAME:index|ordinary share", "ASX:ZZZ", "ASX:LIVE"],
+        "name": ["A", "Survivor", "Young", "S&P Index", "Zed", "Live Co"],
+        "market": ["UK", "UK", "UK", "UK", "AU", "AU"],
+        "status": ["delisted", "live", "live", "live", "delisted", "live"],
+        "first_seen": ["2007-01", "2007-01", "2020-06", "2007-01", "2016-12", "2016-12"],
+        "last_seen": ["2020-12", "2026-08", "2026-08", "2026-08", "2022-08", "2026-08"],
+        "research_eligible": [True, True, True, True, True, True]})
+
+
+def test_controls_are_survivors_of_the_same_window_and_never_endings_or_benchmarks():
+    ep = pd.DataFrame([{"security_id": "NAME:a|ordinary share", "market": "UK", "ticker": "AAA",
+                        "end_month": "2020-12"},
+                       {"security_id": "ASX:ZZZ", "market": "AU", "ticker": "ZZZ", "end_month": "2022-08"}])
+    ctrl = W.select_controls(ep, _registry(), tickers={"NAME:surv|ordinary share": "svr",
+                                                       "NAME:young|ordinary share": "yng"})
+    by = ctrl.set_index("case_id")
+    assert by.loc["NAME:a|ordinary share", "security_id"] == "NAME:surv|ordinary share"   # listed through 2019-06..2021-12
+    assert by.loc["NAME:a|ordinary share", "ticker"] == "SVR"
+    assert by.loc["ASX:ZZZ", "security_id"] == "ASX:LIVE" and by.loc["ASX:ZZZ", "ticker"] == "LIVE"
+    assert "NAME:index|ordinary share" not in set(ctrl["security_id"])
+
+
+def test_universe_headline_features_cover_every_listed_month(tmp_path):
+    reg = _registry().iloc[[1]].assign(first_seen="2020-01", last_seen="2020-12")
+    hf = W.headline_features_universe(reg, listings_dir=_listing(tmp_path), au=pd.DataFrame(),
+                                      tickers={"NAME:surv|ordinary share": "AAA"}).set_index("obs_month")
+    assert len(hf) == 12 and hf.loc["2020-03", "holder_filings_3m"] == 3
+    assert hf.loc["2020-05", "buyback_execs_3m"] == 1 and hf.loc["2020-09", "buyback_execs_3m"] == 0
+    assert hf.loc["2020-08", "months_since_strategic_review"] == 2
+    assert hf.loc["2020-10", "windup_headline_seen"] == 0 and hf.loc["2020-12", "windup_headline_seen"] == 1
+
+
+def test_documented_marks_only_the_months_after_a_read_document():
+    rows = pd.DataFrame([{"security_id": "NAME:a", "ann_id": "1", "date": "2020-01-15"}])
+    months = pd.DataFrame({"security_id": ["NAME:a"] * 3 + ["NAME:b"],
+                           "obs_month": ["2019-12", "2020-04", "2020-09", "2020-02"]})
+    assert V.documented(rows, months, persist_months=6).tolist() == [False, True, False, False]

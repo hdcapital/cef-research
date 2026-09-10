@@ -62,6 +62,23 @@ def features_by_month(rows: pd.DataFrame, months: pd.DataFrame,
     return out
 
 
+def documented(rows: pd.DataFrame, months: pd.DataFrame, persist_months: int = 6) -> pd.Series:
+    """True for a (security_id, obs_month) whose fund had a document read
+    dated at or before the month and within `persist_months` of it."""
+    if rows is None or not len(rows):
+        return pd.Series(False, index=months.index)
+    by_sid = {sid: sorted(set(g["date"].astype(str).str[:7])) for sid, g in rows.groupby("security_id")}
+    out = []
+    for sid, m in zip(months["security_id"], months["obs_month"]):
+        ms = by_sid.get(sid)
+        if not ms:
+            out.append(False)
+            continue
+        lo = str(pd.Period(m, freq="M") - persist_months)
+        out.append(any(lo < x <= m for x in ms))
+    return pd.Series(out, index=months.index)
+
+
 def _z_two_prop(k1, n1, k0, n0) -> float | None:
     if min(n1, n0) == 0:
         return None

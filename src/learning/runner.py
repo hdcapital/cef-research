@@ -72,12 +72,31 @@ def mode_episodes() -> int:
 def mode_windows() -> int:
     prm = _params()
     ep = _episodes()
-    docs = W.select_documents(ep, before=int(prm.get("window_months_before", 18)),
-                              per_fund_cap=int(prm.get("docs_per_fund_cap", 40)))
-    hf = W.headline_features(ep, before=int(prm.get("window_months_before", 18)))
+    before = int(prm.get("window_months_before", 18))
+    cap = int(prm.get("docs_per_fund_cap", 40))
+    docs = W.select_documents(ep, before=before, per_fund_cap=cap)
+    docs["cohort"] = "case"
+    docs["case_id"] = docs["security_id"]
+    # the control cohort: survivors read over the same months under the
+    # same rules, so a feature's rate among endings has a comparison
+    reg = pd.read_parquet(E.REGISTRY) if E.REGISTRY.exists() else pd.DataFrame()
+    ctrl = W.select_controls(ep, reg, before=before,
+                             clearance=int(prm.get("control_clearance_months", 12)),
+                             per_case=int(prm.get("controls_per_case", 1))) if len(reg) else pd.DataFrame()
+    if len(ctrl):
+        cdocs = W.select_documents(ctrl, before=before, per_fund_cap=cap)
+        cid = ctrl.drop_duplicates(["security_id", "end_month"]).set_index(
+            ["security_id", "end_month"])["case_id"]
+        cdocs["case_id"] = [cid.get((a, b)) for a, b in zip(cdocs["security_id"], cdocs["end_month"])]
+        cdocs["cohort"] = "control"
+        docs = pd.concat([docs, cdocs], ignore_index=True)
+    hf = W.headline_features(ep, before=before)
+    hfu = W.headline_features_universe(reg) if len(reg) else pd.DataFrame()
     E.OUT_DIR.mkdir(parents=True, exist_ok=True)
     docs.to_parquet(E.OUT_DIR / "window_docs.parquet", index=False)
     hf.to_parquet(E.OUT_DIR / "headline_features.parquet", index=False)
+    hfu.to_parquet(E.OUT_DIR / "headline_features_universe.parquet", index=False)
+    ctrl.to_csv(E.OUT_DIR / "controls.csv", index=False)
     cov = W.listing_coverage(ep, before=int(prm.get("window_months_before", 18)))
     cov.to_csv(E.OUT_DIR / "window_coverage.csv", index=False)
     cov_note = {}
@@ -90,6 +109,10 @@ def mode_windows() -> int:
                 "window_has_rows": int((g["window_rows"] > 0).sum())}
     _status("windows", {
         "listing_coverage": cov_note,
+        "by_cohort": docs["cohort"].value_counts().to_dict() if len(docs) else {},
+        "controls": int(len(ctrl)),
+        "universe_headline_feature_rows": int(len(hfu)),
+        "universe_funds": int(hfu["security_id"].nunique()) if len(hfu) else 0,
         "documents": int(len(docs)), "funds_with_documents": int(docs["security_id"].nunique()),
         "by_market": docs["market"].value_counts().to_dict() if len(docs) else {},
         "by_family": docs["family"].value_counts().to_dict() if len(docs) else {},
@@ -111,8 +134,13 @@ def mode_extract(limit: int, market: str | None) -> int:
     shards = max(1, int(os.environ.get("SHARD_COUNT", "1")))
     if shards > 1:
         docs = docs[docs["security_id"].map(lambda s: zlib.crc32(s.encode()) % shards == shard)]
-    # newest window first per fund keeps the reads closest to the ending
-    docs = docs.sort_values(["security_id", "date"], ascending=[True, False])
+    # a case and its control are read together, newest first within each,
+    # so a budget cut leaves matched pairs rather than cases without controls
+    if "case_id" not in docs.columns:
+        docs["case_id"] = docs["security_id"]
+        docs["cohort"] = "case"
+    docs = docs.sort_values(["case_id", "cohort", "security_id", "date"],
+                            ascending=[True, True, True, False])
     if not os.environ.get("ANTHROPIC_API_KEY"):
         _status("extract", {"skipped": "no ANTHROPIC_API_KEY", "candidates": int(len(docs))})
         return 0
@@ -134,38 +162,76 @@ def mode_extract(limit: int, market: str | None) -> int:
 def mode_evaluate() -> int:
     prm = _params()
     from uk_cef.config import load_config
-    from uk_cef.panel import load_panel
     from uk_cef.signals import build_all_signals
-    cfg = load_config()
-    panel = load_panel(cfg)
-    panel = panel[panel["obs_month"] >= cfg["project"]["start_month"]]
-    elig = build_all_signals(panel[panel["eligible"]].copy(), cfg)
-    z_col = f"discount_z_{cfg['signals']['zscore_window_months']}m"
+    panels = []
+    z_col = "discount_z_36m"
+    for cfg_path, loader in (("config/default.yaml", "uk"), ("config/au_default.yaml", "au")):
+        try:
+            cfg = load_config(cfg_path)
+            if loader == "uk":
+                from uk_cef.panel import load_panel
+            else:
+                from au_lic.panel import load_panel
+            panel = load_panel(cfg)
+        except Exception as exc:  # noqa: BLE001
+            print(f"{loader} panel unavailable: {exc}")
+            continue
+        panel = panel[panel["obs_month"] >= cfg["project"]["start_month"]]
+        elig = build_all_signals(panel[panel["eligible"]].copy(), cfg)
+        z_col = f"discount_z_{cfg['signals']['zscore_window_months']}m"
+        elig["panel_market"] = loader.upper()
+        panels.append(elig)
+    if not panels:
+        _status("evaluate", {"error": "no monthly panel available"})
+        return 1
+    elig = pd.concat(panels, ignore_index=True)
     ep = _episodes()
     lab = L.attach(elig, ep)
     feats = X.load_features()
-    fbm = V.features_by_month(feats, lab, persist_months=int(prm.get("persist_months", 6)))
+    persist = int(prm.get("persist_months", 6))
+    fbm = V.features_by_month(feats, lab, persist_months=persist)
     lab = lab.merge(fbm, on=["security_id", "obs_month"], how="left")
+    # only fund-months whose fund had a document read in the trailing
+    # window take part in the extracted-feature tests: silence elsewhere is
+    # an unread fund, not a fund that said nothing
+    lab["documented"] = V.documented(feats, lab, persist_months=persist)
     cols = list(X.FEATURE_COLUMNS)
-    hfp = E.OUT_DIR / "headline_features.parquet"
+    hfu = E.OUT_DIR / "headline_features_universe.parquet"
+    hfp = hfu if hfu.exists() else E.OUT_DIR / "headline_features.parquet"
     if hfp.exists():
         hf = V.headline_feature_flags(pd.read_parquet(hfp))
         lab = lab.merge(hf, on=["security_id", "obs_month"], how="left")
         for c in V.HEADLINE_SILENT:
             lab[c] = lab[c].fillna(V.HEADLINE_SILENT[c])
-        cols += list(V.HEADLINE_SILENT)
-    ant = V.anticipation(lab, cols)
-    cheap = V.cheap_cohort_returns(lab, cols, z_col=z_col)
+    hcols = list(V.HEADLINE_SILENT)
+    doc = lab[lab["documented"]]
+    cohorts = {}
+    for c in ("case", "control"):
+        if "cohort" in feats.columns:
+            sids = set(feats.loc[feats["cohort"].eq(c), "security_id"])
+            cohorts[c] = int(doc["security_id"].isin(sids).sum())
+    ant = pd.concat([V.anticipation(doc, cols).assign(universe="documented"),
+                     V.anticipation(lab, hcols).assign(universe="all_funds" if hfu.exists() else "episodes")],
+                    ignore_index=True)
+    cheap = pd.concat([V.cheap_cohort_returns(doc, cols, z_col=z_col).assign(universe="documented"),
+                       V.cheap_cohort_returns(lab, hcols, z_col=z_col).assign(universe="all_funds")],
+                      ignore_index=True)
     OUT.mkdir(parents=True, exist_ok=True)
     ant.to_csv(OUT / "anticipation.csv", index=False)
     cheap.to_csv(OUT / "cheap_cohort_returns.csv", index=False)
-    top = ant[(ant["period"] == "development") & (ant["horizon_months"] == 12)
-              & ~ant["is_silent"] & (ant["n"] >= 30)].sort_values("z_vs_rest", ascending=False)
+
+    def _top(u):
+        t = ant[(ant["universe"] == u) & (ant["period"] == "development") & (ant["horizon_months"] == 12)
+                & ~ant["is_silent"] & (ant["n"] >= 30)].sort_values("z_vs_rest", ascending=False)
+        return t.head(8)[["feature", "value", "n", "rate", "base_rate", "z_vs_rest"]].to_dict("records")
     _status("evaluate", {
         "panel_rows": int(len(lab)), "funds": int(lab["security_id"].nunique()),
-        "feature_documents": int(len(feats)), "base_rates": L.base_rates(lab),
-        "strongest_12m_development": top.head(8)[
-            ["feature", "value", "n", "rate", "base_rate", "z_vs_rest"]].to_dict("records"),
+        "panels": [p["panel_market"].iloc[0] for p in panels],
+        "feature_documents": int(len(feats)),
+        "documented_fund_months": int(lab["documented"].sum()), "documented_by_cohort": cohorts,
+        "base_rates_all": L.base_rates(lab), "base_rates_documented": L.base_rates(doc),
+        "strongest_12m_development_documented": _top("documented"),
+        "strongest_12m_development_headline": _top("all_funds" if hfu.exists() else "episodes"),
         "cheap_cohort": cheap.to_dict("records")})
     return 0
 

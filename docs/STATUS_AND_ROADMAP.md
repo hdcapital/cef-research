@@ -270,6 +270,23 @@ Everything here has a named fix in `coverage_failures.csv`:
 > against the panel, the fund's own other observations and yesterday's
 > anchor, and the quarantine list drives the daily panel's reparse. Open:
 > the term extractor waits on ANTHROPIC_WORKSPACE_ID.
+>
+> **2026-09-10 — first evaluation, and what it taught.** The extractor
+> read 424 window documents (238 AU, 186 UK; cheap tier, quotes verified)
+> and the first anticipation test joined them to the UK monthly panel
+> (41,241 fund-months, 303 funds; resolution base rates 1.6% / 2.9% / 4.3%
+> at 6 / 12 / 18 months). Its lifts were an artefact: documents had been
+> read only for funds that ended, so a non-silent feature was by
+> construction inside the 18 months before an ending. The design now reads
+> a matched survivor's documents for every episode (same market, listed
+> through the window and a year beyond), tests extracted features only on
+> documented fund-months, and computes the model-free headline features
+> for every listed fund and month. The cheap-cohort return test stands as
+> the honest number so far: cheap fund-months of funds that later ended
+> returned 1.5-2.4pp/month less than the rest of the cheap cohort.
+> Extraction is paused on the API's credit balance; the term extractor
+> itself was unblocked twice (the workspace header, then a field name its
+> own guard forbade) and now waits on the same balance.
 
 A z says a fund is cheap against its own history, not whether it deserves
 to be. Attribution conditions the entry, in a ladder from cheap to

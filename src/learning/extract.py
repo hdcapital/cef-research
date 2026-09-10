@@ -223,6 +223,8 @@ def flatten(rec: dict, doc: dict, audit: dict) -> dict:
     feats = rec["features"]
     row = {k: doc.get(k) for k in ("security_id", "market", "ticker", "ann_id", "date",
                                    "obs_month", "end_month", "headline", "family")}
+    row["cohort"] = doc.get("cohort") or "case"
+    row["case_id"] = doc.get("case_id") or doc.get("security_id")
     row["document_kind"] = rec.get("document_kind")
     for name in FEATURE_COLUMNS:
         row[name] = feats.get(name)

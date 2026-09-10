@@ -4,6 +4,19 @@ Every change to `config/params.yaml` gets a dated entry here, committed in
 the same commit as the change, with a rationale. Parameters are never
 tuned against live outcomes.
 
+## 2026-09-10 — The learning layer's control cohort
+`learning.control_clearance_months` = 12, `controls_per_case` = 1. The
+first evaluation (learning run 8) read documents only for funds that
+ended, so every non-silent feature sat by construction inside the 18
+months before an ending: resolution rates of 60-80% against a 5.7% base
+that measured the sampling, not the feature. Each episode now gets one
+control - a fund of the same market, listed throughout the same calendar
+window and for twelve months past the ending, chosen deterministically -
+whose documents in the same window are read under the same rules; the
+extracted-feature tests run only on fund-months whose fund had a document
+read (case or control), and the model-free headline features are computed
+for every listed fund over every listed month.
+
 ## 2026-09-08 — Phase 3b: the learning layer's window and budgets
 `learning.window_months_before` = 18, `docs_per_fund_cap` = 40,
 `docs_per_run` = 200, `deadline_min` = 240, `persist_months` = 6. The

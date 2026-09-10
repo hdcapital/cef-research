@@ -144,3 +144,7 @@ learning:
   docs_per_run: 200
   deadline_min: 240
   persist_months: 6
+  # the control cohort: survivors of the same market listed throughout the
+  # case's window and this many months past its ending, this many per case
+  control_clearance_months: 12
+  controls_per_case: 1

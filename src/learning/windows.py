@@ -227,3 +227,126 @@ def listing_coverage(episodes: pd.DataFrame, before: int = 18,
                 rec["window_rows"] = int(((d.str[:7] >= start) & (d.str[:7] <= ep.end_month)).sum())
         out.append(rec)
     return pd.DataFrame(out)
+
+
+# ------------------------------------------------------------ the control cohort
+def _alive_through(reg: pd.DataFrame, start: str, end_plus: str) -> pd.DataFrame:
+    """Registry rows listed before `start` and still listed after `end_plus`
+    (or live today): funds whose window is not the run-up to an ending."""
+    first = reg["first_seen"].astype(str).str[:7]
+    last = reg["last_seen"].astype(str).str[:7]
+    live = reg["status"].astype(str).isin(("live", "live_stale_nav"))
+    return reg[(first <= start) & ((last >= end_plus) | live)]
+
+
+def select_controls(episodes: pd.DataFrame, registry: pd.DataFrame, before: int = 18,
+                    clearance: int = 12, per_case: int = 1,
+                    tickers: dict[str, str] | None = None) -> pd.DataFrame:
+    """For each episode, `per_case` funds of the same market that were listed
+    throughout the same calendar window and for at least `clearance` months
+    after the ending, chosen deterministically (crc32 of the episode id over
+    the sorted candidates). Their documents in the same window are read
+    under the same rules, so a feature's rate among endings is compared
+    with its rate among survivors over the same months - the first
+    evaluation read documents only for funds that ended, and every
+    non-silent feature was by construction within 18 months of an ending."""
+    import zlib
+    from learning import episodes as E
+    if tickers is None:
+        tickers = E._tickers()
+    ended = set(episodes["security_id"])
+    reg = registry[registry["market"].isin(set(episodes["market"]))]
+    # a control is a fund: never a benchmark row the registry carries
+    if "research_eligible" in reg.columns:
+        reg = reg[reg["research_eligible"].fillna(False).astype(bool)
+                  | reg["status"].astype(str).isin(("live", "live_stale_nav"))]
+    reg = reg[~reg["name"].astype(str).str.contains(r"S&P|\bindex\b|accumulation", case=False, regex=True)]
+    out = []
+    for ep in episodes.itertuples(index=False):
+        if not isinstance(ep.ticker, str) or not ep.ticker:
+            continue
+        start = str(pd.Period(ep.end_month, freq="M") - before)
+        end_plus = str(pd.Period(ep.end_month, freq="M") + clearance)
+        cands = _alive_through(reg[reg["market"].eq(ep.market)], start, end_plus)
+        cands = cands[~cands["security_id"].isin(ended)]
+        ids = sorted(cands["security_id"])
+        if not ids:
+            continue
+        h = zlib.crc32(str(ep.security_id).encode())
+        for k in range(per_case):
+            sid = ids[(h + k) % len(ids)]
+            t = sid[4:] if sid.startswith("ASX:") else tickers.get(sid)
+            if not t:
+                continue
+            out.append({"security_id": sid, "market": ep.market, "ticker": str(t).upper(),
+                        "end_month": ep.end_month, "case_id": ep.security_id,
+                        "name": cands.set_index("security_id")["name"].get(sid)})
+    cols = ["security_id", "market", "ticker", "end_month", "case_id", "name"]
+    return pd.DataFrame(out, columns=cols)
+
+
+# ------------------------------------------------------ universe headline features
+def headline_features_universe(registry: pd.DataFrame, listings_dir: Path = UK_LISTINGS,
+                               au: pd.DataFrame | None = None,
+                               tickers: dict[str, str] | None = None,
+                               start_month: str = "2007-01") -> pd.DataFrame:
+    """The headline features for EVERY registry fund with a headline index,
+    every month it was listed - the model-free baseline over the whole
+    universe, endings and survivors alike. Vectorised per fund: monthly
+    counts, a trailing three-month sum, and months since the first
+    strategic-review / continuation headline."""
+    from learning import episodes as E
+    if au is None:
+        au = au_index()
+    if tickers is None:
+        tickers = E._tickers()
+    out = []
+    for r in registry.itertuples(index=False):
+        sid = r.security_id
+        ticker = sid[4:] if str(sid).startswith("ASX:") else tickers.get(sid)
+        if not ticker:
+            continue
+        if r.market == "AU":
+            rows = au[au["ticker"].eq(ticker)] if len(au) else pd.DataFrame()
+            bb, hold = AU_BUYBACK_EXEC, AU_HOLDER
+        else:
+            rows = uk_listing(str(ticker).upper(), listings_dir)
+            bb, hold = UK_BUYBACK_EXEC, UK_HOLDER
+        if not len(rows):
+            continue
+        rows = rows[rows["date"].fillna("").str.match(r"\d{4}-\d{2}")]
+        if not len(rows):
+            continue
+        h = rows["headline"].fillna("")
+        m = rows["date"].str[:7]
+        flags = pd.DataFrame({"buyback": h.str.contains(bb), "holder": h.str.contains(hold),
+                              "strategic": h.str.contains(STRATEGIC),
+                              "continuation": h.str.contains(CONTINUATION),
+                              "windup": h.str.contains(WINDUP), "n": 1}).groupby(m.values).sum()
+        first = max(start_month, str(r.first_seen)[:7]) if isinstance(r.first_seen, str) else start_month
+        last = str(r.last_seen)[:7] if isinstance(r.last_seen, str) else m.max()
+        if first > last:
+            continue
+        idx = pd.period_range(first, last, freq="M").astype(str)
+        flags = flags.reindex(idx, fill_value=0)
+        roll = flags[["buyback", "holder", "n"]].rolling(3, min_periods=1).sum()
+        cum = flags[["windup"]].cumsum()
+        first_strat = flags["strategic"].gt(0).idxmax() if flags["strategic"].gt(0).any() else None
+        first_cont = flags["continuation"].gt(0).idxmax() if flags["continuation"].gt(0).any() else None
+        pos = {mo: i for i, mo in enumerate(idx)}
+        df = pd.DataFrame({
+            "security_id": sid, "obs_month": idx,
+            "buyback_execs_3m": roll["buyback"].astype(int).values,
+            "holder_filings_3m": roll["holder"].astype(int).values,
+            "months_since_strategic_review": [(i - pos[first_strat]) if first_strat and i >= pos[first_strat] else None
+                                              for i in range(len(idx))],
+            "months_since_continuation": [(i - pos[first_cont]) if first_cont and i >= pos[first_cont] else None
+                                          for i in range(len(idx))],
+            "windup_headline_seen": cum["windup"].gt(0).astype(int).values,
+            "announcements_3m": roll["n"].astype(int).values})
+        out.append(df)
+    if not out:
+        return pd.DataFrame(columns=["security_id", "obs_month", "buyback_execs_3m", "holder_filings_3m",
+                                     "months_since_strategic_review", "months_since_continuation",
+                                     "windup_headline_seen", "announcements_3m"])
+    return pd.concat([o for o in out if len(o)], ignore_index=True)
