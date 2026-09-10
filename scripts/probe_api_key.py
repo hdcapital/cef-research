@@ -39,6 +39,16 @@ def probe(name: str, key: str) -> dict:
             r = client.messages.count_tokens(
                 model=MODEL, messages=[{"role": "user", "content": "ping"}])
             out[label] = f"OK ({r.input_tokens} tokens counted)"
+            # count_tokens is free and says nothing about the balance: one
+            # paid call of a few tokens is the billing check (the extractor
+            # stopped on "credit balance is too low" while this probe said OK)
+            if label != "plain" or not WS:
+                try:
+                    m = client.messages.create(model=MODEL, max_tokens=5,
+                                               messages=[{"role": "user", "content": "Reply: ok"}])
+                    out[label + "_billing"] = f"OK ({getattr(m.usage, 'output_tokens', '?')} output tokens)"
+                except anthropic.APIStatusError as exc:
+                    out[label + "_billing"] = f"{type(exc).__name__} {exc.status_code}: {str(exc)[:220]}"
         except anthropic.APIStatusError as exc:
             out[label] = f"{type(exc).__name__} {exc.status_code}: {str(exc)[:220]}"
         except Exception as exc:  # noqa: BLE001
