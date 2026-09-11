@@ -6,16 +6,16 @@
  "sector": "Global",
  "liveness": {
   "status": "live",
-  "reason": "nav_1d_old",
+  "reason": "nav_2d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-09",
   "last_announcement": "2026-09-10"
  },
  "nav": {
-  "anchor": 1693.12,
-  "anchor_date": "2026-09-10",
-  "anchor_source": "investegate:9765778",
-  "estimate": 1693.12,
+  "anchor": 1690.06,
+  "anchor_date": "2026-09-11",
+  "anchor_source": "investegate:9768248",
+  "estimate": 1690.06,
   "basis": 0.0,
   "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1598.0,
+  "price": 1608.0,
   "ccy": "GBp",
-  "date": "2026-09-09",
+  "date": "2026-09-11",
   "source": "yahoo:MNKS.L"
  },
  "discount": {
-  "estimate": -0.05618,
-  "z": 1.3023,
+  "estimate": -0.048554,
+  "z": 1.6006,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0876,
+  "central": 0.0836,
   "discount_only": -0.008,
-  "g_used": 0.0862,
+  "g_used": 0.0822,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-10T23:36:16+00:00"
+ "updated_at": "2026-09-11T21:56:06+00:00"
 }

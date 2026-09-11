@@ -6,7 +6,7 @@
  "sector": "Equity - Global Strategy",
  "liveness": {
   "status": "live",
-  "reason": "nav_27d_old",
+  "reason": "nav_28d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-08-14",
   "last_announcement": "2026-08-27"
@@ -15,9 +15,9 @@
   "anchor": 1.5275,
   "anchor_date": "2026-07-31",
   "anchor_source": "own_nav_history:2026-07-31",
-  "estimate": 1.44628,
+  "estimate": 1.427606,
   "basis": 1.0,
-  "staleness_days": 29.0,
+  "staleness_days": 30.0,
   "staleness_limit_days": 93.0,
   "current": true,
   "unit": "AUD",
@@ -27,12 +27,12 @@
  "price": {
   "price": 1.3899999856948853,
   "ccy": "AUD",
-  "date": "2026-09-10",
+  "date": "2026-09-11",
   "source": "yahoo:AIQ.AX"
  },
  "discount": {
-  "estimate": -0.038913,
-  "z": 0.69,
+  "estimate": -0.026342,
+  "z": 0.7765,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-10T23:36:14+00:00"
+ "updated_at": "2026-09-11T21:56:05+00:00"
 }

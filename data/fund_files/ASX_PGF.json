@@ -6,7 +6,7 @@
  "sector": "Equity - Global",
  "liveness": {
   "status": "live",
-  "reason": "nav_11d_old",
+  "reason": "nav_12d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-08-30",
   "last_announcement": "2026-08-30"
@@ -15,9 +15,9 @@
   "anchor": 3.11,
   "anchor_date": "2026-09-04",
   "anchor_source": "own_nav_history:2026-09-04",
-  "estimate": 3.088483,
+  "estimate": 3.078735,
   "basis": 1.0,
-  "staleness_days": 4.0,
+  "staleness_days": 5.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "AUD",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 3.25,
+  "price": 3.180000066757202,
   "ccy": "AUD",
-  "date": "2026-09-10",
+  "date": "2026-09-11",
   "source": "yahoo:PGF.AX"
  },
  "discount": {
-  "estimate": 0.052296,
-  "z": 0.2893,
+  "estimate": 0.032892,
+  "z": -0.2467,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-10T23:36:14+00:00"
+ "updated_at": "2026-09-11T21:56:05+00:00"
 }

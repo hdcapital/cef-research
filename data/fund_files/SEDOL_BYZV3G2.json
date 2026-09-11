@@ -6,23 +6,23 @@
  "sector": null,
  "liveness": {
   "status": "delisted",
-  "reason": "own_delisting_notice_960d",
+  "reason": "own_delisting_notice_961d",
   "source": "own_delisting_notice",
-  "last_nav": null,
+  "last_nav": "2022-07-31",
   "last_announcement": "2026-09-09"
  },
  "nav": {
-  "anchor": null,
-  "anchor_date": null,
-  "anchor_source": null,
-  "estimate": null,
-  "basis": null,
-  "staleness_days": null,
-  "staleness_limit_days": 45.0,
+  "anchor": 1026.4,
+  "anchor_date": "2022-07-31",
+  "anchor_source": "own_nav_history:2022-07-31",
+  "estimate": 1026.4,
+  "basis": 3.0,
+  "staleness_days": 1074.0,
+  "staleness_limit_days": 93.0,
   "current": false,
   "unit": "GBX",
   "quality_ok": false,
-  "quality_reason": "nav_not_positive"
+  "quality_reason": "no_price"
  },
  "price": {
   "price": null,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-10T23:36:16+00:00"
+ "updated_at": "2026-09-11T21:56:07+00:00"
 }

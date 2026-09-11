@@ -6,16 +6,16 @@
  "sector": "UK Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-08",
-  "last_announcement": "2026-09-10"
+  "last_announcement": "2026-09-11"
  },
  "nav": {
-  "anchor": 289.9,
-  "anchor_date": "2026-09-09",
-  "anchor_source": "investegate:9765848",
-  "estimate": 289.9,
+  "anchor": 286.59,
+  "anchor_date": "2026-09-10",
+  "anchor_source": "investegate:9768302",
+  "estimate": 286.59,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 264.0,
+  "price": 261.5,
   "ccy": "GBp",
-  "date": "2026-09-09",
+  "date": "2026-09-11",
   "source": "yahoo:BRSC.L"
  },
  "discount": {
-  "estimate": -0.089341,
-  "z": 1.6884,
+  "estimate": -0.087547,
+  "z": 1.7918,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,14 +41,26 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1176,
-  "discount_only": -0.0058,
+  "central": 0.1155,
+  "discount_only": -0.0077,
   "g_used": 0.0978,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-09-11",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/prn/blackrock-smaller-companies-trust--brsc/holding-s-in-company/9768821",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Jefferies Financial Group Inc"
+   }
+  },
   {
    "date": "2026-08-19",
    "class": "holdings_notification",
@@ -62,5 +74,5 @@
    }
   }
  ],
- "updated_at": "2026-09-10T23:36:15+00:00"
+ "updated_at": "2026-09-11T21:56:05+00:00"
 }

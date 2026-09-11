@@ -6,16 +6,16 @@
  "sector": "UK Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-08",
   "last_announcement": "2026-09-10"
  },
  "nav": {
-  "anchor": 229.2,
-  "anchor_date": "2026-09-09",
-  "anchor_source": "investegate:9766010",
-  "estimate": 229.2,
+  "anchor": 226.37,
+  "anchor_date": "2026-09-10",
+  "anchor_source": "investegate:9768369",
+  "estimate": 226.37,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 232.0,
+  "price": 231.0,
   "ccy": "GBp",
-  "date": "2026-09-09",
+  "date": "2026-09-11",
   "source": "yahoo:OIT.L"
  },
  "discount": {
-  "estimate": 0.012216,
-  "z": 0.7528,
+  "estimate": 0.020453,
+  "z": 1.1341,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -56,6 +56,16 @@
  },
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-09-11",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/odyssean-investment-trust--oit/issue-of-equity/9768823",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-09-09",
    "class": "holdings_notification",
@@ -245,5 +255,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-10T23:36:16+00:00"
+ "updated_at": "2026-09-11T21:56:06+00:00"
 }

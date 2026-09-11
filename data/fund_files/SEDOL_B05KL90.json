@@ -6,19 +6,19 @@
  "sector": "Property Direct - UK",
  "liveness": {
   "status": "delisted",
-  "reason": "own_delisting_notice_661d",
+  "reason": "own_delisting_notice_662d",
   "source": "own_delisting_notice",
-  "last_nav": null,
+  "last_nav": "2024-06-30",
   "last_announcement": "2024-11-18"
  },
  "nav": {
-  "anchor": 92.19,
-  "anchor_date": "2010-03-31",
-  "anchor_source": "aggregator_panel:2010-03",
-  "estimate": 92.19,
+  "anchor": 105.1,
+  "anchor_date": "2024-06-30",
+  "anchor_source": "own_nav_history:2024-06-30",
+  "estimate": 105.1,
   "basis": 3.0,
-  "staleness_days": 4291.0,
-  "staleness_limit_days": 45.0,
+  "staleness_days": 574.0,
+  "staleness_limit_days": 200.0,
   "current": false,
   "unit": "GBX",
   "quality_ok": false,
@@ -31,8 +31,8 @@
   "source": "aggregator_panel"
  },
  "discount": {
-  "estimate": -0.000976,
-  "z": 0.4686,
+  "estimate": -0.123692,
+  "z": -0.511,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 18,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-10T23:36:16+00:00"
+ "updated_at": "2026-09-11T21:56:07+00:00"
 }

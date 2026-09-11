@@ -6,32 +6,32 @@
  "sector": "Property - Rest of World",
  "liveness": {
   "status": "live_stale_nav",
-  "reason": "periodic_report_314d_old_no_recent_nav",
+  "reason": "periodic_report_315d_old_no_recent_nav",
   "source": "own_periodic_report",
-  "last_nav": null,
+  "last_nav": "2015-06-30",
   "last_announcement": "2026-07-24"
  },
  "nav": {
-  "anchor": null,
-  "anchor_date": null,
-  "anchor_source": null,
-  "estimate": null,
-  "basis": null,
-  "staleness_days": null,
-  "staleness_limit_days": 45.0,
+  "anchor": 253.0,
+  "anchor_date": "2015-06-30",
+  "anchor_source": "own_nav_history:2015-06-30",
+  "estimate": 253.0,
+  "basis": 3.0,
+  "staleness_days": 2923.0,
+  "staleness_limit_days": 200.0,
   "current": false,
   "unit": "GBX",
   "quality_ok": false,
-  "quality_reason": "nav_not_positive"
+  "quality_reason": "unit_suspect_scale"
  },
  "price": {
   "price": 5.150000095367432,
   "ccy": "GBp",
-  "date": "2026-09-09",
+  "date": "2026-09-10",
   "source": "yahoo:MPO.L"
  },
  "discount": {
-  "estimate": null,
+  "estimate": -0.979644,
   "z": null,
   "z_status": "no_discount_history",
   "z_source": null,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-10T23:36:16+00:00"
+ "updated_at": "2026-09-11T21:56:06+00:00"
 }

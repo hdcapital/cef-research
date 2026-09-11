@@ -6,7 +6,7 @@
  "sector": "Property - UK Residential",
  "liveness": {
   "status": "live_stale_nav",
-  "reason": "periodic_report_230d_old_no_recent_nav",
+  "reason": "periodic_report_231d_old_no_recent_nav",
   "source": "own_periodic_report",
   "last_nav": "2026-02-20",
   "last_announcement": "2026-08-28"
@@ -17,7 +17,7 @@
   "anchor_source": "investegate_fs:9632983",
   "estimate": 61.2,
   "basis": 0.0,
-  "staleness_days": 117.0,
+  "staleness_days": 118.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 7.300000190734863,
+  "price": 7.340000152587891,
   "ccy": "GBp",
-  "date": "2026-09-09",
+  "date": "2026-09-11",
   "source": "yahoo:RESI.L"
  },
  "discount": {
-  "estimate": -0.880719,
-  "z": -3.2154,
+  "estimate": -0.880065,
+  "z": -3.2118,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -104,5 +104,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-10T23:36:16+00:00"
+ "updated_at": "2026-09-11T21:56:07+00:00"
 }

@@ -6,16 +6,16 @@
  "sector": "UK Equity Income",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-08",
-  "last_announcement": "2026-09-10"
+  "last_announcement": "2026-09-11"
  },
  "nav": {
-  "anchor": 256.83,
-  "anchor_date": "2026-09-09",
-  "anchor_source": "investegate:9765847",
-  "estimate": 256.83,
+  "anchor": 254.73,
+  "anchor_date": "2026-09-10",
+  "anchor_source": "investegate:9768294",
+  "estimate": 254.73,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 231.0,
+  "price": 234.0,
   "ccy": "GBp",
-  "date": "2026-09-09",
+  "date": "2026-09-11",
   "source": "yahoo:BRIG.L"
  },
  "discount": {
-  "estimate": -0.100572,
-  "z": 0.8836,
+  "estimate": -0.08138,
+  "z": 1.8969,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -48,6 +48,33 @@
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [],
- "updated_at": "2026-09-10T23:36:15+00:00"
+ "events_90d": [
+  {
+   "date": "2026-09-11",
+   "class": "strategic_review",
+   "weight": 3,
+   "direction": "positive",
+   "headline": "Strategic Review",
+   "url": "https://www.investegate.co.uk/announcement/prn/blackrock-income-and-growth-investment-trust--brig/strategic-review/9766923",
+   "alerted_at": "2026-09-11T06:34:19+00:00",
+   "terms": {
+    "llm": "error",
+    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
+   }
+  },
+  {
+   "date": "2026-09-11",
+   "class": "strategic_review",
+   "weight": 3,
+   "direction": "positive",
+   "headline": "CORRECTION:\u00a0 Strategic Review",
+   "url": "https://www.investegate.co.uk/announcement/prn/blackrock-income-and-growth-investment-trust--brig/correction-strategic-review/9768518",
+   "alerted_at": null,
+   "terms": {
+    "llm": "error",
+    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
+   }
+  }
+ ],
+ "updated_at": "2026-09-11T21:56:05+00:00"
 }

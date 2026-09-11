@@ -6,19 +6,19 @@
  "sector": "Insurance & Reinsurance Strategies",
  "liveness": {
   "status": "delist_candidate",
-  "reason": "aggregator_delisted_and_own_filings_silent_631d",
+  "reason": "aggregator_delisted_and_own_filings_silent_632d",
   "source": "corroborated_delisting",
-  "last_nav": null,
+  "last_nav": "2021-09-30",
   "last_announcement": "2024-12-18"
  },
  "nav": {
-  "anchor": 93.23,
-  "anchor_date": "2013-02-28",
-  "anchor_source": "aggregator_panel:2013-02",
-  "estimate": 93.23,
+  "anchor": 1667.0,
+  "anchor_date": "2021-09-30",
+  "anchor_source": "own_nav_history:2021-09-30",
+  "estimate": 1667.0,
   "basis": 3.0,
-  "staleness_days": 3530.0,
-  "staleness_limit_days": 45.0,
+  "staleness_days": 1291.0,
+  "staleness_limit_days": 200.0,
   "current": false,
   "unit": "GBX",
   "quality_ok": false,
@@ -31,7 +31,7 @@
   "source": "aggregator_panel"
  },
  "discount": {
-  "estimate": -0.00783,
+  "estimate": -0.944511,
   "z": null,
   "z_status": "insufficient_history_1m",
   "z_source": "aggregator_panel",
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-10T23:36:15+00:00"
+ "updated_at": "2026-09-11T21:56:06+00:00"
 }

@@ -5,21 +5,21 @@
  "ticker": null,
  "sector": "Technology & Technology Innovation",
  "liveness": {
-  "status": "live_stale_nav",
-  "reason": "periodic_report_43d_old_no_recent_nav",
-  "source": "own_periodic_report",
-  "last_nav": null,
+  "status": "live",
+  "reason": "nav_73d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-06-30",
   "last_announcement": "2026-09-02"
  },
  "nav": {
   "anchor": 117.94,
-  "anchor_date": "2026-03-31",
-  "anchor_source": "investegate_fs:9694528",
+  "anchor_date": "2026-06-30",
+  "anchor_source": "own_nav_history:2026-06-30",
   "estimate": 117.94,
-  "basis": 0.0,
-  "staleness_days": 117.0,
-  "staleness_limit_days": 45.0,
-  "current": false,
+  "basis": 3.0,
+  "staleness_days": 53.0,
+  "staleness_limit_days": 200.0,
+  "current": true,
   "unit": "GBX",
   "quality_ok": true,
   "quality_reason": ""
@@ -27,7 +27,7 @@
  "price": {
   "price": 30.0,
   "ccy": "GBp",
-  "date": "2026-09-09",
+  "date": "2026-09-10",
   "source": "yahoo:SURE.L"
  },
  "discount": {
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-10T23:36:16+00:00"
+ "updated_at": "2026-09-11T21:56:07+00:00"
 }

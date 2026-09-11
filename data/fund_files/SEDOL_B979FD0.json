@@ -6,32 +6,32 @@
  "sector": "Property Direct - Europe",
  "liveness": {
   "status": "live_stale_nav",
-  "reason": "periodic_report_118d_old_no_recent_nav",
+  "reason": "periodic_report_119d_old_no_recent_nav",
   "source": "own_periodic_report",
-  "last_nav": null,
+  "last_nav": "2016-06-30",
   "last_announcement": "2026-09-10"
  },
  "nav": {
-  "anchor": null,
-  "anchor_date": null,
-  "anchor_source": null,
-  "estimate": null,
-  "basis": null,
-  "staleness_days": null,
+  "anchor": 6003.0,
+  "anchor_date": "2016-06-30",
+  "anchor_source": "own_nav_history:2016-06-30",
+  "estimate": 6003.0,
+  "basis": 3.0,
+  "staleness_days": 2661.0,
   "staleness_limit_days": 45.0,
   "current": false,
   "unit": "GBX",
   "quality_ok": false,
-  "quality_reason": "nav_not_positive"
+  "quality_reason": "unit_suspect_scale"
  },
  "price": {
-  "price": 1.75,
+  "price": 1.850000023841858,
   "ccy": "EUR",
-  "date": "2026-09-09",
+  "date": "2026-09-10",
   "source": "yahoo:GWI.L"
  },
  "discount": {
-  "estimate": null,
+  "estimate": -0.999692,
   "z": null,
   "z_status": "no_discount_history",
   "z_source": null,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-10T23:36:15+00:00"
+ "updated_at": "2026-09-11T21:56:06+00:00"
 }

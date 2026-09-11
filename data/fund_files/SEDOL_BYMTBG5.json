@@ -5,30 +5,30 @@
  "ticker": null,
  "sector": "Debt - Direct Lending",
  "liveness": {
-  "status": "delist_candidate",
-  "reason": "aggregator_delisted_and_own_filings_silent_alwaysd",
-  "source": "corroborated_delisting",
-  "last_nav": null,
+  "status": "live",
+  "reason": "nav_44d_old",
+  "source": "own_nav_announcement",
+  "last_nav": "2026-07-29",
   "last_announcement": null
  },
  "nav": {
-  "anchor": null,
-  "anchor_date": null,
-  "anchor_source": null,
-  "estimate": null,
-  "basis": null,
-  "staleness_days": null,
-  "staleness_limit_days": 45.0,
-  "current": false,
+  "anchor": 73.33,
+  "anchor_date": "2026-07-29",
+  "anchor_source": "own_nav_history:2026-07-29",
+  "estimate": 73.33,
+  "basis": 3.0,
+  "staleness_days": 32.0,
+  "staleness_limit_days": 169.5,
+  "current": true,
   "unit": "GBX",
   "quality_ok": false,
-  "quality_reason": "nav_not_positive"
+  "quality_reason": "no_price"
  },
  "price": {
-  "price": 49.20000076293945,
-  "ccy": "GBp",
-  "date": "2026-09-09",
-  "source": "yahoo:RMII.L"
+  "price": null,
+  "ccy": null,
+  "date": null,
+  "source": "none"
  },
  "discount": {
   "estimate": null,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-10T23:36:16+00:00"
+ "updated_at": "2026-09-11T21:56:07+00:00"
 }

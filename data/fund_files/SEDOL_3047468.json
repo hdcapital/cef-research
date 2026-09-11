@@ -6,10 +6,10 @@
  "sector": "Private Equity",
  "liveness": {
   "status": "live_stale_nav",
-  "reason": "periodic_report_73d_old_no_recent_nav",
+  "reason": "periodic_report_74d_old_no_recent_nav",
   "source": "own_periodic_report",
   "last_nav": "2026-05-05",
-  "last_announcement": "2026-09-10"
+  "last_announcement": "2026-09-11"
  },
  "nav": {
   "anchor": 862.5,
@@ -17,7 +17,7 @@
   "anchor_source": "investegate_fs:9640313",
   "estimate": 862.5,
   "basis": 0.0,
-  "staleness_days": 117.0,
+  "staleness_days": 118.0,
   "staleness_limit_days": 93.0,
   "current": false,
   "unit": "GBX",
@@ -27,7 +27,7 @@
  "price": {
   "price": 600.0,
   "ccy": "GBp",
-  "date": "2026-09-09",
+  "date": "2026-09-11",
   "source": "yahoo:PPET.L"
  },
  "discount": {
@@ -41,8 +41,8 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0396,
-  "discount_only": -0.0001,
+  "central": 0.041,
+  "discount_only": 0.0013,
   "g_used": 0.0396,
   "g_source": "own_nav_history"
  },
@@ -60,5 +60,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-10T23:36:16+00:00"
+ "updated_at": "2026-09-11T21:56:07+00:00"
 }

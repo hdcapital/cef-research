@@ -6,16 +6,16 @@
  "sector": "UK Equity Income",
  "liveness": {
   "status": "live",
-  "reason": "nav_1d_old",
+  "reason": "nav_2d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-09",
   "last_announcement": "2026-09-10"
  },
  "nav": {
-  "anchor": 969.1,
-  "anchor_date": "2026-09-10",
-  "anchor_source": "investegate:9765685",
-  "estimate": 969.1,
+  "anchor": 964.08,
+  "anchor_date": "2026-09-11",
+  "anchor_source": "investegate:9768096",
+  "estimate": 964.08,
   "basis": 0.0,
   "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 938.0,
+  "price": 940.0,
   "ccy": "GBp",
-  "date": "2026-09-09",
+  "date": "2026-09-11",
   "source": "yahoo:JCH.L"
  },
  "discount": {
-  "estimate": -0.032092,
-  "z": 2.0061,
+  "estimate": -0.024977,
+  "z": 2.6585,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1175,
-  "discount_only": -0.0031,
+  "central": 0.1171,
+  "discount_only": -0.0036,
   "g_used": 0.0902,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-10T23:36:15+00:00"
+ "updated_at": "2026-09-11T21:56:06+00:00"
 }

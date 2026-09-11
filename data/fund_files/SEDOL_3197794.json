@@ -6,10 +6,10 @@
  "sector": "Global",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-08",
-  "last_announcement": "2026-09-08"
+  "last_announcement": "2026-09-11"
  },
  "nav": {
   "anchor": 696.05,
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9761592",
   "estimate": 696.05,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 3.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": "nav_unit_mismatch_98x_vs_prior"
  },
  "price": {
-  "price": 5.420000076293945,
+  "price": 5.71999979019165,
   "ccy": "GBP",
-  "date": "2026-09-09",
+  "date": "2026-09-11",
   "source": "yahoo:LTI.L"
  },
  "discount": {
-  "estimate": -0.992213,
-  "z": -19.3448,
+  "estimate": -0.991782,
+  "z": -19.3346,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,27 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 1.8459,
-  "discount_only": 1.5604,
+  "central": 1.848,
+  "discount_only": 1.5623,
   "g_used": 0.0801,
   "g_source": "sector_median"
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [],
- "updated_at": "2026-09-10T23:36:15+00:00"
+ "events_90d": [
+  {
+   "date": "2026-09-11",
+   "class": "tender_offer",
+   "weight": 4,
+   "direction": "positive",
+   "headline": "Publication of Tender Offer Circular",
+   "url": "https://www.investegate.co.uk/announcement/prn/lindsell-train-inv-trust--lti/publication-of-tender-offer-circular/9766938",
+   "alerted_at": "2026-09-11T06:34:19+00:00",
+   "terms": {
+    "llm": "error",
+    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
+   }
+  }
+ ],
+ "updated_at": "2026-09-11T21:56:06+00:00"
 }

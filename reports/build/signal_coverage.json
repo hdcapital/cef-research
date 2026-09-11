@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T06:32:42+00:00",
+  "generated_at": "2026-09-11T21:56:13+00:00",
   "target_pct": 90.0,
   "markets": {
     "AU": {
@@ -12,17 +12,17 @@
       "signal_complete_pct": 90.1
     },
     "UK": {
-      "denominator_live_research_eligible": 221,
+      "denominator_live_research_eligible": 223,
       "nav_ok": 207,
       "z_ok": 196,
-      "growth_ok": 221,
+      "growth_ok": 223,
       "irr_ok": 201,
       "signal_complete": 191,
-      "signal_complete_pct": 86.4
+      "signal_complete_pct": 85.7
     }
   },
   "excluded_not_trading": {
-    "count": 6,
+    "count": 7,
     "rule": "no price bar within 14 days",
     "funds": [
       {
@@ -54,16 +54,21 @@
         "security_id": "SEDOL:345035",
         "name": "JPMorgan India Growth & Income",
         "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:BYMTBG5",
+        "name": "RM Infrastructure Income",
+        "market": "UK"
       }
     ]
   },
   "total": {
-    "denominator": 312,
+    "denominator": 314,
     "signal_complete": 273,
-    "signal_complete_pct": 87.5,
+    "signal_complete_pct": 86.9,
     "top_blockers": {
       "z:no_discount_history": 14,
-      "nav+z:no_discount_history": 10,
+      "nav+z:no_discount_history": 12,
       "nav": 9,
       "z:history_unit_mismatch": 2,
       "z:insufficient_history_4m": 1,

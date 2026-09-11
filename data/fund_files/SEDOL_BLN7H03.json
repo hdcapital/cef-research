@@ -6,23 +6,23 @@
  "sector": "Property - UK Logistics",
  "liveness": {
   "status": "delist_candidate",
-  "reason": "aggregator_delisted_and_own_filings_silent_1030d",
+  "reason": "aggregator_delisted_and_own_filings_silent_1031d",
   "source": "corroborated_delisting",
-  "last_nav": null,
+  "last_nav": "2023-09-30",
   "last_announcement": "2023-11-15"
  },
  "nav": {
-  "anchor": null,
-  "anchor_date": null,
-  "anchor_source": null,
-  "estimate": null,
-  "basis": null,
-  "staleness_days": null,
+  "anchor": 72.54,
+  "anchor_date": "2023-09-30",
+  "anchor_source": "own_nav_history:2023-09-30",
+  "estimate": 72.54,
+  "basis": 3.0,
+  "staleness_days": 769.0,
   "staleness_limit_days": 45.0,
   "current": false,
   "unit": "GBX",
   "quality_ok": false,
-  "quality_reason": "nav_not_positive"
+  "quality_reason": "no_price"
  },
  "price": {
   "price": null,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-10T23:36:15+00:00"
+ "updated_at": "2026-09-11T21:56:06+00:00"
 }

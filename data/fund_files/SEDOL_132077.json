@@ -6,16 +6,16 @@
  "sector": "Asia Pacific Equity Income",
  "liveness": {
   "status": "live",
-  "reason": "nav_1d_old",
+  "reason": "nav_2d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-09",
   "last_announcement": "2026-09-10"
  },
  "nav": {
-  "anchor": 602.21,
-  "anchor_date": "2026-09-10",
-  "anchor_source": "investegate:9765683",
-  "estimate": 602.21,
+  "anchor": 599.83,
+  "anchor_date": "2026-09-11",
+  "anchor_source": "investegate:9768094",
+  "estimate": 599.83,
   "basis": 0.0,
   "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
@@ -27,12 +27,12 @@
  "price": {
   "price": 588.0,
   "ccy": "GBp",
-  "date": "2026-09-09",
+  "date": "2026-09-11",
   "source": "yahoo:JAGI.L"
  },
  "discount": {
-  "estimate": -0.023596,
-  "z": 2.1032,
+  "estimate": -0.019722,
+  "z": 2.2461,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.104,
-  "discount_only": -0.0127,
+  "central": 0.1025,
+  "discount_only": -0.0141,
   "g_used": 0.1053,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-10T23:36:15+00:00"
+ "updated_at": "2026-09-11T21:56:06+00:00"
 }

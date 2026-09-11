@@ -6,16 +6,16 @@
  "sector": "Europe",
  "liveness": {
   "status": "live",
-  "reason": "nav_1d_old",
+  "reason": "nav_2d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-09",
   "last_announcement": "2026-09-10"
  },
  "nav": {
-  "anchor": 132.11,
-  "anchor_date": "2026-09-10",
-  "anchor_source": "investegate:9765867",
-  "estimate": 132.11,
+  "anchor": 132.88,
+  "anchor_date": "2026-09-11",
+  "anchor_source": "investegate:9768242",
+  "estimate": 132.88,
   "basis": 0.0,
   "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 121.5,
+  "price": 122.0,
   "ccy": "GBp",
-  "date": "2026-09-09",
+  "date": "2026-09-11",
   "source": "yahoo:BGEU.L"
  },
  "discount": {
-  "estimate": -0.080312,
-  "z": 1.0183,
+  "estimate": -0.081878,
+  "z": 0.9716,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -93,5 +93,5 @@
    }
   }
  ],
- "updated_at": "2026-09-10T23:36:15+00:00"
+ "updated_at": "2026-09-11T21:56:05+00:00"
 }
