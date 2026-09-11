@@ -6,10 +6,10 @@
  "sector": "Property Securities",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_1d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-09-09",
-  "last_announcement": "2026-09-10"
+  "last_nav": "2026-09-10",
+  "last_announcement": "2026-09-11"
  },
  "nav": {
   "anchor": 320.4,
@@ -27,7 +27,7 @@
  "price": {
   "price": 290.0,
   "ccy": "GBp",
-  "date": "2026-09-11",
+  "date": "2026-09-10",
   "source": "yahoo:TRY.L"
  },
  "discount": {
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": -0.0464,
-  "discount_only": 0.0038,
+  "central": -0.0469,
+  "discount_only": 0.0033,
   "g_used": -0.05,
   "g_source": "panel_tr_cagr"
  },
@@ -62,5 +62,5 @@
    }
   }
  ],
- "updated_at": "2026-09-11T21:56:07+00:00"
+ "updated_at": "2026-09-11T23:33:42+00:00"
 }

@@ -6,10 +6,10 @@
  "sector": "Country Specialist",
  "liveness": {
   "status": "live",
-  "reason": "nav_3d_old",
+  "reason": "nav_2d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-09-08",
-  "last_announcement": "2026-09-10"
+  "last_nav": "2026-09-09",
+  "last_announcement": "2026-09-11"
  },
  "nav": {
   "anchor": 538.0,
@@ -25,19 +25,19 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 436.0,
+  "price": 439.0,
   "ccy": "GBp",
-  "date": "2026-09-11",
+  "date": "2026-09-10",
   "source": "yahoo:VOF.L"
  },
  "discount": {
-  "estimate": -0.189591,
-  "z": 0.7673,
+  "estimate": -0.184015,
+  "z": 1.0112,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.207802,
-  "sigma_36m": 0.023735,
+  "mu_36m": -0.207915,
+  "sigma_36m": 0.023635,
   "alert_eligible": true
  },
  "forward_irr": {
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-11T21:56:07+00:00"
+ "updated_at": "2026-09-11T23:33:42+00:00"
 }

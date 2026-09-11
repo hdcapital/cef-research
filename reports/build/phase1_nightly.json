@@ -10,7 +10,7 @@
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 161,
+  "alert_eligible": 158,
   "z_extremes": [
     {
       "security_id": "SEDOL:B0JQZZ8",
@@ -34,7 +34,7 @@
       "security_id": "SEDOL:BYMJ7X4",
       "z_adj": -59.1482,
       "discount_est": -0.629934,
-      "staleness_days": 1184.0
+      "staleness_days": 1260.0
     },
     {
       "security_id": "SEDOL:BRC8992",
@@ -49,6 +49,12 @@
       "staleness_days": 0.0
     },
     {
+      "security_id": "SEDOL:BKF2JH0",
+      "z_adj": -37.7329,
+      "discount_est": -0.990395,
+      "staleness_days": 118.0
+    },
+    {
       "security_id": "SEDOL:BNGFHX1",
       "z_adj": -37.4398,
       "discount_est": -0.990494,
@@ -56,21 +62,15 @@
     },
     {
       "security_id": "SEDOL:B1G3N11",
-      "z_adj": -36.2635,
-      "discount_est": -0.888304,
-      "staleness_days": 2.0
+      "z_adj": -36.2061,
+      "discount_est": -0.887055,
+      "staleness_days": 1.0
     },
     {
       "security_id": "ASX:ALR",
       "z_adj": -32.9584,
       "discount_est": -0.963766,
       "staleness_days": 2227.0
-    },
-    {
-      "security_id": "ASX:CTN",
-      "z_adj": -32.2532,
-      "discount_est": -0.954808,
-      "staleness_days": 2313.0
     }
   ],
   "date": "2026-09-11",
@@ -85,7 +85,7 @@
     "uk_identity_blocked": 337,
     "uk_nav_targets": 310,
     "uk_registry_only_targets": 113,
-    "uk_aux_z_history_funds": 241,
+    "uk_aux_z_history_funds": 253,
     "uk_fx_pairs": [
       "CAD",
       "EUR",
@@ -143,9 +143,9 @@
     "unalerted": 372,
     "holdings_with_terms": 70,
     "tr1": {
-      "candidates": 4,
-      "fetched": 4,
-      "parsed": 4,
+      "candidates": 0,
+      "fetched": 0,
+      "parsed": 0,
       "failed": 0
     },
     "realisations": {
@@ -171,14 +171,14 @@
   },
   "carried_forward_rows": 0,
   "nav_quarantine": {
-    "rows": 459,
+    "rows": 460,
     "by_reason": {
       "stale_panel_price_only": 215,
       "nav_not_positive": 182,
       "no_price": 36,
       "unit_suspect_scale": 11,
       "nav_jump_N_vs_prior": 6,
-      "nav_jump_N_vs_own": 5,
+      "nav_jump_N_vs_own": 6,
       "nav_unit_mismatch_N_vs_prior": 4
     }
   },

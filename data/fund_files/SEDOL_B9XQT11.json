@@ -6,10 +6,10 @@
  "sector": "Financials & Financial Innovation",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_1d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-09-09",
-  "last_announcement": "2026-09-10"
+  "last_nav": "2026-09-10",
+  "last_announcement": "2026-09-11"
  },
  "nav": {
   "anchor": 256.12,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 252.0,
+  "price": 250.0,
   "ccy": "GBp",
-  "date": "2026-09-11",
+  "date": "2026-09-10",
   "source": "yahoo:PCFT.L"
  },
  "discount": {
-  "estimate": -0.016086,
-  "z": 1.6236,
+  "estimate": -0.023895,
+  "z": 1.3447,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1321,
-  "discount_only": -0.0074,
+  "central": 0.1308,
+  "discount_only": -0.0086,
   "g_used": 0.129,
   "g_source": "panel_tr_cagr"
  },
@@ -123,5 +123,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-11T21:56:07+00:00"
+ "updated_at": "2026-09-11T23:33:42+00:00"
 }

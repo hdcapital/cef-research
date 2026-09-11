@@ -32,13 +32,13 @@
  },
  "discount": {
   "estimate": -0.745633,
-  "z": null,
-  "z_status": "no_discount_history",
-  "z_source": null,
-  "z_window_months": 0,
-  "mu_36m": null,
-  "sigma_36m": null,
-  "alert_eligible": false
+  "z": -1.6327,
+  "z_status": "computed",
+  "z_source": "own_daily_panel",
+  "z_window_months": 36,
+  "mu_36m": -0.176869,
+  "sigma_36m": 0.348354,
+  "alert_eligible": true
  },
  "forward_irr": {
   "central": null,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-11T21:56:07+00:00"
+ "updated_at": "2026-09-11T23:33:42+00:00"
 }

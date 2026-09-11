@@ -6,9 +6,9 @@
  "sector": "Debt - Loans & Bonds",
  "liveness": {
   "status": "live",
-  "reason": "nav_8d_old",
+  "reason": "nav_1d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-09-03",
+  "last_nav": "2026-09-10",
   "last_announcement": "2026-09-10"
  },
  "nav": {
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 85.4000015258789,
+  "price": 85.5,
   "ccy": "GBp",
-  "date": "2026-09-11",
+  "date": "2026-09-10",
   "source": "yahoo:SMIF.L"
  },
  "discount": {
-  "estimate": 0.018485,
-  "z": 0.2472,
+  "estimate": 0.019678,
+  "z": 0.3344,
   "z_status": "within_error_band",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": 0.015034,
-  "sigma_36m": 0.013966,
+  "mu_36m": 0.015011,
+  "sigma_36m": 0.013959,
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0308,
-  "discount_only": -0.0007,
+  "central": 0.0313,
+  "discount_only": -0.0002,
   "g_used": 0.0315,
   "g_source": "own_nav_history"
  },
@@ -120,5 +120,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-11T21:56:07+00:00"
+ "updated_at": "2026-09-11T23:33:42+00:00"
 }

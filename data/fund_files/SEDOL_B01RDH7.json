@@ -6,9 +6,9 @@
  "sector": "Europe",
  "liveness": {
   "status": "live",
-  "reason": "nav_3d_old",
+  "reason": "nav_2d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-09-08",
+  "last_nav": "2026-09-09",
   "last_announcement": "2026-09-11"
  },
  "nav": {
@@ -25,29 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 588.0,
+  "price": 583.0,
   "ccy": "GBp",
-  "date": "2026-09-11",
+  "date": "2026-09-10",
   "source": "yahoo:BRGE.L"
  },
  "discount": {
-  "estimate": -0.063918,
-  "z": -0.4284,
-  "z_status": "within_error_band",
+  "estimate": -0.071878,
+  "z": -1.0982,
+  "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.058828,
   "sigma_36m": 0.011883,
-  "alert_eligible": false
+  "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1319,
-  "discount_only": 0.0043,
+  "central": 0.1298,
+  "discount_only": 0.0023,
   "g_used": 0.107,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-11T21:56:05+00:00"
+ "updated_at": "2026-09-11T23:33:41+00:00"
 }

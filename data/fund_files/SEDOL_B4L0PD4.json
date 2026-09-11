@@ -9,7 +9,7 @@
   "reason": "nav_2d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-09",
-  "last_announcement": "2026-09-10"
+  "last_announcement": "2026-09-11"
  },
  "nav": {
   "anchor": 1636.15,
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1510.0,
+  "price": 1486.0,
   "ccy": "GBp",
-  "date": "2026-09-11",
+  "date": "2026-09-10",
   "source": "yahoo:FEML.L"
  },
  "discount": {
-  "estimate": -0.077102,
-  "z": 0.9359,
-  "z_status": "computed",
+  "estimate": -0.09177,
+  "z": 0.428,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.10413,
   "sigma_36m": 0.028877,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0966,
-  "discount_only": -0.007,
+  "central": 0.0949,
+  "discount_only": -0.0087,
   "g_used": 0.0605,
   "g_source": "own_nav_history"
  },
@@ -74,5 +74,5 @@
    }
   }
  ],
- "updated_at": "2026-09-11T21:56:06+00:00"
+ "updated_at": "2026-09-11T23:33:41+00:00"
 }

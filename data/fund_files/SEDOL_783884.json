@@ -6,10 +6,10 @@
  "sector": "Global",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_1d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-09-09",
-  "last_announcement": "2026-09-10"
+  "last_nav": "2026-09-10",
+  "last_announcement": "2026-09-11"
  },
  "nav": {
   "anchor": 1608.17,
@@ -25,29 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1478.0,
+  "price": 1473.5,
   "ccy": "GBp",
-  "date": "2026-09-11",
+  "date": "2026-09-10",
   "source": "yahoo:SMT.L"
  },
  "discount": {
-  "estimate": -0.080943,
-  "z": 0.2426,
-  "z_status": "computed",
+  "estimate": -0.083741,
+  "z": 0.1846,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.09264,
   "sigma_36m": 0.048214,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1904,
-  "discount_only": -0.002,
+  "central": 0.1894,
+  "discount_only": -0.0031,
   "g_used": 0.0472,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-11T21:56:07+00:00"
+ "updated_at": "2026-09-11T23:33:42+00:00"
 }
