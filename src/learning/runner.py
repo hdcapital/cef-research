@@ -225,7 +225,8 @@ def mode_evaluate() -> int:
         z_col = f"discount_z_{cfg['signals']['zscore_window_months']}m"
         elig["panel_market"] = loader.upper()
         panels.append(elig)
-        full_panels.append(panel[["security_id", "obs_month"]].assign(panel_market=loader.upper()))
+        keep = [c for c in ("security_id", "obs_month", "company_name") if c in panel.columns]
+        full_panels.append(panel[keep].assign(panel_market=loader.upper()))
     if not panels:
         _status("evaluate", {"error": "no monthly panel available"})
         return 1
@@ -264,10 +265,35 @@ def mode_evaluate() -> int:
         if "cohort" in feats.columns:
             sids = set(feats.loc[feats["cohort"].eq(c), "security_id"])
             cohorts[c] = int(doc["security_id"].isin(sids).sum())
+    # the AIC corporate-activity record: point-in-time features for every
+    # UK fund-month the MIR ever listed, 2007 onward, no model and no
+    # Investegate page needed - the older endings' only announcement tape
+    aic = None
+    aic_note = {}
+    try:
+        from uk_cef.panel import parse_all_corporate_activity
+        raw_dir = Path(load_config("config/default.yaml")["download"]["raw_dir"])
+        ukp = pd.concat([f for f in full_panels if f["panel_market"].iloc[0] == "UK"], ignore_index=True) \
+            if any(f["panel_market"].iloc[0] == "UK" for f in full_panels) else pd.DataFrame()
+        if raw_dir.exists() and len(ukp) and "company_name" in ukp.columns:
+            ca = parse_all_corporate_activity(raw_dir)
+            af = W.aic_activity_features(ca, ukp)
+            aic_note = {"records": int(len(ca)), "fund_months": int(len(af)),
+                        "funds": int(af["security_id"].nunique()) if len(af) else 0}
+            if len(af):
+                aic = L.attach(ukp[["security_id", "obs_month"]].drop_duplicates(), ep)
+                aic = aic.merge(V.aic_feature_flags(af), on=["security_id", "obs_month"], how="left")
+                for c in V.AIC_SILENT:
+                    aic[c] = aic[c].fillna("none")
+                af.to_parquet(E.OUT_DIR / "aic_activity_features.parquet", index=False)
+    except Exception as exc:  # noqa: BLE001
+        aic_note = {"error": str(exc)[:200]}
     frames = [V.anticipation(doc, cols).assign(universe="documented"),
               V.anticipation(lab, hcols).assign(universe="all_funds" if hfu.exists() else "episodes")]
     if listed is not None and len(listed):
         frames.append(V.anticipation(listed, hcols).assign(universe="listed_universe"))
+    if aic is not None and len(aic):
+        frames.append(V.anticipation(aic, list(V.AIC_SILENT)).assign(universe="aic_activity"))
     ant = pd.concat(frames, ignore_index=True)
     cheap = pd.concat([V.cheap_cohort_returns(doc, cols, z_col=z_col).assign(universe="documented"),
                        V.cheap_cohort_returns(lab, hcols, z_col=z_col).assign(universe="all_funds")],
@@ -291,6 +317,9 @@ def mode_evaluate() -> int:
         "listed_universe_fund_months": int(len(listed)) if listed is not None else 0,
         "base_rates_listed_universe": L.base_rates(listed) if listed is not None and len(listed) else {},
         "strongest_12m_development_listed": _top("listed_universe") if listed is not None else [],
+        "aic_activity": aic_note,
+        "base_rates_aic": L.base_rates(aic) if aic is not None and len(aic) else {},
+        "strongest_12m_development_aic": _top("aic_activity") if aic is not None else [],
         "cheap_cohort": cheap.to_dict("records")})
     return 0
 

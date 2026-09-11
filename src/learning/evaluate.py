@@ -165,3 +165,21 @@ HEADLINE_SILENT = {"hf_buyback_active": "none", "hf_holder_churn": "none",
                    "hf_strategic_review": "none", "hf_continuation": "none",
                    "hf_windup": "none"}
 S.SILENT.update(HEADLINE_SILENT)
+
+
+def aic_feature_flags(af: pd.DataFrame) -> pd.DataFrame:
+    """The AIC corporate-activity features as silent/non-silent flags: a
+    category ever recorded for the fund by that month ("seen"), and a
+    record within the trailing twelve months ("recent")."""
+    out = af[["security_id", "obs_month"]].copy()
+    for c in ("tender", "buyback", "realisation_policy", "reconstruction", "manager_change",
+              "fee_change", "policy_change"):
+        out[f"aic_{c}_seen"] = np.where(af[f"aic_{c}_since"].notna(), "seen", "none")
+        out[f"aic_{c}_recent"] = np.where(af[f"aic_{c}_12m"].fillna(0) > 0, "recent", "none")
+    return out
+
+
+AIC_SILENT = {f"aic_{c}_{k}": "none" for c in ("tender", "buyback", "realisation_policy",
+                                             "reconstruction", "manager_change", "fee_change",
+                                             "policy_change") for k in ("seen", "recent")}
+S.SILENT.update(AIC_SILENT)

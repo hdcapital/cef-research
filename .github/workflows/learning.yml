@@ -126,7 +126,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           for f in data/learning/episodes.parquet data/learning/episodes.csv \
-                   data/learning/window_docs.parquet data/learning/headline_features.parquet data/learning/headline_features_universe.parquet data/learning/controls.csv data/learning/window_coverage.csv \
+                   data/learning/window_docs.parquet data/learning/headline_features.parquet data/learning/headline_features_universe.parquet data/learning/aic_activity_features.parquet data/learning/controls.csv data/learning/window_coverage.csv \
                    data/learning/features_*.parquet data/learning/rejects_*.parquet \
                    outputs/learning/anticipation.csv outputs/learning/cheap_cohort_returns.csv outputs/learning/listings_s*.csv \
                    reports/build/learning_status.json; do

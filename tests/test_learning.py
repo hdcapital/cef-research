@@ -352,3 +352,24 @@ def test_listing_targets_are_the_endings_the_crawl_never_reached(tmp_path):
     t = W.listing_targets(ep, listings_dir=_listing(tmp_path))
     assert set(t["security_id"]) == {"NAME:old|ordinary share", "NAME:none|ordinary share"}
     assert t.set_index("security_id").loc["NAME:none|ordinary share", "name"] == "None"
+
+
+def test_aic_activity_features_are_point_in_time_by_effective_month():
+    ca = pd.DataFrame([
+        {"event_month": "2019-03", "category": "buyback", "company_name": "Alpha Trust"},
+        {"event_month": "2019-09", "category": "tender", "company_name": "Alpha Trust"},
+        {"event_month": "2020-02", "category": "buyback", "company_name": "Alpha Trust"},
+        {"event_month": "2019-06", "category": "manager_change", "company_name": "Beta Trust"}])
+    months = pd.DataFrame({"security_id": ["SEDOL:A"] * 4 + ["SEDOL:C"],
+                           "company_name": ["Alpha Trust"] * 4 + ["Gamma Trust"],
+                           "obs_month": ["2019-01", "2019-06", "2019-10", "2020-06", "2019-06"]})
+    af = W.aic_activity_features(ca, months).set_index("obs_month")
+    assert pd.isna(af.loc["2019-01", "aic_buyback_since"]) and af.loc["2019-01", "aic_buyback_12m"] == 0
+    assert af.loc["2019-06", "aic_buyback_since"] == 3 and af.loc["2019-06", "aic_buyback_12m"] == 1
+    assert pd.isna(af.loc["2019-06", "aic_tender_since"])            # not yet recorded
+    assert af.loc["2019-10", "aic_tender_since"] == 1 and af.loc["2019-10", "aic_tender_12m"] == 1
+    assert af.loc["2020-06", "aic_buyback_12m"] == 1                  # 2019-03 has rolled off, 2020-02 stays
+    assert "SEDOL:C" not in set(af["security_id"])                    # no record: no row, never a false silent
+    flags = V.aic_feature_flags(af.reset_index()).set_index("obs_month")
+    assert flags.loc["2019-10", "aic_tender_seen"] == "seen" and flags.loc["2019-01", "aic_tender_seen"] == "none"
+    assert flags.loc["2020-06", "aic_buyback_recent"] == "recent"

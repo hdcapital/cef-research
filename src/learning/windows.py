@@ -368,3 +368,58 @@ def listing_targets(episodes: pd.DataFrame, listings_dir: Path = UK_LISTINGS,
     names = episodes.drop_duplicates("security_id").set_index("security_id")["name"]
     want["name"] = want["security_id"].map(names)
     return want.sort_values("end_month", ascending=False)
+
+
+# ------------------------------------------------ AIC corporate-activity features
+AIC_CATEGORIES = ("tender", "buyback", "realisation_policy", "reconstruction",
+                  "manager_change", "fee_change", "policy_change", "liquidation",
+                  "redemption", "capital_return")
+
+
+def aic_activity_features(ca: pd.DataFrame, months: pd.DataFrame) -> pd.DataFrame:
+    """Point-in-time features from the AIC corporate-activity record, for
+    every (security_id, obs_month) in `months` (which carries company_name).
+
+    The AIC archive records an action by its effective month, so a feature
+    at month t reads only records dated t or earlier: months since the
+    first record of each category, and the count in the trailing twelve
+    months. It covers 2007 onward for every fund the MIR ever listed, which
+    is what the Investegate index cannot give the older endings."""
+    from uk_cef.entities import normalize_name
+    cols = ["security_id", "obs_month"] + [f"aic_{c}_since" for c in AIC_CATEGORIES] \
+        + [f"aic_{c}_12m" for c in AIC_CATEGORIES]
+    if ca is None or not len(ca) or months is None or not len(months):
+        return pd.DataFrame(columns=cols)
+    ca = ca[ca["category"].isin(AIC_CATEGORIES)].copy()
+    ca["key"] = ca["company_name"].map(normalize_name)
+    ca["m"] = ca["event_month"].astype(str).str[:7]
+    by_key = {k: g for k, g in ca.groupby("key")}
+    out = []
+    for (sid, name), g in months.groupby(["security_id", "company_name"]):
+        ev = by_key.get(normalize_name(name))
+        idx = sorted(set(g["obs_month"].astype(str)))
+        if ev is None or not idx:
+            continue
+        span = pd.period_range(min(idx[0], ev["m"].min()), idx[-1], freq="M").astype(str)
+        counts = pd.crosstab(ev["m"], ev["category"]).reindex(span, fill_value=0)
+        for c in AIC_CATEGORIES:
+            if c not in counts.columns:
+                counts[c] = 0
+        roll = counts[list(AIC_CATEGORIES)].rolling(12, min_periods=1).sum()
+        pos = {m: i for i, m in enumerate(span)}
+        first = {c: (counts[c].gt(0).idxmax() if counts[c].gt(0).any() else None) for c in AIC_CATEGORIES}
+        rows = []
+        for m in idx:
+            i = pos.get(m)
+            if i is None:
+                continue
+            r = {"security_id": sid, "obs_month": m}
+            for c in AIC_CATEGORIES:
+                f = first[c]
+                r[f"aic_{c}_since"] = (i - pos[f]) if f is not None and i >= pos[f] else None
+                r[f"aic_{c}_12m"] = int(roll[c].iloc[i])
+            rows.append(r)
+        out.append(pd.DataFrame(rows))
+    if not out:
+        return pd.DataFrame(columns=cols)
+    return pd.concat(out, ignore_index=True)[cols]
