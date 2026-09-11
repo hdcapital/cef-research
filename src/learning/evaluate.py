@@ -161,7 +161,7 @@ def headline_feature_flags(hf: pd.DataFrame) -> pd.DataFrame:
     return out
 
 
-HEADLINE_SILENT = {"hf_buyback_active": "none", "hf_holder_churn": "none",
+HEADLINE_SILENT = {"hf_covered": "none", "hf_buyback_active": "none", "hf_holder_churn": "none",
                    "hf_strategic_review": "none", "hf_continuation": "none",
                    "hf_windup": "none"}
 S.SILENT.update(HEADLINE_SILENT)

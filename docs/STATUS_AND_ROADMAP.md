@@ -475,3 +475,28 @@ The research's clearest instruction: the discount closes at the announcement.
 - Synthetic fills for missing data, rescaling suspicious numbers, or working
   around source rate limits — the project's standing rules, and the reason its
   numbers can be trusted.
+
+### 2026-09-11 — first small model on the model-free flags (held out 2022+)
+
+Ridge logit (L2 = 1) on the AIC corporate-activity flags, fitted on fund-months
+to 2021-12 and scored on 2022+, outcome `resolved_within_12m`
+(`outputs/learning/model_*_{coefficients,deciles}.csv`):
+
+| spec | train / test rows | test base | AUC train / test | top-decile rate | lift |
+|---|---|---|---|---|---|
+| aic (14 flags) | 74,454 / 19,054 | 7.1% | 0.554 / 0.508 | 8.8% | 1.24 |
+| union (+5 headline flags) | 81,612 / 24,004 | 6.4% | 0.621 / 0.534 | 11.7% | 1.82 |
+
+Reading: the joint model adds nothing beyond the single realisation-policy
+flag (odds ratio 4.9 on its own, 4.1 in the union), and the held-out AUC of
+0.51–0.53 says the flags do not rank the wider universe. Two caveats before
+any conclusion is drawn from the union spec: (1) the decile table is
+ill-defined because 14 mostly-silent binary flags give a handful of distinct
+scores, so deciles 2–6 share one probability and their ordering is
+arbitrary — only the top decile (distinct high scores) means anything;
+(2) all five headline flags came out with odds ratios below one, contradicting
+their univariate lift, because the union frame had no indicator for whether a
+fund-month was in the Investegate-indexed universe (base 3.0%) or only in the
+AIC record (base 5.7%), so the hf_* coefficients absorbed the coverage gap.
+A `hf_covered` indicator has been added to the union design; the re-run is
+recorded below when it lands. No parameter was tuned against these numbers.

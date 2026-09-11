@@ -21,6 +21,7 @@ import zlib
 from datetime import datetime, timezone
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 
 sys.path.insert(0, "src")
@@ -327,7 +328,12 @@ def mode_evaluate() -> int:
                             on=["security_id", "obs_month"], how="left")
         for c in list(V.AIC_SILENT) + hcols:
             union[c] = union[c].fillna("none")
-        specs.append(("union", union, list(V.AIC_SILENT) + hcols))
+        # headline coverage indicator: without it the hf_* coefficients
+        # absorb the (lower) base rate of the Investegate-indexed months
+        covered = set(map(tuple, listed[["security_id", "obs_month"]].itertuples(index=False)))
+        union["hf_covered"] = np.where([(s, m) in covered for s, m in zip(
+            union["security_id"], union["obs_month"])], "covered", "none")
+        specs.append(("union", union, list(V.AIC_SILENT) + ["hf_covered"] + hcols))
     for name, frame, fcols in specs:
         try:
             r = M.run(frame, fcols, label="resolved_within_12m",
