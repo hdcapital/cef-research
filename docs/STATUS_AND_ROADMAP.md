@@ -500,3 +500,17 @@ fund-month was in the Investegate-indexed universe (base 3.0%) or only in the
 AIC record (base 5.7%), so the hf_* coefficients absorbed the coverage gap.
 A `hf_covered` indicator has been added to the union design; the re-run is
 recorded below when it lands. No parameter was tuned against these numbers.
+
+Re-run with `hf_covered` (run 20, commit 7187ca72): union AUC train 0.777 / test
+0.565, top-decile rate 12.8% (lift 2.0); AIC spec unchanged. The coverage
+indicator itself carries the union's gain (odds ratio 0.11, in-sample: the
+Investegate-indexed months are the recent era, so it is as much an era proxy
+as a coverage one), and with it in the design the five headline flags sit at
+0.93–1.26, i.e. nothing beyond what the AIC record already says; realisation
+policy stays the one signal (odds ratio 2.5 here, 4.9 alone). Open question
+for the next pass: the strategic-review headline shows 2.8x univariate lift
+within the listed universe yet no joint effect, which a fit restricted to
+covered fund-months would settle. Verdict of step 3: no small model on these
+flags beats the single realisation-policy flag out of sample, so nothing from
+it goes near the live gates; the learning layer's next lever is the extracted
+features, which wait on API credit for the control-cohort reads.
