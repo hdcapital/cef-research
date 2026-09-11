@@ -81,7 +81,7 @@
     "prompt_version": "v1:f2eb3ac3715fc46a"
   },
   "evaluate": {
-    "run_at": "2026-09-10T14:46:06+00:00",
+    "run_at": "2026-09-11T07:00:33+00:00",
     "panel_rows": 52128,
     "funds": 467,
     "panels": [
@@ -255,6 +255,82 @@
         "rate": 0.009590706470349859,
         "base_rate": 0.01911282513039194,
         "z_vs_rest": -6.399600436400003
+      }
+    ],
+    "aic_activity": {
+      "records": 34914,
+      "fund_months": 68938,
+      "funds": 711
+    },
+    "base_rates_aic": {
+      "resolved_within_6m": 0.03125935748812936,
+      "resolved_within_12m": 0.05724643880737477,
+      "resolved_within_18m": 0.08246353253197587
+    },
+    "strongest_12m_development_aic": [
+      {
+        "feature": "aic_realisation_policy_seen",
+        "value": "seen",
+        "n": 1061,
+        "rate": 0.23279924599434496,
+        "base_rate": 0.05377817175705805,
+        "z_vs_rest": 26.036286988963667
+      },
+      {
+        "feature": "aic_realisation_policy_recent",
+        "value": "recent",
+        "n": 376,
+        "rate": 0.2473404255319149,
+        "base_rate": 0.05377817175705805,
+        "z_vs_rest": 16.680708298039267
+      },
+      {
+        "feature": "aic_reconstruction_seen",
+        "value": "seen",
+        "n": 2115,
+        "rate": 0.08888888888888889,
+        "base_rate": 0.05377817175705805,
+        "z_vs_rest": 7.2619483328541445
+      },
+      {
+        "feature": "aic_tender_seen",
+        "value": "seen",
+        "n": 6335,
+        "rate": 0.0675611681136543,
+        "base_rate": 0.05377817175705805,
+        "z_vs_rest": 5.084255163298288
+      },
+      {
+        "feature": "aic_tender_recent",
+        "value": "recent",
+        "n": 2067,
+        "rate": 0.06821480406386067,
+        "base_rate": 0.05377817175705805,
+        "z_vs_rest": 2.950871948309167
+      },
+      {
+        "feature": "aic_policy_change_seen",
+        "value": "seen",
+        "n": 10393,
+        "rate": 0.05561435581641489,
+        "base_rate": 0.05377817175705805,
+        "z_vs_rest": 0.8946112161922015
+      },
+      {
+        "feature": "aic_reconstruction_recent",
+        "value": "recent",
+        "n": 408,
+        "rate": 0.058823529411764705,
+        "base_rate": 0.05377817175705805,
+        "z_vs_rest": 0.4530183118529529
+      },
+      {
+        "feature": "aic_manager_change_seen",
+        "value": "seen",
+        "n": 5091,
+        "rate": 0.04890984089569829,
+        "base_rate": 0.05377817175705805,
+        "z_vs_rest": -1.5953729333842037
       }
     ],
     "cheap_cohort": [
