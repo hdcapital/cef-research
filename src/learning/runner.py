@@ -286,6 +286,10 @@ def mode_evaluate() -> int:
                 for c in V.AIC_SILENT:
                     aic[c] = aic[c].fillna("none")
                 af.to_parquet(E.OUT_DIR / "aic_activity_features.parquet", index=False)
+                # the same flags on the priced panel, for the return test
+                lab = lab.merge(V.aic_feature_flags(af), on=["security_id", "obs_month"], how="left")
+                for c in V.AIC_SILENT:
+                    lab[c] = lab[c].fillna("none")
     except Exception as exc:  # noqa: BLE001
         aic_note = {"error": str(exc)[:200]}
     frames = [V.anticipation(doc, cols).assign(universe="documented"),
@@ -295,9 +299,12 @@ def mode_evaluate() -> int:
     if aic is not None and len(aic):
         frames.append(V.anticipation(aic, list(V.AIC_SILENT)).assign(universe="aic_activity"))
     ant = pd.concat(frames, ignore_index=True)
-    cheap = pd.concat([V.cheap_cohort_returns(doc, cols, z_col=z_col).assign(universe="documented"),
-                       V.cheap_cohort_returns(lab, hcols, z_col=z_col).assign(universe="all_funds")],
-                      ignore_index=True)
+    cheap_frames = [V.cheap_cohort_returns(doc, cols, z_col=z_col).assign(universe="documented"),
+                    V.cheap_cohort_returns(lab, hcols, z_col=z_col).assign(universe="all_funds")]
+    if aic is not None and len(aic) and all(c in lab.columns for c in V.AIC_SILENT):
+        cheap_frames.append(V.cheap_cohort_returns(lab, list(V.AIC_SILENT), z_col=z_col)
+                            .assign(universe="aic_activity"))
+    cheap = pd.concat(cheap_frames, ignore_index=True)
     OUT.mkdir(parents=True, exist_ok=True)
     ant.to_csv(OUT / "anticipation.csv", index=False)
     cheap.to_csv(OUT / "cheap_cohort_returns.csv", index=False)

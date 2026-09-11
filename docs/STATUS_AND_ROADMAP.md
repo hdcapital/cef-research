@@ -322,6 +322,26 @@ Everything here has a named fix in `coverage_failures.csv`:
 > classification already reads (tender, buyback, reconstruction,
 > realisation policy, manager change), which cover 2007 onward for every
 > fund the MIR listed.
+>
+> **2026-09-11 — the AIC record reaches the older endings.** The AIC
+> corporate-activity record (34,914 records) read point-in-time by
+> effective month gives features for 68,938 UK fund-months over 711 funds
+> from 2007; 12-month resolution base rate 5.7%. One feature survives both
+> periods: a **realisation policy adopted** - 21.6% of fund-months with one
+> on record resolve within 12 months (3.8x, z 28.4; 13.9% within 6 months,
+> 4.5x), 4.3x in the development period and 2.7x (z 11.7) on the 2022+
+> holdout; recorded within the last twelve months, 23.7% (4.1x). A
+> **reconstruction on record** is second (1.6x, z 7.4; 1.65x development,
+> 1.39x holdout). A tender on record flips sign between periods (1.26x
+> development, 0.57x holdout) and is not a signal; policy changes are weak
+> (1.12x); manager changes, fee changes and the record's rare buyback
+> category carry nothing. Together with the headline features (strategic
+> review 2.8x, wind-up 2.3x over the listed universe), the model-free
+> anticipation vocabulary is now: realisation policy adopted, strategic
+> review announced, wind-up announced, reconstruction on record. Next: the
+> return test for these flags on the cheap cohort, then Phase 3b step 3 -
+> a logistic model on exactly these flags, trained to 2021 and scored on
+> 2022+, with lift by decile; nothing reaches the live gates without it.
 
 A z says a fund is cheap against its own history, not whether it deserves
 to be. Attribution conditions the entry, in a ladder from cheap to
