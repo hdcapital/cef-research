@@ -1,81 +1,81 @@
 security_id,market,name,price,price_source,nav_anchor,anchor_date,anchor_source,nav_prev,nav_jump,unit_check_status,data_quality_reason,z_adj
 ASX:HCF,AU,H&G High Conviction Limited,0.029999999329447746,yahoo:HCF.AX,4.12,2026-07-31,asx_ann:03122969,0.011,373.54545454545456,suspect_scale,nav_jump_37355%_vs_prior,-1.7068
 ASX:WAR,AU,WAM Strategic Value Limited,1.1349999904632568,yahoo:WAR.AX,1.76,2026-08-10,asx_ann:03123923,1.2509,0.40698696938204504,ok,nav_jump_41%_vs_prior,-3.4603
-ASX:TEK,AU,Thorney Technologies Ltd,0.10499999672174454,yahoo:TEK.AX,2.0,2026-07-31,asx_ann:03124570,0.219,8.132420091324201,suspect_scale,nav_jump_813%_vs_prior,-6.0225
-ASX:ALI,AU,Argo Global Listed Infrastructure Limited,2.5,yahoo:ALI.AX,5.0,2026-08-24,asx_ann:03129550,2.75,0.8181818181818182,ok,nav_jump_82%_vs_prior,-10.4444
-ASX:CD3,AU,Cd Private Equity Fund III,0.8399999737739563,yahoo:CD3.AX,0.26,2026-07-31,asx_ann:03127085,1.58,0.8354430379746836,extreme,nav_jump_84%_vs_prior,32.9379
-ASX:GC1,AU,Glennon Small Companies Limited,0.4350000023841858,yahoo:GC1.AX,0.0763,2026-08-27,asx_ann:03132480,0.71,0.8925352112676056,extreme,nav_jump_89%_vs_prior,12.8141
-ASX:AIX,AU,AI Private Opportunities Trust,9.449999809265137,yahoo:AIX.AX,,,,,,no_data,nav_not_positive,
-ASX:IBC,AU,Ironbark Capital Limited,0.4350000023841858,yahoo:IBC.AX,0.0,2026-08-14,asx_ann:03125205,,,no_data,nav_not_positive,
+ASX:TEK,AU,Thorney Technologies Ltd,0.10000000149011612,yahoo:TEK.AX,2.0,2026-07-31,asx_ann:03124570,0.219,8.132420091324201,suspect_scale,nav_jump_813%_vs_prior,-6.0533
+ASX:ALI,AU,Argo Global Listed Infrastructure Limited,2.509999990463257,yahoo:ALI.AX,5.0,2026-08-24,asx_ann:03129550,2.75,0.8181818181818182,ok,nav_jump_82%_vs_prior,-10.3911
+ASX:CD3,AU,Cd Private Equity Fund III,0.8299999833106995,yahoo:CD3.AX,0.26,2026-07-31,asx_ann:03127085,1.58,0.8354430379746836,extreme,nav_jump_84%_vs_prior,32.4386
+ASX:GC1,AU,Glennon Small Companies Limited,0.42500001192092896,yahoo:GC1.AX,0.0763,2026-08-27,asx_ann:03132480,0.71,0.8925352112676056,extreme,nav_jump_89%_vs_prior,12.4779
+ASX:AIX,AU,AI Private Opportunities Trust,9.199999809265137,yahoo:AIX.AX,,,,,,no_data,nav_not_positive,
+ASX:IBC,AU,Ironbark Capital Limited,0.4300000071525574,yahoo:IBC.AX,0.0,2026-08-14,asx_ann:03125205,,,no_data,nav_not_positive,
 ASX:NEW,AU,New Energy Solar,,none,,,,,,no_data,nav_not_positive,
 ASX:GLS,AU,L1 Global Long Short Fund Limited,2.0899999141693115,yahoo:GLS.AX,0.02,2026-09-04,own_nav_history:2026-09-04,1.722,0.9883855981416957,suspect_scale,nav_unit_mismatch_0x_vs_prior,1844.6529
-ASX:PCX,AU,Pengana Global Private Credit Trust,1.9800000190734863,yahoo:PCX.AX,0.019825,2026-08-31,own_nav_history:2026-08-31,1.9825,0.99,suspect_scale,nav_unit_mismatch_0x_vs_prior,5029.1885
-ASX:BHD,AU,Benjamin Hornigold Limited,0.25999999046325684,yahoo:BHD.AX,20.26,2026-08-14,asx_ann:03125294,0.2828,70.64073550212164,suspect_scale,nav_unit_mismatch_72x_vs_prior,-6.4932
-ASX:8EC,AU,8IP Emerging Companies Limited,1.3530000000000002,aggregator_panel,0.7352,2021-08-31,own_nav_history:2021-08-31,0.7562,0.02777043110288286,extreme,stale_panel_price_only,0.678
+ASX:PCX,AU,Pengana Global Private Credit Trust,1.9950000047683716,yahoo:PCX.AX,0.019825,2026-08-31,own_nav_history:2026-08-31,1.9825,0.99,suspect_scale,nav_unit_mismatch_0x_vs_prior,5067.6768
+ASX:BHD,AU,Benjamin Hornigold Limited,0.2549999952316284,yahoo:BHD.AX,20.26,2026-08-14,asx_ann:03125294,0.2828,70.64073550212164,suspect_scale,nav_unit_mismatch_72x_vs_prior,-6.4955
+ASX:8EC,AU,8IP Emerging Companies Limited,1.3530000000000002,aggregator_panel,0.7352,2021-08-31,own_nav_history:2021-08-31,0.7562,0.02777043110288286,extreme,stale_panel_price_only,0.9529
 ASX:AWQ,AU,Arowana Australasian Value Opportunities Fund Limited,1.07,aggregator_panel,1.07,2017-10-31,own_nav_history:2017-10-31,1.1672727272727275,0.08333333333333343,ok,stale_panel_price_only,2.7336
-ASX:AYF,AU,Australian Enhanced Income Fund,5.2,aggregator_panel,5.453591549295775,2020-08-31,aggregator_panel:2020-08,5.833113043478261,0.06506328462240439,ok,stale_panel_price_only,-0.2609
-ASX:BAF,AU,Blue Sky Alternatives Access Fund Limited,0.905,aggregator_panel,1.11428125,2020-08-31,aggregator_panel:2020-08,1.2661509933774835,0.1199459970981565,ok,stale_panel_price_only,0.4495
+ASX:AYF,AU,Australian Enhanced Income Fund,5.2,aggregator_panel,5.453591549295775,2020-08-31,aggregator_panel:2020-08,5.833113043478261,0.06506328462240439,ok,stale_panel_price_only,-0.0716
+ASX:BAF,AU,Blue Sky Alternatives Access Fund Limited,0.905,aggregator_panel,1.11428125,2020-08-31,aggregator_panel:2020-08,1.2661509933774835,0.1199459970981565,ok,stale_panel_price_only,0.5745
 ASX:CMI,AU,CMI Limited,1.415,aggregator_panel,0.6197,2018-12-31,own_nav_history:2018-12-31,1.2092807692307692,0.48754663452210945,extreme,stale_panel_price_only,9.8052
-ASX:CIE,AU,Contango Income Generator  Limited,0.62,aggregator_panel,0.775,2021-06-30,own_nav_history:2021-06-30,0.741,0.04588394062078277,ok,stale_panel_price_only,-3.1525
+ASX:CIE,AU,Contango Income Generator  Limited,0.62,aggregator_panel,0.775,2021-06-30,own_nav_history:2021-06-30,0.741,0.04588394062078277,ok,stale_panel_price_only,-2.9324
 ASX:D2O,AU,Duxton Water Limited,1.48,aggregator_panel,1.2288484848484849,2019-03-31,aggregator_panel:2019-03,1.5482876712328766,0.20631772268135898,ok,stale_panel_price_only,3.2066
 ASX:EMF,AU,Emerging Markets Masters Fund,1.46,aggregator_panel,1.5116161616161614,2018-05-31,aggregator_panel:2018-05,1.9429906542056077,0.22201573211674241,ok,stale_panel_price_only,-2.2219
 ASX:HHV,AU,Hunter Hall Global Value Limited,1.155,aggregator_panel,1.1701075949367088,2017-10-31,aggregator_panel:2017-10,1.2407592920353983,0.05694230746625253,ok,stale_panel_price_only,0.8516
 ASX:HGV,AU,Hygrovest Limited,0.039,aggregator_panel,0.10970000000000002,2024-08-31,aggregator_panel:2024-08,0.09861428571428571,0.11241489207590928,ok,stale_panel_price_only,-0.5933
 ASX:MMJ,AU,MMJ Group Holdings Limited,0.066,aggregator_panel,0.1607913043478261,2021-10-31,aggregator_panel:2021-10,0.1551615384615385,0.036283256418491346,ok,stale_panel_price_only,-0.9227
 ASX:MHH,AU,Magellan High Conviction Trust,1.71,aggregator_panel,1.8111,2021-08-27,own_nav_history:2021-08-27,1.9185872204472842,0.05602415115755102,ok,stale_panel_price_only,0.144
-ASX:PMC,AU,Platinum Capital Limited,1.683,aggregator_panel,1.6346,2025-11-28,own_nav_history:2025-11-28,1.6334,0.0007346638912697992,ok,stale_panel_price_only,1.6501
+ASX:PMC,AU,Platinum Capital Limited,1.683,aggregator_panel,1.6346,2025-11-28,own_nav_history:2025-11-28,1.6334,0.0007346638912697992,ok,stale_panel_price_only,1.6449
 ASX:USF,AU,Us Select Private Opportunities Fund,1.94,aggregator_panel,1.88,2017-09-30,aggregator_panel:2017-09,1.9193617021276594,0.02050770424564903,ok,stale_panel_price_only,-0.1182
 ASX:USG,AU,Us Select Private Opportunities Fund II,2.17,aggregator_panel,2.098349056603773,2017-09-30,aggregator_panel:2017-09,2.12,0.010212709149163718,ok,stale_panel_price_only,0.6406
 ASX:USP,AU,Us Select Private Opportunities Fund Iii,1.56,aggregator_panel,1.5706122448979594,2017-09-30,aggregator_panel:2017-09,1.4206711409395971,0.10554244373486384,ok,stale_panel_price_only,-1.6995
 ASX:VG8,AU,VGI Partners Asian Investments Limited,1.94,aggregator_panel,2.4014054054054053,2022-09-30,aggregator_panel:2022-09,2.31005291005291,0.03954562900050751,ok,stale_panel_price_only,-0.6233
-ASX:VG1,AU,VGI Partners Global Investments Limited,1.9,aggregator_panel,2.23,2025-09-30,aggregator_panel:2025-09,2.05,0.08780487804878058,ok,stale_panel_price_only,-0.7195
-ASX:ABW,AU,Aurora Absolute Return Fund,0.19,aggregator_panel,0.1425,2021-02-25,own_nav_history:2021-02-25,0.145,0.017241379310344845,ok,stale_panel_price_only,1.77
-ASX:AIB,AU,Aurora Global Income Trust,0.1,aggregator_panel,0.1145,2023-08-31,aggregator_panel:2023-08,0.1145,0.0,ok,stale_panel_price_only,0.1257
-ASX:ALF,AU,Australian Leaders Fund Limited,1.005,aggregator_panel,1.0828382352941175,2021-01-31,aggregator_panel:2021-01,1.0946341463414637,0.010776121946105065,ok,stale_panel_price_only,2.149
+ASX:VG1,AU,VGI Partners Global Investments Limited,1.9,aggregator_panel,2.23,2025-09-30,aggregator_panel:2025-09,2.05,0.08780487804878058,ok,stale_panel_price_only,-0.3851
+ASX:ABW,AU,Aurora Absolute Return Fund,0.19,aggregator_panel,0.1425,2021-02-25,own_nav_history:2021-02-25,0.145,0.017241379310344845,ok,stale_panel_price_only,1.7755
+ASX:AIB,AU,Aurora Global Income Trust,0.1,aggregator_panel,0.1145,2023-08-31,aggregator_panel:2023-08,0.1145,0.0,ok,stale_panel_price_only,0.0233
+ASX:ALF,AU,Australian Leaders Fund Limited,1.005,aggregator_panel,1.0828382352941175,2021-01-31,aggregator_panel:2021-01,1.0946341463414637,0.010776121946105065,ok,stale_panel_price_only,2.2629
 ASX:AQF,AU,Australian Governance Masters Index Fund Limited,1.85,aggregator_panel,2.035,2018-05-31,aggregator_panel:2018-05,1.7626943005181348,0.15448265726043506,ok,stale_panel_price_only,-2.6559
 ASX:AUF,AU,Asian Masters Fund Limited,1.26,aggregator_panel,1.4143873517786563,2018-03-31,aggregator_panel:2018-03,1.2560915492957747,0.12602250414918387,ok,stale_panel_price_only,-2.65
-ASX:AUP,AU,Aurora Property Buy-Write Income Trust,2.99,aggregator_panel,3.51,2022-04-28,own_nav_history:2022-04-28,3.4519,0.016831310292882064,ok,stale_panel_price_only,1.0886
+ASX:AUP,AU,Aurora Property Buy-Write Income Trust,2.99,aggregator_panel,3.51,2022-04-28,own_nav_history:2022-04-28,3.4519,0.016831310292882064,ok,stale_panel_price_only,1.087
 ASX:AYD,AU,Australian Masters Yield Fund No 1 Limited,1.2898400366306302,aggregator_panel,1.177966155902463,2017-04-30,aggregator_panel:2017-04,9.949759999999998,0.881608585945544,ok,stale_panel_price_only,
 ASX:AYJ,AU,Australian Masters Yield Fund No 3 Limited,0.158157,aggregator_panel,0.15999954871663116,2018-02-28,aggregator_panel:2018-02,14.820512820512821,0.9892041826990509,ok,stale_panel_price_only,1.0379
 ASX:AYK,AU,Australian Masters Yield Fund No 4 Limited,21.4,aggregator_panel,0.03,2019-10-31,own_nav_history:2019-10-31,24.49552988448016,0.9987752867506243,suspect_scale,stale_panel_price_only,7837.4407
 ASX:AYZ,AU,Australian Masters Yield Fund No 5 Limited,46.0,aggregator_panel,0.05,2019-10-31,own_nav_history:2019-10-31,49.82471910112359,0.9989964820494318,suspect_scale,stale_panel_price_only,13552.8752
 ASX:CBC,AU,CBG Capital Limited,1.015,aggregator_panel,1.0907462686567164,2019-07-31,aggregator_panel:2019-07,1.0746534653465345,0.014974876859483828,ok,stale_panel_price_only,0.2313
 ASX:CLF,AU,Concentrated Leaders Fund Limited,1.2,aggregator_panel,1.19,2021-03-31,own_nav_history:2021-03-31,1.1456790123456788,0.038685344827586336,ok,stale_panel_price_only,0.822
-ASX:CVF,AU,Contrarian Value Fund Limited,0.021,aggregator_panel,0.021323076923076924,2020-12-31,aggregator_panel:2020-12,0.34430693069306934,0.9380695681026378,ok,stale_panel_price_only,1.7909
+ASX:CVF,AU,Contrarian Value Fund Limited,0.021,aggregator_panel,0.021323076923076924,2020-12-31,aggregator_panel:2020-12,0.34430693069306934,0.9380695681026378,ok,stale_panel_price_only,2.1206
 ASX:CYA,AU,Century Australia Investments Limited,0.935,aggregator_panel,0.970570652173913,2019-01-31,aggregator_panel:2019-01,0.9436256983240224,0.028554705427954793,ok,stale_panel_price_only,-0.2875
-ASX:DUI,AU,Diversified United Investment Limited,5.0,aggregator_panel,6.4,2026-04-17,own_nav_history:2026-04-17,6.14,0.04234527687296428,ok,stale_panel_price_only,-1.8049
+ASX:DUI,AU,Diversified United Investment Limited,5.0,aggregator_panel,6.4,2026-04-17,own_nav_history:2026-04-17,6.14,0.04234527687296428,ok,stale_panel_price_only,-1.6898
 ASX:EAF,AU,Evans & Partners Asia Fund,1.34,aggregator_panel,1.4194074074074072,2020-11-30,aggregator_panel:2020-11,1.4530534351145037,0.023155396005409175,ok,stale_panel_price_only,-0.5442
-ASX:EAI,AU,Ellerston Asian Investments Limited,0.79,aggregator_panel,0.8278,2023-05-24,own_nav_history:2023-05-24,0.8374993710691824,0.011581347287222224,ok,stale_panel_price_only,1.9089
-ASX:EGD,AU,Evans & Partners Global Disruption Fund,2.98,aggregator_panel,3.12047138047138,2020-11-30,aggregator_panel:2020-11,3.010344827586207,0.0365827037075603,ok,stale_panel_price_only,-0.2522
+ASX:EAI,AU,Ellerston Asian Investments Limited,0.79,aggregator_panel,0.8278,2023-05-24,own_nav_history:2023-05-24,0.8374993710691824,0.011581347287222224,ok,stale_panel_price_only,2.0368
+ASX:EGD,AU,Evans & Partners Global Disruption Fund,2.98,aggregator_panel,3.12047138047138,2020-11-30,aggregator_panel:2020-11,3.010344827586207,0.0365827037075603,ok,stale_panel_price_only,-0.0763
 ASX:EGF,AU,Evans & Partners Global Flagship Fund,1.51,aggregator_panel,1.6509333333333336,2020-11-30,aggregator_panel:2020-11,1.4951456310679612,0.10419567099567116,ok,stale_panel_price_only,-0.8095
-ASX:EGI,AU,Ellerston Global Investments Limited,1.095,aggregator_panel,1.2672,2020-08-07,own_nav_history:2020-08-07,1.264990776699029,0.001746434315304736,ok,stale_panel_price_only,-1.5391
-ASX:FOR,AU,Forager Australian Shares Fund,1.515,aggregator_panel,1.6246381578947366,2024-05-31,aggregator_panel:2024-05,1.6346229508196721,0.006108315633234359,ok,stale_panel_price_only,-1.6638
-ASX:FPP,AU,Fat Prophets Global Property Fund,0.9,aggregator_panel,0.9456,2025-02-28,aggregator_panel:2025-02,0.9526,0.0073483098887256,ok,stale_panel_price_only,0.8065
-ASX:HHY,AU,HHY Fund,0.045,aggregator_panel,0.0634,2022-06-30,aggregator_panel:2022-06,0.0662,0.04229607250755283,ok,stale_panel_price_only,-0.5818
+ASX:EGI,AU,Ellerston Global Investments Limited,1.095,aggregator_panel,1.2672,2020-08-07,own_nav_history:2020-08-07,1.264990776699029,0.001746434315304736,ok,stale_panel_price_only,-1.2536
+ASX:FOR,AU,Forager Australian Shares Fund,1.515,aggregator_panel,1.6246381578947366,2024-05-31,aggregator_panel:2024-05,1.6346229508196721,0.006108315633234359,ok,stale_panel_price_only,-0.9866
+ASX:FPP,AU,Fat Prophets Global Property Fund,0.9,aggregator_panel,0.9456,2025-02-28,aggregator_panel:2025-02,0.9526,0.0073483098887256,ok,stale_panel_price_only,1.1011
+ASX:HHY,AU,HHY Fund,0.045,aggregator_panel,0.0634,2022-06-30,aggregator_panel:2022-06,0.0662,0.04229607250755283,ok,stale_panel_price_only,-0.6036
 ASX:IPE,AU,IPE Limited,0.077,aggregator_panel,0.07,2018-08-31,aggregator_panel:2018-08,0.07092105263157895,0.012987012987012988,ok,stale_panel_price_only,1.2372
-ASX:MGF,AU,Magellan Global Fund - Closed Class Units,2.26,aggregator_panel,2.2188,2024-07-19,own_nav_history:2024-07-19,2.3222288372093023,0.04453860685564313,ok,stale_panel_price_only,2.4606
+ASX:MGF,AU,Magellan Global Fund - Closed Class Units,2.26,aggregator_panel,2.2188,2024-07-19,own_nav_history:2024-07-19,2.3222288372093023,0.04453860685564313,ok,stale_panel_price_only,2.6965
 ASX:MGG,AU,Magellan Global Trust,1.85,aggregator_panel,1.9361615598885795,2020-09-30,aggregator_panel:2020-09,1.861770054945055,0.03995740760032789,ok,stale_panel_price_only,-0.5613
-ASX:MLT,AU,Milton Corporation Limited,6.59,aggregator_panel,5.321235632183908,2021-08-31,aggregator_panel:2021-08,6.289019607843137,0.1538847127225189,ok,stale_panel_price_only,3.2827
+ASX:MLT,AU,Milton Corporation Limited,6.59,aggregator_panel,5.321235632183908,2021-08-31,aggregator_panel:2021-08,6.289019607843137,0.1538847127225189,ok,stale_panel_price_only,3.5715
 ASX:MVT,AU,Mercantile Investment Company Ltd,0.16,aggregator_panel,0.8391,2022-08-31,own_nav_history:2022-08-31,0.8501,0.012939654158334325,extreme,stale_panel_price_only,-15.0169
-ASX:NBI,AU,NB Global Corporate Income Trust,1.49,aggregator_panel,1.6231,2024-05-09,own_nav_history:2024-05-09,1.65,0.016303030303030257,ok,stale_panel_price_only,0.3329
+ASX:NBI,AU,NB Global Corporate Income Trust,1.49,aggregator_panel,1.6231,2024-05-09,own_nav_history:2024-05-09,1.65,0.016303030303030257,ok,stale_panel_price_only,0.7204
 ASX:NEN,AU,Neon Capital Ltd,0.22,aggregator_panel,0.3713,2016-12-31,aggregator_panel:2016-12,,,ok,stale_panel_price_only,
-ASX:OZG,AU,Ozgrowth Limited,0.37,aggregator_panel,0.371,2022-04-07,own_nav_history:2022-04-07,0.39890624999999996,0.06995691343517423,ok,stale_panel_price_only,2.5794
-ASX:PAI,AU,Platinum Asia Investments Limited,1.065,aggregator_panel,1.2545,2025-08-15,own_nav_history:2025-08-15,1.1692,0.07295586725966467,ok,stale_panel_price_only,-0.6987
-ASX:PGG,AU,Partners Group Global Income Fund,1.74,aggregator_panel,1.85,2023-11-10,own_nav_history:2023-11-10,1.8707514450867053,0.011092571993573122,ok,stale_panel_price_only,-1.2893
-ASX:QVE,AU,QV Equities Limited,0.94,aggregator_panel,0.98,2024-06-30,own_nav_history:2024-06-30,0.9947089947089947,0.014787234042553155,ok,stale_panel_price_only,1.1258
-ASX:SVS,AU,Sunvest Corporation Limited,0.6,aggregator_panel,0.606,2022-08-31,aggregator_panel:2022-08,0.6424778761061948,0.05677685950413239,ok,stale_panel_price_only,1.4956
-ASX:TGG,AU,Templeton Global Growth Fund Limited,1.63,aggregator_panel,1.7253396226415096,2021-09-30,aggregator_panel:2021-09,1.743447619047619,0.010386315142637324,ok,stale_panel_price_only,1.3714
+ASX:OZG,AU,Ozgrowth Limited,0.37,aggregator_panel,0.371,2022-04-07,own_nav_history:2022-04-07,0.39890624999999996,0.06995691343517423,ok,stale_panel_price_only,3.0595
+ASX:PAI,AU,Platinum Asia Investments Limited,1.065,aggregator_panel,1.2545,2025-08-15,own_nav_history:2025-08-15,1.1692,0.07295586725966467,ok,stale_panel_price_only,-0.5076
+ASX:PGG,AU,Partners Group Global Income Fund,1.74,aggregator_panel,1.85,2023-11-10,own_nav_history:2023-11-10,1.8707514450867053,0.011092571993573122,ok,stale_panel_price_only,-1.0776
+ASX:QVE,AU,QV Equities Limited,0.94,aggregator_panel,0.98,2024-06-30,own_nav_history:2024-06-30,0.9947089947089947,0.014787234042553155,ok,stale_panel_price_only,2.0348
+ASX:SVS,AU,Sunvest Corporation Limited,0.6,aggregator_panel,0.606,2022-08-31,aggregator_panel:2022-08,0.6424778761061948,0.05677685950413239,ok,stale_panel_price_only,1.561
+ASX:TGG,AU,Templeton Global Growth Fund Limited,1.63,aggregator_panel,1.7253396226415096,2021-09-30,aggregator_panel:2021-09,1.743447619047619,0.010386315142637324,ok,stale_panel_price_only,1.7113
 ASX:URB,AU,URB Investments Limited,1.06,aggregator_panel,1.1229223744292238,2019-10-31,aggregator_panel:2019-10,1.2650970873786407,0.11238245219899419,ok,stale_panel_price_only,0.6935
 ASX:WDE,AU,Wealth Defender Equities Limited,0.885,aggregator_panel,0.9101,2018-11-02,own_nav_history:2018-11-02,0.8854862637362637,0.02779685837234777,ok,stale_panel_price_only,1.8282
 ASX:WGF,AU,Watermark Global Leaders Fund Limited,0.97,aggregator_panel,1.0,2019-02-28,aggregator_panel:2019-02,1.0164231738035263,0.016157811260903914,ok,stale_panel_price_only,1.1525
-ASX:WIC,AU,Westoz Investment Company Limited,1.46,aggregator_panel,1.4409999999999998,2022-04-07,own_nav_history:2022-04-07,1.56265625,0.0778522147785223,ok,stale_panel_price_only,-0.1081
+ASX:WIC,AU,Westoz Investment Company Limited,1.46,aggregator_panel,1.4409999999999998,2022-04-07,own_nav_history:2022-04-07,1.56265625,0.0778522147785223,ok,stale_panel_price_only,-0.0889
 ASX:WLS,AU,WCM Global Long Short Limited,0.585,aggregator_panel,0.6192931034482758,2022-11-30,aggregator_panel:2022-11,0.6432727272727271,0.037277538449542715,ok,stale_panel_price_only,1.2617
 ASX:WMK,AU,Watermark Market Neutral Fund Limited,0.845,aggregator_panel,0.8804191616766467,2019-02-28,aggregator_panel:2019-02,0.8887134502923977,0.009332916715755866,ok,stale_panel_price_only,0.2636
-ASX:ZER,AU,Zeta Resources Limited,0.25,aggregator_panel,0.2964,2024-09-30,own_nav_history:2024-09-30,0.2816,0.05255681818181811,ok,stale_panel_price_only,-1.0928
-ASX:ALR,AU,Aberdeen Leaders Limited,0.04899999871850014,yahoo:ALR.AX,1.2695238095238095,2018-02-28,aggregator_panel:2018-02,1.3147826086956522,0.03442302847064757,suspect_scale,unit_suspect_scale,-32.8711
-ASX:BSN,AU,Bisan Limited,0.032999999821186066,yahoo:BSN.AX,0.0013000000000000002,2019-08-31,aggregator_panel:2019-08,0.0013000000000000002,0.0,suspect_scale,unit_suspect_scale,17.1611
+ASX:ZER,AU,Zeta Resources Limited,0.25,aggregator_panel,0.2964,2024-09-30,own_nav_history:2024-09-30,0.2816,0.05255681818181811,ok,stale_panel_price_only,-0.9086
+ASX:ALR,AU,Aberdeen Leaders Limited,0.04600000008940697,yahoo:ALR.AX,1.2695238095238095,2018-02-28,aggregator_panel:2018-02,1.3147826086956522,0.03442302847064757,suspect_scale,unit_suspect_scale,-32.9584
+ASX:BSN,AU,Bisan Limited,0.03400000184774399,yahoo:BSN.AX,0.0013000000000000002,2019-08-31,aggregator_panel:2019-08,0.0013000000000000002,0.0,suspect_scale,unit_suspect_scale,17.7565
 ASX:CTN,AU,Contango Microcap Limited,0.04699999839067459,yahoo:CTN.AX,1.04,2017-10-31,own_nav_history:2017-10-31,0.9687720207253886,0.07352398474646077,suspect_scale,unit_suspect_scale,-32.2532
-ASX:AEG,AU,Absolute Equity Performance Fund Limited,0.09399999678134918,yahoo:AEG.AX,0.99,2022-08-31,aggregator_panel:2022-08,1.0011428571428571,0.011130136986301348,suspect_scale,unit_suspect_scale,-20.1009
+ASX:AEG,AU,Absolute Equity Performance Fund Limited,0.08500000089406967,yahoo:AEG.AX,0.99,2022-08-31,aggregator_panel:2022-08,1.0011428571428571,0.011130136986301348,suspect_scale,unit_suspect_scale,-20.2954
 SEDOL:B07V0H2,UK,JPEL Private Equity,1.2400000095367432,yahoo:JPEL.L,7936.0,2016-01-31,own_nav_history:2016-01-31,3960.0,1.004040404040404,suspect_scale,nav_jump_100%_vs_own,
 SEDOL:B8C23S8,UK,ICG-Longbow Senior Secured UK Property Debt Invest,12.800000190734863,yahoo:LBOW.L,17.15,2026-01-31,investegate_fs:9555897,5.0,2.4299999999999997,ok,nav_jump_243%_vs_own,
 SEDOL:B8P59C0,UK,Syncona,111.0,yahoo:SYNC.L,170.63,2026-03-31,investegate_fs:9624409,4.96,33.40120967741935,ok,nav_jump_3340%_vs_own,
@@ -126,7 +126,6 @@ SEDOL:B4QDLR4,UK,CATCo Reinsurance Opportunities C shares,,none,,,,,,no_data,nav
 SEDOL:BF8NW87,UK,CIP Merchant Capital,,none,,,,,,no_data,nav_not_positive,
 SEDOL:B5B3RG7,UK,CQS Diversified,,none,,,,,,no_data,nav_not_positive,
 SEDOL:B5WDRR7,UK,CQS Diversified USD,,none,,,,,,no_data,nav_not_positive,
-SEDOL:B012T52,UK,CT Property Trust,,none,,,,,,no_data,nav_not_positive,
 SEDOL:BKF1X86,UK,CVC Credit Partners European Opps C shares,,none,,,,,,no_data,nav_not_positive,
 SEDOL:BKF1X42,UK,CVC Credit Partners European Opps Euro C shares,,none,,,,,,no_data,nav_not_positive,
 SEDOL:B1FCZR9,UK,Camper & Nicholsons Marina Investments (AIM),,none,,,,,,no_data,nav_not_positive,
@@ -155,7 +154,6 @@ SEDOL:3431232,UK,Dexion Equity Alternative,,none,,,,,,no_data,nav_not_positive,
 SEDOL:B037814,UK,Dexion Trading,,none,,,,,,no_data,nav_not_positive,
 SEDOL:BW4NWS0,UK,Drum Income Plus REIT,,none,,,,,,no_data,nav_not_positive,
 SEDOL:B628S54,UK,Duet Real Estate Finance,,none,,,,,,no_data,nav_not_positive,
-SEDOL:577656,UK,Dunedin Enterprise,,none,,,,,,no_data,nav_not_positive,
 SEDOL:BY7QK53,UK,EF Realisation Company,,none,,,,,,no_data,nav_not_positive,
 SEDOL:B0XQ3R2,UK,Eastern European Property,,none,,,,,,no_data,nav_not_positive,
 SEDOL:B3L9RC7,UK,El Oro,,none,,,,,,no_data,nav_not_positive,
@@ -173,7 +171,6 @@ SEDOL:BFPMFG6,UK,GCP Sovereign Infrastructure Debt,,none,,,,,,no_data,nav_not_po
 SEDOL:B0CL3P6,UK,GLI Finance,,none,,,,,,no_data,nav_not_positive,
 SEDOL:BD8P074,UK,Gabelli Merchant Partners,7.300000190734863,yahoo:GMP.L,,,,,,no_data,nav_not_positive,
 SEDOL:B1GJQ98,UK,Global Fixed Income Realisation,,none,,,,,,no_data,nav_not_positive,
-SEDOL:B979FD0,UK,Globalworth Real Estate Investments,1.75,yahoo:GWI.L,,,,,,no_data,nav_not_positive,
 SEDOL:B173611,UK,Goldman Sachs Dynamic Opportunities,,none,,,,,,no_data,nav_not_positive,
 SEDOL:B173NZ4,UK,Goldman Sachs Dynamic Opportunities Euro,,none,,,,,,no_data,nav_not_positive,
 SEDOL:B173P70,UK,Goldman Sachs Dynamic Opportunities USD,,none,,,,,,no_data,nav_not_positive,
@@ -198,16 +195,13 @@ SEDOL:BN56JF1,UK,KKV Secured Loan,,none,,,,,,no_data,nav_not_positive,
 SEDOL:BJT3251,UK,Kennedy Wilson Europe Real Estate,,none,,,,,,no_data,nav_not_positive,
 SEDOL:B02VD56,UK,Langley Park,,none,,,,,,no_data,nav_not_positive,
 SEDOL:B1YW310,UK,Ludgate Environmental,,none,,,,,,no_data,nav_not_positive,
-SEDOL:BLN7H03,UK,M7 Regional E-Warehouse REIT,,none,,,,,,no_data,nav_not_positive,
 SEDOL:B39VY02,UK,MW TOPS,,none,,,,,,no_data,nav_not_positive,
 SEDOL:B1GGVM7,UK,MW TOPS (Euronext),,none,,,,,,no_data,nav_not_positive,
 SEDOL:B39VXT4,UK,MW TOPS Euro,,none,,,,,,no_data,nav_not_positive,
 SEDOL:B1GGVL6,UK,MW TOPS Euro (Euronext),,none,,,,,,no_data,nav_not_positive,
 SEDOL:B39VY13,UK,MW TOPS USD,,none,,,,,,no_data,nav_not_positive,
 SEDOL:B1GGVN8,UK,MW TOPS USD (Euronext),,none,,,,,,no_data,nav_not_positive,
-SEDOL:B1436N6,UK,Macau Property Opportunities,5.150000095367432,yahoo:MPO.L,,,,,,no_data,nav_not_positive,
 SEDOL:BF1Q4G5,UK,Marble Point Loan Financing,,none,,,,,,no_data,nav_not_positive,
-SEDOL:B1DVQL9,UK,MedicX,,none,,,,,,no_data,nav_not_positive,
 SEDOL:B15PV03,UK,Middlefield Canadian Income Trust,,none,,,,,,no_data,nav_not_positive,
 SEDOL:B0LVM72,UK,Morant Wright Japan Income Trust,,none,,,,,,no_data,nav_not_positive,
 SEDOL:B9CBV55,UK,NB Distressed Debt Extended Life shares,,none,,,,,,no_data,nav_not_positive,
@@ -230,7 +224,6 @@ SEDOL:B011QL4,UK,Prospect Japan,,none,,,,,,no_data,nav_not_positive,
 SEDOL:B1LT574,UK,Prosperity Russia Domestic (AIM),,none,,,,,,no_data,nav_not_positive,
 SEDOL:B1D5SN7,UK,Prosperity Voskhod (AIM),,none,,,,,,no_data,nav_not_positive,
 SEDOL:306P103,UK,Qannas Investments,,none,,,,,,no_data,nav_not_positive,
-SEDOL:BYMTBG5,UK,RM Infrastructure Income,49.20000076293945,yahoo:RMII.L,,,,,,no_data,nav_not_positive,
 SEDOL:BD884W6,UK,RM Secured Direct Lending C shares,,none,,,,,,no_data,nav_not_positive,
 SEDOL:BKTRRM2,UK,RTW Biotech Opportunities,2.4000000953674316,yahoo:RTW.L,,,,,,no_data,nav_not_positive,
 SEDOL:B0D5V53,UK,Raven Russia (AIM),,none,,,,,,no_data,nav_not_positive,
@@ -240,12 +233,10 @@ SEDOL:BMXNVC8,UK,Round Hill Music Royalty Fund,,none,,,,,,no_data,nav_not_positi
 SEDOL:486912,UK,Rutland Trust,,none,,,,,,no_data,nav_not_positive,
 SEDOL:789235,UK,SVG Capital,,none,,,,,,no_data,nav_not_positive,
 SEDOL:B132SB6,UK,Schroder Global Real Estate Securities,,none,,,,,,no_data,nav_not_positive,
-SEDOL:BYMK5S8,UK,Secured Income,,none,,,,,,no_data,nav_not_positive,
 SEDOL:BYP6HV0,UK,Sequoia Economic Infrastructure Income C shares,,none,,,,,,no_data,nav_not_positive,
 SEDOL:B1GJR06,UK,Signet Global Fixed Income Strategies Euro,,none,,,,,,no_data,nav_not_positive,
 SEDOL:B1GJQX2,UK,Signet Global Fixed Income Strategies USD,,none,,,,,,no_data,nav_not_positive,
 SEDOL:B1W3VF5,UK,Sirius Real Estate (AIM),,none,,,,,,no_data,nav_not_positive,
-SEDOL:BL594H3,UK,SuperSeed Capital,0.75,yahoo:WWW.L,,,,,,no_data,nav_not_positive,
 SEDOL:B1CH317,UK,Tamar European Industrial,,none,,,,,,no_data,nav_not_positive,
 SEDOL:B063C84,UK,Tapestry,,none,,,,,,no_data,nav_not_positive,
 SEDOL:B2425D3,UK,Tapestry C shares,,none,,,,,,no_data,nav_not_positive,
@@ -265,41 +256,46 @@ SEDOL:3612102,UK,Vietnam Infrastructure Private Equity,,none,,,,,,no_data,nav_no
 SEDOL:3636101,UK,Vinaland,,none,,,,,,no_data,nav_not_positive,
 SEDOL:B0WHX65,UK,Vinaland,,none,,,,,,no_data,nav_not_positive,
 SEDOL:B1FBT07,UK,Yatra Capital,,none,,,,,,no_data,nav_not_positive,
-NAME:atlantis japan growth|ordinary share,UK,,,none,,,,,,no_data,nav_not_positive,
-SEDOL:3387528,UK,,,none,,,,,,no_data,nav_not_positive,
-SEDOL:B0LCW20,UK,,,none,,,,,,no_data,nav_not_positive,
-SEDOL:B13YVW4,UK,,,none,,,,,,no_data,nav_not_positive,
-SEDOL:B1NB0J5,UK,,,none,,,,,,no_data,nav_not_positive,
-SEDOL:B3KX4Q3,UK,,,none,,,,,,no_data,nav_not_positive,
-SEDOL:B64GWK9,UK,,,none,,,,,,no_data,nav_not_positive,
-SEDOL:B6QWXM4,UK,,,none,,,,,,no_data,nav_not_positive,
-SEDOL:B79WC10,UK,,,none,,,,,,no_data,nav_not_positive,
 SEDOL:B92LHN5,UK,,,none,,,,,,no_data,nav_not_positive,
-SEDOL:B933LL6,UK,,,none,,,,,,no_data,nav_not_positive,
-SEDOL:BD2NCM3,UK,,,none,,,,,,no_data,nav_not_positive,
-SEDOL:BF01NH5,UK,,,none,,,,,,no_data,nav_not_positive,
 SEDOL:BG382L7,UK,,,none,,,,,,no_data,nav_not_positive,
 SEDOL:BL9ZF30,UK,,,none,,,,,,no_data,nav_not_positive,
-SEDOL:BLF7PP2,UK,,,none,,,,,,no_data,nav_not_positive,
-SEDOL:BLNNFY1,UK,,,none,,,,,,no_data,nav_not_positive,
-SEDOL:BLWDVR7,UK,,,none,,,,,,no_data,nav_not_positive,
-SEDOL:BMCBZL0,UK,,,none,,,,,,no_data,nav_not_positive,
-SEDOL:BMDPKM7,UK,,,none,,,,,,no_data,nav_not_positive,
-SEDOL:BN497V3,UK,,,none,,,,,,no_data,nav_not_positive,
-SEDOL:BNGMZB6,UK,,,none,,,,,,no_data,nav_not_positive,
-SEDOL:BTC2K73,UK,,,none,,,,,,no_data,nav_not_positive,
-SEDOL:BWWYMV8,UK,,,none,,,,,,no_data,nav_not_positive,
-SEDOL:BYQ46T4,UK,,,none,,,,,,no_data,nav_not_positive,
-SEDOL:BYV8MN7,UK,,,none,,,,,,no_data,nav_not_positive,
-SEDOL:BYXVMJ0,UK,,,none,,,,,,no_data,nav_not_positive,
-SEDOL:BYZV3G2,UK,,,none,,,,,,no_data,nav_not_positive,
 SEDOL:3197794,UK,Lindsell Train Investment Trust,5.420000076293945,yahoo:LTI.L,696.05,2026-09-08,investegate:9761592,7.09,97.17348377997178,suspect_scale,nav_unit_mismatch_98x_vs_prior,-19.3448
+SEDOL:B012T52,UK,CT Property Trust,,none,95.4,2022-12-31,own_nav_history:2022-12-31,132.8,0.2816265060240964,no_data,no_price,
+SEDOL:577656,UK,Dunedin Enterprise,,none,627.1,2024-09-30,own_nav_history:2024-09-30,627.6,0.0007966857871255577,no_data,no_price,
 SEDOL:BMBN1D1,UK,Fair Oaks Income,,none,260.0,2022-05-31,own_nav_history:2022-05-31,,,no_data,no_price,
 SEDOL:BYW1DN2,UK,GCP Asset Backed Income C Shares,,none,93.21,2023-12-31,own_nav_history:2023-12-31,93.36,0.0016066838046273103,no_data,no_price,
+SEDOL:BLN7H03,UK,M7 Regional E-Warehouse REIT,,none,72.54,2023-09-30,own_nav_history:2023-09-30,84.01,0.13653136531365312,no_data,no_price,
+SEDOL:B1DVQL9,UK,MedicX,,none,1.0,2018-12-05,own_nav_history:2018-12-05,1.0,0.0,no_data,no_price,
+SEDOL:BYMK5S8,UK,Secured Income,,none,18.5,2023-06-30,own_nav_history:2023-06-30,18.37,0.007076755579749537,no_data,no_price,
+NAME:atlantis japan growth|ordinary share,UK,,,none,196.0,2023-08-23,own_nav_history:2023-08-23,,,no_data,no_price,
+SEDOL:3387528,UK,,,none,7.45,2025-06-30,own_nav_history:2025-06-30,73.0,0.897945205479452,no_data,no_price,
 SEDOL:B01HM14,UK,,,none,60.5,2026-08-04,own_nav_history:2026-08-04,61.7,0.01944894651539713,no_data,no_price,
+SEDOL:B0LCW20,UK,,,none,101.5,2026-06-30,own_nav_history:2026-06-30,102.4,0.008789062500000056,no_data,no_price,
+SEDOL:B13YVW4,UK,,,none,7712.0,2021-01-29,own_nav_history:2021-01-29,8368.0,0.07839388145315487,no_data,no_price,
+SEDOL:B1NB0J5,UK,,,none,46.8,2024-03-31,own_nav_history:2024-03-31,59.4,0.21212121212121215,no_data,no_price,
+SEDOL:B3KX4Q3,UK,,,none,9073.0,2023-02-14,own_nav_history:2023-02-14,7601.0,0.19365872911459017,no_data,no_price,
+SEDOL:B64GWK9,UK,,,none,9065.0,2023-02-14,own_nav_history:2023-02-14,7737.0,0.17164275559002198,no_data,no_price,
+SEDOL:B6QWXM4,UK,,,none,137.8,2021-08-27,own_nav_history:2021-08-27,,,no_data,no_price,
+SEDOL:B79WC10,UK,,,none,95.16,2026-01-31,own_nav_history:2026-01-31,96.82,0.01714521793017968,no_data,no_price,
+SEDOL:B933LL6,UK,,,none,6848.0,2013-10-03,own_nav_history:2013-10-03,4787.0,0.4305410486734907,no_data,no_price,
 SEDOL:BB0RDB9,UK,,,none,114.0,2025-09-30,own_nav_history:2025-09-30,117.77,0.0320115479324106,no_data,no_price,
+SEDOL:BD2NCM3,UK,,,none,128.0,2025-03-31,own_nav_history:2025-03-31,127.5,0.00392156862745098,no_data,no_price,
+SEDOL:BF01NH5,UK,,,none,143.0,2025-09-30,own_nav_history:2025-09-30,139.6,0.024355300859598895,no_data,no_price,
 SEDOL:BG12XV8,UK,,,none,159.5,2025-09-30,own_nav_history:2025-09-30,161.5,0.01238390092879257,no_data,no_price,
+SEDOL:BLF7PP2,UK,,,none,111.0,2025-06-30,own_nav_history:2025-06-30,112.3602,0.012105710028996085,no_data,no_price,
+SEDOL:BLNNFY1,UK,,,none,92.38,2025-01-31,own_nav_history:2025-01-31,88.51,0.04372387300869947,no_data,no_price,
+SEDOL:BLWDVR7,UK,,,none,121.6,2025-01-01,own_nav_history:2025-01-01,124.0,0.019354838709677465,no_data,no_price,
+SEDOL:BMCBZL0,UK,,,none,24.0,2024-09-30,own_nav_history:2024-09-30,86.66,0.723055619663051,no_data,no_price,
+SEDOL:BMDPKM7,UK,,,none,102.2,2024-03-31,own_nav_history:2024-03-31,98.4,0.038617886178861756,no_data,no_price,
+SEDOL:BN497V3,UK,,,none,90.0,2024-03-31,own_nav_history:2024-03-31,92.8,0.03017241379310342,no_data,no_price,
+SEDOL:BNGMZB6,UK,,,none,71.37,2023-09-30,own_nav_history:2023-09-30,80.77,0.1163798440014856,no_data,no_price,
 SEDOL:BP5X4Q2,UK,,,none,66.3,2025-06-30,own_nav_history:2025-06-30,74.4,0.1088709677419356,no_data,no_price,
+SEDOL:BTC2K73,UK,,,none,93.6,2023-08-03,own_nav_history:2023-08-03,93.47,0.0013908205841445967,no_data,no_price,
+SEDOL:BWWYMV8,UK,,,none,7.64,2016-12-31,own_nav_history:2016-12-31,,,no_data,no_price,
+SEDOL:BYQ46T4,UK,,,none,112.0,2023-09-30,own_nav_history:2023-09-30,120.0,0.06666666666666667,no_data,no_price,
+SEDOL:BYV8MN7,UK,,,none,160.27,2024-03-31,own_nav_history:2024-03-31,161.69,0.008782237615189483,no_data,no_price,
+SEDOL:BYXVMJ0,UK,,,none,119.21,2024-12-31,own_nav_history:2024-12-31,115.38,0.03319466111977811,no_data,no_price,
+SEDOL:BYZV3G2,UK,,,none,1026.4,2022-07-31,own_nav_history:2022-07-31,1019.1,0.007163183200863574,no_data,no_price,
 SEDOL:BDVK708,UK,AEW UK Long Lease REIT,96.1,aggregator_panel,90.79,2018-03-31,aggregator_panel:2018-03,92.27,0.016039882952205375,ok,stale_panel_price_only,
 SEDOL:B841RZ8,UK,Aberdeen Asian Income C shares,110.38,aggregator_panel,105.6,2013-01-31,aggregator_panel:2013-01,102.8,0.027237354085603085,ok,stale_panel_price_only,
 SEDOL:735250,UK,Aberdeen Development Capital,2.13,aggregator_panel,5.09,2012-03-31,aggregator_panel:2012-03,5.17,0.01547388781431336,ok,stale_panel_price_only,-0.4738
@@ -307,7 +303,7 @@ SEDOL:B1W59J1,UK,Aberdeen Frontier Markets,41.3,aggregator_panel,42.57,2020-07-3
 SEDOL:B7GHFN1,UK,Aberdeen Latin American Income C shares,101.5,aggregator_panel,94.53,2012-03-31,aggregator_panel:2012-03,96.43,0.019703411801306706,ok,stale_panel_price_only,
 NAME:aberdeen new thai|ordinary share,UK,Aberdeen New Thai,407.0,aggregator_panel,458.37,2021-10-31,aggregator_panel:2021-10,477.73,0.04052498273083125,ok,stale_panel_price_only,0.9873
 SEDOL:BYPBD39,UK,Aberforth Split Level Income,86.5,aggregator_panel,84.64,2024-06-19,own_nav_history:2024-06-19,89.19,0.05101468774526289,ok,stale_panel_price_only,3.5352
-SEDOL:0482943,UK,Acorn Income,379.5,aggregator_panel,405.67,2018-10-31,aggregator_panel:2018-10,146.95,1.7605988431439268,ok,stale_panel_price_only,-0.2843
+SEDOL:0482943,UK,Acorn Income,379.5,aggregator_panel,410.7373,2022-02-28,own_nav_history:2022-02-28,416.58,0.014025397282634739,ok,stale_panel_price_only,-0.587
 SEDOL:3038332,UK,Active Capital,47.0,aggregator_panel,59.13,2009-08-31,aggregator_panel:2009-08,51.39,0.15061295971978989,ok,stale_panel_price_only,-0.5869
 SEDOL:167518,UK,Advance UK,161.25,aggregator_panel,171.82,2010-02-28,aggregator_panel:2010-02,175.56,0.02130325814536346,ok,stale_panel_price_only,0.6672
 NAME:albany|ordinary share,UK,Albany,289.5,aggregator_panel,307.56,2012-07-31,aggregator_panel:2012-07,303.71,0.012676566461427095,ok,stale_panel_price_only,3.3017
@@ -329,7 +325,7 @@ SEDOL:891055,UK,BlackRock Throgmorton Trust,523.0,aggregator_panel,665.89,2026-0
 SEDOL:B1B9C40,UK,Blue Planet Financials Growth & Income,29.5,aggregator_panel,46.98,2012-05-31,aggregator_panel:2012-05,51.25,0.08331707317073177,ok,stale_panel_price_only,-0.4053
 SEDOL:532707,UK,Blue Planet Investment Trust,9.5,aggregator_panel,11.74,2022-11-30,aggregator_panel:2022-11,11.57,0.014693171996542777,ok,stale_panel_price_only,-0.0813
 SEDOL:152417,UK,Blue Planet Worldwide Financials,29.5,aggregator_panel,41.98,2012-05-31,aggregator_panel:2012-05,46.05,0.08838219326818676,ok,stale_panel_price_only,-0.1253
-SEDOL:B3WQ8G8,UK,CATCo Reinsurance Opportunities,92.5,aggregator_panel,93.23,2013-02-28,aggregator_panel:2013-02,,,ok,stale_panel_price_only,
+SEDOL:B3WQ8G8,UK,CATCo Reinsurance Opportunities,92.5,aggregator_panel,1667.0,2021-09-30,own_nav_history:2021-09-30,,,suspect_scale,stale_panel_price_only,
 SEDOL:B1NNWQ2,UK,Cambium Global Timberland,69.75,aggregator_panel,97.64,2009-07-31,aggregator_panel:2009-07,97.74,0.001023122570083838,ok,stale_panel_price_only,-0.7848
 SEDOL:636911,UK,Cayenne Trust,155.5,aggregator_panel,158.73,2015-09-30,aggregator_panel:2015-09,160.66,0.012012946595294453,ok,stale_panel_price_only,1.2733
 SEDOL:3148639,UK,Charter European,214.5,aggregator_panel,219.48,2012-01-31,aggregator_panel:2012-01,207.67,0.05686907112245391,ok,stale_panel_price_only,2.1187
@@ -390,7 +386,7 @@ SEDOL:316581,UK,JPMorgan Japan Small Cap Growth & Income,330.0,aggregator_panel,
 SEDOL:235761,UK,JPMorgan MidCap,940.0,aggregator_panel,1057.73,2024-02-23,own_nav_history:2024-02-23,1081.57,0.022042031491258003,ok,stale_panel_price_only,-0.0326
 SEDOL:B1RZDH2,UK,JPMorgan Progressive Multi-Strategy (AIM),77.0,aggregator_panel,79.74,2009-09-30,aggregator_panel:2009-09,78.91,0.010518312001013792,ok,stale_panel_price_only,-0.3333
 SEDOL:BGCZJW9,UK,JPMorgan Senior Secured Loan,87.5,aggregator_panel,88.04,2016-05-31,aggregator_panel:2016-05,88.35,0.0035087719298244266,ok,stale_panel_price_only,0.4418
-SEDOL:290481,UK,JZ Capital Partners,118.75,aggregator_panel,188.12,2008-02-29,aggregator_panel:2008-02,190.67,0.013373892064823954,ok,stale_panel_price_only,-0.669
+SEDOL:290481,UK,JZ Capital Partners,118.75,aggregator_panel,8280.0,2014-08-22,own_nav_history:2014-08-22,,,suspect_scale,stale_panel_price_only,-5.2194
 SEDOL:3253953,UK,Jubilee Investment Trust,30.0,aggregator_panel,35.42,2006-12-31,aggregator_panel:2006-12,,,ok,stale_panel_price_only,
 SEDOL:BDR0575,UK,Jupiter Emerging & Frontier Income,93.9,aggregator_panel,104.45,2022-05-31,aggregator_panel:2022-05,102.48,0.01922326307572208,ok,stale_panel_price_only,-1.204
 SEDOL:B1Z9707,UK,Jupiter Green C shares,103.0,aggregator_panel,103.99,2007-10-31,aggregator_panel:2007-10,99.52,0.044915594855305455,ok,stale_panel_price_only,
@@ -446,8 +442,8 @@ NAME:abrdn new dawn|ordinary share,UK,abrdn New Dawn Investment Trust,249.0,aggr
 SEDOL:806372,UK,abrdn Smaller Companies Income,235.0,aggregator_panel,244.74,2023-11-27,own_nav_history:2023-11-27,248.84,0.016476450731393644,ok,stale_panel_price_only,2.0322
 SEDOL:0068417,UK,SVM UK Emerging Fund,77.75,aggregator_panel,99.75,2025-01-31,aggregator_panel:2025-01,97.19,0.026340158452515715,ok,stale_panel_price_only,1.0139
 SEDOL:0262134,UK,Chelverton Growth Trust,30.0,aggregator_panel,1.0,2023-10-31,own_nav_history:2023-10-31,1.0,0.0,suspect_scale,stale_panel_price_only,336.569
-SEDOL:B05KL90,UK,F&C Commercial Property,92.1,aggregator_panel,92.19,2010-03-31,aggregator_panel:2010-03,81.85,0.12632864996945636,ok,stale_panel_price_only,0.4686
-SEDOL:B19Z2J5,UK,UK Commercial Property,82.15,aggregator_panel,76.95,2011-06-30,aggregator_panel:2011-06,77.02,0.0009088548428978601,ok,stale_panel_price_only,0.5977
+SEDOL:B05KL90,UK,F&C Commercial Property,92.1,aggregator_panel,105.1,2024-06-30,own_nav_history:2024-06-30,107.3,0.020503261882572253,ok,stale_panel_price_only,-0.511
+SEDOL:B19Z2J5,UK,UK Commercial Property,82.15,aggregator_panel,78.7,2023-12-31,own_nav_history:2023-12-31,80.7,0.024783147459727383,ok,stale_panel_price_only,0.2279
 SEDOL:B3PHCS8,UK,Henderson International Income,171.5,aggregator_panel,174.9,2025-05-21,own_nav_history:2025-05-21,177.2,0.012979683972911868,ok,stale_panel_price_only,1.8617
 SEDOL:BF0SCX5,UK,Downing Strategic Micro-Cap,3.92,aggregator_panel,4.84,2025-02-14,own_nav_history:2025-02-14,4.93,0.01825557809330626,ok,stale_panel_price_only,-0.565
 SEDOL:BFWJJT1,UK,JPMorgan Multi-Asset Growth & Income,98.25,aggregator_panel,102.37,2024-02-29,aggregator_panel:2024-02,100.69,0.016684874366868673,ok,stale_panel_price_only,-0.4959
@@ -455,6 +451,9 @@ SEDOL:BL6K7L0,UK,HydrogenOne Capital Growth,83.4,aggregator_panel,34.23,2025-06-
 SEDOL:BWC53H4,UK,Amedeo Air Four Plus,65.8,aggregator_panel,107.74,2025-09-30,aggregator_panel:2025-09,107.74,0.0,ok,stale_panel_price_only,-0.3492
 SEDOL:BZ0XWD0,UK,Menhaden Resource Efficiency,154.0,aggregator_panel,171.28,2025-03-24,own_nav_history:2025-03-24,175.99,0.026762884254787248,ok,stale_panel_price_only,2.8555
 SEDOL:BFMDJH1,UK,Ceiba Investments,0.28999999165534973,yahoo:CBA.L,65.8,2026-03-31,own_nav_history:2026-03-31,67.5,0.025185185185185227,suspect_scale,unit_suspect_scale,-4.8888
-SEDOL:BKF2JH0,UK,Foresight Solar & Tech VCT FWT,0.875,yahoo:FWT.L,91.1,2026-03-31,investegate_fs:9682712,,,suspect_scale,unit_suspect_scale,
+SEDOL:BKF2JH0,UK,Foresight Solar & Tech VCT FWT,0.875,yahoo:FWT.L,91.1,2026-03-31,investegate_fs:9682712,92.9,0.019375672766415622,suspect_scale,unit_suspect_scale,
 SEDOL:BCKFVJ4,UK,GRIT Investment Trust,0.012500000186264515,yahoo:GRIT.L,34.62,2015-10-31,aggregator_panel:2015-10,38.12,0.09181532004197272,suspect_scale,unit_suspect_scale,-1.9782
+SEDOL:B979FD0,UK,Globalworth Real Estate Investments,1.75,yahoo:GWI.L,6003.0,2016-06-30,own_nav_history:2016-06-30,,,suspect_scale,unit_suspect_scale,
 SEDOL:B0T4LH6,UK,HICL Infrastructure,134.0,yahoo:HICL.L,1.0,2026-08-03,own_nav_history:2026-08-03,1.0,0.0,suspect_scale,unit_suspect_scale,1078.4605
+SEDOL:B1436N6,UK,Macau Property Opportunities,5.150000095367432,yahoo:MPO.L,253.0,2015-06-30,own_nav_history:2015-06-30,,,suspect_scale,unit_suspect_scale,
+SEDOL:BL594H3,UK,SuperSeed Capital,0.75,yahoo:WWW.L,12.0,2025-12-31,own_nav_history:2025-12-31,,,suspect_scale,unit_suspect_scale,
