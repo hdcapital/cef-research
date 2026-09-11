@@ -81,7 +81,7 @@
     "prompt_version": "v1:f2eb3ac3715fc46a"
   },
   "evaluate": {
-    "run_at": "2026-09-11T07:36:02+00:00",
+    "run_at": "2026-09-11T08:12:19+00:00",
     "panel_rows": 52128,
     "funds": 467,
     "panels": [
@@ -668,7 +668,7 @@
     "rows_indexed": 52894
   },
   "model": {
-    "run_at": "2026-09-11T07:36:02+00:00",
+    "run_at": "2026-09-11T08:12:19+00:00",
     "aic": {
       "train_rows": 74454,
       "test_rows": 19054,
@@ -716,10 +716,10 @@
       "test_rows": 24004,
       "train_base_rate": 0.05467333235308533,
       "test_base_rate": 0.06423929345109149,
-      "auc_train": 0.620869746775028,
-      "auc_test": 0.5339280313279635,
-      "top_decile_rate": 0.11703456892961266,
-      "top_decile_lift": 1.8218533025852284,
+      "auc_train": 0.7774608990211284,
+      "auc_test": 0.5646869692361828,
+      "top_decile_rate": 0.1282798833819242,
+      "top_decile_lift": 1.9969068227624567,
       "features": [
         "aic_tender_seen",
         "aic_tender_recent",
@@ -735,6 +735,7 @@
         "aic_fee_change_recent",
         "aic_policy_change_seen",
         "aic_policy_change_recent",
+        "hf_covered",
         "hf_buyback_active",
         "hf_holder_churn",
         "hf_strategic_review",
@@ -742,25 +743,26 @@
         "hf_windup"
       ],
       "odds_ratios": {
-        "aic_tender_seen": 1.21,
-        "aic_tender_recent": 0.94,
+        "aic_tender_seen": 1.08,
+        "aic_tender_recent": 1.05,
         "aic_buyback_seen": 1.0,
         "aic_buyback_recent": 1.0,
-        "aic_realisation_policy_seen": 4.14,
-        "aic_realisation_policy_recent": 1.39,
-        "aic_reconstruction_seen": 1.51,
-        "aic_reconstruction_recent": 0.6,
-        "aic_manager_change_seen": 0.88,
-        "aic_manager_change_recent": 0.65,
+        "aic_realisation_policy_seen": 2.54,
+        "aic_realisation_policy_recent": 1.22,
+        "aic_reconstruction_seen": 1.69,
+        "aic_reconstruction_recent": 0.65,
+        "aic_manager_change_seen": 1.2,
+        "aic_manager_change_recent": 0.47,
         "aic_fee_change_seen": 1.0,
         "aic_fee_change_recent": 1.0,
-        "aic_policy_change_seen": 1.11,
-        "aic_policy_change_recent": 0.75,
-        "hf_buyback_active": 0.41,
-        "hf_holder_churn": 0.18,
-        "hf_strategic_review": 0.51,
-        "hf_continuation": 0.55,
-        "hf_windup": 0.32
+        "aic_policy_change_seen": 1.79,
+        "aic_policy_change_recent": 0.58,
+        "hf_covered": 0.11,
+        "hf_buyback_active": 1.26,
+        "hf_holder_churn": 0.46,
+        "hf_strategic_review": 0.93,
+        "hf_continuation": 1.08,
+        "hf_windup": 0.98
       }
     }
   }
