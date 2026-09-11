@@ -4,6 +4,13 @@ Every change to `config/params.yaml` gets a dated entry here, committed in
 the same commit as the change, with a rationale. Parameters are never
 tuned against live outcomes.
 
+## 2026-09-11 — The learning layer's model split
+`learning.model_split_month` = 2021-12: the logistic model on the
+model-free anticipation flags is fitted on fund-months up to December
+2021 and scored on 2022 onward, the same holdout boundary the rest of the
+research uses (development 2007-2021, holdout 2022+). Time-based only,
+never a fund-based split.
+
 ## 2026-09-10 — The learning layer's control cohort
 `learning.control_clearance_months` = 12, `controls_per_case` = 1. The
 first evaluation (learning run 8) read documents only for funds that

@@ -6,6 +6,7 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 import pytest
 
@@ -373,3 +374,30 @@ def test_aic_activity_features_are_point_in_time_by_effective_month():
     flags = V.aic_feature_flags(af.reset_index()).set_index("obs_month")
     assert flags.loc["2019-10", "aic_tender_seen"] == "seen" and flags.loc["2019-01", "aic_tender_seen"] == "none"
     assert flags.loc["2020-06", "aic_buyback_recent"] == "recent"
+
+
+def test_logit_model_learns_a_flag_that_doubles_the_rate_and_scores_only_later_months():
+    from learning import model as M
+    rng = np.random.default_rng(7)
+    n = 6000
+    months = np.where(np.arange(n) < 4000, "2019-06", "2023-06")
+    flag = rng.random(n) < 0.2
+    y = (rng.random(n) < np.where(flag, 0.16, 0.04)).astype(int)
+    frame = pd.DataFrame({"security_id": [f"s{i}" for i in range(n)], "obs_month": months,
+                          "aic_realisation_policy_seen": np.where(flag, "seen", "none"),
+                          "hf_continuation": "none", "resolved_within_12m": y})
+    out = M.run(frame, ["aic_realisation_policy_seen", "hf_continuation"], split_month="2021-12")
+    assert "error" not in out and out["train_rows"] == 4000 and out["test_rows"] == 2000
+    assert out["features"] == ["aic_realisation_policy_seen"]        # the all-silent flag is dropped
+    assert out["auc_test"] > 0.6
+    coef = out["coefficients"].set_index("feature")["coef"]
+    assert coef["aic_realisation_policy_seen"] > 0.8
+    assert out["top_decile_lift"] > 1.5 and len(out["deciles"]) >= 2
+
+
+def test_logit_model_refuses_a_split_with_nothing_to_score():
+    from learning import model as M
+    frame = pd.DataFrame({"security_id": ["s"] * 300, "obs_month": ["2015-01"] * 300,
+                          "hf_windup": ["seen"] * 150 + ["none"] * 150,
+                          "resolved_within_12m": [1, 0] * 150})
+    assert "error" in M.run(frame, ["hf_windup"], split_month="2021-12")

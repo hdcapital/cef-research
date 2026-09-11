@@ -128,7 +128,7 @@ jobs:
           for f in data/learning/episodes.parquet data/learning/episodes.csv \
                    data/learning/window_docs.parquet data/learning/headline_features.parquet data/learning/headline_features_universe.parquet data/learning/aic_activity_features.parquet data/learning/controls.csv data/learning/window_coverage.csv \
                    data/learning/features_*.parquet data/learning/rejects_*.parquet \
-                   outputs/learning/anticipation.csv outputs/learning/cheap_cohort_returns.csv outputs/learning/listings_s*.csv \
+                   outputs/learning/anticipation.csv outputs/learning/cheap_cohort_returns.csv outputs/learning/listings_s*.csv outputs/learning/model_*.csv \
                    reports/build/learning_status.json; do
             [ -f "$f" ] && git add -f "$f"
           done

@@ -148,3 +148,5 @@ learning:
   # case's window and this many months past its ending, this many per case
   control_clearance_months: 12
   controls_per_case: 1
+  # the small model: fitted on observations up to this month, scored after
+  model_split_month: "2021-12"

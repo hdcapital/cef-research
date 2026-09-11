@@ -309,6 +309,44 @@ def mode_evaluate() -> int:
     ant.to_csv(OUT / "anticipation.csv", index=False)
     cheap.to_csv(OUT / "cheap_cohort_returns.csv", index=False)
 
+    # Phase 3b step 3: the small model on the model-free flags, fitted to
+    # 2021 and scored on 2022+, on the AIC frame alone and on the union of
+    # the AIC and headline frames
+    from learning import model as M
+    model_note = {}
+    specs = []
+    if aic is not None and len(aic):
+        specs.append(("aic", aic, list(V.AIC_SILENT)))
+    if aic is not None and len(aic) and listed is not None and len(listed):
+        keys = pd.concat([aic[["security_id", "obs_month"]], listed[["security_id", "obs_month"]]]
+                         ).drop_duplicates()
+        union = L.attach(keys, ep)
+        union = union.merge(aic[["security_id", "obs_month"] + list(V.AIC_SILENT)],
+                            on=["security_id", "obs_month"], how="left")
+        union = union.merge(listed[["security_id", "obs_month"] + hcols],
+                            on=["security_id", "obs_month"], how="left")
+        for c in list(V.AIC_SILENT) + hcols:
+            union[c] = union[c].fillna("none")
+        specs.append(("union", union, list(V.AIC_SILENT) + hcols))
+    for name, frame, fcols in specs:
+        try:
+            r = M.run(frame, fcols, label="resolved_within_12m",
+                      split_month=str(prm.get("model_split_month", "2021-12")))
+        except Exception as exc:  # noqa: BLE001
+            model_note[name] = {"error": str(exc)[:200]}
+            continue
+        if "error" in r:
+            model_note[name] = r
+            continue
+        r["coefficients"].to_csv(OUT / f"model_{name}_coefficients.csv", index=False)
+        r["deciles"].to_csv(OUT / f"model_{name}_deciles.csv", index=False)
+        model_note[name] = {k: r[k] for k in ("train_rows", "test_rows", "train_base_rate",
+                                              "test_base_rate", "auc_train", "auc_test",
+                                              "top_decile_rate", "top_decile_lift", "features")}
+        model_note[name]["odds_ratios"] = {f: round(float(o), 2) for f, o in zip(
+            r["coefficients"]["feature"], r["coefficients"]["odds_ratio"]) if f != "intercept"}
+    _status("model", model_note)
+
     def _top(u):
         t = ant[(ant["universe"] == u) & (ant["period"] == "development") & (ant["horizon_months"] == 12)
                 & ~ant["is_silent"] & (ant["n"] >= 30)].sort_values("z_vs_rest", ascending=False)
