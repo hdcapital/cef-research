@@ -81,7 +81,7 @@
     "prompt_version": "v1:f2eb3ac3715fc46a"
   },
   "evaluate": {
-    "run_at": "2026-09-11T07:28:56+00:00",
+    "run_at": "2026-09-11T07:36:02+00:00",
     "panel_rows": 52128,
     "funds": 467,
     "panels": [
@@ -666,5 +666,102 @@
     },
     "indexed": 64,
     "rows_indexed": 52894
+  },
+  "model": {
+    "run_at": "2026-09-11T07:36:02+00:00",
+    "aic": {
+      "train_rows": 74454,
+      "test_rows": 19054,
+      "train_base_rate": 0.05377817175705805,
+      "test_base_rate": 0.07079878240789336,
+      "auc_train": 0.5536705647085349,
+      "auc_test": 0.5084280112518629,
+      "top_decile_rate": 0.08814270724029381,
+      "top_decile_lift": 1.2449749027105694,
+      "features": [
+        "aic_tender_seen",
+        "aic_tender_recent",
+        "aic_buyback_seen",
+        "aic_buyback_recent",
+        "aic_realisation_policy_seen",
+        "aic_realisation_policy_recent",
+        "aic_reconstruction_seen",
+        "aic_reconstruction_recent",
+        "aic_manager_change_seen",
+        "aic_manager_change_recent",
+        "aic_fee_change_seen",
+        "aic_fee_change_recent",
+        "aic_policy_change_seen",
+        "aic_policy_change_recent"
+      ],
+      "odds_ratios": {
+        "aic_tender_seen": 1.14,
+        "aic_tender_recent": 0.89,
+        "aic_buyback_seen": 1.0,
+        "aic_buyback_recent": 1.0,
+        "aic_realisation_policy_seen": 4.92,
+        "aic_realisation_policy_recent": 1.2,
+        "aic_reconstruction_seen": 1.52,
+        "aic_reconstruction_recent": 0.59,
+        "aic_manager_change_seen": 0.9,
+        "aic_manager_change_recent": 0.65,
+        "aic_fee_change_seen": 1.0,
+        "aic_fee_change_recent": 1.0,
+        "aic_policy_change_seen": 1.11,
+        "aic_policy_change_recent": 0.73
+      }
+    },
+    "union": {
+      "train_rows": 81612,
+      "test_rows": 24004,
+      "train_base_rate": 0.05467333235308533,
+      "test_base_rate": 0.06423929345109149,
+      "auc_train": 0.620869746775028,
+      "auc_test": 0.5339280313279635,
+      "top_decile_rate": 0.11703456892961266,
+      "top_decile_lift": 1.8218533025852284,
+      "features": [
+        "aic_tender_seen",
+        "aic_tender_recent",
+        "aic_buyback_seen",
+        "aic_buyback_recent",
+        "aic_realisation_policy_seen",
+        "aic_realisation_policy_recent",
+        "aic_reconstruction_seen",
+        "aic_reconstruction_recent",
+        "aic_manager_change_seen",
+        "aic_manager_change_recent",
+        "aic_fee_change_seen",
+        "aic_fee_change_recent",
+        "aic_policy_change_seen",
+        "aic_policy_change_recent",
+        "hf_buyback_active",
+        "hf_holder_churn",
+        "hf_strategic_review",
+        "hf_continuation",
+        "hf_windup"
+      ],
+      "odds_ratios": {
+        "aic_tender_seen": 1.21,
+        "aic_tender_recent": 0.94,
+        "aic_buyback_seen": 1.0,
+        "aic_buyback_recent": 1.0,
+        "aic_realisation_policy_seen": 4.14,
+        "aic_realisation_policy_recent": 1.39,
+        "aic_reconstruction_seen": 1.51,
+        "aic_reconstruction_recent": 0.6,
+        "aic_manager_change_seen": 0.88,
+        "aic_manager_change_recent": 0.65,
+        "aic_fee_change_seen": 1.0,
+        "aic_fee_change_recent": 1.0,
+        "aic_policy_change_seen": 1.11,
+        "aic_policy_change_recent": 0.75,
+        "hf_buyback_active": 0.41,
+        "hf_holder_churn": 0.18,
+        "hf_strategic_review": 0.51,
+        "hf_continuation": 0.55,
+        "hf_windup": 0.32
+      }
+    }
   }
 }
