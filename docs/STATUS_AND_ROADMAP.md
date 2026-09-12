@@ -514,3 +514,17 @@ covered fund-months would settle. Verdict of step 3: no small model on these
 flags beats the single realisation-policy flag out of sample, so nothing from
 it goes near the live gates; the learning layer's next lever is the extracted
 features, which wait on API credit for the control-cohort reads.
+
+### 2026-09-12 — Friday's pre-ASX brief was missed; a third dispatch layer added
+
+No ideas.yml run was created between 11:50Z on 11 Sep and 06:50Z on 12 Sep:
+GitHub's 23:10/23:25/23:40Z crons did not fire at all (the first such night
+since the crons went in), and the pre-ASX Routine that fires into the working
+session at 22:45Z did not fire either (its last run stayed at 10 Sep; the
+platform gives no reason). The nightly at 20:30Z, the UK daily panel and the
+ASX index all ran normally, so the data was there and the email was not.
+Backup Routines now fire 45 minutes after each primary (23:30Z Sun–Thu,
+06:25Z Mon–Fri) with the same window check, so one brief goes out if any of
+the three layers wakes; the gate still prevents a second email. The Friday
+brief was not sent retrospectively: the Sunday 22:45Z dispatch produces a
+fresh one for Monday's ASX open.
