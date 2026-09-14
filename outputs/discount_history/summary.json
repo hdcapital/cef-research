@@ -1,5 +1,5 @@
 {
-  "generated_rows": 52436,
+  "generated_rows": 52386,
   "securities": 469,
   "months": 236,
   "month_range": [
@@ -80,16 +80,16 @@
       "first_month": "2007-01",
       "last_month": "2026-08",
       "months": 236,
-      "avg_funds_per_month": 175.3,
-      "mean_discount_pct": 302.53,
-      "median_of_monthly_medians_pct": -7.95,
+      "avg_funds_per_month": 175.1,
+      "mean_discount_pct": -8.07,
+      "median_of_monthly_medians_pct": -7.97,
       "latest_month": "2026-08",
-      "latest_mean_discount_pct": -4.64,
-      "latest_vs_history_pp": -307.17,
+      "latest_mean_discount_pct": -6.54,
+      "latest_vs_history_pp": 1.53,
       "widest_month": "2008-12",
       "widest_mean_discount_pct": -15.2,
-      "narrowest_month": "2021-04",
-      "narrowest_mean_discount_pct": 73029.55,
+      "narrowest_month": "2020-12",
+      "narrowest_mean_discount_pct": -4.7,
       "widest_segments": [
         {
           "segment": "Private Equity",
@@ -119,29 +119,29 @@
       ],
       "narrowest_segments": [
         {
-          "segment": "UK Equity",
-          "avg_discount_pct": 1099.12,
-          "months": 236
-        },
-        {
-          "segment": "Europe Equity",
-          "avg_discount_pct": 166.05,
-          "months": 236
-        },
-        {
           "segment": "Debt & Fixed Income",
-          "avg_discount_pct": -1.08,
+          "avg_discount_pct": -1.34,
           "months": 104
-        },
-        {
-          "segment": "Emerging & Frontier Equity",
-          "avg_discount_pct": -3.78,
-          "months": 236
         },
         {
           "segment": "Infrastructure & Renewables",
           "avg_discount_pct": -4.17,
           "months": 22
+        },
+        {
+          "segment": "Specialist - Healthcare",
+          "avg_discount_pct": -5.71,
+          "months": 236
+        },
+        {
+          "segment": "Global Equity",
+          "avg_discount_pct": -5.82,
+          "months": 236
+        },
+        {
+          "segment": "UK Equity",
+          "avg_discount_pct": -7.53,
+          "months": 236
         }
       ]
     }
@@ -150,5 +150,19 @@
   "both_markets_range": [
     "2016-12",
     "2026-07"
-  ]
+  ],
+  "rows_outside_quality_bounds": 50,
+  "quality_bounds": {
+    "UK": [
+      -0.85,
+      1.0
+    ],
+    "ASX": [
+      -0.85,
+      1.0
+    ]
+  },
+  "exclusions_by_market": {
+    "UK": 50
+  }
 }
