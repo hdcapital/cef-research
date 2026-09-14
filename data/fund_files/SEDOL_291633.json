@@ -6,16 +6,16 @@
  "sector": "Global Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_1d_old",
+  "reason": "nav_4d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-10",
   "last_announcement": "2026-09-11"
  },
  "nav": {
-  "anchor": 280.11,
-  "anchor_date": "2026-09-11",
-  "anchor_source": "investegate:9768243",
-  "estimate": 280.11,
+  "anchor": 281.04,
+  "anchor_date": "2026-09-14",
+  "anchor_source": "investegate:9770692",
+  "estimate": 281.04,
   "basis": 0.0,
   "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
@@ -25,19 +25,19 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 259.5,
+  "price": 260.0,
   "ccy": "GBp",
-  "date": "2026-09-11",
+  "date": "2026-09-14",
   "source": "yahoo:EWI.L"
  },
  "discount": {
-  "estimate": -0.073578,
-  "z": -0.01,
+  "estimate": -0.074865,
+  "z": -0.0878,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
-  "mu_36m": -0.073048,
-  "sigma_36m": 0.052934,
+  "mu_36m": -0.070402,
+  "sigma_36m": 0.050813,
   "alert_eligible": false
  },
  "forward_irr": {
@@ -104,5 +104,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-11T23:33:41+00:00"
+ "updated_at": "2026-09-14T21:55:41+00:00"
 }

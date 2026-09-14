@@ -6,18 +6,18 @@
  "sector": "Equity - Australia",
  "liveness": {
   "status": "live",
-  "reason": "nav_12d_old",
+  "reason": "nav_15d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-08-30",
   "last_announcement": "2026-08-31"
  },
  "nav": {
-  "anchor": 8.01,
-  "anchor_date": "2026-09-04",
-  "anchor_source": "own_nav_history:2026-09-04",
-  "estimate": 7.921684,
+  "anchor": 7.78,
+  "anchor_date": "2026-09-11",
+  "anchor_source": "own_nav_history:2026-09-11",
+  "estimate": 7.764109,
   "basis": 1.0,
-  "staleness_days": 5.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "AUD",
@@ -25,19 +25,19 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 6.769999980926514,
+  "price": 6.710000038146973,
   "ccy": "AUD",
-  "date": "2026-09-11",
+  "date": "2026-09-14",
   "source": "yahoo:AFI.AX"
  },
  "discount": {
-  "estimate": -0.145384,
-  "z": -1.0758,
+  "estimate": -0.135767,
+  "z": -0.8628,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
-  "mu_36m": -0.073495,
-  "sigma_36m": 0.066822,
+  "mu_36m": -0.077365,
+  "sigma_36m": 0.067687,
   "alert_eligible": true
  },
  "forward_irr": {
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-11T23:33:41+00:00"
+ "updated_at": "2026-09-14T21:55:40+00:00"
 }

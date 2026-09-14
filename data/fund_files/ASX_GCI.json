@@ -6,38 +6,38 @@
  "sector": "Fixed Income - Australian Dollar",
  "liveness": {
   "status": "live",
-  "reason": "nav_11d_old",
+  "reason": "nav_14d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-08-31",
   "last_announcement": "2026-08-31"
  },
  "nav": {
-  "anchor": 2.018,
-  "anchor_date": "2026-08-28",
-  "anchor_source": "asx_ann:03133390",
-  "estimate": 2.018,
-  "basis": 0.0,
-  "staleness_days": 10.0,
+  "anchor": 11.0,
+  "anchor_date": "2026-09-11",
+  "anchor_source": "own_nav_history:2026-09-11",
+  "estimate": 11.010278,
+  "basis": 1.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "AUD",
-  "quality_ok": true,
-  "quality_reason": ""
+  "quality_ok": false,
+  "quality_reason": "nav_jump_448%_vs_prior"
  },
  "price": {
-  "price": 2.049999952316284,
+  "price": 2.009999990463257,
   "ccy": "AUD",
-  "date": "2026-09-11",
+  "date": "2026-09-14",
   "source": "yahoo:GCI.AX"
  },
  "discount": {
-  "estimate": 0.015857,
-  "z": 0.3698,
-  "z_status": "within_error_band",
+  "estimate": -0.817443,
+  "z": -34.7036,
+  "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
-  "mu_36m": 0.006994,
-  "sigma_36m": 0.023968,
+  "mu_36m": 0.008251,
+  "sigma_36m": 0.023793,
   "alert_eligible": false
  },
  "forward_irr": {
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-11T23:33:41+00:00"
+ "updated_at": "2026-09-14T21:55:40+00:00"
 }

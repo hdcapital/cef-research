@@ -6,16 +6,16 @@
  "sector": "UK All Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_1d_old",
+  "reason": "nav_4d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-10",
   "last_announcement": "2026-09-11"
  },
  "nav": {
-  "anchor": 790.33,
-  "anchor_date": "2026-09-11",
-  "anchor_source": "investegate:9768213",
-  "estimate": 790.33,
+  "anchor": 793.07,
+  "anchor_date": "2026-09-14",
+  "anchor_source": "investegate:9770523",
+  "estimate": 793.07,
   "basis": 0.0,
   "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
@@ -25,19 +25,19 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 750.0,
+  "price": 758.0,
   "ccy": "GBp",
-  "date": "2026-09-10",
+  "date": "2026-09-14",
   "source": "yahoo:SCP.L"
  },
  "discount": {
-  "estimate": -0.051029,
-  "z": 1.1593,
+  "estimate": -0.044221,
+  "z": 1.2655,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
-  "mu_36m": -0.088398,
-  "sigma_36m": 0.032235,
+  "mu_36m": -0.08602,
+  "sigma_36m": 0.033031,
   "alert_eligible": true
  },
  "forward_irr": {
@@ -46,14 +46,7 @@
   "g_used": 0.0171,
   "g_source": "panel_tr_cagr"
  },
- "holder_churn": {
-  "filings": 3,
-  "sellers": 0,
-  "buyers": 0,
-  "largest_move": null,
-  "holder": null,
-  "direction": "churn"
- },
+ "holder_churn": null,
  "realisations": null,
  "events_90d": [
   {
@@ -105,5 +98,5 @@
    }
   }
  ],
- "updated_at": "2026-09-11T23:33:42+00:00"
+ "updated_at": "2026-09-14T21:55:42+00:00"
 }

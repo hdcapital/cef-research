@@ -6,7 +6,7 @@
  "sector": "Fixed Income - Global Dollar",
  "liveness": {
   "status": "live",
-  "reason": "nav_16d_old",
+  "reason": "nav_19d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-08-26",
   "last_announcement": "2026-08-27"
@@ -17,7 +17,7 @@
   "anchor_source": "own_nav_history:2026-09-07",
   "estimate": 2.0076,
   "basis": 3.0,
-  "staleness_days": 4.0,
+  "staleness_days": 5.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "AUD",
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1.7400000095367432,
+  "price": 1.815000057220459,
   "ccy": "AUD",
-  "date": "2026-09-10",
+  "date": "2026-09-14",
   "source": "yahoo:KIT.AX"
  },
  "discount": {
-  "estimate": -0.133293,
+  "estimate": -0.095935,
   "z": null,
-  "z_status": "insufficient_history_4m",
+  "z_status": "insufficient_history_5m",
   "z_source": "aggregator_panel",
-  "z_window_months": 4,
+  "z_window_months": 5,
   "mu_36m": null,
   "sigma_36m": null,
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.143,
-  "discount_only": 0.0193,
+  "central": 0.1468,
+  "discount_only": 0.0228,
   "g_used": 0.1063,
   "g_source": "sector_median"
  },
@@ -60,5 +60,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-11T23:33:41+00:00"
+ "updated_at": "2026-09-14T21:55:40+00:00"
 }

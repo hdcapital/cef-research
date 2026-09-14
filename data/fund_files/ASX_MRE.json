@@ -6,18 +6,18 @@
  "sector": "Fixed Income - Australian Dollar",
  "liveness": {
   "status": "live",
-  "reason": "nav_21d_old",
+  "reason": "nav_24d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-08-21",
   "last_announcement": "2026-08-31"
  },
  "nav": {
-  "anchor": 2.5445,
+  "anchor": 2.5536,
   "anchor_date": "2026-07-31",
-  "anchor_source": "asx_ann:03123109",
-  "estimate": 2.5445,
-  "basis": 0.0,
-  "staleness_days": 30.0,
+  "anchor_source": "aggregator_panel:2026-07",
+  "estimate": 2.5536,
+  "basis": 3.0,
+  "staleness_days": 31.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "AUD",
@@ -25,29 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1.6749999523162842,
+  "price": 1.684999942779541,
   "ccy": "AUD",
-  "date": "2026-09-10",
+  "date": "2026-09-14",
   "source": "yahoo:MRE.AX"
  },
  "discount": {
-  "estimate": -0.341717,
-  "z": -2.6824,
-  "z_status": "computed_growing_21m",
+  "estimate": -0.340147,
+  "z": -2.4962,
+  "z_status": "computed_growing_22m",
   "z_source": "aggregator_panel",
-  "z_window_months": 21,
-  "mu_36m": -0.130831,
-  "sigma_36m": 0.078617,
+  "z_window_months": 22,
+  "mu_36m": -0.136696,
+  "sigma_36m": 0.081506,
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.2302,
-  "discount_only": 0.0539,
+  "central": 0.2336,
+  "discount_only": 0.057,
   "g_used": 0.1237,
   "g_source": "sector_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-11T23:33:41+00:00"
+ "updated_at": "2026-09-14T21:55:40+00:00"
 }

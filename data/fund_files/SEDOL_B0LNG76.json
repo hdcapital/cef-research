@@ -6,16 +6,16 @@
  "sector": "Debt - Loans & Bonds",
  "liveness": {
   "status": "live",
-  "reason": "nav_1d_old",
+  "reason": "nav_4d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-10",
-  "last_announcement": "2026-09-11"
+  "last_announcement": "2026-09-14"
  },
  "nav": {
-  "anchor": 167.91,
-  "anchor_date": "2026-09-11",
-  "anchor_source": "investegate:9768296",
-  "estimate": 167.91,
+  "anchor": 167.85,
+  "anchor_date": "2026-09-14",
+  "anchor_source": "investegate:9770688",
+  "estimate": 167.85,
   "basis": 0.0,
   "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
@@ -25,30 +25,40 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 171.5,
+  "price": 170.5,
   "ccy": "GBp",
-  "date": "2026-09-10",
+  "date": "2026-09-14",
   "source": "yahoo:BIPS.L"
  },
  "discount": {
-  "estimate": 0.021381,
-  "z": 1.3359,
-  "z_status": "computed",
+  "estimate": 0.015788,
+  "z": 0.2518,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": 0.014489,
   "sigma_36m": 0.005159,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0997,
-  "discount_only": 0.0008,
+  "central": 0.0973,
+  "discount_only": -0.0016,
   "g_used": 0.0389,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-09-14",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/mfn/invesco-bond-income-plus-limited-npv--bips/issue-of-equity/9771258",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-09-11",
    "class": "issuance",
@@ -240,5 +250,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-11T23:33:42+00:00"
+ "updated_at": "2026-09-14T21:55:41+00:00"
 }

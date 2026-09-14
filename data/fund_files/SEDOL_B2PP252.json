@@ -6,16 +6,16 @@
  "sector": "Flexible Investment",
  "liveness": {
   "status": "live",
-  "reason": "nav_1d_old",
+  "reason": "nav_4d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-10",
-  "last_announcement": "2026-09-11"
+  "last_announcement": "2026-09-14"
  },
  "nav": {
-  "anchor": 331.96,
-  "anchor_date": "2026-09-11",
-  "anchor_source": "investegate:9768381",
-  "estimate": 331.96,
+  "anchor": 333.36,
+  "anchor_date": "2026-09-14",
+  "anchor_source": "investegate:9770870",
+  "estimate": 333.36,
   "basis": 0.0,
   "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
@@ -27,27 +27,27 @@
  "price": {
   "price": 325.0,
   "ccy": "GBp",
-  "date": "2026-09-10",
+  "date": "2026-09-14",
   "source": "yahoo:CMPG.L"
  },
  "discount": {
-  "estimate": -0.020966,
-  "z": 0.004,
+  "estimate": -0.025078,
+  "z": -0.1848,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
-  "mu_36m": -0.021044,
-  "sigma_36m": 0.019435,
+  "mu_36m": -0.021452,
+  "sigma_36m": 0.019626,
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0805,
-  "discount_only": -0.0016,
+  "central": 0.0824,
+  "discount_only": 0.0002,
   "g_used": 0.0662,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-11T23:33:41+00:00"
+ "updated_at": "2026-09-14T21:55:41+00:00"
 }

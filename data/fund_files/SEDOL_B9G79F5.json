@@ -6,18 +6,18 @@
  "sector": "Debt - Loans & Bonds",
  "liveness": {
   "status": "live",
-  "reason": "nav_10d_old",
+  "reason": "nav_13d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-01",
-  "last_announcement": "2026-09-09"
+  "last_announcement": "2026-09-14"
  },
  "nav": {
-  "anchor": 1.068,
-  "anchor_date": "2026-08-28",
-  "anchor_source": "investegate:9756580",
-  "estimate": 1.068,
+  "anchor": 1.0694,
+  "anchor_date": "2026-09-04",
+  "anchor_source": "investegate:9770851",
+  "estimate": 1.0694,
   "basis": 0.0,
-  "staleness_days": 10.0,
+  "staleness_days": 6.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "EUR",
@@ -27,11 +27,11 @@
  "price": {
   "price": 1.0750000476837158,
   "ccy": "EUR",
-  "date": "2026-09-10",
+  "date": "2026-09-14",
   "source": "yahoo:CVCE.L"
  },
  "discount": {
-  "estimate": 0.006554,
+  "estimate": 0.005237,
   "z": null,
   "z_status": "no_discount_history",
   "z_source": null,
@@ -162,5 +162,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-11T23:33:41+00:00"
+ "updated_at": "2026-09-14T21:55:41+00:00"
 }

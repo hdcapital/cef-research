@@ -6,7 +6,7 @@
  "sector": "Equity - Australia Small/Mid Cap",
  "liveness": {
   "status": "live",
-  "reason": "nav_35d_old",
+  "reason": "nav_38d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-08-07",
   "last_announcement": "2026-08-31"
@@ -15,9 +15,9 @@
   "anchor": 0.8178,
   "anchor_date": "2026-08-31",
   "anchor_source": "own_nav_history:2026-08-31",
-  "estimate": 0.792813,
+  "estimate": 0.783632,
   "basis": 1.0,
-  "staleness_days": 9.0,
+  "staleness_days": 10.0,
   "staleness_limit_days": 93.0,
   "current": true,
   "unit": "AUD",
@@ -27,17 +27,17 @@
  "price": {
   "price": 0.7350000143051147,
   "ccy": "AUD",
-  "date": "2026-09-11",
+  "date": "2026-09-14",
   "source": "yahoo:SNC.AX"
  },
  "discount": {
-  "estimate": -0.072921,
-  "z": 0.6052,
+  "estimate": -0.06206,
+  "z": 0.7405,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
-  "mu_36m": -0.10989,
-  "sigma_36m": 0.06109,
+  "mu_36m": -0.10671,
+  "sigma_36m": 0.060299,
   "alert_eligible": false
  },
  "forward_irr": {
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-11T23:33:41+00:00"
+ "updated_at": "2026-09-14T21:55:40+00:00"
 }

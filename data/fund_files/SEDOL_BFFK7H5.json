@@ -6,16 +6,16 @@
  "sector": "UK Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-09",
-  "last_announcement": "2026-09-11"
+  "last_announcement": "2026-09-14"
  },
  "nav": {
-  "anchor": 226.37,
-  "anchor_date": "2026-09-10",
-  "anchor_source": "investegate:9768369",
-  "estimate": 226.37,
+  "anchor": 228.41,
+  "anchor_date": "2026-09-11",
+  "anchor_source": "investegate:9770884",
+  "estimate": 228.41,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 232.0,
+  "price": 231.5,
   "ccy": "GBp",
-  "date": "2026-09-10",
+  "date": "2026-09-14",
   "source": "yahoo:OIT.L"
  },
  "discount": {
-  "estimate": 0.024871,
-  "z": 1.3386,
+  "estimate": 0.013528,
+  "z": 0.7853,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
-  "mu_36m": -0.004046,
-  "sigma_36m": 0.021603,
+  "mu_36m": -0.003493,
+  "sigma_36m": 0.021675,
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0326,
-  "discount_only": -0.0027,
+  "central": 0.0317,
+  "discount_only": -0.0036,
   "g_used": 0.0354,
   "g_source": "panel_tr_cagr"
  },
@@ -56,6 +56,16 @@
  },
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-09-14",
+   "class": "substantial_holder",
+   "weight": 2,
+   "direction": "positive",
+   "headline": "TR-1: Notification of Major Holdings",
+   "url": "https://www.investegate.co.uk/announcement/rns/odyssean-investment-trust--oit/tr-1-notification-of-major-holdings/9771353",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-09-11",
    "class": "issuance",
@@ -255,5 +265,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-11T23:33:42+00:00"
+ "updated_at": "2026-09-14T21:55:42+00:00"
 }

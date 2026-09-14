@@ -6,16 +6,16 @@
  "sector": "UK Equity Income",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-09",
   "last_announcement": "2026-09-11"
  },
  "nav": {
-  "anchor": 254.73,
-  "anchor_date": "2026-09-10",
-  "anchor_source": "investegate:9768294",
-  "estimate": 254.73,
+  "anchor": 255.69,
+  "anchor_date": "2026-09-11",
+  "anchor_source": "investegate:9770647",
+  "estimate": 255.69,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,19 +25,19 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 234.0,
+  "price": 240.0,
   "ccy": "GBp",
-  "date": "2026-09-11",
+  "date": "2026-09-14",
   "source": "yahoo:BRIG.L"
  },
  "discount": {
-  "estimate": -0.08138,
-  "z": 1.8969,
+  "estimate": -0.061363,
+  "z": 2.986,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
-  "mu_36m": -0.117308,
-  "sigma_36m": 0.01894,
+  "mu_36m": -0.117486,
+  "sigma_36m": 0.018795,
   "alert_eligible": true
  },
  "forward_irr": {
@@ -69,12 +69,12 @@
    "direction": "positive",
    "headline": "CORRECTION:\u00a0 Strategic Review",
    "url": "https://www.investegate.co.uk/announcement/prn/blackrock-income-and-growth-investment-trust--brig/correction-strategic-review/9768518",
-   "alerted_at": null,
+   "alerted_at": "2026-09-13T23:38:10+00:00",
    "terms": {
     "llm": "error",
     "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
    }
   }
  ],
- "updated_at": "2026-09-11T23:33:41+00:00"
+ "updated_at": "2026-09-14T21:55:41+00:00"
 }

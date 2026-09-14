@@ -6,16 +6,16 @@
  "sector": "North America",
  "liveness": {
   "status": "live",
-  "reason": "nav_0d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-11",
-  "last_announcement": "2026-09-11"
+  "last_announcement": "2026-09-14"
  },
  "nav": {
-  "anchor": 4594.074558903142,
-  "anchor_date": "2026-09-11",
-  "anchor_source": "investegate:9766591",
-  "estimate": 4594.074559,
+  "anchor": 4643.847350837913,
+  "anchor_date": "2026-09-14",
+  "anchor_source": "investegate:9768997",
+  "estimate": 4643.847351,
   "basis": 0.0,
   "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
@@ -25,13 +25,13 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 2880.0,
+  "price": 2920.0,
   "ccy": "GBp",
-  "date": "2026-09-10",
+  "date": "2026-09-14",
   "source": "yahoo:CGI.L"
  },
  "discount": {
-  "estimate": -0.373106,
+  "estimate": -0.371211,
   "z": null,
   "z_status": "history_unit_mismatch",
   "z_source": null,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1567,
-  "discount_only": 0.0059,
+  "central": 0.1527,
+  "discount_only": 0.0023,
   "g_used": 0.15,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-11T23:33:41+00:00"
+ "updated_at": "2026-09-14T21:55:41+00:00"
 }
