@@ -261,8 +261,72 @@ def test_eligible_only_drops_flagged_and_nan_rows():
         "eligible": [True, True, False],
         "discount": [-0.1, np.nan, -0.2],
         "security_id": ["a", "b", "c"],
+        "market": ["UK", "UK", "UK"],
     })
-    assert list(panel_mod.eligible_only(df)["security_id"]) == ["a"]
+    kept, _ = panel_mod.eligible_only(df)
+    assert list(kept["security_id"]) == ["a"]
+
+
+# ---------------------------------------------------------- quality bounds
+def test_absurd_premiums_are_excluded_and_reported():
+    """Regression: the UK panel's upstream gate enforces the discount floor
+    but NOT the premium ceiling both configs declare, so a source row with a
+    price in the wrong unit (a 20,000,000p price against a 160p NAV) reached
+    the aggregate as a +1,250,000% premium and moved a whole month's mean by
+    thousands of points. The bound must drop it AND hand it back for audit."""
+    df = pd.DataFrame({
+        "market": ["UK", "UK", "UK", "ASX"],
+        "security_id": ["ok", "unit_error", "too_cheap", "ok_asx"],
+        "month": ["2021-04"] * 4,
+        "discount": [-0.12, 1250.22, -0.97, -0.08],
+        "eligible": [True, True, True, True],
+    })
+    kept, excluded = panel_mod.eligible_only(df)
+    assert set(kept["security_id"]) == {"ok", "ok_asx"}
+    assert set(excluded["security_id"]) == {"unit_error", "too_cheap"}
+    reasons = dict(zip(excluded["security_id"], excluded["exclusion_reason"]))
+    assert "ceiling" in reasons["unit_error"]
+    assert "floor" in reasons["too_cheap"]
+
+
+def test_quality_bounds_come_from_the_config_files():
+    """The bound the study documents and the bound it applies must not drift."""
+    bounds = panel_mod.load_quality_bounds()
+    assert set(bounds) == {"UK", "ASX"}
+    for market, (floor, ceiling) in bounds.items():
+        assert floor == pytest.approx(-0.85), market
+        assert ceiling == pytest.approx(1.00), market
+
+
+def test_a_genuine_extreme_premium_is_bounded_the_same_as_an_error():
+    """The ceiling is applied by rule, not by judgement: a real fund whose
+    NAV was written down to near zero (leaving the shares at a ~+300%
+    premium) is excluded on the same declared bound as a unit error, and
+    shows up in the audit file rather than vanishing."""
+    df = pd.DataFrame({
+        "market": ["UK", "UK"],
+        "security_id": ["JEMA", "normal"],
+        "month": ["2025-04", "2025-04"],
+        "discount": [3.908306, -0.10],
+        "eligible": [True, True],
+    })
+    kept, excluded = panel_mod.eligible_only(df)
+    assert list(kept["security_id"]) == ["normal"]
+    assert list(excluded["security_id"]) == ["JEMA"]
+
+
+def test_bounds_are_applied_per_market():
+    custom = {"UK": (-0.5, 0.2), "ASX": (-0.9, 0.9)}
+    df = pd.DataFrame({
+        "market": ["UK", "ASX"],
+        "security_id": ["uk", "asx"],
+        "month": ["2020-01", "2020-01"],
+        "discount": [-0.6, -0.6],
+        "eligible": [True, True],
+    })
+    kept, excluded = panel_mod.eligible_only(df, bounds=custom)
+    assert list(kept["security_id"]) == ["asx"]
+    assert list(excluded["security_id"]) == ["uk"]
 
 
 # ------------------------------------------------------------- deliverable

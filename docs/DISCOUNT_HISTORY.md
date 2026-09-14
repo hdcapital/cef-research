@@ -36,7 +36,8 @@ results; it is the supported way to run the whole thing.
 | `monthly_by_segment.csv` | month x market x sub-segment |
 | `monthly_by_sector.csv` | month x market x the market's own sector |
 | `segment_summary.csv` | whole-sample stats per market x sub-segment |
-| `coverage_by_market_year.csv` | rows held vs rows used, per market-year |
+| `coverage_by_market_year.csv` | rows held vs rows used vs rows bounded out, per market-year |
+| `excluded_rows.csv` | every fund-month dropped on a quality bound, with the reason |
 | `security_month_panel.csv` | the fund-month rows behind every number |
 | `summary.json` | headline figures |
 | `charts/*.png` | the chart set |
@@ -87,6 +88,39 @@ the label text on every run:
 Rules are ordered and first-match-wins, so narrow patterns must precede the
 broad ones that contain them. Anything unmatched lands in `Unclassified`
 rather than being dropped.
+
+## The premium ceiling
+
+Both config files declare a `-0.85` discount floor and a `+1.00` premium
+ceiling, but only the ASX panel applies the ceiling: `uk_cef/panel.py`
+enforces the floor and omits it. Fifty UK fund-months therefore reached the
+aggregate above +100%, topping out at **+1,250,000%** where a source row
+carried a price in the wrong unit (a 20,000,000p "price" against a 160p
+NAV). A single row like that moves a whole month's equal-weighted mean by
+thousands of percentage points: uncorrected, the UK mean-of-monthly-means
+came out at **+302.5%** against a median of **-8.0%**.
+
+This layer therefore applies each market's own declared bounds
+symmetrically. Without it the UK mean is not comparable with the ASX mean,
+which is already clipped - and the whole point here is a cross-market
+comparison. After the bound the UK mean (-8.07%) sits beside its median
+(-7.97%), which is what an uncontaminated distribution looks like.
+
+Three things about how it is done:
+
+* The bounds are **read from the config files**, not hard-coded, so the
+  documented bound and the applied bound cannot drift apart.
+* Nothing is winsorised onto the bound. Offending rows are **dropped and
+  written out in full** to `excluded_rows.csv` (and the Excluded rows sheet),
+  with the reason, and counted per market-year in the coverage table.
+* The bound is applied **by rule, not by judgement**. Most of the 50 rows are
+  unit errors, but some are genuine: JPMorgan Emerging Europe, Middle East &
+  Africa traded around a +300% premium once its Russian holdings were written
+  down to near zero. That is a real observation and the ceiling removes it
+  anyway, which is why the excluded rows are published rather than discarded.
+
+The upstream UK panel is deliberately left alone: adding the ceiling there
+would silently move every existing backtest result in the repo.
 
 ## Scope
 

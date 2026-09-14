@@ -27,7 +27,8 @@ OUT_DIR = Path("outputs/discount_history")
 CHART_DIR = OUT_DIR / "charts"
 
 
-def _coverage(panel: pd.DataFrame, elig: pd.DataFrame) -> pd.DataFrame:
+def _coverage(panel: pd.DataFrame, elig: pd.DataFrame,
+              excluded: pd.DataFrame | None = None) -> pd.DataFrame:
     """Per market-year: rows held, rows with a discount, rows used.
 
     Published beside the results so a thin year is visible rather than
@@ -51,6 +52,16 @@ def _coverage(panel: pd.DataFrame, elig: pd.DataFrame) -> pd.DataFrame:
         "rows_used": 0, "securities_used": 0, "months_covered": 0})
     for c in ("rows_used", "securities_used", "months_covered"):
         out[c] = out[c].astype(int)
+    if excluded is not None and not excluded.empty:
+        ex = excluded.copy()
+        ex["year"] = ex["month"].str[:4]
+        counts = (ex.groupby(["market", "year"]).size()
+                    .rename("rows_outside_quality_bounds").reset_index())
+        out = out.merge(counts, on=["market", "year"], how="left")
+        out["rows_outside_quality_bounds"] = (
+            out["rows_outside_quality_bounds"].fillna(0).astype(int))
+    else:
+        out["rows_outside_quality_bounds"] = 0
     out["pct_rows_used"] = (out["rows_used"] / out["panel_rows"] * 100).round(1)
     return out.sort_values(["market", "year"])
 
@@ -111,7 +122,7 @@ def cmd_build(args) -> int:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
 
     full = panel_mod.build()
-    elig = panel_mod.eligible_only(full)
+    elig, excluded = panel_mod.eligible_only(full)
     if elig.empty:
         log.error("no eligible rows in either panel - nothing to aggregate")
         return 2
@@ -123,7 +134,7 @@ def cmd_build(args) -> int:
     seg = aggregate.by_segment(elig, min_funds=args.min_funds)
     sec = aggregate.by_sector(elig, min_funds=args.min_funds)
     seg_sum = aggregate.segment_summary(seg)
-    cov = _coverage(full, elig)
+    cov = _coverage(full, elig, excluded)
 
     tables = {
         "monthly_market_wide.csv": mw,
@@ -132,6 +143,7 @@ def cmd_build(args) -> int:
         "monthly_by_sector.csv": sec,
         "segment_summary.csv": seg_sum,
         "coverage_by_market_year.csv": cov,
+        "excluded_rows.csv": excluded.drop(columns=["month_end"], errors="ignore"),
         "security_month_panel.csv": elig.drop(columns=["month_end"], errors="ignore"),
     }
     for name, df in tables.items():
@@ -140,13 +152,19 @@ def cmd_build(args) -> int:
         log.info("%-32s %7d rows -> %s", name, len(df), target)
 
     summary = _summary(mw, bm, seg_sum, elig)
+    summary["rows_outside_quality_bounds"] = int(len(excluded))
+    if not excluded.empty:
+        summary["quality_bounds"] = {
+            m: list(b) for m, b in panel_mod.load_quality_bounds().items()}
+        summary["exclusions_by_market"] = (
+            excluded.groupby("market").size().to_dict())
     (OUT_DIR / "summary.json").write_text(json.dumps(summary, indent=2, default=str))
     log.info("summary -> %s", OUT_DIR / "summary.json")
 
     workbook.write(
         OUT_DIR / "cef_discount_history.xlsx",
         market_wide=mw, by_market=bm, by_segment=seg, by_sector=sec,
-        segment_summary=seg_sum, panel=elig)
+        segment_summary=seg_sum, panel=elig, excluded=excluded)
 
     if not args.no_charts:
         made = charts.render_all(by_market_df=bm, seg_df=seg,

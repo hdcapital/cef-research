@@ -11,6 +11,7 @@ Segment summary       whole-sample stats per market x segment
 UK segments (wide)    month rows x segment columns - pivot/chart ready
 ASX segments (wide)   same for the ASX
 Panel                 the full security-month panel behind every number
+Excluded rows         fund-months dropped on the declared quality bounds
 """
 
 from __future__ import annotations
@@ -53,6 +54,14 @@ NOTES = [
      "fund count for that month (sufficient = FALSE); n_funds is always shown "
      "so the thinness is visible. Do not read a sub-segment line where "
      "n_funds is low."),
+    ("Quality bounds",
+     "Both config files declare a -85% discount floor and a +100% premium "
+     "ceiling, but only the ASX panel applies the ceiling upstream. This "
+     "layer applies each market's own declared bounds symmetrically, without "
+     "which the UK mean is not comparable with the ASX mean. Every dropped "
+     "fund-month is listed in full on the Excluded rows sheet - including "
+     "genuine extreme premiums, which the bound removes by rule rather than "
+     "by judgement."),
     ("Eligibility",
      "Rows are the upstream panels' eligible universe: VCTs, split-capital "
      "share classes and ZDPs excluded, and residual data errors outside "
@@ -101,7 +110,8 @@ def _wide(seg_monthly: pd.DataFrame, market: str, value: str = "mean_discount_pc
 
 def write(path: Path, *, market_wide: pd.DataFrame, by_market: pd.DataFrame,
           by_segment: pd.DataFrame, by_sector: pd.DataFrame,
-          segment_summary: pd.DataFrame, panel: pd.DataFrame) -> Path:
+          segment_summary: pd.DataFrame, panel: pd.DataFrame,
+          excluded: pd.DataFrame | None = None) -> Path:
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -130,5 +140,8 @@ def write(path: Path, *, market_wide: pd.DataFrame, by_market: pd.DataFrame,
         _write(writer, "UK segments (wide)", _wide(by_segment, "UK"))
         _write(writer, "ASX segments (wide)", _wide(by_segment, "ASX"))
         _write(writer, "Panel", panel_sheet)
-    log.info("workbook -> %s (%d sheets)", path, 9)
+        _write(writer, "Excluded rows",
+               (excluded.drop(columns=["month_end"], errors="ignore")
+                if excluded is not None else None))
+    log.info("workbook -> %s (%d sheets)", path, 10)
     return path

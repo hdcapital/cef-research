@@ -27,6 +27,21 @@ log = logging.getLogger(__name__)
 UK_PANEL = Path("data/processed/monthly_panel.parquet")
 AU_PANEL = Path("data/au_processed/au_monthly_panel.parquet")
 
+UK_CONFIG = Path("config/default.yaml")
+AU_CONFIG = Path("config/au_default.yaml")
+
+# Both config files declare BOTH bounds, but only the ASX panel applies the
+# premium ceiling - the UK panel's eligibility gate enforces the floor and
+# omits the ceiling (uk_cef/panel.py). That asymmetry let 50 UK fund-months
+# through above +100%, topping out at +1,250,000% where a source row carried
+# a price in the wrong unit (a 20,000,000p "price" against a 160p NAV). One
+# such row moves a whole month's equal-weighted mean by thousands of points,
+# and it made the UK mean non-comparable with the ASX mean that IS clipped.
+# Applying each market's own declared bounds symmetrically is what makes the
+# cross-market comparison legitimate. Nothing is winsorised onto the bound:
+# offending rows are dropped and written out in full for inspection.
+DEFAULT_BOUNDS = (-0.85, 1.00)
+
 # Harmonised output schema.
 COLUMNS = [
     "month", "market", "security_id", "company_name",
@@ -122,6 +137,61 @@ def build(uk_path: Path = UK_PANEL, au_path: Path = AU_PANEL) -> pd.DataFrame:
     return panel
 
 
-def eligible_only(panel: pd.DataFrame) -> pd.DataFrame:
-    """Rows that carry a usable discount and pass the upstream quality gate."""
-    return panel[panel["eligible"] & panel["discount"].notna()].copy()
+def load_quality_bounds(uk_config: Path = UK_CONFIG,
+                        au_config: Path = AU_CONFIG) -> dict[str, tuple[float, float]]:
+    """Each market's (floor, ceiling) as declared in its own config file.
+
+    Read from the configs rather than hard-coded so the bound the study
+    documents and the bound it applies cannot drift apart.
+    """
+    bounds: dict[str, tuple[float, float]] = {}
+    for market, cfg_path in (("UK", Path(uk_config)), ("ASX", Path(au_config))):
+        floor, ceiling = DEFAULT_BOUNDS
+        try:
+            import yaml
+
+            quality = (yaml.safe_load(cfg_path.read_text()) or {}).get("quality", {}) or {}
+            floor = float(quality.get("eligibility_discount_floor", floor))
+            ceiling = float(quality.get("premium_ceiling", ceiling))
+        except Exception as exc:  # noqa: BLE001 - a missing config falls back
+            log.warning("could not read quality bounds from %s (%s); using %s",
+                        cfg_path, exc, DEFAULT_BOUNDS)
+        bounds[market] = (floor, ceiling)
+    return bounds
+
+
+def apply_quality_bounds(panel: pd.DataFrame,
+                         bounds: dict[str, tuple[float, float]] | None = None
+                         ) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Split rows into (kept, excluded) on each market's declared bounds.
+
+    Returns the excluded rows too, with the reason attached, so a dropped
+    observation is auditable rather than invisible.
+    """
+    bounds = bounds or load_quality_bounds()
+    keep = pd.Series(True, index=panel.index)
+    reason = pd.Series("", index=panel.index, dtype="object")
+    for market, (floor, ceiling) in bounds.items():
+        in_market = panel["market"] == market
+        too_low = in_market & (panel["discount"] < floor)
+        too_high = in_market & (panel["discount"] > ceiling)
+        reason[too_low] = f"discount below {floor:.2f} floor"
+        reason[too_high] = f"premium above {ceiling:+.2f} ceiling"
+        keep &= ~(too_low | too_high)
+    excluded = panel[~keep].copy()
+    if not excluded.empty:
+        excluded["exclusion_reason"] = reason[~keep]
+        for market, grp in excluded.groupby("market"):
+            log.warning("%s: %d fund-months outside the declared quality bounds "
+                        "(worst discount %.4f, worst premium %.4f)",
+                        market, len(grp), grp["discount"].min(), grp["discount"].max())
+    return panel[keep].copy(), excluded
+
+
+def eligible_only(panel: pd.DataFrame,
+                  bounds: dict[str, tuple[float, float]] | None = None
+                  ) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Rows with a usable discount that pass the upstream gate AND each
+    market's declared quality bounds. Returns (kept, excluded)."""
+    gated = panel[panel["eligible"] & panel["discount"].notna()].copy()
+    return apply_quality_bounds(gated, bounds)
