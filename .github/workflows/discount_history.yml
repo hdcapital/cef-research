@@ -1,0 +1,143 @@
+name: discount-history
+
+# Market-wide average discount history: UK investment trusts (2007-) and
+# ASX LICs/LITs (2017-), market-wide, per market and per sub-segment.
+#
+# This job exists because the analysis needs BOTH panels at once, and the
+# raw archives behind them live in S3 rather than in the repo. It restores
+# the raw source files from the bucket, tops them up from the publishers,
+# rebuilds both panels, then aggregates and commits the deliverables.
+
+on:
+  workflow_dispatch:
+    inputs:
+      skip_download:
+        description: "use only the S3-restored raw files (no publisher fetches)"
+        default: "false"
+      min_funds:
+        description: "suppress group stats below this fund count"
+        default: "3"
+  push:
+    branches:
+      - "claude/**"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: discount-history-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: github.event_name != 'push' || contains(github.event.head_commit.message, '[discount-history]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+      S3_BUCKET: ${{ secrets.S3_BUCKET }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt && pip install -e .
+
+      - name: Unit tests for the aggregation layer
+        run: python -m pytest tests/test_discount_history.py -q
+
+      # S3 is the system of record for the raw archives; the Actions cache is
+      # only a speed-up and is allowed to be cold.
+      - name: Restore raw archives from S3
+        run: python scripts/sync_state.py pull --groups raw_aic,raw_asx
+
+      - name: Restore raw-data cache
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            data/raw
+            data/cache
+            data/manifest.csv
+            data/au_manifest.csv
+          key: discount-history-raw-${{ github.run_id }}
+          restore-keys: |
+            discount-history-raw-
+            aic-raw-v1-
+            asx-raw-v1-
+
+      - name: Report what the restore produced
+        run: |
+          echo "AIC raw files: $(ls data/raw/aic 2>/dev/null | wc -l)"
+          echo "ASX raw files: $(ls data/raw/asx 2>/dev/null | wc -l)"
+
+      - name: Top up the AIC archive
+        if: inputs.skip_download != 'true'
+        run: |
+          python -m uk_cef.cli discover
+          python -m uk_cef.cli download
+
+      - name: Top up the ASX monthly reports
+        if: inputs.skip_download != 'true'
+        run: python -m au_lic.cli download
+
+      - name: Save raw-data cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            data/raw
+            data/cache
+            data/manifest.csv
+            data/au_manifest.csv
+          key: discount-history-raw-${{ github.run_id }}
+
+      - name: Build UK panel
+        run: |
+          python -m uk_cef.cli build-entities
+          python -m uk_cef.cli build-panel
+
+      - name: Build ASX panel
+        run: python -m au_lic.cli build-panel
+
+      - name: Aggregate the discount history
+        run: |
+          python -m discount_history.cli build \
+            --min-funds "${{ github.event.inputs.min_funds || '3' }}"
+
+      # The panels themselves are rebuildable and large; the aggregates and
+      # the workbook are the deliverables and are small enough to commit.
+      - name: Upload full outputs as an artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: discount-history
+          path: outputs/discount_history/
+          if-no-files-found: warn
+
+      - name: Persist raw archives back to S3
+        if: always()
+        run: python scripts/sync_state.py push --groups raw_aic,raw_asx || true
+
+      - name: Commit outputs to branch
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # Add each path separately: a single `git add -f A B` aborts
+          # entirely when one path is missing, losing the others too.
+          for f in outputs/discount_history; do
+            [ -e "$f" ] && git add -f "$f" || true
+          done
+          if git diff --cached --quiet; then
+            echo "no changes"
+          else
+            git commit -m "CI: discount history ($(date -u +%Y-%m-%dT%H:%MZ))"
+            for i in 1 2 3 4; do
+              git pull --rebase --autostash -X theirs origin "${GITHUB_REF_NAME}" || true
+              if git push origin "HEAD:${GITHUB_REF_NAME}"; then break; fi
+              sleep $((2 ** i))
+            done
+          fi
