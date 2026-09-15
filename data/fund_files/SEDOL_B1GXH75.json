@@ -6,9 +6,9 @@
  "sector": "Asia Pacific Equity Income",
  "liveness": {
   "status": "live",
-  "reason": "nav_5d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-09-09",
+  "last_nav": "2026-09-11",
   "last_announcement": "2026-09-14"
  },
  "nav": {
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9770984",
   "estimate": 258.8,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 2.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,25 +25,25 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 263.5,
+  "price": 266.5,
   "ccy": "GBp",
-  "date": "2026-09-14",
+  "date": "2026-09-11",
   "source": "yahoo:HFEL.L"
  },
  "discount": {
-  "estimate": 0.018161,
-  "z": -0.037,
-  "z_status": "within_error_band",
+  "estimate": 0.029753,
+  "z": 0.3211,
+  "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": 0.019358,
   "sigma_36m": 0.032377,
-  "alert_eligible": false
+  "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0947,
-  "discount_only": 0.0045,
-  "g_used": 0.0898,
+  "central": 0.0356,
+  "discount_only": 0.0015,
+  "g_used": 0.034,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
@@ -230,5 +230,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-14T21:55:41+00:00"
+ "updated_at": "2026-09-15T00:11:12+00:00"
 }

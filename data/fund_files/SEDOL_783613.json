@@ -6,9 +6,9 @@
  "sector": "Asia Pacific Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_5d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-09-09",
+  "last_nav": "2026-09-11",
   "last_announcement": "2026-09-14"
  },
  "nav": {
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9770674",
   "estimate": 296.08,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 2.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 274.5,
+  "price": 273.0,
   "ccy": "GBp",
-  "date": "2026-09-14",
+  "date": "2026-09-11",
   "source": "yahoo:SST.L"
  },
  "discount": {
-  "estimate": -0.072886,
-  "z": 2.5067,
+  "estimate": -0.077952,
+  "z": 2.2861,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,9 +41,9 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.084,
-  "discount_only": -0.0116,
-  "g_used": 0.0721,
+  "central": 0.0836,
+  "discount_only": -0.0119,
+  "g_used": 0.074,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
@@ -63,5 +63,5 @@
    }
   }
  ],
- "updated_at": "2026-09-14T21:55:42+00:00"
+ "updated_at": "2026-09-15T00:11:12+00:00"
 }

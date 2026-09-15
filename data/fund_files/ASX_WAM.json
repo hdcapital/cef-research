@@ -15,7 +15,7 @@
   "anchor": 1.2117,
   "anchor_date": "2026-07-31",
   "anchor_source": "aggregator_panel:2026-07",
-  "estimate": 1.215184,
+  "estimate": 1.215324,
   "basis": 1.0,
   "staleness_days": 31.0,
   "staleness_limit_days": 135.0,
@@ -31,8 +31,8 @@
   "source": "yahoo:WAM.AX"
  },
  "discount": {
-  "estimate": -0.028954,
-  "z": -0.8715,
+  "estimate": -0.029066,
+  "z": -0.8724,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,9 +41,9 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.2687,
-  "discount_only": 0.0399,
-  "g_used": 0.1438,
+  "central": 0.2541,
+  "discount_only": 0.0335,
+  "g_used": 0.1402,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
@@ -70,5 +70,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-14T21:55:40+00:00"
+ "updated_at": "2026-09-15T00:11:11+00:00"
 }

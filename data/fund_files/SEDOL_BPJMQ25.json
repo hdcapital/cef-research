@@ -6,16 +6,16 @@
  "sector": "UK Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_5d_old",
+  "reason": "nav_4d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-09-09",
+  "last_nav": "2026-09-10",
   "last_announcement": null
  },
  "nav": {
-  "anchor": 98.56,
-  "anchor_date": "2026-09-09",
-  "anchor_source": "own_nav_history:2026-09-09",
-  "estimate": 98.56,
+  "anchor": 97.91,
+  "anchor_date": "2026-09-10",
+  "anchor_source": "own_nav_history:2026-09-10",
+  "estimate": 97.91,
   "basis": 3.0,
   "staleness_days": 3.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 91.0,
+  "price": 92.0,
   "ccy": "GBp",
-  "date": "2026-09-14",
+  "date": "2026-09-11",
   "source": "yahoo:AGVI.L"
  },
  "discount": {
-  "estimate": -0.076705,
-  "z": 1.3882,
+  "estimate": -0.060362,
+  "z": 1.8209,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 26,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.051,
-  "discount_only": -0.0122,
-  "g_used": 0.0177,
+  "central": 0.052,
+  "discount_only": -0.0124,
+  "g_used": 0.0207,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-14T21:55:41+00:00"
+ "updated_at": "2026-09-15T00:11:11+00:00"
 }

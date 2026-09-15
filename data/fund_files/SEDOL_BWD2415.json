@@ -17,7 +17,7 @@
   "anchor_source": "own_nav_history:2025-09-30",
   "estimate": 109.09,
   "basis": 3.0,
-  "staleness_days": 249.0,
+  "staleness_days": 250.0,
   "staleness_limit_days": 200.0,
   "current": false,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 101.4000015258789,
+  "price": 102.0,
   "ccy": "GBp",
-  "date": "2026-09-14",
+  "date": "2026-09-11",
   "source": "yahoo:AEWU.L"
  },
  "discount": {
-  "estimate": -0.070492,
-  "z": -0.3396,
+  "estimate": -0.064992,
+  "z": -0.2764,
   "z_status": "within_error_band",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,9 +41,9 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1229,
-  "discount_only": 0.005,
-  "g_used": 0.0515,
+  "central": 0.1223,
+  "discount_only": 0.0082,
+  "g_used": 0.0476,
   "g_source": "market_median"
  },
  "holder_churn": null,
@@ -71,5 +71,5 @@
    }
   }
  ],
- "updated_at": "2026-09-14T21:55:41+00:00"
+ "updated_at": "2026-09-15T00:11:11+00:00"
 }

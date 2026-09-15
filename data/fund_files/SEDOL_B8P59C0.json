@@ -17,7 +17,7 @@
   "anchor_source": "investegate_fs:9624409",
   "estimate": 170.63,
   "basis": 0.0,
-  "staleness_days": 119.0,
+  "staleness_days": 120.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -25,13 +25,13 @@
   "quality_reason": "nav_jump_3340%_vs_own"
  },
  "price": {
-  "price": 112.0,
+  "price": 112.5999984741211,
   "ccy": "GBp",
-  "date": "2026-09-14",
+  "date": "2026-09-11",
   "source": "yahoo:SYNC.L"
  },
  "discount": {
-  "estimate": -0.343609,
+  "estimate": -0.340093,
   "z": null,
   "z_status": "no_discount_history",
   "z_source": null,
@@ -41,9 +41,9 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1846,
-  "discount_only": 0.1335,
-  "g_used": 0.0451,
+  "central": 0.1658,
+  "discount_only": 0.1319,
+  "g_used": 0.03,
   "g_source": "sector_median"
  },
  "holder_churn": {
@@ -113,5 +113,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-14T21:55:42+00:00"
+ "updated_at": "2026-09-15T00:11:12+00:00"
 }
