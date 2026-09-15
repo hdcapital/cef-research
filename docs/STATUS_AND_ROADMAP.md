@@ -528,3 +528,15 @@ Backup Routines now fire 45 minutes after each primary (23:30Z Sun–Thu,
 the three layers wakes; the gate still prevents a second email. The Friday
 brief was not sent retrospectively: the Sunday 22:45Z dispatch produces a
 fresh one for Monday's ASX open.
+
+### 2026-09-15 — Monday's briefs both arrived late; a fifth and sixth firing added
+
+The session that holds the four dispatcher Routines was offline from about
+05:40Z on 14 Sep to 05:40Z on 15 Sep (its GitHub connector dropped), so
+all four wakes queued unread and the Routines sent nothing. GitHub's crons
+did fire but 6h50m late (pre-LSE, emailed 13:49Z) and 2h43m late (pre-ASX,
+emailed 02:13Z), both after the open. Sunday night's pre-ASX brief had gone
+on time (23:38Z) from the primary Routine. ideas.yml now has five firings
+per window, two of them ahead of the original three (05:50/06:05 and
+22:20/22:35 UTC); the gate still limits each window to one email. Today's
+pre-LSE brief was dispatched by hand at 05:41Z on reconnecting.

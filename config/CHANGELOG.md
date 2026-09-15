@@ -4,6 +4,15 @@ Every change to `config/params.yaml` gets a dated entry here, committed in
 the same commit as the change, with a rationale. Parameters are never
 tuned against live outcomes.
 
+## 2026-09-15 — brief firings widened, still two emails a day
+
+ideas.yml gains two cron firings per window ahead of the existing three
+(05:50 and 06:05 UTC for the pre-LSE brief; 22:20 and 22:35 UTC for the
+pre-ASX brief). The 4-hour gate is unchanged, so the first firing that
+lands sends the brief and the rest exit. Reason: on 2026-09-14 both briefs
+arrived after their market open because the dispatcher Routines' session
+was offline and GitHub's cron ran hours late. No scoring parameter changed.
+
 ## 2026-09-11 — The learning layer's model split
 `learning.model_split_month` = 2021-12: the logistic model on the
 model-free anticipation flags is fitted on fund-months up to December
