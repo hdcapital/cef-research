@@ -9,7 +9,7 @@
   "reason": "nav_4d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-11",
-  "last_announcement": "2026-09-14"
+  "last_announcement": "2026-09-15"
  },
  "nav": {
   "anchor": 857.5,
@@ -25,29 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 790.0,
+  "price": 798.0,
   "ccy": "GBp",
-  "date": "2026-09-15",
+  "date": "2026-09-14",
   "source": "yahoo:FGT.L"
  },
  "discount": {
-  "estimate": -0.078717,
-  "z": -0.7476,
-  "z_status": "computed",
+  "estimate": -0.069388,
+  "z": 0.1225,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.070701,
   "sigma_36m": 0.010723,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0835,
-  "discount_only": 0.0011,
+  "central": 0.0855,
+  "discount_only": 0.0031,
   "g_used": 0.0521,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-15T21:53:22+00:00"
+ "updated_at": "2026-09-15T23:51:54+00:00"
 }

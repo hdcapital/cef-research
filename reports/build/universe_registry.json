@@ -5,8 +5,8 @@
     "AU": 172,
     "UK": 944
   },
-  "live": 365,
-  "live_stale_nav": 40,
+  "live": 366,
+  "live_stale_nav": 39,
   "status_before_evidence": {
     "delisted": 737,
     "live": 374,
@@ -17,9 +17,9 @@
   "persisted_to": "data/universe/registry.parquet",
   "live_status_source": {
     "corroborated_delisting": 606,
-    "own_nav_announcement": 354,
+    "own_nav_announcement": 355,
     "own_delisting_notice": 98,
-    "own_periodic_report": 38,
+    "own_periodic_report": 37,
     "registry_deferral_no_own_filings": 11,
     "own_announcement_only": 6,
     "own_nav_announcement_stale": 2,
@@ -29,10 +29,10 @@
   "aggregator_said_live_evidence_says_not": 6,
   "by_liveness_reason": {
     "aggregator_delisted_and_own_filings_silent_alwaysd": 523,
-    "nav": 356,
+    "nav": 357,
     "own_delisting_notice": 98,
     "aggregator_delisted_and_own_filings_silent": 83,
-    "periodic_report": 38,
+    "periodic_report": 37,
     "no_own_filings_held_deferring_to_registry": 11,
     "filings_but_no_nav_or_report": 6,
     "registry_listed": 1
@@ -40,11 +40,11 @@
   "delisted": 98,
   "priced_by_source": 639,
   "announcements_only": 477,
-  "live_announcements_only": 99,
+  "live_announcements_only": 100,
   "offshore": 195,
   "vct": 228,
   "live_by_domicile": {
-    "GB": 206,
+    "GB": 207,
     "null": 97,
     "GG": 34,
     "JE": 13,
@@ -325,6 +325,15 @@
       "months_listed": 17
     },
     {
+      "security_id": "SEDOL:BG0P0V7",
+      "name": "Gore Street Energy Storage",
+      "sector": "Renewable Energy Infrastructure",
+      "domicile": "GB",
+      "isin": "GB00BG0P0V73",
+      "first_seen": "2018-08",
+      "months_listed": 97
+    },
+    {
       "security_id": "SEDOL:BFX3K77",
       "name": "Gresham House Energy Storage",
       "sector": "Renewable Energy Infrastructure",
@@ -451,15 +460,6 @@
       "months_listed": 8
     },
     {
-      "security_id": "SEDOL:BD0FRW6",
-      "name": "NB Private Equity Partners",
-      "sector": "Private Equity",
-      "domicile": "GG",
-      "isin": "GG00BD0FRW63",
-      "first_seen": "2016-09",
-      "months_listed": 72
-    },
-    {
       "security_id": "SEDOL:BD96PR1",
       "name": "NB Private Equity Partners",
       "sector": "Private Equity",
@@ -467,6 +467,15 @@
       "isin": "GG00BD96PR19",
       "first_seen": "2018-05",
       "months_listed": 77
+    },
+    {
+      "security_id": "SEDOL:BD0FRW6",
+      "name": "NB Private Equity Partners",
+      "sector": "Private Equity",
+      "domicile": "GG",
+      "isin": "GG00BD0FRW63",
+      "first_seen": "2016-09",
+      "months_listed": 72
     },
     {
       "security_id": "SEDOL:B1ZBD49",
@@ -948,7 +957,7 @@
   ],
   "live_announcements_only_by_sector": {
     "VCT": 21,
-    "Renewable Energy Infrastructure": 8,
+    "Renewable Energy Infrastructure": 9,
     "Private Equity": 7,
     "Infrastructure": 6,
     "Debt - Structured Finance": 5,

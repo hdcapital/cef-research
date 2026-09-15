@@ -25,29 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 569.0,
+  "price": 576.0,
   "ccy": "GBp",
-  "date": "2026-09-15",
+  "date": "2026-09-14",
   "source": "yahoo:BRGE.L"
  },
  "discount": {
-  "estimate": -0.073214,
-  "z": -1.1973,
-  "z_status": "computed",
+  "estimate": -0.061813,
+  "z": -0.2401,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.058953,
   "sigma_36m": 0.011912,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.085,
-  "discount_only": 0.0036,
+  "central": 0.0855,
+  "discount_only": 0.004,
   "g_used": 0.0606,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-15T21:53:21+00:00"
+ "updated_at": "2026-09-15T23:51:54+00:00"
 }

@@ -25,29 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 778.0,
+  "price": 782.0,
   "ccy": "GBp",
-  "date": "2026-09-15",
+  "date": "2026-09-14",
   "source": "yahoo:MWY.L"
  },
  "discount": {
-  "estimate": -0.027488,
-  "z": -1.2015,
-  "z_status": "computed",
+  "estimate": -0.022488,
+  "z": -0.2285,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.021314,
   "sigma_36m": 0.005139,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.4757,
-  "discount_only": 0.001,
+  "central": 0.4763,
+  "discount_only": 0.0016,
   "g_used": 0.0454,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-15T21:53:22+00:00"
+ "updated_at": "2026-09-15T23:51:55+00:00"
 }

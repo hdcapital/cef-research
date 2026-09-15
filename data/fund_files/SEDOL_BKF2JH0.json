@@ -27,27 +27,27 @@
  "price": {
   "price": 87.5,
   "ccy": "GBp",
-  "date": "2026-09-15",
+  "date": "2026-09-14",
   "source": "yahoo:FWT.L"
  },
  "discount": {
   "estimate": -0.039517,
-  "z": -0.7264,
+  "z": -0.6761,
   "z_status": "within_error_band",
   "z_source": "own_daily_panel",
-  "z_window_months": 35,
-  "mu_36m": -0.020852,
-  "sigma_36m": 0.025695,
+  "z_window_months": 36,
+  "mu_36m": -0.021887,
+  "sigma_36m": 0.026076,
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 1.6445,
-  "discount_only": 1.5244,
+  "central": 0.0528,
+  "discount_only": 0.005,
   "g_used": 0.0476,
   "g_source": "market_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-15T21:53:22+00:00"
+ "updated_at": "2026-09-15T23:51:54+00:00"
 }
