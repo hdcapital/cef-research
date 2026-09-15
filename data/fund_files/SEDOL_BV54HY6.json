@@ -6,18 +6,18 @@
  "sector": "Infrastructure",
  "liveness": {
   "status": "live",
-  "reason": "nav_28d_old",
+  "reason": "nav_29d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-08-17",
-  "last_announcement": "2026-08-27"
+  "last_announcement": "2026-09-15"
  },
  "nav": {
-  "anchor": 92.58,
-  "anchor_date": "2026-08-17",
-  "anchor_source": "investegate:9723834",
-  "estimate": 92.58,
+  "anchor": 91.5,
+  "anchor_date": "2026-09-15",
+  "anchor_source": "investegate:9771598",
+  "estimate": 91.5,
   "basis": 0.0,
-  "staleness_days": 21.0,
+  "staleness_days": 0.0,
   "staleness_limit_days": 93.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 85.0999984741211,
+  "price": 83.69999694824219,
   "ccy": "GBp",
-  "date": "2026-09-11",
+  "date": "2026-09-15",
   "source": "yahoo:SEQI.L"
  },
  "discount": {
-  "estimate": -0.080795,
-  "z": 1.9959,
+  "estimate": -0.085246,
+  "z": 1.8532,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,13 +41,29 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": -0.0277,
-  "discount_only": -0.0092,
+  "central": -0.0303,
+  "discount_only": -0.0118,
   "g_used": -0.0187,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [],
- "updated_at": "2026-09-15T00:11:12+00:00"
+ "events_90d": [
+  {
+   "date": "2026-09-15",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/sequoia-economic-infrastructure-income-fund-limited--seqi/holding-s-in-company/9773651",
+   "alerted_at": null,
+   "terms": {
+    "new_pct": 5.02,
+    "prev_pct": 0.0,
+    "holder": "iv Name STATE STREET CORPORATION",
+    "direction": "buying"
+   }
+  }
+ ],
+ "updated_at": "2026-09-15T21:53:22+00:00"
 }

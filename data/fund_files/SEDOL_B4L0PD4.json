@@ -6,18 +6,18 @@
  "sector": "Global Emerging Markets",
  "liveness": {
   "status": "live",
-  "reason": "nav_3d_old",
+  "reason": "nav_4d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-11",
   "last_announcement": "2026-09-14"
  },
  "nav": {
-  "anchor": 1598.05,
-  "anchor_date": "2026-09-11",
-  "anchor_source": "investegate:9770005",
-  "estimate": 1598.05,
+  "anchor": 1571.97,
+  "anchor_date": "2026-09-14",
+  "anchor_source": "investegate:9772414",
+  "estimate": 1571.97,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1510.0,
+  "price": 1434.0,
   "ccy": "GBp",
-  "date": "2026-09-11",
+  "date": "2026-09-15",
   "source": "yahoo:FEML.L"
  },
  "discount": {
-  "estimate": -0.055098,
-  "z": 1.5887,
+  "estimate": -0.087769,
+  "z": 0.4707,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,14 +41,33 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0881,
-  "discount_only": -0.0041,
-  "g_used": 0.0486,
+  "central": 0.0736,
+  "discount_only": -0.0132,
+  "g_used": 0.0431,
   "g_source": "own_nav_history"
  },
- "holder_churn": null,
+ "holder_churn": {
+  "filings": 3,
+  "sellers": 0,
+  "buyers": 0,
+  "largest_move": null,
+  "holder": null,
+  "direction": "churn"
+ },
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-09-15",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/prn/fidelity-emerging-markets-limited-ptg-npv--feml/holding-s-in-company/9773642",
+   "alerted_at": null,
+   "terms": {
+    "holder": "City of London Investment Management Company Limited"
+   }
+  },
   {
    "date": "2026-09-11",
    "class": "holdings_notification",
@@ -74,5 +93,5 @@
    }
   }
  ],
- "updated_at": "2026-09-15T00:11:11+00:00"
+ "updated_at": "2026-09-15T21:53:22+00:00"
 }

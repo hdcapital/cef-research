@@ -6,18 +6,18 @@
  "sector": "UK Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_4d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-10",
-  "last_announcement": "2026-09-14"
+  "last_announcement": "2026-09-15"
  },
  "nav": {
-  "anchor": 293.29,
-  "anchor_date": "2026-09-11",
-  "anchor_source": "investegate:9771096",
-  "estimate": 293.29,
+  "anchor": 293.8,
+  "anchor_date": "2026-09-14",
+  "anchor_source": "investegate:9773535",
+  "estimate": 293.8,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,30 +25,43 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 250.0,
+  "price": 248.0,
   "ccy": "GBp",
-  "date": "2026-09-11",
+  "date": "2026-09-15",
   "source": "yahoo:RMMC.L"
  },
  "discount": {
-  "estimate": -0.147601,
-  "z": 0.2862,
-  "z_status": "computed",
+  "estimate": -0.155888,
+  "z": -0.0731,
+  "z_status": "within_error_band",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
   "mu_36m": -0.154202,
   "sigma_36m": 0.023064,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0098,
-  "discount_only": 0.0025,
+  "central": 0.0046,
+  "discount_only": -0.0027,
   "g_used": 0.0073,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-09-15",
+   "class": "discount_control",
+   "weight": 3,
+   "direction": "positive",
+   "headline": "Extension of Share Buyback Program",
+   "url": "https://www.investegate.co.uk/announcement/rns/river-uk-micro-cap-limited--rmmc/extension-of-share-buyback-program/9773754",
+   "alerted_at": null,
+   "terms": {
+    "llm": "error",
+    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
+   }
+  },
   {
    "date": "2026-08-06",
    "class": "holdings_notification",
@@ -60,5 +73,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-15T00:11:12+00:00"
+ "updated_at": "2026-09-15T21:53:22+00:00"
 }

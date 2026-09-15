@@ -6,10 +6,10 @@
  "sector": "Renewable Energy Infrastructure",
  "liveness": {
   "status": "live",
-  "reason": "nav_81d_old",
+  "reason": "nav_82d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-06-25",
-  "last_announcement": "2026-08-28"
+  "last_announcement": "2026-09-15"
  },
  "nav": {
   "anchor": 77.8,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 35.5,
+  "price": 35.599998474121094,
   "ccy": "GBp",
-  "date": "2026-09-11",
+  "date": "2026-09-15",
   "source": "yahoo:SEIT.L"
  },
  "discount": {
-  "estimate": -0.543702,
-  "z": -1.4077,
+  "estimate": -0.542416,
+  "z": -1.402,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -49,6 +49,16 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-09-15",
+   "class": "substantial_holder",
+   "weight": 2,
+   "direction": "positive",
+   "headline": "TR-1 Notification of Major Holdings",
+   "url": "https://www.investegate.co.uk/announcement/rns/sdcl-efficiency-income-trust--seit/tr-1-notification-of-major-holdings/9771441",
+   "alerted_at": "2026-09-15T06:34:25+00:00",
+   "terms": null
+  },
   {
    "date": "2026-08-28",
    "class": "substantial_holder",
@@ -110,5 +120,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-15T00:11:12+00:00"
+ "updated_at": "2026-09-15T21:53:22+00:00"
 }

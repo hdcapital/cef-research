@@ -6,18 +6,18 @@
  "sector": "Global Equity Income",
  "liveness": {
   "status": "live",
-  "reason": "nav_3d_old",
+  "reason": "nav_4d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-11",
   "last_announcement": "2026-09-14"
  },
  "nav": {
-  "anchor": 224.37,
-  "anchor_date": "2026-09-11",
-  "anchor_source": "investegate:9770528",
-  "estimate": 224.37,
+  "anchor": 227.01,
+  "anchor_date": "2026-09-14",
+  "anchor_source": "investegate:9772920",
+  "estimate": 227.01,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,29 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 222.0,
+  "price": 221.0,
   "ccy": "GBp",
-  "date": "2026-09-11",
+  "date": "2026-09-15",
   "source": "yahoo:STS.L"
  },
  "discount": {
-  "estimate": -0.010563,
-  "z": 0.5147,
-  "z_status": "within_error_band",
+  "estimate": -0.026475,
+  "z": -1.4684,
+  "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.014693,
   "sigma_36m": 0.008024,
-  "alert_eligible": false
+  "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0703,
-  "discount_only": -0.0018,
+  "central": 0.0713,
+  "discount_only": -0.0009,
   "g_used": 0.0722,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-15T00:11:12+00:00"
+ "updated_at": "2026-09-15T21:53:22+00:00"
 }
