@@ -6,16 +6,16 @@
  "sector": "Financials & Financial Innovation",
  "liveness": {
   "status": "live",
-  "reason": "nav_1d_old",
+  "reason": "nav_2d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-14",
   "last_announcement": "2026-09-15"
  },
  "nav": {
-  "anchor": 256.62,
-  "anchor_date": "2026-09-15",
-  "anchor_source": "investegate:9773249",
-  "estimate": 256.62,
+  "anchor": 254.41,
+  "anchor_date": "2026-09-16",
+  "anchor_source": "investegate:9775612",
+  "estimate": 254.41,
   "basis": 0.0,
   "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 250.5,
+  "price": 252.0,
   "ccy": "GBp",
-  "date": "2026-09-14",
+  "date": "2026-09-16",
   "source": "yahoo:PCFT.L"
  },
  "discount": {
-  "estimate": -0.023848,
-  "z": 1.2308,
+  "estimate": -0.009473,
+  "z": 1.7321,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1457,
-  "discount_only": -0.0058,
+  "central": 0.1444,
+  "discount_only": -0.007,
   "g_used": 0.1306,
   "g_source": "own_nav_history"
  },
  "holder_churn": {
-  "filings": 4,
+  "filings": 5,
   "sellers": 0,
   "buyers": 0,
   "largest_move": null,
@@ -56,6 +56,18 @@
  },
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-09-16",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/polar-capital-global-financials-trust--pcft/holding-s-in-company/9775893",
+   "alerted_at": null,
+   "terms": {
+    "holder": "TrinityBridge Limited"
+   }
+  },
   {
    "date": "2026-09-14",
    "class": "holdings_notification",
@@ -135,5 +147,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-15T23:51:55+00:00"
+ "updated_at": "2026-09-16T21:57:41+00:00"
 }

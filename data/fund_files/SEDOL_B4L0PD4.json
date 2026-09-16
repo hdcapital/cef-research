@@ -6,16 +6,16 @@
  "sector": "Global Emerging Markets",
  "liveness": {
   "status": "live",
-  "reason": "nav_4d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-11",
   "last_announcement": "2026-09-15"
  },
  "nav": {
-  "anchor": 1571.97,
-  "anchor_date": "2026-09-14",
-  "anchor_source": "investegate:9772414",
-  "estimate": 1571.97,
+  "anchor": 1548.14,
+  "anchor_date": "2026-09-15",
+  "anchor_source": "investegate:9774752",
+  "estimate": 1548.14,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1442.0,
+  "price": 1450.0,
   "ccy": "GBp",
-  "date": "2026-09-14",
+  "date": "2026-09-16",
   "source": "yahoo:FEML.L"
  },
  "discount": {
-  "estimate": -0.08268,
-  "z": 0.6449,
+  "estimate": -0.063392,
+  "z": 1.3049,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0807,
-  "discount_only": -0.0062,
+  "central": 0.0796,
+  "discount_only": -0.0074,
   "g_used": 0.0431,
   "g_source": "own_nav_history"
  },
@@ -93,5 +93,5 @@
    }
   }
  ],
- "updated_at": "2026-09-15T23:51:54+00:00"
+ "updated_at": "2026-09-16T21:57:40+00:00"
 }

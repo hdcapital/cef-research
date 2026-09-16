@@ -6,16 +6,16 @@
  "sector": "Debt - Loans & Bonds",
  "liveness": {
   "status": "live",
-  "reason": "nav_1d_old",
+  "reason": "nav_2d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-14",
   "last_announcement": "2026-09-15"
  },
  "nav": {
-  "anchor": 167.77,
-  "anchor_date": "2026-09-15",
-  "anchor_source": "investegate:9773192",
-  "estimate": 167.77,
+  "anchor": 167.74,
+  "anchor_date": "2026-09-16",
+  "anchor_source": "investegate:9775615",
+  "estimate": 167.74,
   "basis": 0.0,
   "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 170.5,
+  "price": 170.0,
   "ccy": "GBp",
-  "date": "2026-09-14",
+  "date": "2026-09-16",
   "source": "yahoo:BIPS.L"
  },
  "discount": {
-  "estimate": 0.016272,
-  "z": 0.3457,
+  "estimate": 0.013473,
+  "z": -0.1968,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -49,6 +49,16 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-09-16",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/mfn/invesco-bond-income-plus-limited-npv--bips/issue-of-equity/9776019",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-09-14",
    "class": "issuance",
@@ -250,5 +260,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-15T23:51:54+00:00"
+ "updated_at": "2026-09-16T21:57:40+00:00"
 }

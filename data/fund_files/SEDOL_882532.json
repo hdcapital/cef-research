@@ -6,16 +6,16 @@
  "sector": "UK Equity Income",
  "liveness": {
   "status": "live",
-  "reason": "nav_4d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-11",
   "last_announcement": "2026-09-15"
  },
  "nav": {
-  "anchor": 416.26,
-  "anchor_date": "2026-09-14",
-  "anchor_source": "investegate:9773475",
-  "estimate": 416.26,
+  "anchor": 416.0,
+  "anchor_date": "2026-09-15",
+  "anchor_source": "investegate:9775962",
+  "estimate": 416.0,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 414.0,
+  "price": 416.5,
   "ccy": "GBp",
-  "date": "2026-09-14",
+  "date": "2026-09-16",
   "source": "yahoo:TMPL.L"
  },
  "discount": {
-  "estimate": -0.005429,
-  "z": 0.7568,
+  "estimate": 0.001202,
+  "z": 0.9367,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1641,
-  "discount_only": -0.0091,
+  "central": 0.1636,
+  "discount_only": -0.0096,
   "g_used": 0.15,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-15T23:51:55+00:00"
+ "updated_at": "2026-09-16T21:57:41+00:00"
 }

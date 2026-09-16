@@ -6,18 +6,18 @@
  "sector": "Equity - Australia Small/Mid Cap",
  "liveness": {
   "status": "live",
-  "reason": "nav_36d_old",
+  "reason": "nav_8d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-08-10",
-  "last_announcement": "2026-08-25"
+  "last_nav": "2026-09-08",
+  "last_announcement": "2026-09-15"
  },
  "nav": {
-  "anchor": 2.024,
-  "anchor_date": "2026-08-10",
-  "anchor_source": "asx_ann:03123841",
-  "estimate": 2.024,
+  "anchor": 2.2126,
+  "anchor_date": "2026-09-08",
+  "anchor_source": "asx_ann:03137538",
+  "estimate": 2.2126,
   "basis": 0.0,
-  "staleness_days": 26.0,
+  "staleness_days": 6.0,
   "staleness_limit_days": 93.0,
   "current": true,
   "unit": "AUD",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 2.2899999618530273,
+  "price": 2.25,
   "ccy": "AUD",
-  "date": "2026-09-15",
+  "date": "2026-09-16",
   "source": "yahoo:RYD.AX"
  },
  "discount": {
-  "estimate": 0.131423,
-  "z": 4.4513,
+  "estimate": 0.016903,
+  "z": 2.5633,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -49,6 +49,16 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-09-15",
+   "class": "portfolio_holding",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Change in substantial holding for LDX",
+   "url": "https://announcements.asx.com.au/asxpdf/20260915/pdf/0743xkv10szqg7.pdf",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-08-17",
    "class": "portfolio_holding",
@@ -70,5 +80,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-15T23:51:54+00:00"
+ "updated_at": "2026-09-16T21:57:39+00:00"
 }

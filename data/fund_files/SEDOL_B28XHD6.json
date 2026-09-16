@@ -6,10 +6,10 @@
  "sector": "Private Equity",
  "liveness": {
   "status": "live",
-  "reason": "nav_21d_old",
+  "reason": "nav_22d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-08-25",
-  "last_announcement": "2026-09-15"
+  "last_announcement": "2026-09-16"
  },
  "nav": {
   "anchor": 4390.0,
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9737677",
   "estimate": 4390.0,
   "basis": 0.0,
-  "staleness_days": 32.0,
+  "staleness_days": 33.0,
   "staleness_limit_days": 93.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 3260.0,
+  "price": 3270.0,
   "ccy": "GBp",
-  "date": "2026-09-14",
+  "date": "2026-09-16",
   "source": "yahoo:HVPE.L"
  },
  "discount": {
-  "estimate": -0.257403,
-  "z": 1.3804,
+  "estimate": -0.255125,
+  "z": 1.4136,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,13 +41,27 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": -0.0056,
-  "discount_only": -0.0394,
+  "central": -0.005,
+  "discount_only": -0.0388,
   "g_used": 0.0351,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [],
- "updated_at": "2026-09-15T23:51:54+00:00"
+ "events_90d": [
+  {
+   "date": "2026-09-16",
+   "class": "tender_offer",
+   "weight": 4,
+   "direction": "positive",
+   "headline": "Tender Offer Timing Update",
+   "url": "https://www.investegate.co.uk/announcement/rns/harbourvest-global-private-equity-limited-a-shs--hvpe/tender-offer-timing-update/9773858",
+   "alerted_at": "2026-09-16T06:34:18+00:00",
+   "terms": {
+    "llm": "error",
+    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
+   }
+  }
+ ],
+ "updated_at": "2026-09-16T21:57:40+00:00"
 }

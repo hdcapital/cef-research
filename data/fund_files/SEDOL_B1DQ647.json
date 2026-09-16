@@ -6,16 +6,16 @@
  "sector": "Global Equity Income",
  "liveness": {
   "status": "live",
-  "reason": "nav_4d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-11",
   "last_announcement": "2026-09-15"
  },
  "nav": {
-  "anchor": 394.49,
-  "anchor_date": "2026-09-14",
-  "anchor_source": "investegate:9773188",
-  "estimate": 394.49,
+  "anchor": 391.39,
+  "anchor_date": "2026-09-15",
+  "anchor_source": "investegate:9775616",
+  "estimate": 391.39,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 403.0,
+  "price": 399.0,
   "ccy": "GBp",
-  "date": "2026-09-14",
+  "date": "2026-09-16",
   "source": "yahoo:IGET.L"
  },
  "discount": {
-  "estimate": 0.021572,
-  "z": 1.0098,
+  "estimate": 0.019444,
+  "z": 0.9779,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,14 +41,24 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1044,
-  "discount_only": -0.0174,
+  "central": 0.1011,
+  "discount_only": -0.0203,
   "g_used": 0.1057,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-09-16",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/mfn/invesco-global-equity-income-trust-plc--iget/issue-of-equity/9776032",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-09-10",
    "class": "issuance",
@@ -200,5 +210,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-15T23:51:54+00:00"
+ "updated_at": "2026-09-16T21:57:40+00:00"
 }

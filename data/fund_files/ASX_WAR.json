@@ -6,34 +6,34 @@
  "sector": "Equity - Australia Strategy",
  "liveness": {
   "status": "live",
-  "reason": "nav_36d_old",
+  "reason": "nav_8d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-08-10",
-  "last_announcement": "2026-08-20"
+  "last_nav": "2026-09-08",
+  "last_announcement": "2026-09-08"
  },
  "nav": {
-  "anchor": 1.76,
-  "anchor_date": "2026-08-10",
-  "anchor_source": "asx_ann:03123923",
-  "estimate": 1.76,
-  "basis": 0.0,
-  "staleness_days": 26.0,
+  "anchor": 1.2637,
+  "anchor_date": "2026-07-31",
+  "anchor_source": "aggregator_panel:2026-07",
+  "estimate": 1.246687,
+  "basis": 1.0,
+  "staleness_days": 33.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "AUD",
-  "quality_ok": false,
-  "quality_reason": "nav_jump_39%_vs_prior"
+  "quality_ok": true,
+  "quality_reason": ""
  },
  "price": {
-  "price": 1.1449999809265137,
+  "price": 1.1299999952316284,
   "ccy": "AUD",
-  "date": "2026-09-15",
+  "date": "2026-09-16",
   "source": "yahoo:WAR.AX"
  },
  "discount": {
-  "estimate": -0.349432,
-  "z": -3.3763,
-  "z_status": "computed",
+  "estimate": -0.093598,
+  "z": 0.87,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.146016,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-15T23:51:54+00:00"
+ "updated_at": "2026-09-16T21:57:39+00:00"
 }

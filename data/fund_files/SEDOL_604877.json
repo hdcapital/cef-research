@@ -6,16 +6,16 @@
  "sector": "India / Indian Subcontinent",
  "liveness": {
   "status": "live",
-  "reason": "nav_4d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-11",
   "last_announcement": "2026-09-11"
  },
  "nav": {
-  "anchor": 792.92,
-  "anchor_date": "2026-09-14",
-  "anchor_source": "investegate:9772972",
-  "estimate": 792.92,
+  "anchor": 772.57,
+  "anchor_date": "2026-09-15",
+  "anchor_source": "investegate:9775419",
+  "estimate": 772.57,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 710.0,
+  "price": 700.0,
   "ccy": "GBp",
-  "date": "2026-09-14",
+  "date": "2026-09-16",
   "source": "yahoo:ANII.L"
  },
  "discount": {
-  "estimate": -0.104575,
-  "z": 0.8489,
+  "estimate": -0.093933,
+  "z": 1.0994,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,14 +41,27 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0457,
-  "discount_only": -0.0132,
+  "central": 0.0434,
+  "discount_only": -0.0154,
   "g_used": 0.0493,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-09-16",
+   "class": "tender_offer",
+   "weight": 4,
+   "direction": "positive",
+   "headline": "Conditional Tender Offer - Performance Update",
+   "url": "https://www.investegate.co.uk/announcement/rns/aberdeen-new-india-investment-trust--anii/conditional-tender-offer-performance-update/9773862",
+   "alerted_at": "2026-09-16T06:34:18+00:00",
+   "terms": {
+    "llm": "error",
+    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
+   }
+  },
   {
    "date": "2026-08-20",
    "class": "tender_offer",
@@ -71,5 +84,5 @@
    }
   }
  ],
- "updated_at": "2026-09-15T23:51:54+00:00"
+ "updated_at": "2026-09-16T21:57:39+00:00"
 }

@@ -6,16 +6,16 @@
  "sector": "Asia Pacific",
  "liveness": {
   "status": "live",
-  "reason": "nav_4d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-11",
   "last_announcement": "2026-09-11"
  },
  "nav": {
-  "anchor": 437.25,
-  "anchor_date": "2026-09-14",
-  "anchor_source": "investegate:9773463",
-  "estimate": 437.25,
+  "anchor": 435.53,
+  "anchor_date": "2026-09-15",
+  "anchor_source": "investegate:9775964",
+  "estimate": 435.53,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 413.0,
+  "price": 412.0,
   "ccy": "GBp",
-  "date": "2026-09-14",
+  "date": "2026-09-16",
   "source": "yahoo:PAC.L"
  },
  "discount": {
-  "estimate": -0.05546,
-  "z": 1.8236,
+  "estimate": -0.054026,
+  "z": 1.8783,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0212,
-  "discount_only": -0.0089,
+  "central": 0.0208,
+  "discount_only": -0.0094,
   "g_used": 0.0118,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-15T23:51:55+00:00"
+ "updated_at": "2026-09-16T21:57:41+00:00"
 }

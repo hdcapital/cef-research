@@ -6,7 +6,7 @@
  "sector": "Equity - Australia",
  "liveness": {
   "status": "delist_candidate",
-  "reason": "aggregator_delisted_and_own_filings_silent_2437d",
+  "reason": "aggregator_delisted_and_own_filings_silent_2438d",
   "source": "corroborated_delisting",
   "last_nav": "2020-01-13",
   "last_announcement": "2020-01-13"
@@ -17,7 +17,7 @@
   "anchor_source": "aggregator_panel:2019-08",
   "estimate": 0.0013,
   "basis": 3.0,
-  "staleness_days": 1836.0,
+  "staleness_days": 1837.0,
   "staleness_limit_days": 93.0,
   "current": false,
   "unit": "AUD",
@@ -25,14 +25,14 @@
   "quality_reason": "unit_suspect_scale"
  },
  "price": {
-  "price": 0.032999999821186066,
+  "price": 0.03099999949336052,
   "ccy": "AUD",
-  "date": "2026-09-15",
+  "date": "2026-09-16",
   "source": "yahoo:BSN.AX"
  },
  "discount": {
-  "estimate": 24.384615,
-  "z": 17.1611,
+  "estimate": 22.846153,
+  "z": 15.9702,
   "z_status": "history_stale_2019-08",
   "z_source": "aggregator_panel",
   "z_window_months": 11,
@@ -48,6 +48,20 @@
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [],
- "updated_at": "2026-09-15T23:51:53+00:00"
+ "events_90d": [
+  {
+   "date": "2026-08-31",
+   "class": "realisation",
+   "weight": 1,
+   "direction": "positive",
+   "headline": "Sale Of Marshall Uranium Project in Canada Completed",
+   "url": "https://announcements.asx.com.au/asxpdf/20260901/pdf/073kl0z0mbsgnl.pdf",
+   "alerted_at": null,
+   "terms": {
+    "unparsed": true,
+    "parser": "r2"
+   }
+  }
+ ],
+ "updated_at": "2026-09-16T21:57:39+00:00"
 }

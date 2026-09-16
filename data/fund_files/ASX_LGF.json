@@ -6,10 +6,10 @@
  "sector": "Equity - Global Strategy",
  "liveness": {
   "status": "live",
-  "reason": "nav_19d_old",
+  "reason": "nav_1d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-08-27",
-  "last_announcement": "2026-08-30"
+  "last_nav": "2026-09-15",
+  "last_announcement": "2026-09-16"
  },
  "nav": {
   "anchor": 1.7058000000000002,
@@ -17,7 +17,7 @@
   "anchor_source": "aggregator_panel:2026-07",
   "estimate": 1.7058,
   "basis": 3.0,
-  "staleness_days": 32.0,
+  "staleness_days": 33.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "AUD",
@@ -50,6 +50,16 @@
  "realisations": null,
  "events_90d": [
   {
+   "date": "2026-09-04",
+   "class": "substantial_holder",
+   "weight": 2,
+   "direction": "positive",
+   "headline": "Change in substantial holding",
+   "url": "https://announcements.asx.com.au/asxpdf/20260904/pdf/073r891fh7kx54.pdf",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
    "date": "2026-08-25",
    "class": "substantial_holder",
    "weight": 2,
@@ -60,5 +70,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-15T23:51:53+00:00"
+ "updated_at": "2026-09-16T21:57:39+00:00"
 }

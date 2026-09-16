@@ -6,16 +6,16 @@
  "sector": "Asia Pacific Equity Income",
  "liveness": {
   "status": "live",
-  "reason": "nav_4d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-11",
   "last_announcement": "2026-09-15"
  },
  "nav": {
-  "anchor": 339.06,
-  "anchor_date": "2026-09-14",
-  "anchor_source": "investegate:9772950",
-  "estimate": 339.06,
+  "anchor": 335.73,
+  "anchor_date": "2026-09-15",
+  "anchor_source": "investegate:9775375",
+  "estimate": 335.73,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 313.0,
+  "price": 315.0,
   "ccy": "GBp",
-  "date": "2026-09-14",
+  "date": "2026-09-16",
   "source": "yahoo:AAIF.L"
  },
  "discount": {
-  "estimate": -0.07686,
-  "z": 0.9851,
+  "estimate": -0.061746,
+  "z": 1.5299,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-15T23:51:54+00:00"
+ "updated_at": "2026-09-16T21:57:39+00:00"
 }

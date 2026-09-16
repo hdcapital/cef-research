@@ -6,16 +6,16 @@
  "sector": "UK Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_4d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-11",
   "last_announcement": "2026-09-15"
  },
  "nav": {
-  "anchor": 293.8,
-  "anchor_date": "2026-09-14",
-  "anchor_source": "investegate:9773535",
-  "estimate": 293.8,
+  "anchor": 295.03,
+  "anchor_date": "2026-09-15",
+  "anchor_source": "investegate:9775851",
+  "estimate": 295.03,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 244.0,
+  "price": 249.0,
   "ccy": "GBp",
-  "date": "2026-09-14",
+  "date": "2026-09-16",
   "source": "yahoo:RMMC.L"
  },
  "discount": {
-  "estimate": -0.169503,
-  "z": -0.6487,
-  "z_status": "computed",
+  "estimate": -0.156018,
+  "z": -0.0667,
+  "z_status": "within_error_band",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
   "mu_36m": -0.154471,
   "sigma_36m": 0.023171,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0066,
-  "discount_only": -0.0007,
+  "central": 0.0098,
+  "discount_only": 0.0024,
   "g_used": 0.0073,
   "g_source": "own_nav_history"
  },
@@ -56,7 +56,7 @@
    "direction": "positive",
    "headline": "Extension of Share Buyback Program",
    "url": "https://www.investegate.co.uk/announcement/rns/river-uk-micro-cap-limited--rmmc/extension-of-share-buyback-program/9773754",
-   "alerted_at": null,
+   "alerted_at": "2026-09-15T23:36:21+00:00",
    "terms": {
     "llm": "error",
     "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
@@ -73,5 +73,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-15T23:51:55+00:00"
+ "updated_at": "2026-09-16T21:57:41+00:00"
 }
