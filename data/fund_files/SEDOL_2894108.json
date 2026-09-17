@@ -6,10 +6,10 @@
  "sector": "Flexible Investment",
  "liveness": {
   "status": "live",
-  "reason": "nav_3d_old",
+  "reason": "nav_2d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-09-14",
-  "last_announcement": "2026-09-16"
+  "last_nav": "2026-09-15",
+  "last_announcement": "2026-09-17"
  },
  "nav": {
   "anchor": 546.62,
@@ -25,29 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 328.0,
+  "price": 332.0,
   "ccy": "GBp",
-  "date": "2026-09-17",
+  "date": "2026-09-16",
   "source": "yahoo:HAN.L"
  },
  "discount": {
-  "estimate": -0.399949,
-  "z": 0.1314,
-  "z_status": "within_error_band",
+  "estimate": -0.392631,
+  "z": 0.3432,
+  "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.404488,
   "sigma_36m": 0.034546,
-  "alert_eligible": false
+  "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.2218,
-  "discount_only": -0.0076,
+  "central": 0.2275,
+  "discount_only": -0.0021,
   "g_used": 0.0931,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-17T21:54:53+00:00"
+ "updated_at": "2026-09-17T23:53:20+00:00"
 }

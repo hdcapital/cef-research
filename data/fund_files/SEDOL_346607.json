@@ -6,9 +6,9 @@
  "sector": "Global",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_1d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-09-15",
+  "last_nav": "2026-09-16",
   "last_announcement": "2026-09-11"
  },
  "nav": {
@@ -25,29 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 342.3999938964844,
+  "price": 338.79998779296875,
   "ccy": "GBp",
-  "date": "2026-09-17",
+  "date": "2026-09-16",
   "source": "yahoo:FCIT.L"
  },
  "discount": {
-  "estimate": -0.075244,
-  "z": 0.7061,
-  "z_status": "computed",
+  "estimate": -0.084967,
+  "z": 0.0309,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.085413,
   "sigma_36m": 0.0144,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1102,
-  "discount_only": 0.0005,
+  "central": 0.108,
+  "discount_only": -0.0016,
   "g_used": 0.0962,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-17T21:54:53+00:00"
+ "updated_at": "2026-09-17T23:53:19+00:00"
 }

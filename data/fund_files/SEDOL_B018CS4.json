@@ -6,9 +6,9 @@
  "sector": "Flexible Investment",
  "liveness": {
   "status": "live",
-  "reason": "nav_8d_old",
+  "reason": "nav_1d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-09-09",
+  "last_nav": "2026-09-16",
   "last_announcement": "2026-09-16"
  },
  "nav": {
@@ -27,27 +27,27 @@
  "price": {
   "price": 298.5,
   "ccy": "GBp",
-  "date": "2026-09-17",
+  "date": "2026-09-16",
   "source": "yahoo:RICA.L"
  },
  "discount": {
   "estimate": -0.034543,
-  "z": 0.2281,
+  "z": 0.2124,
   "z_status": "within_error_band",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.038058,
-  "sigma_36m": 0.015408,
+  "mu_36m": -0.037813,
+  "sigma_36m": 0.015391,
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0469,
-  "discount_only": 0.0004,
+  "central": 0.0473,
+  "discount_only": 0.0007,
   "g_used": 0.0466,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-17T21:54:54+00:00"
+ "updated_at": "2026-09-17T23:53:20+00:00"
 }
