@@ -10,7 +10,7 @@
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 172,
+  "alert_eligible": 161,
   "z_extremes": [
     {
       "security_id": "ASX:REV",
@@ -50,15 +50,15 @@
     },
     {
       "security_id": "SEDOL:BNGFHX1",
-      "z_adj": -37.4385,
+      "z_adj": -37.2586,
       "discount_est": -0.990462,
       "staleness_days": 57.0
     },
     {
       "security_id": "SEDOL:B1G3N11",
-      "z_adj": -36.2378,
-      "discount_est": -0.887744,
-      "staleness_days": 2.0
+      "z_adj": -36.13,
+      "discount_est": -0.885402,
+      "staleness_days": 1.0
     },
     {
       "security_id": "ASX:ALR",
@@ -138,16 +138,16 @@
       "manager_exit": 3,
       "liquidation_wind_down": 3,
       "discount_control": 3,
-      "strategic_review": 2,
-      "offer_withdrawn": 2,
-      "scheme_merger_rollover": 2
+      "suspension": 2,
+      "scheme_merger_rollover": 2,
+      "strategic_review": 2
     },
     "unalerted": 407,
     "holdings_with_terms": 69,
     "tr1": {
-      "candidates": 2,
-      "fetched": 2,
-      "parsed": 2,
+      "candidates": 0,
+      "fetched": 0,
+      "parsed": 0,
       "failed": 0
     },
     "realisations": {
@@ -173,14 +173,14 @@
   },
   "carried_forward_rows": 0,
   "nav_quarantine": {
-    "rows": 462,
+    "rows": 463,
     "by_reason": {
       "stale_panel_price_only": 215,
       "nav_not_positive": 180,
       "no_price": 36,
       "nav_jump_N_vs_prior": 10,
       "unit_suspect_scale": 10,
-      "nav_jump_N_vs_own": 6,
+      "nav_jump_N_vs_own": 7,
       "nav_unit_mismatch_N_vs_prior": 5
     }
   },
