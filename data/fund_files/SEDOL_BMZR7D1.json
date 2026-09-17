@@ -6,10 +6,10 @@
  "sector": "Global Emerging Markets",
  "liveness": {
   "status": "live",
-  "reason": "nav_5d_old",
+  "reason": "nav_2d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-09-11",
-  "last_announcement": "2026-09-15"
+  "last_nav": "2026-09-14",
+  "last_announcement": "2026-09-16"
  },
  "nav": {
   "anchor": 180.71,
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9775934",
   "estimate": 180.71,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 2.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 178.0,
+  "price": 179.5,
   "ccy": "GBp",
-  "date": "2026-09-16",
+  "date": "2026-09-15",
   "source": "yahoo:AWEM.L"
  },
  "discount": {
-  "estimate": -0.014996,
-  "z": -0.6278,
-  "z_status": "computed",
+  "estimate": -0.006696,
+  "z": -0.2159,
+  "z_status": "within_error_band",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.002532,
-  "sigma_36m": 0.019854,
-  "alert_eligible": true
+  "mu_36m": -0.002436,
+  "sigma_36m": 0.019728,
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1363,
-  "discount_only": 0.0053,
+  "central": 0.1338,
+  "discount_only": 0.0031,
   "g_used": 0.1303,
   "g_source": "own_nav_history"
  },
@@ -82,5 +82,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-16T21:57:39+00:00"
+ "updated_at": "2026-09-17T00:02:05+00:00"
 }
