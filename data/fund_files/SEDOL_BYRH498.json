@@ -6,10 +6,10 @@
  "sector": "UK Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_5d_old",
+  "reason": "nav_6d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-11",
-  "last_announcement": "2026-09-14"
+  "last_announcement": "2026-09-17"
  },
  "nav": {
   "anchor": 309.38,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 313.0,
+  "price": 315.0,
   "ccy": "GBp",
-  "date": "2026-09-15",
+  "date": "2026-09-17",
   "source": "yahoo:RKW.L"
  },
  "discount": {
-  "estimate": 0.011701,
-  "z": -0.1289,
+  "estimate": 0.018165,
+  "z": 0.139,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,14 +41,24 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.079,
-  "discount_only": -0.0027,
+  "central": 0.081,
+  "discount_only": -0.0008,
   "g_used": 0.0542,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-09-17",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity and TVR",
+   "url": "https://www.investegate.co.uk/announcement/rns/rockwood-strategic--rkw/issue-of-equity-and-tvr/9776222",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-09-11",
    "class": "issuance",
@@ -190,5 +200,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-17T00:02:07+00:00"
+ "updated_at": "2026-09-17T21:54:54+00:00"
 }

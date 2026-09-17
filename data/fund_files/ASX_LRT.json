@@ -6,7 +6,7 @@
  "sector": "Equity - Global",
  "liveness": {
   "status": "live",
-  "reason": "nav_1d_old",
+  "reason": "nav_2d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-15",
   "last_announcement": "2026-09-15"
@@ -17,7 +17,7 @@
   "anchor_source": "asx_ann:03139978",
   "estimate": 2.5984,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 2.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "AUD",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 2.009999990463257,
+  "price": 2.0,
   "ccy": "AUD",
-  "date": "2026-09-16",
+  "date": "2026-09-17",
   "source": "yahoo:LRT.AX"
  },
  "discount": {
-  "estimate": -0.226447,
-  "z": -0.7648,
+  "estimate": -0.230296,
+  "z": -0.8105,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-17T00:02:05+00:00"
+ "updated_at": "2026-09-17T21:54:52+00:00"
 }

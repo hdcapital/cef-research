@@ -6,18 +6,18 @@
  "sector": "India / Indian Subcontinent",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-14",
   "last_announcement": "2026-09-11"
  },
  "nav": {
-  "anchor": 772.57,
-  "anchor_date": "2026-09-15",
-  "anchor_source": "investegate:9775419",
-  "estimate": 772.57,
+  "anchor": 778.96,
+  "anchor_date": "2026-09-16",
+  "anchor_source": "investegate:9777743",
+  "estimate": 778.96,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -27,12 +27,12 @@
  "price": {
   "price": 702.0,
   "ccy": "GBp",
-  "date": "2026-09-15",
+  "date": "2026-09-17",
   "source": "yahoo:ANII.L"
  },
  "discount": {
-  "estimate": -0.091344,
-  "z": 1.1603,
+  "estimate": -0.098798,
+  "z": 0.9849,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.041,
-  "discount_only": -0.0177,
+  "central": 0.0404,
+  "discount_only": -0.0183,
   "g_used": 0.0493,
   "g_source": "own_nav_history"
  },
@@ -84,5 +84,5 @@
    }
   }
  ],
- "updated_at": "2026-09-17T00:02:05+00:00"
+ "updated_at": "2026-09-17T21:54:53+00:00"
 }

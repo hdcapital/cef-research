@@ -6,7 +6,7 @@
  "sector": "Debt - Direct Lending",
  "liveness": {
   "status": "live",
-  "reason": "nav_61d_old",
+  "reason": "nav_62d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-07-17",
   "last_announcement": "2026-09-15"
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 60.0,
+  "price": 60.5,
   "ccy": "GBp",
-  "date": "2026-09-15",
+  "date": "2026-09-17",
   "source": "yahoo:GABI.L"
  },
  "discount": {
-  "estimate": -0.145543,
-  "z": 0.632,
+  "estimate": -0.138422,
+  "z": 0.704,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0478,
-  "discount_only": 0.0002,
+  "central": 0.0507,
+  "discount_only": 0.003,
   "g_used": 0.0476,
   "g_source": "market_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-17T00:02:06+00:00"
+ "updated_at": "2026-09-17T21:54:53+00:00"
 }

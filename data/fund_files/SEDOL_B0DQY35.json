@@ -6,18 +6,18 @@
  "sector": "Global Emerging Markets",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-14",
   "last_announcement": "2026-09-16"
  },
  "nav": {
-  "anchor": 310.11,
-  "anchor_date": "2026-09-15",
-  "anchor_source": "investegate:9775448",
-  "estimate": 310.11,
+  "anchor": 309.45,
+  "anchor_date": "2026-09-16",
+  "anchor_source": "investegate:9777963",
+  "estimate": 309.45,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 282.0,
+  "price": 280.0,
   "ccy": "GBp",
-  "date": "2026-09-15",
+  "date": "2026-09-17",
   "source": "yahoo:UEM.L"
  },
  "discount": {
-  "estimate": -0.090645,
-  "z": 1.485,
+  "estimate": -0.095169,
+  "z": 1.3598,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0694,
-  "discount_only": -0.0096,
+  "central": 0.0687,
+  "discount_only": -0.0103,
   "g_used": 0.0477,
   "g_source": "own_nav_history"
  },
@@ -56,7 +56,7 @@
    "direction": "positive",
    "headline": "Holding(s) in Company - City of London",
    "url": "https://www.investegate.co.uk/announcement/rns/utilico-emerging-markets-ltd-di---uem/holding-s-in-company-city-of-london/9775994",
-   "alerted_at": null,
+   "alerted_at": "2026-09-16T23:36:52+00:00",
    "terms": null
   },
   {
@@ -70,5 +70,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-17T00:02:07+00:00"
+ "updated_at": "2026-09-17T21:54:54+00:00"
 }

@@ -6,7 +6,7 @@
  "sector": "Commodities & Natural Resources",
  "liveness": {
   "status": "live_stale_nav",
-  "reason": "periodic_report_196d_old_no_recent_nav",
+  "reason": "periodic_report_197d_old_no_recent_nav",
   "source": "own_periodic_report",
   "last_nav": "2026-05-18",
   "last_announcement": "2026-08-19"
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 576.0,
+  "price": 585.0,
   "ccy": "GBp",
-  "date": "2026-09-15",
+  "date": "2026-09-17",
   "source": "yahoo:RSE.L"
  },
  "discount": {
-  "estimate": -0.523573,
-  "z": -1.5847,
+  "estimate": -0.516129,
+  "z": -1.5053,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.2028,
-  "discount_only": 0.0459,
+  "central": 0.2024,
+  "discount_only": 0.0455,
   "g_used": 0.15,
   "g_source": "sector_median"
  },
@@ -60,5 +60,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-17T00:02:07+00:00"
+ "updated_at": "2026-09-17T21:54:54+00:00"
 }

@@ -6,18 +6,18 @@
  "sector": "Global",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-14",
   "last_announcement": "2026-09-11"
  },
  "nav": {
-  "anchor": 795.9,
-  "anchor_date": "2026-09-15",
-  "anchor_source": "investegate:9775673",
-  "estimate": 795.9,
+  "anchor": 797.01,
+  "anchor_date": "2026-09-16",
+  "anchor_source": "investegate:9777951",
+  "estimate": 797.01,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 778.0,
+  "price": 784.0,
   "ccy": "GBp",
-  "date": "2026-09-15",
+  "date": "2026-09-17",
   "source": "yahoo:MWY.L"
  },
  "discount": {
-  "estimate": -0.02249,
-  "z": -0.229,
+  "estimate": -0.016324,
+  "z": 0.9711,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-17T00:02:06+00:00"
+ "updated_at": "2026-09-17T21:54:54+00:00"
 }

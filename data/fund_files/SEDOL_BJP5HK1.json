@@ -6,10 +6,10 @@
  "sector": "Property - UK Residential",
  "liveness": {
   "status": "live",
-  "reason": "nav_119d_old",
+  "reason": "nav_120d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-05-20",
-  "last_announcement": "2026-09-09"
+  "last_announcement": "2026-09-17"
  },
  "nav": {
   "anchor": 18.1,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 9.600000381469727,
+  "price": 9.899999618530273,
   "ccy": "GBp",
-  "date": "2026-09-15",
+  "date": "2026-09-17",
   "source": "yahoo:HOME.L"
  },
  "discount": {
-  "estimate": -0.469613,
-  "z": -1.5939,
+  "estimate": -0.453039,
+  "z": -1.5302,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 24,
@@ -41,14 +41,27 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.2,
-  "discount_only": 0.1455,
+  "central": 0.2061,
+  "discount_only": 0.1514,
   "g_used": 0.0476,
   "g_source": "market_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-09-17",
+   "class": "liquidation_wind_down",
+   "weight": 5,
+   "direction": "positive",
+   "headline": "Company update: Managed Wind Down",
+   "url": "https://www.investegate.co.uk/announcement/rns/home-reit--home/company-update-managed-wind-down-/9776208",
+   "alerted_at": "2026-09-17T06:34:46+00:00",
+   "terms": {
+    "llm": "error",
+    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
+   }
+  },
   {
    "date": "2026-07-31",
    "class": "holdings_notification",
@@ -83,5 +96,5 @@
    }
   }
  ],
- "updated_at": "2026-09-17T00:02:06+00:00"
+ "updated_at": "2026-09-17T21:54:53+00:00"
 }

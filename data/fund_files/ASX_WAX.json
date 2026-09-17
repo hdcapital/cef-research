@@ -6,7 +6,7 @@
  "sector": "Equity - Australia Small/Mid Cap",
  "liveness": {
   "status": "live",
-  "reason": "nav_10d_old",
+  "reason": "nav_11d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-06",
   "last_announcement": "2026-09-15"
@@ -15,9 +15,9 @@
   "anchor": 0.7448,
   "anchor_date": "2026-07-31",
   "anchor_source": "aggregator_panel:2026-07",
-  "estimate": 0.732014,
+  "estimate": 0.741961,
   "basis": 1.0,
-  "staleness_days": 33.0,
+  "staleness_days": 34.0,
   "staleness_limit_days": 135.0,
   "current": true,
   "unit": "AUD",
@@ -27,12 +27,12 @@
  "price": {
   "price": 0.8500000238418579,
   "ccy": "AUD",
-  "date": "2026-09-16",
+  "date": "2026-09-17",
   "source": "yahoo:WAX.AX"
  },
  "discount": {
-  "estimate": 0.161181,
-  "z": 0.1989,
+  "estimate": 0.145612,
+  "z": 0.0912,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -42,7 +42,7 @@
  },
  "forward_irr": {
   "central": 0.2032,
-  "discount_only": 0.006,
+  "discount_only": 0.0061,
   "g_used": 0.123,
   "g_source": "panel_tr_cagr"
  },
@@ -70,5 +70,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-17T00:02:05+00:00"
+ "updated_at": "2026-09-17T21:54:52+00:00"
 }

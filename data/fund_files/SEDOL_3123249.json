@@ -6,18 +6,18 @@
  "sector": "Environmental",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-14",
   "last_announcement": "2026-09-11"
  },
  "nav": {
-  "anchor": 476.19,
-  "anchor_date": "2026-09-15",
-  "anchor_source": "investegate:9775698",
-  "estimate": 476.19,
+  "anchor": 480.35,
+  "anchor_date": "2026-09-16",
+  "anchor_source": "investegate:9777836",
+  "estimate": 480.35,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 428.5,
+  "price": 438.5,
   "ccy": "GBp",
-  "date": "2026-09-15",
+  "date": "2026-09-17",
   "source": "yahoo:IEM.L"
  },
  "discount": {
-  "estimate": -0.100149,
-  "z": -0.0206,
-  "z_status": "within_error_band",
+  "estimate": -0.087124,
+  "z": 0.5786,
+  "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.099702,
   "sigma_36m": 0.021737,
-  "alert_eligible": false
+  "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0262,
-  "discount_only": 0.0035,
+  "central": 0.0269,
+  "discount_only": 0.0042,
   "g_used": 0.0088,
   "g_source": "panel_tr_cagr"
  },
@@ -74,5 +74,5 @@
    }
   }
  ],
- "updated_at": "2026-09-17T00:02:06+00:00"
+ "updated_at": "2026-09-17T21:54:53+00:00"
 }

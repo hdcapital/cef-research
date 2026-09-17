@@ -6,7 +6,7 @@
  "sector": "Biotechnology & Healthcare",
  "liveness": {
   "status": "live",
-  "reason": "nav_90d_old",
+  "reason": "nav_91d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-06-18",
   "last_announcement": "2026-09-11"
@@ -25,13 +25,13 @@
   "quality_reason": "nav_jump_3340%_vs_own"
  },
  "price": {
-  "price": 113.5999984741211,
+  "price": 111.80000305175781,
   "ccy": "GBp",
-  "date": "2026-09-15",
+  "date": "2026-09-17",
   "source": "yahoo:SYNC.L"
  },
  "discount": {
-  "estimate": -0.334232,
+  "estimate": -0.344781,
   "z": null,
   "z_status": "no_discount_history",
   "z_source": null,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1667,
-  "discount_only": 0.1327,
+  "central": 0.1625,
+  "discount_only": 0.1287,
   "g_used": 0.03,
   "g_source": "sector_median"
  },
  "holder_churn": {
-  "filings": 3,
+  "filings": 4,
   "sellers": 0,
   "buyers": 0,
   "largest_move": null,
@@ -56,6 +56,18 @@
  },
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-09-17",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/syncona-limited-npv--sync/holding-s-in-company/9778325",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Jefferies Financial Group Inc"
+   }
+  },
   {
    "date": "2026-09-11",
    "class": "holdings_notification",
@@ -113,5 +125,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-17T00:02:07+00:00"
+ "updated_at": "2026-09-17T21:54:54+00:00"
 }

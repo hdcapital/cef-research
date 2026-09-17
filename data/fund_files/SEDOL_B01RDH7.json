@@ -6,18 +6,18 @@
  "sector": "Europe",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-14",
-  "last_announcement": "2026-09-16"
+  "last_announcement": "2026-09-17"
  },
  "nav": {
-  "anchor": 612.52,
-  "anchor_date": "2026-09-15",
-  "anchor_source": "investegate:9775430",
-  "estimate": 612.52,
+  "anchor": 621.29,
+  "anchor_date": "2026-09-16",
+  "anchor_source": "investegate:9777940",
+  "estimate": 621.29,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,29 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 569.0,
+  "price": 585.0,
   "ccy": "GBp",
-  "date": "2026-09-15",
+  "date": "2026-09-17",
   "source": "yahoo:BRGE.L"
  },
  "discount": {
-  "estimate": -0.071051,
-  "z": -1.0156,
-  "z_status": "computed",
+  "estimate": -0.058411,
+  "z": 0.0455,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.058953,
   "sigma_36m": 0.011912,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0824,
-  "discount_only": 0.0011,
+  "central": 0.085,
+  "discount_only": 0.0035,
   "g_used": 0.0606,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-17T00:02:06+00:00"
+ "updated_at": "2026-09-17T21:54:53+00:00"
 }

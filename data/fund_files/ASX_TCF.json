@@ -6,7 +6,7 @@
  "sector": "Fixed Income - Australian Dollar",
  "liveness": {
   "status": "live",
-  "reason": "nav_5d_old",
+  "reason": "nav_6d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-11",
   "last_announcement": "2026-09-11"
@@ -17,7 +17,7 @@
   "anchor_source": "asx_ann:03138706",
   "estimate": 5.954,
   "basis": 0.0,
-  "staleness_days": 3.0,
+  "staleness_days": 4.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "AUD",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 5.03000020980835,
+  "price": 5.010000228881836,
   "ccy": "AUD",
-  "date": "2026-09-16",
+  "date": "2026-09-17",
   "source": "yahoo:TCF.AX"
  },
  "discount": {
-  "estimate": -0.15519,
-  "z": -1.9878,
+  "estimate": -0.158549,
+  "z": -2.0501,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-17T00:02:05+00:00"
+ "updated_at": "2026-09-17T21:54:52+00:00"
 }
