@@ -4,76 +4,76 @@
   "rows_without_nav": 328,
   "basis_counts": {
     "nan": 328,
-    "3.0": 309,
-    "0.0": 290,
+    "3.0": 308,
+    "0.0": 291,
     "1.0": 189
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 176,
+  "alert_eligible": 172,
   "z_extremes": [
     {
       "security_id": "ASX:REV",
-      "z_adj": -82.6248,
-      "discount_est": -0.869781,
-      "staleness_days": 2.0
+      "z_adj": -82.5301,
+      "discount_est": -0.868787,
+      "staleness_days": 3.0
     },
     {
       "security_id": "SEDOL:721163",
       "z_adj": -72.5944,
       "discount_est": -0.976268,
-      "staleness_days": 3149.0
+      "staleness_days": 3150.0
     },
     {
       "security_id": "SEDOL:BL690L8",
       "z_adj": -61.0706,
       "discount_est": -0.989873,
-      "staleness_days": 103.0
+      "staleness_days": 104.0
     },
     {
       "security_id": "SEDOL:BYMJ7X4",
       "z_adj": -59.1482,
       "discount_est": -0.629934,
-      "staleness_days": 1264.0
+      "staleness_days": 1265.0
     },
     {
       "security_id": "SEDOL:BDHXP96",
       "z_adj": -43.7698,
       "discount_est": -0.715278,
-      "staleness_days": 0.0
+      "staleness_days": 1.0
     },
     {
       "security_id": "SEDOL:BRC8992",
       "z_adj": -38.5674,
       "discount_est": -0.990723,
-      "staleness_days": 3.0
+      "staleness_days": 4.0
     },
     {
       "security_id": "SEDOL:BNGFHX1",
       "z_adj": -37.2586,
       "discount_est": -0.990462,
-      "staleness_days": 57.0
+      "staleness_days": 58.0
     },
     {
       "security_id": "SEDOL:B1G3N11",
       "z_adj": -36.13,
       "discount_est": -0.885402,
-      "staleness_days": 1.0
+      "staleness_days": 2.0
     },
     {
       "security_id": "ASX:ALR",
-      "z_adj": -32.9002,
-      "discount_est": -0.962191,
-      "staleness_days": 2231.0
+      "z_adj": -32.8421,
+      "discount_est": -0.960615,
+      "staleness_days": 2232.0
     },
     {
       "security_id": "ASX:CTN",
-      "z_adj": -32.3616,
-      "discount_est": -0.957692,
-      "staleness_days": 2317.0
+      "z_adj": -32.5783,
+      "discount_est": -0.963462,
+      "staleness_days": 2318.0
     }
   ],
-  "date": "2026-09-17",
+  "date": "2026-09-18",
   "markets": {
     "au_identity_blocked": 0,
     "au": {
@@ -96,23 +96,24 @@
       "agreement_rate_pairs": 0.9693
     },
     "uk": {
-      "tier0_navs": 230,
+      "tier0_navs": 231,
       "nav_publishers_found": 349,
       "daily_weekly": 201
     }
   },
   "catalysts": {
-    "catalysts": 49,
-    "funds": 36,
+    "catalysts": 50,
+    "funds": 38,
     "by_class": {
-      "substantial_holder": 18,
+      "substantial_holder": 17,
       "tender_offer": 8,
       "realisation": 5,
+      "scheme_merger_rollover": 3,
       "liquidation_wind_down": 3,
-      "manager_exit": 3,
       "discount_control": 3,
       "offer_withdrawn": 2,
       "strategic_review": 2,
+      "manager_exit": 2,
       "suspension": 2,
       "takeover_offer": 1,
       "legal_sanctions": 1,
@@ -120,30 +121,30 @@
     }
   },
   "events": {
-    "events_total": 476,
-    "events_30d": 227,
-    "funds_30d": 114,
+    "events_total": 480,
+    "events_30d": 221,
+    "funds_30d": 115,
     "by_direction_30d": {
-      "neutral": 178,
-      "positive": 41,
-      "negative": 8
+      "neutral": 171,
+      "positive": 43,
+      "negative": 7
     },
     "by_class_30d": {
-      "issuance": 97,
-      "holdings_notification": 71,
-      "substantial_holder": 16,
+      "issuance": 93,
+      "holdings_notification": 68,
+      "substantial_holder": 15,
       "portfolio_holding": 10,
       "tender_offer": 8,
+      "scheme_merger_rollover": 5,
       "realisation": 5,
-      "manager_exit": 3,
       "liquidation_wind_down": 3,
       "discount_control": 3,
       "suspension": 2,
-      "scheme_merger_rollover": 2,
+      "manager_exit": 2,
       "strategic_review": 2
     },
-    "unalerted": 407,
-    "holdings_with_terms": 69,
+    "unalerted": 410,
+    "holdings_with_terms": 67,
     "tr1": {
       "candidates": 0,
       "fetched": 0,
@@ -157,7 +158,7 @@
       "failed": 0
     },
     "terms": {
-      "candidates": 31,
+      "candidates": 33,
       "read": 3,
       "accepted": 0,
       "rejected": 0,
@@ -184,9 +185,9 @@
       "nav_unit_mismatch_N_vs_prior": 5
     }
   },
-  "snapshot": "s3_exists_not_overwritten:nta_live/2026-09-17.parquet",
+  "snapshot": "s3_uploaded:nta_live/2026-09-18.parquet",
   "live_history": {
-    "rows": 18972,
-    "days": 17
+    "rows": 20088,
+    "days": 18
   }
 }
