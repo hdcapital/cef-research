@@ -6,33 +6,33 @@
  "sector": "Property - UK Commercial",
  "liveness": {
   "status": "live_stale_nav",
-  "reason": "periodic_report_142d_old_no_recent_nav",
+  "reason": "periodic_report_143d_old_no_recent_nav",
   "source": "own_periodic_report",
   "last_nav": "2025-06-30",
-  "last_announcement": "2026-08-10"
+  "last_announcement": "2026-09-18"
  },
  "nav": {
-  "anchor": 7.45,
-  "anchor_date": "2025-06-30",
-  "anchor_source": "own_nav_history:2025-06-30",
-  "estimate": 7.45,
-  "basis": 3.0,
-  "staleness_days": 318.0,
+  "anchor": 2.98,
+  "anchor_date": "2026-06-30",
+  "anchor_source": "investegate_fs:9778784",
+  "estimate": 2.98,
+  "basis": 0.0,
+  "staleness_days": 58.0,
   "staleness_limit_days": 200.0,
-  "current": false,
+  "current": true,
   "unit": "GBX",
   "quality_ok": false,
-  "quality_reason": "nav_jump_90%_vs_own"
+  "quality_reason": "nav_jump_60%_vs_own"
  },
  "price": {
-  "price": 1.7999999523162842,
+  "price": 1.899999976158142,
   "ccy": "GBp",
-  "date": "2026-09-16",
+  "date": "2026-09-18",
   "source": "yahoo:API.L"
  },
  "discount": {
-  "estimate": -0.758389,
-  "z": -1.3622,
+  "estimate": -0.362416,
+  "z": 0.3475,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-17T23:53:20+00:00"
+ "updated_at": "2026-09-18T21:56:31+00:00"
 }

@@ -10,12 +10,12 @@
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 172,
+  "alert_eligible": 184,
   "z_extremes": [
     {
       "security_id": "ASX:REV",
-      "z_adj": -82.5301,
-      "discount_est": -0.868787,
+      "z_adj": -82.6248,
+      "discount_est": -0.869781,
       "staleness_days": 3.0
     },
     {
@@ -38,9 +38,9 @@
     },
     {
       "security_id": "SEDOL:BDHXP96",
-      "z_adj": -43.7698,
-      "discount_est": -0.715278,
-      "staleness_days": 1.0
+      "z_adj": -44.0624,
+      "discount_est": -0.719933,
+      "staleness_days": 0.0
     },
     {
       "security_id": "SEDOL:BRC8992",
@@ -102,10 +102,10 @@
     }
   },
   "catalysts": {
-    "catalysts": 50,
+    "catalysts": 51,
     "funds": 38,
     "by_class": {
-      "substantial_holder": 17,
+      "substantial_holder": 18,
       "tender_offer": 8,
       "realisation": 5,
       "scheme_merger_rollover": 3,
@@ -121,18 +121,18 @@
     }
   },
   "events": {
-    "events_total": 480,
-    "events_30d": 221,
-    "funds_30d": 115,
+    "events_total": 489,
+    "events_30d": 230,
+    "funds_30d": 117,
     "by_direction_30d": {
-      "neutral": 171,
-      "positive": 43,
+      "neutral": 179,
+      "positive": 44,
       "negative": 7
     },
     "by_class_30d": {
-      "issuance": 93,
-      "holdings_notification": 68,
-      "substantial_holder": 15,
+      "issuance": 95,
+      "holdings_notification": 74,
+      "substantial_holder": 16,
       "portfolio_holding": 10,
       "tender_offer": 8,
       "scheme_merger_rollover": 5,
@@ -143,12 +143,12 @@
       "manager_exit": 2,
       "strategic_review": 2
     },
-    "unalerted": 410,
-    "holdings_with_terms": 67,
+    "unalerted": 416,
+    "holdings_with_terms": 73,
     "tr1": {
-      "candidates": 0,
-      "fetched": 0,
-      "parsed": 0,
+      "candidates": 6,
+      "fetched": 6,
+      "parsed": 6,
       "failed": 0
     },
     "realisations": {
@@ -185,7 +185,7 @@
       "nav_unit_mismatch_N_vs_prior": 5
     }
   },
-  "snapshot": "s3_uploaded:nta_live/2026-09-18.parquet",
+  "snapshot": "s3_exists_not_overwritten:nta_live/2026-09-18.parquet",
   "live_history": {
     "rows": 20088,
     "days": 18

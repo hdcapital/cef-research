@@ -6,7 +6,7 @@
  "sector": "North America",
  "liveness": {
   "status": "live",
-  "reason": "nav_15d_old",
+  "reason": "nav_16d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-02",
   "last_announcement": "2026-09-17"
@@ -17,7 +17,7 @@
   "anchor_source": "own_nav_history:2026-09-02",
   "estimate": 5942.0,
   "basis": 3.0,
-  "staleness_days": 11.0,
+  "staleness_days": 12.0,
   "staleness_limit_days": 88.5,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 3738.0,
+  "price": 3662.0,
   "ccy": "GBp",
-  "date": "2026-09-16",
+  "date": "2026-09-18",
   "source": "yahoo:PSH.L"
  },
  "discount": {
-  "estimate": -0.370919,
-  "z": -1.6075,
+  "estimate": -0.383709,
+  "z": -1.8626,
   "z_status": "computed_growing_23m",
   "z_source": "own_daily_panel",
   "z_window_months": 23,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1476,
-  "discount_only": 0.0295,
+  "central": 0.1431,
+  "discount_only": 0.0255,
   "g_used": 0.1146,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-17T23:53:20+00:00"
+ "updated_at": "2026-09-18T21:56:31+00:00"
 }

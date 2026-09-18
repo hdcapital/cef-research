@@ -6,7 +6,7 @@
  "sector": "Property - UK Residential",
  "liveness": {
   "status": "live_stale_nav",
-  "reason": "periodic_report_237d_old_no_recent_nav",
+  "reason": "periodic_report_238d_old_no_recent_nav",
   "source": "own_periodic_report",
   "last_nav": "2026-02-20",
   "last_announcement": "2026-09-16"
@@ -17,7 +17,7 @@
   "anchor_source": "investegate_fs:9632983",
   "estimate": 61.2,
   "basis": 0.0,
-  "staleness_days": 122.0,
+  "staleness_days": 123.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 7.340000152587891,
+  "price": 7.099999904632568,
   "ccy": "GBp",
-  "date": "2026-09-16",
+  "date": "2026-09-18",
   "source": "yahoo:RESI.L"
  },
  "discount": {
-  "estimate": -0.880065,
-  "z": -3.2146,
+  "estimate": -0.883987,
+  "z": -3.236,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.5401,
-  "discount_only": 0.4702,
+  "central": 0.5426,
+  "discount_only": 0.4726,
   "g_used": 0.0476,
   "g_source": "market_median"
  },
  "holder_churn": {
-  "filings": 3,
+  "filings": 4,
   "sellers": 0,
   "buyers": 0,
   "largest_move": null,
@@ -56,6 +56,18 @@
  },
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-09-18",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/residential-secure-income--resi/holding-s-in-company/9780356",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Asset Value Investors Limited"
+   }
+  },
   {
    "date": "2026-09-16",
    "class": "holdings_notification",
@@ -123,5 +135,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-17T23:53:20+00:00"
+ "updated_at": "2026-09-18T21:56:31+00:00"
 }

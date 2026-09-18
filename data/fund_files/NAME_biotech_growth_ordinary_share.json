@@ -6,16 +6,16 @@
  "sector": "Biotechnology & Healthcare",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-15",
   "last_announcement": "2026-09-11"
  },
  "nav": {
-  "anchor": 1712.11,
-  "anchor_date": "2026-09-16",
-  "anchor_source": "investegate:9778116",
-  "estimate": 1712.11,
+  "anchor": 1753.26,
+  "anchor_date": "2026-09-17",
+  "anchor_source": "investegate:9780248",
+  "estimate": 1753.26,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -27,27 +27,27 @@
  "price": {
   "price": 1604.0,
   "ccy": "GBp",
-  "date": "2026-09-16",
+  "date": "2026-09-18",
   "source": "yahoo:BIOG.L"
  },
  "discount": {
-  "estimate": -0.063144,
-  "z": 1.2035,
-  "z_status": "computed",
+  "estimate": -0.085133,
+  "z": -0.1033,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.083394,
   "sigma_36m": 0.016826,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1359,
-  "discount_only": -0.0077,
+  "central": 0.1395,
+  "discount_only": -0.004,
   "g_used": 0.0478,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-17T23:53:19+00:00"
+ "updated_at": "2026-09-18T21:56:30+00:00"
 }

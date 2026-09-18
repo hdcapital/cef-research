@@ -6,16 +6,16 @@
  "sector": "UK Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-15",
   "last_announcement": "2026-09-11"
  },
  "nav": {
-  "anchor": 553.63,
-  "anchor_date": "2026-09-16",
-  "anchor_source": "investegate:9777745",
-  "estimate": 553.63,
+  "anchor": 561.01,
+  "anchor_date": "2026-09-17",
+  "anchor_source": "investegate:9780045",
+  "estimate": 561.01,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 503.0,
+  "price": 525.0,
   "ccy": "GBp",
-  "date": "2026-09-16",
+  "date": "2026-09-18",
   "source": "yahoo:AUSC.L"
  },
  "discount": {
-  "estimate": -0.091451,
-  "z": 0.671,
+  "estimate": -0.064188,
+  "z": 2.087,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,40 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": -0.0075,
-  "discount_only": -0.0037,
+  "central": -0.0067,
+  "discount_only": -0.0029,
   "g_used": -0.0307,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [],
- "updated_at": "2026-09-17T23:53:19+00:00"
+ "events_90d": [
+  {
+   "date": "2026-09-18",
+   "class": "scheme_merger_rollover",
+   "weight": 5,
+   "direction": "positive",
+   "headline": "Proposed Reconstruction and Rollover",
+   "url": "https://www.investegate.co.uk/announcement/rns/abrdn-uk-smaller-companies-growth-trust--ausc/proposed-reconstruction-and-rollover/9778563",
+   "alerted_at": "2026-09-18T06:34:58+00:00",
+   "terms": {
+    "llm": "error",
+    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
+   }
+  },
+  {
+   "date": "2026-09-18",
+   "class": "scheme_merger_rollover",
+   "weight": 5,
+   "direction": "positive",
+   "headline": "Proposed combination with AUSC",
+   "url": "https://www.investegate.co.uk/announcement/rns/abrdn-uk-smaller-companies-growth-trust--ausc/proposed-combination-with-ausc/9778562",
+   "alerted_at": "2026-09-18T06:34:58+00:00",
+   "terms": {
+    "llm": "error",
+    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
+   }
+  }
+ ],
+ "updated_at": "2026-09-18T21:56:29+00:00"
 }
