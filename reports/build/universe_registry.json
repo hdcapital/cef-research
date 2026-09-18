@@ -5,8 +5,8 @@
     "AU": 172,
     "UK": 944
   },
-  "live": 364,
-  "live_stale_nav": 41,
+  "live": 366,
+  "live_stale_nav": 39,
   "status_before_evidence": {
     "delisted": 737,
     "live": 374,
@@ -17,9 +17,9 @@
   "persisted_to": "data/universe/registry.parquet",
   "live_status_source": {
     "corroborated_delisting": 606,
-    "own_nav_announcement": 353,
+    "own_nav_announcement": 355,
     "own_delisting_notice": 98,
-    "own_periodic_report": 39,
+    "own_periodic_report": 37,
     "registry_deferral_no_own_filings": 11,
     "own_announcement_only": 6,
     "own_nav_announcement_stale": 2,
@@ -29,10 +29,10 @@
   "aggregator_said_live_evidence_says_not": 6,
   "by_liveness_reason": {
     "aggregator_delisted_and_own_filings_silent_alwaysd": 523,
-    "nav": 355,
+    "nav": 357,
     "own_delisting_notice": 98,
     "aggregator_delisted_and_own_filings_silent": 83,
-    "periodic_report": 39,
+    "periodic_report": 37,
     "no_own_filings_held_deferring_to_registry": 11,
     "filings_but_no_nav_or_report": 6,
     "registry_listed": 1
@@ -40,11 +40,11 @@
   "delisted": 98,
   "priced_by_source": 639,
   "announcements_only": 477,
-  "live_announcements_only": 99,
+  "live_announcements_only": 101,
   "offshore": 195,
   "vct": 228,
   "live_by_domicile": {
-    "GB": 206,
+    "GB": 208,
     "null": 97,
     "GG": 33,
     "JE": 13,
@@ -296,6 +296,15 @@
       "isin": "GG00BJL5FH87",
       "first_seen": "2014-03",
       "months_listed": 150
+    },
+    {
+      "security_id": "SEDOL:BKF2JH0",
+      "name": "Foresight Solar & Tech VCT FWT",
+      "sector": "VTC",
+      "domicile": "GB",
+      "isin": "GB00BKF2JH04",
+      "first_seen": "2021-06",
+      "months_listed": 27
     },
     {
       "security_id": "SEDOL:BD3QJR5",
@@ -944,6 +953,15 @@
       "isin": "GB00BD9PXH49",
       "first_seen": "2018-01",
       "months_listed": 104
+    },
+    {
+      "security_id": "SEDOL:3387528",
+      "name": "abrdn Property Income Trust",
+      "sector": "Property - UK Commercial",
+      "domicile": "GB",
+      "isin": "GB0033875286",
+      "first_seen": "2007-01",
+      "months_listed": 204
     }
   ],
   "live_announcements_only_by_sector": {
@@ -951,23 +969,24 @@
     "Renewable Energy Infrastructure": 9,
     "Private Equity": 7,
     "Infrastructure": 6,
-    "Flexible Investment": 5,
     "Debt - Structured Finance": 5,
+    "Flexible Investment": 5,
     "UK Smaller Companies": 5,
     "Australian Indices": 4,
-    "Hedge Funds": 3,
     "Debt - Loans & Bonds": 3,
+    "Hedge Funds": 3,
+    "Property - UK Commercial": 3,
     "Growth Capital": 3,
     "Property - Europe": 3,
-    "Country Specialist": 3,
     "Debt - Direct Lending": 3,
+    "Country Specialist": 3,
     "North America": 2,
-    "Property - UK Commercial": 2,
     "Split Capital Trust": 2,
     "Commodities & Natural Resources": 1,
-    "Property - Rest of World": 1,
     "Global Equity Income": 1,
+    "Property - Rest of World": 1,
     "Global Emerging Markets": 1,
+    "VTC": 1,
     "India / Indian Subcontinent": 1,
     "VCT AIM Quoted": 1,
     "Property - Debt": 1,

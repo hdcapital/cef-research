@@ -6,10 +6,10 @@
  "sector": "Europe",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_1d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-09-16",
-  "last_announcement": "2026-09-17"
+  "last_nav": "2026-09-17",
+  "last_announcement": "2026-09-18"
  },
  "nav": {
   "anchor": 148.47,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 141.39999389648438,
+  "price": 143.8000030517578,
   "ccy": "GBp",
-  "date": "2026-09-18",
+  "date": "2026-09-17",
   "source": "yahoo:JEGI.L"
  },
  "discount": {
-  "estimate": -0.047619,
-  "z": 0.3855,
+  "estimate": -0.031454,
+  "z": 0.7221,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0646,
-  "discount_only": -0.0168,
+  "central": 0.0684,
+  "discount_only": -0.0131,
   "g_used": 0.0578,
   "g_source": "own_nav_history"
  },
@@ -62,5 +62,5 @@
    }
   }
  ],
- "updated_at": "2026-09-18T21:56:30+00:00"
+ "updated_at": "2026-09-18T23:33:29+00:00"
 }

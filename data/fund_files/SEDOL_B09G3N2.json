@@ -6,10 +6,10 @@
  "sector": "Global Equity Income",
  "liveness": {
   "status": "live",
-  "reason": "nav_3d_old",
+  "reason": "nav_2d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-09-15",
-  "last_announcement": "2026-09-17"
+  "last_nav": "2026-09-16",
+  "last_announcement": "2026-09-18"
  },
  "nav": {
   "anchor": 225.65,
@@ -25,29 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 221.0,
+  "price": 223.0,
   "ccy": "GBp",
-  "date": "2026-09-18",
+  "date": "2026-09-17",
   "source": "yahoo:STS.L"
  },
  "discount": {
-  "estimate": -0.020607,
-  "z": -0.7371,
-  "z_status": "computed",
+  "estimate": -0.011744,
+  "z": 0.3675,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.014693,
   "sigma_36m": 0.008024,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0715,
-  "discount_only": -0.0007,
+  "central": 0.0734,
+  "discount_only": 0.0011,
   "g_used": 0.0722,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-18T21:56:31+00:00"
+ "updated_at": "2026-09-18T23:33:29+00:00"
 }

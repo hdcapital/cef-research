@@ -6,10 +6,10 @@
  "sector": "North American Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_1d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-09-16",
-  "last_announcement": "2026-09-17"
+  "last_nav": "2026-09-17",
+  "last_announcement": "2026-09-18"
  },
  "nav": {
   "anchor": 1674.28,
@@ -32,22 +32,22 @@
  },
  "discount": {
   "estimate": -0.080202,
-  "z": 0.8851,
+  "z": 0.8985,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.099431,
-  "sigma_36m": 0.021725,
+  "mu_36m": -0.099559,
+  "sigma_36m": 0.021544,
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.4108,
-  "discount_only": -0.0152,
+  "central": 0.4163,
+  "discount_only": -0.0097,
   "g_used": 0.0609,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-18T21:56:30+00:00"
+ "updated_at": "2026-09-18T23:33:28+00:00"
 }

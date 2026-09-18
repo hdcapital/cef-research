@@ -15,7 +15,7 @@
   "anchor": 0.959,
   "anchor_date": "2026-06-30",
   "anchor_source": "aggregator_panel:2026-06",
-  "estimate": 0.988934,
+  "estimate": 0.988789,
   "basis": 1.0,
   "staleness_days": 58.0,
   "staleness_limit_days": 138.0,
@@ -31,8 +31,8 @@
   "source": "yahoo:TOP.AX"
  },
  "discount": {
-  "estimate": -0.41351,
-  "z": -0.8103,
+  "estimate": -0.413424,
+  "z": -0.8093,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1925,
-  "discount_only": 0.034,
+  "central": 0.1884,
+  "discount_only": 0.0304,
   "g_used": 0.1159,
   "g_source": "panel_tr_cagr"
  },
@@ -60,5 +60,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-18T21:56:29+00:00"
+ "updated_at": "2026-09-18T23:33:28+00:00"
 }

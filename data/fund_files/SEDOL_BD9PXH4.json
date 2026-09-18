@@ -21,28 +21,28 @@
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
-  "quality_ok": false,
-  "quality_reason": "nav_jump_2150%_vs_own"
+  "quality_ok": true,
+  "quality_reason": ""
  },
  "price": {
-  "price": 10.300000190734863,
+  "price": 10.800000190734863,
   "ccy": "GBp",
-  "date": "2026-09-18",
+  "date": "2026-09-17",
   "source": "yahoo:ASLI.L"
  },
  "discount": {
-  "estimate": -0.542222,
-  "z": -0.3503,
+  "estimate": -0.52,
+  "z": -0.7876,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.481847,
-  "sigma_36m": 0.172356,
-  "alert_eligible": false
+  "mu_36m": -0.420547,
+  "sigma_36m": 0.126279,
+  "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1096,
-  "discount_only": 0.0592,
+  "central": 0.116,
+  "discount_only": 0.0653,
   "g_used": 0.0476,
   "g_source": "market_median"
  },
@@ -71,5 +71,5 @@
    }
   }
  ],
- "updated_at": "2026-09-18T21:56:31+00:00"
+ "updated_at": "2026-09-18T23:33:29+00:00"
 }
