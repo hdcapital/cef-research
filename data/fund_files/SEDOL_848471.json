@@ -6,18 +6,18 @@
  "sector": "Property - UK Commercial",
  "liveness": {
   "status": "live",
-  "reason": "nav_94d_old",
+  "reason": "nav_97d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-06-16",
-  "last_announcement": "2026-09-10"
+  "last_announcement": "2026-09-21"
  },
  "nav": {
   "anchor": 212.0,
   "anchor_date": "2026-03-31",
   "anchor_source": "own_nav_history:2026-03-31",
-  "estimate": 212.0,
+  "estimate": 228.629256,
   "basis": 1.0,
-  "staleness_days": 123.0,
+  "staleness_days": 124.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 207.5,
+  "price": 214.0,
   "ccy": "GBp",
-  "date": "2026-09-17",
+  "date": "2026-09-21",
   "source": "yahoo:VIP.L"
  },
  "discount": {
-  "estimate": -0.021226,
-  "z": 1.138,
+  "estimate": -0.063987,
+  "z": 0.7874,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,14 +41,24 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0619,
-  "discount_only": -0.0293,
+  "central": 0.067,
+  "discount_only": -0.0242,
   "g_used": 0.0476,
   "g_source": "market_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-09-21",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Shares from Treasury",
+   "url": "https://www.investegate.co.uk/announcement/rns/value-and-indexed-property-income-trust--vip/issue-of-shares-from-treasury/9780753",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-08-05",
    "class": "issuance",
@@ -60,5 +70,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-18T23:33:29+00:00"
+ "updated_at": "2026-09-21T21:51:07+00:00"
 }

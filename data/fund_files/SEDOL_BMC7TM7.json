@@ -6,10 +6,10 @@
  "sector": "Infrastructure",
  "liveness": {
   "status": "live",
-  "reason": "nav_91d_old",
+  "reason": "nav_94d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-06-19",
-  "last_announcement": "2026-08-27"
+  "last_announcement": "2026-09-21"
  },
  "nav": {
   "anchor": 146.0,
@@ -17,7 +17,7 @@
   "anchor_source": "investegate_fs:9626420",
   "estimate": 146.0,
   "basis": 0.0,
-  "staleness_days": 123.0,
+  "staleness_days": 124.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 125.0,
+  "price": 126.0,
   "ccy": "GBp",
-  "date": "2026-09-17",
+  "date": "2026-09-21",
   "source": "yahoo:CORD.L"
  },
  "discount": {
-  "estimate": -0.143836,
-  "z": 1.5033,
+  "estimate": -0.136986,
+  "z": 1.5898,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,13 +41,26 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0205,
-  "discount_only": -0.0258,
+  "central": 0.0221,
+  "discount_only": -0.0243,
   "g_used": 0.0476,
   "g_source": "market_median"
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [],
- "updated_at": "2026-09-18T23:33:28+00:00"
+ "events_90d": [
+  {
+   "date": "2026-09-21",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/cordiant-digital-infrastructure-limited-npv--cord/holding-s-in-company/9782468",
+   "alerted_at": null,
+   "terms": {
+    "holder": "State Street Corporation"
+   }
+  }
+ ],
+ "updated_at": "2026-09-21T21:51:07+00:00"
 }

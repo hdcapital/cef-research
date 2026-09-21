@@ -6,7 +6,7 @@
  "sector": "Fixed Income - Global Dollar",
  "liveness": {
   "status": "live",
-  "reason": "nav_11d_old",
+  "reason": "nav_14d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-07",
   "last_announcement": "2026-09-15"
@@ -17,7 +17,7 @@
   "anchor_source": "asx_ann:03137032",
   "estimate": 1.96,
   "basis": 0.0,
-  "staleness_days": 14.0,
+  "staleness_days": 15.0,
   "staleness_limit_days": 93.0,
   "current": true,
   "unit": "AUD",
@@ -25,15 +25,15 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1.850000023841858,
+  "price": 1.8600000143051147,
   "ccy": "AUD",
-  "date": "2026-09-16",
+  "date": "2026-09-21",
   "source": "yahoo:LF1.AX"
  },
  "discount": {
-  "estimate": -0.056122,
-  "z": -1.8938,
-  "z_status": "computed_growing_14m",
+  "estimate": -0.05102,
+  "z": -1.6766,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 14,
   "mu_36m": -0.011618,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-18T23:33:28+00:00"
+ "updated_at": "2026-09-21T21:51:06+00:00"
 }

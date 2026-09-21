@@ -6,16 +6,16 @@
  "sector": "Flexible Investment",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-16",
   "last_announcement": "2026-09-11"
  },
  "nav": {
-  "anchor": 520.25,
-  "anchor_date": "2026-09-17",
-  "anchor_source": "investegate:9780264",
-  "estimate": 520.25,
+  "anchor": 518.45,
+  "anchor_date": "2026-09-18",
+  "anchor_source": "investegate:9782491",
+  "estimate": 518.45,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 514.0,
+  "price": 506.0,
   "ccy": "GBp",
-  "date": "2026-09-18",
+  "date": "2026-09-21",
   "source": "yahoo:CGT.L"
  },
  "discount": {
-  "estimate": -0.012013,
-  "z": 0.7856,
+  "estimate": -0.024014,
+  "z": -0.2899,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-18T23:33:28+00:00"
+ "updated_at": "2026-09-21T21:51:07+00:00"
 }

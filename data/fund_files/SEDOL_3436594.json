@@ -6,16 +6,16 @@
  "sector": "Flexible Investment",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-16",
   "last_announcement": "2026-09-11"
  },
  "nav": {
-  "anchor": 424.82,
-  "anchor_date": "2026-09-17",
-  "anchor_source": "investegate:9780267",
-  "estimate": 424.82,
+  "anchor": 422.18,
+  "anchor_date": "2026-09-18",
+  "anchor_source": "investegate:9782934",
+  "estimate": 422.18,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,20 +25,20 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 407.0,
+  "price": 409.0,
   "ccy": "GBp",
-  "date": "2026-09-18",
+  "date": "2026-09-21",
   "source": "yahoo:MIGO.L"
  },
  "discount": {
-  "estimate": -0.041947,
-  "z": -0.5215,
-  "z_status": "computed",
+  "estimate": -0.031219,
+  "z": 0.3221,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.035315,
   "sigma_36m": 0.012718,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
   "central": 0.0948,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-18T23:33:29+00:00"
+ "updated_at": "2026-09-21T21:51:07+00:00"
 }

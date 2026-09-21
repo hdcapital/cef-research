@@ -6,7 +6,7 @@
  "sector": "Private Equity",
  "liveness": {
   "status": "live",
-  "reason": "nav_39d_old",
+  "reason": "nav_42d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-08-10",
   "last_announcement": "2026-09-18"
@@ -17,7 +17,7 @@
   "anchor_source": "own_nav_history:2026-06-30",
   "estimate": 530.7,
   "basis": 3.0,
-  "staleness_days": 58.0,
+  "staleness_days": 59.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 418.5,
+  "price": 402.5,
   "ccy": "GBp",
-  "date": "2026-09-17",
+  "date": "2026-09-21",
   "source": "yahoo:HGT.L"
  },
  "discount": {
-  "estimate": -0.211419,
-  "z": -0.6352,
+  "estimate": -0.241568,
+  "z": -0.9304,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,19 +41,12 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1055,
-  "discount_only": 0.0332,
+  "central": 0.099,
+  "discount_only": 0.027,
   "g_used": 0.0458,
   "g_source": "sector_median"
  },
- "holder_churn": {
-  "filings": 3,
-  "sellers": 0,
-  "buyers": 2,
-  "largest_move": 1.36,
-  "holder": "iv Name VALHALLA VENTURES LIMITED",
-  "direction": "accumulation"
- },
+ "holder_churn": null,
  "realisations": null,
  "events_90d": [
   {
@@ -109,5 +102,5 @@
    }
   }
  ],
- "updated_at": "2026-09-18T23:33:29+00:00"
+ "updated_at": "2026-09-21T21:51:07+00:00"
 }

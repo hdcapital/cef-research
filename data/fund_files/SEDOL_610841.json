@@ -6,16 +6,16 @@
  "sector": "UK All Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_1d_old",
+  "reason": "nav_4d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-17",
   "last_announcement": "2026-09-11"
  },
  "nav": {
-  "anchor": 810.69,
-  "anchor_date": "2026-09-18",
-  "anchor_source": "investegate:9780064",
-  "estimate": 810.69,
+  "anchor": 806.54,
+  "anchor_date": "2026-09-21",
+  "anchor_source": "investegate:9782424",
+  "estimate": 806.54,
   "basis": 0.0,
   "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 766.0,
+  "price": 768.0,
   "ccy": "GBp",
-  "date": "2026-09-17",
+  "date": "2026-09-21",
   "source": "yahoo:SCP.L"
  },
  "discount": {
-  "estimate": -0.055126,
-  "z": 0.9353,
+  "estimate": -0.047784,
+  "z": 1.1576,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0614,
-  "discount_only": -0.0094,
+  "central": 0.0588,
+  "discount_only": -0.012,
   "g_used": 0.019,
   "g_source": "panel_tr_cagr"
  },
@@ -98,5 +98,5 @@
    }
   }
  ],
- "updated_at": "2026-09-18T23:33:29+00:00"
+ "updated_at": "2026-09-21T21:51:07+00:00"
 }

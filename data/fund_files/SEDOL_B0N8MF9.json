@@ -6,16 +6,16 @@
  "sector": "Commodities & Natural Resources",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-16",
-  "last_announcement": "2026-09-18"
+  "last_announcement": "2026-09-21"
  },
  "nav": {
-  "anchor": 191.52,
-  "anchor_date": "2026-09-17",
-  "anchor_source": "investegate:9780182",
-  "estimate": 191.52,
+  "anchor": 189.54,
+  "anchor_date": "2026-09-18",
+  "anchor_source": "investegate:9782437",
+  "estimate": 189.54,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 181.5,
+  "price": 182.5,
   "ccy": "GBp",
-  "date": "2026-09-17",
+  "date": "2026-09-21",
   "source": "yahoo:BERI.L"
  },
  "discount": {
-  "estimate": -0.052318,
-  "z": 1.2323,
+  "estimate": -0.037143,
+  "z": 1.7879,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1672,
-  "discount_only": -0.0055,
+  "central": 0.166,
+  "discount_only": -0.0066,
   "g_used": 0.15,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-18T23:33:28+00:00"
+ "updated_at": "2026-09-21T21:51:07+00:00"
 }

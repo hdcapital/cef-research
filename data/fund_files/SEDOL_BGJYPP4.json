@@ -6,7 +6,7 @@
  "sector": "Growth Capital",
  "liveness": {
   "status": "live",
-  "reason": "nav_46d_old",
+  "reason": "nav_49d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-08-03",
   "last_announcement": "2026-08-21"
@@ -17,7 +17,7 @@
   "anchor_source": "investegate_fs:9699761",
   "estimate": 131.09,
   "basis": 0.0,
-  "staleness_days": 58.0,
+  "staleness_days": 59.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 67.5,
+  "price": 69.30000305175781,
   "ccy": "GBp",
-  "date": "2026-09-17",
+  "date": "2026-09-21",
   "source": "yahoo:CHRY.L"
  },
  "discount": {
-  "estimate": -0.485087,
-  "z": -1.1575,
+  "estimate": -0.471356,
+  "z": -0.9741,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,14 +41,26 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": -0.0323,
-  "discount_only": 0.0186,
+  "central": -0.0295,
+  "discount_only": 0.0216,
   "g_used": -0.05,
   "g_source": "sector_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-09-21",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/chrysalis-investments-limited-npv--chry/holding-s-in-company/9782982",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Connor Broadley Limited"
+   }
+  },
   {
    "date": "2026-07-31",
    "class": "holdings_notification",
@@ -60,5 +72,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-18T23:33:28+00:00"
+ "updated_at": "2026-09-21T21:51:07+00:00"
 }

@@ -6,16 +6,16 @@
  "sector": "Asia Pacific Equity Income",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-16",
-  "last_announcement": "2026-09-18"
+  "last_announcement": "2026-09-21"
  },
  "nav": {
-  "anchor": 341.56,
-  "anchor_date": "2026-09-17",
-  "anchor_source": "investegate:9779951",
-  "estimate": 341.56,
+  "anchor": 345.95,
+  "anchor_date": "2026-09-18",
+  "anchor_source": "investegate:9782387",
+  "estimate": 345.95,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 316.0,
+  "price": 325.0,
   "ccy": "GBp",
-  "date": "2026-09-17",
+  "date": "2026-09-21",
   "source": "yahoo:AAIF.L"
  },
  "discount": {
-  "estimate": -0.074833,
-  "z": 1.0581,
+  "estimate": -0.060558,
+  "z": 1.5727,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1222,
-  "discount_only": -0.0099,
+  "central": 0.1229,
+  "discount_only": -0.0093,
   "g_used": 0.084,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-18T23:33:28+00:00"
+ "updated_at": "2026-09-21T21:51:06+00:00"
 }

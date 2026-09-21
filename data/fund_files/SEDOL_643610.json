@@ -6,16 +6,16 @@
  "sector": "UK Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-16",
   "last_announcement": "2026-09-11"
  },
  "nav": {
-  "anchor": 290.81,
-  "anchor_date": "2026-09-17",
-  "anchor_source": "investegate:9780193",
-  "estimate": 290.81,
+  "anchor": 290.18,
+  "anchor_date": "2026-09-18",
+  "anchor_source": "investegate:9782454",
+  "estimate": 290.18,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 263.5,
+  "price": 266.0,
   "ccy": "GBp",
-  "date": "2026-09-17",
+  "date": "2026-09-21",
   "source": "yahoo:BRSC.L"
  },
  "discount": {
-  "estimate": -0.09391,
-  "z": 1.4232,
+  "estimate": -0.083328,
+  "z": 2.0369,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,14 +41,26 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1205,
-  "discount_only": -0.0049,
+  "central": 0.1184,
+  "discount_only": -0.0068,
   "g_used": 0.1008,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-09-21",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/prn/blackrock-smaller-companies-trust--brsc/holding-s-in-company/9782931",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Saba Capital Management, L.P"
+   }
+  },
   {
    "date": "2026-09-11",
    "class": "holdings_notification",
@@ -74,5 +86,5 @@
    }
   }
  ],
- "updated_at": "2026-09-18T23:33:28+00:00"
+ "updated_at": "2026-09-21T21:51:07+00:00"
 }

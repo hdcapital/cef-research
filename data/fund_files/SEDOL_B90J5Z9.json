@@ -6,18 +6,18 @@
  "sector": "Debt - Structured Finance",
  "liveness": {
   "status": "live",
-  "reason": "nav_4d_old",
+  "reason": "nav_7d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-14",
   "last_announcement": "2026-09-17"
  },
  "nav": {
-  "anchor": 106.63,
-  "anchor_date": "2026-09-14",
-  "anchor_source": "investegate:9771327",
-  "estimate": 106.63,
+  "anchor": 106.69,
+  "anchor_date": "2026-09-21",
+  "anchor_source": "investegate:9783041",
+  "estimate": 106.69,
   "basis": 0.0,
-  "staleness_days": 4.0,
+  "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 108.80000305175781,
+  "price": 109.0,
   "ccy": "GBp",
-  "date": "2026-09-17",
+  "date": "2026-09-21",
   "source": "yahoo:TFIF.L"
  },
  "discount": {
-  "estimate": 0.020351,
-  "z": 1.0279,
+  "estimate": 0.021652,
+  "z": 1.0697,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0394,
-  "discount_only": -0.0054,
+  "central": 0.0386,
+  "discount_only": -0.0062,
   "g_used": 0.045,
   "g_source": "own_nav_history"
  },
@@ -100,5 +100,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-18T23:33:29+00:00"
+ "updated_at": "2026-09-21T21:51:07+00:00"
 }

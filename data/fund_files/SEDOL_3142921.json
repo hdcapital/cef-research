@@ -6,16 +6,16 @@
  "sector": "UK Equity Income",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-16",
   "last_announcement": "2026-09-11"
  },
  "nav": {
-  "anchor": 1224.5,
-  "anchor_date": "2026-09-17",
-  "anchor_source": "investegate:9780472",
-  "estimate": 1224.5,
+  "anchor": 1213.69,
+  "anchor_date": "2026-09-18",
+  "anchor_source": "investegate:9782802",
+  "estimate": 1213.69,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1220.0,
+  "price": 1242.0,
   "ccy": "GBp",
-  "date": "2026-09-18",
+  "date": "2026-09-21",
   "source": "yahoo:LWDB.L"
  },
  "discount": {
-  "estimate": -0.003675,
-  "z": -0.279,
+  "estimate": 0.023326,
+  "z": 1.1137,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -90,5 +90,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-18T23:33:29+00:00"
+ "updated_at": "2026-09-21T21:51:07+00:00"
 }
