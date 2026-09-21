@@ -10,12 +10,12 @@
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 151,
+  "alert_eligible": 150,
   "z_extremes": [
     {
       "security_id": "ASX:REV",
-      "z_adj": -82.6248,
-      "discount_est": -0.869781,
+      "z_adj": -82.4985,
+      "discount_est": -0.868456,
       "staleness_days": 4.0
     },
     {
@@ -50,8 +50,8 @@
     },
     {
       "security_id": "ASX:GCI",
-      "z_adj": -37.3329,
-      "discount_est": -0.880004,
+      "z_adj": -37.3328,
+      "discount_est": -0.88,
       "staleness_days": 2.0
     },
     {
@@ -62,18 +62,18 @@
     },
     {
       "security_id": "SEDOL:B1G3N11",
-      "z_adj": -36.1566,
-      "discount_est": -0.885981,
+      "z_adj": -36.1569,
+      "discount_est": -0.885987,
       "staleness_days": 2.0
     },
     {
       "security_id": "ASX:ALR",
-      "z_adj": -32.8421,
-      "discount_est": -0.960615,
+      "z_adj": -32.9293,
+      "discount_est": -0.962978,
       "staleness_days": 2233.0
     }
   ],
-  "date": "2026-09-20",
+  "date": "2026-09-21",
   "markets": {
     "au_identity_blocked": 0,
     "au": {
@@ -96,7 +96,7 @@
       "agreement_rate_pairs": 0.9693
     },
     "uk": {
-      "tier0_navs": 230,
+      "tier0_navs": 231,
       "nav_publishers_found": 349,
       "daily_weekly": 201
     }
@@ -120,17 +120,17 @@
     }
   },
   "events": {
-    "events_total": 489,
-    "events_30d": 209,
+    "events_total": 490,
+    "events_30d": 202,
     "funds_30d": 109,
     "by_direction_30d": {
-      "neutral": 164,
+      "neutral": 157,
       "positive": 39,
       "negative": 6
     },
     "by_class_30d": {
-      "issuance": 89,
-      "holdings_notification": 67,
+      "issuance": 87,
+      "holdings_notification": 62,
       "substantial_holder": 15,
       "portfolio_holding": 8,
       "tender_offer": 7,
@@ -143,7 +143,7 @@
       "strategic_review": 2
     },
     "unalerted": 416,
-    "holdings_with_terms": 66,
+    "holdings_with_terms": 61,
     "tr1": {
       "candidates": 0,
       "fetched": 0,
@@ -184,9 +184,9 @@
       "nav_unit_mismatch_N_vs_prior": 5
     }
   },
-  "snapshot": "s3_uploaded:nta_live/2026-09-20.parquet",
+  "snapshot": "s3_uploaded:nta_live/2026-09-21.parquet",
   "live_history": {
-    "rows": 21204,
-    "days": 19
+    "rows": 22320,
+    "days": 20
   }
 }
