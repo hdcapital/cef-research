@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
 
-from cef_live.brief_window import already_sent, label_for
+from cef_live.brief_window import already_sent, label_for, window_key
 
 
 def test_labels_follow_the_two_windows():
@@ -54,3 +54,28 @@ def test_the_gate_reads_the_branch_tip_not_the_pinned_checkout():
     wf = open(".github/workflows/ideas.yml").read()
     assert 'git show "FETCH_HEAD:reports/build/ideas.json"' in wf
     assert 'pathlib.Path("/tmp/ideas_tip.json")' in wf
+
+
+def test_a_firing_any_time_later_in_a_sent_window_is_skipped():
+    """2026-09-21: brief sent 06:35Z, the 06:20 cron fired at 12:38Z (6.05h)."""
+    skip, why = already_sent(_last("pre-LSE open", "2026-09-21T06:35:06+00:00"),
+                             now=datetime(2026, 9, 21, 12, 38, tzinfo=timezone.utc))
+    assert skip, why
+    skip, why = already_sent(_last("pre-LSE open", "2026-09-21T06:35:06+00:00"),
+                             now=datetime(2026, 9, 21, 14, 59, tzinfo=timezone.utc))
+    assert skip, why
+
+
+def test_the_same_label_on_the_next_day_is_a_new_window():
+    skip, _ = already_sent(_last("pre-LSE open", "2026-09-21T06:35:06+00:00"),
+                           now=datetime(2026, 9, 22, 5, 41, tzinfo=timezone.utc))
+    assert not skip
+
+
+def test_the_pre_asx_window_spans_midnight():
+    assert window_key(datetime(2026, 9, 21, 22, 46, tzinfo=timezone.utc)) == ("pre-ASX open", "2026-09-21")
+    assert window_key(datetime(2026, 9, 22, 1, 30, tzinfo=timezone.utc)) == ("pre-ASX open", "2026-09-21")
+    assert window_key(datetime(2026, 9, 22, 3, 0, tzinfo=timezone.utc)) == ("pre-LSE open", "2026-09-22")
+    skip, _ = already_sent(_last("pre-ASX open", "2026-09-21T23:36:00+00:00"),
+                           now=datetime(2026, 9, 22, 1, 40, tzinfo=timezone.utc))
+    assert skip

@@ -540,3 +540,16 @@ on time (23:38Z) from the primary Routine. ideas.yml now has five firings
 per window, two of them ahead of the original three (05:50/06:05 and
 22:20/22:35 UTC); the gate still limits each window to one email. Today's
 pre-LSE brief was dispatched by hand at 05:41Z on reconnecting.
+
+### 2026-09-21 — a third email; the gate now keys on window identity
+
+The pre-LSE brief went at 06:35Z from the Routine dispatch. GitHub's five
+morning crons then arrived between 11:09Z and 13:23Z; the 12:38Z one was
+6.05 hours after the send, past the gate's six-hour age test, so it ran
+and emailed a duplicate pre-LSE brief at 13:30Z. The gate
+(`cef_live.brief_window.already_sent`) now compares window identity, the
+label and the UTC date the window opened on, so any later firing in a
+window whose brief has gone is skipped however late it arrives. Tests
+cover the 12:38Z case, the next day's same label, and the pre-ASX window
+across midnight. The dispatch record this week otherwise held: every
+brief since 15 Sep went before its open from the 05:40Z / 22:45Z Routines.

@@ -4,6 +4,15 @@ Every change to `config/params.yaml` gets a dated entry here, committed in
 the same commit as the change, with a rationale. Parameters are never
 tuned against live outcomes.
 
+## 2026-09-21 — brief gate keys on the window, not on age
+
+The gate that keeps each brief window to one email compared the last
+send's age against a six-hour limit. On 2026-09-21 the 06:20 UTC cron
+fired at 12:38, 6.05 hours after the 06:35 send, and a third email went.
+The gate now skips when the last emailed brief belongs to the same window
+(label plus the UTC date the window opened on), whatever the delay. Still
+two emails a day; no scoring parameter changed.
+
 ## 2026-09-15 — brief firings widened, still two emails a day
 
 ideas.yml gains two cron firings per window ahead of the existing three
