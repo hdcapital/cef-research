@@ -6,18 +6,18 @@
  "sector": "Asia Pacific",
  "liveness": {
   "status": "live",
-  "reason": "nav_4d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-17",
   "last_announcement": "2026-09-11"
  },
  "nav": {
-  "anchor": 443.02,
-  "anchor_date": "2026-09-18",
-  "anchor_source": "investegate:9782933",
-  "estimate": 443.02,
+  "anchor": 449.55,
+  "anchor_date": "2026-09-21",
+  "anchor_source": "investegate:9785106",
+  "estimate": 449.55,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -27,12 +27,12 @@
  "price": {
   "price": 412.0,
   "ccy": "GBp",
-  "date": "2026-09-18",
+  "date": "2026-09-21",
   "source": "yahoo:PAC.L"
  },
  "discount": {
-  "estimate": -0.070019,
-  "z": 1.2681,
+  "estimate": -0.083528,
+  "z": 0.7527,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -63,5 +63,5 @@
    }
   }
  ],
- "updated_at": "2026-09-22T00:23:17+00:00"
+ "updated_at": "2026-09-22T21:52:45+00:00"
 }

@@ -6,18 +6,18 @@
  "sector": "Debt - Loans & Bonds",
  "liveness": {
   "status": "live",
-  "reason": "nav_3d_old",
+  "reason": "nav_4d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-18",
   "last_announcement": "2026-09-21"
  },
  "nav": {
-  "anchor": 168.38,
-  "anchor_date": "2026-09-21",
-  "anchor_source": "investegate:9782404",
-  "estimate": 168.38,
+  "anchor": 168.63,
+  "anchor_date": "2026-09-22",
+  "anchor_source": "investegate:9784779",
+  "estimate": 168.63,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 170.5,
+  "price": 171.0,
   "ccy": "GBp",
-  "date": "2026-09-18",
+  "date": "2026-09-22",
   "source": "yahoo:BIPS.L"
  },
  "discount": {
-  "estimate": 0.012591,
-  "z": -0.3679,
+  "estimate": 0.014054,
+  "z": -0.0842,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -270,5 +270,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-22T00:23:17+00:00"
+ "updated_at": "2026-09-22T21:52:45+00:00"
 }

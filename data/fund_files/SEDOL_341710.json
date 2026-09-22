@@ -6,18 +6,18 @@
  "sector": "North American Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_3d_old",
+  "reason": "nav_4d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-18",
   "last_announcement": "2026-09-11"
  },
  "nav": {
-  "anchor": 459.73,
-  "anchor_date": "2026-09-21",
-  "anchor_source": "investegate:9782169",
-  "estimate": 459.73,
+  "anchor": 459.18,
+  "anchor_date": "2026-09-22",
+  "anchor_source": "investegate:9784671",
+  "estimate": 459.18,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 421.5,
+  "price": 419.5,
   "ccy": "GBp",
-  "date": "2026-09-18",
+  "date": "2026-09-22",
   "source": "yahoo:JUSC.L"
  },
  "discount": {
-  "estimate": -0.083158,
-  "z": 0.1071,
+  "estimate": -0.086415,
+  "z": 0.0118,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-22T00:23:17+00:00"
+ "updated_at": "2026-09-22T21:52:45+00:00"
 }
