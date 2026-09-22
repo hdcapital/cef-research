@@ -6,9 +6,9 @@
  "sector": "China / Greater China",
  "liveness": {
   "status": "live",
-  "reason": "nav_4d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-09-17",
+  "last_nav": "2026-09-18",
   "last_announcement": "2026-09-11"
  },
  "nav": {
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9782255",
   "estimate": 327.48,
   "basis": 0.0,
-  "staleness_days": 0.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 302.0,
+  "price": 294.0,
   "ccy": "GBp",
-  "date": "2026-09-21",
+  "date": "2026-09-18",
   "source": "yahoo:BGCG.L"
  },
  "discount": {
-  "estimate": -0.077806,
-  "z": 1.1991,
-  "z_status": "computed",
+  "estimate": -0.102235,
+  "z": -0.0126,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.101981,
   "sigma_36m": 0.020161,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": -0.0313,
-  "discount_only": 0.0003,
+  "central": -0.0352,
+  "discount_only": -0.0039,
   "g_used": -0.0488,
   "g_source": "panel_tr_cagr"
  },
@@ -62,5 +62,5 @@
    }
   }
  ],
- "updated_at": "2026-09-21T21:51:07+00:00"
+ "updated_at": "2026-09-22T00:23:16+00:00"
 }

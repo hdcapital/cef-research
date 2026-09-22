@@ -10,7 +10,7 @@
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 157,
+  "alert_eligible": 150,
   "z_extremes": [
     {
       "security_id": "ASX:REV",
@@ -22,55 +22,55 @@
       "security_id": "SEDOL:721163",
       "z_adj": -72.5944,
       "discount_est": -0.976268,
-      "staleness_days": 3151.0
-    },
-    {
-      "security_id": "SEDOL:BKV46W4",
-      "z_adj": -72.23,
-      "discount_est": -0.99072,
-      "staleness_days": 59.0
+      "staleness_days": 3152.0
     },
     {
       "security_id": "SEDOL:BL690L8",
       "z_adj": -61.0706,
       "discount_est": -0.989873,
-      "staleness_days": 105.0
+      "staleness_days": 106.0
     },
     {
       "security_id": "SEDOL:BYMJ7X4",
       "z_adj": -59.1482,
       "discount_est": -0.629934,
-      "staleness_days": 1266.0
+      "staleness_days": 1267.0
     },
     {
       "security_id": "SEDOL:BDHXP96",
       "z_adj": -43.7914,
       "discount_est": -0.71562,
-      "staleness_days": 0.0
+      "staleness_days": 1.0
     },
     {
       "security_id": "SEDOL:BRC8992",
       "z_adj": -38.5679,
       "discount_est": -0.990737,
-      "staleness_days": 0.0
+      "staleness_days": 1.0
     },
     {
       "security_id": "ASX:GCI",
       "z_adj": -37.6287,
-      "discount_est": -0.88704,
+      "discount_est": -0.887041,
       "staleness_days": 1.0
     },
     {
       "security_id": "SEDOL:BNGFHX1",
       "z_adj": -37.2586,
       "discount_est": -0.990462,
-      "staleness_days": 59.0
+      "staleness_days": 60.0
     },
     {
       "security_id": "SEDOL:B1G3N11",
-      "z_adj": -36.1818,
-      "discount_est": -0.886527,
+      "z_adj": -36.2532,
+      "discount_est": -0.88808,
       "staleness_days": 2.0
+    },
+    {
+      "security_id": "ASX:ALR",
+      "z_adj": -32.9293,
+      "discount_est": -0.962978,
+      "staleness_days": 2233.0
     }
   ],
   "date": "2026-09-21",
@@ -85,7 +85,7 @@
     "uk_identity_blocked": 337,
     "uk_nav_targets": 310,
     "uk_registry_only_targets": 113,
-    "uk_aux_z_history_funds": 256,
+    "uk_aux_z_history_funds": 255,
     "uk_fx_pairs": [
       "CAD",
       "EUR",
@@ -157,7 +157,7 @@
       "failed": 0
     },
     "terms": {
-      "candidates": 34,
+      "candidates": 33,
       "read": 3,
       "accepted": 0,
       "rejected": 0,
@@ -173,20 +173,20 @@
   },
   "carried_forward_rows": 0,
   "nav_quarantine": {
-    "rows": 464,
+    "rows": 465,
     "by_reason": {
       "stale_panel_price_only": 216,
       "nav_not_positive": 180,
       "no_price": 37,
       "nav_jump_N_vs_prior": 11,
       "unit_suspect_scale": 9,
-      "nav_jump_N_vs_own": 6,
+      "nav_jump_N_vs_own": 7,
       "nav_unit_mismatch_N_vs_prior": 5
     }
   },
   "snapshot": "s3_exists_not_overwritten:nta_live/2026-09-21.parquet",
   "live_history": {
-    "rows": 22320,
-    "days": 20
+    "rows": 23436,
+    "days": 21
   }
 }
