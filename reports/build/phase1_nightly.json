@@ -4,13 +4,13 @@
   "rows_without_nav": 328,
   "basis_counts": {
     "nan": 328,
-    "3.0": 306,
-    "0.0": 275,
+    "3.0": 305,
+    "0.0": 276,
     "1.0": 207
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 154,
+  "alert_eligible": 155,
   "z_extremes": [
     {
       "security_id": "SEDOL:B17B347",
@@ -20,9 +20,9 @@
     },
     {
       "security_id": "ASX:REV",
-      "z_adj": -82.4354,
-      "discount_est": -0.867793,
-      "staleness_days": 5.0
+      "z_adj": -82.4985,
+      "discount_est": -0.868456,
+      "staleness_days": 6.0
     },
     {
       "security_id": "SEDOL:3115202",
@@ -62,9 +62,9 @@
     },
     {
       "security_id": "ASX:GCI",
-      "z_adj": -37.6047,
-      "discount_est": -0.88647,
-      "staleness_days": 2.0
+      "z_adj": -37.6234,
+      "discount_est": -0.886915,
+      "staleness_days": 3.0
     },
     {
       "security_id": "SEDOL:BNGFHX1",
@@ -73,7 +73,7 @@
       "staleness_days": 61.0
     }
   ],
-  "date": "2026-09-22",
+  "date": "2026-09-23",
   "markets": {
     "au_identity_blocked": 0,
     "au": {
@@ -96,7 +96,7 @@
       "agreement_rate_pairs": 0.9693
     },
     "uk": {
-      "tier0_navs": 232,
+      "tier0_navs": 233,
       "nav_publishers_found": 349,
       "daily_weekly": 201
     }
@@ -142,7 +142,7 @@
       "manager_exit": 2,
       "strategic_review": 2
     },
-    "unalerted": 428,
+    "unalerted": 427,
     "holdings_with_terms": 67,
     "tr1": {
       "candidates": 0,
@@ -184,7 +184,7 @@
       "nav_unit_mismatch_N_vs_prior": 5
     }
   },
-  "snapshot": "s3_exists_not_overwritten:nta_live/2026-09-22.parquet",
+  "snapshot": "s3_uploaded:nta_live/2026-09-23.parquet",
   "live_history": {
     "rows": 24552,
     "days": 22
