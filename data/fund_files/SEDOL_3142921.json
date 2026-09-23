@@ -6,18 +6,18 @@
  "sector": "UK Equity Income",
  "liveness": {
   "status": "live",
-  "reason": "nav_4d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-18",
   "last_announcement": "2026-09-11"
  },
  "nav": {
-  "anchor": 1223.49,
-  "anchor_date": "2026-09-21",
-  "anchor_source": "investegate:9785267",
-  "estimate": 1223.49,
+  "anchor": 1223.26,
+  "anchor_date": "2026-09-22",
+  "anchor_source": "investegate:9787416",
+  "estimate": 1223.26,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1242.0,
+  "price": 1228.0,
   "ccy": "GBp",
-  "date": "2026-09-21",
+  "date": "2026-09-23",
   "source": "yahoo:LWDB.L"
  },
  "discount": {
-  "estimate": 0.015129,
-  "z": 0.6909,
-  "z_status": "computed",
+  "estimate": 0.003875,
+  "z": 0.1104,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": 0.001734,
   "sigma_36m": 0.019388,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1326,
-  "discount_only": 0.0003,
+  "central": 0.1315,
+  "discount_only": -0.0007,
   "g_used": 0.1061,
   "g_source": "panel_tr_cagr"
  },
@@ -90,5 +90,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-23T00:03:13+00:00"
+ "updated_at": "2026-09-23T21:56:53+00:00"
 }

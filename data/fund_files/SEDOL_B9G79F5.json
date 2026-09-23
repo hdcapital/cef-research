@@ -6,10 +6,10 @@
  "sector": "Debt - Loans & Bonds",
  "liveness": {
   "status": "live",
-  "reason": "nav_11d_old",
+  "reason": "nav_12d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-11",
-  "last_announcement": "2026-09-18"
+  "last_announcement": "2026-09-23"
  },
  "nav": {
   "anchor": 1.0663,
@@ -27,7 +27,7 @@
  "price": {
   "price": 1.0800000429153442,
   "ccy": "EUR",
-  "date": "2026-09-21",
+  "date": "2026-09-23",
   "source": "yahoo:CVCE.L"
  },
  "discount": {
@@ -43,12 +43,22 @@
  "forward_irr": {
   "central": null,
   "discount_only": null,
-  "g_used": 0.0503,
+  "g_used": 0.0497,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-09-23",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/cvc-income-growth-limited-npv-euro--cvce/issue-of-equity/9787745",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-09-17",
    "class": "issuance",
@@ -172,5 +182,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-23T00:03:12+00:00"
+ "updated_at": "2026-09-23T21:56:52+00:00"
 }

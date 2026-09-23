@@ -6,18 +6,18 @@
  "sector": "North American Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_1d_old",
+  "reason": "nav_2d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-21",
   "last_announcement": "2026-09-11"
  },
  "nav": {
-  "anchor": 459.18,
-  "anchor_date": "2026-09-22",
-  "anchor_source": "investegate:9784671",
-  "estimate": 459.18,
+  "anchor": 460.75,
+  "anchor_date": "2026-09-23",
+  "anchor_source": "investegate:9787065",
+  "estimate": 460.75,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -27,12 +27,12 @@
  "price": {
   "price": 421.5,
   "ccy": "GBp",
-  "date": "2026-09-21",
+  "date": "2026-09-23",
   "source": "yahoo:JUSC.L"
  },
  "discount": {
-  "estimate": -0.082059,
-  "z": 0.1393,
+  "estimate": -0.085187,
+  "z": 0.0477,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.4812,
-  "discount_only": -0.0004,
+  "central": 0.4802,
+  "discount_only": -0.0014,
   "g_used": 0.0551,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-23T00:03:13+00:00"
+ "updated_at": "2026-09-23T21:56:53+00:00"
 }

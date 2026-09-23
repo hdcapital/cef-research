@@ -6,7 +6,7 @@
  "sector": "Growth Capital",
  "liveness": {
   "status": "live",
-  "reason": "nav_105d_old",
+  "reason": "nav_106d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-06-09",
   "last_announcement": "2026-09-21"
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 679.5,
+  "price": 677.0,
   "ccy": "GBp",
-  "date": "2026-09-21",
+  "date": "2026-09-23",
   "source": "yahoo:GROW.L"
  },
  "discount": {
-  "estimate": 0.012668,
-  "z": 2.2096,
+  "estimate": 0.008942,
+  "z": 2.1912,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": -0.1764,
-  "discount_only": -0.1331,
+  "central": -0.1777,
+  "discount_only": -0.1344,
   "g_used": -0.05,
   "g_source": "sector_median"
  },
  "holder_churn": {
-  "filings": 9,
+  "filings": 10,
   "sellers": 0,
   "buyers": 0,
   "largest_move": null,
@@ -56,6 +56,18 @@
  },
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-09-23",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/mfn/molten-ventures--grow/holding-s-in-company/9787825",
+   "alerted_at": null,
+   "terms": {
+    "holder": "BlackRock, Inc"
+   }
+  },
   {
    "date": "2026-09-21",
    "class": "holdings_notification",
@@ -273,5 +285,5 @@
    }
   }
  ],
- "updated_at": "2026-09-23T00:03:13+00:00"
+ "updated_at": "2026-09-23T21:56:53+00:00"
 }

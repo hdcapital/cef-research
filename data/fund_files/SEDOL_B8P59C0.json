@@ -6,7 +6,7 @@
  "sector": "Biotechnology & Healthcare",
  "liveness": {
   "status": "live",
-  "reason": "nav_96d_old",
+  "reason": "nav_97d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-06-18",
   "last_announcement": "2026-09-21"
@@ -25,13 +25,13 @@
   "quality_reason": "nav_jump_3340%_vs_own"
  },
  "price": {
-  "price": 117.4000015258789,
+  "price": 117.80000305175781,
   "ccy": "GBp",
-  "date": "2026-09-21",
+  "date": "2026-09-23",
   "source": "yahoo:SYNC.L"
  },
  "discount": {
-  "estimate": -0.311962,
+  "estimate": -0.309617,
   "z": null,
   "z_status": "no_discount_history",
   "z_source": null,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1577,
-  "discount_only": 0.1239,
+  "central": 0.1549,
+  "discount_only": 0.1212,
   "g_used": 0.03,
   "g_source": "sector_median"
  },
  "holder_churn": {
-  "filings": 3,
+  "filings": 4,
   "sellers": 0,
   "buyers": 0,
   "largest_move": null,
@@ -56,6 +56,18 @@
  },
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-09-23",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/syncona-limited-npv--sync/holding-s-in-company/9786741",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Saba Capital Management, L.P"
+   }
+  },
   {
    "date": "2026-09-17",
    "class": "holdings_notification",
@@ -125,5 +137,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-23T00:03:14+00:00"
+ "updated_at": "2026-09-23T21:56:54+00:00"
 }

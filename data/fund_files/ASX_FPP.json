@@ -6,7 +6,7 @@
  "sector": "Property - Global",
  "liveness": {
   "status": "delisted",
-  "reason": "own_delisting_notice_524d",
+  "reason": "own_delisting_notice_525d",
   "source": "own_delisting_notice",
   "last_nav": "2025-03-14",
   "last_announcement": "2025-04-16"
@@ -15,9 +15,9 @@
   "anchor": 0.9456,
   "anchor_date": "2025-02-28",
   "anchor_source": "aggregator_panel:2025-02",
-  "estimate": 0.983575,
+  "estimate": 0.964506,
   "basis": 1.0,
-  "staleness_days": 407.0,
+  "staleness_days": 408.0,
   "staleness_limit_days": 200.0,
   "current": false,
   "unit": "AUD",
@@ -31,8 +31,8 @@
   "source": "aggregator_panel"
  },
  "discount": {
-  "estimate": -0.08497,
-  "z": 0.7283,
+  "estimate": -0.06688,
+  "z": 0.9712,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,7 +41,7 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1664,
+  "central": 0.1665,
   "discount_only": -0.0193,
   "g_used": 0.1334,
   "g_source": "panel_tr_cagr"
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-23T00:03:12+00:00"
+ "updated_at": "2026-09-23T21:56:52+00:00"
 }

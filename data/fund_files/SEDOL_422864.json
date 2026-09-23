@@ -6,18 +6,18 @@
  "sector": "Global Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_4d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-18",
   "last_announcement": "2026-09-11"
  },
  "nav": {
-  "anchor": 3376.1,
-  "anchor_date": "2026-09-21",
-  "anchor_source": "investegate:9785157",
-  "estimate": 3376.1,
+  "anchor": 3407.48,
+  "anchor_date": "2026-09-22",
+  "anchor_source": "investegate:9787503",
+  "estimate": 3407.48,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 2925.0,
+  "price": 2935.0,
   "ccy": "GBp",
-  "date": "2026-09-21",
+  "date": "2026-09-23",
   "source": "yahoo:HRI.L"
  },
  "discount": {
-  "estimate": -0.133616,
-  "z": -1.052,
+  "estimate": -0.13866,
+  "z": -1.234,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0244,
-  "discount_only": 0.0027,
+  "central": 0.0247,
+  "discount_only": 0.003,
   "g_used": 0.0015,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-23T00:03:13+00:00"
+ "updated_at": "2026-09-23T21:56:53+00:00"
 }
