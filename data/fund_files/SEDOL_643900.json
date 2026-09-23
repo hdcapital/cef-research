@@ -25,29 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 424.0,
+  "price": 418.0,
   "ccy": "GBp",
-  "date": "2026-09-23",
+  "date": "2026-09-22",
   "source": "yahoo:NAS.L"
  },
  "discount": {
-  "estimate": -0.346838,
-  "z": -0.5941,
-  "z_status": "within_error_band",
+  "estimate": -0.356081,
+  "z": -0.7967,
+  "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.318559,
-  "sigma_36m": 0.047602,
-  "alert_eligible": false
+  "mu_36m": -0.318303,
+  "sigma_36m": 0.047418,
+  "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.176,
-  "discount_only": 0.0422,
+  "central": 0.1704,
+  "discount_only": 0.0372,
   "g_used": 0.1284,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-23T21:56:53+00:00"
+ "updated_at": "2026-09-23T23:57:38+00:00"
 }

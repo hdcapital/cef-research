@@ -6,16 +6,16 @@
  "sector": "North America",
  "liveness": {
   "status": "live",
-  "reason": "nav_1d_old",
+  "reason": "nav_0d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-09-22",
+  "last_nav": "2026-09-23",
   "last_announcement": "2026-09-23"
  },
  "nav": {
-  "anchor": 4795.998599407857,
+  "anchor": 4797.488856308936,
   "anchor_date": "2026-09-23",
   "anchor_source": "investegate:9785534",
-  "estimate": 4795.998599,
+  "estimate": 4797.488856,
   "basis": 0.0,
   "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
@@ -27,11 +27,11 @@
  "price": {
   "price": 2780.0,
   "ccy": "GBp",
-  "date": "2026-09-23",
+  "date": "2026-09-22",
   "source": "yahoo:CGI.L"
  },
  "discount": {
-  "estimate": -0.42035,
+  "estimate": -0.42053,
   "z": null,
   "z_status": "history_unit_mismatch",
   "z_source": null,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1692,
-  "discount_only": 0.0203,
+  "central": 0.1667,
+  "discount_only": 0.0182,
   "g_used": 0.1459,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-23T21:56:52+00:00"
+ "updated_at": "2026-09-23T23:57:37+00:00"
 }

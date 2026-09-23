@@ -25,29 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 297.0,
+  "price": 298.5,
   "ccy": "GBp",
-  "date": "2026-09-23",
+  "date": "2026-09-22",
   "source": "yahoo:RICA.L"
  },
  "discount": {
-  "estimate": -0.034617,
-  "z": 0.2076,
-  "z_status": "within_error_band",
+  "estimate": -0.029742,
+  "z": 0.5334,
+  "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.037813,
-  "sigma_36m": 0.015391,
-  "alert_eligible": false
+  "mu_36m": -0.037948,
+  "sigma_36m": 0.015383,
+  "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.046,
-  "discount_only": 0.0004,
+  "central": 0.0464,
+  "discount_only": 0.0007,
   "g_used": 0.0456,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-23T21:56:53+00:00"
+ "updated_at": "2026-09-23T23:57:38+00:00"
 }
