@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9775863",
   "estimate": 309.18,
   "basis": 0.0,
-  "staleness_days": 4.0,
+  "staleness_days": 5.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,19 +25,19 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 298.5,
+  "price": 299.0,
   "ccy": "GBp",
-  "date": "2026-09-22",
+  "date": "2026-09-21",
   "source": "yahoo:RICA.L"
  },
  "discount": {
-  "estimate": -0.034543,
-  "z": 0.2094,
+  "estimate": -0.032926,
+  "z": 0.3175,
   "z_status": "within_error_band",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.037768,
-  "sigma_36m": 0.015403,
+  "mu_36m": -0.037813,
+  "sigma_36m": 0.015391,
   "alert_eligible": false
  },
  "forward_irr": {
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-22T21:52:45+00:00"
+ "updated_at": "2026-09-23T00:03:14+00:00"
 }

@@ -6,10 +6,10 @@
  "sector": "Global Equity Income",
  "liveness": {
   "status": "live",
-  "reason": "nav_4d_old",
+  "reason": "nav_1d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-09-18",
-  "last_announcement": "2026-09-21"
+  "last_nav": "2026-09-21",
+  "last_announcement": "2026-09-22"
  },
  "nav": {
   "anchor": 625.7,
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9784672",
   "estimate": 625.7,
   "basis": 0.0,
-  "staleness_days": 0.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 609.0,
+  "price": 605.0,
   "ccy": "GBp",
-  "date": "2026-09-22",
+  "date": "2026-09-21",
   "source": "yahoo:JGGI.L"
  },
  "discount": {
-  "estimate": -0.02669,
-  "z": -1.0229,
+  "estimate": -0.033083,
+  "z": -1.3362,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1004,
-  "discount_only": 0.0086,
+  "central": 0.0982,
+  "discount_only": 0.0065,
   "g_used": 0.0781,
   "g_source": "own_nav_history"
  },
@@ -60,5 +60,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-22T21:52:45+00:00"
+ "updated_at": "2026-09-23T00:03:13+00:00"
 }
