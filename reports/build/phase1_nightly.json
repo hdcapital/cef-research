@@ -4,18 +4,24 @@
   "rows_without_nav": 328,
   "basis_counts": {
     "nan": 328,
-    "3.0": 304,
-    "0.0": 277,
+    "3.0": 303,
+    "0.0": 278,
     "1.0": 207
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 138,
+  "alert_eligible": 151,
   "z_extremes": [
     {
+      "security_id": "SEDOL:B17B347",
+      "z_adj": -91.6303,
+      "discount_est": -0.990692,
+      "staleness_days": 168.0
+    },
+    {
       "security_id": "ASX:REV",
-      "z_adj": -82.4985,
-      "discount_est": -0.868456,
+      "z_adj": -82.5301,
+      "discount_est": -0.868787,
       "staleness_days": 7.0
     },
     {
@@ -23,6 +29,12 @@
       "z_adj": -72.5944,
       "discount_est": -0.976268,
       "staleness_days": 3154.0
+    },
+    {
+      "security_id": "SEDOL:BL690L8",
+      "z_adj": -61.0706,
+      "discount_est": -0.989873,
+      "staleness_days": 108.0
     },
     {
       "security_id": "SEDOL:BYMJ7X4",
@@ -37,40 +49,28 @@
       "staleness_days": 1.0
     },
     {
+      "security_id": "SEDOL:BRC8992",
+      "z_adj": -37.9556,
+      "discount_est": -0.990737,
+      "staleness_days": 3.0
+    },
+    {
       "security_id": "ASX:GCI",
-      "z_adj": -37.6302,
-      "discount_est": -0.887075,
+      "z_adj": -37.6323,
+      "discount_est": -0.887127,
       "staleness_days": 4.0
     },
     {
-      "security_id": "SEDOL:B1G3N11",
-      "z_adj": -36.263,
-      "discount_est": -0.888292,
-      "staleness_days": 2.0
-    },
-    {
-      "security_id": "ASX:ALR",
-      "z_adj": -32.9293,
-      "discount_est": -0.962978,
-      "staleness_days": 2236.0
-    },
-    {
-      "security_id": "ASX:CTN",
-      "z_adj": -32.181,
-      "discount_est": -0.952885,
-      "staleness_days": 2322.0
-    },
-    {
-      "security_id": "SEDOL:257743",
-      "z_adj": -31.4548,
-      "discount_est": -0.990683,
-      "staleness_days": 127.0
-    },
-    {
-      "security_id": "SEDOL:B631ZQ2",
-      "z_adj": -29.6652,
-      "discount_est": -0.9911,
+      "security_id": "SEDOL:BNGFHX1",
+      "z_adj": -37.2586,
+      "discount_est": -0.990462,
       "staleness_days": 62.0
+    },
+    {
+      "security_id": "SEDOL:B1G3N11",
+      "z_adj": -36.2489,
+      "discount_est": -0.887986,
+      "staleness_days": 2.0
     }
   ],
   "date": "2026-09-24",
@@ -96,16 +96,16 @@
       "agreement_rate_pairs": 0.9693
     },
     "uk": {
-      "tier0_navs": 233,
+      "tier0_navs": 234,
       "nav_publishers_found": 349,
       "daily_weekly": 201
     }
   },
   "catalysts": {
-    "catalysts": 48,
+    "catalysts": 49,
     "funds": 37,
     "by_class": {
-      "substantial_holder": 17,
+      "substantial_holder": 18,
       "tender_offer": 8,
       "realisation": 5,
       "discount_control": 4,
@@ -120,18 +120,18 @@
     }
   },
   "events": {
-    "events_total": 512,
-    "events_30d": 215,
+    "events_total": 514,
+    "events_30d": 217,
     "funds_30d": 111,
     "by_direction_30d": {
-      "neutral": 167,
-      "positive": 43,
+      "neutral": 168,
+      "positive": 44,
       "negative": 5
     },
     "by_class_30d": {
       "issuance": 92,
-      "holdings_notification": 68,
-      "substantial_holder": 15,
+      "holdings_notification": 69,
+      "substantial_holder": 16,
       "tender_offer": 8,
       "portfolio_holding": 7,
       "scheme_merger_rollover": 5,
@@ -142,12 +142,12 @@
       "strategic_review": 2,
       "offer_withdrawn": 2
     },
-    "unalerted": 436,
-    "holdings_with_terms": 68,
+    "unalerted": 438,
+    "holdings_with_terms": 69,
     "tr1": {
-      "candidates": 0,
-      "fetched": 0,
-      "parsed": 0,
+      "candidates": 1,
+      "fetched": 1,
+      "parsed": 1,
       "failed": 0
     },
     "realisations": {
@@ -173,18 +173,18 @@
   },
   "carried_forward_rows": 0,
   "nav_quarantine": {
-    "rows": 505,
+    "rows": 466,
     "by_reason": {
-      "stale_panel_price_only": 219,
+      "stale_panel_price_only": 216,
       "nav_not_positive": 180,
-      "no_price": 80,
+      "no_price": 37,
       "nav_jump_N_vs_prior": 11,
-      "unit_suspect_scale": 8,
-      "nav_unit_mismatch_N_vs_prior": 5,
-      "nav_jump_N_vs_own": 2
+      "unit_suspect_scale": 9,
+      "nav_jump_N_vs_own": 8,
+      "nav_unit_mismatch_N_vs_prior": 5
     }
   },
-  "snapshot": "s3_uploaded:nta_live/2026-09-24.parquet",
+  "snapshot": "s3_exists_not_overwritten:nta_live/2026-09-24.parquet",
   "live_history": {
     "rows": 25668,
     "days": 23
