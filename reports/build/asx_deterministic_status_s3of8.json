@@ -1,17 +1,21 @@
 {
-  "documents": 5,
-  "no_pdf": 5,
+  "documents": 9,
+  "no_pdf": 0,
   "unreadable": 0,
   "image_only": 0,
-  "parsed": 0,
+  "parsed": 9,
   "escalated": 0,
-  "by_family": {},
+  "by_family": {
+    "nta": 4,
+    "dividend": 2,
+    "buyback_daily": 3
+  },
   "parser_version": "94d201fa",
-  "already_done_this_version": 85148,
-  "fact_rows": 0,
+  "already_done_this_version": 85166,
+  "fact_rows": 9,
   "escalation_rows": 0,
-  "parse_rate": 0.0,
-  "parse_rate_text_bearing": 0.0,
+  "parse_rate": 1.0,
+  "parse_rate_text_bearing": 1.0,
   "shard": 3,
   "shards": 8
 }
