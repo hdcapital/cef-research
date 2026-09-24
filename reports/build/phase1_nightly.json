@@ -10,70 +10,70 @@
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 160,
+  "alert_eligible": 138,
   "z_extremes": [
-    {
-      "security_id": "SEDOL:B17B347",
-      "z_adj": -91.6303,
-      "discount_est": -0.990692,
-      "staleness_days": 167.0
-    },
     {
       "security_id": "ASX:REV",
       "z_adj": -82.4985,
       "discount_est": -0.868456,
-      "staleness_days": 6.0
-    },
-    {
-      "security_id": "SEDOL:3115202",
-      "z_adj": -78.6506,
-      "discount_est": -0.990734,
-      "staleness_days": 61.0
+      "staleness_days": 7.0
     },
     {
       "security_id": "SEDOL:721163",
       "z_adj": -72.5944,
       "discount_est": -0.976268,
-      "staleness_days": 3153.0
-    },
-    {
-      "security_id": "SEDOL:BL690L8",
-      "z_adj": -61.0706,
-      "discount_est": -0.989873,
-      "staleness_days": 107.0
+      "staleness_days": 3154.0
     },
     {
       "security_id": "SEDOL:BYMJ7X4",
       "z_adj": -59.1482,
       "discount_est": -0.629934,
-      "staleness_days": 1268.0
+      "staleness_days": 1269.0
     },
     {
       "security_id": "SEDOL:BDHXP96",
       "z_adj": -43.9673,
       "discount_est": -0.718419,
-      "staleness_days": 0.0
-    },
-    {
-      "security_id": "SEDOL:BRC8992",
-      "z_adj": -37.9556,
-      "discount_est": -0.990737,
-      "staleness_days": 2.0
+      "staleness_days": 1.0
     },
     {
       "security_id": "ASX:GCI",
-      "z_adj": -37.6369,
-      "discount_est": -0.887235,
-      "staleness_days": 3.0
+      "z_adj": -37.6302,
+      "discount_est": -0.887075,
+      "staleness_days": 4.0
     },
     {
-      "security_id": "SEDOL:BNGFHX1",
-      "z_adj": -37.2586,
-      "discount_est": -0.990462,
-      "staleness_days": 61.0
+      "security_id": "SEDOL:B1G3N11",
+      "z_adj": -36.263,
+      "discount_est": -0.888292,
+      "staleness_days": 2.0
+    },
+    {
+      "security_id": "ASX:ALR",
+      "z_adj": -32.9293,
+      "discount_est": -0.962978,
+      "staleness_days": 2236.0
+    },
+    {
+      "security_id": "ASX:CTN",
+      "z_adj": -32.181,
+      "discount_est": -0.952885,
+      "staleness_days": 2322.0
+    },
+    {
+      "security_id": "SEDOL:257743",
+      "z_adj": -31.4548,
+      "discount_est": -0.990683,
+      "staleness_days": 127.0
+    },
+    {
+      "security_id": "SEDOL:B631ZQ2",
+      "z_adj": -29.6652,
+      "discount_est": -0.9911,
+      "staleness_days": 62.0
     }
   ],
-  "date": "2026-09-23",
+  "date": "2026-09-24",
   "markets": {
     "au_identity_blocked": 0,
     "au": {
@@ -102,7 +102,7 @@
     }
   },
   "catalysts": {
-    "catalysts": 49,
+    "catalysts": 48,
     "funds": 37,
     "by_class": {
       "substantial_holder": 17,
@@ -113,37 +113,37 @@
       "liquidation_wind_down": 2,
       "manager_exit": 2,
       "strategic_review": 2,
-      "suspension": 2,
       "offer_withdrawn": 2,
       "takeover_offer": 1,
+      "suspension": 1,
       "distribution_policy": 1
     }
   },
   "events": {
     "events_total": 512,
-    "events_30d": 224,
-    "funds_30d": 116,
+    "events_30d": 215,
+    "funds_30d": 111,
     "by_direction_30d": {
-      "neutral": 175,
+      "neutral": 167,
       "positive": 43,
-      "negative": 6
+      "negative": 5
     },
     "by_class_30d": {
-      "issuance": 94,
-      "holdings_notification": 73,
+      "issuance": 92,
+      "holdings_notification": 68,
       "substantial_holder": 15,
       "tender_offer": 8,
-      "portfolio_holding": 8,
+      "portfolio_holding": 7,
       "scheme_merger_rollover": 5,
       "realisation": 5,
       "discount_control": 4,
-      "suspension": 2,
       "liquidation_wind_down": 2,
       "manager_exit": 2,
-      "strategic_review": 2
+      "strategic_review": 2,
+      "offer_withdrawn": 2
     },
     "unalerted": 436,
-    "holdings_with_terms": 72,
+    "holdings_with_terms": 68,
     "tr1": {
       "candidates": 0,
       "fetched": 0,
@@ -173,20 +173,20 @@
   },
   "carried_forward_rows": 0,
   "nav_quarantine": {
-    "rows": 466,
+    "rows": 505,
     "by_reason": {
-      "stale_panel_price_only": 216,
+      "stale_panel_price_only": 219,
       "nav_not_positive": 180,
-      "no_price": 37,
+      "no_price": 80,
       "nav_jump_N_vs_prior": 11,
-      "unit_suspect_scale": 9,
-      "nav_jump_N_vs_own": 8,
-      "nav_unit_mismatch_N_vs_prior": 5
+      "unit_suspect_scale": 8,
+      "nav_unit_mismatch_N_vs_prior": 5,
+      "nav_jump_N_vs_own": 2
     }
   },
-  "snapshot": "s3_exists_not_overwritten:nta_live/2026-09-23.parquet",
+  "snapshot": "s3_uploaded:nta_live/2026-09-24.parquet",
   "live_history": {
-    "rows": 24552,
-    "days": 22
+    "rows": 25668,
+    "days": 23
   }
 }

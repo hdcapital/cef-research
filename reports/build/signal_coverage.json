@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T23:57:44+00:00",
+  "generated_at": "2026-09-24T01:27:30+00:00",
   "target_pct": 90.0,
   "markets": {
     "AU": {
@@ -12,17 +12,17 @@
       "signal_complete_pct": 95.6
     },
     "UK": {
-      "denominator_live_research_eligible": 222,
-      "nav_ok": 208,
-      "z_ok": 202,
-      "growth_ok": 222,
-      "irr_ok": 206,
-      "signal_complete": 197,
-      "signal_complete_pct": 88.7
+      "denominator_live_research_eligible": 176,
+      "nav_ok": 164,
+      "z_ok": 164,
+      "growth_ok": 176,
+      "irr_ok": 165,
+      "signal_complete": 160,
+      "signal_complete_pct": 90.9
     }
   },
   "excluded_not_trading": {
-    "count": 8,
+    "count": 54,
     "rule": "no price bar within 14 days",
     "funds": [
       {
@@ -46,6 +46,56 @@
         "market": "UK"
       },
       {
+        "security_id": "SEDOL:BG0P0V7",
+        "name": "Gore Street Energy Storage",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:BFX3K77",
+        "name": "Gresham House Energy Storage",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:B0T4LH6",
+        "name": "HICL Infrastructure",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:B28XHD6",
+        "name": "HarbourVest Global Private Equity",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:392105",
+        "name": "HgCapital Trust",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:BJP5HK1",
+        "name": "Home REIT",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:329200",
+        "name": "ICG Enterprise Trust",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:B8C23S8",
+        "name": "ICG-Longbow Senior Secured UK Property Debt Invest",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:B0P8RJ6",
+        "name": "India Capital Growth Fund",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:B188SR5",
+        "name": "International Public Partnerships",
+        "market": "UK"
+      },
+      {
         "security_id": "SEDOL:BJVKW83",
         "name": "JPMorgan Global Core Real Assets",
         "market": "UK"
@@ -56,25 +106,205 @@
         "market": "UK"
       },
       {
+        "security_id": "SEDOL:BMF1L08",
+        "name": "Literacy Capital",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:BF0P7H5",
+        "name": "Living REIT",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:B1DSZV3",
+        "name": "Marwyn Value Investors",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:BY7QYJ5",
+        "name": "Molten Ventures",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:B1ZBD49",
+        "name": "Neuberger Private Equity Partners",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:BJ0JVY0",
+        "name": "NextEnergy Solar Fund",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:BJM0293",
+        "name": "Octopus Renewables Infrastructure Trust",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:BMZR151",
+        "name": "Onward Opportunities",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:BLNNFL8",
+        "name": "Pantheon Infrastructure",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:414850",
+        "name": "Pantheon International",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:BN6JYS7",
+        "name": "Parvus Energy Efficiency Trust",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:BPFJTF4",
+        "name": "Pershing Square Holdings",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:B248KJ2",
+        "name": "Phoenix Spree Deutschland",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:736639",
+        "name": "RIT Capital Partners",
+        "market": "UK"
+      },
+      {
         "security_id": "SEDOL:BYMTBG5",
         "name": "RM Infrastructure Income",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:B0HW536",
+        "name": "Real Estate Credit Investments",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:BYV2ZQ3",
+        "name": "Regional REIT",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:BBHX2H9",
+        "name": "Renewables Infrastructure Group",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:BYSX150",
+        "name": "Residential Secure Income REIT",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:739207",
+        "name": "Rights & Issues Investment Trust",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:BRGCGK0",
+        "name": "River UK Micro Cap",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:BBHXCL3",
+        "name": "Riverstone Energy",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:B018CS4",
+        "name": "Ruffer Investment Company",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:BGHVZM4",
+        "name": "SDCL Efficiency Income",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:BY7R8K7",
+        "name": "Schroder European Real Estate",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:BV54HY6",
+        "name": "Sequoia Economic Infrastructure Income",
         "market": "UK"
       },
       {
         "security_id": "SEDOL:BL594H3",
         "name": "SuperSeed Capital",
         "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:B8P59C0",
+        "name": "Syncona",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:B95CGW7",
+        "name": "Target Healthcare REIT",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:BG49KP9",
+        "name": "Tritax Big Box REIT",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:B90J5Z9",
+        "name": "TwentyFour Income Fund",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:BJVDZ94",
+        "name": "TwentyFour Select Monthly Income",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:BNKVP75",
+        "name": "VH Global Energy Infrastructure",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:BVG6X43",
+        "name": "VPC Specialty Lending Investments",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:BJQZ9H1",
+        "name": "VietNam Holding",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:361H109",
+        "name": "Vietnam Enterprise Investments",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:3351642",
+        "name": "VinaCapital Vietnam Opportunity",
+        "market": "UK"
+      },
+      {
+        "security_id": "SEDOL:B06T260",
+        "name": "Worsley Investors",
+        "market": "UK"
       }
     ]
   },
   "total": {
-    "denominator": 313,
-    "signal_complete": 284,
-    "signal_complete_pct": 90.7,
+    "denominator": 267,
+    "signal_complete": 247,
+    "signal_complete_pct": 92.5,
     "top_blockers": {
-      "z:no_discount_history": 10,
-      "nav+z:no_discount_history": 9,
-      "nav": 5,
+      "nav+z:no_discount_history": 8,
+      "nav": 4,
+      "z:no_discount_history": 3,
       "z:insufficient_history_4m": 2,
       "z:insufficient_history_1m": 1,
       "z:insufficient_history_5m": 1,
