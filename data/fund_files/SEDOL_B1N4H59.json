@@ -6,16 +6,16 @@
  "sector": "UK Equity Income",
  "liveness": {
   "status": "live",
-  "reason": "nav_1d_old",
+  "reason": "nav_2d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-22",
   "last_announcement": "2026-09-23"
  },
  "nav": {
-  "anchor": 118.6,
-  "anchor_date": "2026-09-23",
-  "anchor_source": "investegate:9787314",
-  "estimate": 118.6,
+  "anchor": 118.54,
+  "anchor_date": "2026-09-24",
+  "anchor_source": "investegate:9789624",
+  "estimate": 118.54,
   "basis": 0.0,
   "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 112.0,
+  "price": 115.0,
   "ccy": "GBp",
-  "date": "2026-09-22",
+  "date": "2026-09-24",
   "source": "yahoo:CHI.L"
  },
  "discount": {
-  "estimate": -0.055649,
-  "z": 0.3663,
+  "estimate": -0.029863,
+  "z": 1.0418,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1345,
-  "discount_only": 0.0034,
+  "central": 0.1297,
+  "discount_only": -0.0011,
   "g_used": 0.0899,
   "g_source": "sector_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-23T23:57:37+00:00"
+ "updated_at": "2026-09-24T21:51:17+00:00"
 }

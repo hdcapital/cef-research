@@ -6,7 +6,7 @@
  "sector": "Biotechnology & Healthcare",
  "liveness": {
   "status": "live",
-  "reason": "nav_7d_old",
+  "reason": "nav_8d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-16",
   "last_announcement": "2026-09-23"
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9787396",
   "estimate": 134.58,
   "basis": 0.0,
-  "staleness_days": 0.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 130.0,
+  "price": 126.0,
   "ccy": "GBp",
-  "date": "2026-09-22",
+  "date": "2026-09-24",
   "source": "yahoo:CTHT.L"
  },
  "discount": {
-  "estimate": -0.034032,
-  "z": 0.5228,
-  "z_status": "computed",
+  "estimate": -0.063754,
+  "z": -0.3487,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.051861,
   "sigma_36m": 0.034106,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": -0.0161,
-  "discount_only": 0.0031,
+  "central": -0.0225,
+  "discount_only": -0.0034,
   "g_used": -0.0192,
   "g_source": "panel_tr_cagr"
  },
@@ -81,5 +81,5 @@
    }
   }
  ],
- "updated_at": "2026-09-23T23:57:37+00:00"
+ "updated_at": "2026-09-24T21:51:17+00:00"
 }

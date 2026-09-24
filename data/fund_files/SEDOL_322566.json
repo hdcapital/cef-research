@@ -6,7 +6,7 @@
  "sector": "European Smaller Companies",
  "liveness": {
   "status": "delist_candidate",
-  "reason": "aggregator_delisted_and_own_filings_silent_345d",
+  "reason": "aggregator_delisted_and_own_filings_silent_346d",
   "source": "corroborated_delisting",
   "last_nav": "2025-10-10",
   "last_announcement": "2025-10-13"
@@ -15,9 +15,9 @@
   "anchor": 99.84,
   "anchor_date": "2025-10-10",
   "anchor_source": "own_nav_history:2025-10-10",
-  "estimate": 114.936532,
+  "estimate": 113.508466,
   "basis": 1.0,
-  "staleness_days": 248.0,
+  "staleness_days": 249.0,
   "staleness_limit_days": 45.0,
   "current": false,
   "unit": "GBX",
@@ -31,8 +31,8 @@
   "source": "aggregator_panel"
  },
  "discount": {
-  "estimate": -0.187378,
-  "z": -3.327,
+  "estimate": -0.177154,
+  "z": -2.9679,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.075,
-  "discount_only": 0.0239,
+  "central": 0.0752,
+  "discount_only": 0.024,
   "g_used": 0.0058,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-23T23:57:37+00:00"
+ "updated_at": "2026-09-24T21:51:17+00:00"
 }

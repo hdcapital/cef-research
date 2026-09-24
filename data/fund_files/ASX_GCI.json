@@ -6,33 +6,33 @@
  "sector": "Fixed Income - Australian Dollar",
  "liveness": {
   "status": "live",
-  "reason": "nav_7d_old",
+  "reason": "nav_8d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-16",
   "last_announcement": "2026-09-16"
  },
  "nav": {
-  "anchor": 18.0,
-  "anchor_date": "2026-09-18",
-  "anchor_source": "own_nav_history:2026-09-18",
-  "estimate": 18.002057,
+  "anchor": 23.0,
+  "anchor_date": "2026-09-23",
+  "anchor_source": "own_nav_history:2026-09-23",
+  "estimate": 23.005474,
   "basis": 1.0,
-  "staleness_days": 3.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "AUD",
   "quality_ok": false,
-  "quality_reason": "nav_jump_797%_vs_prior"
+  "quality_reason": "nav_jump_1047%_vs_prior"
  },
  "price": {
   "price": 2.0299999713897705,
   "ccy": "AUD",
-  "date": "2026-09-23",
+  "date": "2026-09-24",
   "source": "yahoo:GCI.AX"
  },
  "discount": {
-  "estimate": -0.887235,
-  "z": -37.6369,
+  "estimate": -0.91176,
+  "z": -38.6676,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-23T23:57:36+00:00"
+ "updated_at": "2026-09-24T21:51:17+00:00"
 }

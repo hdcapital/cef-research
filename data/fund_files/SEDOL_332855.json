@@ -6,7 +6,7 @@
  "sector": "Japan",
  "liveness": {
   "status": "delist_candidate",
-  "reason": "aggregator_delisted_and_own_filings_silent_300d",
+  "reason": "aggregator_delisted_and_own_filings_silent_301d",
   "source": "corroborated_delisting",
   "last_nav": "2025-11-21",
   "last_announcement": "2025-11-27"
@@ -15,9 +15,9 @@
   "anchor": 238.94,
   "anchor_date": "2025-11-21",
   "anchor_source": "own_nav_history:2025-11-21",
-  "estimate": 264.607806,
+  "estimate": 262.629986,
   "basis": 1.0,
-  "staleness_days": 218.0,
+  "staleness_days": 219.0,
   "staleness_limit_days": 45.0,
   "current": false,
   "unit": "GBX",
@@ -31,8 +31,8 @@
   "source": "aggregator_panel"
  },
  "discount": {
-  "estimate": -0.100556,
-  "z": 0.1624,
+  "estimate": -0.093782,
+  "z": 0.3713,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.042,
-  "discount_only": 0.0016,
+  "central": 0.0421,
+  "discount_only": 0.0017,
   "g_used": 0.0404,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-23T23:57:37+00:00"
+ "updated_at": "2026-09-24T21:51:17+00:00"
 }

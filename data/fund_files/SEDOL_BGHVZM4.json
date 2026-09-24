@@ -6,10 +6,10 @@
  "sector": "Renewable Energy Infrastructure",
  "liveness": {
   "status": "live",
-  "reason": "nav_90d_old",
+  "reason": "nav_91d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-06-25",
-  "last_announcement": "2026-09-18"
+  "last_announcement": "2026-09-24"
  },
  "nav": {
   "anchor": 77.8,
@@ -17,7 +17,7 @@
   "anchor_source": "investegate_fs:9635404",
   "estimate": 77.8,
   "basis": 0.0,
-  "staleness_days": 126.0,
+  "staleness_days": 127.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 36.400001525878906,
+  "price": 36.45000076293945,
   "ccy": "GBp",
-  "date": "2026-09-22",
+  "date": "2026-09-24",
   "source": "yahoo:SEIT.L"
  },
  "discount": {
-  "estimate": -0.532134,
-  "z": -1.3562,
+  "estimate": -0.531491,
+  "z": -1.3534,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,14 +41,24 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1677,
-  "discount_only": 0.1147,
+  "central": 0.1684,
+  "discount_only": 0.1153,
   "g_used": 0.0476,
   "g_source": "market_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-09-24",
+   "class": "substantial_holder",
+   "weight": 2,
+   "direction": "positive",
+   "headline": "TR-1 Notification of Major Holdings",
+   "url": "https://www.investegate.co.uk/announcement/rns/sdcl-efficiency-income-trust--seit/tr-1-notification-of-major-holdings/9789025",
+   "alerted_at": "2026-09-24T11:26:15+00:00",
+   "terms": null
+  },
   {
    "date": "2026-09-18",
    "class": "substantial_holder",
@@ -130,5 +140,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-23T23:57:38+00:00"
+ "updated_at": "2026-09-24T21:51:18+00:00"
 }
