@@ -5,18 +5,24 @@
   "basis_counts": {
     "nan": 328,
     "3.0": 304,
-    "0.0": 273,
-    "1.0": 211
+    "0.0": 274,
+    "1.0": 210
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 153,
+  "alert_eligible": 162,
   "z_extremes": [
     {
       "security_id": "SEDOL:B17B347",
       "z_adj": -91.6303,
       "discount_est": -0.990692,
       "staleness_days": 169.0
+    },
+    {
+      "security_id": "SEDOL:205753",
+      "z_adj": -82.2076,
+      "discount_est": -0.990789,
+      "staleness_days": 84.0
     },
     {
       "security_id": "SEDOL:721163",
@@ -44,9 +50,9 @@
     },
     {
       "security_id": "ASX:GCI",
-      "z_adj": -38.6725,
-      "discount_est": -0.911875,
-      "staleness_days": 2.0
+      "z_adj": -38.8362,
+      "discount_est": -0.91577,
+      "staleness_days": 1.0
     },
     {
       "security_id": "SEDOL:BRC8992",
@@ -62,15 +68,9 @@
     },
     {
       "security_id": "SEDOL:B1G3N11",
-      "z_adj": -36.2603,
-      "discount_est": -0.888235,
+      "z_adj": -36.2674,
+      "discount_est": -0.88839,
       "staleness_days": 2.0
-    },
-    {
-      "security_id": "ASX:ALR",
-      "z_adj": -32.9875,
-      "discount_est": -0.964554,
-      "staleness_days": 2237.0
     }
   ],
   "date": "2026-09-25",
@@ -120,17 +120,17 @@
     }
   },
   "events": {
-    "events_total": 523,
-    "events_30d": 219,
+    "events_total": 529,
+    "events_30d": 225,
     "funds_30d": 115,
     "by_direction_30d": {
-      "neutral": 171,
+      "neutral": 177,
       "positive": 43,
       "negative": 5
     },
     "by_class_30d": {
-      "issuance": 90,
-      "holdings_notification": 74,
+      "issuance": 93,
+      "holdings_notification": 77,
       "substantial_holder": 14,
       "tender_offer": 9,
       "portfolio_holding": 7,
@@ -142,12 +142,12 @@
       "strategic_review": 2,
       "offer_withdrawn": 2
     },
-    "unalerted": 446,
-    "holdings_with_terms": 74,
+    "unalerted": 451,
+    "holdings_with_terms": 77,
     "tr1": {
-      "candidates": 1,
-      "fetched": 1,
-      "parsed": 1,
+      "candidates": 3,
+      "fetched": 3,
+      "parsed": 3,
       "failed": 0
     },
     "realisations": {

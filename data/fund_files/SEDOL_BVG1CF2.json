@@ -6,16 +6,16 @@
  "sector": "Growth Capital",
  "liveness": {
   "status": "live_stale_nav",
-  "reason": "periodic_report_8d_old_no_recent_nav",
+  "reason": "periodic_report_9d_old_no_recent_nav",
   "source": "own_periodic_report",
   "last_nav": "2026-05-07",
-  "last_announcement": "2026-09-17"
+  "last_announcement": "2026-09-25"
  },
  "nav": {
   "anchor": 21.66,
   "anchor_date": "2026-03-31",
   "anchor_source": "own_nav_history:2026-03-31",
-  "estimate": 22.580044,
+  "estimate": 22.609183,
   "basis": 1.0,
   "staleness_days": 128.0,
   "staleness_limit_days": 200.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 16.399999618530273,
+  "price": 16.700000762939453,
   "ccy": "GBp",
-  "date": "2026-09-23",
+  "date": "2026-09-25",
   "source": "yahoo:INOV.L"
  },
  "discount": {
-  "estimate": -0.273695,
-  "z": 1.1409,
+  "estimate": -0.261362,
+  "z": 1.2568,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,13 +41,27 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": -0.0067,
-  "discount_only": -0.0512,
+  "central": -0.0019,
+  "discount_only": -0.0456,
   "g_used": -0.05,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [],
- "updated_at": "2026-09-25T00:13:36+00:00"
+ "events_90d": [
+  {
+   "date": "2026-09-25",
+   "class": "tender_offer",
+   "weight": 4,
+   "direction": "positive",
+   "headline": "Results of Tender Offer",
+   "url": "https://www.investegate.co.uk/announcement/rns/schroders-capital-global-innovation-trust--inov/results-of-tender-offer/9790255",
+   "alerted_at": "2026-09-25T11:26:12+00:00",
+   "terms": {
+    "llm": "error",
+    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
+   }
+  }
+ ],
+ "updated_at": "2026-09-25T21:57:09+00:00"
 }

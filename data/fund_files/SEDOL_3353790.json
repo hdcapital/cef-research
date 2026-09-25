@@ -6,7 +6,7 @@
  "sector": "Infrastructure Securities",
  "liveness": {
   "status": "delist_candidate",
-  "reason": "aggregator_delisted_and_own_filings_silent_420d",
+  "reason": "aggregator_delisted_and_own_filings_silent_421d",
   "source": "corroborated_delisting",
   "last_nav": "2025-07-31",
   "last_announcement": null
@@ -15,7 +15,7 @@
   "anchor": 118.49,
   "anchor_date": "2025-11-30",
   "anchor_source": "aggregator_panel:2025-11",
-  "estimate": 125.97689,
+  "estimate": 127.722534,
   "basis": 1.0,
   "staleness_days": 214.0,
   "staleness_limit_days": 45.0,
@@ -31,8 +31,8 @@
   "source": "aggregator_panel"
  },
  "discount": {
-  "estimate": -0.091103,
-  "z": 0.9741,
+  "estimate": -0.103525,
+  "z": 0.678,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0117,
-  "discount_only": -0.0059,
+  "central": 0.0115,
+  "discount_only": -0.0061,
   "g_used": -0.0258,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-25T00:13:35+00:00"
+ "updated_at": "2026-09-25T21:57:08+00:00"
 }

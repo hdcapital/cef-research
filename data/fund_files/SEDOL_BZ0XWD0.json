@@ -6,7 +6,7 @@
  "sector": "Environmental",
  "liveness": {
   "status": "delisted",
-  "reason": "own_delisting_notice_268d",
+  "reason": "own_delisting_notice_269d",
   "source": "own_delisting_notice",
   "last_nav": "2025-03-25",
   "last_announcement": "2025-12-30"
@@ -15,7 +15,7 @@
   "anchor": 171.28,
   "anchor_date": "2025-03-24",
   "anchor_source": "own_nav_history:2025-03-24",
-  "estimate": 189.797972,
+  "estimate": 193.3095,
   "basis": 1.0,
   "staleness_days": 394.0,
   "staleness_limit_days": 45.0,
@@ -31,9 +31,9 @@
   "source": "aggregator_panel"
  },
  "discount": {
-  "estimate": -0.188611,
-  "z": 1.7175,
-  "z_status": "history_stale_2025-02",
+  "estimate": -0.20335,
+  "z": 1.5263,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.321013,
@@ -41,7 +41,7 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.4664,
+  "central": 0.4665,
   "discount_only": -0.0272,
   "g_used": 0.0841,
   "g_source": "own_nav_history"
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-25T00:13:36+00:00"
+ "updated_at": "2026-09-25T21:57:09+00:00"
 }

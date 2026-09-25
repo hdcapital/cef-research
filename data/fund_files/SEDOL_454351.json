@@ -6,18 +6,18 @@
  "sector": "European Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-22",
   "last_announcement": "2026-09-11"
  },
  "nav": {
-  "anchor": 195.2,
-  "anchor_date": "2026-09-23",
-  "anchor_source": "investegate:9789614",
-  "estimate": 195.2,
+  "anchor": 192.47,
+  "anchor_date": "2026-09-24",
+  "anchor_source": "investegate:9791970",
+  "estimate": 192.47,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,20 +25,20 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 177.0,
+  "price": 176.5,
   "ccy": "GBp",
-  "date": "2026-09-23",
+  "date": "2026-09-25",
   "source": "yahoo:MTE.L"
  },
  "discount": {
-  "estimate": -0.093238,
-  "z": 0.0579,
-  "z_status": "within_error_band",
+  "estimate": -0.082974,
+  "z": 0.3329,
+  "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.095398,
   "sigma_36m": 0.037319,
-  "alert_eligible": false
+  "alert_eligible": true
  },
  "forward_irr": {
   "central": 0.0899,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-25T00:13:35+00:00"
+ "updated_at": "2026-09-25T21:57:08+00:00"
 }

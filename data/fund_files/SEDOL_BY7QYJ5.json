@@ -6,7 +6,7 @@
  "sector": "Growth Capital",
  "liveness": {
   "status": "live",
-  "reason": "nav_107d_old",
+  "reason": "nav_108d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-06-09",
   "last_announcement": "2026-09-24"
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 677.0,
+  "price": 670.5,
   "ccy": "GBp",
-  "date": "2026-09-23",
+  "date": "2026-09-25",
   "source": "yahoo:GROW.L"
  },
  "discount": {
-  "estimate": 0.008942,
-  "z": 2.2055,
+  "estimate": -0.000745,
+  "z": 2.1575,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": -0.1735,
-  "discount_only": -0.13,
+  "central": -0.1771,
+  "discount_only": -0.1337,
   "g_used": -0.05,
   "g_source": "sector_median"
  },
  "holder_churn": {
-  "filings": 11,
+  "filings": 12,
   "sellers": 0,
   "buyers": 0,
   "largest_move": null,
@@ -56,6 +56,18 @@
  },
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-09-25",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/mfn/molten-ventures--grow/holding-s-in-company/9792479",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Saba Capital Management, L.P"
+   }
+  },
   {
    "date": "2026-09-24",
    "class": "holdings_notification",
@@ -297,5 +309,5 @@
    }
   }
  ],
- "updated_at": "2026-09-25T00:13:35+00:00"
+ "updated_at": "2026-09-25T21:57:08+00:00"
 }

@@ -6,7 +6,7 @@
  "sector": "Equity - Australia Small/Mid Cap",
  "liveness": {
   "status": "live",
-  "reason": "nav_17d_old",
+  "reason": "nav_18d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-07",
   "last_announcement": "2026-09-08"
@@ -17,7 +17,7 @@
   "anchor_source": "asx_ann:03136931",
   "estimate": 2.2,
   "basis": 0.0,
-  "staleness_days": 13.0,
+  "staleness_days": 14.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "AUD",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 0.8999999761581421,
+  "price": 0.8849999904632568,
   "ccy": "AUD",
-  "date": "2026-09-24",
+  "date": "2026-09-25",
   "source": "yahoo:BTI.AX"
  },
  "discount": {
-  "estimate": -0.590909,
-  "z": -4.5141,
+  "estimate": -0.597727,
+  "z": -4.6361,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-25T00:13:33+00:00"
+ "updated_at": "2026-09-25T21:57:06+00:00"
 }

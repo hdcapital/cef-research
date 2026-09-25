@@ -6,34 +6,34 @@
  "sector": "Renewable Energy Infrastructure",
  "liveness": {
   "status": "live_stale_nav",
-  "reason": "periodic_report_153d_old_no_recent_nav",
+  "reason": "periodic_report_0d_old_no_recent_nav",
   "source": "own_periodic_report",
   "last_nav": "2026-04-24",
-  "last_announcement": "2026-06-03"
+  "last_announcement": "2026-09-25"
  },
  "nav": {
-  "anchor": 25.0,
-  "anchor_date": "2025-12-31",
-  "anchor_source": "investegate_fs:9535974",
-  "estimate": 25.0,
+  "anchor": 43.24,
+  "anchor_date": "2026-06-30",
+  "anchor_source": "investegate_fs:9790439",
+  "estimate": 43.24,
   "basis": 0.0,
-  "staleness_days": 192.0,
+  "staleness_days": 63.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
   "quality_ok": false,
-  "quality_reason": "nav_jump_71%_vs_own"
+  "quality_reason": "nav_jump_73%_vs_yesterday"
  },
  "price": {
-  "price": 24.100000381469727,
+  "price": 26.299999237060547,
   "ccy": "GBp",
-  "date": "2026-09-23",
+  "date": "2026-09-25",
   "source": "yahoo:AEET.L"
  },
  "discount": {
-  "estimate": -0.036,
-  "z": 1.8667,
-  "z_status": "computed",
+  "estimate": -0.391767,
+  "z": -0.1093,
+  "z_status": "within_error_band",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
   "mu_36m": -0.372091,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-25T00:13:35+00:00"
+ "updated_at": "2026-09-25T21:57:08+00:00"
 }
