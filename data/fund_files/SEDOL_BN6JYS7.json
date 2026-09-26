@@ -17,7 +17,7 @@
   "anchor_source": "investegate_fs:9790439",
   "estimate": 43.24,
   "basis": 0.0,
-  "staleness_days": 63.0,
+  "staleness_days": 64.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -25,29 +25,29 @@
   "quality_reason": "nav_jump_73%_vs_yesterday"
  },
  "price": {
-  "price": 26.299999237060547,
+  "price": 24.100000381469727,
   "ccy": "GBp",
-  "date": "2026-09-25",
+  "date": "2026-09-24",
   "source": "yahoo:AEET.L"
  },
  "discount": {
-  "estimate": -0.391767,
-  "z": -0.1093,
-  "z_status": "within_error_band",
+  "estimate": -0.442646,
+  "z": -0.394,
+  "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.372091,
-  "sigma_36m": 0.180048,
+  "mu_36m": -0.369647,
+  "sigma_36m": 0.185263,
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": -0.0454,
-  "discount_only": -0.0887,
+  "central": 0.0467,
+  "discount_only": -0.0008,
   "g_used": 0.0476,
   "g_source": "market_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-25T21:57:08+00:00"
+ "updated_at": "2026-09-26T00:18:22+00:00"
 }

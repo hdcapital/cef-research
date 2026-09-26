@@ -10,43 +10,43 @@
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 162,
+  "alert_eligible": 151,
   "z_extremes": [
     {
       "security_id": "SEDOL:B17B347",
       "z_adj": -91.6303,
       "discount_est": -0.990692,
-      "staleness_days": 169.0
+      "staleness_days": 170.0
     },
     {
       "security_id": "SEDOL:205753",
       "z_adj": -82.2076,
       "discount_est": -0.990789,
-      "staleness_days": 84.0
+      "staleness_days": 85.0
     },
     {
       "security_id": "SEDOL:721163",
       "z_adj": -72.5944,
       "discount_est": -0.976268,
-      "staleness_days": 3155.0
+      "staleness_days": 3156.0
     },
     {
       "security_id": "SEDOL:BL690L8",
       "z_adj": -61.0706,
       "discount_est": -0.989873,
-      "staleness_days": 109.0
+      "staleness_days": 110.0
     },
     {
       "security_id": "SEDOL:BYMJ7X4",
       "z_adj": -59.1482,
       "discount_est": -0.629934,
-      "staleness_days": 1270.0
+      "staleness_days": 1271.0
     },
     {
       "security_id": "SEDOL:BDHXP96",
       "z_adj": -43.9575,
       "discount_est": -0.718265,
-      "staleness_days": 0.0
+      "staleness_days": 1.0
     },
     {
       "security_id": "ASX:GCI",
@@ -58,18 +58,18 @@
       "security_id": "SEDOL:BRC8992",
       "z_adj": -37.9556,
       "discount_est": -0.990737,
-      "staleness_days": 4.0
+      "staleness_days": 5.0
     },
     {
       "security_id": "SEDOL:BNGFHX1",
       "z_adj": -37.2586,
       "discount_est": -0.990462,
-      "staleness_days": 63.0
+      "staleness_days": 64.0
     },
     {
       "security_id": "SEDOL:B1G3N11",
-      "z_adj": -36.2674,
-      "discount_est": -0.88839,
+      "z_adj": -36.3158,
+      "discount_est": -0.889441,
       "staleness_days": 2.0
     }
   ],
@@ -102,18 +102,17 @@
     }
   },
   "catalysts": {
-    "catalysts": 46,
-    "funds": 38,
+    "catalysts": 44,
+    "funds": 36,
     "by_class": {
       "substantial_holder": 14,
       "tender_offer": 9,
       "realisation": 5,
       "discount_control": 4,
       "scheme_merger_rollover": 3,
+      "strategic_review": 2,
       "liquidation_wind_down": 2,
       "manager_exit": 2,
-      "strategic_review": 2,
-      "offer_withdrawn": 2,
       "takeover_offer": 1,
       "suspension": 1,
       "distribution_policy": 1
@@ -121,33 +120,33 @@
   },
   "events": {
     "events_total": 529,
-    "events_30d": 225,
-    "funds_30d": 115,
+    "events_30d": 211,
+    "funds_30d": 109,
     "by_direction_30d": {
-      "neutral": 177,
+      "neutral": 165,
       "positive": 43,
-      "negative": 5
+      "negative": 3
     },
     "by_class_30d": {
-      "issuance": 93,
-      "holdings_notification": 77,
+      "issuance": 85,
+      "holdings_notification": 74,
       "substantial_holder": 14,
       "tender_offer": 9,
-      "portfolio_holding": 7,
-      "scheme_merger_rollover": 5,
+      "portfolio_holding": 6,
       "realisation": 5,
+      "scheme_merger_rollover": 5,
       "discount_control": 4,
-      "liquidation_wind_down": 2,
       "manager_exit": 2,
+      "liquidation_wind_down": 2,
       "strategic_review": 2,
-      "offer_withdrawn": 2
+      "suspension": 1
     },
     "unalerted": 451,
-    "holdings_with_terms": 77,
+    "holdings_with_terms": 74,
     "tr1": {
-      "candidates": 3,
-      "fetched": 3,
-      "parsed": 3,
+      "candidates": 0,
+      "fetched": 0,
+      "parsed": 0,
       "failed": 0
     },
     "realisations": {
@@ -173,21 +172,21 @@
   },
   "carried_forward_rows": 0,
   "nav_quarantine": {
-    "rows": 463,
+    "rows": 464,
     "by_reason": {
       "stale_panel_price_only": 216,
       "nav_not_positive": 180,
       "no_price": 37,
       "unit_suspect_scale": 9,
       "nav_jump_N_vs_prior": 9,
-      "nav_jump_N_vs_own": 6,
+      "nav_jump_N_vs_own": 7,
       "nav_unit_mismatch_N_vs_prior": 5,
       "nav_jump_N_vs_yesterday": 1
     }
   },
   "snapshot": "s3_exists_not_overwritten:nta_live/2026-09-25.parquet",
   "live_history": {
-    "rows": 26784,
-    "days": 24
+    "rows": 27900,
+    "days": 25
   }
 }
