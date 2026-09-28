@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T01:45:58+00:00",
+  "generated_at": "2026-09-28T12:53:50+00:00",
   "target_pct": 90.0,
   "markets": {
     "AU": {
@@ -12,17 +12,17 @@
       "signal_complete_pct": 95.6
     },
     "UK": {
-      "denominator_live_research_eligible": 222,
-      "nav_ok": 208,
-      "z_ok": 202,
-      "growth_ok": 222,
-      "irr_ok": 206,
-      "signal_complete": 197,
+      "denominator_live_research_eligible": 221,
+      "nav_ok": 207,
+      "z_ok": 201,
+      "growth_ok": 221,
+      "irr_ok": 205,
+      "signal_complete": 196,
       "signal_complete_pct": 88.7
     }
   },
   "excluded_not_trading": {
-    "count": 8,
+    "count": 9,
     "rule": "no price bar within 14 days",
     "funds": [
       {
@@ -56,6 +56,11 @@
         "market": "UK"
       },
       {
+        "security_id": "SEDOL:667438",
+        "name": "Pacific Assets Trust",
+        "market": "UK"
+      },
+      {
         "security_id": "SEDOL:BYMTBG5",
         "name": "RM Infrastructure Income",
         "market": "UK"
@@ -68,8 +73,8 @@
     ]
   },
   "total": {
-    "denominator": 313,
-    "signal_complete": 284,
+    "denominator": 312,
+    "signal_complete": 283,
     "signal_complete_pct": 90.7,
     "top_blockers": {
       "z:no_discount_history": 10,
