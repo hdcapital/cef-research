@@ -6,7 +6,7 @@
  "sector": "Property - Debt",
  "liveness": {
   "status": "live",
-  "reason": "nav_25d_old",
+  "reason": "nav_28d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-08-31",
   "last_announcement": "2026-09-22"
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 115.0,
+  "price": 114.5,
   "ccy": "GBp",
-  "date": "2026-09-24",
+  "date": "2026-09-28",
   "source": "yahoo:RECI.L"
  },
  "discount": {
-  "estimate": -0.17147,
-  "z": -0.8903,
+  "estimate": -0.175072,
+  "z": -1.0249,
   "z_status": "within_error_band",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0262,
-  "discount_only": 0.0094,
+  "central": 0.0253,
+  "discount_only": 0.0085,
   "g_used": 0.0167,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-26T00:18:23+00:00"
+ "updated_at": "2026-09-28T21:55:40+00:00"
 }

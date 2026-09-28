@@ -6,18 +6,18 @@
  "sector": "North America",
  "liveness": {
   "status": "live",
-  "reason": "nav_1d_old",
+  "reason": "nav_4d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-24",
-  "last_announcement": "2026-09-25"
+  "last_announcement": "2026-09-28"
  },
  "nav": {
-  "anchor": 397.31,
-  "anchor_date": "2026-09-25",
-  "anchor_source": "investegate:9791944",
-  "estimate": 397.31,
+  "anchor": 395.94,
+  "anchor_date": "2026-09-28",
+  "anchor_source": "investegate:9794376",
+  "estimate": 395.94,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 376.0,
+  "price": 377.5,
   "ccy": "GBp",
-  "date": "2026-09-24",
+  "date": "2026-09-28",
   "source": "yahoo:USA.L"
  },
  "discount": {
-  "estimate": -0.053636,
-  "z": 0.6844,
+  "estimate": -0.046573,
+  "z": 0.8116,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1149,
-  "discount_only": -0.0138,
+  "central": 0.117,
+  "discount_only": -0.0117,
   "g_used": 0.0467,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": {
-  "filings": 4,
+  "filings": 5,
   "sellers": 0,
   "buyers": 0,
   "largest_move": null,
@@ -56,6 +56,18 @@
  },
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-09-28",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/baillie-gifford-us-growth-trust--usa/holding-s-in-company/9794791",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Bank of America Corporation"
+   }
+  },
   {
    "date": "2026-09-25",
    "class": "holdings_notification",
@@ -127,5 +139,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-26T00:18:21+00:00"
+ "updated_at": "2026-09-28T21:55:39+00:00"
 }

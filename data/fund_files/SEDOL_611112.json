@@ -6,18 +6,18 @@
  "sector": "UK Equity Income",
  "liveness": {
   "status": "live",
-  "reason": "nav_1d_old",
+  "reason": "nav_4d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-24",
   "last_announcement": "2026-09-11"
  },
  "nav": {
-  "anchor": 1038.8,
-  "anchor_date": "2026-09-25",
-  "anchor_source": "investegate:9791733",
-  "estimate": 1038.8,
+  "anchor": 1040.98,
+  "anchor_date": "2026-09-28",
+  "anchor_source": "investegate:9794252",
+  "estimate": 1040.98,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 970.0,
+  "price": 977.0,
   "ccy": "GBp",
-  "date": "2026-09-24",
+  "date": "2026-09-28",
   "source": "yahoo:MUT.L"
  },
  "discount": {
-  "estimate": -0.06623,
-  "z": 1.2619,
+  "estimate": -0.061461,
+  "z": 1.5321,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0874,
-  "discount_only": -0.0035,
+  "central": 0.0882,
+  "discount_only": -0.0027,
   "g_used": 0.0585,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-26T00:18:22+00:00"
+ "updated_at": "2026-09-28T21:55:40+00:00"
 }

@@ -6,7 +6,7 @@
  "sector": "Biotechnology & Healthcare",
  "liveness": {
   "status": "live",
-  "reason": "nav_1d_old",
+  "reason": "nav_4d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-24",
   "last_announcement": null
@@ -15,7 +15,7 @@
   "anchor": 433.94,
   "anchor_date": "2026-09-24",
   "anchor_source": "own_nav_history:2026-09-24",
-  "estimate": 434.717069,
+  "estimate": 433.212323,
   "basis": 1.0,
   "staleness_days": 2.0,
   "staleness_limit_days": 45.0,
@@ -27,12 +27,12 @@
  "price": {
   "price": 439.5,
   "ccy": "GBp",
-  "date": "2026-09-24",
+  "date": "2026-09-28",
   "source": "yahoo:PCGH.L"
  },
  "discount": {
-  "estimate": 0.011002,
-  "z": 1.6061,
+  "estimate": 0.014514,
+  "z": 1.7193,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.4174,
-  "discount_only": -0.0124,
+  "central": 0.4157,
+  "discount_only": -0.0142,
   "g_used": 0.0243,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-26T00:18:23+00:00"
+ "updated_at": "2026-09-28T21:55:40+00:00"
 }

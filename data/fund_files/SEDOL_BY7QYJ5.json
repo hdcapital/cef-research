@@ -6,10 +6,10 @@
  "sector": "Growth Capital",
  "liveness": {
   "status": "live",
-  "reason": "nav_108d_old",
+  "reason": "nav_111d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-06-09",
-  "last_announcement": "2026-09-25"
+  "last_announcement": "2026-09-28"
  },
  "nav": {
   "anchor": 671.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 662.5,
+  "price": 679.0,
   "ccy": "GBp",
-  "date": "2026-09-24",
+  "date": "2026-09-28",
   "source": "yahoo:GROW.L"
  },
  "discount": {
-  "estimate": -0.012668,
-  "z": 2.0892,
+  "estimate": 0.011923,
+  "z": 2.2108,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": -0.1755,
-  "discount_only": -0.1321,
+  "central": -0.1735,
+  "discount_only": -0.13,
   "g_used": -0.05,
   "g_source": "sector_median"
  },
  "holder_churn": {
-  "filings": 12,
+  "filings": 13,
   "sellers": 0,
   "buyers": 0,
   "largest_move": null,
@@ -56,6 +56,19 @@
  },
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-09-28",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/mfn/molten-ventures--grow/holding-s-in-company/9794927",
+   "alerted_at": null,
+   "terms": {
+    "new_pct": 0.0,
+    "holder": "Jefferies Financial Group Inc"
+   }
+  },
   {
    "date": "2026-09-25",
    "class": "holdings_notification",
@@ -309,5 +322,5 @@
    }
   }
  ],
- "updated_at": "2026-09-26T00:18:22+00:00"
+ "updated_at": "2026-09-28T21:55:40+00:00"
 }

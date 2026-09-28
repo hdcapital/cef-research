@@ -6,10 +6,10 @@
  "sector": "Growth Capital",
  "liveness": {
   "status": "live",
-  "reason": "nav_53d_old",
+  "reason": "nav_56d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-08-03",
-  "last_announcement": "2026-09-21"
+  "last_announcement": "2026-09-28"
  },
  "nav": {
   "anchor": 131.09,
@@ -25,30 +25,55 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 67.80000305175781,
+  "price": 72.0,
   "ccy": "GBp",
-  "date": "2026-09-24",
+  "date": "2026-09-28",
   "source": "yahoo:CHRY.L"
  },
  "discount": {
-  "estimate": -0.482798,
-  "z": -1.1294,
-  "z_status": "computed",
+  "estimate": -0.450759,
+  "z": -0.7009,
+  "z_status": "within_error_band",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
   "mu_36m": -0.398342,
   "sigma_36m": 0.07478,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": -0.0334,
-  "discount_only": 0.0174,
+  "central": -0.0303,
+  "discount_only": 0.0207,
   "g_used": -0.05,
   "g_source": "sector_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-09-28",
+   "class": "realisation",
+   "weight": 1,
+   "direction": "positive",
+   "headline": "Sale of Klarna Stake and Compulsory Redemption",
+   "url": "https://www.investegate.co.uk/announcement/rns/chrysalis-investments-limited-npv--chry/sale-of-klarna-stake-and-compulsory-redemption/9792817",
+   "alerted_at": null,
+   "terms": {
+    "unparsed": true,
+    "parser": "r2"
+   }
+  },
+  {
+   "date": "2026-09-28",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/chrysalis-investments-limited-npv--chry/holding-s-in-company/9794936",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Asset Value Investors Limited"
+   }
+  },
   {
    "date": "2026-09-21",
    "class": "holdings_notification",
@@ -72,5 +97,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-26T00:18:22+00:00"
+ "updated_at": "2026-09-28T21:55:39+00:00"
 }

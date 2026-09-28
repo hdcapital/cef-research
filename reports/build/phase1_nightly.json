@@ -10,8 +10,20 @@
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 156,
+  "alert_eligible": 162,
   "z_extremes": [
+    {
+      "security_id": "SEDOL:3420207",
+      "z_adj": -229.4784,
+      "discount_est": -0.990524,
+      "staleness_days": 5.0
+    },
+    {
+      "security_id": "SEDOL:B0JQZZ8",
+      "z_adj": -145.052,
+      "discount_est": -0.99047,
+      "staleness_days": 5.0
+    },
     {
       "security_id": "SEDOL:B17B347",
       "z_adj": -91.6303,
@@ -59,18 +71,6 @@
       "z_adj": -43.8892,
       "discount_est": -0.717176,
       "staleness_days": 0.0
-    },
-    {
-      "security_id": "ASX:GCI",
-      "z_adj": -38.851,
-      "discount_est": -0.916121,
-      "staleness_days": 2.0
-    },
-    {
-      "security_id": "SEDOL:BRC8992",
-      "z_adj": -37.9556,
-      "discount_est": -0.990737,
-      "staleness_days": 5.0
     }
   ],
   "date": "2026-09-28",
@@ -119,17 +119,17 @@
     }
   },
   "events": {
-    "events_total": 530,
-    "events_30d": 187,
+    "events_total": 538,
+    "events_30d": 195,
     "funds_30d": 97,
     "by_direction_30d": {
-      "neutral": 143,
+      "neutral": 151,
       "positive": 41,
       "negative": 3
     },
     "by_class_30d": {
-      "issuance": 70,
-      "holdings_notification": 69,
+      "holdings_notification": 75,
+      "issuance": 72,
       "substantial_holder": 13,
       "tender_offer": 8,
       "realisation": 6,
@@ -141,17 +141,17 @@
       "liquidation_wind_down": 1,
       "suspension": 1
     },
-    "unalerted": 452,
-    "holdings_with_terms": 69,
+    "unalerted": 460,
+    "holdings_with_terms": 75,
     "tr1": {
-      "candidates": 0,
-      "fetched": 0,
-      "parsed": 0,
+      "candidates": 6,
+      "fetched": 6,
+      "parsed": 6,
       "failed": 0
     },
     "realisations": {
-      "candidates": 1,
-      "fetched": 1,
+      "candidates": 0,
+      "fetched": 0,
       "parsed": 0,
       "failed": 0
     },
