@@ -12,12 +12,12 @@
   "last_announcement": "2026-09-28"
  },
  "nav": {
-  "anchor": 270.08,
-  "anchor_date": "2026-09-28",
-  "anchor_source": "investegate:9793499",
-  "estimate": 270.08,
+  "anchor": 268.69,
+  "anchor_date": "2026-09-29",
+  "anchor_source": "investegate:9795948",
+  "estimate": 268.69,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 253.5,
+  "price": 251.0,
   "ccy": "GBp",
-  "date": "2026-09-25",
+  "date": "2026-09-29",
   "source": "yahoo:FCSS.L"
  },
  "discount": {
-  "estimate": -0.061389,
-  "z": 1.5186,
+  "estimate": -0.065838,
+  "z": 1.3066,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,14 +41,26 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": -0.0147,
-  "discount_only": -0.006,
+  "central": -0.015,
+  "discount_only": -0.0064,
   "g_used": -0.0493,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-09-29",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/prn/fidelity-china-special-situations--fcss/holding-s-in-company/9797260",
+   "alerted_at": null,
+   "terms": {
+    "holder": "City of London Investment Management Company Limited"
+   }
+  },
   {
    "date": "2026-08-03",
    "class": "holdings_notification",
@@ -60,5 +72,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-29T01:23:53+00:00"
+ "updated_at": "2026-09-29T21:58:23+00:00"
 }

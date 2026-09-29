@@ -12,12 +12,12 @@
   "last_announcement": "2026-09-11"
  },
  "nav": {
-  "anchor": 281.26,
-  "anchor_date": "2026-09-25",
-  "anchor_source": "investegate:9794402",
-  "estimate": 281.26,
+  "anchor": 287.71,
+  "anchor_date": "2026-09-28",
+  "anchor_source": "investegate:9796972",
+  "estimate": 287.71,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 247.0,
+  "price": 253.0,
   "ccy": "GBp",
-  "date": "2026-09-25",
+  "date": "2026-09-29",
   "source": "yahoo:ARR.L"
  },
  "discount": {
-  "estimate": -0.121809,
-  "z": -1.6468,
+  "estimate": -0.120642,
+  "z": -1.5612,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,14 +41,26 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.044,
-  "discount_only": 0.0004,
+  "central": 0.0497,
+  "discount_only": 0.006,
   "g_used": 0.0235,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-09-29",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/aurora-uk-alpha-plc--arr/holding-s-in-company/9797278",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Rothschild and Co Wealth Management UK Limited"
+   }
+  },
   {
    "date": "2026-08-13",
    "class": "holdings_notification",
@@ -62,5 +74,5 @@
    }
   }
  ],
- "updated_at": "2026-09-29T01:23:52+00:00"
+ "updated_at": "2026-09-29T21:58:23+00:00"
 }

@@ -25,29 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 26.299999237060547,
+  "price": 29.100000381469727,
   "ccy": "GBp",
-  "date": "2026-09-25",
+  "date": "2026-09-29",
   "source": "yahoo:AEET.L"
  },
  "discount": {
-  "estimate": -0.391767,
-  "z": 0.557,
-  "z_status": "within_error_band",
+  "estimate": -0.327012,
+  "z": 1.2957,
+  "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
   "mu_36m": -0.440596,
   "sigma_36m": 0.087663,
-  "alert_eligible": false
+  "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0451,
-  "discount_only": -0.0023,
+  "central": 0.0354,
+  "discount_only": -0.0116,
   "g_used": 0.0476,
   "g_source": "market_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-29T01:23:54+00:00"
+ "updated_at": "2026-09-29T21:58:24+00:00"
 }

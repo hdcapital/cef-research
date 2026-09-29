@@ -25,29 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 60.0,
+  "price": 59.0,
   "ccy": "GBp",
-  "date": "2026-09-25",
+  "date": "2026-09-29",
   "source": "yahoo:GABI.L"
  },
  "discount": {
-  "estimate": -0.145543,
-  "z": 0.6367,
-  "z_status": "computed",
+  "estimate": -0.159784,
+  "z": 0.4925,
+  "z_status": "within_error_band",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
   "mu_36m": -0.208436,
   "sigma_36m": 0.098783,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0485,
-  "discount_only": 0.0009,
+  "central": 0.0506,
+  "discount_only": 0.0029,
   "g_used": 0.0476,
   "g_source": "market_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-29T01:23:53+00:00"
+ "updated_at": "2026-09-29T21:58:23+00:00"
 }

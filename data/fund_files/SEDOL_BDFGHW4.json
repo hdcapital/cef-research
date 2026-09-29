@@ -12,12 +12,12 @@
   "last_announcement": "2026-09-28"
  },
  "nav": {
-  "anchor": 395.94,
-  "anchor_date": "2026-09-28",
-  "anchor_source": "investegate:9794376",
-  "estimate": 395.94,
+  "anchor": 391.3,
+  "anchor_date": "2026-09-29",
+  "anchor_source": "investegate:9796644",
+  "estimate": 391.3,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -27,12 +27,12 @@
  "price": {
   "price": 380.0,
   "ccy": "GBp",
-  "date": "2026-09-25",
+  "date": "2026-09-29",
   "source": "yahoo:USA.L"
  },
  "discount": {
-  "estimate": -0.040259,
-  "z": 0.9254,
+  "estimate": -0.028878,
+  "z": 1.1304,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1155,
-  "discount_only": -0.0132,
+  "central": 0.1143,
+  "discount_only": -0.0145,
   "g_used": 0.0467,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": {
-  "filings": 5,
+  "filings": 6,
   "sellers": 0,
   "buyers": 0,
   "largest_move": null,
@@ -56,6 +56,18 @@
  },
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-09-29",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/baillie-gifford-us-growth-trust--usa/holding-s-in-company/9797261",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Sessa Capital IM, L.P"
+   }
+  },
   {
    "date": "2026-09-28",
    "class": "holdings_notification",
@@ -139,5 +151,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-29T01:23:52+00:00"
+ "updated_at": "2026-09-29T21:58:23+00:00"
 }

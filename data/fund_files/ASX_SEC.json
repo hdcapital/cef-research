@@ -12,12 +12,12 @@
   "last_announcement": "2026-09-16"
  },
  "nav": {
-  "anchor": 2.244,
-  "anchor_date": "2026-09-24",
-  "anchor_source": "own_nav_history:2026-09-24",
-  "estimate": 2.246716,
+  "anchor": 2.222,
+  "anchor_date": "2026-09-25",
+  "anchor_source": "own_nav_history:2026-09-25",
+  "estimate": 2.212199,
   "basis": 1.0,
-  "staleness_days": 3.0,
+  "staleness_days": 2.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "AUD",
@@ -31,23 +31,23 @@
   "source": "yahoo:SEC.AX"
  },
  "discount": {
-  "estimate": -0.051949,
-  "z": -0.3915,
-  "z_status": "computed",
+  "estimate": -0.037157,
+  "z": -0.1429,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.028653,
   "sigma_36m": 0.059505,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1881,
-  "discount_only": -0.0041,
+  "central": 0.1889,
+  "discount_only": -0.0034,
   "g_used": 0.1388,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-29T01:23:52+00:00"
+ "updated_at": "2026-09-29T21:58:22+00:00"
 }
