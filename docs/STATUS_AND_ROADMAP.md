@@ -553,3 +553,26 @@ window whose brief has gone is skipped however late it arrives. Tests
 cover the 12:38Z case, the next day's same label, and the pre-ASX window
 across midnight. The dispatch record this week otherwise held: every
 brief since 15 Sep went before its open from the 05:40Z / 22:45Z Routines.
+
+### 2026-09-29 — six days offline; every brief still went, all of them late
+
+The session holding the dispatcher Routines was unreachable from 23 Sep
+07:00Z to 29 Sep 05:40Z (repeated connector drops); sixteen Routine wakes
+queued unread. GitHub's crons carried every window on their own and the
+window-identity gate held (one email per window, no duplicates), but each
+brief arrived hours after its open:
+
+| window | intended by | emailed |
+|---|---|---|
+| Wed 23 pre-ASX | 00:00Z Thu | 01:29Z Thu |
+| Thu 24 pre-LSE | 07:00Z | 11:26Z |
+| Thu 24 pre-ASX | 00:00Z Fri | 01:30Z Fri |
+| Fri 25 pre-LSE | 07:00Z | 11:26Z |
+| Sun 27 pre-ASX | 00:00Z Mon | 01:47Z Mon |
+| Mon 28 pre-LSE | 07:00Z | 12:55Z |
+| Mon 28 pre-ASX | 00:00Z Tue | 02:56Z Tue |
+
+Nightlies, panels and archives all ran normally. On reconnecting, today's
+pre-LSE brief was dispatched at 05:41Z. The dependency on this one session
+being awake is the remaining weak point: the cron layer never fails to
+send, only to send on time.
