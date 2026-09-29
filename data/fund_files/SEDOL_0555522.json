@@ -6,9 +6,9 @@
  "sector": "Flexible Investment",
  "liveness": {
   "status": "live",
-  "reason": "nav_28d_old",
+  "reason": "nav_11d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-08-31",
+  "last_nav": "2026-09-18",
   "last_announcement": "2026-09-25"
  },
  "nav": {
@@ -17,22 +17,22 @@
   "anchor_source": "investegate:9792313",
   "estimate": 340.96,
   "basis": 0.0,
-  "staleness_days": 6.0,
-  "staleness_limit_days": 46.5,
+  "staleness_days": 7.0,
+  "staleness_limit_days": 49.5,
   "current": true,
   "unit": "GBX",
   "quality_ok": true,
   "quality_reason": ""
  },
  "price": {
-  "price": 342.0,
+  "price": 345.0,
   "ccy": "GBp",
-  "date": "2026-09-28",
+  "date": "2026-09-25",
   "source": "yahoo:MAJE.L"
  },
  "discount": {
-  "estimate": 0.00305,
-  "z": 2.4674,
+  "estimate": 0.011849,
+  "z": 2.6535,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.4005,
-  "discount_only": -0.0311,
+  "central": 0.3997,
+  "discount_only": -0.032,
   "g_used": 0.1359,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-28T21:55:40+00:00"
+ "updated_at": "2026-09-29T01:23:53+00:00"
 }

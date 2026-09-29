@@ -8,7 +8,7 @@
   "status": "live",
   "reason": "nav_5d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-09-23",
+  "last_nav": "2026-09-24",
   "last_announcement": "2026-09-28"
  },
  "nav": {
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9794047",
   "estimate": 360.89,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 2.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 329.0,
+  "price": 335.0,
   "ccy": "GBp",
-  "date": "2026-09-28",
+  "date": "2026-09-25",
   "source": "yahoo:TEM.L"
  },
  "discount": {
-  "estimate": -0.088365,
-  "z": 0.9486,
+  "estimate": -0.071739,
+  "z": 1.5458,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0734,
-  "discount_only": -0.0106,
+  "central": 0.0762,
+  "discount_only": -0.008,
   "g_used": 0.0639,
   "g_source": "panel_tr_cagr"
  },
@@ -62,5 +62,5 @@
    }
   }
  ],
- "updated_at": "2026-09-28T21:55:41+00:00"
+ "updated_at": "2026-09-29T01:23:54+00:00"
 }

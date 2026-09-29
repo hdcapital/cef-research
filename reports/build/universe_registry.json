@@ -5,8 +5,8 @@
     "AU": 172,
     "UK": 944
   },
-  "live": 366,
-  "live_stale_nav": 39,
+  "live": 367,
+  "live_stale_nav": 38,
   "status_before_evidence": {
     "delisted": 737,
     "live": 374,
@@ -17,9 +17,9 @@
   "persisted_to": "data/universe/registry.parquet",
   "live_status_source": {
     "corroborated_delisting": 606,
-    "own_nav_announcement": 355,
+    "own_nav_announcement": 356,
     "own_delisting_notice": 98,
-    "own_periodic_report": 37,
+    "own_periodic_report": 36,
     "registry_deferral_no_own_filings": 11,
     "own_announcement_only": 6,
     "own_nav_announcement_stale": 2,
@@ -29,10 +29,10 @@
   "aggregator_said_live_evidence_says_not": 6,
   "by_liveness_reason": {
     "aggregator_delisted_and_own_filings_silent_alwaysd": 523,
-    "nav": 357,
+    "nav": 358,
     "own_delisting_notice": 98,
     "aggregator_delisted_and_own_filings_silent": 83,
-    "periodic_report": 37,
+    "periodic_report": 36,
     "no_own_filings_held_deferring_to_registry": 11,
     "filings_but_no_nav_or_report": 6,
     "registry_listed": 1
@@ -40,11 +40,11 @@
   "delisted": 98,
   "priced_by_source": 639,
   "announcements_only": 477,
-  "live_announcements_only": 101,
+  "live_announcements_only": 102,
   "offshore": 195,
   "vct": 228,
   "live_by_domicile": {
-    "GB": 208,
+    "GB": 209,
     "null": 97,
     "GG": 33,
     "JE": 13,
@@ -604,6 +604,15 @@
       "months_listed": 57
     },
     {
+      "security_id": "SEDOL:BN6JYS7",
+      "name": "Parvus Energy Efficiency Trust",
+      "sector": "Renewable Energy Infrastructure",
+      "domicile": "GB",
+      "isin": "GB00BN6JYS78",
+      "first_seen": "2021-06",
+      "months_listed": 61
+    },
+    {
       "security_id": "SEDOL:BQVC9S7",
       "name": "Pembroke VCT B shares",
       "sector": "VCT",
@@ -966,7 +975,7 @@
   ],
   "live_announcements_only_by_sector": {
     "VCT": 22,
-    "Renewable Energy Infrastructure": 8,
+    "Renewable Energy Infrastructure": 9,
     "Private Equity": 7,
     "Infrastructure": 6,
     "Debt - Structured Finance": 5,
