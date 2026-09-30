@@ -1,15 +1,15 @@
 {
-  "run_at": "2026-09-29T22:33:28+00:00",
+  "run_at": "2026-09-30T22:32:59+00:00",
   "stages": [
     "nav",
     "prices",
     "discount"
   ],
-  "live_funds_addressed": 563,
+  "live_funds_addressed": 561,
   "bucket": true,
   "nav": {
     "held_rows": 565975,
-    "seed_rows": 739857,
+    "seed_rows": 739939,
     "reparse_unreliable_funds": [
       "GCL",
       "MAJE",
@@ -17,6 +17,7 @@
     ],
     "reparse_quarantined_funds": [
       "API",
+      "ASLI",
       "CBA",
       "GRIT",
       "GWI",
@@ -28,69 +29,69 @@
       "THRL",
       "TRIG"
     ],
-    "reparse_candidates": 176481,
+    "reparse_candidates": 176502,
     "archive": {
-      "archive_objects": 764475,
-      "queued": 177788,
-      "read": 177788,
-      "parsed": 63840,
-      "unparsed": 113948,
+      "archive_objects": 764613,
+      "queued": 177809,
+      "read": 177809,
+      "parsed": 63878,
+      "unparsed": 113931,
       "read_failed": 0,
       "deadline_hit": false
     },
     "snapshots": {
-      "snapshots": 27,
-      "rows": 2769,
+      "snapshots": 28,
+      "rows": 2899,
       "read_failed": 0
     },
-    "raw_rows": 1252148,
-    "unparsed_rows": 113948,
-    "panel_rows": 592117,
+    "raw_rows": 1252328,
+    "unparsed_rows": 113931,
+    "panel_rows": 592258,
     "panel_funds": 327,
     "quality": {
-      "observations_compared": 569766,
+      "observations_compared": 569902,
       "median_abs_change": 0.005322,
-      "p90_abs_change": 0.018028,
-      "big_move_rate": 0.009274,
-      "jump_reversal_rate": 0.00232552,
-      "big_move_rate_labelled_basis": 0.003752,
-      "big_move_rate_cum_assumed": 0.035401,
-      "cum_assumed_share_of_panel": 0.1859,
+      "p90_abs_change": 0.018026,
+      "big_move_rate": 0.009272,
+      "jump_reversal_rate": 0.00232496,
+      "big_move_rate_labelled_basis": 0.003751,
+      "big_move_rate_cum_assumed": 0.035395,
+      "cum_assumed_share_of_panel": 0.1858,
       "funds_unreliable_nav_series": 2
     }
   },
   "prices": {
-    "held_bars": 1397757,
-    "panel_bars": 1398050,
+    "held_bars": 1398050,
+    "panel_bars": 1398341,
     "funds_with_prices": 385,
-    "funds_no_history": 266
+    "funds_no_history": 267
   },
   "discount": {
     "fx": {
-      "converted": 2222,
-      "dropped": 555,
+      "converted": 2220,
+      "dropped": 557,
       "by_ccy": {
         "CAD": 2770,
         "EUR": 7
       }
     },
-    "panel_rows": 1350481,
+    "panel_rows": 1350772,
     "funds": 385,
-    "days_with_discount": 874943,
-    "days_with_fresh_discount": 760875,
-    "funds_usable_today": 219,
+    "days_with_discount": 875289,
+    "days_with_fresh_discount": 761199,
+    "funds_usable_today": 221,
     "first_date": "2007-01-02",
-    "last_date": "2026-09-28",
-    "funds_no_nav": 295,
+    "last_date": "2026-09-29",
+    "funds_no_nav": 294,
     "unit_status": {
-      "ok": 251,
+      "ok": 252,
       "unresolved_no_nav_no_currency": 48,
       "assumed_from_currency": 44,
       "rescaled_x100": 12,
       "currency_mismatch": 9,
       "assumed_from_currency_thin_overlap": 5,
       "unresolved_dispersed": 5,
-      "unresolved_scale": 4,
+      "unresolved_scale": 3,
       "ok_recent_window": 3,
       "rescaled_x0.01": 2,
       "rescaled_x100_recent_window": 1,
@@ -101,7 +102,7 @@
       "NBDD"
     ],
     "nav_readiness": {
-      "archived": 315,
+      "archived": 313,
       "unknown_listing_index_not_pulled": 248
     },
     "funds_split_adjusted": 46,
