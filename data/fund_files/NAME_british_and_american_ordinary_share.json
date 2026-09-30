@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9761120",
   "estimate": 9.5,
   "basis": 0.0,
-  "staleness_days": 15.0,
+  "staleness_days": 16.0,
   "staleness_limit_days": 93.0,
   "current": true,
   "unit": "GBX",
@@ -32,22 +32,22 @@
  },
  "discount": {
   "estimate": -0.157895,
-  "z": -0.7788,
+  "z": -0.7699,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": 0.134258,
-  "sigma_36m": 0.375108,
+  "mu_36m": 0.132065,
+  "sigma_36m": 0.376618,
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": -0.0207,
-  "discount_only": 0.0308,
+  "central": -0.003,
+  "discount_only": 0.0495,
   "g_used": -0.05,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-29T21:58:23+00:00"
+ "updated_at": "2026-09-30T00:45:19+00:00"
 }

@@ -15,9 +15,9 @@
   "anchor": 1.02,
   "anchor_date": "2026-09-25",
   "anchor_source": "own_nav_history:2026-09-25",
-  "estimate": 1.017051,
+  "estimate": 1.017569,
   "basis": 1.0,
-  "staleness_days": 2.0,
+  "staleness_days": 3.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "AUD",
@@ -31,8 +31,8 @@
   "source": "yahoo:AMH.AX"
  },
  "discount": {
-  "estimate": -0.115089,
-  "z": 0.1355,
+  "estimate": -0.115539,
+  "z": 0.1208,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1442,
-  "discount_only": 0.0044,
+  "central": 0.1434,
+  "discount_only": 0.0037,
   "g_used": 0.1063,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-29T21:58:22+00:00"
+ "updated_at": "2026-09-30T00:45:19+00:00"
 }

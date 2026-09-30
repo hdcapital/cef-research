@@ -17,7 +17,7 @@
   "anchor_source": "own_nav_history:2026-03-31",
   "estimate": 1209.0,
   "basis": 3.0,
-  "staleness_days": 130.0,
+  "staleness_days": 131.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -32,17 +32,17 @@
  },
  "discount": {
   "estimate": -0.519438,
-  "z": -1.5491,
+  "z": -1.5458,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.374843,
-  "sigma_36m": 0.093339,
+  "mu_36m": -0.374935,
+  "sigma_36m": 0.093483,
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1987,
-  "discount_only": 0.0423,
+  "central": 0.2003,
+  "discount_only": 0.0437,
   "g_used": 0.15,
   "g_source": "sector_median"
  },
@@ -60,5 +60,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-29T21:58:24+00:00"
+ "updated_at": "2026-09-30T00:45:20+00:00"
 }

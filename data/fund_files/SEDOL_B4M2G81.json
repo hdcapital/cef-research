@@ -1,0 +1,53 @@
+{
+ "security_id": "SEDOL:B4M2G81",
+ "name": "",
+ "market": "UK",
+ "ticker": null,
+ "sector": null,
+ "liveness": {
+  "status": "delisted",
+  "reason": "own_delisting_notice_0d",
+  "source": "own_delisting_notice",
+  "last_nav": "2024-03-31",
+  "last_announcement": "2026-09-29"
+ },
+ "nav": {
+  "anchor": 46.0,
+  "anchor_date": "2024-03-31",
+  "anchor_source": "own_nav_history:2024-03-31",
+  "estimate": 46.0,
+  "basis": 3.0,
+  "staleness_days": 652.0,
+  "staleness_limit_days": 200.0,
+  "current": false,
+  "unit": "GBX",
+  "quality_ok": false,
+  "quality_reason": "no_price"
+ },
+ "price": {
+  "price": null,
+  "ccy": null,
+  "date": null,
+  "source": "none"
+ },
+ "discount": {
+  "estimate": null,
+  "z": null,
+  "z_status": "no_discount_history",
+  "z_source": null,
+  "z_window_months": 0,
+  "mu_36m": null,
+  "sigma_36m": null,
+  "alert_eligible": false
+ },
+ "forward_irr": {
+  "central": 2.9676,
+  "discount_only": 2.7874,
+  "g_used": 0.0476,
+  "g_source": "market_median"
+ },
+ "holder_churn": null,
+ "realisations": null,
+ "events_90d": [],
+ "updated_at": "2026-09-30T00:45:21+00:00"
+}
