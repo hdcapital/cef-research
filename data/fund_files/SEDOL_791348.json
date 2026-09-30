@@ -6,18 +6,18 @@
  "sector": "UK All Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_1d_old",
+  "reason": "nav_2d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-28",
   "last_announcement": "2026-09-11"
  },
  "nav": {
-  "anchor": 236.44,
-  "anchor_date": "2026-09-29",
-  "anchor_source": "investegate:9796640",
-  "estimate": 236.44,
+  "anchor": 236.87,
+  "anchor_date": "2026-09-30",
+  "anchor_source": "investegate:9798945",
+  "estimate": 236.87,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 214.0,
+  "price": 216.0,
   "ccy": "GBp",
-  "date": "2026-09-28",
+  "date": "2026-09-30",
   "source": "yahoo:BGUK.L"
  },
  "discount": {
-  "estimate": -0.094908,
-  "z": 0.9007,
+  "estimate": -0.088107,
+  "z": 1.1864,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -62,5 +62,5 @@
    }
   }
  ],
- "updated_at": "2026-09-30T00:45:19+00:00"
+ "updated_at": "2026-09-30T21:57:11+00:00"
 }

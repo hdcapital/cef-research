@@ -6,10 +6,10 @@
  "sector": "Hedge Funds",
  "liveness": {
   "status": "live",
-  "reason": "nav_7d_old",
+  "reason": "nav_8d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-22",
-  "last_announcement": "2026-09-29"
+  "last_announcement": "2026-09-30"
  },
  "nav": {
   "anchor": 438.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 411.5,
+  "price": 413.0,
   "ccy": "GBp",
-  "date": "2026-09-28",
+  "date": "2026-09-30",
   "source": "yahoo:BHMG.L"
  },
  "discount": {
-  "estimate": -0.060502,
-  "z": -0.3305,
+  "estimate": -0.057078,
+  "z": -0.3114,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,13 +41,26 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0595,
-  "discount_only": 0.0196,
-  "g_used": 0.0392,
+  "central": 0.0773,
+  "discount_only": 0.0198,
+  "g_used": 0.0563,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [],
- "updated_at": "2026-09-30T00:45:19+00:00"
+ "events_90d": [
+  {
+   "date": "2026-09-30",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/prn/bh-macro-ltd-gbp-shares--bhmg/holding-s-in-company/9799865",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Evelyn Partners Group Limited"
+   }
+  }
+ ],
+ "updated_at": "2026-09-30T21:57:11+00:00"
 }

@@ -6,7 +6,7 @@
  "sector": "India / Indian Subcontinent",
  "liveness": {
   "status": "live",
-  "reason": "nav_1d_old",
+  "reason": "nav_2d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-28",
   "last_announcement": "2026-09-29"
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 177.0,
+  "price": 176.0,
   "ccy": "GBp",
-  "date": "2026-09-28",
+  "date": "2026-09-30",
   "source": "yahoo:IGC.L"
  },
  "discount": {
-  "estimate": -0.098457,
-  "z": -0.3411,
+  "estimate": -0.10355,
+  "z": -0.4763,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,13 +41,26 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1142,
-  "discount_only": 0.0022,
+  "central": 0.1117,
+  "discount_only": -0.0,
   "g_used": 0.1117,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [],
- "updated_at": "2026-09-30T00:45:20+00:00"
+ "events_90d": [
+  {
+   "date": "2026-09-30",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/india-capital-growth-fund-ltd---igc/holding-s-in-company/9800014",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Verition Fund Management LLC"
+   }
+  }
+ ],
+ "updated_at": "2026-09-30T21:57:12+00:00"
 }

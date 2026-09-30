@@ -6,10 +6,10 @@
  "sector": "Hedge Funds",
  "liveness": {
   "status": "live",
-  "reason": "nav_7d_old",
+  "reason": "nav_8d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-22",
-  "last_announcement": "2026-09-29"
+  "last_announcement": "2026-09-30"
  },
  "nav": {
   "anchor": 4.49,
@@ -25,13 +25,13 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 4.230000019073486,
+  "price": 4.25,
   "ccy": "USD",
-  "date": "2026-09-28",
+  "date": "2026-09-30",
   "source": "yahoo:BHMU.L"
  },
  "discount": {
-  "estimate": -0.057906,
+  "estimate": -0.053452,
   "z": null,
   "z_status": "no_discount_history",
   "z_source": null,
@@ -48,6 +48,19 @@
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [],
- "updated_at": "2026-09-30T00:45:19+00:00"
+ "events_90d": [
+  {
+   "date": "2026-09-30",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/prn/bh-macro-ltd-usd-shares--bhmu/holding-s-in-company/9799865",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Evelyn Partners Group Limited"
+   }
+  }
+ ],
+ "updated_at": "2026-09-30T21:57:11+00:00"
 }

@@ -6,18 +6,18 @@
  "sector": "Equity - Australia Small/Mid Cap",
  "liveness": {
   "status": "live",
-  "reason": "nav_13d_old",
+  "reason": "nav_14d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-16",
   "last_announcement": "2026-09-16"
  },
  "nav": {
-  "anchor": 2.222,
-  "anchor_date": "2026-09-25",
-  "anchor_source": "own_nav_history:2026-09-25",
-  "estimate": 2.213704,
+  "anchor": 2.198,
+  "anchor_date": "2026-09-28",
+  "anchor_source": "own_nav_history:2026-09-28",
+  "estimate": 2.188056,
   "basis": 1.0,
-  "staleness_days": 3.0,
+  "staleness_days": 2.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "AUD",
@@ -25,29 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 2.130000114440918,
+  "price": 2.180000066757202,
   "ccy": "AUD",
-  "date": "2026-09-29",
+  "date": "2026-09-30",
   "source": "yahoo:SEC.AX"
  },
  "discount": {
-  "estimate": -0.037812,
-  "z": -0.1539,
-  "z_status": "within_error_band",
+  "estimate": -0.003682,
+  "z": 0.4196,
+  "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.028653,
   "sigma_36m": 0.059505,
-  "alert_eligible": false
+  "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1854,
-  "discount_only": -0.0065,
+  "central": 0.1856,
+  "discount_only": -0.0063,
   "g_used": 0.1388,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-30T00:45:19+00:00"
+ "updated_at": "2026-09-30T21:57:10+00:00"
 }

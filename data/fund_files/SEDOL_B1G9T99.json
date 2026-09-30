@@ -6,18 +6,18 @@
  "sector": "Commodities & Natural Resources",
  "liveness": {
   "status": "live",
-  "reason": "nav_4d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-25",
-  "last_announcement": "2026-09-29"
+  "last_announcement": "2026-09-30"
  },
  "nav": {
-  "anchor": 118.71,
-  "anchor_date": "2026-09-28",
-  "anchor_source": "investegate:9796870",
-  "estimate": 118.71,
+  "anchor": 118.77,
+  "anchor_date": "2026-09-29",
+  "anchor_source": "investegate:9799273",
+  "estimate": 118.77,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 109.0,
+  "price": 111.5,
   "ccy": "GBp",
-  "date": "2026-09-28",
+  "date": "2026-09-30",
   "source": "yahoo:GPM.L"
  },
  "discount": {
-  "estimate": -0.081796,
-  "z": 2.0409,
+  "estimate": -0.061211,
+  "z": 2.4307,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 26,
@@ -41,13 +41,27 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1186,
-  "discount_only": -0.0273,
+  "central": 0.1212,
+  "discount_only": -0.0251,
   "g_used": 0.15,
   "g_source": "sector_median"
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [],
- "updated_at": "2026-09-30T00:45:20+00:00"
+ "events_90d": [
+  {
+   "date": "2026-09-30",
+   "class": "manager_change",
+   "weight": 3,
+   "direction": "positive",
+   "headline": "Update re Appointment of Investment Manager",
+   "url": "https://www.investegate.co.uk/announcement/rns/golden-prospect-precious-metals-ltd---gpm/update-re-appointment-of-investment-manager/9797656",
+   "alerted_at": "2026-09-30T06:32:22+00:00",
+   "terms": {
+    "llm": "error",
+    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
+   }
+  }
+ ],
+ "updated_at": "2026-09-30T21:57:11+00:00"
 }

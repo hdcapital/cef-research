@@ -6,7 +6,7 @@
  "sector": "Debt - Loans & Bonds",
  "liveness": {
   "status": "live",
-  "reason": "nav_105d_old",
+  "reason": "nav_106d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-06-16",
   "last_announcement": "2026-09-24"
@@ -15,7 +15,7 @@
   "anchor": 89.96,
   "anchor_date": "2026-07-31",
   "anchor_source": "aggregator_panel:2026-07",
-  "estimate": 92.763789,
+  "estimate": 92.150082,
   "basis": 1.0,
   "staleness_days": 43.0,
   "staleness_limit_days": 94.5,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 90.4000015258789,
+  "price": 90.0,
   "ccy": "GBp",
-  "date": "2026-09-28",
+  "date": "2026-09-30",
   "source": "yahoo:MGCI.L"
  },
  "discount": {
-  "estimate": -0.025482,
-  "z": -0.2192,
+  "estimate": -0.023332,
+  "z": -0.2077,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.272,
-  "discount_only": 0.0005,
+  "central": 0.2718,
+  "discount_only": 0.0003,
   "g_used": 0.0105,
   "g_source": "own_nav_history"
  },
@@ -182,5 +182,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-30T00:45:20+00:00"
+ "updated_at": "2026-09-30T21:57:12+00:00"
 }

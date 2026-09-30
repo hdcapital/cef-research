@@ -6,7 +6,7 @@
  "sector": "Debt - Structured Finance",
  "liveness": {
   "status": "live",
-  "reason": "nav_1d_old",
+  "reason": "nav_2d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-28",
   "last_announcement": "2026-09-28"
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 108.5999984741211,
+  "price": 108.80000305175781,
   "ccy": "GBp",
-  "date": "2026-09-28",
+  "date": "2026-09-30",
   "source": "yahoo:TFIF.L"
  },
  "discount": {
-  "estimate": 0.016949,
-  "z": 0.9182,
+  "estimate": 0.018822,
+  "z": 0.9783,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,9 +41,9 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0389,
-  "discount_only": -0.0059,
-  "g_used": 0.045,
+  "central": 0.0399,
+  "discount_only": -0.0055,
+  "g_used": 0.0457,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
@@ -100,5 +100,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-09-30T00:45:21+00:00"
+ "updated_at": "2026-09-30T21:57:12+00:00"
 }

@@ -6,18 +6,18 @@
  "sector": "Global Emerging Markets",
  "liveness": {
   "status": "live",
-  "reason": "nav_1d_old",
+  "reason": "nav_2d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-28",
   "last_announcement": "2026-09-11"
  },
  "nav": {
-  "anchor": 184.56,
-  "anchor_date": "2026-09-29",
-  "anchor_source": "investegate:9796539",
-  "estimate": 184.56,
+  "anchor": 184.82,
+  "anchor_date": "2026-09-30",
+  "anchor_source": "investegate:9799025",
+  "estimate": 184.82,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 168.8000030517578,
+  "price": 169.1999969482422,
   "ccy": "GBp",
-  "date": "2026-09-28",
+  "date": "2026-09-30",
   "source": "yahoo:JMGI.L"
  },
  "discount": {
-  "estimate": -0.085392,
-  "z": 0.8023,
+  "estimate": -0.084515,
+  "z": 0.8466,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,26 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0732,
-  "discount_only": -0.0035,
+  "central": 0.0746,
+  "discount_only": -0.0021,
   "g_used": 0.0574,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [],
- "updated_at": "2026-09-30T00:45:20+00:00"
+ "events_90d": [
+  {
+   "date": "2026-09-30",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/jpmorgan-emerging-markets-growth-income-plc--jmgi/holding-s-in-company/9799923",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Rathbones Investment Management Ltd"
+   }
+  }
+ ],
+ "updated_at": "2026-09-30T21:57:12+00:00"
 }

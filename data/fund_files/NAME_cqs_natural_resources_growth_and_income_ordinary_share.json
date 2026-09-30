@@ -6,18 +6,18 @@
  "sector": "Commodities & Natural Resources",
  "liveness": {
   "status": "live",
-  "reason": "nav_4d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-25",
   "last_announcement": "2026-09-29"
  },
  "nav": {
-  "anchor": 397.82,
-  "anchor_date": "2026-09-28",
-  "anchor_source": "investegate:9796978",
-  "estimate": 397.82,
+  "anchor": 395.93,
+  "anchor_date": "2026-09-29",
+  "anchor_source": "investegate:9799743",
+  "estimate": 395.93,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 408.0,
+  "price": 410.0,
   "ccy": "GBp",
-  "date": "2026-09-28",
+  "date": "2026-09-30",
   "source": "yahoo:CYN.L"
  },
  "discount": {
-  "estimate": 0.025589,
-  "z": 1.6984,
+  "estimate": 0.035537,
+  "z": 1.8611,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,24 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1182,
-  "discount_only": -0.0276,
+  "central": 0.1177,
+  "discount_only": -0.0281,
   "g_used": 0.15,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [],
- "updated_at": "2026-09-30T00:45:19+00:00"
+ "events_90d": [
+  {
+   "date": "2026-09-30",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/cqs-natural-resources-growth-and-income--cyn/issue-of-equity/9799813",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-09-30T21:57:11+00:00"
 }

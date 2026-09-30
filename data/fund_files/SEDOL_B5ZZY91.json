@@ -6,18 +6,18 @@
  "sector": "Global Emerging Markets",
  "liveness": {
   "status": "live",
-  "reason": "nav_1d_old",
+  "reason": "nav_2d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-28",
   "last_announcement": "2026-09-29"
  },
  "nav": {
-  "anchor": 235.34,
-  "anchor_date": "2026-09-29",
-  "anchor_source": "investegate:9796537",
-  "estimate": 235.34,
+  "anchor": 235.57,
+  "anchor_date": "2026-09-30",
+  "anchor_source": "investegate:9799023",
+  "estimate": 235.57,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 212.0,
+  "price": 214.0,
   "ccy": "GBp",
-  "date": "2026-09-28",
+  "date": "2026-09-30",
   "source": "yahoo:JEMI.L"
  },
  "discount": {
-  "estimate": -0.099176,
-  "z": 0.3418,
+  "estimate": -0.091565,
+  "z": 0.6538,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0618,
-  "discount_only": -0.006,
+  "central": 0.0656,
+  "discount_only": -0.0023,
   "g_used": 0.0399,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-30T00:45:20+00:00"
+ "updated_at": "2026-09-30T21:57:12+00:00"
 }

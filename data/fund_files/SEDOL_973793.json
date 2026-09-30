@@ -15,7 +15,7 @@
   "anchor": 46.0,
   "anchor_date": "2014-01-31",
   "anchor_source": "aggregator_panel:2014-01",
-  "estimate": 51.599038,
+  "estimate": 50.031018,
   "basis": 1.0,
   "staleness_days": 3303.0,
   "staleness_limit_days": 45.0,
@@ -31,8 +31,8 @@
   "source": "aggregator_panel"
  },
  "discount": {
-  "estimate": -0.156961,
-  "z": -0.3816,
+  "estimate": -0.130539,
+  "z": 0.1196,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0693,
-  "discount_only": 0.0036,
+  "central": 0.0695,
+  "discount_only": 0.0038,
   "g_used": 0.0476,
   "g_source": "market_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-30T00:45:19+00:00"
+ "updated_at": "2026-09-30T21:57:11+00:00"
 }
