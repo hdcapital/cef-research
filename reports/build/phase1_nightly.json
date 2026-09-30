@@ -102,8 +102,8 @@
     }
   },
   "catalysts": {
-    "catalysts": 42,
-    "funds": 35,
+    "catalysts": 43,
+    "funds": 36,
     "by_class": {
       "substantial_holder": 13,
       "tender_offer": 8,
@@ -112,19 +112,20 @@
       "scheme_merger_rollover": 3,
       "strategic_review": 2,
       "manager_exit": 2,
-      "takeover_offer": 1,
       "liquidation_wind_down": 1,
+      "takeover_offer": 1,
+      "manager_change": 1,
       "suspension": 1,
       "distribution_policy": 1
     }
   },
   "events": {
-    "events_total": 545,
-    "events_30d": 202,
-    "funds_30d": 99,
+    "events_total": 546,
+    "events_30d": 203,
+    "funds_30d": 100,
     "by_direction_30d": {
       "neutral": 158,
-      "positive": 41,
+      "positive": 42,
       "negative": 3
     },
     "by_class_30d": {
@@ -136,12 +137,12 @@
       "scheme_merger_rollover": 5,
       "discount_control": 4,
       "portfolio_holding": 4,
-      "strategic_review": 2,
       "manager_exit": 2,
+      "strategic_review": 2,
       "liquidation_wind_down": 1,
       "suspension": 1
     },
-    "unalerted": 467,
+    "unalerted": 468,
     "holdings_with_terms": 80,
     "tr1": {
       "candidates": 0,
@@ -156,7 +157,7 @@
       "failed": 0
     },
     "terms": {
-      "candidates": 32,
+      "candidates": 33,
       "read": 3,
       "accepted": 0,
       "rejected": 0,
@@ -183,7 +184,7 @@
       "nav_unit_mismatch_N_vs_prior": 4
     }
   },
-  "snapshot": "s3_uploaded:nta_live/2026-09-30.parquet",
+  "snapshot": "s3_exists_not_overwritten:nta_live/2026-09-30.parquet",
   "live_history": {
     "rows": 31248,
     "days": 28
