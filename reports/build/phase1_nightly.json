@@ -10,70 +10,70 @@
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 162,
+  "alert_eligible": 158,
   "z_extremes": [
     {
       "security_id": "SEDOL:3420207",
       "z_adj": -229.4784,
       "discount_est": -0.990524,
-      "staleness_days": 7.0
+      "staleness_days": 8.0
     },
     {
       "security_id": "SEDOL:B0JQZZ8",
       "z_adj": -145.052,
       "discount_est": -0.99047,
-      "staleness_days": 7.0
+      "staleness_days": 8.0
     },
     {
       "security_id": "SEDOL:205753",
       "z_adj": -82.2076,
       "discount_est": -0.990789,
-      "staleness_days": 87.0
+      "staleness_days": 88.0
     },
     {
       "security_id": "SEDOL:721163",
       "z_adj": -72.5944,
       "discount_est": -0.976268,
-      "staleness_days": 3158.0
+      "staleness_days": 3159.0
     },
     {
       "security_id": "SEDOL:BL690L8",
       "z_adj": -61.0706,
       "discount_est": -0.989873,
-      "staleness_days": 112.0
+      "staleness_days": 113.0
     },
     {
       "security_id": "SEDOL:BYMJ7X4",
       "z_adj": -59.1482,
       "discount_est": -0.629934,
-      "staleness_days": 1273.0
+      "staleness_days": 1274.0
     },
     {
       "security_id": "SEDOL:3115376",
       "z_adj": -55.64,
       "discount_est": -0.990797,
-      "staleness_days": 87.0
+      "staleness_days": 88.0
     },
     {
       "security_id": "SEDOL:413880",
       "z_adj": -45.9842,
       "discount_est": -0.990895,
-      "staleness_days": 230.0
+      "staleness_days": 231.0
     },
     {
       "security_id": "SEDOL:BDHXP96",
       "z_adj": -43.9087,
       "discount_est": -0.717488,
-      "staleness_days": 0.0
+      "staleness_days": 1.0
     },
     {
       "security_id": "SEDOL:BRC8992",
       "z_adj": -41.0954,
       "discount_est": -0.990666,
-      "staleness_days": 2.0
+      "staleness_days": 3.0
     }
   ],
-  "date": "2026-09-30",
+  "date": "2026-10-01",
   "markets": {
     "au_identity_blocked": 0,
     "au": {
@@ -85,7 +85,7 @@
     "uk_identity_blocked": 337,
     "uk_nav_targets": 308,
     "uk_registry_only_targets": 111,
-    "uk_aux_z_history_funds": 255,
+    "uk_aux_z_history_funds": 256,
     "uk_fx_pairs": [
       "CAD",
       "EUR",
@@ -102,12 +102,12 @@
     }
   },
   "catalysts": {
-    "catalysts": 44,
-    "funds": 36,
+    "catalysts": 42,
+    "funds": 34,
     "by_class": {
-      "substantial_holder": 14,
+      "substantial_holder": 13,
       "tender_offer": 8,
-      "realisation": 6,
+      "realisation": 5,
       "discount_control": 4,
       "scheme_merger_rollover": 3,
       "strategic_review": 2,
@@ -121,28 +121,28 @@
   },
   "events": {
     "events_total": 565,
-    "events_30d": 222,
-    "funds_30d": 108,
+    "events_30d": 218,
+    "funds_30d": 105,
     "by_direction_30d": {
-      "neutral": 176,
-      "positive": 43,
+      "neutral": 174,
+      "positive": 41,
       "negative": 3
     },
     "by_class_30d": {
       "holdings_notification": 87,
       "issuance": 85,
-      "substantial_holder": 14,
+      "substantial_holder": 13,
       "tender_offer": 8,
-      "realisation": 6,
+      "realisation": 5,
       "scheme_merger_rollover": 5,
       "discount_control": 4,
-      "portfolio_holding": 4,
       "strategic_review": 2,
       "manager_exit": 2,
+      "portfolio_holding": 2,
       "manager_change": 1,
       "liquidation_wind_down": 1
     },
-    "unalerted": 486,
+    "unalerted": 485,
     "holdings_with_terms": 87,
     "tr1": {
       "candidates": 0,
@@ -173,20 +173,20 @@
   },
   "carried_forward_rows": 0,
   "nav_quarantine": {
-    "rows": 465,
+    "rows": 464,
     "by_reason": {
       "stale_panel_price_only": 217,
       "nav_not_positive": 180,
       "no_price": 39,
       "nav_jump_N_vs_prior": 9,
       "unit_suspect_scale": 9,
-      "nav_jump_N_vs_own": 7,
+      "nav_jump_N_vs_own": 6,
       "nav_unit_mismatch_N_vs_prior": 4
     }
   },
-  "snapshot": "s3_exists_not_overwritten:nta_live/2026-09-30.parquet",
+  "snapshot": "s3_uploaded:nta_live/2026-10-01.parquet",
   "live_history": {
-    "rows": 31248,
-    "days": 28
+    "rows": 32364,
+    "days": 29
   }
 }

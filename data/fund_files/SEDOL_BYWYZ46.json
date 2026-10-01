@@ -6,7 +6,7 @@
  "sector": "Technology & Technology Innovation",
  "liveness": {
   "status": "live",
-  "reason": "nav_92d_old",
+  "reason": "nav_93d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-06-30",
   "last_announcement": "2026-09-22"
@@ -17,7 +17,7 @@
   "anchor_source": "own_nav_history:2026-06-30",
   "estimate": 117.94,
   "basis": 3.0,
-  "staleness_days": 66.0,
+  "staleness_days": 67.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -32,22 +32,22 @@
  },
  "discount": {
   "estimate": -0.766831,
-  "z": -1.6941,
+  "z": -1.687,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.176822,
-  "sigma_36m": 0.348275,
+  "mu_36m": -0.177457,
+  "sigma_36m": 0.34936,
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.511,
-  "discount_only": 0.3139,
+  "central": 0.5395,
+  "discount_only": 0.3387,
   "g_used": 0.15,
   "g_source": "sector_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-09-30T21:57:12+00:00"
+ "updated_at": "2026-10-01T00:54:30+00:00"
 }
