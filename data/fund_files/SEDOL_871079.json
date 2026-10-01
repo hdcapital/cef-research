@@ -12,12 +12,12 @@
   "last_announcement": "2026-09-30"
  },
  "nav": {
-  "anchor": 754.6,
-  "anchor_date": "2026-09-30",
-  "anchor_source": "investegate:9799185",
-  "estimate": 754.6,
+  "anchor": 750.42,
+  "anchor_date": "2026-10-01",
+  "anchor_source": "investegate:9802069",
+  "estimate": 750.42,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 729.0,
+  "price": 718.0,
   "ccy": "GBp",
-  "date": "2026-09-29",
+  "date": "2026-10-01",
   "source": "yahoo:ATR.L"
  },
  "discount": {
-  "estimate": -0.033925,
-  "z": 0.2635,
+  "estimate": -0.043202,
+  "z": -0.1499,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,14 +41,26 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.101,
-  "discount_only": -0.0002,
+  "central": 0.0989,
+  "discount_only": -0.0021,
   "g_used": 0.0815,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-10-01",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/schroder-asian-total-return-investment-company--atr/holding-s-in-company/9802750",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Rathbones Investment Management Ltd"
+   }
+  },
   {
    "date": "2026-09-28",
    "class": "holdings_notification",
@@ -72,5 +84,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-10-01T00:54:30+00:00"
+ "updated_at": "2026-10-01T21:56:47+00:00"
 }

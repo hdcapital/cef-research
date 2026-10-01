@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 686.5,
+  "price": 675.0,
   "ccy": "GBp",
-  "date": "2026-09-29",
+  "date": "2026-10-01",
   "source": "yahoo:GROW.L"
  },
  "discount": {
-  "estimate": 0.0231,
-  "z": 2.2461,
+  "estimate": 0.005961,
+  "z": 2.162,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": -0.1825,
-  "discount_only": -0.1395,
+  "central": -0.1793,
+  "discount_only": -0.1362,
   "g_used": -0.05,
   "g_source": "sector_median"
  },
  "holder_churn": {
-  "filings": 13,
+  "filings": 14,
   "sellers": 0,
   "buyers": 0,
   "largest_move": null,
@@ -56,6 +56,19 @@
  },
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-10-01",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/eqs/molten-ventures--grow/holding-s-in-company/9802902",
+   "alerted_at": null,
+   "terms": {
+    "new_pct": 5.0,
+    "holder": "BlackRock, Inc"
+   }
+  },
   {
    "date": "2026-09-28",
    "class": "holdings_notification",
@@ -322,5 +335,5 @@
    }
   }
  ],
- "updated_at": "2026-10-01T00:54:30+00:00"
+ "updated_at": "2026-10-01T21:56:47+00:00"
 }

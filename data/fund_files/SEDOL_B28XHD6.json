@@ -9,7 +9,7 @@
   "reason": "nav_31d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-08-31",
-  "last_announcement": "2026-09-30"
+  "last_announcement": "2026-10-01"
  },
  "nav": {
   "anchor": 4518.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 3320.0,
+  "price": 3300.0,
   "ccy": "GBp",
-  "date": "2026-09-29",
+  "date": "2026-10-01",
   "source": "yahoo:HVPE.L"
  },
  "discount": {
-  "estimate": -0.265162,
-  "z": 1.276,
+  "estimate": -0.269588,
+  "z": 1.2112,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,14 +41,26 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": -0.0003,
-  "discount_only": -0.0365,
+  "central": -0.0006,
+  "discount_only": -0.0367,
   "g_used": 0.0376,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-10-01",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/harbourvest-global-private-equity-limited-a-shs--hvpe/holding-s-in-company/9801656",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Saba Capital Management, L.P"
+   }
+  },
   {
    "date": "2026-09-22",
    "class": "discount_control",
@@ -76,5 +88,5 @@
    }
   }
  ],
- "updated_at": "2026-10-01T00:54:30+00:00"
+ "updated_at": "2026-10-01T21:56:46+00:00"
 }
