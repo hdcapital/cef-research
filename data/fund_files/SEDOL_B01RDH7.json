@@ -9,15 +9,15 @@
   "reason": "nav_3d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-29",
-  "last_announcement": "2026-10-01"
+  "last_announcement": "2026-10-02"
  },
  "nav": {
-  "anchor": 638.99,
-  "anchor_date": "2026-09-30",
-  "anchor_source": "investegate:9802134",
-  "estimate": 638.99,
+  "anchor": 625.86,
+  "anchor_date": "2026-10-01",
+  "anchor_source": "investegate:9804699",
+  "estimate": 625.86,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,25 +25,25 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 593.0,
+  "price": 585.0,
   "ccy": "GBp",
-  "date": "2026-09-30",
+  "date": "2026-10-02",
   "source": "yahoo:BRGE.L"
  },
  "discount": {
-  "estimate": -0.071973,
-  "z": -1.093,
-  "z_status": "computed",
+  "estimate": -0.065286,
+  "z": -0.5317,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.058953,
   "sigma_36m": 0.011912,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0891,
-  "discount_only": 0.0075,
-  "g_used": 0.0606,
+  "central": 0.0735,
+  "discount_only": 0.0037,
+  "g_used": 0.0487,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
@@ -63,5 +63,5 @@
    }
   }
  ],
- "updated_at": "2026-10-02T00:56:06+00:00"
+ "updated_at": "2026-10-02T21:52:16+00:00"
 }

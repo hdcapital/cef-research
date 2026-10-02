@@ -12,12 +12,12 @@
   "last_announcement": "2026-09-11"
  },
  "nav": {
-  "anchor": 1634.91,
-  "anchor_date": "2026-09-30",
-  "anchor_source": "investegate:9802887",
-  "estimate": 1634.91,
+  "anchor": 1600.73,
+  "anchor_date": "2026-10-01",
+  "anchor_source": "investegate:9804668",
+  "estimate": 1600.73,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,29 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1548.0,
+  "price": 1482.0,
   "ccy": "GBp",
-  "date": "2026-09-30",
+  "date": "2026-10-02",
   "source": "yahoo:BIOG.L"
  },
  "discount": {
-  "estimate": -0.053159,
-  "z": 1.7969,
-  "z_status": "computed",
+  "estimate": -0.074172,
+  "z": 0.5481,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.083394,
   "sigma_36m": 0.016826,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1436,
-  "discount_only": 0.0002,
+  "central": 0.1374,
+  "discount_only": -0.0061,
   "g_used": 0.0478,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-02T00:56:06+00:00"
+ "updated_at": "2026-10-02T21:52:16+00:00"
 }

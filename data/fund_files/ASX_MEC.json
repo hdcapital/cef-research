@@ -12,12 +12,12 @@
   "last_announcement": "2026-09-16"
  },
  "nav": {
-  "anchor": 1.3539,
-  "anchor_date": "2026-09-18",
-  "anchor_source": "own_nav_history:2026-09-18",
-  "estimate": 1.369879,
+  "anchor": 1.3655,
+  "anchor_date": "2026-09-25",
+  "anchor_source": "own_nav_history:2026-09-25",
+  "estimate": 1.359297,
   "basis": 1.0,
-  "staleness_days": 10.0,
+  "staleness_days": 5.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "AUD",
@@ -25,29 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1.1799999475479126,
+  "price": 1.1549999713897705,
   "ccy": "AUD",
-  "date": "2026-10-01",
+  "date": "2026-10-02",
   "source": "yahoo:MEC.AX"
  },
  "discount": {
-  "estimate": -0.13861,
-  "z": -0.7015,
-  "z_status": "within_error_band",
+  "estimate": -0.150296,
+  "z": -1.0373,
+  "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.114203,
   "sigma_36m": 0.034794,
-  "alert_eligible": false
+  "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1661,
-  "discount_only": 0.0037,
+  "central": 0.1662,
+  "discount_only": 0.0038,
   "g_used": 0.1382,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-02T00:56:05+00:00"
+ "updated_at": "2026-10-02T21:52:15+00:00"
 }
