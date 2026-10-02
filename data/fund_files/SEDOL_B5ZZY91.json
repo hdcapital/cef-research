@@ -8,8 +8,8 @@
   "status": "live",
   "reason": "nav_2d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-09-29",
-  "last_announcement": "2026-09-30"
+  "last_nav": "2026-09-30",
+  "last_announcement": "2026-10-01"
  },
  "nav": {
   "anchor": 233.96,
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9801976",
   "estimate": 233.96,
   "basis": 0.0,
-  "staleness_days": 0.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 213.0,
+  "price": 214.0,
   "ccy": "GBp",
-  "date": "2026-10-01",
+  "date": "2026-09-30",
   "source": "yahoo:JEMI.L"
  },
  "discount": {
-  "estimate": -0.089588,
-  "z": 0.7349,
+  "estimate": -0.085314,
+  "z": 0.9101,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.062,
-  "discount_only": -0.0058,
+  "central": 0.0634,
+  "discount_only": -0.0044,
   "g_used": 0.0399,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-01T21:56:47+00:00"
+ "updated_at": "2026-10-02T00:56:07+00:00"
 }

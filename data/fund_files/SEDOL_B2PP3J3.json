@@ -8,8 +8,8 @@
   "status": "live",
   "reason": "nav_2d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-09-29",
-  "last_announcement": "2026-09-30"
+  "last_nav": "2026-09-30",
+  "last_announcement": "2026-10-01"
  },
  "nav": {
   "anchor": 130.4,
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9802184",
   "estimate": 130.4,
   "basis": 0.0,
-  "staleness_days": 0.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -27,7 +27,7 @@
  "price": {
   "price": 130.5,
   "ccy": "GBp",
-  "date": "2026-10-01",
+  "date": "2026-09-30",
   "source": "yahoo:CMPI.L"
  },
  "discount": {
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0518,
-  "discount_only": 0.0009,
+  "central": 0.0519,
+  "discount_only": 0.001,
   "g_used": 0.0509,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-01T21:56:46+00:00"
+ "updated_at": "2026-10-02T00:56:06+00:00"
 }

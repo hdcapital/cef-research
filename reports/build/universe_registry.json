@@ -5,8 +5,8 @@
     "AU": 172,
     "UK": 944
   },
-  "live": 366,
-  "live_stale_nav": 37,
+  "live": 364,
+  "live_stale_nav": 39,
   "status_before_evidence": {
     "delisted": 737,
     "live": 374,
@@ -17,22 +17,22 @@
   "persisted_to": "data/universe/registry.parquet",
   "live_status_source": {
     "corroborated_delisting": 606,
-    "own_nav_announcement": 355,
+    "own_nav_announcement": 353,
     "own_delisting_notice": 100,
-    "own_periodic_report": 35,
+    "own_periodic_report": 36,
     "registry_deferral_no_own_filings": 11,
     "own_announcement_only": 6,
-    "own_nav_announcement_stale": 2,
+    "own_nav_announcement_stale": 3,
     "registry_last_seen": 1
   },
   "revived_by_own_filings": 34,
   "aggregator_said_live_evidence_says_not": 6,
   "by_liveness_reason": {
     "aggregator_delisted_and_own_filings_silent_alwaysd": 523,
-    "nav": 357,
+    "nav": 356,
     "own_delisting_notice": 100,
     "aggregator_delisted_and_own_filings_silent": 83,
-    "periodic_report": 35,
+    "periodic_report": 36,
     "no_own_filings_held_deferring_to_registry": 11,
     "filings_but_no_nav_or_report": 6,
     "registry_listed": 1
@@ -40,11 +40,11 @@
   "delisted": 100,
   "priced_by_source": 639,
   "announcements_only": 477,
-  "live_announcements_only": 101,
+  "live_announcements_only": 100,
   "offshore": 195,
   "vct": 228,
   "live_by_domicile": {
-    "GB": 208,
+    "GB": 206,
     "null": 97,
     "GG": 33,
     "JE": 13,
@@ -802,15 +802,6 @@
       "months_listed": 139
     },
     {
-      "security_id": "SEDOL:BKPG013",
-      "name": "Seraphim Space Investment Trust",
-      "sector": "Growth Capital",
-      "domicile": "GB",
-      "isin": "GB00BKPG0138",
-      "first_seen": "2021-08",
-      "months_listed": 61
-    },
-    {
       "security_id": "SEDOL:BW6HS59",
       "name": "Seraphim Space Investment Trust C shares",
       "sector": "Growth Capital",
@@ -976,11 +967,11 @@
     "Debt - Loans & Bonds": 3,
     "Hedge Funds": 3,
     "Property - UK Commercial": 3,
-    "Property - Europe": 3,
-    "Debt - Direct Lending": 3,
-    "Growth Capital": 3,
     "Country Specialist": 3,
+    "Debt - Direct Lending": 3,
+    "Property - Europe": 3,
     "North America": 2,
+    "Growth Capital": 2,
     "Global Emerging Markets": 1,
     "Commodities & Natural Resources": 1,
     "Global Equity Income": 1,
