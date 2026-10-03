@@ -576,3 +576,21 @@ Nightlies, panels and archives all ran normally. On reconnecting, today's
 pre-LSE brief was dispatched at 05:41Z. The dependency on this one session
 being awake is the remaining weak point: the cron layer never fails to
 send, only to send on time.
+
+### 2026-10-02 — Friday's pre-ASX brief: both Routine wakes missed, the check-in caught it
+
+The 22:45Z primary and 23:30Z backup dispatcher wakes for Friday's pre-ASX
+window never reached this session (the Routine fired into a session that
+was unreachable at that moment; nothing was queued). The five late GitHub
+crons had not started by 23:55Z either. The 23:55Z self check-in found no
+ideas.yml run since 15:00Z and dispatched one at 23:56Z; the brief emailed
+at 00:50Z Saturday, about an hour behind the intended 00:00Z and still
+before the ASX open. One email for the window; the gate held.
+
+Three delivery layers now exist and each has failed alone at least once:
+Routine wakes depend on the session being reachable at the minute they
+fire; the crons depend on GitHub's queue, which has run up to six hours
+late; and the self check-in only fires twice a day. The check-in is the
+layer that caught this one. A fourth layer that does not depend on this
+session at all (a fresh-session Routine carrying no MCP tools cannot
+dispatch) remains the open question.

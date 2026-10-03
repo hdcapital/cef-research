@@ -18,7 +18,7 @@ import json
 import os
 import re
 import time
-from datetime import datetime, timedelta, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 import pandas as pd
@@ -265,15 +265,18 @@ def run(events: pd.DataFrame, session, budget_docs: int = 40, client=None,
 
 
 # ----------------------------------------------------------- calendar
-def calendar(events: pd.DataFrame, horizon_days: int = 120) -> pd.DataFrame:
+def calendar(events: pd.DataFrame, horizon_days: int = 120,
+             today: date | None = None) -> pd.DataFrame:
     """Every dated term in the store that falls within the horizon: the
     forward calendar of votes, tender closes, settlements and effective
-    dates."""
+    dates. ``today`` anchors the window (defaults to the wall clock); tests
+    pass a fixed date so fixtures do not age out of the horizon."""
     cols = ["date", "security_id", "event_class", "what", "announced", "headline", "url"]
     if not len(events):
         return pd.DataFrame(columns=cols)
-    today = datetime.now(timezone.utc).date().isoformat()
-    end = (datetime.now(timezone.utc) + timedelta(days=horizon_days)).date().isoformat()
+    anchor = today or datetime.now(timezone.utc).date()
+    today = anchor.isoformat()
+    end = (anchor + timedelta(days=horizon_days)).isoformat()
     rows = []
     for r in events[events["terms"].notna()].itertuples(index=False):
         try:

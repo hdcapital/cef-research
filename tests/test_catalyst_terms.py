@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 import re
-from datetime import datetime, timedelta, timezone
+from datetime import date, datetime, timedelta, timezone
 from types import SimpleNamespace
 
 import pandas as pd
@@ -108,7 +108,8 @@ def test_calendar_and_summary_come_from_accepted_terms_only():
                                 "quote": "nope", "terms": {}, "dates": [{"what": "x", "date": "2099-01-01"}]}])
     texts = {"https://x/tender": DOC, "https://x/susp": "Trading suspended. " * 20}
     out, _ = CT.run(ev, None, budget_docs=5, client=client, fetch=lambda u: texts.get(u, ""))
-    cal = CT.calendar(out, horizon_days=365 * 5)
+    # anchor the window on the announcement so the fixture never ages out
+    cal = CT.calendar(out, horizon_days=365 * 5, today=date(2026, 9, 5))
     assert list(cal["what"]) == ["record date", "tender close", "settlement"]
     assert set(cal["security_id"]) == {"SEDOL:1"}
     line = CT.terms_summary(out.set_index("security_id").loc["SEDOL:1", "terms"])
