@@ -6,7 +6,7 @@
  "sector": "Equity - Australia Strategy",
  "liveness": {
   "status": "live",
-  "reason": "nav_25d_old",
+  "reason": "nav_26d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-07",
   "last_announcement": "2026-09-07"
@@ -17,7 +17,7 @@
   "anchor_source": "asx_ann:03137060",
   "estimate": 0.0453,
   "basis": 0.0,
-  "staleness_days": 19.0,
+  "staleness_days": 20.0,
   "staleness_limit_days": 135.0,
   "current": true,
   "unit": "AUD",
@@ -41,8 +41,8 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": -0.2453,
-  "discount_only": -0.4646,
+  "central": -0.2456,
+  "discount_only": -0.4651,
   "g_used": 0.15,
   "g_source": "panel_tr_cagr"
  },
@@ -60,5 +60,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-10-02T21:52:15+00:00"
+ "updated_at": "2026-10-03T00:50:11+00:00"
 }

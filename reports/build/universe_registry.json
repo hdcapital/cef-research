@@ -5,8 +5,8 @@
     "AU": 172,
     "UK": 944
   },
-  "live": 364,
-  "live_stale_nav": 39,
+  "live": 363,
+  "live_stale_nav": 40,
   "status_before_evidence": {
     "delisted": 737,
     "live": 374,
@@ -17,12 +17,12 @@
   "persisted_to": "data/universe/registry.parquet",
   "live_status_source": {
     "corroborated_delisting": 606,
-    "own_nav_announcement": 353,
+    "own_nav_announcement": 352,
     "own_delisting_notice": 100,
     "own_periodic_report": 36,
     "registry_deferral_no_own_filings": 11,
     "own_announcement_only": 6,
-    "own_nav_announcement_stale": 3,
+    "own_nav_announcement_stale": 4,
     "registry_last_seen": 1
   },
   "revived_by_own_filings": 34,
@@ -40,11 +40,11 @@
   "delisted": 100,
   "priced_by_source": 639,
   "announcements_only": 477,
-  "live_announcements_only": 100,
+  "live_announcements_only": 99,
   "offshore": 195,
   "vct": 228,
   "live_by_domicile": {
-    "GB": 206,
+    "GB": 205,
     "null": 97,
     "GG": 33,
     "JE": 13,
@@ -314,15 +314,6 @@
       "isin": "JE00BD3QJR55",
       "first_seen": "2014-03",
       "months_listed": 119
-    },
-    {
-      "security_id": "SEDOL:B1M27S7",
-      "name": "Foresight VCT",
-      "sector": "VCT",
-      "domicile": "GB",
-      "isin": "GB00B68K3716",
-      "first_seen": "2007-01",
-      "months_listed": 236
     },
     {
       "security_id": "SEDOL:B61LT73",
@@ -956,7 +947,7 @@
     }
   ],
   "live_announcements_only_by_sector": {
-    "VCT": 22,
+    "VCT": 21,
     "Renewable Energy Infrastructure": 9,
     "Private Equity": 7,
     "Infrastructure": 6,

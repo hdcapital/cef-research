@@ -6,7 +6,7 @@
  "sector": "UK Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_31d_old",
+  "reason": "nav_32d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-01",
   "last_announcement": "2026-09-16"
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9747202",
   "estimate": 49.1,
   "basis": 0.0,
-  "staleness_days": 68.0,
+  "staleness_days": 69.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -25,29 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 28.5,
+  "price": 28.299999237060547,
   "ccy": "GBp",
-  "date": "2026-10-02",
+  "date": "2026-10-01",
   "source": "yahoo:WINV.L"
  },
  "discount": {
-  "estimate": -0.419552,
-  "z": -0.524,
+  "estimate": -0.423625,
+  "z": -0.6053,
   "z_status": "within_error_band",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.398647,
-  "sigma_36m": 0.039899,
+  "mu_36m": -0.399343,
+  "sigma_36m": 0.040116,
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0225,
-  "discount_only": 0.0164,
+  "central": 0.0211,
+  "discount_only": 0.0149,
   "g_used": 0.0061,
   "g_source": "sector_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-02T21:52:17+00:00"
+ "updated_at": "2026-10-03T00:50:13+00:00"
 }

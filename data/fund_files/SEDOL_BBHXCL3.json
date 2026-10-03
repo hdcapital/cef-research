@@ -6,10 +6,10 @@
  "sector": "Commodities & Natural Resources",
  "liveness": {
   "status": "live_stale_nav",
-  "reason": "periodic_report_212d_old_no_recent_nav",
+  "reason": "periodic_report_213d_old_no_recent_nav",
   "source": "own_periodic_report",
   "last_nav": "2026-05-18",
-  "last_announcement": "2026-08-19"
+  "last_announcement": "2026-10-02"
  },
  "nav": {
   "anchor": 1209.0,
@@ -17,7 +17,7 @@
   "anchor_source": "own_nav_history:2026-03-31",
   "estimate": 1209.0,
   "basis": 3.0,
-  "staleness_days": 133.0,
+  "staleness_days": 134.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -32,17 +32,17 @@
  },
  "discount": {
   "estimate": -0.520265,
-  "z": -1.558,
+  "z": -1.5533,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.374843,
-  "sigma_36m": 0.093339,
+  "mu_36m": -0.374971,
+  "sigma_36m": 0.09354,
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1987,
-  "discount_only": 0.0423,
+  "central": 0.2007,
+  "discount_only": 0.0441,
   "g_used": 0.15,
   "g_source": "sector_median"
  },
@@ -60,5 +60,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-10-02T21:52:17+00:00"
+ "updated_at": "2026-10-03T00:50:13+00:00"
 }

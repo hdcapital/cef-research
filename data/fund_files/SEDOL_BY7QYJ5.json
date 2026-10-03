@@ -6,7 +6,7 @@
  "sector": "Growth Capital",
  "liveness": {
   "status": "live",
-  "reason": "nav_115d_old",
+  "reason": "nav_116d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-06-09",
   "last_announcement": "2026-10-01"
@@ -17,7 +17,7 @@
   "anchor_source": "own_nav_history:2026-06-09",
   "estimate": 671.0,
   "basis": 3.0,
-  "staleness_days": 83.0,
+  "staleness_days": 84.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -25,29 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 674.5,
+  "price": 675.0,
   "ccy": "GBp",
-  "date": "2026-10-02",
+  "date": "2026-10-01",
   "source": "yahoo:GROW.L"
  },
  "discount": {
-  "estimate": 0.005216,
-  "z": 2.1418,
+  "estimate": 0.005961,
+  "z": 1.9907,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.434058,
-  "sigma_36m": 0.205096,
+  "mu_36m": -0.413093,
+  "sigma_36m": 0.210509,
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": -0.1825,
-  "discount_only": -0.1395,
+  "central": -0.1764,
+  "discount_only": -0.1331,
   "g_used": -0.05,
   "g_source": "sector_median"
  },
  "holder_churn": {
-  "filings": 13,
+  "filings": 12,
   "sellers": 0,
   "buyers": 0,
   "largest_move": null,
@@ -335,5 +335,5 @@
    }
   }
  ],
- "updated_at": "2026-10-02T21:52:16+00:00"
+ "updated_at": "2026-10-03T00:50:13+00:00"
 }
