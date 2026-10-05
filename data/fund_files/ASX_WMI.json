@@ -6,10 +6,10 @@
  "sector": "Equity - Australia Small/Mid Cap",
  "liveness": {
   "status": "live",
-  "reason": "nav_20d_old",
+  "reason": "nav_22d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-13",
-  "last_announcement": "2026-09-15"
+  "last_announcement": "2026-10-02"
  },
  "nav": {
   "anchor": 0.0533,
@@ -25,14 +25,14 @@
   "quality_reason": "nav_jump_95%_vs_prior"
  },
  "price": {
-  "price": 1.340000033378601,
+  "price": 1.3300000429153442,
   "ccy": "AUD",
-  "date": "2026-10-02",
+  "date": "2026-10-05",
   "source": "yahoo:WMI.AX"
  },
  "discount": {
-  "estimate": 24.140714,
-  "z": 244.1321,
+  "estimate": 23.953096,
+  "z": 242.2285,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -49,6 +49,36 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-10-02",
+   "class": "portfolio_holding",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Change in substantial holding for EVZ",
+   "url": "https://announcements.asx.com.au/asxpdf/20261002/pdf/074whjkv0h5r7s.pdf",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-09-28",
+   "class": "portfolio_holding",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Change in substantial holding for EDU",
+   "url": "https://announcements.asx.com.au/asxpdf/20260928/pdf/074mk3xqjpzrn0.pdf",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-09-17",
+   "class": "portfolio_holding",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Ceasing to be a substantial holder for IDX",
+   "url": "https://announcements.asx.com.au/asxpdf/20260917/pdf/0746r28bq4kv9d.pdf",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-08-31",
    "class": "portfolio_holding",
@@ -80,5 +110,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-10-03T00:50:11+00:00"
+ "updated_at": "2026-10-05T21:56:33+00:00"
 }

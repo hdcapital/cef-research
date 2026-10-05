@@ -6,7 +6,7 @@
  "sector": "Global Equity Income",
  "liveness": {
   "status": "delisted",
-  "reason": "own_delisting_notice_383d",
+  "reason": "own_delisting_notice_385d",
   "source": "own_delisting_notice",
   "last_nav": "2025-05-23",
   "last_announcement": "2025-09-15"
@@ -15,7 +15,7 @@
   "anchor": 174.9,
   "anchor_date": "2025-05-21",
   "anchor_source": "own_nav_history:2025-05-21",
-  "estimate": 184.170998,
+  "estimate": 185.608219,
   "basis": 1.0,
   "staleness_days": 358.0,
   "staleness_limit_days": 45.0,
@@ -31,8 +31,8 @@
   "source": "aggregator_panel"
  },
  "discount": {
-  "estimate": -0.0688,
-  "z": 0.4692,
+  "estimate": -0.076011,
+  "z": 0.2658,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0791,
-  "discount_only": 0.0011,
+  "central": 0.0783,
+  "discount_only": 0.0004,
   "g_used": 0.0436,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-03T00:50:13+00:00"
+ "updated_at": "2026-10-05T21:56:34+00:00"
 }

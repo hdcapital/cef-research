@@ -6,7 +6,7 @@
  "sector": "Debt - Loans & Bonds",
  "liveness": {
   "status": "live",
-  "reason": "nav_15d_old",
+  "reason": "nav_17d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-18",
   "last_announcement": "2026-10-02"
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 117.5,
+  "price": 117.0,
   "ccy": "GBp",
-  "date": "2026-10-01",
+  "date": "2026-10-05",
   "source": "yahoo:CVCG.L"
  },
  "discount": {
-  "estimate": 0.00919,
-  "z": 0.5284,
+  "estimate": 0.004896,
+  "z": 0.35,
   "z_status": "within_error_band",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -182,5 +182,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-10-03T00:50:12+00:00"
+ "updated_at": "2026-10-05T21:56:33+00:00"
 }

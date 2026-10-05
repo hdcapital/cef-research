@@ -6,17 +6,17 @@
  "sector": "Private Equity",
  "liveness": {
   "status": "live",
-  "reason": "nav_60d_old",
+  "reason": "nav_62d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-08-04",
-  "last_announcement": "2026-10-02"
+  "last_announcement": "2026-10-05"
  },
  "nav": {
   "anchor": 517.9,
   "anchor_date": "2026-05-31",
-  "anchor_source": "investegate_fs:9702588",
+  "anchor_source": "own_nav_history:2026-05-31",
   "estimate": 517.9,
-  "basis": 0.0,
+  "basis": 3.0,
   "staleness_days": 90.0,
   "staleness_limit_days": 200.0,
   "current": true,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 384.5,
+  "price": 388.0,
   "ccy": "GBp",
-  "date": "2026-10-01",
+  "date": "2026-10-05",
   "source": "yahoo:PIN.L"
  },
  "discount": {
-  "estimate": -0.257579,
-  "z": 0.6428,
+  "estimate": -0.250821,
+  "z": 0.7013,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,14 +41,26 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.041,
-  "discount_only": -0.0045,
+  "central": 0.0429,
+  "discount_only": -0.0027,
   "g_used": 0.0458,
   "g_source": "sector_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-10-05",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/pantheon-international--pin/holding-s-in-company/9806449",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Saba Capital Management, L.P"
+   }
+  },
   {
    "date": "2026-09-25",
    "class": "holdings_notification",
@@ -74,5 +86,5 @@
    }
   }
  ],
- "updated_at": "2026-10-03T00:50:13+00:00"
+ "updated_at": "2026-10-05T21:56:34+00:00"
 }

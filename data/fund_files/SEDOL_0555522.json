@@ -6,7 +6,7 @@
  "sector": "Flexible Investment",
  "liveness": {
   "status": "live",
-  "reason": "nav_15d_old",
+  "reason": "nav_17d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-18",
   "last_announcement": "2026-10-01"
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 335.0,
+  "price": 342.5,
   "ccy": "GBp",
-  "date": "2026-10-01",
+  "date": "2026-10-05",
   "source": "yahoo:MAJE.L"
  },
  "discount": {
-  "estimate": -0.01748,
-  "z": 2.0332,
+  "estimate": 0.004517,
+  "z": 2.4984,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.3899,
-  "discount_only": -0.0336,
+  "central": 0.3958,
+  "discount_only": -0.0279,
   "g_used": 0.1272,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-03T00:50:13+00:00"
+ "updated_at": "2026-10-05T21:56:34+00:00"
 }

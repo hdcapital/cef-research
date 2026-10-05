@@ -6,18 +6,18 @@
  "sector": "Global Equity Income",
  "liveness": {
   "status": "live",
-  "reason": "nav_3d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-30",
-  "last_announcement": "2026-10-02"
+  "last_announcement": "2026-10-05"
  },
  "nav": {
-  "anchor": 388.03,
-  "anchor_date": "2026-10-02",
-  "anchor_source": "investegate:9804636",
-  "estimate": 388.03,
+  "anchor": 388.46,
+  "anchor_date": "2026-10-05",
+  "anchor_source": "investegate:9806856",
+  "estimate": 388.46,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -27,12 +27,12 @@
  "price": {
   "price": 394.0,
   "ccy": "GBp",
-  "date": "2026-10-01",
+  "date": "2026-10-05",
   "source": "yahoo:IGET.L"
  },
  "discount": {
-  "estimate": 0.015385,
-  "z": 0.9171,
+  "estimate": 0.014261,
+  "z": 0.9002,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,9 +41,9 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1024,
+  "central": 0.1154,
   "discount_only": -0.0191,
-  "g_used": 0.1057,
+  "g_used": 0.1191,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
@@ -240,5 +240,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-10-03T00:50:12+00:00"
+ "updated_at": "2026-10-05T21:56:33+00:00"
 }

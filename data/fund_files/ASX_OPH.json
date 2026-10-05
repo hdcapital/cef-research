@@ -6,17 +6,17 @@
  "sector": "Equity - Australia",
  "liveness": {
   "status": "live",
-  "reason": "nav_18d_old",
+  "reason": "nav_4d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-09-15",
-  "last_announcement": "2026-09-15"
+  "last_nav": "2026-10-01",
+  "last_announcement": "2026-10-01"
  },
  "nav": {
   "anchor": 2.7565,
   "anchor_date": "2026-09-30",
-  "anchor_source": "own_nav_history:2026-09-30",
-  "estimate": 2.705367,
-  "basis": 1.0,
+  "anchor_source": "asx_ann:03147158",
+  "estimate": 2.7565,
+  "basis": 0.0,
   "staleness_days": 3.0,
   "staleness_limit_days": 45.0,
   "current": true,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 2.359999895095825,
+  "price": 2.369999885559082,
   "ccy": "AUD",
-  "date": "2026-10-02",
+  "date": "2026-10-05",
   "source": "yahoo:OPH.AX"
  },
  "discount": {
-  "estimate": -0.12766,
-  "z": -0.6498,
+  "estimate": -0.140214,
+  "z": -1.0053,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.2511,
-  "discount_only": 0.0093,
+  "central": 0.2506,
+  "discount_only": 0.0088,
   "g_used": 0.1348,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-03T00:50:11+00:00"
+ "updated_at": "2026-10-05T21:56:33+00:00"
 }

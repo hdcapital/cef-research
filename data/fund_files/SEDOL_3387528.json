@@ -6,7 +6,7 @@
  "sector": "Property - UK Commercial",
  "liveness": {
   "status": "live",
-  "reason": "nav_95d_old",
+  "reason": "nav_97d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-06-30",
   "last_announcement": "2026-09-18"
@@ -25,15 +25,15 @@
   "quality_reason": "nav_jump_60%_vs_own"
  },
  "price": {
-  "price": 1.6100000143051147,
+  "price": 1.9500000476837158,
   "ccy": "GBp",
-  "date": "2026-10-01",
+  "date": "2026-10-05",
   "source": "yahoo:API.L"
  },
  "discount": {
-  "estimate": -0.459732,
-  "z": 0.1317,
-  "z_status": "within_error_band",
+  "estimate": -0.345638,
+  "z": 0.5934,
+  "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
   "mu_36m": -0.492261,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0943,
-  "discount_only": 0.0446,
+  "central": 0.0938,
+  "discount_only": 0.0442,
   "g_used": 0.0476,
   "g_source": "market_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-03T00:50:13+00:00"
+ "updated_at": "2026-10-05T21:56:34+00:00"
 }

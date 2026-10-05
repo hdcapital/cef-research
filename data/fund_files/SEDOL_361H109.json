@@ -6,18 +6,18 @@
  "sector": "Country Specialist",
  "liveness": {
   "status": "live",
-  "reason": "nav_1d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-02",
-  "last_announcement": "2026-10-02"
+  "last_announcement": "2026-10-05"
  },
  "nav": {
-  "anchor": 830.0000000000001,
-  "anchor_date": "2026-10-02",
-  "anchor_source": "investegate:9803278",
-  "estimate": 830.0,
+  "anchor": 819.9999999999999,
+  "anchor_date": "2026-10-05",
+  "anchor_source": "investegate:9805574",
+  "estimate": 820.0,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,13 +25,13 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 724.0,
+  "price": 722.0,
   "ccy": "GBp",
-  "date": "2026-10-01",
+  "date": "2026-10-05",
   "source": "yahoo:VEIL.L"
  },
  "discount": {
-  "estimate": -0.127711,
+  "estimate": -0.119512,
   "z": null,
   "z_status": "no_discount_history",
   "z_source": null,
@@ -43,11 +43,11 @@
  "forward_irr": {
   "central": null,
   "discount_only": null,
-  "g_used": 0.0408,
+  "g_used": 0.0331,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-03T00:50:13+00:00"
+ "updated_at": "2026-10-05T21:56:34+00:00"
 }

@@ -6,10 +6,10 @@
  "sector": "Fixed Income - Global Dollar",
  "liveness": {
   "status": "live",
-  "reason": "nav_26d_old",
+  "reason": "nav_28d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-07",
-  "last_announcement": "2026-09-15"
+  "last_announcement": "2026-09-30"
  },
  "nav": {
   "anchor": 1.96,
@@ -27,7 +27,7 @@
  "price": {
   "price": 1.850000023841858,
   "ccy": "AUD",
-  "date": "2026-10-01",
+  "date": "2026-10-05",
   "source": "yahoo:LF1.AX"
  },
  "discount": {
@@ -41,13 +41,24 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1837,
-  "discount_only": 0.0058,
+  "central": 0.1884,
+  "discount_only": 0.0101,
   "g_used": 0.1161,
   "g_source": "sector_median"
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [],
- "updated_at": "2026-10-03T00:50:11+00:00"
+ "events_90d": [
+  {
+   "date": "2026-09-30",
+   "class": "substantial_holder",
+   "weight": 2,
+   "direction": "positive",
+   "headline": "Change in substantial holding",
+   "url": "https://announcements.asx.com.au/asxpdf/20260930/pdf/074rqsfqfnbvlg.pdf",
+   "alerted_at": "2026-10-04T23:36:29+00:00",
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-10-05T21:56:33+00:00"
 }

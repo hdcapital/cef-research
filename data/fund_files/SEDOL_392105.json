@@ -6,10 +6,10 @@
  "sector": "Private Equity",
  "liveness": {
   "status": "live",
-  "reason": "nav_54d_old",
+  "reason": "nav_56d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-08-10",
-  "last_announcement": "2026-09-22"
+  "last_announcement": "2026-10-05"
  },
  "nav": {
   "anchor": 530.7,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 376.0,
+  "price": 373.0,
   "ccy": "GBp",
-  "date": "2026-10-01",
+  "date": "2026-10-05",
   "source": "yahoo:HGT.L"
  },
  "discount": {
-  "estimate": -0.291502,
-  "z": -1.3932,
+  "estimate": -0.297155,
+  "z": -1.4479,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,14 +41,29 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1237,
-  "discount_only": 0.0509,
+  "central": 0.1219,
+  "discount_only": 0.0492,
   "g_used": 0.0458,
   "g_source": "sector_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-10-05",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/hgcapital-trust--hgt/holding-s-in-company/9806576",
+   "alerted_at": null,
+   "terms": {
+    "new_pct": 15.005,
+    "prev_pct": 14.323,
+    "holder": "iv Name VALHALLA VENTURES LIMITED",
+    "direction": "buying"
+   }
+  },
   {
    "date": "2026-09-18",
    "class": "holdings_notification",
@@ -102,5 +117,5 @@
    }
   }
  ],
- "updated_at": "2026-10-03T00:50:12+00:00"
+ "updated_at": "2026-10-05T21:56:33+00:00"
 }

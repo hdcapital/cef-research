@@ -6,18 +6,18 @@
  "sector": "India / Indian Subcontinent",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_4d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-01",
   "last_announcement": null
  },
  "nav": {
-  "anchor": 913.41,
-  "anchor_date": "2026-10-02",
-  "anchor_source": "investegate:9804465",
-  "estimate": 913.41,
+  "anchor": 908.89,
+  "anchor_date": "2026-10-05",
+  "anchor_source": "investegate:9806834",
+  "estimate": 908.89,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -31,8 +31,8 @@
   "source": "aggregator_panel"
  },
  "discount": {
-  "estimate": -0.036577,
-  "z": 1.9025,
+  "estimate": -0.031786,
+  "z": 1.9973,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0266,
+  "central": 0.0223,
   "discount_only": -0.0299,
-  "g_used": 0.043,
+  "g_used": 0.0385,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-03T00:50:12+00:00"
+ "updated_at": "2026-10-05T21:56:33+00:00"
 }

@@ -6,10 +6,10 @@
  "sector": "Equity - Australia",
  "liveness": {
   "status": "live",
-  "reason": "nav_26d_old",
+  "reason": "nav_28d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-07",
-  "last_announcement": "2026-09-07"
+  "last_announcement": "2026-10-01"
  },
  "nav": {
   "anchor": 0.428,
@@ -27,7 +27,7 @@
  "price": {
   "price": 0.17499999701976776,
   "ccy": "AUD",
-  "date": "2026-10-02",
+  "date": "2026-10-04",
   "source": "yahoo:OEQ.AX"
  },
  "discount": {
@@ -48,6 +48,20 @@
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [],
- "updated_at": "2026-10-03T00:50:11+00:00"
+ "events_90d": [
+  {
+   "date": "2026-09-25",
+   "class": "discount_control",
+   "weight": 3,
+   "direction": "positive",
+   "headline": "Completion of Unmarketable Parcel Share Buy-Back",
+   "url": "https://announcements.asx.com.au/asxpdf/20260925/pdf/074k49c3h5jw80.pdf",
+   "alerted_at": "2026-10-04T23:36:29+00:00",
+   "terms": {
+    "llm": "error",
+    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
+   }
+  }
+ ],
+ "updated_at": "2026-10-05T21:56:33+00:00"
 }

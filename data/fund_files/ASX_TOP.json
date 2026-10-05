@@ -6,16 +6,16 @@
  "sector": "Equity - Australia Strategy",
  "liveness": {
   "status": "live",
-  "reason": "nav_24d_old",
+  "reason": "nav_26d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-09",
-  "last_announcement": "2026-09-15"
+  "last_announcement": "2026-09-30"
  },
  "nav": {
   "anchor": 0.959,
   "anchor_date": "2026-06-30",
   "anchor_source": "aggregator_panel:2026-06",
-  "estimate": 0.9335,
+  "estimate": 0.965658,
   "basis": 1.0,
   "staleness_days": 69.0,
   "staleness_limit_days": 138.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 0.5450000166893005,
+  "price": 0.5600000023841858,
   "ccy": "AUD",
-  "date": "2026-10-02",
+  "date": "2026-10-05",
   "source": "yahoo:TOP.AX"
  },
  "discount": {
-  "estimate": -0.416175,
-  "z": -0.8424,
+  "estimate": -0.420084,
+  "z": -0.8894,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1913,
-  "discount_only": 0.033,
+  "central": 0.1895,
+  "discount_only": 0.0313,
   "g_used": 0.1159,
   "g_source": "panel_tr_cagr"
  },
@@ -60,5 +60,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-10-03T00:50:11+00:00"
+ "updated_at": "2026-10-05T21:56:33+00:00"
 }

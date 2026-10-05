@@ -6,18 +6,18 @@
  "sector": "Flexible Investment",
  "liveness": {
   "status": "live",
-  "reason": "nav_3d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-30",
-  "last_announcement": "2026-10-02"
+  "last_announcement": "2026-10-05"
  },
  "nav": {
-  "anchor": 543.1,
-  "anchor_date": "2026-10-01",
-  "anchor_source": "investegate:9804535",
-  "estimate": 543.1,
+  "anchor": 544.59,
+  "anchor_date": "2026-10-02",
+  "anchor_source": "investegate:9807059",
+  "estimate": 544.59,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 537.0,
+  "price": 539.0,
   "ccy": "GBp",
-  "date": "2026-10-01",
+  "date": "2026-10-05",
   "source": "yahoo:PNL.L"
  },
  "discount": {
-  "estimate": -0.011232,
-  "z": -0.7309,
+  "estimate": -0.010265,
+  "z": -0.5352,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -70,5 +70,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-10-03T00:50:13+00:00"
+ "updated_at": "2026-10-05T21:56:34+00:00"
 }

@@ -6,17 +6,17 @@
  "sector": "Equity - Global",
  "liveness": {
   "status": "live",
-  "reason": "nav_18d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-09-15",
-  "last_announcement": "2026-09-16"
+  "last_nav": "2026-09-30",
+  "last_announcement": "2026-10-02"
  },
  "nav": {
   "anchor": 1.2372,
   "anchor_date": "2026-09-25",
-  "anchor_source": "own_nav_history:2026-09-25",
-  "estimate": 1.229216,
-  "basis": 1.0,
+  "anchor_source": "asx_ann:03146300",
+  "estimate": 1.2372,
+  "basis": 0.0,
   "staleness_days": 6.0,
   "staleness_limit_days": 45.0,
   "current": true,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1.125,
+  "price": 1.1299999952316284,
   "ccy": "AUD",
-  "date": "2026-10-02",
+  "date": "2026-10-05",
   "source": "yahoo:PIA.AX"
  },
  "discount": {
-  "estimate": -0.084782,
-  "z": 1.2,
+  "estimate": -0.086647,
+  "z": 1.1516,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,14 +41,54 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1295,
-  "discount_only": -0.0119,
+  "central": 0.1293,
+  "discount_only": -0.012,
   "g_used": 0.1014,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-10-02",
+   "class": "substantial_holder",
+   "weight": 2,
+   "direction": "positive",
+   "headline": "Change in substantial holding from SOL",
+   "url": "https://announcements.asx.com.au/asxpdf/20261002/pdf/074wls5bvqfjrh.pdf",
+   "alerted_at": "2026-10-04T23:36:29+00:00",
+   "terms": null
+  },
+  {
+   "date": "2026-10-02",
+   "class": "substantial_holder",
+   "weight": 2,
+   "direction": "positive",
+   "headline": "Becoming a substantial holder from PCG",
+   "url": "https://announcements.asx.com.au/asxpdf/20261002/pdf/074w8d8gylsldy.pdf",
+   "alerted_at": "2026-10-04T23:36:29+00:00",
+   "terms": null
+  },
+  {
+   "date": "2026-10-01",
+   "class": "substantial_holder",
+   "weight": 2,
+   "direction": "positive",
+   "headline": "Ceasing to be a substantial holder from WAR",
+   "url": "https://announcements.asx.com.au/asxpdf/20261001/pdf/074txnf0byw0j1.pdf",
+   "alerted_at": "2026-10-04T23:36:29+00:00",
+   "terms": null
+  },
+  {
+   "date": "2026-09-23",
+   "class": "tender_offer",
+   "weight": 4,
+   "direction": "positive",
+   "headline": "Off-Market Buy-Back - Withdrawal Period Extended",
+   "url": "https://announcements.asx.com.au/asxpdf/20260924/pdf/074fw6v1qjl7f5.pdf",
+   "alerted_at": "2026-10-04T23:36:29+00:00",
+   "terms": null
+  },
   {
    "date": "2026-07-31",
    "class": "substantial_holder",
@@ -60,5 +100,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-10-03T00:50:11+00:00"
+ "updated_at": "2026-10-05T21:56:33+00:00"
 }
