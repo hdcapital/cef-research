@@ -4,6 +4,22 @@ Every change to `config/params.yaml` gets a dated entry here, committed in
 the same commit as the change, with a rationale. Parameters are never
 tuned against live outcomes.
 
+## 2026-10-05 — brief gate: a window's brief is not sent before its earliest hour
+
+Added `EARLIEST_HOUR` to `cef_live.brief_window` (pre-LSE 05:00Z, pre-ASX
+22:00Z). The gate labelled every firing by the window its hour fell in,
+so a cron that landed hours late inside the next window's label range
+became that window's brief: on 2026-10-05 the 06:50 pre-LSE cron started
+at 15:12Z, read as pre-ASX, and emailed at 16:04Z - eight hours before the
+ASX open and before the nightly NTA table (~22:00Z) and the UK daily panel
+(~23:20Z) had refreshed. A firing before its window's earliest hour now
+skips with the reason stated; the intended firings (05:40Z and 22:45Z
+Routines, the crons after them) are all past it. The pre-ASX 00:00-02:59
+tail is past midnight and never early. Still two emails a day; the change
+only removes the premature one. The dispatcher Routines' "do nothing if a
+run exists" threshold moves from the window start to the same earliest
+hour, so a gated early run does not count as the window's run.
+
 ## 2026-09-21 — brief gate keys on the window, not on age
 
 The gate that keeps each brief window to one email compared the last

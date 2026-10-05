@@ -27,6 +27,10 @@ name: cef-ideas
 # the dispatcher Routines was offline and GitHub started the crons 6h50m
 # and 2h43m late, so both briefs arrived after their open; five firings
 # spread over an hour give the scheduler more chances to land one early.
+# 2026-10-05: the 06:50 firing landed at 15:12 UTC, labelled itself pre-ASX
+# and emailed at 16:04 - eight hours before the ASX open. The gate now also
+# refuses a window's brief before its earliest hour (pre-LSE 05:00, pre-ASX
+# 22:00 UTC; see cef_live.brief_window.EARLIEST_HOUR).
 
 on:
   workflow_dispatch:

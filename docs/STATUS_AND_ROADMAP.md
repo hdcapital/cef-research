@@ -594,3 +594,21 @@ late; and the self check-in only fires twice a day. The check-in is the
 layer that caught this one. A fourth layer that does not depend on this
 session at all (a fresh-session Routine carrying no MCP tools cannot
 dispatch) remains the open question.
+
+### 2026-10-05 — a morning cron landed in the afternoon and sent the evening brief early
+
+The 06:50Z pre-LSE cron started at 15:12Z, eight hours late. The gate
+labels a firing by the window its hour falls in, 15:12Z is inside the
+pre-ASX label range, nothing had gone for that window yet, so it ran a
+full scan and emailed the pre-ASX brief at 16:04Z: before the nightly NTA
+table and the UK daily panel had refreshed, and eight hours before the
+ASX open. Its twin at 15:19Z was correctly gated behind it. The 22:45Z
+dispatcher then saw "a run since 15:00Z" and stood down; so did the 23:30Z
+backup. One email for the window, but a stale one.
+
+Fix: `brief_window.EARLIEST_HOUR` (pre-LSE 05:00Z, pre-ASX 22:00Z). A
+firing before its window's earliest hour is skipped with the reason
+stated; the real firings are all later. The dispatcher Routines now treat
+only a run created at or after the earliest hour as the window's run.
+Tonight's ASX open is covered by the 16:04Z brief; a corrected dispatch
+would have been a second email for the window, so none was sent.

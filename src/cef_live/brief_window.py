@@ -14,6 +14,16 @@ from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
 
+# A firing may carry a window's label long before that window's brief is
+# worth sending: 2026-10-05 the 06:50 pre-LSE cron landed at 15:12Z, eight
+# hours late, labelled itself pre-ASX and emailed at 16:04Z - before the
+# nightly NTA table (~22:00Z) and the UK panel (~23:20Z) had refreshed, and
+# eight hours before the ASX open. A window's brief is not sent before its
+# earliest hour; the real firings (05:40Z / 22:45Z and the crons after
+# them) are all past it, so only a stray late run is held back.
+EARLIEST_HOUR = {"pre-LSE open": 5, "pre-ASX open": 22}
+
+
 def label_for(hour: int) -> str:
     """The brief label for a UTC hour: 15:00-02:59 is the pre-ASX window
     (23:10 firing, late runs included), 03:00-14:59 the pre-LSE window."""
@@ -31,8 +41,23 @@ def window_key(t: datetime) -> tuple[str, str]:
     return label, day.isoformat()
 
 
+def premature(now: datetime) -> str:
+    """A non-empty reason when this instant carries a window's label but
+    is before that window's earliest sending hour (a cron that landed
+    hours late, inside the next window's label range). The pre-ASX
+    00:00-02:59 tail is past midnight and never early."""
+    label = label_for(now.hour)
+    earliest = EARLIEST_HOUR[label]
+    in_tail = label == "pre-ASX open" and now.hour < 3
+    if not in_tail and now.hour < earliest:
+        return (f"{label} brief not sent before {earliest:02d}:00Z "
+                f"(firing at {now:%H:%M}Z; refreshes pending)")
+    return ""
+
+
 def already_sent(last: dict | None, now: datetime | None = None) -> tuple[bool, str]:
-    """Whether the brief this firing would send has already gone.
+    """Whether the brief this firing would send has already gone, or is
+    not yet due (see `premature`): either way the gate skips.
 
     `last` is the ideas.json of the previous run. True when it was emailed
     from the same window this firing falls in - the window is identity,
@@ -41,6 +66,9 @@ def already_sent(last: dict | None, now: datetime | None = None) -> tuple[bool, 
     """
     now = now or datetime.now(timezone.utc)
     want, day = window_key(now)
+    early = premature(now)
+    if early:
+        return True, early
     if not last:
         return False, f"no previous brief; {want} runs"
     try:

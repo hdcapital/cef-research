@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
 
-from cef_live.brief_window import already_sent, label_for, window_key
+from cef_live.brief_window import already_sent, label_for, premature, window_key
 
 
 def test_labels_follow_the_two_windows():
@@ -79,3 +79,33 @@ def test_the_pre_asx_window_spans_midnight():
     skip, _ = already_sent(_last("pre-ASX open", "2026-09-21T23:36:00+00:00"),
                            now=datetime(2026, 9, 22, 1, 40, tzinfo=timezone.utc))
     assert skip
+
+
+def test_a_late_morning_cron_landing_in_the_afternoon_does_not_send_the_evening_brief():
+    """2026-10-05: the 06:50 cron landed at 15:12Z, labelled itself pre-ASX
+    and emailed at 16:04Z, eight hours before the ASX open and before the
+    nightly refreshes. Nothing had gone for that window, so only an
+    earliest-hour rule can hold it back."""
+    last = _last("pre-LSE open", "2026-10-05T06:34:22+00:00")
+    skip, why = already_sent(last, now=datetime(2026, 10, 5, 15, 12, tzinfo=timezone.utc))
+    assert skip and "not sent before 22:00Z" in why
+    skip, why = already_sent(last, now=datetime(2026, 10, 5, 21, 59, tzinfo=timezone.utc))
+    assert skip
+    skip, why = already_sent(last, now=datetime(2026, 10, 5, 22, 46, tzinfo=timezone.utc))
+    assert not skip, why
+
+
+def test_the_pre_lse_window_is_not_sent_before_five():
+    last = _last("pre-ASX open", "2026-10-05T23:36:00+00:00")
+    skip, why = already_sent(last, now=datetime(2026, 10, 6, 3, 30, tzinfo=timezone.utc))
+    assert skip and "not sent before 05:00Z" in why
+    skip, why = already_sent(last, now=datetime(2026, 10, 6, 5, 41, tzinfo=timezone.utc))
+    assert not skip, why
+
+
+def test_the_midnight_tail_of_the_pre_asx_window_is_never_early():
+    assert premature(datetime(2026, 10, 6, 0, 30, tzinfo=timezone.utc)) == ""
+    assert premature(datetime(2026, 10, 6, 2, 59, tzinfo=timezone.utc)) == ""
+    assert premature(datetime(2026, 10, 5, 15, 0, tzinfo=timezone.utc)) != ""
+    skip, _ = already_sent(None, now=datetime(2026, 10, 6, 0, 30, tzinfo=timezone.utc))
+    assert not skip
