@@ -25,20 +25,20 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 2.25,
+  "price": 2.1600000858306885,
   "ccy": "AUD",
   "date": "2026-10-06",
   "source": "yahoo:SEC.AX"
  },
  "discount": {
-  "estimate": 0.011691,
-  "z": 0.678,
-  "z_status": "computed",
+  "estimate": -0.028777,
+  "z": -0.0021,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.028653,
   "sigma_36m": 0.059505,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
   "central": 0.1747,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-06T02:18:10+00:00"
+ "updated_at": "2026-10-06T21:57:40+00:00"
 }

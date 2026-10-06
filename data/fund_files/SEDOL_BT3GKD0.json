@@ -27,7 +27,7 @@
  "price": {
   "price": 104.5,
   "ccy": "GBp",
-  "date": "2026-10-02",
+  "date": "2026-10-06",
   "source": "yahoo:AIC.L"
  },
  "discount": {
@@ -48,6 +48,19 @@
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [],
- "updated_at": "2026-10-06T02:18:10+00:00"
+ "events_90d": [
+  {
+   "date": "2026-10-06",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/achilles-investment-company-limited--aic/holding-s-in-company/9808891",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Schroders Plc"
+   }
+  }
+ ],
+ "updated_at": "2026-10-06T21:57:40+00:00"
 }

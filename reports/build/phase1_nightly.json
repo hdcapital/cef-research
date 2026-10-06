@@ -10,7 +10,7 @@
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 166,
+  "alert_eligible": 168,
   "z_extremes": [
     {
       "security_id": "SEDOL:3420207",
@@ -62,9 +62,9 @@
     },
     {
       "security_id": "SEDOL:BDHXP96",
-      "z_adj": -43.3233,
-      "discount_est": -0.708171,
-      "staleness_days": 1.0
+      "z_adj": -43.4602,
+      "discount_est": -0.71035,
+      "staleness_days": 0.0
     },
     {
       "security_id": "SEDOL:BRC8992",
@@ -102,62 +102,63 @@
     }
   },
   "catalysts": {
-    "catalysts": 43,
+    "catalysts": 46,
     "funds": 33,
     "by_class": {
       "substantial_holder": 16,
       "tender_offer": 8,
       "discount_control": 5,
+      "realisation": 5,
       "scheme_merger_rollover": 3,
-      "realisation": 3,
       "strategic_review": 2,
-      "takeover_offer": 1,
-      "liquidation_wind_down": 1,
       "manager_change": 1,
+      "liquidation_wind_down": 1,
+      "takeover_offer": 1,
       "manager_exit": 1,
+      "legal_sanctions": 1,
       "suspension": 1,
       "distribution_policy": 1
     }
   },
   "events": {
-    "events_total": 604,
-    "events_30d": 211,
-    "funds_30d": 104,
+    "events_total": 611,
+    "events_30d": 218,
+    "funds_30d": 105,
     "by_direction_30d": {
-      "neutral": 166,
-      "positive": 43,
-      "negative": 2
+      "neutral": 170,
+      "positive": 45,
+      "negative": 3
     },
     "by_class_30d": {
-      "holdings_notification": 84,
-      "issuance": 73,
+      "holdings_notification": 86,
+      "issuance": 75,
       "substantial_holder": 16,
       "portfolio_holding": 9,
       "tender_offer": 8,
-      "scheme_merger_rollover": 5,
+      "realisation": 5,
       "discount_control": 5,
-      "realisation": 3,
+      "scheme_merger_rollover": 5,
       "strategic_review": 2,
       "manager_change": 1,
-      "suspension": 1,
-      "liquidation_wind_down": 1
+      "liquidation_wind_down": 1,
+      "suspension": 1
     },
-    "unalerted": 515,
-    "holdings_with_terms": 84,
+    "unalerted": 522,
+    "holdings_with_terms": 86,
     "tr1": {
-      "candidates": 0,
-      "fetched": 0,
-      "parsed": 0,
+      "candidates": 2,
+      "fetched": 2,
+      "parsed": 2,
       "failed": 0
     },
     "realisations": {
-      "candidates": 0,
-      "fetched": 0,
+      "candidates": 2,
+      "fetched": 2,
       "parsed": 0,
       "failed": 0
     },
     "terms": {
-      "candidates": 30,
+      "candidates": 31,
       "read": 3,
       "accepted": 0,
       "rejected": 0,

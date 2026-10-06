@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 9.5,
+  "price": 8.850000381469727,
   "ccy": "GBp",
-  "date": "2026-10-02",
+  "date": "2026-10-06",
   "source": "yahoo:HOME.L"
  },
  "discount": {
-  "estimate": -0.475138,
-  "z": -1.6152,
+  "estimate": -0.51105,
+  "z": -1.7532,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 24,
@@ -41,14 +41,27 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.2273,
-  "discount_only": 0.1716,
+  "central": 0.2087,
+  "discount_only": 0.1538,
   "g_used": 0.0476,
   "g_source": "market_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-10-06",
+   "class": "legal_sanctions",
+   "weight": -3,
+   "direction": "negative",
+   "headline": "Update on Litigation",
+   "url": "https://www.investegate.co.uk/announcement/rns/home-reit--home/update-on-litigation/9808669",
+   "alerted_at": null,
+   "terms": {
+    "llm": "error",
+    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
+   }
+  },
   {
    "date": "2026-09-17",
    "class": "liquidation_wind_down",
@@ -96,5 +109,5 @@
    }
   }
  ],
- "updated_at": "2026-10-06T02:18:11+00:00"
+ "updated_at": "2026-10-06T21:57:41+00:00"
 }

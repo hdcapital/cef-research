@@ -12,12 +12,12 @@
   "last_announcement": "2026-10-01"
  },
  "nav": {
-  "anchor": 3.22,
-  "anchor_date": "2026-09-25",
-  "anchor_source": "asx_ann:03144600",
-  "estimate": 3.22,
-  "basis": 0.0,
-  "staleness_days": 7.0,
+  "anchor": 3.28,
+  "anchor_date": "2026-09-30",
+  "anchor_source": "own_nav_history:2026-09-30",
+  "estimate": 3.281336,
+  "basis": 1.0,
+  "staleness_days": 4.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "AUD",
@@ -31,23 +31,23 @@
   "source": "yahoo:DJW.AX"
  },
  "discount": {
-  "estimate": -0.096273,
-  "z": -0.3501,
-  "z_status": "within_error_band",
+  "estimate": -0.113166,
+  "z": -1.0066,
+  "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.087264,
   "sigma_36m": 0.025732,
-  "alert_eligible": false
+  "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1762,
-  "discount_only": 0.0043,
+  "central": 0.1747,
+  "discount_only": 0.0029,
   "g_used": 0.1271,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-06T02:18:09+00:00"
+ "updated_at": "2026-10-06T21:57:40+00:00"
 }
