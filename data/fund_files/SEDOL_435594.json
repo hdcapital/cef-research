@@ -6,7 +6,7 @@
  "sector": "UK All Companies",
  "liveness": {
   "status": "delist_candidate",
-  "reason": "aggregator_delisted_and_own_filings_silent_481d",
+  "reason": "aggregator_delisted_and_own_filings_silent_482d",
   "source": "corroborated_delisting",
   "last_nav": "2025-06-11",
   "last_announcement": "2025-06-11"
@@ -15,9 +15,9 @@
   "anchor": 441.95,
   "anchor_date": "2025-06-11",
   "anchor_source": "own_nav_history:2025-06-11",
-  "estimate": 512.101418,
+  "estimate": 512.177664,
   "basis": 1.0,
-  "staleness_days": 343.0,
+  "staleness_days": 344.0,
   "staleness_limit_days": 45.0,
   "current": false,
   "unit": "GBX",
@@ -31,8 +31,8 @@
   "source": "aggregator_panel"
  },
  "discount": {
-  "estimate": -0.267723,
-  "z": -4.9597,
+  "estimate": -0.267832,
+  "z": -4.9629,
   "z_status": "history_stale_2024-10",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0676,
-  "discount_only": 0.0389,
+  "central": 0.0704,
+  "discount_only": 0.0418,
   "g_used": 0.0155,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-05T21:56:33+00:00"
+ "updated_at": "2026-10-06T02:18:10+00:00"
 }
