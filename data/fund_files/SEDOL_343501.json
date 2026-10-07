@@ -12,12 +12,12 @@
   "last_announcement": "2026-09-11"
  },
  "nav": {
-  "anchor": 284.4,
-  "anchor_date": "2026-10-06",
-  "anchor_source": "investegate:9808859",
-  "estimate": 284.4,
+  "anchor": 284.94,
+  "anchor_date": "2026-10-07",
+  "anchor_source": "investegate:9811143",
+  "estimate": 284.94,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 260.0,
+  "price": 254.5,
   "ccy": "GBp",
-  "date": "2026-10-05",
+  "date": "2026-10-07",
   "source": "yahoo:JCGI.L"
  },
  "discount": {
-  "estimate": -0.085795,
-  "z": 1.024,
+  "estimate": -0.10683,
+  "z": -0.1402,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,14 +41,26 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.3818,
-  "discount_only": -0.0021,
+  "central": 0.3811,
+  "discount_only": -0.0028,
   "g_used": -0.05,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-10-07",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/jpmorgan-china-growth-income--jcgi/holding-s-in-company/9811983",
+   "alerted_at": null,
+   "terms": {
+    "holder": "City of London Investment Management Company Limited"
+   }
+  },
   {
    "date": "2026-09-24",
    "class": "holdings_notification",
@@ -62,5 +74,5 @@
    }
   }
  ],
- "updated_at": "2026-10-07T00:50:23+00:00"
+ "updated_at": "2026-10-07T21:57:26+00:00"
 }

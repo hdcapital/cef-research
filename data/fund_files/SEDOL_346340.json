@@ -9,15 +9,15 @@
   "reason": "nav_2d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-05",
-  "last_announcement": "2026-10-06"
+  "last_announcement": "2026-10-07"
  },
  "nav": {
-  "anchor": 1728.0,
-  "anchor_date": "2026-10-06",
-  "anchor_source": "investegate:9808953",
-  "estimate": 1728.0,
+  "anchor": 1716.96,
+  "anchor_date": "2026-10-07",
+  "anchor_source": "investegate:9811275",
+  "estimate": 1716.96,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,29 +25,43 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1570.0,
+  "price": 1640.0,
   "ccy": "GBp",
-  "date": "2026-10-05",
+  "date": "2026-10-07",
   "source": "yahoo:BASC.L"
  },
  "discount": {
-  "estimate": -0.091435,
-  "z": 0.3097,
-  "z_status": "within_error_band",
+  "estimate": -0.044823,
+  "z": 2.6545,
+  "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
   "mu_36m": -0.097592,
   "sigma_36m": 0.019879,
-  "alert_eligible": false
+  "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.4121,
-  "discount_only": -0.0119,
-  "g_used": 0.0588,
+  "central": 0.4188,
+  "discount_only": -0.0072,
+  "g_used": 0.0609,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [],
- "updated_at": "2026-10-07T00:50:22+00:00"
+ "events_90d": [
+  {
+   "date": "2026-10-07",
+   "class": "scheme_merger_rollover",
+   "weight": 5,
+   "direction": "positive",
+   "headline": "Proposed Scheme of Reconstruction",
+   "url": "https://www.investegate.co.uk/announcement/rns/brown-advisory-us-smaller-companies--basc/proposed-scheme-of-reconstruction/9809950",
+   "alerted_at": "2026-10-07T06:35:12+00:00",
+   "terms": {
+    "llm": "error",
+    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
+   }
+  }
+ ],
+ "updated_at": "2026-10-07T21:57:26+00:00"
 }
