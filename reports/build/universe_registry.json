@@ -5,8 +5,8 @@
     "AU": 172,
     "UK": 944
   },
-  "live": 363,
-  "live_stale_nav": 40,
+  "live": 364,
+  "live_stale_nav": 39,
   "status_before_evidence": {
     "delisted": 737,
     "live": 374,
@@ -17,9 +17,9 @@
   "persisted_to": "data/universe/registry.parquet",
   "live_status_source": {
     "corroborated_delisting": 606,
-    "own_nav_announcement": 352,
+    "own_nav_announcement": 353,
     "own_delisting_notice": 100,
-    "own_periodic_report": 36,
+    "own_periodic_report": 35,
     "registry_deferral_no_own_filings": 11,
     "own_announcement_only": 6,
     "own_nav_announcement_stale": 4,
@@ -29,10 +29,10 @@
   "aggregator_said_live_evidence_says_not": 6,
   "by_liveness_reason": {
     "aggregator_delisted_and_own_filings_silent_alwaysd": 523,
-    "nav": 356,
+    "nav": 357,
     "own_delisting_notice": 100,
     "aggregator_delisted_and_own_filings_silent": 83,
-    "periodic_report": 36,
+    "periodic_report": 35,
     "no_own_filings_held_deferring_to_registry": 11,
     "filings_but_no_nav_or_report": 6,
     "registry_listed": 1
@@ -40,11 +40,11 @@
   "delisted": 100,
   "priced_by_source": 639,
   "announcements_only": 477,
-  "live_announcements_only": 99,
+  "live_announcements_only": 100,
   "offshore": 195,
   "vct": 228,
   "live_by_domicile": {
-    "GB": 205,
+    "GB": 206,
     "null": 97,
     "GG": 33,
     "JE": 13,
@@ -631,6 +631,15 @@
       "months_listed": 17
     },
     {
+      "security_id": "SEDOL:BD5B1L6",
+      "name": "Puma VCT 13",
+      "sector": "VCT",
+      "domicile": "GB",
+      "isin": "GB00BD5B1L68",
+      "first_seen": "2020-06",
+      "months_listed": 75
+    },
+    {
       "security_id": "SEDOL:BYMTBG5",
       "name": "RM Infrastructure Income",
       "sector": "Debt - Direct Lending",
@@ -947,7 +956,7 @@
     }
   ],
   "live_announcements_only_by_sector": {
-    "VCT": 21,
+    "VCT": 22,
     "Renewable Energy Infrastructure": 9,
     "Private Equity": 7,
     "Infrastructure": 6,

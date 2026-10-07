@@ -6,10 +6,10 @@
  "sector": "Property - UK Residential",
  "liveness": {
   "status": "live_stale_nav",
-  "reason": "periodic_report_139d_old_no_recent_nav",
+  "reason": "periodic_report_140d_old_no_recent_nav",
   "source": "own_periodic_report",
   "last_nav": "2026-05-20",
-  "last_announcement": "2026-10-01"
+  "last_announcement": "2026-10-06"
  },
  "nav": {
   "anchor": 18.1,
@@ -17,7 +17,7 @@
   "anchor_source": "investegate_fs:9576465",
   "estimate": 18.1,
   "basis": 0.0,
-  "staleness_days": 286.0,
+  "staleness_days": 287.0,
   "staleness_limit_days": 200.0,
   "current": false,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 8.850000381469727,
+  "price": 8.800000190734863,
   "ccy": "GBp",
-  "date": "2026-10-06",
+  "date": "2026-10-05",
   "source": "yahoo:HOME.L"
  },
  "discount": {
-  "estimate": -0.51105,
-  "z": -1.7532,
+  "estimate": -0.513812,
+  "z": -1.7639,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 24,
@@ -41,8 +41,8 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.2087,
-  "discount_only": 0.1538,
+  "central": 0.2259,
+  "discount_only": 0.1703,
   "g_used": 0.0476,
   "g_source": "market_median"
  },
@@ -56,7 +56,7 @@
    "direction": "negative",
    "headline": "Update on Litigation",
    "url": "https://www.investegate.co.uk/announcement/rns/home-reit--home/update-on-litigation/9808669",
-   "alerted_at": null,
+   "alerted_at": "2026-10-06T23:39:58+00:00",
    "terms": {
     "llm": "error",
     "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
@@ -109,5 +109,5 @@
    }
   }
  ],
- "updated_at": "2026-10-06T21:57:41+00:00"
+ "updated_at": "2026-10-07T00:50:23+00:00"
 }

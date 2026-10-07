@@ -6,10 +6,10 @@
  "sector": "Europe",
  "liveness": {
   "status": "live",
-  "reason": "nav_4d_old",
+  "reason": "nav_2d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-02",
-  "last_announcement": "2026-10-05"
+  "last_nav": "2026-10-05",
+  "last_announcement": "2026-10-06"
  },
  "nav": {
   "anchor": 144.41,
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9808850",
   "estimate": 144.41,
   "basis": 0.0,
-  "staleness_days": 0.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 140.0,
+  "price": 139.1999969482422,
   "ccy": "GBp",
-  "date": "2026-10-06",
+  "date": "2026-10-05",
   "source": "yahoo:JEGI.L"
  },
  "discount": {
-  "estimate": -0.030538,
-  "z": 0.7411,
+  "estimate": -0.036078,
+  "z": 0.6258,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0601,
-  "discount_only": -0.0171,
+  "central": 0.0606,
+  "discount_only": -0.0166,
   "g_used": 0.0535,
   "g_source": "own_nav_history"
  },
@@ -62,5 +62,5 @@
    }
   }
  ],
- "updated_at": "2026-10-06T21:57:41+00:00"
+ "updated_at": "2026-10-07T00:50:23+00:00"
 }
