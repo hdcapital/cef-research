@@ -12,12 +12,12 @@
   "last_announcement": "2026-09-11"
  },
  "nav": {
-  "anchor": 552.8,
-  "anchor_date": "2026-10-06",
-  "anchor_source": "investegate:9811706",
-  "estimate": 552.8,
+  "anchor": 549.2,
+  "anchor_date": "2026-10-07",
+  "anchor_source": "investegate:9813953",
+  "estimate": 549.2,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 570.0,
+  "price": 565.0,
   "ccy": "GBp",
-  "date": "2026-10-06",
+  "date": "2026-10-08",
   "source": "yahoo:CTY.L"
  },
  "discount": {
-  "estimate": 0.031114,
-  "z": 1.763,
+  "estimate": 0.028769,
+  "z": 1.6227,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,14 +41,24 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1439,
-  "discount_only": -0.0028,
+  "central": 0.1427,
+  "discount_only": -0.0039,
   "g_used": 0.1129,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-10-08",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/city-of-london-inv-trust--cty/issue-of-equity/9814324",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-10-07",
    "class": "issuance",
@@ -90,5 +100,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-10-08T01:13:52+00:00"
+ "updated_at": "2026-10-08T21:57:23+00:00"
 }
