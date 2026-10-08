@@ -6,7 +6,7 @@
  "sector": "Debt - Loans & Bonds",
  "liveness": {
   "status": "delist_candidate",
-  "reason": "aggregator_delisted_and_own_filings_silent_1000d",
+  "reason": "aggregator_delisted_and_own_filings_silent_1001d",
   "source": "corroborated_delisting",
   "last_nav": "2024-01-11",
   "last_announcement": "2024-01-11"
@@ -15,9 +15,9 @@
   "anchor": 71.8,
   "anchor_date": "2024-01-10",
   "anchor_source": "own_nav_history:2024-01-10",
-  "estimate": 76.248438,
+  "estimate": 76.443549,
   "basis": 1.0,
-  "staleness_days": 715.0,
+  "staleness_days": 716.0,
   "staleness_limit_days": 45.0,
   "current": false,
   "unit": "GBX",
@@ -31,8 +31,8 @@
   "source": "aggregator_panel"
  },
  "discount": {
-  "estimate": -0.081948,
-  "z": -0.6608,
+  "estimate": -0.084292,
+  "z": -0.7361,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0597,
-  "discount_only": 0.0113,
+  "central": 0.057,
+  "discount_only": 0.0085,
   "g_used": -0.0053,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-07T21:57:26+00:00"
+ "updated_at": "2026-10-08T01:13:53+00:00"
 }

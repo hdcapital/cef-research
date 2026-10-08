@@ -6,10 +6,10 @@
  "sector": "Hedge Funds",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-05",
-  "last_announcement": "2026-10-05"
+  "last_announcement": "2026-10-07"
  },
  "nav": {
   "anchor": 4.57,
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9810919",
   "estimate": 4.57,
   "basis": 0.0,
-  "staleness_days": 0.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "USD",
@@ -25,13 +25,13 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 4.329999923706055,
+  "price": 4.25,
   "ccy": "USD",
-  "date": "2026-10-07",
+  "date": "2026-10-06",
   "source": "yahoo:BHMU.L"
  },
  "discount": {
-  "estimate": -0.052516,
+  "estimate": -0.070022,
   "z": null,
   "z_status": "no_discount_history",
   "z_source": null,
@@ -62,5 +62,5 @@
    }
   }
  ],
- "updated_at": "2026-10-07T21:57:25+00:00"
+ "updated_at": "2026-10-08T01:13:52+00:00"
 }

@@ -6,7 +6,7 @@
  "sector": "Flexible Investment",
  "liveness": {
   "status": "live",
-  "reason": "nav_76d_old",
+  "reason": "nav_77d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-07-23",
   "last_announcement": "2026-09-17"
@@ -17,7 +17,7 @@
   "anchor_source": "own_nav_history:2026-07-23",
   "estimate": 113.0,
   "basis": 3.0,
-  "staleness_days": 54.0,
+  "staleness_days": 55.0,
   "staleness_limit_days": 183.0,
   "current": true,
   "unit": "GBX",
@@ -25,19 +25,19 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 90.0,
+  "price": 89.0,
   "ccy": "GBp",
-  "date": "2026-10-07",
+  "date": "2026-10-06",
   "source": "yahoo:CGL.L"
  },
  "discount": {
-  "estimate": -0.20354,
-  "z": -0.9441,
+  "estimate": -0.212389,
+  "z": -1.0159,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.093658,
-  "sigma_36m": 0.116382,
+  "mu_36m": -0.093904,
+  "sigma_36m": 0.11663,
   "alert_eligible": true
  },
  "forward_irr": {
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-07T21:57:26+00:00"
+ "updated_at": "2026-10-08T01:13:52+00:00"
 }
