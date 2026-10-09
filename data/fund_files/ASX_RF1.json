@@ -6,7 +6,7 @@
  "sector": "Equity - Global Strategy",
  "liveness": {
   "status": "live",
-  "reason": "nav_11d_old",
+  "reason": "nav_12d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-27",
   "last_announcement": "2026-09-27"
@@ -17,7 +17,7 @@
   "anchor_source": "asx_ann:03144514",
   "estimate": 3.53,
   "basis": 0.0,
-  "staleness_days": 9.0,
+  "staleness_days": 10.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "AUD",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 3.3399999141693115,
+  "price": 3.3499999046325684,
   "ccy": "AUD",
-  "date": "2026-10-08",
+  "date": "2026-10-09",
   "source": "yahoo:RF1.AX"
  },
  "discount": {
-  "estimate": -0.053824,
-  "z": 0.2109,
+  "estimate": -0.050992,
+  "z": 0.278,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.2021,
-  "discount_only": -0.0059,
+  "central": 0.2119,
+  "discount_only": 0.0029,
   "g_used": 0.15,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-08T21:57:22+00:00"
+ "updated_at": "2026-10-09T01:27:50+00:00"
 }

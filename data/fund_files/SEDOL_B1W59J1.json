@@ -15,9 +15,9 @@
   "anchor": 42.57,
   "anchor_date": "2020-07-31",
   "anchor_source": "aggregator_panel:2020-07",
-  "estimate": 45.353948,
+  "estimate": 45.518069,
   "basis": 1.0,
-  "staleness_days": 1614.0,
+  "staleness_days": 1615.0,
   "staleness_limit_days": 45.0,
   "current": false,
   "unit": "GBX",
@@ -31,8 +31,8 @@
   "source": "aggregator_panel"
  },
  "discount": {
-  "estimate": -0.089385,
-  "z": 0.469,
+  "estimate": -0.092668,
+  "z": 0.3611,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0644,
-  "discount_only": 0.0021,
+  "central": 0.0624,
+  "discount_only": 0.0001,
   "g_used": 0.0276,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-08T21:57:22+00:00"
+ "updated_at": "2026-10-09T01:27:50+00:00"
 }

@@ -6,7 +6,7 @@
  "sector": "Europe",
  "liveness": {
   "status": "live",
-  "reason": "nav_69d_old",
+  "reason": "nav_70d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-07-31",
   "last_announcement": "2026-08-03"
@@ -15,9 +15,9 @@
   "anchor": 952.02,
   "anchor_date": "2026-07-31",
   "anchor_source": "aggregator_panel:2026-07",
-  "estimate": 977.186574,
+  "estimate": 981.661639,
   "basis": 1.0,
-  "staleness_days": 49.0,
+  "staleness_days": 50.0,
   "staleness_limit_days": 45.0,
   "current": false,
   "unit": "GBX",
@@ -31,8 +31,8 @@
   "source": "aggregator_panel"
  },
  "discount": {
-  "estimate": -0.041125,
-  "z": 1.0307,
+  "estimate": -0.045496,
+  "z": 0.8368,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": -0.0047,
-  "discount_only": -0.0072,
+  "central": -0.0064,
+  "discount_only": -0.009,
   "g_used": -0.0257,
   "g_source": "own_nav_history"
  },
@@ -60,5 +60,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-10-08T21:57:23+00:00"
+ "updated_at": "2026-10-09T01:27:51+00:00"
 }
