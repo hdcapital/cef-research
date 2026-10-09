@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 421.5,
+  "price": 419.0,
   "ccy": "GBp",
-  "date": "2026-10-07",
+  "date": "2026-10-09",
   "source": "yahoo:BHMG.L"
  },
  "discount": {
-  "estimate": -0.054933,
-  "z": -0.2921,
+  "estimate": -0.060538,
+  "z": -0.3234,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,14 +41,27 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0594,
-  "discount_only": 0.0195,
-  "g_used": 0.0392,
+  "central": 0.0937,
+  "discount_only": 0.0183,
+  "g_used": 0.074,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-10-09",
+   "class": "discount_control",
+   "weight": 3,
+   "direction": "positive",
+   "headline": "Amendment: Share Conversion, Share Buybacks &...",
+   "url": "https://www.investegate.co.uk/announcement/prn/bh-macro-ltd-gbp-shares--bhmg/amendment-share-conversion-share-buybacks-/9816504",
+   "alerted_at": null,
+   "terms": {
+    "llm": "error",
+    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
+   }
+  },
   {
    "date": "2026-09-30",
    "class": "holdings_notification",
@@ -62,5 +75,5 @@
    }
   }
  ],
- "updated_at": "2026-10-09T01:27:51+00:00"
+ "updated_at": "2026-10-09T21:57:31+00:00"
 }

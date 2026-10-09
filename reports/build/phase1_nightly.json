@@ -4,13 +4,13 @@
   "rows_without_nav": 328,
   "basis_counts": {
     "nan": 328,
-    "3.0": 306,
-    "0.0": 273,
+    "3.0": 307,
+    "0.0": 272,
     "1.0": 209
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 154,
+  "alert_eligible": 166,
   "z_extremes": [
     {
       "security_id": "SEDOL:3420207",
@@ -62,15 +62,15 @@
     },
     {
       "security_id": "SEDOL:BDHXP96",
-      "z_adj": -43.5136,
-      "discount_est": -0.7112,
-      "staleness_days": 1.0
+      "z_adj": -43.1914,
+      "discount_est": -0.706072,
+      "staleness_days": 0.0
     },
     {
-      "security_id": "SEDOL:BRC8992",
-      "z_adj": -38.7126,
-      "discount_est": -0.990642,
-      "staleness_days": 4.0
+      "security_id": "SEDOL:263193",
+      "z_adj": -38.8877,
+      "discount_est": -0.990357,
+      "staleness_days": 29.0
     }
   ],
   "date": "2026-10-09",
@@ -102,12 +102,12 @@
     }
   },
   "catalysts": {
-    "catalysts": 46,
-    "funds": 33,
+    "catalysts": 48,
+    "funds": 35,
     "by_class": {
       "substantial_holder": 15,
       "tender_offer": 8,
-      "discount_control": 5,
+      "discount_control": 7,
       "scheme_merger_rollover": 5,
       "realisation": 5,
       "strategic_review": 2,
@@ -120,34 +120,34 @@
     }
   },
   "events": {
-    "events_total": 625,
-    "events_30d": 221,
-    "funds_30d": 106,
+    "events_total": 632,
+    "events_30d": 228,
+    "funds_30d": 108,
     "by_direction_30d": {
-      "neutral": 174,
-      "positive": 44,
+      "neutral": 179,
+      "positive": 46,
       "negative": 3
     },
     "by_class_30d": {
-      "holdings_notification": 84,
-      "issuance": 81,
+      "holdings_notification": 87,
+      "issuance": 83,
       "substantial_holder": 15,
       "portfolio_holding": 9,
       "tender_offer": 8,
+      "discount_control": 7,
       "scheme_merger_rollover": 6,
       "realisation": 5,
-      "discount_control": 5,
       "strategic_review": 2,
       "legal_sanctions": 1,
       "manager_change": 1,
       "suspension": 1
     },
-    "unalerted": 533,
-    "holdings_with_terms": 84,
+    "unalerted": 540,
+    "holdings_with_terms": 87,
     "tr1": {
-      "candidates": 0,
-      "fetched": 0,
-      "parsed": 0,
+      "candidates": 3,
+      "fetched": 3,
+      "parsed": 3,
       "failed": 0
     },
     "realisations": {
@@ -157,7 +157,7 @@
       "failed": 0
     },
     "terms": {
-      "candidates": 32,
+      "candidates": 34,
       "read": 3,
       "accepted": 0,
       "rejected": 0,
@@ -173,15 +173,15 @@
   },
   "carried_forward_rows": 0,
   "nav_quarantine": {
-    "rows": 464,
+    "rows": 466,
     "by_reason": {
       "stale_panel_price_only": 217,
       "nav_not_positive": 180,
       "no_price": 39,
-      "unit_suspect_scale": 9,
+      "unit_suspect_scale": 10,
       "nav_jump_N_vs_prior": 8,
-      "nav_jump_N_vs_own": 6,
-      "nav_unit_mismatch_N_vs_prior": 5
+      "nav_unit_mismatch_N_vs_prior": 6,
+      "nav_jump_N_vs_own": 6
     }
   },
   "snapshot": "s3_exists_not_overwritten:nta_live/2026-10-09.parquet",

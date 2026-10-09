@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 381.5,
+  "price": 384.0,
   "ccy": "GBp",
-  "date": "2026-10-07",
+  "date": "2026-10-09",
   "source": "yahoo:PIN.L"
  },
  "discount": {
-  "estimate": -0.263371,
-  "z": 0.5946,
-  "z_status": "within_error_band",
+  "estimate": -0.258544,
+  "z": 0.6364,
+  "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
   "mu_36m": -0.332044,
   "sigma_36m": 0.115486,
-  "alert_eligible": false
+  "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0457,
-  "discount_only": -0.0001,
+  "central": 0.0444,
+  "discount_only": -0.0013,
   "g_used": 0.0458,
   "g_source": "sector_median"
  },
@@ -86,5 +86,5 @@
    }
   }
  ],
- "updated_at": "2026-10-09T01:27:52+00:00"
+ "updated_at": "2026-10-09T21:57:33+00:00"
 }

@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 49.20000076293945,
+  "price": 49.400001525878906,
   "ccy": "GBp",
-  "date": "2026-10-07",
+  "date": "2026-10-09",
   "source": "yahoo:GSF.L"
  },
  "discount": {
-  "estimate": -0.316097,
-  "z": 1.429,
+  "estimate": -0.313317,
+  "z": 1.4688,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0381,
-  "discount_only": -0.009,
+  "central": 0.0373,
+  "discount_only": -0.0098,
   "g_used": 0.0476,
   "g_source": "market_median"
  },
  "holder_churn": {
-  "filings": 3,
+  "filings": 4,
   "sellers": 0,
   "buyers": 0,
   "largest_move": null,
@@ -75,6 +75,18 @@
   "window_days": 365
  },
  "events_90d": [
+  {
+   "date": "2026-10-09",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/gore-street-energy-storage-fund--gsf/holding-s-in-company/9815613",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Saba Capital Management, L.P"
+   }
+  },
   {
    "date": "2026-09-30",
    "class": "holdings_notification",
@@ -196,5 +208,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-10-09T01:27:51+00:00"
+ "updated_at": "2026-10-09T21:57:32+00:00"
 }

@@ -27,7 +27,7 @@
  "price": {
   "price": 4.329999923706055,
   "ccy": "USD",
-  "date": "2026-10-07",
+  "date": "2026-10-08",
   "source": "yahoo:BHMU.L"
  },
  "discount": {
@@ -43,12 +43,25 @@
  "forward_irr": {
   "central": null,
   "discount_only": null,
-  "g_used": 0.0245,
+  "g_used": 0.0537,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-10-09",
+   "class": "discount_control",
+   "weight": 3,
+   "direction": "positive",
+   "headline": "Amendment: Share Conversion, Share Buybacks &...",
+   "url": "https://www.investegate.co.uk/announcement/prn/bh-macro-ltd-usd-shares--bhmu/amendment-share-conversion-share-buybacks-/9816504",
+   "alerted_at": null,
+   "terms": {
+    "llm": "error",
+    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
+   }
+  },
   {
    "date": "2026-09-30",
    "class": "holdings_notification",
@@ -62,5 +75,5 @@
    }
   }
  ],
- "updated_at": "2026-10-09T01:27:51+00:00"
+ "updated_at": "2026-10-09T21:57:31+00:00"
 }
