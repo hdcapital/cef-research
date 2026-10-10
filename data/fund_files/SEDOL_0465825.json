@@ -6,7 +6,7 @@
  "sector": "Flexible Investment",
  "liveness": {
   "status": "live",
-  "reason": "nav_9d_old",
+  "reason": "nav_10d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-30",
   "last_announcement": "2026-10-06"
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9805319",
   "estimate": 74.9,
   "basis": 0.0,
-  "staleness_days": 7.0,
+  "staleness_days": 8.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -27,7 +27,7 @@
  "price": {
   "price": 76.0,
   "ccy": "GBp",
-  "date": "2026-10-09",
+  "date": "2026-10-08",
   "source": "yahoo:INV.L"
  },
  "discount": {
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0224,
-  "discount_only": -0.0277,
+  "central": 0.0231,
+  "discount_only": -0.0271,
   "g_used": 0.0411,
   "g_source": "own_nav_history"
  },
@@ -112,5 +112,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-10-09T21:57:33+00:00"
+ "updated_at": "2026-10-10T01:06:01+00:00"
 }

@@ -8,8 +8,8 @@
   "status": "live",
   "reason": "nav_2d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-07",
-  "last_announcement": "2026-10-08"
+  "last_nav": "2026-10-08",
+  "last_announcement": "2026-10-09"
  },
  "nav": {
   "anchor": 374.2,
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9815794",
   "estimate": 374.2,
   "basis": 0.0,
-  "staleness_days": 0.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -27,27 +27,27 @@
  "price": {
   "price": 326.0,
   "ccy": "GBp",
-  "date": "2026-10-09",
+  "date": "2026-10-08",
   "source": "yahoo:VNH.L"
  },
  "discount": {
   "estimate": -0.128808,
-  "z": -1.9053,
+  "z": -1.9147,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.066109,
-  "sigma_36m": 0.032908,
+  "mu_36m": -0.066044,
+  "sigma_36m": 0.032781,
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": -0.0269,
-  "discount_only": 0.0066,
+  "central": -0.0267,
+  "discount_only": 0.0069,
   "g_used": -0.0333,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-09T21:57:33+00:00"
+ "updated_at": "2026-10-10T01:06:01+00:00"
 }

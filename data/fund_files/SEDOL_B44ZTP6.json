@@ -6,7 +6,7 @@
  "sector": "Latin America",
  "liveness": {
   "status": "delist_candidate",
-  "reason": "aggregator_delisted_and_own_filings_silent_870d",
+  "reason": "aggregator_delisted_and_own_filings_silent_871d",
   "source": "corroborated_delisting",
   "last_nav": "2023-06-09",
   "last_announcement": "2024-05-22"
@@ -15,9 +15,9 @@
   "anchor": 63.61,
   "anchor_date": "2023-06-08",
   "anchor_source": "own_nav_history:2023-06-08",
-  "estimate": 67.738708,
+  "estimate": 67.562798,
   "basis": 1.0,
-  "staleness_days": 871.0,
+  "staleness_days": 872.0,
   "staleness_limit_days": 45.0,
   "current": false,
   "unit": "GBX",
@@ -31,8 +31,8 @@
   "source": "aggregator_panel"
  },
  "discount": {
-  "estimate": -0.114244,
-  "z": 0.1853,
+  "estimate": -0.111937,
+  "z": 0.254,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0385,
-  "discount_only": -0.0045,
+  "central": 0.0384,
+  "discount_only": -0.0046,
   "g_used": -0.022,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-09T21:57:33+00:00"
+ "updated_at": "2026-10-10T01:06:02+00:00"
 }

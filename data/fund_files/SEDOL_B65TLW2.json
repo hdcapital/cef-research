@@ -6,7 +6,7 @@
  "sector": "UK Equity Income",
  "liveness": {
   "status": "live",
-  "reason": "nav_105d_old",
+  "reason": "nav_106d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-06-26",
   "last_announcement": "2026-06-26"
@@ -15,9 +15,9 @@
   "anchor": 119.51,
   "anchor_date": "2026-06-26",
   "anchor_source": "own_nav_history:2026-06-26",
-  "estimate": 121.831162,
+  "estimate": 121.502511,
   "basis": 1.0,
-  "staleness_days": 75.0,
+  "staleness_days": 76.0,
   "staleness_limit_days": 45.0,
   "current": false,
   "unit": "GBX",
@@ -31,8 +31,8 @@
   "source": "aggregator_panel"
  },
  "discount": {
-  "estimate": -0.031446,
-  "z": 1.9908,
+  "estimate": -0.028827,
+  "z": 2.1292,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-09T21:57:32+00:00"
+ "updated_at": "2026-10-10T01:06:00+00:00"
 }

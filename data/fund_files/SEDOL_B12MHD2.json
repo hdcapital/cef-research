@@ -6,7 +6,7 @@
  "sector": "Private Equity",
  "liveness": {
   "status": "live_stale_nav",
-  "reason": "periodic_report_72d_old_no_recent_nav",
+  "reason": "periodic_report_73d_old_no_recent_nav",
   "source": "own_periodic_report",
   "last_nav": "2026-02-16",
   "last_announcement": "2026-07-29"
@@ -17,7 +17,7 @@
   "anchor_source": "investegate_fs:9692247",
   "estimate": 32.98,
   "basis": 0.0,
-  "staleness_days": 73.0,
+  "staleness_days": 74.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -33,12 +33,12 @@
  "discount": {
   "estimate": -0.526986,
   "z": 0.9183,
-  "z_status": "computed",
+  "z_status": "within_error_band",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
   "mu_36m": -0.591092,
   "sigma_36m": 0.06981,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
   "central": 0.0417,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-09T21:57:32+00:00"
+ "updated_at": "2026-10-10T01:06:01+00:00"
 }
