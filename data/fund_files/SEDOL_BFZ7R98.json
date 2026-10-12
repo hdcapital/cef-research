@@ -6,18 +6,18 @@
  "sector": "Global Emerging Markets",
  "liveness": {
   "status": "live",
-  "reason": "nav_3d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-07",
-  "last_announcement": "2026-10-09"
+  "last_announcement": "2026-10-12"
  },
  "nav": {
-  "anchor": 204.86,
-  "anchor_date": "2026-10-08",
-  "anchor_source": "investegate:9816303",
-  "estimate": 204.86,
+  "anchor": 206.42,
+  "anchor_date": "2026-10-09",
+  "anchor_source": "investegate:9818573",
+  "estimate": 206.42,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 190.0,
+  "price": 190.5,
   "ccy": "GBp",
-  "date": "2026-10-08",
+  "date": "2026-10-12",
   "source": "yahoo:MMIT.L"
  },
  "discount": {
-  "estimate": -0.072537,
-  "z": 0.3482,
+  "estimate": -0.077124,
+  "z": 0.1724,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -48,6 +48,19 @@
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [],
- "updated_at": "2026-10-10T01:06:01+00:00"
+ "events_90d": [
+  {
+   "date": "2026-10-12",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/mobius-investment-trust--mmit/holding-s-in-company/9817976",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Ameriprise Financial, Inc"
+   }
+  }
+ ],
+ "updated_at": "2026-10-12T21:57:59+00:00"
 }

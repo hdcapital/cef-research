@@ -6,7 +6,7 @@
  "sector": "UK Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_10d_old",
+  "reason": "nav_12d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-30",
   "last_announcement": "2026-10-05"
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 170.0,
+  "price": 165.0,
   "ccy": "GBp",
-  "date": "2026-10-08",
+  "date": "2026-10-09",
   "source": "yahoo:ATY.L"
  },
  "discount": {
-  "estimate": 0.065163,
-  "z": 2.6194,
+  "estimate": 0.033835,
+  "z": 2.0829,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": -0.0236,
-  "discount_only": -0.0275,
+  "central": -0.0287,
+  "discount_only": -0.0333,
   "g_used": -0.05,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-10T01:06:00+00:00"
+ "updated_at": "2026-10-12T21:57:58+00:00"
 }

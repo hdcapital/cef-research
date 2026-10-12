@@ -6,7 +6,7 @@
  "sector": "Fixed Income - Australian Dollar",
  "liveness": {
   "status": "live",
-  "reason": "nav_26d_old",
+  "reason": "nav_28d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-14",
   "last_announcement": "2026-10-02"
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1.5,
+  "price": 1.4500000476837158,
   "ccy": "AUD",
-  "date": "2026-10-09",
+  "date": "2026-10-12",
   "source": "yahoo:MRE.AX"
  },
  "discount": {
-  "estimate": -0.413283,
-  "z": -3.3935,
+  "estimate": -0.43284,
+  "z": -3.6334,
   "z_status": "computed_growing_22m",
   "z_source": "aggregator_panel",
   "z_window_months": 22,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-10T01:05:59+00:00"
+ "updated_at": "2026-10-12T21:57:57+00:00"
 }

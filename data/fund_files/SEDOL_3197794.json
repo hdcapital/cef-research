@@ -6,33 +6,33 @@
  "sector": "Global",
  "liveness": {
   "status": "live",
-  "reason": "nav_10d_old",
+  "reason": "nav_12d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-30",
-  "last_announcement": "2026-10-08"
+  "last_announcement": "2026-10-12"
  },
  "nav": {
-  "anchor": 651.02,
-  "anchor_date": "2026-09-30",
-  "anchor_source": "investegate:9812108",
-  "estimate": 651.02,
+  "anchor": 669.5,
+  "anchor_date": "2026-10-12",
+  "anchor_source": "investegate:9818647",
+  "estimate": 669.5,
   "basis": 0.0,
-  "staleness_days": 8.0,
+  "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
   "quality_ok": false,
-  "quality_reason": "nav_unit_mismatch_92x_vs_prior"
+  "quality_reason": "nav_unit_mismatch_95x_vs_prior"
  },
  "price": {
   "price": 5.739999771118164,
   "ccy": "GBP",
-  "date": "2026-10-08",
+  "date": "2026-10-12",
   "source": "yahoo:LTI.L"
  },
  "discount": {
-  "estimate": -0.991183,
-  "z": -20.4444,
+  "estimate": -0.991426,
+  "z": -20.4505,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,14 +41,27 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 1.7974,
-  "discount_only": 1.4933,
+  "central": 1.8032,
+  "discount_only": 1.4985,
   "g_used": 0.0905,
   "g_source": "sector_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-10-12",
+   "class": "tender_offer",
+   "weight": 4,
+   "direction": "positive",
+   "headline": "Results of Tender Offer",
+   "url": "https://www.investegate.co.uk/announcement/prn/lindsell-train-inv-trust--lti/results-of-tender-offer/9818928",
+   "alerted_at": null,
+   "terms": {
+    "llm": "error",
+    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
+   }
+  },
   {
    "date": "2026-09-11",
    "class": "tender_offer",
@@ -63,5 +76,5 @@
    }
   }
  ],
- "updated_at": "2026-10-10T01:06:01+00:00"
+ "updated_at": "2026-10-12T21:57:59+00:00"
 }

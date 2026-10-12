@@ -6,18 +6,18 @@
  "sector": "UK Equity & Bond Income",
  "liveness": {
   "status": "live",
-  "reason": "nav_3d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-07",
-  "last_announcement": "2026-10-09"
+  "last_announcement": "2026-10-12"
  },
  "nav": {
-  "anchor": 206.6,
-  "anchor_date": "2026-10-08",
-  "anchor_source": "investegate:9816388",
-  "estimate": 206.6,
+  "anchor": 208.8,
+  "anchor_date": "2026-10-09",
+  "anchor_source": "investegate:9818656",
+  "estimate": 208.8,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 198.0,
+  "price": 202.5,
   "ccy": "GBp",
-  "date": "2026-10-08",
+  "date": "2026-10-12",
   "source": "yahoo:HHI.L"
  },
  "discount": {
-  "estimate": -0.041626,
-  "z": 1.44,
+  "estimate": -0.030172,
+  "z": 1.9884,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0559,
-  "discount_only": -0.0038,
+  "central": 0.0578,
+  "discount_only": -0.0018,
   "g_used": 0.0158,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-10T01:06:01+00:00"
+ "updated_at": "2026-10-12T21:57:58+00:00"
 }

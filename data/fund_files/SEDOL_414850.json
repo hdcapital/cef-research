@@ -6,10 +6,10 @@
  "sector": "Private Equity",
  "liveness": {
   "status": "live",
-  "reason": "nav_67d_old",
+  "reason": "nav_69d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-08-04",
-  "last_announcement": "2026-10-09"
+  "last_announcement": "2026-10-12"
  },
  "nav": {
   "anchor": 517.9,
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 379.5,
+  "price": 387.0,
   "ccy": "GBp",
-  "date": "2026-10-08",
+  "date": "2026-10-12",
   "source": "yahoo:PIN.L"
  },
  "discount": {
-  "estimate": -0.267233,
-  "z": 0.5624,
-  "z_status": "within_error_band",
+  "estimate": -0.252751,
+  "z": 0.6879,
+  "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
   "mu_36m": -0.332151,
   "sigma_36m": 0.115422,
-  "alert_eligible": false
+  "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.043,
-  "discount_only": -0.0026,
+  "central": 0.0449,
+  "discount_only": -0.0008,
   "g_used": 0.0458,
   "g_source": "sector_median"
  },
@@ -86,5 +86,5 @@
    }
   }
  ],
- "updated_at": "2026-10-10T01:06:01+00:00"
+ "updated_at": "2026-10-12T21:57:59+00:00"
 }

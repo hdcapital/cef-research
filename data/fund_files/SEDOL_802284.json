@@ -6,18 +6,18 @@
  "sector": "Japan",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_4d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-08",
   "last_announcement": "2026-09-11"
  },
  "nav": {
-  "anchor": 422.6,
-  "anchor_date": "2026-10-09",
-  "anchor_source": "investegate:9815999",
-  "estimate": 422.6,
+  "anchor": 424.13,
+  "anchor_date": "2026-10-12",
+  "anchor_source": "investegate:9818104",
+  "estimate": 424.13,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 385.0,
+  "price": 386.0,
   "ccy": "GBp",
-  "date": "2026-10-08",
+  "date": "2026-10-12",
   "source": "yahoo:SJG.L"
  },
  "discount": {
-  "estimate": -0.088973,
-  "z": 0.1735,
+  "estimate": -0.089902,
+  "z": 0.1508,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1177,
-  "discount_only": -0.0064,
+  "central": 0.1194,
+  "discount_only": -0.0049,
   "g_used": 0.1058,
   "g_source": "panel_tr_cagr"
  },
@@ -62,5 +62,5 @@
    }
   }
  ],
- "updated_at": "2026-10-10T01:06:01+00:00"
+ "updated_at": "2026-10-12T21:57:59+00:00"
 }
