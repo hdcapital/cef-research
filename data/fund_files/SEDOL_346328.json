@@ -9,15 +9,15 @@
   "reason": "nav_4d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-09",
-  "last_announcement": "2026-09-11"
+  "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 355.58,
-  "anchor_date": "2026-10-12",
-  "anchor_source": "investegate:9818512",
-  "estimate": 355.58,
+  "anchor": 358.85,
+  "anchor_date": "2026-10-13",
+  "anchor_source": "investegate:9820690",
+  "estimate": 358.85,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,29 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 339.0,
+  "price": 343.0,
   "ccy": "GBp",
-  "date": "2026-10-09",
+  "date": "2026-10-13",
   "source": "yahoo:CTUK.L"
  },
  "discount": {
-  "estimate": -0.046628,
-  "z": -0.6718,
-  "z_status": "computed",
+  "estimate": -0.044169,
+  "z": -0.4428,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.039414,
   "sigma_36m": 0.010738,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.11,
-  "discount_only": 0.0003,
+  "central": 0.1118,
+  "discount_only": 0.002,
   "g_used": 0.0764,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-13T03:06:02+00:00"
+ "updated_at": "2026-10-13T21:52:13+00:00"
 }

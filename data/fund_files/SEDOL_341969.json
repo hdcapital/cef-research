@@ -9,15 +9,15 @@
   "reason": "nav_4d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-09",
-  "last_announcement": "2026-09-11"
+  "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 660.32,
-  "anchor_date": "2026-10-12",
-  "anchor_source": "investegate:9818005",
-  "estimate": 660.32,
+  "anchor": 661.53,
+  "anchor_date": "2026-10-13",
+  "anchor_source": "investegate:9820137",
+  "estimate": 661.53,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,29 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 606.0,
+  "price": 610.0,
   "ccy": "GBp",
-  "date": "2026-10-09",
+  "date": "2026-10-13",
   "source": "yahoo:JEDT.L"
  },
  "discount": {
-  "estimate": -0.082263,
-  "z": 0.3372,
-  "z_status": "within_error_band",
+  "estimate": -0.077895,
+  "z": 0.5398,
+  "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.089534,
   "sigma_36m": 0.021562,
-  "alert_eligible": false
+  "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0544,
-  "discount_only": -0.0066,
+  "central": 0.0551,
+  "discount_only": -0.006,
   "g_used": 0.0409,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-13T03:06:03+00:00"
+ "updated_at": "2026-10-13T21:52:14+00:00"
 }
