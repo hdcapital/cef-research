@@ -31,6 +31,13 @@ name: cef-ideas
 # and emailed at 16:04 - eight hours before the ASX open. The gate now also
 # refuses a window's brief before its earliest hour (pre-LSE 05:00, pre-ASX
 # 22:00 UTC; see cef_live.brief_window.EARLIEST_HOUR).
+# 2026-10-13: the scan labelled its brief by the clock when scoring
+# finished, ~50 minutes after the gate. On 2026-10-09 a 02:17 UTC pre-ASX
+# firing reached scoring at 03:09, called its brief Friday's pre-LSE one,
+# and the gate then held Friday's five real pre-LSE firings back as
+# "already went" - no Friday morning brief. The gate now fixes the window
+# at firing (BRIEF_LABEL / BRIEF_DAY) and the scan records it
+# (ideas.json window_day); the gate keys on that record.
 
 on:
   workflow_dispatch:
@@ -62,6 +69,8 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       skip: ${{ steps.check.outputs.skip }}
+      label: ${{ steps.check.outputs.label }}
+      day: ${{ steps.check.outputs.day }}
     steps:
       - uses: actions/checkout@v4
       - id: check
@@ -76,7 +85,7 @@ jobs:
             || cp reports/build/ideas.json /tmp/ideas_tip.json || true
           PYTHONPATH=src python - <<'PY'
           import json, os, pathlib
-          from cef_live.brief_window import already_sent
+          from cef_live.brief_window import already_sent, firing_window
           last = None
           p = pathlib.Path("/tmp/ideas_tip.json")
           if p.exists():
@@ -85,9 +94,14 @@ jobs:
               except Exception as exc:  # noqa: BLE001
                   print(f"gate could not read ideas.json ({exc}); running")
           skip, why = already_sent(last)
-          print(("SKIP: " if skip else "RUN: ") + why)
+          # the window is fixed here, at firing, and carried to the scan:
+          # scoring finishes ~50 minutes later and 2026-10-09 a 02:17Z
+          # pre-ASX firing labelled its brief by the 03:09Z clock
+          label, day = firing_window()
+          print(("SKIP: " if skip else "RUN: ") + why + f" [{label} of {day}]")
           with open(os.environ["GITHUB_OUTPUT"], "a") as f:
               f.write(f"skip={'true' if skip else 'false'}\n")
+              f.write(f"label={label}\nday={day}\n")
           PY
 
   scan:
@@ -181,6 +195,8 @@ jobs:
 
       - name: Score ideas and email the brief
         env:
+          BRIEF_LABEL: ${{ needs.gate.outputs.label }}
+          BRIEF_DAY: ${{ needs.gate.outputs.day }}
           GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           ALERT_EMAIL_TO: ${{ secrets.ALERT_EMAIL_TO }}

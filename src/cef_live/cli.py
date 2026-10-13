@@ -1010,10 +1010,13 @@ def ideas() -> int:
                 "at signal time, whether or not you act on it.")
     body.append("\n".join(tail))
 
-    # which open is this brief for? The scheduler runs 06:20 UTC (pre-LSE)
-    # and 23:10 UTC (pre-ASX); anything late still labels itself correctly.
-    from .brief_window import label_for
-    label = label_for(datetime.now(timezone.utc).hour)
+    # which open is this brief for? The window the workflow fired in
+    # (BRIEF_LABEL / BRIEF_DAY from the gate), not the clock when scoring
+    # finishes: 2026-10-09 a 02:17Z pre-ASX run reached this line at 03:09Z
+    # and called its brief Friday's pre-LSE one. Outside the workflow the
+    # window of the current instant (label_for) is used.
+    from .brief_window import firing_window
+    label, window_day = firing_window()
     subject = (f"{label}: {len(opps)} actionable, {len(watch)} watch"
                if len(verdicts) else f"{label}: no new ideas")
 
@@ -1082,6 +1085,7 @@ def ideas() -> int:
     summary = {"generated_at": datetime.now(timezone.utc)
                .isoformat(timespec="seconds"),
                "brief": label,
+               "window_day": window_day,
                "evaluated": int(len(live)), "opportunities": int(len(opps)),
                "watch": int(len(watch)), "ledger_rows": rows,
                "min_irr_central": min_irr,

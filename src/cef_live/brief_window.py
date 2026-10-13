@@ -55,6 +55,37 @@ def premature(now: datetime) -> str:
     return ""
 
 
+def firing_window(now: datetime | None = None, env: dict | None = None) -> tuple[str, str]:
+    """The window this scan belongs to: the one fixed when the workflow
+    fired (BRIEF_LABEL / BRIEF_DAY, exported by the gate), else the
+    window of the current instant.
+
+    The scan labelled its brief by the clock when scoring finished, some
+    fifty minutes after the gate: 2026-10-09 a 02:17Z pre-ASX firing
+    reached scoring at 03:09Z, called its brief Friday's pre-LSE one, and
+    the gate then held Friday's real pre-LSE firings back as "already
+    went". The window is decided once, when the run starts."""
+    import os
+    env = os.environ if env is None else env
+    label, day = env.get("BRIEF_LABEL", ""), env.get("BRIEF_DAY", "")
+    if label in EARLIEST_HOUR and day:
+        return label, day
+    return window_key(now or datetime.now(timezone.utc))
+
+
+def sent_window(last: dict) -> tuple[str, str]:
+    """The window a previous ideas.json belongs to: its recorded window
+    day when it has one, else the window of its generated_at instant."""
+    label = str(last.get("brief"))
+    day = last.get("window_day")
+    if day:
+        return label, str(day)
+    t = datetime.fromisoformat(str(last.get("generated_at")))
+    if t.tzinfo is None:
+        t = t.replace(tzinfo=timezone.utc)
+    return label, window_key(t)[1]
+
+
 def already_sent(last: dict | None, now: datetime | None = None) -> tuple[bool, str]:
     """Whether the brief this firing would send has already gone, or is
     not yet due (see `premature`): either way the gate skips.
@@ -78,7 +109,7 @@ def already_sent(last: dict | None, now: datetime | None = None) -> tuple[bool, 
     except Exception:  # noqa: BLE001
         return False, f"previous brief undated; {want} runs"
     age_h = (now - t).total_seconds() / 3600.0
-    same = str(last.get("brief")) == want and window_key(t) == (want, day)
+    same = sent_window(last) == (want, day)
     sent = bool(last.get("emailed"))
     if sent and same and age_h >= 0:
         return True, f"{want} of {day} already went {age_h:.1f}h ago"

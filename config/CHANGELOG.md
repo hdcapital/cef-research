@@ -4,6 +4,20 @@ Every change to `config/params.yaml` gets a dated entry here, committed in
 the same commit as the change, with a rationale. Parameters are never
 tuned against live outcomes.
 
+## 2026-10-13 — brief window fixed at firing, not when scoring finishes
+
+The scan labelled its brief by the clock when the scoring step ran, some
+fifty minutes after the gate had let the run through. On 2026-10-09 the
+pre-ASX cron that landed at 02:17Z reached scoring at 03:09Z, called its
+brief "pre-LSE open" of 2026-10-09, and the gate then held all five of
+Friday's real pre-LSE firings (12:07Z-13:51Z) back as "already went": no
+Friday morning brief, and Thursday evening's brief carried the wrong
+heading. The gate now fixes the window once, at firing (`BRIEF_LABEL` /
+`BRIEF_DAY`, `brief_window.firing_window`), the scan records it in
+ideas.json as `window_day`, and the gate keys on that record
+(`sent_window`), falling back to the generated_at instant for older
+records. Still two emails a day; no scoring parameter changed.
+
 ## 2026-10-05 — brief gate: a window's brief is not sent before its earliest hour
 
 Added `EARLIEST_HOUR` to `cef_live.brief_window` (pre-LSE 05:00Z, pre-ASX

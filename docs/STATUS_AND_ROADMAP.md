@@ -612,3 +612,36 @@ stated; the real firings are all later. The dispatcher Routines now treat
 only a run created at or after the earliest hour as the window's run.
 Tonight's ASX open is covered by the 16:04Z brief; a corrected dispatch
 would have been a second email for the window, so none was sent.
+
+### 2026-10-08..13 — five days offline: one brief missed, one mislabelled, two late
+
+This session was unreachable from 2026-10-08 06:26Z until 2026-10-13
+05:42Z; the twelve Routine wakes in between (dispatchers and check-in 51)
+were queued and all arrived at once on reconnection. The crons alone
+delivered:
+
+- Thu 08 pre-ASX: cron landed 02:17Z Fri, emailed 03:09Z (after the ASX
+  open), and labelled itself "pre-LSE open" of 2026-10-09 because the
+  scan reads the clock when scoring finishes, not when the run fired.
+- Fri 09 pre-LSE: MISSED. All five crons landed 12:07Z-13:51Z and the gate
+  skipped each as "pre-LSE open of 2026-10-09 already went", pointing at
+  the mislabelled brief above.
+- Sun 11 pre-ASX: cron landed 01:24Z Mon, emailed 02:19Z, correctly
+  labelled; before the ASX open.
+- Mon 12 pre-LSE: cron landed 13:34Z, emailed 14:26Z, seven and a half
+  hours after the LSE open.
+- Mon 12 pre-ASX: MISSED. No cron landed inside 22:00Z-02:59Z; the five
+  arrived 03:04Z-03:50Z Tue and were correctly held by the earliest-hour
+  rule as pre-LSE-before-05:00Z. The Routine wakes at 22:45Z and 23:36Z
+  were queued, not delivered.
+- Tue 13 pre-LSE: dispatched 05:43Z on reconnection.
+
+Fix for the mislabelling: the gate fixes the window at firing and exports
+it (`BRIEF_LABEL` / `BRIEF_DAY`); the scan records it (`window_day`) and
+the gate keys on the record (config/CHANGELOG.md 2026-10-13). That removes
+the "a late brief suppresses the next window" failure. The two misses and
+the two late sends are the session-dependence failure again, now measured
+at five days: GitHub's cron landed inside its window on only two of the
+five windows the crons alone had to cover, and never near the window's
+start. The open question stands: a delivery layer that does not depend on
+this session being reachable at the minute a Routine fires.

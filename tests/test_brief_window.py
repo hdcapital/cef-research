@@ -1,6 +1,7 @@
 from datetime import datetime, timezone
 
-from cef_live.brief_window import already_sent, label_for, premature, window_key
+from cef_live.brief_window import (already_sent, firing_window, label_for,
+                                   premature, sent_window, window_key)
 
 
 def test_labels_follow_the_two_windows():
@@ -45,9 +46,12 @@ def test_a_brief_that_was_not_emailed_does_not_block():
 def test_the_gate_and_the_scan_share_one_rule():
     import inspect
     from cef_live import cli
-    assert "label_for(" in inspect.getsource(cli.ideas)
+    assert "firing_window(" in inspect.getsource(cli.ideas)
     wf = open(".github/workflows/ideas.yml").read()
-    assert "from cef_live.brief_window import already_sent" in wf
+    assert "from cef_live.brief_window import already_sent, firing_window" in wf
+    # the gate's window reaches the scoring step
+    assert "BRIEF_LABEL: ${{ needs.gate.outputs.label }}" in wf
+    assert "BRIEF_DAY: ${{ needs.gate.outputs.day }}" in wf
 
 
 def test_the_gate_reads_the_branch_tip_not_the_pinned_checkout():
@@ -109,3 +113,43 @@ def test_the_midnight_tail_of_the_pre_asx_window_is_never_early():
     assert premature(datetime(2026, 10, 5, 15, 0, tzinfo=timezone.utc)) != ""
     skip, _ = already_sent(None, now=datetime(2026, 10, 6, 0, 30, tzinfo=timezone.utc))
     assert not skip
+
+
+def test_the_window_is_fixed_at_firing_not_when_scoring_finishes():
+    """2026-10-09: a 02:17Z pre-ASX firing reached scoring at 03:09Z and
+    labelled its brief Friday's pre-LSE one; Friday's real pre-LSE firings
+    (12:07Z onward) were then skipped as already sent."""
+    env = {"BRIEF_LABEL": "pre-ASX open", "BRIEF_DAY": "2026-10-08"}
+    assert firing_window(datetime(2026, 10, 9, 3, 9, tzinfo=timezone.utc), env=env) \
+        == ("pre-ASX open", "2026-10-08")
+    # without the gate's export (a run outside the workflow) the clock decides
+    assert firing_window(datetime(2026, 10, 9, 3, 9, tzinfo=timezone.utc), env={}) \
+        == ("pre-LSE open", "2026-10-09")
+    assert firing_window(datetime(2026, 10, 9, 2, 17, tzinfo=timezone.utc), env={}) \
+        == ("pre-ASX open", "2026-10-08")
+    # a malformed export is ignored, not trusted
+    assert firing_window(datetime(2026, 10, 9, 2, 17, tzinfo=timezone.utc),
+                         env={"BRIEF_LABEL": "x", "BRIEF_DAY": "2026-10-08"}) \
+        == ("pre-ASX open", "2026-10-08")
+
+
+def test_a_brief_that_finished_past_the_window_edge_does_not_block_the_next_window():
+    last = {"brief": "pre-ASX open", "window_day": "2026-10-08",
+            "generated_at": "2026-10-09T03:08:59+00:00", "emailed": True}
+    assert sent_window(last) == ("pre-ASX open", "2026-10-08")
+    skip, why = already_sent(last, now=datetime(2026, 10, 9, 12, 7, tzinfo=timezone.utc))
+    assert not skip, why
+    # and it still blocks a later firing of its own window
+    last = {"brief": "pre-ASX open", "window_day": "2026-10-11",
+            "generated_at": "2026-10-12T02:19:16+00:00", "emailed": True}
+    skip, why = already_sent(last, now=datetime(2026, 10, 12, 2, 37, tzinfo=timezone.utc))
+    assert skip, why
+
+
+def test_an_ideas_json_without_a_window_day_keys_on_its_generated_at():
+    last = _last("pre-ASX open", "2026-10-12T02:19:16+00:00")
+    assert sent_window(last) == ("pre-ASX open", "2026-10-11")
+    # the 2026-10-09 failure, as the old record reads: the mislabelled
+    # brief blocks the morning, which is why the label is now fixed at firing
+    last = _last("pre-LSE open", "2026-10-09T03:08:59+00:00")
+    assert already_sent(last, now=datetime(2026, 10, 9, 12, 7, tzinfo=timezone.utc))[0]
