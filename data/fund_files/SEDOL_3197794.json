@@ -6,7 +6,7 @@
  "sector": "Global",
  "liveness": {
   "status": "live",
-  "reason": "nav_12d_old",
+  "reason": "nav_13d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-30",
   "last_announcement": "2026-10-12"
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9818647",
   "estimate": 669.5,
   "basis": 0.0,
-  "staleness_days": 0.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": "nav_unit_mismatch_95x_vs_prior"
  },
  "price": {
-  "price": 5.739999771118164,
+  "price": 5.800000190734863,
   "ccy": "GBP",
-  "date": "2026-10-12",
+  "date": "2026-10-09",
   "source": "yahoo:LTI.L"
  },
  "discount": {
-  "estimate": -0.991426,
-  "z": -20.4505,
+  "estimate": -0.991337,
+  "z": -20.4482,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 1.8032,
-  "discount_only": 1.4985,
+  "central": 1.819,
+  "discount_only": 1.5125,
   "g_used": 0.0905,
   "g_source": "sector_median"
  },
@@ -76,5 +76,5 @@
    }
   }
  ],
- "updated_at": "2026-10-12T21:57:59+00:00"
+ "updated_at": "2026-10-13T03:06:03+00:00"
 }
