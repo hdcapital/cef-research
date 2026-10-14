@@ -10,7 +10,7 @@
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 154,
+  "alert_eligible": 152,
   "z_extremes": [
     {
       "security_id": "SEDOL:3420207",
@@ -68,12 +68,12 @@
     },
     {
       "security_id": "SEDOL:BRC8992",
-      "z_adj": -38.71,
+      "z_adj": -40.3837,
       "discount_est": -0.990578,
       "staleness_days": 2.0
     }
   ],
-  "date": "2026-10-13",
+  "date": "2026-10-14",
   "markets": {
     "au_identity_blocked": 0,
     "au": {
@@ -180,11 +180,10 @@
       "unit_suspect_scale": 10,
       "nav_jump_N_vs_prior": 9,
       "nav_unit_mismatch_N_vs_prior": 6,
-      "nav_jump_N_vs_own": 5,
-      "nav_jump_N_vs_yesterday": 1
+      "nav_jump_N_vs_own": 6
     }
   },
-  "snapshot": "s3_exists_not_overwritten:nta_live/2026-10-13.parquet",
+  "snapshot": "s3_uploaded:nta_live/2026-10-14.parquet",
   "live_history": {
     "rows": 45756,
     "days": 41
