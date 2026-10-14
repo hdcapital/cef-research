@@ -6,9 +6,9 @@
  "sector": "Flexible Investment",
  "liveness": {
   "status": "live",
-  "reason": "nav_13d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-09-30",
+  "last_nav": "2026-10-09",
   "last_announcement": "2026-10-12"
  },
  "nav": {
@@ -27,7 +27,7 @@
  "price": {
   "price": 76.0,
   "ccy": "GBp",
-  "date": "2026-10-12",
+  "date": "2026-10-13",
   "source": "yahoo:INV.L"
  },
  "discount": {
@@ -49,6 +49,18 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-10-14",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/investment-company--inv/holding-s-in-company/9822960",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Dowgate Group Limited"
+   }
+  },
   {
    "date": "2026-08-24",
    "class": "holdings_notification",
@@ -112,5 +124,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-10-14T00:40:24+00:00"
+ "updated_at": "2026-10-14T21:52:37+00:00"
 }

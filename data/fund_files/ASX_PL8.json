@@ -6,7 +6,7 @@
  "sector": "Equity - Australia Strategy",
  "liveness": {
   "status": "live",
-  "reason": "nav_18d_old",
+  "reason": "nav_19d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-25",
   "last_announcement": "2026-09-25"
@@ -15,7 +15,7 @@
   "anchor": 1.138,
   "anchor_date": "2026-10-02",
   "anchor_source": "own_nav_history:2026-10-02",
-  "estimate": 1.143745,
+  "estimate": 1.136713,
   "basis": 1.0,
   "staleness_days": 8.0,
   "staleness_limit_days": 45.0,
@@ -27,12 +27,12 @@
  "price": {
   "price": 1.4049999713897705,
   "ccy": "AUD",
-  "date": "2026-10-13",
+  "date": "2026-10-14",
   "source": "yahoo:PL8.AX"
  },
  "discount": {
-  "estimate": 0.228421,
-  "z": 1.2135,
+  "estimate": 0.23602,
+  "z": 1.3342,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.175,
-  "discount_only": -0.0122,
+  "central": 0.1743,
+  "discount_only": -0.0128,
   "g_used": 0.15,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-14T00:40:23+00:00"
+ "updated_at": "2026-10-14T21:52:36+00:00"
 }

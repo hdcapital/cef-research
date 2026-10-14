@@ -6,7 +6,7 @@
  "sector": "Property - Europe",
  "liveness": {
   "status": "live",
-  "reason": "nav_105d_old",
+  "reason": "nav_106d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-06-30",
   "last_announcement": "2026-10-12"
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 60.0,
+  "price": 59.0,
   "ccy": "GBp",
-  "date": "2026-10-12",
+  "date": "2026-10-14",
   "source": "yahoo:SERE.L"
  },
  "discount": {
-  "estimate": -0.451052,
-  "z": -0.4274,
+  "estimate": -0.460201,
+  "z": -0.5984,
   "z_status": "within_error_band",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.426445,
-  "sigma_36m": 0.057568,
+  "mu_36m": -0.425937,
+  "sigma_36m": 0.057258,
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0835,
-  "discount_only": 0.027,
+  "central": 0.0762,
+  "discount_only": 0.0201,
   "g_used": 0.055,
   "g_source": "market_median"
  },
@@ -62,5 +62,5 @@
    }
   }
  ],
- "updated_at": "2026-10-14T00:40:24+00:00"
+ "updated_at": "2026-10-14T21:52:37+00:00"
 }

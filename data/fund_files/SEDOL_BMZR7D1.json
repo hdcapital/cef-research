@@ -8,16 +8,16 @@
   "status": "live",
   "reason": "nav_5d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-08",
+  "last_nav": "2026-10-09",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 187.69,
-  "anchor_date": "2026-10-12",
-  "anchor_source": "investegate:9820844",
-  "estimate": 187.69,
+  "anchor": 182.78,
+  "anchor_date": "2026-10-13",
+  "anchor_source": "investegate:9823184",
+  "estimate": 182.78,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 186.0,
+  "price": 185.5,
   "ccy": "GBp",
-  "date": "2026-10-12",
+  "date": "2026-10-14",
   "source": "yahoo:AWEM.L"
  },
  "discount": {
-  "estimate": -0.009004,
-  "z": -0.4022,
-  "z_status": "within_error_band",
+  "estimate": 0.014881,
+  "z": 0.8643,
+  "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.001172,
-  "sigma_36m": 0.019471,
-  "alert_eligible": false
+  "mu_36m": -0.001887,
+  "sigma_36m": 0.019401,
+  "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1245,
-  "discount_only": 0.0034,
+  "central": 0.1233,
+  "discount_only": 0.0024,
   "g_used": 0.1206,
   "g_source": "own_nav_history"
  },
@@ -82,5 +82,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-10-14T00:40:23+00:00"
+ "updated_at": "2026-10-14T21:52:36+00:00"
 }

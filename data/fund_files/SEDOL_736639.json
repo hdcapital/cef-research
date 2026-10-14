@@ -6,10 +6,10 @@
  "sector": "Flexible Investment",
  "liveness": {
   "status": "live",
-  "reason": "nav_43d_old",
+  "reason": "nav_14d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-08-31",
-  "last_announcement": "2026-10-13"
+  "last_nav": "2026-09-30",
+  "last_announcement": "2026-10-14"
  },
  "nav": {
   "anchor": 3209.0,
@@ -18,31 +18,31 @@
   "estimate": 3209.0,
   "basis": 0.0,
   "staleness_days": 10.0,
-  "staleness_limit_days": 93.0,
+  "staleness_limit_days": 91.5,
   "current": true,
   "unit": "GBX",
   "quality_ok": true,
   "quality_reason": ""
  },
  "price": {
-  "price": 2470.0,
+  "price": 2495.0,
   "ccy": "GBp",
-  "date": "2026-10-12",
+  "date": "2026-10-14",
   "source": "yahoo:RCP.L"
  },
  "discount": {
-  "estimate": -0.23029,
-  "z": 0.7536,
+  "estimate": -0.222499,
+  "z": 1.0082,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.254266,
-  "sigma_36m": 0.031814,
+  "mu_36m": -0.254438,
+  "sigma_36m": 0.031679,
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.064,
-  "discount_only": -0.0018,
+  "central": 0.0665,
+  "discount_only": 0.0006,
   "g_used": 0.0659,
   "g_source": "own_nav_history"
  },
@@ -84,5 +84,5 @@
    }
   }
  ],
- "updated_at": "2026-10-14T00:40:24+00:00"
+ "updated_at": "2026-10-14T21:52:37+00:00"
 }

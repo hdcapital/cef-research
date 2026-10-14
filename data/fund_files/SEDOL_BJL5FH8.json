@@ -6,7 +6,7 @@
  "sector": "Renewable Energy Infrastructure",
  "liveness": {
   "status": "live",
-  "reason": "nav_62d_old",
+  "reason": "nav_63d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-08-12",
   "last_announcement": "2026-09-21"
@@ -25,29 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 86.69999694824219,
+  "price": 87.80000305175781,
   "ccy": "GBp",
-  "date": "2026-10-12",
+  "date": "2026-10-14",
   "source": "yahoo:FGEN.L"
  },
  "discount": {
-  "estimate": -0.17192,
-  "z": 1.1175,
+  "estimate": -0.161414,
+  "z": 1.2479,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.256603,
-  "sigma_36m": 0.075781,
+  "mu_36m": -0.256338,
+  "sigma_36m": 0.076068,
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0503,
-  "discount_only": -0.0045,
+  "central": 0.0515,
+  "discount_only": -0.0034,
   "g_used": 0.055,
   "g_source": "market_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-14T00:40:23+00:00"
+ "updated_at": "2026-10-14T21:52:36+00:00"
 }

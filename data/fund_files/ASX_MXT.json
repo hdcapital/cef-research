@@ -6,7 +6,7 @@
  "sector": "Fixed Income - Australian Dollar",
  "liveness": {
   "status": "live",
-  "reason": "nav_18d_old",
+  "reason": "nav_19d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-25",
   "last_announcement": "2026-10-02"
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1.6469999551773071,
+  "price": 1.6200000047683716,
   "ccy": "AUD",
-  "date": "2026-10-13",
+  "date": "2026-10-14",
   "source": "yahoo:MXT.AX"
  },
  "discount": {
-  "estimate": -0.181127,
-  "z": -5.4809,
+  "estimate": -0.194551,
+  "z": -5.8679,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.2404,
-  "discount_only": 0.0431,
+  "central": 0.2402,
+  "discount_only": 0.0429,
   "g_used": 0.1268,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-14T00:40:22+00:00"
+ "updated_at": "2026-10-14T21:52:36+00:00"
 }

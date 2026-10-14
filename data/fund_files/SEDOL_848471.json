@@ -6,7 +6,7 @@
  "sector": "Property - UK Commercial",
  "liveness": {
   "status": "live",
-  "reason": "nav_119d_old",
+  "reason": "nav_120d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-06-16",
   "last_announcement": "2026-10-13"
@@ -15,7 +15,7 @@
   "anchor": 212.0,
   "anchor_date": "2026-03-31",
   "anchor_source": "own_nav_history:2026-03-31",
-  "estimate": 218.855662,
+  "estimate": 218.076866,
   "basis": 1.0,
   "staleness_days": 141.0,
   "staleness_limit_days": 200.0,
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 204.0,
+  "price": 208.0,
   "ccy": "GBp",
-  "date": "2026-10-12",
+  "date": "2026-10-14",
   "source": "yahoo:VIP.L"
  },
  "discount": {
-  "estimate": -0.067879,
-  "z": 0.7034,
+  "estimate": -0.046208,
+  "z": 0.8939,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.152186,
-  "sigma_36m": 0.11985,
+  "mu_36m": -0.152776,
+  "sigma_36m": 0.119214,
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0761,
-  "discount_only": -0.0222,
+  "central": 0.0837,
+  "discount_only": -0.0147,
   "g_used": 0.055,
   "g_source": "market_median"
  },
@@ -80,5 +80,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-10-14T00:40:24+00:00"
+ "updated_at": "2026-10-14T21:52:37+00:00"
 }

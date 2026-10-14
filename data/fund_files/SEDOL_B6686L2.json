@@ -6,10 +6,10 @@
  "sector": "Commodities & Natural Resources",
  "liveness": {
   "status": "live",
-  "reason": "nav_13d_old",
+  "reason": "nav_14d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-30",
-  "last_announcement": "2026-10-13"
+  "last_announcement": "2026-10-14"
  },
  "nav": {
   "anchor": 172.4,
@@ -25,29 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 130.0,
+  "price": 126.5,
   "ccy": "GBp",
-  "date": "2026-10-12",
+  "date": "2026-10-14",
   "source": "yahoo:BSRT.L"
  },
  "discount": {
-  "estimate": -0.24594,
-  "z": 1.1302,
+  "estimate": -0.266241,
+  "z": 0.8767,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.334971,
-  "sigma_36m": 0.078774,
+  "mu_36m": -0.335132,
+  "sigma_36m": 0.07858,
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0843,
-  "discount_only": -0.0246,
+  "central": 0.0809,
+  "discount_only": -0.0276,
   "g_used": 0.1116,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-14T00:40:23+00:00"
+ "updated_at": "2026-10-14T21:52:36+00:00"
 }
