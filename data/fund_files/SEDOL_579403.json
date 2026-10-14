@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9820134",
   "estimate": 304.8,
   "basis": 0.0,
-  "staleness_days": 0.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -27,7 +27,7 @@
  "price": {
   "price": 274.5,
   "ccy": "GBp",
-  "date": "2026-10-13",
+  "date": "2026-10-12",
   "source": "yahoo:MRC.L"
  },
  "discount": {
@@ -41,9 +41,9 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0614,
-  "discount_only": -0.0012,
-  "g_used": 0.0397,
+  "central": 0.0568,
+  "discount_only": -0.0014,
+  "g_used": 0.0352,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
@@ -62,5 +62,5 @@
    }
   }
  ],
- "updated_at": "2026-10-13T21:52:14+00:00"
+ "updated_at": "2026-10-14T00:40:24+00:00"
 }

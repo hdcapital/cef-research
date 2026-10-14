@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9820663",
   "estimate": 1220.78,
   "basis": 0.0,
-  "staleness_days": 0.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,29 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1068.0,
+  "price": 1104.0,
   "ccy": "GBp",
-  "date": "2026-10-13",
+  "date": "2026-10-12",
   "source": "yahoo:PHI.L"
  },
  "discount": {
-  "estimate": -0.125149,
-  "z": -1.0342,
-  "z_status": "computed",
+  "estimate": -0.09566,
+  "z": 0.4326,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.104357,
   "sigma_36m": 0.020104,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0217,
-  "discount_only": 0.0007,
-  "g_used": 0.0104,
+  "central": 0.029,
+  "discount_only": 0.0074,
+  "g_used": 0.011,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-13T21:52:14+00:00"
+ "updated_at": "2026-10-14T00:40:24+00:00"
 }
