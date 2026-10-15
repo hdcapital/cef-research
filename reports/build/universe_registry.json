@@ -5,8 +5,8 @@
     "AU": 172,
     "UK": 944
   },
-  "live": 365,
-  "live_stale_nav": 38,
+  "live": 367,
+  "live_stale_nav": 36,
   "status_before_evidence": {
     "delisted": 737,
     "live": 374,
@@ -17,9 +17,9 @@
   "persisted_to": "data/universe/registry.parquet",
   "live_status_source": {
     "corroborated_delisting": 606,
-    "own_nav_announcement": 354,
+    "own_nav_announcement": 356,
     "own_delisting_notice": 100,
-    "own_periodic_report": 34,
+    "own_periodic_report": 32,
     "registry_deferral_no_own_filings": 11,
     "own_announcement_only": 6,
     "own_nav_announcement_stale": 4,
@@ -29,10 +29,10 @@
   "aggregator_said_live_evidence_says_not": 6,
   "by_liveness_reason": {
     "aggregator_delisted_and_own_filings_silent_alwaysd": 523,
-    "nav": 358,
+    "nav": 360,
     "own_delisting_notice": 100,
     "aggregator_delisted_and_own_filings_silent": 83,
-    "periodic_report": 34,
+    "periodic_report": 32,
     "no_own_filings_held_deferring_to_registry": 11,
     "filings_but_no_nav_or_report": 6,
     "registry_listed": 1
@@ -40,11 +40,11 @@
   "delisted": 100,
   "priced_by_source": 639,
   "announcements_only": 477,
-  "live_announcements_only": 98,
+  "live_announcements_only": 100,
   "offshore": 195,
   "vct": 228,
   "live_by_domicile": {
-    "GB": 207,
+    "GB": 209,
     "null": 97,
     "GG": 33,
     "JE": 13,
@@ -424,15 +424,6 @@
       "months_listed": 206
     },
     {
-      "security_id": "SEDOL:BD0FRW6",
-      "name": "NB Private Equity Partners",
-      "sector": "Private Equity",
-      "domicile": "GG",
-      "isin": "GG00BD0FRW63",
-      "first_seen": "2016-09",
-      "months_listed": 72
-    },
-    {
       "security_id": "SEDOL:BD96PR1",
       "name": "NB Private Equity Partners",
       "sector": "Private Equity",
@@ -440,6 +431,15 @@
       "isin": "GG00BD96PR19",
       "first_seen": "2018-05",
       "months_listed": 77
+    },
+    {
+      "security_id": "SEDOL:BD0FRW6",
+      "name": "NB Private Equity Partners",
+      "sector": "Private Equity",
+      "domicile": "GG",
+      "isin": "GG00BD0FRW63",
+      "first_seen": "2016-09",
+      "months_listed": 72
     },
     {
       "security_id": "SEDOL:B1ZBD49",
@@ -775,6 +775,24 @@
       "months_listed": 125
     },
     {
+      "security_id": "SEDOL:3125610",
+      "name": "Seneca Growth Capital VCT",
+      "sector": "VCT",
+      "domicile": "GB",
+      "isin": "GB0031256109",
+      "first_seen": "2018-10",
+      "months_listed": 95
+    },
+    {
+      "security_id": "SEDOL:BG13MH0",
+      "name": "Seneca Growth Capital VCT B shares",
+      "sector": "VCT",
+      "domicile": "GB",
+      "isin": "GB00BG13MH08",
+      "first_seen": "2018-10",
+      "months_listed": 95
+    },
+    {
       "security_id": "SEDOL:BV54HY6",
       "name": "Sequoia Economic Infrastructure Income",
       "sector": "Infrastructure",
@@ -938,7 +956,7 @@
     }
   ],
   "live_announcements_only_by_sector": {
-    "VCT": 21,
+    "VCT": 23,
     "Renewable Energy Infrastructure": 9,
     "Private Equity": 7,
     "Infrastructure": 6,

@@ -15,9 +15,9 @@
   "anchor": 21.66,
   "anchor_date": "2026-03-31",
   "anchor_source": "own_nav_history:2026-03-31",
-  "estimate": 22.367288,
+  "estimate": 22.369559,
   "basis": 1.0,
-  "staleness_days": 141.0,
+  "staleness_days": 142.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 15.199999809265137,
+  "price": 15.0,
   "ccy": "GBp",
-  "date": "2026-10-14",
+  "date": "2026-10-13",
   "source": "yahoo:INOV.L"
  },
  "discount": {
-  "estimate": -0.320436,
-  "z": 0.7027,
+  "estimate": -0.329446,
+  "z": 0.6236,
   "z_status": "within_error_band",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.394426,
-  "sigma_36m": 0.105289,
+  "mu_36m": -0.394843,
+  "sigma_36m": 0.104865,
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0065,
-  "discount_only": -0.0359,
+  "central": 0.0091,
+  "discount_only": -0.0328,
   "g_used": -0.05,
   "g_source": "panel_tr_cagr"
  },
@@ -63,5 +63,5 @@
    }
   }
  ],
- "updated_at": "2026-10-14T21:52:37+00:00"
+ "updated_at": "2026-10-15T00:17:29+00:00"
 }
