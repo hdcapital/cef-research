@@ -6,18 +6,18 @@
  "sector": "Global",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-12",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 1473.3,
-  "anchor_date": "2026-10-13",
-  "anchor_source": "investegate:9822763",
-  "estimate": 1473.3,
+  "anchor": 1462.0,
+  "anchor_date": "2026-10-14",
+  "anchor_source": "investegate:9824821",
+  "estimate": 1462.0,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1404.0,
+  "price": 1391.0,
   "ccy": "GBp",
-  "date": "2026-10-13",
+  "date": "2026-10-15",
   "source": "yahoo:ALW.L"
  },
  "discount": {
-  "estimate": -0.047037,
-  "z": 0.2763,
+  "estimate": -0.048564,
+  "z": 0.1116,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0879,
-  "discount_only": -0.0014,
+  "central": 0.088,
+  "discount_only": -0.0012,
   "g_used": 0.0767,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-15T00:17:27+00:00"
+ "updated_at": "2026-10-15T21:57:45+00:00"
 }

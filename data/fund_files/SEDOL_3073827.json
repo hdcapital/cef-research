@@ -6,7 +6,7 @@
  "sector": "Private Equity",
  "liveness": {
   "status": "live",
-  "reason": "nav_47d_old",
+  "reason": "nav_48d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-08-28",
   "last_announcement": "2026-10-13"
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 460.0,
+  "price": 458.5,
   "ccy": "GBp",
-  "date": "2026-10-13",
+  "date": "2026-10-15",
   "source": "yahoo:CTPE.L"
  },
  "discount": {
-  "estimate": -0.338196,
-  "z": -0.7325,
+  "estimate": -0.340354,
+  "z": -0.7809,
   "z_status": "within_error_band",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0512,
-  "discount_only": 0.0052,
+  "central": 0.0531,
+  "discount_only": 0.007,
   "g_used": 0.0458,
   "g_source": "sector_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-15T00:17:28+00:00"
+ "updated_at": "2026-10-15T21:57:46+00:00"
 }

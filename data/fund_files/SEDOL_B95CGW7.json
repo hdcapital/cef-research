@@ -6,7 +6,7 @@
  "sector": "Property - UK Healthcare",
  "liveness": {
   "status": "live",
-  "reason": "nav_70d_old",
+  "reason": "nav_71d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-08-05",
   "last_announcement": "2026-10-13"
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 113.4000015258789,
+  "price": 114.5999984741211,
   "ccy": "GBp",
-  "date": "2026-10-13",
+  "date": "2026-10-15",
   "source": "yahoo:THRL.L"
  },
  "discount": {
-  "estimate": -0.072013,
-  "z": 1.319,
+  "estimate": -0.062193,
+  "z": 1.4422,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0439,
-  "discount_only": -0.0105,
+  "central": 0.0435,
+  "discount_only": -0.0109,
   "g_used": 0.055,
   "g_source": "market_median"
  },
@@ -62,5 +62,5 @@
    }
   }
  ],
- "updated_at": "2026-10-15T00:17:29+00:00"
+ "updated_at": "2026-10-15T21:57:47+00:00"
 }
