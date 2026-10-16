@@ -6,9 +6,9 @@
  "sector": "Global Equity Income",
  "liveness": {
   "status": "live",
-  "reason": "nav_3d_old",
+  "reason": "nav_2d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-13",
+  "last_nav": "2026-10-14",
   "last_announcement": "2026-10-13"
  },
  "nav": {
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 363.0,
+  "price": 363.5,
   "ccy": "GBp",
-  "date": "2026-10-16",
+  "date": "2026-10-15",
   "source": "yahoo:MYI.L"
  },
  "discount": {
-  "estimate": 0.007885,
-  "z": 1.4164,
+  "estimate": 0.009274,
+  "z": 1.4497,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1356,
-  "discount_only": -0.009,
+  "central": 0.133,
+  "discount_only": -0.0114,
   "g_used": 0.1119,
   "g_source": "panel_tr_cagr"
  },
@@ -90,5 +90,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-10-16T21:52:33+00:00"
+ "updated_at": "2026-10-16T23:46:33+00:00"
 }

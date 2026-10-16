@@ -6,9 +6,9 @@
  "sector": "Asia Pacific",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_1d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-14",
+  "last_nav": "2026-10-15",
   "last_announcement": "2026-10-13"
  },
  "nav": {
@@ -25,29 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1004.0,
+  "price": 1020.0,
   "ccy": "GBp",
-  "date": "2026-10-16",
+  "date": "2026-10-15",
   "source": "yahoo:PHI.L"
  },
  "discount": {
-  "estimate": -0.098945,
-  "z": 0.2692,
-  "z_status": "within_error_band",
+  "estimate": -0.084586,
+  "z": 0.9834,
+  "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.104357,
   "sigma_36m": 0.020104,
-  "alert_eligible": false
+  "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0224,
-  "discount_only": 0.0008,
+  "central": 0.0231,
+  "discount_only": 0.0015,
   "g_used": 0.011,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-16T21:52:33+00:00"
+ "updated_at": "2026-10-16T23:46:33+00:00"
 }

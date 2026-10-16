@@ -6,9 +6,9 @@
  "sector": "Japanese Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_1d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-14",
+  "last_nav": "2026-10-15",
   "last_announcement": "2026-10-13"
  },
  "nav": {
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 173.0,
+  "price": 174.1999969482422,
   "ccy": "GBp",
-  "date": "2026-10-16",
+  "date": "2026-10-15",
   "source": "yahoo:BGS.L"
  },
  "discount": {
-  "estimate": -0.092197,
-  "z": 0.9896,
+  "estimate": -0.0859,
+  "z": 1.1886,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1024,
-  "discount_only": 0.0014,
+  "central": 0.0994,
+  "discount_only": -0.0013,
   "g_used": 0.09,
   "g_source": "own_nav_history"
  },
@@ -62,5 +62,5 @@
    }
   }
  ],
- "updated_at": "2026-10-16T21:52:32+00:00"
+ "updated_at": "2026-10-16T23:46:32+00:00"
 }

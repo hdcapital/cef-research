@@ -6,9 +6,9 @@
  "sector": "Global Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_3d_old",
+  "reason": "nav_2d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-13",
+  "last_nav": "2026-10-14",
   "last_announcement": "2026-10-13"
  },
  "nav": {
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 2740.0,
+  "price": 2790.0,
   "ccy": "GBp",
-  "date": "2026-10-16",
+  "date": "2026-10-15",
   "source": "yahoo:HRI.L"
  },
  "discount": {
-  "estimate": -0.167892,
-  "z": -2.2884,
+  "estimate": -0.152707,
+  "z": -1.7407,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0277,
-  "discount_only": 0.006,
+  "central": 0.0327,
+  "discount_only": 0.0112,
   "g_used": 0.0015,
   "g_source": "own_nav_history"
  },
@@ -62,5 +62,5 @@
    }
   }
  ],
- "updated_at": "2026-10-16T21:52:32+00:00"
+ "updated_at": "2026-10-16T23:46:33+00:00"
 }

@@ -10,7 +10,7 @@
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 168,
+  "alert_eligible": 173,
   "z_extremes": [
     {
       "security_id": "SEDOL:3420207",
@@ -85,7 +85,7 @@
     "uk_identity_blocked": 337,
     "uk_nav_targets": 308,
     "uk_registry_only_targets": 111,
-    "uk_aux_z_history_funds": 256,
+    "uk_aux_z_history_funds": 255,
     "uk_fx_pairs": [
       "CAD",
       "EUR",
@@ -132,8 +132,8 @@
       "holdings_notification": 81,
       "substantial_holder": 18,
       "realisation": 10,
-      "portfolio_holding": 9,
       "tender_offer": 9,
+      "portfolio_holding": 9,
       "scheme_merger_rollover": 5,
       "discount_control": 4,
       "strategic_review": 1,
@@ -144,14 +144,14 @@
     "unalerted": 591,
     "holdings_with_terms": 80,
     "tr1": {
-      "candidates": 3,
-      "fetched": 3,
-      "parsed": 3,
+      "candidates": 0,
+      "fetched": 0,
+      "parsed": 0,
       "failed": 0
     },
     "realisations": {
-      "candidates": 2,
-      "fetched": 2,
+      "candidates": 0,
+      "fetched": 0,
       "parsed": 0,
       "failed": 0
     },
@@ -172,15 +172,15 @@
   },
   "carried_forward_rows": 0,
   "nav_quarantine": {
-    "rows": 465,
+    "rows": 464,
     "by_reason": {
       "stale_panel_price_only": 217,
       "nav_not_positive": 180,
       "no_price": 39,
       "nav_jump_N_vs_prior": 11,
       "unit_suspect_scale": 9,
-      "nav_jump_N_vs_own": 5,
-      "nav_unit_mismatch_N_vs_prior": 4
+      "nav_unit_mismatch_N_vs_prior": 4,
+      "nav_jump_N_vs_own": 4
     }
   },
   "snapshot": "s3_exists_not_overwritten:nta_live/2026-10-16.parquet",
