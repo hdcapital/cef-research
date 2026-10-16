@@ -6,9 +6,9 @@
  "sector": "India / Indian Subcontinent",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_1d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-13",
+  "last_nav": "2026-10-14",
   "last_announcement": null
  },
  "nav": {
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9824931",
   "estimate": 931.85,
   "basis": 0.0,
-  "staleness_days": 0.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0265,
-  "discount_only": -0.0258,
+  "central": 0.0263,
+  "discount_only": -0.026,
   "g_used": 0.0385,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-15T21:57:46+00:00"
+ "updated_at": "2026-10-16T00:06:09+00:00"
 }
