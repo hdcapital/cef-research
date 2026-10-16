@@ -6,18 +6,18 @@
  "sector": "Commodities & Natural Resources",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-13",
   "last_announcement": "2026-10-15"
  },
  "nav": {
-  "anchor": 107.52,
-  "anchor_date": "2026-10-14",
-  "anchor_source": "investegate:9825221",
-  "estimate": 107.52,
+  "anchor": 107.48,
+  "anchor_date": "2026-10-15",
+  "anchor_source": "investegate:9827593",
+  "estimate": 107.48,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -27,12 +27,12 @@
  "price": {
   "price": 104.25,
   "ccy": "GBp",
-  "date": "2026-10-14",
+  "date": "2026-10-16",
   "source": "yahoo:GPM.L"
  },
  "discount": {
-  "estimate": -0.030413,
-  "z": 3.0139,
+  "estimate": -0.030052,
+  "z": 3.0207,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 26,
@@ -63,5 +63,5 @@
    }
   }
  ],
- "updated_at": "2026-10-16T00:06:09+00:00"
+ "updated_at": "2026-10-16T21:52:32+00:00"
 }

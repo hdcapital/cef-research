@@ -6,7 +6,7 @@
  "sector": "Debt - Structured Finance",
  "liveness": {
   "status": "live",
-  "reason": "nav_3d_old",
+  "reason": "nav_4d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-12",
   "last_announcement": "2026-10-15"
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 108.80000305175781,
+  "price": 109.0,
   "ccy": "GBp",
-  "date": "2026-10-14",
+  "date": "2026-10-16",
   "source": "yahoo:TFIF.L"
  },
  "discount": {
-  "estimate": 0.022076,
-  "z": 1.0229,
+  "estimate": 0.023955,
+  "z": 1.0837,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -49,6 +49,16 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-10-16",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/prn/twentyfour-income-fund-limited-ord-red--tfif/issue-of-equity/9828003",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-10-15",
    "class": "issuance",
@@ -120,5 +130,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-10-16T00:06:10+00:00"
+ "updated_at": "2026-10-16T21:52:33+00:00"
 }

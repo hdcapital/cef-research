@@ -6,7 +6,7 @@
  "sector": "Property - UK Residential",
  "liveness": {
   "status": "live_stale_nav",
-  "reason": "nav_203d_old_beyond_fresh_window",
+  "reason": "nav_204d_old_beyond_fresh_window",
   "source": "own_nav_announcement_stale",
   "last_nav": "2026-03-26",
   "last_announcement": "2026-10-13"
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 70.5999984741211,
+  "price": 71.0,
   "ccy": "GBp",
-  "date": "2026-10-14",
+  "date": "2026-10-16",
   "source": "yahoo:LIVE.L"
  },
  "discount": {
-  "estimate": -0.259648,
-  "z": -0.42,
-  "z_status": "computed",
+  "estimate": -0.255453,
+  "z": -0.3942,
+  "z_status": "within_error_band",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
   "mu_36m": -0.191421,
   "sigma_36m": 0.162434,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0834,
-  "discount_only": 0.0269,
+  "central": 0.0868,
+  "discount_only": 0.0301,
   "g_used": 0.055,
   "g_source": "market_median"
  },
@@ -62,5 +62,5 @@
    }
   }
  ],
- "updated_at": "2026-10-16T00:06:09+00:00"
+ "updated_at": "2026-10-16T21:52:33+00:00"
 }

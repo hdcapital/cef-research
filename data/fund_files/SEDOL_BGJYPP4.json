@@ -6,7 +6,7 @@
  "sector": "Growth Capital",
  "liveness": {
   "status": "live",
-  "reason": "nav_73d_old",
+  "reason": "nav_74d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-08-03",
   "last_announcement": "2026-09-30"
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 69.19999694824219,
+  "price": 67.4000015258789,
   "ccy": "GBp",
-  "date": "2026-10-14",
+  "date": "2026-10-16",
   "source": "yahoo:CHRY.L"
  },
  "discount": {
-  "estimate": -0.472118,
-  "z": -1.1174,
+  "estimate": -0.485849,
+  "z": -1.317,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,14 +41,33 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": -0.0339,
-  "discount_only": 0.017,
+  "central": -0.0355,
+  "discount_only": 0.0152,
   "g_used": -0.05,
   "g_source": "sector_median"
  },
- "holder_churn": null,
+ "holder_churn": {
+  "filings": 3,
+  "sellers": 0,
+  "buyers": 0,
+  "largest_move": null,
+  "holder": null,
+  "direction": "churn"
+ },
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-10-16",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/chrysalis-investments-limited-npv--chry/holding-s-in-company/9827065",
+   "alerted_at": null,
+   "terms": {
+    "holder": "City of London Investment Management Company Limited"
+   }
+  },
   {
    "date": "2026-09-28",
    "class": "realisation",
@@ -97,5 +116,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-10-16T00:06:08+00:00"
+ "updated_at": "2026-10-16T21:52:32+00:00"
 }

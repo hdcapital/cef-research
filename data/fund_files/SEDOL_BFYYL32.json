@@ -6,7 +6,7 @@
  "sector": "Debt - Loans & Bonds",
  "liveness": {
   "status": "live_stale_nav",
-  "reason": "periodic_report_199d_old_no_recent_nav",
+  "reason": "periodic_report_200d_old_no_recent_nav",
   "source": "own_periodic_report",
   "last_nav": "2026-06-16",
   "last_announcement": "2026-09-24"
@@ -15,7 +15,7 @@
   "anchor": 89.96,
   "anchor_date": "2026-07-31",
   "anchor_source": "aggregator_panel:2026-07",
-  "estimate": 92.317635,
+  "estimate": 91.061263,
   "basis": 1.0,
   "staleness_days": 55.0,
   "staleness_limit_days": 94.5,
@@ -25,30 +25,40 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 90.30000305175781,
+  "price": 91.0,
   "ccy": "GBp",
-  "date": "2026-10-14",
+  "date": "2026-10-16",
   "source": "yahoo:MGCI.L"
  },
  "discount": {
-  "estimate": -0.021855,
-  "z": -0.1998,
-  "z_status": "computed",
+  "estimate": -0.000673,
+  "z": -0.0865,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": 0.015502,
   "sigma_36m": 0.186984,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.2587,
-  "discount_only": -0.0012,
+  "central": 0.2593,
+  "discount_only": -0.0005,
   "g_used": -0.0023,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-10-16",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue Price of Placing and WRAP Retail Offer",
+   "url": "https://www.investegate.co.uk/announcement/eqs/m-g-credit-income-investment-trust--mgci/issue-price-of-placing-and-wrap-retail-offer/9828053",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-09-18",
    "class": "issuance",
@@ -182,5 +192,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-10-16T00:06:09+00:00"
+ "updated_at": "2026-10-16T21:52:33+00:00"
 }

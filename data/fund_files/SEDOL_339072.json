@@ -6,18 +6,18 @@
  "sector": "Technology & Technology Innovation",
  "liveness": {
   "status": "live",
-  "reason": "nav_1d_old",
+  "reason": "nav_2d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-14",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 798.7,
-  "anchor_date": "2026-10-15",
-  "anchor_source": "investegate:9825447",
-  "estimate": 798.7,
+  "anchor": 789.9,
+  "anchor_date": "2026-10-16",
+  "anchor_source": "investegate:9827818",
+  "estimate": 789.9,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 747.0,
+  "price": 707.0,
   "ccy": "GBp",
-  "date": "2026-10-14",
+  "date": "2026-10-16",
   "source": "yahoo:ATT.L"
  },
  "discount": {
-  "estimate": -0.06473,
-  "z": 1.1332,
+  "estimate": -0.10495,
+  "z": -0.9158,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,14 +41,26 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.3871,
-  "discount_only": 0.0011,
+  "central": 0.3797,
+  "discount_only": -0.0057,
   "g_used": 0.15,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-10-16",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/allianz-technology-trust--att/holding-s-in-company/9827833",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Rathbones Investment Management Ltd"
+   }
+  },
   {
    "date": "2026-10-14",
    "class": "holdings_notification",
@@ -102,5 +114,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-10-16T00:06:08+00:00"
+ "updated_at": "2026-10-16T21:52:32+00:00"
 }

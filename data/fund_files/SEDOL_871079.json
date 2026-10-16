@@ -6,18 +6,18 @@
  "sector": "Asia Pacific",
  "liveness": {
   "status": "live",
-  "reason": "nav_1d_old",
+  "reason": "nav_2d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-14",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 727.36,
-  "anchor_date": "2026-10-15",
-  "anchor_source": "investegate:9824957",
-  "estimate": 727.36,
+  "anchor": 696.96,
+  "anchor_date": "2026-10-16",
+  "anchor_source": "investegate:9827461",
+  "estimate": 696.96,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 686.0,
+  "price": 655.0,
   "ccy": "GBp",
-  "date": "2026-10-14",
+  "date": "2026-10-16",
   "source": "yahoo:ATR.L"
  },
  "discount": {
-  "estimate": -0.056863,
-  "z": -0.7587,
+  "estimate": -0.060204,
+  "z": -0.9076,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1569,
-  "discount_only": 0.0086,
+  "central": 0.1503,
+  "discount_only": 0.0027,
   "g_used": 0.1282,
   "g_source": "panel_tr_cagr"
  },
@@ -103,5 +103,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-10-16T00:06:09+00:00"
+ "updated_at": "2026-10-16T21:52:33+00:00"
 }

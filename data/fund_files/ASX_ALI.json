@@ -6,39 +6,39 @@
  "sector": "Equity - Infrastructure",
  "liveness": {
   "status": "live",
-  "reason": "nav_17d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-09-28",
-  "last_announcement": "2026-09-28"
+  "last_nav": "2026-10-13",
+  "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 49.0,
-  "anchor_date": "2026-09-28",
-  "anchor_source": "asx_ann:03145023",
-  "estimate": 49.0,
+  "anchor": 2.5,
+  "anchor_date": "2026-10-13",
+  "anchor_source": "asx_ann:03151688",
+  "estimate": 2.5,
   "basis": 0.0,
-  "staleness_days": 13.0,
+  "staleness_days": 3.0,
   "staleness_limit_days": 93.0,
   "current": true,
   "unit": "AUD",
-  "quality_ok": false,
-  "quality_reason": "nav_jump_1701%_vs_prior"
+  "quality_ok": true,
+  "quality_reason": ""
  },
  "price": {
-  "price": 2.490000009536743,
+  "price": 2.4800000190734863,
   "ccy": "AUD",
-  "date": "2026-10-14",
+  "date": "2026-10-16",
   "source": "yahoo:ALI.AX"
  },
  "discount": {
-  "estimate": -0.949184,
-  "z": -21.6667,
+  "estimate": -0.008,
+  "z": 2.5451,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.106935,
   "sigma_36m": 0.038873,
-  "alert_eligible": false
+  "alert_eligible": true
  },
  "forward_irr": {
   "central": 1.0737,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-16T00:06:07+00:00"
+ "updated_at": "2026-10-16T21:52:32+00:00"
 }

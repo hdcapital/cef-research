@@ -6,18 +6,18 @@
  "sector": "Global Equity Income",
  "liveness": {
   "status": "live",
-  "reason": "nav_1d_old",
+  "reason": "nav_2d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-14",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 610.33,
-  "anchor_date": "2026-10-15",
-  "anchor_source": "investegate:9825197",
-  "estimate": 610.33,
+  "anchor": 609.61,
+  "anchor_date": "2026-10-16",
+  "anchor_source": "investegate:9827347",
+  "estimate": 609.61,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 562.0,
+  "price": 561.0,
   "ccy": "GBp",
-  "date": "2026-10-14",
+  "date": "2026-10-16",
   "source": "yahoo:SAIN.L"
  },
  "discount": {
-  "estimate": -0.079187,
-  "z": 0.1751,
+  "estimate": -0.07974,
+  "z": 0.1508,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1079,
-  "discount_only": 0.0018,
+  "central": 0.1094,
+  "discount_only": 0.0032,
   "g_used": 0.076,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-16T00:06:09+00:00"
+ "updated_at": "2026-10-16T21:52:33+00:00"
 }
