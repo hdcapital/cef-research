@@ -4,76 +4,76 @@
   "rows_without_nav": 328,
   "basis_counts": {
     "nan": 328,
-    "3.0": 303,
-    "0.0": 292,
+    "3.0": 305,
+    "0.0": 290,
     "1.0": 193
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 173,
+  "alert_eligible": 166,
   "z_extremes": [
     {
       "security_id": "SEDOL:3420207",
       "z_adj": -229.4726,
       "discount_est": -0.9905,
-      "staleness_days": 12.0
+      "staleness_days": 13.0
     },
     {
       "security_id": "SEDOL:B0JQZZ8",
       "z_adj": -145.0566,
       "discount_est": -0.9905,
-      "staleness_days": 12.0
+      "staleness_days": 13.0
     },
     {
       "security_id": "ASX:REV",
       "z_adj": -80.7764,
       "discount_est": -0.850382,
-      "staleness_days": 3.0
+      "staleness_days": 4.0
     },
     {
       "security_id": "SEDOL:3115202",
       "z_adj": -78.6506,
       "discount_est": -0.990734,
-      "staleness_days": 78.0
+      "staleness_days": 79.0
     },
     {
       "security_id": "SEDOL:721163",
       "z_adj": -72.5944,
       "discount_est": -0.976268,
-      "staleness_days": 3170.0
+      "staleness_days": 3171.0
     },
     {
       "security_id": "SEDOL:BL690L8",
       "z_adj": -61.7795,
       "discount_est": -0.989873,
-      "staleness_days": 124.0
+      "staleness_days": 125.0
     },
     {
       "security_id": "SEDOL:BYMJ7X4",
       "z_adj": -59.1482,
       "discount_est": -0.629934,
-      "staleness_days": 1285.0
+      "staleness_days": 1286.0
     },
     {
       "security_id": "SEDOL:BDHXP96",
       "z_adj": -43.9725,
       "discount_est": -0.718503,
-      "staleness_days": 0.0
+      "staleness_days": 1.0
     },
     {
       "security_id": "SEDOL:BRC8992",
       "z_adj": -40.3837,
       "discount_est": -0.990578,
-      "staleness_days": 4.0
+      "staleness_days": 5.0
     },
     {
       "security_id": "SEDOL:BNGFHX1",
       "z_adj": -37.746,
       "discount_est": -0.990462,
-      "staleness_days": 78.0
+      "staleness_days": 79.0
     }
   ],
-  "date": "2026-10-16",
+  "date": "2026-10-18",
   "markets": {
     "au_identity_blocked": 0,
     "au": {
@@ -86,63 +86,55 @@
     "uk_nav_targets": 308,
     "uk_registry_only_targets": 111,
     "uk_aux_z_history_funds": 255,
-    "uk_fx_pairs": [
-      "CAD",
-      "EUR",
-      "USD"
-    ],
+    "uk_fx_pairs": [],
     "uk_nav_validation": {
       "comparable_pairs": 5057,
       "agreement_rate_pairs": 0.9693
     },
     "uk": {
-      "tier0_navs": 231,
+      "tier0_navs": 229,
       "nav_publishers_found": 349,
       "daily_weekly": 201
     }
   },
   "catalysts": {
-    "catalysts": 51,
-    "funds": 33,
+    "catalysts": 41,
+    "funds": 25,
     "by_class": {
-      "substantial_holder": 18,
+      "substantial_holder": 15,
       "realisation": 10,
-      "tender_offer": 8,
       "scheme_merger_rollover": 5,
+      "tender_offer": 4,
       "discount_control": 4,
-      "liquidation_wind_down": 1,
       "strategic_review": 1,
       "manager_change": 1,
-      "manager_exit": 1,
-      "legal_sanctions": 1,
-      "suspension": 1
+      "legal_sanctions": 1
     }
   },
   "events": {
     "events_total": 687,
-    "events_30d": 238,
-    "funds_30d": 116,
+    "events_30d": 208,
+    "funds_30d": 105,
     "by_direction_30d": {
-      "neutral": 186,
-      "positive": 49,
-      "negative": 3
+      "neutral": 166,
+      "positive": 41,
+      "negative": 1
     },
     "by_class_30d": {
-      "issuance": 96,
-      "holdings_notification": 81,
-      "substantial_holder": 18,
+      "issuance": 83,
+      "holdings_notification": 76,
+      "substantial_holder": 15,
       "realisation": 10,
-      "tender_offer": 9,
-      "portfolio_holding": 9,
+      "portfolio_holding": 7,
+      "tender_offer": 5,
       "scheme_merger_rollover": 5,
       "discount_control": 4,
       "strategic_review": 1,
       "legal_sanctions": 1,
-      "manager_change": 1,
-      "suspension": 1
+      "manager_change": 1
     },
     "unalerted": 591,
-    "holdings_with_terms": 80,
+    "holdings_with_terms": 75,
     "tr1": {
       "candidates": 0,
       "fetched": 0,
@@ -156,7 +148,7 @@
       "failed": 0
     },
     "terms": {
-      "candidates": 33,
+      "candidates": 32,
       "read": 3,
       "accepted": 0,
       "rejected": 0,
@@ -172,20 +164,20 @@
   },
   "carried_forward_rows": 0,
   "nav_quarantine": {
-    "rows": 464,
+    "rows": 465,
     "by_reason": {
       "stale_panel_price_only": 217,
       "nav_not_positive": 180,
       "no_price": 39,
       "nav_jump_N_vs_prior": 11,
-      "unit_suspect_scale": 9,
+      "unit_suspect_scale": 10,
       "nav_unit_mismatch_N_vs_prior": 4,
       "nav_jump_N_vs_own": 4
     }
   },
-  "snapshot": "s3_exists_not_overwritten:nta_live/2026-10-16.parquet",
+  "snapshot": "s3_uploaded:nta_live/2026-10-18.parquet",
   "live_history": {
-    "rows": 47988,
-    "days": 43
+    "rows": 49104,
+    "days": 44
   }
 }
