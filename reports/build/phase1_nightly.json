@@ -10,19 +10,19 @@
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 171,
+  "alert_eligible": 168,
   "z_extremes": [
     {
       "security_id": "SEDOL:3420207",
       "z_adj": -229.4726,
       "discount_est": -0.9905,
-      "staleness_days": 13.0
+      "staleness_days": 10.0
     },
     {
       "security_id": "SEDOL:B0JQZZ8",
-      "z_adj": -145.0566,
-      "discount_est": -0.9905,
-      "staleness_days": 13.0
+      "z_adj": -145.052,
+      "discount_est": -0.99047,
+      "staleness_days": 10.0
     },
     {
       "security_id": "ASX:REV",
@@ -62,9 +62,9 @@
     },
     {
       "security_id": "SEDOL:BRC8992",
-      "z_adj": -40.3837,
-      "discount_est": -0.990578,
-      "staleness_days": 5.0
+      "z_adj": -40.3829,
+      "discount_est": -0.990561,
+      "staleness_days": 0.0
     },
     {
       "security_id": "SEDOL:BNGFHX1",
@@ -85,7 +85,7 @@
     "uk_identity_blocked": 337,
     "uk_nav_targets": 308,
     "uk_registry_only_targets": 111,
-    "uk_aux_z_history_funds": 255,
+    "uk_aux_z_history_funds": 256,
     "uk_fx_pairs": [
       "CAD",
       "EUR",
@@ -116,17 +116,17 @@
     }
   },
   "events": {
-    "events_total": 690,
-    "events_30d": 197,
-    "funds_30d": 100,
+    "events_total": 700,
+    "events_30d": 207,
+    "funds_30d": 102,
     "by_direction_30d": {
-      "neutral": 156,
+      "neutral": 166,
       "positive": 40,
       "negative": 1
     },
     "by_class_30d": {
-      "issuance": 80,
-      "holdings_notification": 70,
+      "issuance": 83,
+      "holdings_notification": 77,
       "substantial_holder": 14,
       "realisation": 10,
       "tender_offer": 7,
@@ -137,12 +137,12 @@
       "strategic_review": 1,
       "legal_sanctions": 1
     },
-    "unalerted": 587,
-    "holdings_with_terms": 69,
+    "unalerted": 594,
+    "holdings_with_terms": 76,
     "tr1": {
-      "candidates": 0,
-      "fetched": 0,
-      "parsed": 0,
+      "candidates": 7,
+      "fetched": 7,
+      "parsed": 7,
       "failed": 0
     },
     "realisations": {
@@ -174,13 +174,13 @@
       "nav_not_positive": 180,
       "no_price": 39,
       "nav_jump_N_vs_prior": 11,
-      "unit_suspect_scale": 10,
+      "unit_suspect_scale": 9,
       "nav_unit_mismatch_N_vs_prior": 4,
-      "nav_jump_N_vs_own": 3,
+      "nav_jump_N_vs_own": 4,
       "nav_jump_N_vs_yesterday": 1
     }
   },
-  "snapshot": "s3_uploaded:nta_live/2026-10-19.parquet",
+  "snapshot": "s3_exists_not_overwritten:nta_live/2026-10-19.parquet",
   "live_history": {
     "rows": 50220,
     "days": 45

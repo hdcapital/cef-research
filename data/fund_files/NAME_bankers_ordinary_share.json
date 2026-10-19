@@ -6,16 +6,16 @@
  "sector": "Global",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_4d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-14",
+  "last_nav": "2026-10-15",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 160.7,
-  "anchor_date": "2026-10-15",
-  "anchor_source": "investegate:9827435",
-  "estimate": 160.7,
+  "anchor": 158.6,
+  "anchor_date": "2026-10-16",
+  "anchor_source": "investegate:9829995",
+  "estimate": 158.6,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 152.1999969482422,
+  "price": 150.60000610351562,
   "ccy": "GBp",
-  "date": "2026-10-15",
+  "date": "2026-10-19",
   "source": "yahoo:BNKR.L"
  },
  "discount": {
-  "estimate": -0.052894,
-  "z": 2.5255,
+  "estimate": -0.050441,
+  "z": 2.6545,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0852,
-  "discount_only": -0.0056,
+  "central": 0.083,
+  "discount_only": -0.0077,
   "g_used": 0.0778,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-16T23:46:32+00:00"
+ "updated_at": "2026-10-19T21:29:36+00:00"
 }

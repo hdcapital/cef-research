@@ -6,16 +6,16 @@
  "sector": "Asia Pacific Equity Income",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-14",
+  "last_nav": "2026-10-16",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 321.85,
-  "anchor_date": "2026-10-15",
-  "anchor_source": "investegate:9827291",
-  "estimate": 321.85,
+  "anchor": 322.58,
+  "anchor_date": "2026-10-16",
+  "anchor_source": "investegate:9829841",
+  "estimate": 322.58,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 306.0,
+  "price": 303.0,
   "ccy": "GBp",
-  "date": "2026-10-15",
+  "date": "2026-10-19",
   "source": "yahoo:AAIF.L"
  },
  "discount": {
-  "estimate": -0.049247,
-  "z": 1.9805,
+  "estimate": -0.060698,
+  "z": 1.5677,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,26 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1491,
-  "discount_only": -0.0108,
+  "central": 0.1449,
+  "discount_only": -0.0147,
   "g_used": 0.113,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [],
- "updated_at": "2026-10-16T23:46:32+00:00"
+ "events_90d": [
+  {
+   "date": "2026-10-19",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/aberdeen-asian-income-fund-limited--aaif/holding-s-in-company/9830315",
+   "alerted_at": null,
+   "terms": {
+    "holder": "iv Name CANACCORD GENUITY GROUP INC"
+   }
+  }
+ ],
+ "updated_at": "2026-10-19T21:29:36+00:00"
 }

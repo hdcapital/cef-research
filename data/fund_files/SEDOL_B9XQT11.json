@@ -6,16 +6,16 @@
  "sector": "Financials & Financial Innovation",
  "liveness": {
   "status": "live",
-  "reason": "nav_1d_old",
+  "reason": "nav_0d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-15",
+  "last_nav": "2026-10-19",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 248.32,
-  "anchor_date": "2026-10-16",
-  "anchor_source": "investegate:9827594",
-  "estimate": 248.32,
+  "anchor": 248.78,
+  "anchor_date": "2026-10-19",
+  "anchor_source": "investegate:9829929",
+  "estimate": 248.78,
   "basis": 0.0,
   "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 238.5,
+  "price": 236.0,
   "ccy": "GBp",
-  "date": "2026-10-15",
+  "date": "2026-10-19",
   "source": "yahoo:PCFT.L"
  },
  "discount": {
-  "estimate": -0.039546,
-  "z": 0.6835,
-  "z_status": "computed",
+  "estimate": -0.051371,
+  "z": 0.2712,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.059148,
   "sigma_36m": 0.02868,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.139,
-  "discount_only": -0.0046,
+  "central": 0.14,
+  "discount_only": -0.0038,
   "g_used": 0.1224,
   "g_source": "panel_tr_cagr"
  },
@@ -140,5 +140,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-10-16T23:46:33+00:00"
+ "updated_at": "2026-10-19T21:29:36+00:00"
 }

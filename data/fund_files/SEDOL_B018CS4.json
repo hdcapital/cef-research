@@ -6,10 +6,10 @@
  "sector": "Flexible Investment",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-14",
-  "last_announcement": "2026-10-16"
+  "last_announcement": "2026-10-19"
  },
  "nav": {
   "anchor": 303.43,
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9823080",
   "estimate": 303.43,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 3.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -27,27 +27,27 @@
  "price": {
   "price": 290.0,
   "ccy": "GBp",
-  "date": "2026-10-15",
+  "date": "2026-10-19",
   "source": "yahoo:RICA.L"
  },
  "discount": {
   "estimate": -0.044261,
-  "z": -0.4436,
+  "z": -0.4367,
   "z_status": "within_error_band",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.037445,
-  "sigma_36m": 0.015365,
+  "mu_36m": -0.037536,
+  "sigma_36m": 0.015397,
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0449,
-  "discount_only": 0.002,
+  "central": 0.0456,
+  "discount_only": 0.0027,
   "g_used": 0.0427,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-16T23:46:33+00:00"
+ "updated_at": "2026-10-19T21:29:36+00:00"
 }

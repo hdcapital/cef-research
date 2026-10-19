@@ -6,16 +6,16 @@
  "sector": "Japan",
  "liveness": {
   "status": "live",
-  "reason": "nav_1d_old",
+  "reason": "nav_0d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-15",
+  "last_nav": "2026-10-19",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 1170.77,
-  "anchor_date": "2026-10-16",
-  "anchor_source": "investegate:9827337",
-  "estimate": 1170.77,
+  "anchor": 1187.32,
+  "anchor_date": "2026-10-19",
+  "anchor_source": "investegate:9829843",
+  "estimate": 1187.32,
   "basis": 0.0,
   "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1060.0,
+  "price": 1068.0,
   "ccy": "GBp",
-  "date": "2026-10-15",
+  "date": "2026-10-19",
   "source": "yahoo:BGFD.L"
  },
  "discount": {
-  "estimate": -0.094613,
-  "z": 1.013,
+  "estimate": -0.100495,
+  "z": 0.662,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.076,
-  "discount_only": -0.0,
+  "central": 0.0756,
+  "discount_only": -0.0004,
   "g_used": 0.0604,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-16T23:46:32+00:00"
+ "updated_at": "2026-10-19T21:29:36+00:00"
 }

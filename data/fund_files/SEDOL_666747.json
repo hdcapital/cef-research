@@ -6,16 +6,16 @@
  "sector": "Asia Pacific",
  "liveness": {
   "status": "live",
-  "reason": "nav_1d_old",
+  "reason": "nav_0d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-15",
+  "last_nav": "2026-10-19",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 1114.25,
-  "anchor_date": "2026-10-16",
-  "anchor_source": "investegate:9827513",
-  "estimate": 1114.25,
+  "anchor": 1117.23,
+  "anchor_date": "2026-10-19",
+  "anchor_source": "investegate:9829845",
+  "estimate": 1117.23,
   "basis": 0.0,
   "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
@@ -25,29 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1020.0,
+  "price": 1010.0,
   "ccy": "GBp",
-  "date": "2026-10-15",
+  "date": "2026-10-19",
   "source": "yahoo:PHI.L"
  },
  "discount": {
-  "estimate": -0.084586,
-  "z": 0.9834,
-  "z_status": "computed",
+  "estimate": -0.095978,
+  "z": 0.4168,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.104357,
   "sigma_36m": 0.020104,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0231,
-  "discount_only": 0.0015,
+  "central": 0.0199,
+  "discount_only": -0.0017,
   "g_used": 0.011,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-16T23:46:33+00:00"
+ "updated_at": "2026-10-19T21:29:36+00:00"
 }

@@ -6,16 +6,16 @@
  "sector": "Japanese Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_4d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-14",
-  "last_announcement": "2026-10-16"
+  "last_nav": "2026-10-15",
+  "last_announcement": "2026-10-19"
  },
  "nav": {
-  "anchor": 185.17,
-  "anchor_date": "2026-10-15",
-  "anchor_source": "investegate:9827699",
-  "estimate": 185.17,
+  "anchor": 187.04,
+  "anchor_date": "2026-10-16",
+  "anchor_source": "investegate:9830019",
+  "estimate": 187.04,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -27,12 +27,12 @@
  "price": {
   "price": 181.0,
   "ccy": "GBp",
-  "date": "2026-10-15",
+  "date": "2026-10-19",
   "source": "yahoo:AJOT.L"
  },
  "discount": {
-  "estimate": -0.02252,
-  "z": 0.3934,
+  "estimate": -0.032293,
+  "z": -0.1192,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -49,6 +49,19 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-10-19",
+   "class": "tender_offer",
+   "weight": 4,
+   "direction": "positive",
+   "headline": "Tender Offer and Notice of General Meeting",
+   "url": "https://www.investegate.co.uk/announcement/rns/avi-japan-opportunity-trust--ajot/tender-offer-and-notice-of-general-meeting/9828284",
+   "alerted_at": "2026-10-19T12:12:53+00:00",
+   "terms": {
+    "llm": "error",
+    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
+   }
+  },
   {
    "date": "2026-09-25",
    "class": "holdings_notification",
@@ -75,5 +88,5 @@
    }
   }
  ],
- "updated_at": "2026-10-16T23:46:32+00:00"
+ "updated_at": "2026-10-19T21:29:36+00:00"
 }

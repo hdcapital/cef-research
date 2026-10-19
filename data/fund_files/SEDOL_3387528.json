@@ -6,7 +6,7 @@
  "sector": "Property - UK Commercial",
  "liveness": {
   "status": "live",
-  "reason": "nav_108d_old",
+  "reason": "nav_111d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-06-30",
   "last_announcement": "2026-09-18"
@@ -17,7 +17,7 @@
   "anchor_source": "investegate_fs:9778784",
   "estimate": 2.98,
   "basis": 0.0,
-  "staleness_days": 78.0,
+  "staleness_days": 79.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -25,29 +25,29 @@
   "quality_reason": "nav_jump_60%_vs_own"
  },
  "price": {
-  "price": 1.7400000095367432,
+  "price": 1.5099999904632568,
   "ccy": "GBp",
-  "date": "2026-10-15",
+  "date": "2026-10-19",
   "source": "yahoo:API.L"
  },
  "discount": {
-  "estimate": -0.416107,
-  "z": 0.3031,
-  "z_status": "computed",
+  "estimate": -0.493289,
+  "z": -0.0004,
+  "z_status": "within_error_band",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.491073,
-  "sigma_36m": 0.247346,
+  "mu_36m": -0.493194,
+  "sigma_36m": 0.247019,
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0849,
-  "discount_only": 0.0284,
+  "central": 0.0846,
+  "discount_only": 0.0281,
   "g_used": 0.055,
   "g_source": "market_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-16T23:46:33+00:00"
+ "updated_at": "2026-10-19T21:29:37+00:00"
 }

@@ -6,7 +6,7 @@
  "sector": "Flexible Investment",
  "liveness": {
   "status": "delist_candidate",
-  "reason": "aggregator_delisted_and_own_filings_silent_168d",
+  "reason": "aggregator_delisted_and_own_filings_silent_171d",
   "source": "corroborated_delisting",
   "last_nav": "2026-01-08",
   "last_announcement": "2026-05-01"
@@ -15,9 +15,9 @@
   "anchor": 15.42,
   "anchor_date": "2026-02-28",
   "anchor_source": "aggregator_panel:2026-02",
-  "estimate": 15.532616,
+  "estimate": 15.532924,
   "basis": 1.0,
-  "staleness_days": 164.0,
+  "staleness_days": 165.0,
   "staleness_limit_days": 45.0,
   "current": false,
   "unit": "GBX",
@@ -31,9 +31,9 @@
   "source": "aggregator_panel"
  },
  "discount": {
-  "estimate": -0.137299,
-  "z": 2.0723,
-  "z_status": "history_stale_2026-02",
+  "estimate": -0.137316,
+  "z": 2.072,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.28022,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": -0.0362,
-  "discount_only": -0.0277,
+  "central": -0.0364,
+  "discount_only": -0.0279,
   "g_used": -0.05,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-16T23:46:33+00:00"
+ "updated_at": "2026-10-19T21:29:37+00:00"
 }

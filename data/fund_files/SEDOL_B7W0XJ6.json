@@ -6,16 +6,16 @@
  "sector": "North America",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-14",
+  "last_nav": "2026-10-16",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 282.88,
-  "anchor_date": "2026-10-15",
-  "anchor_source": "investegate:9827484",
-  "estimate": 282.88,
+  "anchor": 280.13,
+  "anchor_date": "2026-10-16",
+  "anchor_source": "investegate:9829800",
+  "estimate": 280.13,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 286.0,
+  "price": 283.0,
   "ccy": "GBp",
-  "date": "2026-10-15",
+  "date": "2026-10-19",
   "source": "yahoo:BRAI.L"
  },
  "discount": {
-  "estimate": 0.011029,
-  "z": 1.6681,
+  "estimate": 0.010245,
+  "z": 1.6495,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -49,6 +49,16 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-10-19",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/prn/blackrock-american-income-trust-plc--brai/issue-of-equity/9830326",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-10-16",
    "class": "issuance",
@@ -330,5 +340,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-10-16T23:46:32+00:00"
+ "updated_at": "2026-10-19T21:29:36+00:00"
 }
