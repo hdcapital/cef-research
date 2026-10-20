@@ -6,16 +6,16 @@
  "sector": "Flexible Investment",
  "liveness": {
   "status": "live",
-  "reason": "nav_3d_old",
+  "reason": "nav_1d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-16",
+  "last_nav": "2026-10-19",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 128.82,
-  "anchor_date": "2026-10-19",
-  "anchor_source": "investegate:9829949",
-  "estimate": 128.82,
+  "anchor": 128.41,
+  "anchor_date": "2026-10-20",
+  "anchor_source": "investegate:9832277",
+  "estimate": 128.41,
   "basis": 0.0,
   "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
@@ -27,12 +27,12 @@
  "price": {
   "price": 130.5,
   "ccy": "GBp",
-  "date": "2026-10-19",
+  "date": "2026-10-20",
   "source": "yahoo:CMPI.L"
  },
  "discount": {
-  "estimate": 0.013041,
-  "z": 0.6159,
+  "estimate": 0.016276,
+  "z": 0.7982,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0438,
-  "discount_only": -0.0008,
+  "central": 0.0431,
+  "discount_only": -0.0015,
   "g_used": 0.0447,
   "g_source": "panel_tr_cagr"
  },
@@ -70,5 +70,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-10-19T22:27:10+00:00"
+ "updated_at": "2026-10-20T21:32:19+00:00"
 }

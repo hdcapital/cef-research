@@ -6,16 +6,16 @@
  "sector": "Technology & Technology Innovation",
  "liveness": {
   "status": "live",
-  "reason": "nav_3d_old",
+  "reason": "nav_1d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-16",
+  "last_nav": "2026-10-19",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 753.39,
-  "anchor_date": "2026-10-19",
-  "anchor_source": "investegate:9830043",
-  "estimate": 753.39,
+  "anchor": 767.07,
+  "anchor_date": "2026-10-20",
+  "anchor_source": "investegate:9832391",
+  "estimate": 767.07,
   "basis": 0.0,
   "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 708.0,
+  "price": 701.0,
   "ccy": "GBp",
-  "date": "2026-10-19",
+  "date": "2026-10-20",
   "source": "yahoo:ATT.L"
  },
  "discount": {
-  "estimate": -0.060248,
-  "z": 1.3615,
-  "z_status": "computed",
+  "estimate": -0.086133,
+  "z": 0.0428,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.086973,
   "sigma_36m": 0.019629,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.3847,
-  "discount_only": -0.0011,
+  "central": 0.3786,
+  "discount_only": -0.0067,
   "g_used": 0.15,
   "g_source": "panel_tr_cagr"
  },
@@ -114,5 +114,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-10-19T22:27:10+00:00"
+ "updated_at": "2026-10-20T21:32:18+00:00"
 }

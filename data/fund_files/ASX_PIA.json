@@ -6,7 +6,7 @@
  "sector": "Equity - Global",
  "liveness": {
   "status": "live",
-  "reason": "nav_6d_old",
+  "reason": "nav_7d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-13",
   "last_announcement": "2026-10-13"
@@ -17,7 +17,7 @@
   "anchor_source": "asx_ann:03152033",
   "estimate": 1.2572,
   "basis": 0.0,
-  "staleness_days": 6.0,
+  "staleness_days": 7.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "AUD",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1.149999976158142,
+  "price": 1.1549999713897705,
   "ccy": "AUD",
-  "date": "2026-10-19",
+  "date": "2026-10-20",
   "source": "yahoo:PIA.AX"
  },
  "discount": {
-  "estimate": -0.085269,
-  "z": 1.1874,
+  "estimate": -0.081292,
+  "z": 1.2905,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1322,
-  "discount_only": -0.0093,
+  "central": 0.1294,
+  "discount_only": -0.0119,
   "g_used": 0.1014,
   "g_source": "panel_tr_cagr"
  },
@@ -120,5 +120,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-10-19T22:27:09+00:00"
+ "updated_at": "2026-10-20T21:32:18+00:00"
 }

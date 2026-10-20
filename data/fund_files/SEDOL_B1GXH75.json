@@ -8,14 +8,14 @@
   "status": "live",
   "reason": "nav_4d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-15",
+  "last_nav": "2026-10-16",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 247.8,
-  "anchor_date": "2026-10-16",
-  "anchor_source": "investegate:9829994",
-  "estimate": 247.8,
+  "anchor": 248.2,
+  "anchor_date": "2026-10-19",
+  "anchor_source": "investegate:9832185",
+  "estimate": 248.2,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 258.0,
+  "price": 256.0,
   "ccy": "GBp",
-  "date": "2026-10-19",
+  "date": "2026-10-20",
   "source": "yahoo:HFEL.L"
  },
  "discount": {
-  "estimate": 0.041162,
-  "z": 0.6735,
+  "estimate": 0.031426,
+  "z": 0.3728,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,14 +41,24 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0889,
-  "discount_only": -0.0039,
+  "central": 0.09,
+  "discount_only": -0.0029,
   "g_used": 0.0932,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-10-20",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/henderson-far-east-income-ltd---hfel/issue-of-equity/9832637",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-10-19",
    "class": "issuance",
@@ -330,5 +340,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-10-19T22:27:11+00:00"
+ "updated_at": "2026-10-20T21:32:19+00:00"
 }

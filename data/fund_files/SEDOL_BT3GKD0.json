@@ -6,7 +6,7 @@
  "sector": "Flexible Investment",
  "liveness": {
   "status": "live",
-  "reason": "nav_19d_old",
+  "reason": "nav_20d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-30",
   "last_announcement": "2026-10-19"
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9815940",
   "estimate": 111.23,
   "basis": 0.0,
-  "staleness_days": 13.0,
+  "staleness_days": 14.0,
   "staleness_limit_days": 91.5,
   "current": true,
   "unit": "GBX",
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 103.5,
+  "price": 104.0,
   "ccy": "GBp",
-  "date": "2026-10-19",
+  "date": "2026-10-20",
   "source": "yahoo:AIC.L"
  },
  "discount": {
-  "estimate": -0.069496,
-  "z": -0.9358,
+  "estimate": -0.065,
+  "z": -0.8593,
   "z_status": "computed_growing_20m",
   "z_source": "own_daily_panel",
   "z_window_months": 20,
-  "mu_36m": -0.019499,
-  "sigma_36m": 0.053426,
+  "mu_36m": -0.019275,
+  "sigma_36m": 0.053214,
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1103,
-  "discount_only": 0.012,
+  "central": 0.1124,
+  "discount_only": 0.0139,
   "g_used": 0.0971,
   "g_source": "own_nav_history"
  },
@@ -74,5 +74,5 @@
    }
   }
  ],
- "updated_at": "2026-10-19T22:27:10+00:00"
+ "updated_at": "2026-10-20T21:32:18+00:00"
 }

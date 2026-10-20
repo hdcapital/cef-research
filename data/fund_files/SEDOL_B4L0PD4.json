@@ -6,16 +6,16 @@
  "sector": "Global Emerging Markets",
  "liveness": {
   "status": "live",
-  "reason": "nav_3d_old",
+  "reason": "nav_4d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-16",
   "last_announcement": "2026-10-19"
  },
  "nav": {
-  "anchor": 1490.52,
-  "anchor_date": "2026-10-16",
-  "anchor_source": "investegate:9829083",
-  "estimate": 1490.52,
+  "anchor": 1483.75,
+  "anchor_date": "2026-10-19",
+  "anchor_source": "investegate:9831440",
+  "estimate": 1483.75,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1388.0,
+  "price": 1360.0,
   "ccy": "GBp",
-  "date": "2026-10-19",
+  "date": "2026-10-20",
   "source": "yahoo:FEML.L"
  },
  "discount": {
-  "estimate": -0.068781,
-  "z": 1.1205,
+  "estimate": -0.083404,
+  "z": 0.6201,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,14 +41,33 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0795,
-  "discount_only": -0.0159,
+  "central": 0.0852,
+  "discount_only": -0.0103,
   "g_used": 0.0521,
   "g_source": "own_nav_history"
  },
- "holder_churn": null,
+ "holder_churn": {
+  "filings": 3,
+  "sellers": 0,
+  "buyers": 0,
+  "largest_move": null,
+  "holder": null,
+  "direction": "churn"
+ },
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-10-20",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/prn/fidelity-emerging-markets-limited-ptg-npv--feml/holding-s-in-company/9832569",
+   "alerted_at": null,
+   "terms": {
+    "holder": "City of London Investment Management Company Limited"
+   }
+  },
   {
    "date": "2026-10-19",
    "class": "holdings_notification",
@@ -110,5 +129,5 @@
    }
   }
  ],
- "updated_at": "2026-10-19T22:27:11+00:00"
+ "updated_at": "2026-10-20T21:32:19+00:00"
 }

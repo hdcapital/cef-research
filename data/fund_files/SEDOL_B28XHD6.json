@@ -6,43 +6,43 @@
  "sector": "Private Equity",
  "liveness": {
   "status": "live",
-  "reason": "nav_49d_old",
+  "reason": "nav_20d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-08-31",
-  "last_announcement": "2026-10-19"
+  "last_nav": "2026-09-30",
+  "last_announcement": "2026-10-20"
  },
  "nav": {
-  "anchor": 4518.0,
-  "anchor_date": "2026-08-31",
-  "anchor_source": "investegate:9787967",
-  "estimate": 4518.0,
+  "anchor": 4541.0,
+  "anchor_date": "2026-09-30",
+  "anchor_source": "investegate:9830645",
+  "estimate": 4541.0,
   "basis": 0.0,
-  "staleness_days": 35.0,
-  "staleness_limit_days": 93.0,
+  "staleness_days": 14.0,
+  "staleness_limit_days": 91.5,
   "current": true,
   "unit": "GBX",
   "quality_ok": true,
   "quality_reason": ""
  },
  "price": {
-  "price": 3230.0,
+  "price": 3220.0,
   "ccy": "GBp",
-  "date": "2026-10-19",
+  "date": "2026-10-20",
   "source": "yahoo:HVPE.L"
  },
  "discount": {
-  "estimate": -0.285082,
-  "z": 0.9393,
+  "estimate": -0.290905,
+  "z": 0.8558,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.347341,
-  "sigma_36m": 0.066284,
+  "mu_36m": -0.347503,
+  "sigma_36m": 0.066134,
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0037,
-  "discount_only": -0.0326,
+  "central": 0.0056,
+  "discount_only": -0.0308,
   "g_used": 0.0376,
   "g_source": "own_nav_history"
  },
@@ -100,5 +100,5 @@
    }
   }
  ],
- "updated_at": "2026-10-19T22:27:11+00:00"
+ "updated_at": "2026-10-20T21:32:19+00:00"
 }

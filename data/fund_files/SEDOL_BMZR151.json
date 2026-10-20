@@ -6,10 +6,10 @@
  "sector": "UK Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_5d_old",
+  "reason": "nav_6d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-14",
-  "last_announcement": "2026-10-15"
+  "last_announcement": "2026-10-20"
  },
  "nav": {
   "anchor": 171.58,
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9825252",
   "estimate": 171.58,
   "basis": 0.0,
-  "staleness_days": 3.0,
+  "staleness_days": 4.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -27,13 +27,13 @@
  "price": {
   "price": 175.0,
   "ccy": "GBp",
-  "date": "2026-10-19",
+  "date": "2026-10-20",
   "source": "yahoo:ONWD.L"
  },
  "discount": {
   "estimate": 0.019932,
   "z": 0.5508,
-  "z_status": "computed_growing_7m",
+  "z_status": "within_error_band",
   "z_source": "own_daily_panel",
   "z_window_months": 7,
   "mu_36m": 0.005368,
@@ -41,13 +41,24 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": -0.0079,
-  "discount_only": -0.001,
+  "central": -0.0102,
+  "discount_only": -0.0033,
   "g_used": -0.0069,
   "g_source": "sector_median"
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [],
- "updated_at": "2026-10-19T22:27:11+00:00"
+ "events_90d": [
+  {
+   "date": "2026-10-20",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/onward-opportunities-limited-npv--onwd/issue-of-equity/9830613",
+   "alerted_at": null,
+   "terms": null
+  }
+ ],
+ "updated_at": "2026-10-20T21:32:19+00:00"
 }

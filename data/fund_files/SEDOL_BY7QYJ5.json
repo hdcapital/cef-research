@@ -6,7 +6,7 @@
  "sector": "Growth Capital",
  "liveness": {
   "status": "live_stale_nav",
-  "reason": "periodic_report_132d_old_no_recent_nav",
+  "reason": "periodic_report_133d_old_no_recent_nav",
   "source": "own_periodic_report",
   "last_nav": "2026-06-09",
   "last_announcement": "2026-10-19"
@@ -17,7 +17,7 @@
   "anchor_source": "own_nav_history:2026-06-09",
   "estimate": 671.0,
   "basis": 3.0,
-  "staleness_days": 94.0,
+  "staleness_days": 95.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 651.0,
+  "price": 656.5,
   "ccy": "GBp",
-  "date": "2026-10-19",
+  "date": "2026-10-20",
   "source": "yahoo:GROW.L"
  },
  "discount": {
-  "estimate": -0.029806,
-  "z": 1.8426,
+  "estimate": -0.02161,
+  "z": 1.8769,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.414086,
-  "sigma_36m": 0.20855,
+  "mu_36m": -0.413859,
+  "sigma_36m": 0.208986,
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": -0.1744,
-  "discount_only": -0.1309,
+  "central": -0.1706,
+  "discount_only": -0.1269,
   "g_used": -0.05,
   "g_source": "sector_median"
  },
@@ -335,5 +335,5 @@
    }
   }
  ],
- "updated_at": "2026-10-19T22:27:11+00:00"
+ "updated_at": "2026-10-20T21:32:19+00:00"
 }

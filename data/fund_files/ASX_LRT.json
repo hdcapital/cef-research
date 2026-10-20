@@ -6,18 +6,18 @@
  "sector": "Equity - Global",
  "liveness": {
   "status": "live",
-  "reason": "nav_7d_old",
+  "reason": "nav_8d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-12",
   "last_announcement": "2026-10-12"
  },
  "nav": {
-  "anchor": 2.3139,
-  "anchor_date": "2026-10-09",
-  "anchor_source": "asx_ann:03151535",
-  "estimate": 2.3139,
-  "basis": 0.0,
-  "staleness_days": 6.0,
+  "anchor": 2.2103,
+  "anchor_date": "2026-10-16",
+  "anchor_source": "own_nav_history:2026-10-16",
+  "estimate": 2.245015,
+  "basis": 1.0,
+  "staleness_days": 2.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "AUD",
@@ -27,12 +27,12 @@
  "price": {
   "price": 1.8550000190734863,
   "ccy": "AUD",
-  "date": "2026-10-19",
+  "date": "2026-10-20",
   "source": "yahoo:LRT.AX"
  },
  "discount": {
-  "estimate": -0.198323,
-  "z": -0.4307,
+  "estimate": -0.173725,
+  "z": -0.1384,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.221,
-  "discount_only": 0.0128,
+  "central": 0.2203,
+  "discount_only": 0.0122,
   "g_used": 0.15,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-19T22:27:09+00:00"
+ "updated_at": "2026-10-20T21:32:18+00:00"
 }
