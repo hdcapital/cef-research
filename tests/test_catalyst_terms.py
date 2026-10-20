@@ -129,10 +129,13 @@ def test_call_errors_are_retried_and_abort_after_three(monkeypatch):
             def create(**kw):
                 raise RuntimeError("Error code: 400 - workspace header required")
 
+    # inside candidates()' 45-day window whatever the wall clock says: a
+    # fixed 2026-09-01 aged out on 2026-10-16 and failed the suite
+    recent = (datetime.now(timezone.utc) - timedelta(days=10)).date().isoformat()
     rows = []
     for i in range(6):
         r = {c: None for c in EV.COLUMNS}
-        r.update(security_id=f"S{i}", date="2026-09-01", headline="Tender Offer",
+        r.update(security_id=f"S{i}", date=recent, headline="Tender Offer",
                  url=f"http://x/{i}", event_class="tender_offer", weight=4,
                  direction="positive", event_id=f"e{i}")
         rows.append(r)

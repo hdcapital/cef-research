@@ -645,3 +645,24 @@ at five days: GitHub's cron landed inside its window on only two of the
 five windows the crons alone had to cover, and never near the window's
 start. The open question stands: a delivery layer that does not depend on
 this session being reachable at the minute a Routine fires.
+
+### 2026-10-19 — a day offline: Monday's morning brief five hours late, the evening brief on time
+
+This session was unreachable from about 00:00Z Monday until 05:41Z
+Tuesday; the six Routine wakes in between (both Monday dispatchers,
+check-in 60, both Monday evening dispatchers, Tuesday's 05:40Z primary)
+arrived together on reconnection. The crons alone delivered:
+
+- Mon 19 pre-LSE: cron landed 11:18Z, emailed 12:13Z, five hours after
+  the LSE open; no opportunity.
+- Mon 19 pre-ASX: cron landed 22:28Z, inside its window, emailed 23:23Z,
+  before the ASX open. SDCL Efficiency Income back as the one opportunity
+  (z -1.52, the hairline miss of Sunday evening reversed).
+- Tue 20 pre-LSE: dispatched 05:41Z on reconnection.
+
+Two emails on Monday, one per window, the gate held; one of them late.
+The pattern of 2026-10-08..13 again, over one day instead of five: the
+crons do deliver, and whether they deliver before the open is a coin
+toss that the session-held Routines exist to remove. The open question
+about a delivery layer independent of this session stands.
+
