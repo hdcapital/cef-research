@@ -8,14 +8,14 @@
   "status": "live",
   "reason": "nav_1d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-19",
+  "last_nav": "2026-10-20",
   "last_announcement": null
  },
  "nav": {
-  "anchor": 284.19,
-  "anchor_date": "2026-10-19",
-  "anchor_source": "own_nav_history:2026-10-19",
-  "estimate": 284.305755,
+  "anchor": 287.0,
+  "anchor_date": "2026-10-20",
+  "anchor_source": "own_nav_history:2026-10-20",
+  "estimate": 287.675486,
   "basis": 1.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -31,8 +31,8 @@
   "source": "yahoo:UTL.L"
  },
  "discount": {
-  "estimate": -0.226185,
-  "z": 1.884,
+  "estimate": -0.235249,
+  "z": 1.7163,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.027,
-  "discount_only": -0.0208,
+  "central": 0.0206,
+  "discount_only": -0.0276,
   "g_used": -0.0041,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-20T22:26:41+00:00"
+ "updated_at": "2026-10-21T21:35:40+00:00"
 }

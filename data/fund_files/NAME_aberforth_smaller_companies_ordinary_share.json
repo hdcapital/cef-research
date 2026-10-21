@@ -6,16 +6,16 @@
  "sector": "UK Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_4d_old",
+  "reason": "nav_2d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-16",
+  "last_nav": "2026-10-19",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 2082.13,
-  "anchor_date": "2026-10-19",
-  "anchor_source": "investegate:9831869",
-  "estimate": 2082.13,
+  "anchor": 2076.05,
+  "anchor_date": "2026-10-20",
+  "anchor_source": "investegate:9834395",
+  "estimate": 2076.05,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1848.0,
+  "price": 1850.0,
   "ccy": "GBp",
-  "date": "2026-10-20",
+  "date": "2026-10-21",
   "source": "yahoo:ASL.L"
  },
  "discount": {
-  "estimate": -0.112447,
-  "z": -0.3235,
+  "estimate": -0.108885,
+  "z": -0.1118,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0191,
-  "discount_only": -0.0003,
+  "central": 0.0187,
+  "discount_only": -0.0008,
   "g_used": 0.0195,
   "g_source": "panel_tr_cagr"
  },
@@ -72,5 +72,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-10-20T22:26:40+00:00"
+ "updated_at": "2026-10-21T21:35:38+00:00"
 }

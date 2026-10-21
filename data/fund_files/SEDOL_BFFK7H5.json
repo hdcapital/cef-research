@@ -6,16 +6,16 @@
  "sector": "UK Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_4d_old",
+  "reason": "nav_2d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-16",
+  "last_nav": "2026-10-19",
   "last_announcement": "2026-10-20"
  },
  "nav": {
-  "anchor": 235.42,
-  "anchor_date": "2026-10-19",
-  "anchor_source": "investegate:9832228",
-  "estimate": 235.42,
+  "anchor": 234.33,
+  "anchor_date": "2026-10-20",
+  "anchor_source": "investegate:9834592",
+  "estimate": 234.33,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 239.0,
+  "price": 240.0,
   "ccy": "GBp",
-  "date": "2026-10-20",
+  "date": "2026-10-21",
   "source": "yahoo:OIT.L"
  },
  "discount": {
-  "estimate": 0.015207,
-  "z": 0.8628,
+  "estimate": 0.024197,
+  "z": 1.2775,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,14 +41,24 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0335,
-  "discount_only": 0.0022,
+  "central": 0.0295,
+  "discount_only": -0.0017,
   "g_used": 0.0312,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-10-21",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/odyssean-investment-trust--oit/issue-of-equity/9834973",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-10-20",
    "class": "issuance",
@@ -360,5 +370,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-10-20T22:26:41+00:00"
+ "updated_at": "2026-10-21T21:35:40+00:00"
 }
