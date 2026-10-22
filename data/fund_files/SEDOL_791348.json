@@ -8,14 +8,14 @@
   "status": "live",
   "reason": "nav_1d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-20",
+  "last_nav": "2026-10-21",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 245.21,
-  "anchor_date": "2026-10-21",
-  "anchor_source": "investegate:9834417",
-  "estimate": 245.21,
+  "anchor": 246.95,
+  "anchor_date": "2026-10-22",
+  "anchor_source": "investegate:9836715",
+  "estimate": 246.95,
   "basis": 0.0,
   "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
@@ -27,12 +27,12 @@
  "price": {
   "price": 222.0,
   "ccy": "GBp",
-  "date": "2026-10-21",
+  "date": "2026-10-22",
   "source": "yahoo:BGUK.L"
  },
  "discount": {
-  "estimate": -0.094654,
-  "z": 0.9114,
+  "estimate": -0.101033,
+  "z": 0.6434,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0606,
-  "discount_only": -0.0031,
+  "central": 0.0576,
+  "discount_only": -0.006,
   "g_used": 0.049,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": {
-  "filings": 4,
+  "filings": 5,
   "sellers": 0,
   "buyers": 0,
   "largest_move": null,
@@ -56,6 +56,18 @@
  },
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-10-22",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/baillie-gifford-uk-growth-trust--bguk/holding-s-in-company/9837256",
+   "alerted_at": null,
+   "terms": {
+    "holder": "City of London Investment Management Company Limited"
+   }
+  },
   {
    "date": "2026-10-16",
    "class": "holdings_notification",
@@ -117,5 +129,5 @@
    }
   }
  ],
- "updated_at": "2026-10-21T22:29:55+00:00"
+ "updated_at": "2026-10-22T21:34:27+00:00"
 }

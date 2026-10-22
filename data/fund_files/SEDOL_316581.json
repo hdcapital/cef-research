@@ -6,7 +6,7 @@
  "sector": "Japanese Smaller Companies",
  "liveness": {
   "status": "delist_candidate",
-  "reason": "aggregator_delisted_and_own_filings_silent_729d",
+  "reason": "aggregator_delisted_and_own_filings_silent_730d",
   "source": "corroborated_delisting",
   "last_nav": "2024-10-22",
   "last_announcement": "2024-10-22"
@@ -15,9 +15,9 @@
   "anchor": 355.14,
   "anchor_date": "2024-10-22",
   "anchor_source": "own_nav_history:2024-10-22",
-  "estimate": 367.602017,
+  "estimate": 366.119596,
   "basis": 1.0,
-  "staleness_days": 521.0,
+  "staleness_days": 522.0,
   "staleness_limit_days": 45.0,
   "current": false,
   "unit": "GBX",
@@ -31,8 +31,8 @@
   "source": "aggregator_panel"
  },
  "discount": {
-  "estimate": -0.10229,
-  "z": -0.1083,
+  "estimate": -0.098655,
+  "z": 0.0547,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0585,
-  "discount_only": 0.0017,
+  "central": 0.0581,
+  "discount_only": 0.0012,
   "g_used": 0.0387,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-21T22:29:55+00:00"
+ "updated_at": "2026-10-22T21:34:28+00:00"
 }

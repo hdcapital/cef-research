@@ -6,7 +6,7 @@
  "sector": "Equity - Global",
  "liveness": {
   "status": "live",
-  "reason": "nav_7d_old",
+  "reason": "nav_8d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-14",
   "last_announcement": "2026-10-14"
@@ -15,9 +15,9 @@
   "anchor": 1.6046,
   "anchor_date": "2026-07-31",
   "anchor_source": "aggregator_panel:2026-07",
-  "estimate": 1.572827,
+  "estimate": 1.571746,
   "basis": 1.0,
-  "staleness_days": 58.0,
+  "staleness_days": 59.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "AUD",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1.600000023841858,
+  "price": 1.6150000095367432,
   "ccy": "AUD",
-  "date": "2026-10-21",
+  "date": "2026-10-22",
   "source": "yahoo:FGG.AX"
  },
  "discount": {
-  "estimate": 0.017277,
-  "z": 2.3256,
+  "estimate": 0.02752,
+  "z": 2.4917,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.137,
-  "discount_only": -0.0317,
+  "central": 0.1369,
+  "discount_only": -0.0318,
   "g_used": 0.1323,
   "g_source": "panel_tr_cagr"
  },
@@ -60,5 +60,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-10-21T22:29:54+00:00"
+ "updated_at": "2026-10-22T21:34:26+00:00"
 }

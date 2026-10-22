@@ -6,10 +6,10 @@
  "sector": "Private Equity",
  "liveness": {
   "status": "live",
-  "reason": "nav_21d_old",
+  "reason": "nav_22d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-30",
-  "last_announcement": "2026-10-21"
+  "last_announcement": "2026-10-22"
  },
  "nav": {
   "anchor": 4541.0,
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9830645",
   "estimate": 4541.0,
   "basis": 0.0,
-  "staleness_days": 15.0,
+  "staleness_days": 16.0,
   "staleness_limit_days": 91.5,
   "current": true,
   "unit": "GBX",
@@ -25,30 +25,43 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 3310.0,
+  "price": 3290.0,
   "ccy": "GBp",
-  "date": "2026-10-21",
+  "date": "2026-10-22",
   "source": "yahoo:HVPE.L"
  },
  "discount": {
-  "estimate": -0.271086,
-  "z": 1.1374,
+  "estimate": -0.27549,
+  "z": 1.0755,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.346952,
-  "sigma_36m": 0.066699,
+  "mu_36m": -0.347074,
+  "sigma_36m": 0.06656,
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0096,
-  "discount_only": -0.0292,
+  "central": 0.004,
+  "discount_only": -0.0346,
   "g_used": 0.04,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-10-22",
+   "class": "tender_offer",
+   "weight": 4,
+   "direction": "positive",
+   "headline": "Launch of Tender Offer and Publication of circular",
+   "url": "https://www.investegate.co.uk/announcement/rns/harbourvest-global-private-equity-limited-a-shs--hvpe/launch-of-tender-offer-and-publication-of-circular/9835428",
+   "alerted_at": "2026-10-22T06:46:48+00:00",
+   "terms": {
+    "llm": "error",
+    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
+   }
+  },
   {
    "date": "2026-10-19",
    "class": "holdings_notification",
@@ -100,5 +113,5 @@
    }
   }
  ],
- "updated_at": "2026-10-21T22:29:55+00:00"
+ "updated_at": "2026-10-22T21:34:28+00:00"
 }

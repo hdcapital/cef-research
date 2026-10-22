@@ -8,14 +8,14 @@
   "status": "live",
   "reason": "nav_2d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-19",
+  "last_nav": "2026-10-20",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 300.14,
-  "anchor_date": "2026-10-20",
-  "anchor_source": "investegate:9834468",
-  "estimate": 300.14,
+  "anchor": 301.18,
+  "anchor_date": "2026-10-21",
+  "anchor_source": "investegate:9836764",
+  "estimate": 301.18,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,35 +25,28 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 269.0,
+  "price": 266.0,
   "ccy": "GBp",
-  "date": "2026-10-21",
+  "date": "2026-10-22",
   "source": "yahoo:BRSC.L"
  },
  "discount": {
-  "estimate": -0.103752,
-  "z": 0.8526,
-  "z_status": "computed",
+  "estimate": -0.116807,
+  "z": 0.0955,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.118455,
   "sigma_36m": 0.017246,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1166,
-  "discount_only": -0.0026,
+  "central": 0.1144,
+  "discount_only": -0.0046,
   "g_used": 0.0943,
   "g_source": "panel_tr_cagr"
  },
- "holder_churn": {
-  "filings": 3,
-  "sellers": 0,
-  "buyers": 0,
-  "largest_move": null,
-  "holder": null,
-  "direction": "churn"
- },
+ "holder_churn": null,
  "realisations": null,
  "events_90d": [
   {
@@ -117,5 +110,5 @@
    }
   }
  ],
- "updated_at": "2026-10-21T22:29:55+00:00"
+ "updated_at": "2026-10-22T21:34:27+00:00"
 }
