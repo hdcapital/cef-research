@@ -1,14 +1,14 @@
 {
  "lookback_days": 45,
  "codes_requested": 172,
- "index_rows_in_window": 1402,
- "candidates": 561,
+ "index_rows_in_window": 1367,
+ "candidates": 548,
  "codes_with_a_candidate": 92,
- "attempted": 115,
- "parsed": 78,
+ "attempted": 114,
+ "parsed": 77,
  "parse_failed": 34,
  "ambiguous_unit": 0,
- "codes_parsed": 78,
+ "codes_parsed": 77,
  "budget_reached": false,
  "deadline_reached": false,
  "by_code": {
@@ -45,7 +45,7 @@
   "AIQ": "parsed",
   "WMA": "no_nta_parsed",
   "TGF": "parsed",
-  "WAA": "parsed",
+  "WAA": "no_nta_parsed",
   "GVF": "parsed",
   "WHF": "parsed",
   "WQG": "parsed",
@@ -351,8 +351,8 @@
  "image_only": 3,
  "by_outcome": {
   "no_candidate_in_window": 80,
-  "no_nta_parsed": 13,
+  "no_nta_parsed": 14,
   "no_text_layer": 1,
-  "parsed": 78
+  "parsed": 77
  }
 }
