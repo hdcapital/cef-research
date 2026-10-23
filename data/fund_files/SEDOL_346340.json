@@ -8,14 +8,14 @@
   "status": "live",
   "reason": "nav_1d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-21",
+  "last_nav": "2026-10-22",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 1713.1,
-  "anchor_date": "2026-10-22",
-  "anchor_source": "investegate:9836829",
-  "estimate": 1713.1,
+  "anchor": 1709.63,
+  "anchor_date": "2026-10-23",
+  "anchor_source": "investegate:9838917",
+  "estimate": 1709.63,
   "basis": 0.0,
   "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
@@ -25,25 +25,25 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1612.5,
+  "price": 1622.5,
   "ccy": "GBp",
-  "date": "2026-10-22",
+  "date": "2026-10-23",
   "source": "yahoo:BASC.L"
  },
  "discount": {
-  "estimate": -0.058724,
-  "z": 1.8182,
+  "estimate": -0.050964,
+  "z": 2.1851,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.096887,
-  "sigma_36m": 0.020989,
+  "mu_36m": -0.096877,
+  "sigma_36m": 0.021012,
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.3999,
-  "discount_only": -0.0187,
-  "g_used": 0.0529,
+  "central": 0.4118,
+  "discount_only": -0.0142,
+  "g_used": 0.0609,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
@@ -63,5 +63,5 @@
    }
   }
  ],
- "updated_at": "2026-10-22T22:29:04+00:00"
+ "updated_at": "2026-10-23T21:34:08+00:00"
 }

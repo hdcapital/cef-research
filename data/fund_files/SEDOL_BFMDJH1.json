@@ -6,7 +6,7 @@
  "sector": "Property - Rest of World",
  "liveness": {
   "status": "live",
-  "reason": "nav_118d_old",
+  "reason": "nav_119d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-06-26",
   "last_announcement": "2026-08-19"
@@ -17,7 +17,7 @@
   "anchor_source": "own_nav_history:2026-03-31",
   "estimate": 65.8,
   "basis": 3.0,
-  "staleness_days": 147.0,
+  "staleness_days": 148.0,
   "staleness_limit_days": 45.0,
   "current": false,
   "unit": "GBX",
@@ -27,7 +27,7 @@
  "price": {
   "price": 0.28999999165534973,
   "ccy": "GBp",
-  "date": "2026-10-21",
+  "date": "2026-10-22",
   "source": "yahoo:CBA.L"
  },
  "discount": {
@@ -89,46 +89,7 @@
    "url": "https://www.investegate.co.uk/announcement/rns/ceiba-investments-limited-npv--cba/resignation-of-administrator/9713425",
    "alerted_at": "2026-09-07T07:45:12+00:00",
    "terms": null
-  },
-  {
-   "date": "2026-07-24",
-   "class": "legal_sanctions",
-   "weight": -3,
-   "direction": "negative",
-   "headline": "Further re U.S. Sanctions Designation",
-   "url": "https://www.investegate.co.uk/announcement/rns/ceiba-investments-limited-npv--cba/further-re-u-s-sanctions-designation-/9687464",
-   "alerted_at": "2026-09-07T07:45:12+00:00",
-   "terms": {
-    "llm": "error",
-    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'This API key is not scoped to a workspace, so this request must include the anthropic-workspace-id header wit"
-   }
-  },
-  {
-   "date": "2026-07-24",
-   "class": "suspension",
-   "weight": -4,
-   "direction": "negative",
-   "headline": "Suspension - Ceiba Investments Limited",
-   "url": "https://www.investegate.co.uk/announcement/rns/ceiba-investments-limited-npv--cba/suspension-ceiba-investments-limited/9686703",
-   "alerted_at": "2026-09-07T07:45:12+00:00",
-   "terms": {
-    "llm": "error",
-    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'This API key is not scoped to a workspace, so this request must include the anthropic-workspace-id header wit"
-   }
-  },
-  {
-   "date": "2026-07-24",
-   "class": "legal_sanctions",
-   "weight": -3,
-   "direction": "negative",
-   "headline": "Statement re U.S. Sanctions Designation",
-   "url": "https://www.investegate.co.uk/announcement/rns/ceiba-investments-limited-npv--cba/statement-re-u-s-sanctions-designation/9686649",
-   "alerted_at": "2026-09-07T07:45:12+00:00",
-   "terms": {
-    "llm": "error",
-    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'This API key is not scoped to a workspace, so this request must include the anthropic-workspace-id header wit"
-   }
   }
  ],
- "updated_at": "2026-10-22T22:29:04+00:00"
+ "updated_at": "2026-10-23T21:34:09+00:00"
 }

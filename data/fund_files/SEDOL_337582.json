@@ -8,14 +8,14 @@
   "status": "live",
   "reason": "nav_0d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-22",
+  "last_nav": "2026-10-23",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 435.88,
-  "anchor_date": "2026-10-22",
-  "anchor_source": "investegate:9835145",
-  "estimate": 435.88,
+  "anchor": 426.02,
+  "anchor_date": "2026-10-23",
+  "anchor_source": "investegate:9837539",
+  "estimate": 426.02,
   "basis": 0.0,
   "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
@@ -25,29 +25,42 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 405.0,
+  "price": 403.0,
   "ccy": "GBp",
-  "date": "2026-10-22",
+  "date": "2026-10-23",
   "source": "yahoo:FEV.L"
  },
  "discount": {
-  "estimate": -0.070845,
-  "z": -0.8757,
-  "z_status": "computed",
+  "estimate": -0.054035,
+  "z": -0.14,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.050836,
   "sigma_36m": 0.022851,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0619,
-  "discount_only": -0.0026,
+  "central": 0.0682,
+  "discount_only": 0.0034,
   "g_used": 0.0646,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [],
- "updated_at": "2026-10-22T22:29:04+00:00"
+ "events_90d": [
+  {
+   "date": "2026-10-23",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/prn/fidelity-european-trust--fev/holding-s-in-company/9839482",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Quilter Plc"
+   }
+  }
+ ],
+ "updated_at": "2026-10-23T21:34:09+00:00"
 }

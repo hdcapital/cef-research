@@ -8,14 +8,14 @@
   "status": "live",
   "reason": "nav_2d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-20",
+  "last_nav": "2026-10-21",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 202.3,
-  "anchor_date": "2026-10-21",
-  "anchor_source": "investegate:9836879",
-  "estimate": 202.3,
+  "anchor": 200.1,
+  "anchor_date": "2026-10-22",
+  "anchor_source": "investegate:9839124",
+  "estimate": 200.1,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 184.5,
+  "price": 184.0,
   "ccy": "GBp",
-  "date": "2026-10-22",
+  "date": "2026-10-23",
   "source": "yahoo:LWI.L"
  },
  "discount": {
-  "estimate": -0.087988,
-  "z": 0.628,
+  "estimate": -0.08046,
+  "z": 0.9481,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,24 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1286,
-  "discount_only": -0.0044,
+  "central": 0.1316,
+  "discount_only": -0.0016,
   "g_used": 0.0989,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [
-  {
-   "date": "2026-07-24",
-   "class": "manager_exit",
-   "weight": -2,
-   "direction": "negative",
-   "headline": "Future retirement of Fund Manager",
-   "url": "https://www.investegate.co.uk/announcement/rns/lowland-investment-co--lwi/future-retirement-of-fund-manager/9685494",
-   "alerted_at": "2026-09-07T07:45:12+00:00",
-   "terms": null
-  }
- ],
- "updated_at": "2026-10-22T22:29:05+00:00"
+ "events_90d": [],
+ "updated_at": "2026-10-23T21:34:09+00:00"
 }

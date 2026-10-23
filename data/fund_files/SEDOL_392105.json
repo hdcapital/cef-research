@@ -6,7 +6,7 @@
  "sector": "Private Equity",
  "liveness": {
   "status": "live",
-  "reason": "nav_73d_old",
+  "reason": "nav_74d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-08-10",
   "last_announcement": "2026-10-06"
@@ -17,7 +17,7 @@
   "anchor_source": "own_nav_history:2026-06-30",
   "estimate": 530.7,
   "basis": 3.0,
-  "staleness_days": 82.0,
+  "staleness_days": 83.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 383.5,
+  "price": 398.0,
   "ccy": "GBp",
-  "date": "2026-10-22",
+  "date": "2026-10-23",
   "source": "yahoo:HGT.L"
  },
  "discount": {
-  "estimate": -0.27737,
-  "z": -1.2563,
+  "estimate": -0.250047,
+  "z": -0.9918,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,14 +41,26 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1254,
-  "discount_only": 0.0526,
+  "central": 0.1177,
+  "discount_only": 0.0451,
   "g_used": 0.0458,
   "g_source": "sector_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-10-23",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/hgcapital-trust--hgt/holding-s-in-company/9839410",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Schroders Limited"
+   }
+  },
   {
    "date": "2026-10-05",
    "class": "holdings_notification",
@@ -117,5 +129,5 @@
    }
   }
  ],
- "updated_at": "2026-10-22T22:29:05+00:00"
+ "updated_at": "2026-10-23T21:34:09+00:00"
 }

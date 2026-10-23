@@ -8,14 +8,14 @@
   "status": "live",
   "reason": "nav_1d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-21",
+  "last_nav": "2026-10-22",
   "last_announcement": "2026-10-22"
  },
  "nav": {
-  "anchor": 117.74,
-  "anchor_date": "2026-10-22",
-  "anchor_source": "investegate:9836943",
-  "estimate": 117.74,
+  "anchor": 117.22,
+  "anchor_date": "2026-10-23",
+  "anchor_source": "investegate:9839400",
+  "estimate": 117.22,
   "basis": 0.0,
   "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 105.0,
+  "price": 105.5,
   "ccy": "GBp",
-  "date": "2026-10-22",
+  "date": "2026-10-23",
   "source": "yahoo:CHI.L"
  },
  "discount": {
-  "estimate": -0.108205,
-  "z": -1.0106,
+  "estimate": -0.099983,
+  "z": -0.7952,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,26 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1359,
-  "discount_only": 0.0067,
+  "central": 0.1398,
+  "discount_only": 0.0104,
   "g_used": 0.0877,
   "g_source": "sector_median"
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [],
- "updated_at": "2026-10-22T22:29:04+00:00"
+ "events_90d": [
+  {
+   "date": "2026-10-23",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/ct-uk-high-income-trust-b--chib/holding-s-in-company/9839714",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Philip J Milton & Company Plc"
+   }
+  }
+ ],
+ "updated_at": "2026-10-23T21:34:09+00:00"
 }
