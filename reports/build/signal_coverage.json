@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T06:49:38+00:00",
+  "generated_at": "2026-10-26T21:30:39+00:00",
   "target_pct": 90.0,
   "markets": {
     "AU": {
@@ -22,7 +22,7 @@
     }
   },
   "excluded_not_trading": {
-    "count": 9,
+    "count": 8,
     "rule": "no price bar within 14 days",
     "funds": [
       {
@@ -33,11 +33,6 @@
       {
         "security_id": "SEDOL:B62DS15",
         "name": "Channel Islands Property",
-        "market": "UK"
-      },
-      {
-        "security_id": "SEDOL:B65TLW2",
-        "name": "Diverse Income Trust",
         "market": "UK"
       },
       {

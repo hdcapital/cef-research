@@ -6,7 +6,7 @@
  "sector": "Equity - Australia Strategy",
  "liveness": {
   "status": "delist_candidate",
-  "reason": "aggregator_delisted_and_own_filings_silent_2212d",
+  "reason": "aggregator_delisted_and_own_filings_silent_2215d",
   "source": "corroborated_delisting",
   "last_nav": "2020-09-08",
   "last_announcement": "2020-10-02"
@@ -15,9 +15,9 @@
   "anchor": 5.453591549295775,
   "anchor_date": "2020-08-31",
   "anchor_source": "aggregator_panel:2020-08",
-  "estimate": 5.369133,
+  "estimate": 5.356444,
   "basis": 1.0,
-  "staleness_days": 1604.0,
+  "staleness_days": 1605.0,
   "staleness_limit_days": 200.0,
   "current": false,
   "unit": "AUD",
@@ -31,8 +31,8 @@
   "source": "aggregator_panel"
  },
  "discount": {
-  "estimate": -0.031501,
-  "z": -0.3717,
+  "estimate": -0.029207,
+  "z": -0.3106,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0847,
-  "discount_only": 0.0043,
+  "central": 0.0856,
+  "discount_only": 0.0053,
   "g_used": 0.0466,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-23T22:32:17+00:00"
+ "updated_at": "2026-10-26T21:30:34+00:00"
 }

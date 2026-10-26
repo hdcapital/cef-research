@@ -6,7 +6,7 @@
  "sector": "Renewable Energy Infrastructure",
  "liveness": {
   "status": "live",
-  "reason": "nav_72d_old",
+  "reason": "nav_75d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-08-12",
   "last_announcement": "2026-09-21"
@@ -17,7 +17,7 @@
   "anchor_source": "own_nav_history:2026-06-30",
   "estimate": 104.7,
   "basis": 3.0,
-  "staleness_days": 83.0,
+  "staleness_days": 84.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -25,29 +25,66 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 87.5,
+  "price": 89.19999694824219,
   "ccy": "GBp",
-  "date": "2026-10-23",
+  "date": "2026-10-26",
   "source": "yahoo:FGEN.L"
  },
  "discount": {
-  "estimate": -0.164279,
-  "z": 1.2034,
+  "estimate": -0.148042,
+  "z": 1.3992,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.256126,
-  "sigma_36m": 0.07632,
+  "mu_36m": -0.255675,
+  "sigma_36m": 0.076924,
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0493,
-  "discount_only": -0.0054,
+  "central": 0.0495,
+  "discount_only": -0.0052,
   "g_used": 0.055,
   "g_source": "market_median"
  },
  "holder_churn": null,
- "realisations": null,
- "events_90d": [],
- "updated_at": "2026-10-23T22:32:18+00:00"
+ "realisations": {
+  "n": 1,
+  "n_quantified": 1,
+  "avg_vs_carrying_pct": 7.5,
+  "min_vs_carrying_pct": 7.5,
+  "max_vs_carrying_pct": 7.5,
+  "premiums": 1,
+  "discounts": 0,
+  "in_line": 0,
+  "last": {
+   "date": "2026-10-26",
+   "vs_carrying_pct": 7.5,
+   "sign": 1,
+   "at_least": false,
+   "basis": "valuation",
+   "headline": "Disposal of Stake in Six Anaerobic Digestion Fac.",
+   "url": "https://www.investegate.co.uk/announcement/rns/foresight-environmental-infrastructure-limited--fgen/disposal-of-stake-in-six-anaerobic-digestion-fac-/9839988"
+  },
+  "window_days": 365
+ },
+ "events_90d": [
+  {
+   "date": "2026-10-26",
+   "class": "realisation",
+   "weight": 1,
+   "direction": "positive",
+   "headline": "Disposal of Stake in Six Anaerobic Digestion Fac.",
+   "url": "https://www.investegate.co.uk/announcement/rns/foresight-environmental-infrastructure-limited--fgen/disposal-of-stake-in-six-anaerobic-digestion-fac-/9839988",
+   "alerted_at": null,
+   "terms": {
+    "realisation": {
+     "vs_carrying_pct": 7.5,
+     "sign": 1,
+     "basis": "valuation",
+     "quote": "ration of \u00a3104.0 million. The consideration represents: - a 7.5% premium to the valuation as at 30 June 2026, being an uplift of "
+    }
+   }
+  }
+ ],
+ "updated_at": "2026-10-26T21:30:34+00:00"
 }

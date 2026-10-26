@@ -6,16 +6,16 @@
  "sector": "Global Emerging Markets",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_4d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-21",
+  "last_nav": "2026-10-22",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 327.85,
-  "anchor_date": "2026-10-22",
-  "anchor_source": "investegate:9838710",
-  "estimate": 327.85,
+  "anchor": 330.75,
+  "anchor_date": "2026-10-23",
+  "anchor_source": "investegate:9841083",
+  "estimate": 330.75,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 305.0,
+  "price": 305.5,
   "ccy": "GBp",
-  "date": "2026-10-23",
+  "date": "2026-10-26",
   "source": "yahoo:TEM.L"
  },
  "discount": {
-  "estimate": -0.069697,
-  "z": 1.6192,
+  "estimate": -0.076342,
+  "z": 1.3805,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1183,
-  "discount_only": -0.0053,
+  "central": 0.1109,
+  "discount_only": -0.012,
   "g_used": 0.1039,
   "g_source": "panel_tr_cagr"
  },
@@ -62,5 +62,5 @@
    }
   }
  ],
- "updated_at": "2026-10-23T22:32:19+00:00"
+ "updated_at": "2026-10-26T21:30:35+00:00"
 }

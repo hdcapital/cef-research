@@ -6,7 +6,7 @@
  "sector": "Europe",
  "liveness": {
   "status": "live",
-  "reason": "nav_84d_old",
+  "reason": "nav_87d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-07-31",
   "last_announcement": "2026-08-03"
@@ -15,9 +15,9 @@
   "anchor": 952.02,
   "anchor_date": "2026-07-31",
   "anchor_source": "aggregator_panel:2026-07",
-  "estimate": 956.868955,
+  "estimate": 959.684445,
   "basis": 1.0,
-  "staleness_days": 60.0,
+  "staleness_days": 61.0,
   "staleness_limit_days": 45.0,
   "current": false,
   "unit": "GBX",
@@ -31,8 +31,8 @@
   "source": "aggregator_panel"
  },
  "discount": {
-  "estimate": -0.020765,
-  "z": 1.9337,
+  "estimate": -0.023637,
+  "z": 1.8063,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,24 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0345,
-  "discount_only": -0.0126,
+  "central": 0.0339,
+  "discount_only": -0.0131,
   "g_used": 0.0203,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [
-  {
-   "date": "2026-07-27",
-   "class": "holdings_notification",
-   "weight": 0,
-   "direction": "neutral",
-   "headline": "Holding(s) in Company",
-   "url": "https://www.investegate.co.uk/announcement/rns/european-opportunities-trust--eot/holding-s-in-company/9688628",
-   "alerted_at": null,
-   "terms": null
-  }
- ],
- "updated_at": "2026-10-23T22:32:18+00:00"
+ "events_90d": [],
+ "updated_at": "2026-10-26T21:30:34+00:00"
 }

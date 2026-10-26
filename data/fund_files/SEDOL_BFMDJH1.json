@@ -5,9 +5,9 @@
  "ticker": null,
  "sector": "Property - Rest of World",
  "liveness": {
-  "status": "live",
-  "reason": "nav_119d_old",
-  "source": "own_nav_announcement",
+  "status": "live_stale_nav",
+  "reason": "periodic_report_179d_old_no_recent_nav",
+  "source": "own_periodic_report",
   "last_nav": "2026-06-26",
   "last_announcement": "2026-08-19"
  },
@@ -17,7 +17,7 @@
   "anchor_source": "own_nav_history:2026-03-31",
   "estimate": 65.8,
   "basis": 3.0,
-  "staleness_days": 148.0,
+  "staleness_days": 149.0,
   "staleness_limit_days": 45.0,
   "current": false,
   "unit": "GBX",
@@ -27,7 +27,7 @@
  "price": {
   "price": 0.28999999165534973,
   "ccy": "GBp",
-  "date": "2026-10-22",
+  "date": "2026-10-23",
   "source": "yahoo:CBA.L"
  },
  "discount": {
@@ -91,5 +91,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-10-23T22:32:18+00:00"
+ "updated_at": "2026-10-26T21:30:34+00:00"
 }

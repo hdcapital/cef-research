@@ -6,7 +6,7 @@
  "sector": "Property - Debt",
  "liveness": {
   "status": "live",
-  "reason": "nav_53d_old",
+  "reason": "nav_56d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-08-31",
   "last_announcement": "2026-09-22"
@@ -17,7 +17,7 @@
   "anchor_source": "investegate_fs:9783260",
   "estimate": 138.8,
   "basis": 0.0,
-  "staleness_days": 39.0,
+  "staleness_days": 40.0,
   "staleness_limit_days": 93.0,
   "current": true,
   "unit": "GBX",
@@ -25,29 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 113.5,
+  "price": 113.0,
   "ccy": "GBp",
-  "date": "2026-10-23",
+  "date": "2026-10-26",
   "source": "yahoo:RECI.L"
  },
  "discount": {
-  "estimate": -0.182277,
-  "z": -1.2119,
+  "estimate": -0.185879,
+  "z": -1.3338,
   "z_status": "within_error_band",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.149207,
-  "sigma_36m": 0.027288,
+  "mu_36m": -0.149307,
+  "sigma_36m": 0.027419,
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0284,
-  "discount_only": 0.0115,
+  "central": 0.0275,
+  "discount_only": 0.0106,
   "g_used": 0.0167,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-23T22:32:19+00:00"
+ "updated_at": "2026-10-26T21:30:35+00:00"
 }

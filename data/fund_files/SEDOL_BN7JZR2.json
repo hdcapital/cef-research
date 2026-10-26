@@ -6,16 +6,16 @@
  "sector": "Growth Capital",
  "liveness": {
   "status": "live",
-  "reason": "nav_1d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-22",
+  "last_nav": "2026-10-23",
   "last_announcement": "2026-10-23"
  },
  "nav": {
-  "anchor": 106.79,
-  "anchor_date": "2026-10-23",
-  "anchor_source": "investegate:9839044",
-  "estimate": 106.79,
+  "anchor": 106.75,
+  "anchor_date": "2026-10-26",
+  "anchor_source": "investegate:9841710",
+  "estimate": 106.75,
   "basis": 0.0,
   "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 65.5,
+  "price": 62.25,
   "ccy": "GBp",
-  "date": "2026-10-23",
+  "date": "2026-10-26",
   "source": "yahoo:SBO.L"
  },
  "discount": {
-  "estimate": -0.386647,
-  "z": -1.2892,
+  "estimate": -0.416862,
+  "z": -2.0166,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0148,
-  "discount_only": 0.0305,
+  "central": 0.0058,
+  "discount_only": 0.0208,
   "g_used": -0.0431,
   "g_source": "panel_tr_cagr"
  },
@@ -104,5 +104,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-10-23T22:32:19+00:00"
+ "updated_at": "2026-10-26T21:30:35+00:00"
 }

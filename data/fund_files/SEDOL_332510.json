@@ -6,16 +6,16 @@
  "sector": "UK All Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_0d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-23",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 472.98,
-  "anchor_date": "2026-10-23",
-  "anchor_source": "investegate:9837541",
-  "estimate": 472.98,
+  "anchor": 478.37,
+  "anchor_date": "2026-10-26",
+  "anchor_source": "investegate:9842210",
+  "estimate": 478.37,
   "basis": 0.0,
   "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 462.5,
+  "price": 468.0,
   "ccy": "GBp",
-  "date": "2026-10-23",
+  "date": "2026-10-26",
   "source": "yahoo:FSV.L"
  },
  "discount": {
-  "estimate": -0.022157,
-  "z": 0.7436,
+  "estimate": -0.021678,
+  "z": 0.7567,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,9 +41,9 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.107,
-  "discount_only": -0.0049,
-  "g_used": 0.0819,
+  "central": 0.0899,
+  "discount_only": -0.0074,
+  "g_used": 0.0671,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
@@ -70,5 +70,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-10-23T22:32:18+00:00"
+ "updated_at": "2026-10-26T21:30:34+00:00"
 }

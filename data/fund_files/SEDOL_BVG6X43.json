@@ -6,7 +6,7 @@
  "sector": "Debt - Direct Lending",
  "liveness": {
   "status": "live",
-  "reason": "nav_60d_old",
+  "reason": "nav_63d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-08-24",
   "last_announcement": "2026-09-28"
@@ -17,7 +17,7 @@
   "anchor_source": "own_nav_history:2026-06-30",
   "estimate": 20.6,
   "basis": 3.0,
-  "staleness_days": 83.0,
+  "staleness_days": 84.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -27,7 +27,7 @@
  "price": {
   "price": 12.550000190734863,
   "ccy": "GBp",
-  "date": "2026-10-23",
+  "date": "2026-10-26",
   "source": "yahoo:VSL.L"
  },
  "discount": {
@@ -48,17 +48,6 @@
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [
-  {
-   "date": "2026-07-27",
-   "class": "holdings_notification",
-   "weight": 0,
-   "direction": "neutral",
-   "headline": "Holding(s) in Company",
-   "url": "https://www.investegate.co.uk/announcement/rns/vpc-specialty-lending-investments--vsl/holding-s-in-company/9689656",
-   "alerted_at": null,
-   "terms": null
-  }
- ],
- "updated_at": "2026-10-23T22:32:19+00:00"
+ "events_90d": [],
+ "updated_at": "2026-10-26T21:30:35+00:00"
 }

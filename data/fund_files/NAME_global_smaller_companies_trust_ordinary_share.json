@@ -6,16 +6,16 @@
  "sector": "Global Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_1d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-22",
+  "last_nav": "2026-10-23",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 195.19,
-  "anchor_date": "2026-10-23",
-  "anchor_source": "investegate:9839401",
-  "estimate": 195.19,
+  "anchor": 194.03,
+  "anchor_date": "2026-10-26",
+  "anchor_source": "investegate:9841767",
+  "estimate": 194.03,
   "basis": 0.0,
   "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 184.60000610351562,
+  "price": 186.0,
   "ccy": "GBp",
-  "date": "2026-10-23",
+  "date": "2026-10-26",
   "source": "yahoo:GSCT.L"
  },
  "discount": {
-  "estimate": -0.054255,
-  "z": 1.4759,
+  "estimate": -0.041385,
+  "z": 1.8989,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0109,
-  "discount_only": -0.0113,
+  "central": 0.0101,
+  "discount_only": -0.0121,
   "g_used": 0.0038,
   "g_source": "own_nav_history"
  },
@@ -63,5 +63,5 @@
    }
   }
  ],
- "updated_at": "2026-10-23T22:32:19+00:00"
+ "updated_at": "2026-10-26T21:30:35+00:00"
 }

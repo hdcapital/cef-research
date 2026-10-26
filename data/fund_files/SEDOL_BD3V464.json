@@ -6,16 +6,16 @@
  "sector": "Infrastructure Securities",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_4d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-21",
+  "last_nav": "2026-10-22",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 255.82,
-  "anchor_date": "2026-10-22",
-  "anchor_source": "investegate:9839484",
-  "estimate": 255.82,
+  "anchor": 254.65,
+  "anchor_date": "2026-10-23",
+  "anchor_source": "investegate:9841643",
+  "estimate": 254.65,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -27,12 +27,12 @@
  "price": {
   "price": 257.0,
   "ccy": "GBp",
-  "date": "2026-10-23",
+  "date": "2026-10-26",
   "source": "yahoo:EGL.L"
  },
  "discount": {
-  "estimate": 0.004613,
-  "z": 2.0807,
+  "estimate": 0.009228,
+  "z": 2.1743,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0491,
-  "discount_only": -0.018,
+  "central": 0.05,
+  "discount_only": -0.0171,
   "g_used": 0.0683,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-23T22:32:18+00:00"
+ "updated_at": "2026-10-26T21:30:34+00:00"
 }

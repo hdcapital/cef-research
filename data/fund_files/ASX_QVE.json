@@ -6,7 +6,7 @@
  "sector": "Equity - Australia Small/Mid Cap",
  "liveness": {
   "status": "delisted",
-  "reason": "own_delisting_notice_829d",
+  "reason": "own_delisting_notice_832d",
   "source": "own_delisting_notice",
   "last_nav": "2024-07-02",
   "last_announcement": "2024-07-16"
@@ -15,9 +15,9 @@
   "anchor": 0.98,
   "anchor_date": "2024-06-30",
   "anchor_source": "own_nav_history:2024-06-30",
-  "estimate": 0.978525,
+  "estimate": 0.982747,
   "basis": 1.0,
-  "staleness_days": 604.0,
+  "staleness_days": 605.0,
   "staleness_limit_days": 45.0,
   "current": false,
   "unit": "AUD",
@@ -31,8 +31,8 @@
   "source": "aggregator_panel"
  },
  "discount": {
-  "estimate": -0.03937,
-  "z": 2.3544,
+  "estimate": -0.043498,
+  "z": 2.1673,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1154,
-  "discount_only": -0.0127,
+  "central": 0.1158,
+  "discount_only": -0.0123,
   "g_used": 0.0815,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-23T22:32:18+00:00"
+ "updated_at": "2026-10-26T21:30:34+00:00"
 }

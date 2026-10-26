@@ -6,16 +6,16 @@
  "sector": "North America",
  "liveness": {
   "status": "live",
-  "reason": "nav_1d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-22",
+  "last_nav": "2026-10-23",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 391.03,
-  "anchor_date": "2026-10-23",
-  "anchor_source": "investegate:9838994",
-  "estimate": 391.03,
+  "anchor": 389.99,
+  "anchor_date": "2026-10-26",
+  "anchor_source": "investegate:9841651",
+  "estimate": 389.99,
   "basis": 0.0,
   "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
@@ -25,35 +25,28 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 360.5,
+  "price": 362.0,
   "ccy": "GBp",
-  "date": "2026-10-23",
+  "date": "2026-10-26",
   "source": "yahoo:USA.L"
  },
  "discount": {
-  "estimate": -0.078076,
-  "z": 0.2441,
-  "z_status": "within_error_band",
+  "estimate": -0.071771,
+  "z": 0.3577,
+  "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.091626,
   "sigma_36m": 0.055511,
-  "alert_eligible": false
+  "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1376,
-  "discount_only": -0.0009,
+  "central": 0.132,
+  "discount_only": -0.0065,
   "g_used": 0.0572,
   "g_source": "panel_tr_cagr"
  },
- "holder_churn": {
-  "filings": 4,
-  "sellers": 0,
-  "buyers": 0,
-  "largest_move": null,
-  "holder": null,
-  "direction": "churn"
- },
+ "holder_churn": null,
  "realisations": null,
  "events_90d": [
   {
@@ -151,5 +144,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-10-23T22:32:18+00:00"
+ "updated_at": "2026-10-26T21:30:34+00:00"
 }

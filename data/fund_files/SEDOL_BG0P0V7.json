@@ -6,7 +6,7 @@
  "sector": "Renewable Energy Infrastructure",
  "liveness": {
   "status": "live",
-  "reason": "nav_115d_old",
+  "reason": "nav_118d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-06-30",
   "last_announcement": "2026-10-12"
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9771592",
   "estimate": 71.94,
   "basis": 0.0,
-  "staleness_days": 83.0,
+  "staleness_days": 84.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 48.70000076293945,
+  "price": 49.099998474121094,
   "ccy": "GBp",
-  "date": "2026-10-23",
+  "date": "2026-10-26",
   "source": "yahoo:GSF.L"
  },
  "discount": {
-  "estimate": -0.323047,
-  "z": 1.3375,
+  "estimate": -0.317487,
+  "z": 1.4108,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.416051,
-  "sigma_36m": 0.069537,
+  "mu_36m": -0.415896,
+  "sigma_36m": 0.069756,
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0426,
-  "discount_only": -0.0118,
+  "central": 0.0468,
+  "discount_only": -0.0078,
   "g_used": 0.055,
   "g_source": "market_median"
  },
@@ -196,17 +196,7 @@
    "url": "https://www.investegate.co.uk/announcement/rns/gore-street-energy-storage-fund--gsf/holding-s-in-company/9704292",
    "alerted_at": null,
    "terms": null
-  },
-  {
-   "date": "2026-07-27",
-   "class": "holdings_notification",
-   "weight": 0,
-   "direction": "neutral",
-   "headline": "Holding(s) in Company",
-   "url": "https://www.investegate.co.uk/announcement/rns/gore-street-energy-storage-fund--gsf/holding-s-in-company/9688862",
-   "alerted_at": null,
-   "terms": null
   }
  ],
- "updated_at": "2026-10-23T22:32:18+00:00"
+ "updated_at": "2026-10-26T21:30:34+00:00"
 }

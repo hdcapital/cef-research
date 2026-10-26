@@ -6,16 +6,16 @@
  "sector": "UK Equity Income",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_4d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-21",
+  "last_nav": "2026-10-22",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 456.01,
-  "anchor_date": "2026-10-22",
-  "anchor_source": "investegate:9839326",
-  "estimate": 456.01,
+  "anchor": 456.34,
+  "anchor_date": "2026-10-23",
+  "anchor_source": "investegate:9841716",
+  "estimate": 456.34,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 439.0,
+  "price": 443.0,
   "ccy": "GBp",
-  "date": "2026-10-23",
+  "date": "2026-10-26",
   "source": "yahoo:AEI.L"
  },
  "discount": {
-  "estimate": -0.037302,
-  "z": -0.6191,
+  "estimate": -0.029233,
+  "z": -0.3559,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0668,
-  "discount_only": 0.0024,
+  "central": 0.067,
+  "discount_only": 0.0025,
   "g_used": 0.025,
   "g_source": "panel_tr_cagr"
  },
@@ -118,17 +118,7 @@
    "url": "https://www.investegate.co.uk/announcement/rns/aberdeen-equity-income-trust--aei/issue-of-equity/9692103",
    "alerted_at": null,
    "terms": null
-  },
-  {
-   "date": "2026-07-27",
-   "class": "issuance",
-   "weight": 0,
-   "direction": "neutral",
-   "headline": "Issue of Equity",
-   "url": "https://www.investegate.co.uk/announcement/rns/aberdeen-equity-income-trust--aei/issue-of-equity/9689671",
-   "alerted_at": null,
-   "terms": null
   }
  ],
- "updated_at": "2026-10-23T22:32:18+00:00"
+ "updated_at": "2026-10-26T21:30:34+00:00"
 }

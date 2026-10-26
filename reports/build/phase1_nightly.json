@@ -4,13 +4,13 @@
   "rows_without_nav": 328,
   "basis_counts": {
     "nan": 328,
-    "3.0": 308,
-    "0.0": 272,
+    "3.0": 305,
+    "0.0": 275,
     "1.0": 208
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 155,
+  "alert_eligible": 167,
   "z_extremes": [
     {
       "security_id": "SEDOL:3115202",
@@ -37,21 +37,27 @@
       "staleness_days": 1291.0
     },
     {
+      "security_id": "SEDOL:BK1WV90",
+      "z_adj": -51.2503,
+      "discount_est": -0.993314,
+      "staleness_days": 18.0
+    },
+    {
       "security_id": "SEDOL:BDHXP96",
-      "z_adj": -44.2287,
-      "discount_est": -0.722579,
-      "staleness_days": 1.0
+      "z_adj": -43.9899,
+      "discount_est": -0.71878,
+      "staleness_days": 0.0
     },
     {
       "security_id": "SEDOL:BRC8992",
-      "z_adj": -40.798,
-      "discount_est": -0.990561,
-      "staleness_days": 5.0
+      "z_adj": -40.7968,
+      "discount_est": -0.990533,
+      "staleness_days": 0.0
     },
     {
       "security_id": "ASX:GCI",
-      "z_adj": -38.5395,
-      "discount_est": -0.908711,
+      "z_adj": -38.538,
+      "discount_est": -0.908674,
       "staleness_days": 2.0
     },
     {
@@ -62,15 +68,9 @@
     },
     {
       "security_id": "SEDOL:B1G3N11",
-      "z_adj": -36.1536,
-      "discount_est": -0.885915,
-      "staleness_days": 2.0
-    },
-    {
-      "security_id": "ASX:ALR",
-      "z_adj": -33.3948,
-      "discount_est": -0.975581,
-      "staleness_days": 2258.0
+      "z_adj": -36.1704,
+      "discount_est": -0.886281,
+      "staleness_days": 1.0
     }
   ],
   "date": "2026-10-26",
@@ -83,7 +83,7 @@
       "live_prices": 99
     },
     "uk_identity_blocked": 337,
-    "uk_nav_targets": 308,
+    "uk_nav_targets": 307,
     "uk_registry_only_targets": 111,
     "uk_aux_z_history_funds": 255,
     "uk_fx_pairs": [
@@ -96,18 +96,18 @@
       "agreement_rate_pairs": 0.9693
     },
     "uk": {
-      "tier0_navs": 228,
+      "tier0_navs": 231,
       "nav_publishers_found": 349,
       "daily_weekly": 201
     }
   },
   "catalysts": {
-    "catalysts": 41,
-    "funds": 25,
+    "catalysts": 43,
+    "funds": 27,
     "by_class": {
       "substantial_holder": 15,
-      "realisation": 12,
-      "tender_offer": 5,
+      "realisation": 13,
+      "tender_offer": 6,
       "discount_control": 3,
       "manager_change": 2,
       "scheme_merger_rollover": 2,
@@ -116,43 +116,43 @@
     }
   },
   "events": {
-    "events_total": 734,
-    "events_30d": 199,
-    "funds_30d": 100,
+    "events_total": 744,
+    "events_30d": 209,
+    "funds_30d": 104,
     "by_direction_30d": {
-      "neutral": 160,
-      "positive": 38,
+      "neutral": 168,
+      "positive": 40,
       "negative": 1
     },
     "by_class_30d": {
-      "issuance": 86,
-      "holdings_notification": 68,
+      "issuance": 91,
+      "holdings_notification": 71,
       "substantial_holder": 15,
-      "realisation": 10,
+      "realisation": 11,
+      "tender_offer": 6,
       "portfolio_holding": 6,
-      "tender_offer": 5,
       "discount_control": 3,
       "manager_change": 2,
       "scheme_merger_rollover": 2,
       "strategic_review": 1,
       "legal_sanctions": 1
     },
-    "unalerted": 624,
-    "holdings_with_terms": 67,
+    "unalerted": 634,
+    "holdings_with_terms": 70,
     "tr1": {
-      "candidates": 0,
-      "fetched": 0,
-      "parsed": 0,
+      "candidates": 3,
+      "fetched": 3,
+      "parsed": 3,
       "failed": 0
     },
     "realisations": {
-      "candidates": 0,
-      "fetched": 0,
-      "parsed": 0,
+      "candidates": 1,
+      "fetched": 1,
+      "parsed": 1,
       "failed": 0
     },
     "terms": {
-      "candidates": 33,
+      "candidates": 34,
       "read": 3,
       "accepted": 0,
       "rejected": 0,
@@ -173,13 +173,13 @@
       "stale_panel_price_only": 217,
       "nav_not_positive": 180,
       "no_price": 39,
-      "nav_jump_N_vs_prior": 9,
+      "nav_jump_N_vs_prior": 10,
       "unit_suspect_scale": 9,
-      "nav_jump_N_vs_own": 5,
-      "nav_unit_mismatch_N_vs_prior": 4
+      "nav_unit_mismatch_N_vs_prior": 4,
+      "nav_jump_N_vs_own": 4
     }
   },
-  "snapshot": "s3_uploaded:nta_live/2026-10-26.parquet",
+  "snapshot": "s3_exists_not_overwritten:nta_live/2026-10-26.parquet",
   "live_history": {
     "rows": 56916,
     "days": 51
