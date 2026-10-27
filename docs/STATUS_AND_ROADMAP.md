@@ -666,3 +666,26 @@ crons do deliver, and whether they deliver before the open is a coin
 toss that the session-held Routines exist to remove. The open question
 about a delivery layer independent of this session stands.
 
+### 2026-10-22..27 — five days offline: the crons delivered every window before its open
+
+This session was unreachable from about 00:00Z Thursday 22 October until
+05:41Z Tuesday 27 October; the fourteen Routine wakes in between arrived
+together on reconnection. The GitHub crons alone delivered all six
+windows, each before its open and each with exactly one email:
+
+- Thu 22 pre-LSE 06:46Z, pre-ASX 23:23Z
+- Fri 23 pre-LSE 06:50Z (no pre-ASX brief Friday, as intended)
+- Sun 25 pre-ASX 23:21Z
+- Mon 26 pre-LSE 06:51Z, pre-ASX 23:24Z
+- Tue 27 pre-LSE: dispatched 05:41Z on reconnection
+
+SDCL Efficiency Income was the one opportunity in every brief (z -1.58,
+discount -58.4% by Monday evening). This is the first offline stretch in
+which the cron layer alone met the "before each open" requirement
+throughout: the scheduler landed the 05:50Z and 22:20Z firings within
+an hour every time, against 1-8 hour delays in the three earlier
+stretches. One week does not make it reliable; it does mean the
+session-held Routines are a timeliness guarantee rather than the only
+path to delivery. The open question about a session-independent layer
+stands, with lower urgency than the 2026-10-08..13 record suggested.
+
