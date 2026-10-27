@@ -6,16 +6,16 @@
  "sector": "Debt - Loans & Bonds",
  "liveness": {
   "status": "live",
-  "reason": "nav_3d_old",
+  "reason": "nav_1d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-23",
+  "last_nav": "2026-10-26",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 161.25,
-  "anchor_date": "2026-10-26",
-  "anchor_source": "investegate:9841621",
-  "estimate": 161.25,
+  "anchor": 161.35,
+  "anchor_date": "2026-10-27",
+  "anchor_source": "investegate:9843704",
+  "estimate": 161.35,
   "basis": 0.0,
   "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 163.5,
+  "price": 164.0,
   "ccy": "GBp",
-  "date": "2026-10-26",
+  "date": "2026-10-27",
   "source": "yahoo:BIPS.L"
  },
  "discount": {
-  "estimate": 0.013953,
-  "z": -0.1037,
+  "estimate": 0.016424,
+  "z": 0.3751,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0989,
-  "discount_only": 0.0002,
+  "central": 0.0986,
+  "discount_only": -0.0001,
   "g_used": 0.0387,
   "g_source": "panel_tr_cagr"
  },
@@ -350,5 +350,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-10-26T22:23:05+00:00"
+ "updated_at": "2026-10-27T21:30:18+00:00"
 }

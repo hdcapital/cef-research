@@ -6,16 +6,16 @@
  "sector": "Europe",
  "liveness": {
   "status": "live",
-  "reason": "nav_3d_old",
+  "reason": "nav_1d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-23",
+  "last_nav": "2026-10-26",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 135.35,
-  "anchor_date": "2026-10-26",
-  "anchor_source": "investegate:9841652",
-  "estimate": 135.35,
+  "anchor": 138.0,
+  "anchor_date": "2026-10-27",
+  "anchor_source": "investegate:9843886",
+  "estimate": 138.0,
   "basis": 0.0,
   "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 123.0,
+  "price": 125.0,
   "ccy": "GBp",
-  "date": "2026-10-26",
+  "date": "2026-10-27",
   "source": "yahoo:BGEU.L"
  },
  "discount": {
-  "estimate": -0.091245,
-  "z": 0.6049,
+  "estimate": -0.094203,
+  "z": 0.5195,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,14 +41,26 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.3214,
-  "discount_only": -0.0045,
+  "central": 0.3173,
+  "discount_only": -0.0092,
   "g_used": -0.0275,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-10-27",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/baillie-gifford-european-growth-trust--bgeu/holding-s-in-company/9843554",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Allspring Global Investments Holdings, LLC"
+   }
+  },
   {
    "date": "2026-09-15",
    "class": "holdings_notification",
@@ -98,5 +110,5 @@
    }
   }
  ],
- "updated_at": "2026-10-26T22:23:04+00:00"
+ "updated_at": "2026-10-27T21:30:17+00:00"
 }

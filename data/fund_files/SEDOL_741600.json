@@ -6,16 +6,16 @@
  "sector": "UK Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_3d_old",
+  "reason": "nav_1d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-23",
+  "last_nav": "2026-10-26",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 379.5,
-  "anchor_date": "2026-10-26",
-  "anchor_source": "investegate:9841575",
-  "estimate": 379.5,
+  "anchor": 384.24,
+  "anchor_date": "2026-10-27",
+  "anchor_source": "investegate:9843600",
+  "estimate": 384.24,
   "basis": 0.0,
   "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 354.0,
+  "price": 357.0,
   "ccy": "GBp",
-  "date": "2026-10-26",
+  "date": "2026-10-27",
   "source": "yahoo:JUGI.L"
  },
  "discount": {
-  "estimate": -0.067194,
-  "z": 0.7414,
+  "estimate": -0.070893,
+  "z": 0.6309,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0117,
-  "discount_only": -0.006,
+  "central": 0.0095,
+  "discount_only": -0.0081,
   "g_used": -0.0062,
   "g_source": "panel_tr_cagr"
  },
@@ -61,17 +61,7 @@
     "llm": "error",
     "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
    }
-  },
-  {
-   "date": "2026-07-28",
-   "class": "holdings_notification",
-   "weight": 0,
-   "direction": "neutral",
-   "headline": "Holding(s) in Company",
-   "url": "https://www.investegate.co.uk/announcement/rns/jpmorgan-uk-small-cap-growth-income--jugi/holding-s-in-company/9692027",
-   "alerted_at": null,
-   "terms": null
   }
  ],
- "updated_at": "2026-10-26T22:23:05+00:00"
+ "updated_at": "2026-10-27T21:30:18+00:00"
 }
