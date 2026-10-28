@@ -6,7 +6,7 @@
  "sector": "Debt - Loans & Bonds",
  "liveness": {
   "status": "live",
-  "reason": "nav_5d_old",
+  "reason": "nav_6d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-22",
   "last_announcement": "2026-10-22"
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9837338",
   "estimate": 81.06,
   "basis": 0.0,
-  "staleness_days": 3.0,
+  "staleness_days": 4.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 81.0999984741211,
+  "price": 81.5999984741211,
   "ccy": "GBp",
-  "date": "2026-10-27",
+  "date": "2026-10-28",
   "source": "yahoo:SMIF.L"
  },
  "discount": {
-  "estimate": 0.000493,
-  "z": -1.1725,
-  "z_status": "computed",
+  "estimate": 0.006662,
+  "z": -0.719,
+  "z_status": "within_error_band",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": 0.015687,
-  "sigma_36m": 0.012958,
-  "alert_eligible": true
+  "mu_36m": 0.015858,
+  "sigma_36m": 0.012791,
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.039,
-  "discount_only": 0.0072,
+  "central": 0.0349,
+  "discount_only": 0.0032,
   "g_used": 0.0315,
   "g_source": "own_nav_history"
  },
@@ -140,5 +140,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-10-27T22:25:13+00:00"
+ "updated_at": "2026-10-28T21:26:59+00:00"
 }

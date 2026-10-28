@@ -4,13 +4,13 @@
   "rows_without_nav": 328,
   "basis_counts": {
     "nan": 328,
-    "3.0": 306,
-    "0.0": 273,
+    "3.0": 305,
+    "0.0": 274,
     "1.0": 209
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 155,
+  "alert_eligible": 166,
   "z_extremes": [
     {
       "security_id": "SEDOL:3115202",
@@ -38,9 +38,9 @@
     },
     {
       "security_id": "SEDOL:BDHXP96",
-      "z_adj": -44.1015,
-      "discount_est": -0.720556,
-      "staleness_days": 1.0
+      "z_adj": -44.1727,
+      "discount_est": -0.721688,
+      "staleness_days": 0.0
     },
     {
       "security_id": "SEDOL:BRC8992",
@@ -50,8 +50,8 @@
     },
     {
       "security_id": "ASX:GCI",
-      "z_adj": -38.7236,
-      "discount_est": -0.913091,
+      "z_adj": -38.7215,
+      "discount_est": -0.913041,
       "staleness_days": 3.0
     },
     {
@@ -62,9 +62,9 @@
     },
     {
       "security_id": "SEDOL:B1G3N11",
-      "z_adj": -36.0873,
-      "discount_est": -0.884473,
-      "staleness_days": 2.0
+      "z_adj": -36.1533,
+      "discount_est": -0.885908,
+      "staleness_days": 1.0
     },
     {
       "security_id": "ASX:ALR",
@@ -96,17 +96,17 @@
       "agreement_rate_pairs": 0.9693
     },
     "uk": {
-      "tier0_navs": 232,
+      "tier0_navs": 234,
       "nav_publishers_found": 349,
       "daily_weekly": 201
     }
   },
   "catalysts": {
-    "catalysts": 43,
+    "catalysts": 45,
     "funds": 27,
     "by_class": {
+      "realisation": 15,
       "substantial_holder": 15,
-      "realisation": 13,
       "tender_offer": 6,
       "discount_control": 3,
       "manager_change": 2,
@@ -116,19 +116,19 @@
     }
   },
   "events": {
-    "events_total": 755,
-    "events_30d": 220,
-    "funds_30d": 108,
+    "events_total": 770,
+    "events_30d": 235,
+    "funds_30d": 111,
     "by_direction_30d": {
-      "neutral": 179,
-      "positive": 40,
+      "neutral": 192,
+      "positive": 42,
       "negative": 1
     },
     "by_class_30d": {
-      "issuance": 96,
-      "holdings_notification": 77,
+      "issuance": 103,
+      "holdings_notification": 83,
       "substantial_holder": 15,
-      "realisation": 11,
+      "realisation": 13,
       "tender_offer": 6,
       "portfolio_holding": 6,
       "discount_control": 3,
@@ -137,17 +137,17 @@
       "strategic_review": 1,
       "legal_sanctions": 1
     },
-    "unalerted": 644,
-    "holdings_with_terms": 76,
+    "unalerted": 659,
+    "holdings_with_terms": 82,
     "tr1": {
-      "candidates": 0,
-      "fetched": 0,
-      "parsed": 0,
+      "candidates": 6,
+      "fetched": 6,
+      "parsed": 6,
       "failed": 0
     },
     "realisations": {
-      "candidates": 0,
-      "fetched": 0,
+      "candidates": 2,
+      "fetched": 2,
       "parsed": 0,
       "failed": 0
     },
@@ -168,18 +168,18 @@
   },
   "carried_forward_rows": 0,
   "nav_quarantine": {
-    "rows": 462,
+    "rows": 461,
     "by_reason": {
       "stale_panel_price_only": 217,
       "nav_not_positive": 180,
       "no_price": 39,
       "nav_jump_N_vs_prior": 9,
       "unit_suspect_scale": 9,
-      "nav_jump_N_vs_own": 5,
+      "nav_jump_N_vs_own": 4,
       "nav_unit_mismatch_N_vs_prior": 3
     }
   },
-  "snapshot": "s3_uploaded:nta_live/2026-10-28.parquet",
+  "snapshot": "s3_exists_not_overwritten:nta_live/2026-10-28.parquet",
   "live_history": {
     "rows": 59148,
     "days": 53

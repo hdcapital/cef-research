@@ -6,16 +6,16 @@
  "sector": "Commodities & Natural Resources",
  "liveness": {
   "status": "live",
-  "reason": "nav_4d_old",
+  "reason": "nav_2d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-23",
+  "last_nav": "2026-10-26",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 48.44,
-  "anchor_date": "2026-10-26",
-  "anchor_source": "investegate:9844014",
-  "estimate": 48.44,
+  "anchor": 52.01,
+  "anchor_date": "2026-10-27",
+  "anchor_source": "investegate:9846412",
+  "estimate": 52.01,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 47.400001525878906,
+  "price": 47.0,
   "ccy": "GBp",
-  "date": "2026-10-27",
+  "date": "2026-10-28",
   "source": "yahoo:GCL.L"
  },
  "discount": {
-  "estimate": -0.02147,
-  "z": 1.9887,
+  "estimate": -0.096328,
+  "z": 0.9586,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1287,
-  "discount_only": -0.0186,
+  "central": 0.1228,
+  "discount_only": -0.0237,
   "g_used": 0.15,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-27T22:25:12+00:00"
+ "updated_at": "2026-10-28T21:26:58+00:00"
 }

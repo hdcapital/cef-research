@@ -6,16 +6,16 @@
  "sector": "Global Emerging Markets",
  "liveness": {
   "status": "live",
-  "reason": "nav_4d_old",
+  "reason": "nav_2d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-23",
+  "last_nav": "2026-10-26",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 902.22,
-  "anchor_date": "2026-10-26",
-  "anchor_source": "investegate:9843553",
-  "estimate": 902.22,
+  "anchor": 919.03,
+  "anchor_date": "2026-10-27",
+  "anchor_source": "investegate:9845936",
+  "estimate": 919.03,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -27,12 +27,12 @@
  "price": {
   "price": 805.0,
   "ccy": "GBp",
-  "date": "2026-10-27",
+  "date": "2026-10-28",
   "source": "yahoo:BEMO.L"
  },
  "discount": {
-  "estimate": -0.107756,
-  "z": 0.9864,
+  "estimate": -0.124076,
+  "z": 0.6857,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0217,
-  "discount_only": -0.0176,
+  "central": 0.0265,
+  "discount_only": -0.0126,
   "g_used": 0.012,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-27T22:25:12+00:00"
+ "updated_at": "2026-10-28T21:26:58+00:00"
 }

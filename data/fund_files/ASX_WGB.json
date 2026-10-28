@@ -6,7 +6,7 @@
  "sector": "Equity - Global",
  "liveness": {
   "status": "live",
-  "reason": "nav_16d_old",
+  "reason": "nav_17d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-11",
   "last_announcement": "2026-10-15"
@@ -17,7 +17,7 @@
   "anchor_source": "asx_ann:03151053",
   "estimate": 0.0953,
   "basis": 0.0,
-  "staleness_days": 11.0,
+  "staleness_days": 12.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "AUD",
@@ -25,14 +25,14 @@
   "quality_reason": "nav_jump_96%_vs_prior"
  },
  "price": {
-  "price": 2.0,
+  "price": 2.0399999618530273,
   "ccy": "AUD",
-  "date": "2026-10-27",
+  "date": "2026-10-28",
   "source": "yahoo:WGB.AX"
  },
  "discount": {
-  "estimate": 19.986359,
-  "z": 283.9028,
+  "estimate": 20.406086,
+  "z": 289.8435,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-27T22:25:11+00:00"
+ "updated_at": "2026-10-28T21:26:57+00:00"
 }

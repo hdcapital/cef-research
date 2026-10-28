@@ -8,14 +8,14 @@
   "status": "live",
   "reason": "nav_1d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-26",
+  "last_nav": "2026-10-27",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 161.35,
-  "anchor_date": "2026-10-27",
-  "anchor_source": "investegate:9843704",
-  "estimate": 161.35,
+  "anchor": 161.62,
+  "anchor_date": "2026-10-28",
+  "anchor_source": "investegate:9846168",
+  "estimate": 161.62,
   "basis": 0.0,
   "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 164.0,
+  "price": 164.5,
   "ccy": "GBp",
-  "date": "2026-10-27",
+  "date": "2026-10-28",
   "source": "yahoo:BIPS.L"
  },
  "discount": {
-  "estimate": 0.016424,
-  "z": 0.3751,
+  "estimate": 0.01782,
+  "z": 0.6456,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,14 +41,24 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0986,
-  "discount_only": -0.0001,
+  "central": 0.0981,
+  "discount_only": -0.0006,
   "g_used": 0.0387,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-10-28",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/mfn/invesco-bond-income-plus-limited-npv--bips/issue-of-equity/9846647",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-10-15",
    "class": "issuance",
@@ -350,5 +360,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-10-27T22:25:12+00:00"
+ "updated_at": "2026-10-28T21:26:58+00:00"
 }

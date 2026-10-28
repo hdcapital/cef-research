@@ -6,7 +6,7 @@
  "sector": "Property Specialist",
  "liveness": {
   "status": "delist_candidate",
-  "reason": "filings_but_no_nav_or_report_0d",
+  "reason": "filings_but_no_nav_or_report_1d",
   "source": "own_announcement_only",
   "last_nav": null,
   "last_announcement": "2026-10-27"
@@ -17,7 +17,7 @@
   "anchor_source": "aggregator_panel:2018-03",
   "estimate": 90.79,
   "basis": 3.0,
-  "staleness_days": 2236.0,
+  "staleness_days": 2237.0,
   "staleness_limit_days": 45.0,
   "current": false,
   "unit": "GBX",
@@ -49,6 +49,21 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-10-28",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/alternative-income-reit--aire/holding-s-in-company/9846036",
+   "alerted_at": null,
+   "terms": {
+    "new_pct": 87.08,
+    "prev_pct": 24.73,
+    "holder": "Glenstone REIT plc",
+    "direction": "buying"
+   }
+  },
   {
    "date": "2026-09-24",
    "class": "holdings_notification",
@@ -98,5 +113,5 @@
    }
   }
  ],
- "updated_at": "2026-10-27T22:25:11+00:00"
+ "updated_at": "2026-10-28T21:26:57+00:00"
 }

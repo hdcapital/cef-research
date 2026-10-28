@@ -6,9 +6,9 @@
  "sector": "Hedge Funds",
  "liveness": {
   "status": "live",
-  "reason": "nav_5d_old",
+  "reason": "nav_1d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-22",
+  "last_nav": "2026-10-27",
   "last_announcement": "2026-10-27"
  },
  "nav": {
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9844300",
   "estimate": 445.0,
   "basis": 0.0,
-  "staleness_days": 0.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 419.5,
+  "price": 418.0,
   "ccy": "GBp",
-  "date": "2026-10-27",
+  "date": "2026-10-28",
   "source": "yahoo:BHMG.L"
  },
  "discount": {
-  "estimate": -0.057303,
-  "z": -0.3071,
+  "estimate": -0.060674,
+  "z": -0.3232,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.002403,
-  "sigma_36m": 0.178784,
+  "mu_36m": -0.002855,
+  "sigma_36m": 0.178914,
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0571,
-  "discount_only": 0.0172,
+  "central": 0.0587,
+  "discount_only": 0.0188,
   "g_used": 0.0392,
   "g_source": "own_nav_history"
  },
@@ -106,5 +106,5 @@
    }
   }
  ],
- "updated_at": "2026-10-27T22:25:11+00:00"
+ "updated_at": "2026-10-28T21:26:57+00:00"
 }
