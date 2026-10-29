@@ -1,10 +1,10 @@
 ticker,name,sector,is_vct,nav_route,currency,price_days,price_first,price_last,nav_first,nav_last,discount_days,fresh_days,median_nav_age,median_discount,last_discount,price_ccy,price_unit_status,nav_history_source,nav_frequency,median_gap_days,nav_obs
-3IN,3i Infrastructure,Infrastructure,False,registry,GBX,4963,2007-03-08,2026-10-28,2009-03-31,2026-05-12,4417,3278,141.0,0.26970600766936514,-0.0362783810463968,GBp,ok,committed,semiannual,182.0,25.0
+3IN,3i Infrastructure,Infrastructure,False,registry,GBX,4964,2007-03-08,2026-10-29,2009-03-31,2026-05-12,4418,3279,141.0,0.26970600766936514,-0.030108588351431376,GBp,ok,committed,semiannual,182.0,25.0
 AADV,Albion Development VCT,VCT,True,registry,GBX,4543,2007-01-02,2024-12-20,2006-12-31,2024-06-30,4501,2957,202.0,-0.03579088062767044,-0.9909425500212092,GBp,ok,committed,semiannual,157.0,28.0
-AAEV,Albion Enterprise VCT,VCT,True,registry,GBX,4942,2007-04-05,2026-10-27,2025-07-22,2026-07-14,0,0,77.0,,,GBp,unresolved_scale,committed,semiannual,178.5,3.0
-AAIF,Aberdeen Asian Income Fund,Asia Pacific Equity Income,False,registry,GBX,5010,2007-01-02,2026-10-28,2008-05-31,2026-10-26,4649,4428,1.0,-0.0738954273586726,-0.026268115942029047,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4071.0
+AAEV,Albion Enterprise VCT,VCT,True,registry,GBX,4943,2007-04-05,2026-10-28,2025-07-22,2026-07-14,0,0,77.0,,,GBp,unresolved_scale,committed,semiannual,178.5,3.0
+AAIF,Aberdeen Asian Income Fund,Asia Pacific Equity Income,False,registry,GBX,5011,2007-01-02,2026-10-29,2008-05-31,2026-10-27,4650,4429,1.0,-0.07387381355473166,-0.051390973841387355,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4072.0
 AAM,Artemis VCT,VCT AIM Quoted,True,registry,GBX,0,,,,,0,0,,,,,,,,,
-AAS,Aberdeen Asia Focus,Asia Pacific Smaller Companies,False,registry,GBX,5010,2007-01-02,2026-10-28,2008-05-31,2026-10-26,4649,4251,1.0,-0.1201997384377601,-0.05321580150179561,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,3843.0
+AAS,Aberdeen Asia Focus,Asia Pacific Smaller Companies,False,registry,GBX,5011,2007-01-02,2026-10-29,2008-05-31,2026-10-27,4650,4252,1.0,-0.12019705141936277,-0.07162951742047186,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,3844.0
 AATG,Albion Technology & General VCT,VCT,True,registry,GBX,5010,2007-01-02,2026-10-28,2025-12-31,2025-12-31,155,0,191.0,-0.0736812332060528,-0.08075236883043413,GBp,ok,committed,single_observation,,1.0
 ABD,abrdn New Dawn Investment Trust,Asia Pacific,False,registry,GBX,4259,2007-01-02,2023-11-08,2008-05-31,2023-11-02,3898,3690,1.0,-0.11499198713308922,-0.16933142556575265,GBp,rescaled_x100,committed,daily,1.0,3361.0
 ACD,AcenciA Debt Strategies,Hedge Funds,False,announcements_only,,2721,2007-01-03,2018-05-02,,,0,0,,,,,unresolved_no_nav_no_currency,,,,
@@ -12,128 +12,128 @@ ACI,Alternative Credit Investments,Debt - Direct Lending,False,announcements_onl
 ACIC,abrdn China Investment Company,China / Greater China,False,registry,GBX,0,,,,,0,0,,,,,,,daily,1.0,2745.0
 ADAM,Adamas Finance Asia,Growth Capital,False,announcements_only,GBX,4272,2009-10-19,2026-09-16,,,0,0,,,,GBp,assumed_from_currency,,,,
 ADIG,abrdn Diversified Income and Growth,Flexible Investment,False,registry,GBX,1,2026-04-10,2026-04-10,2025-12-31,2025-12-31,1,0,100.0,-0.9948514189465416,-0.9948514189465416,GBp,assumed_from_currency_thin_overlap,committed,daily,1.0,4118.0
-AEET,Parvus Energy Efficiency Trust,Renewable Energy Infrastructure,False,announcements_only,GBX,1367,2021-06-02,2026-10-28,2023-06-30,2026-06-30,814,814,177.0,-0.43246311010215666,-0.4912118408880666,GBp,ok,committed+s3_archive,semiannual,183.5,7.0
+AEET,Parvus Energy Efficiency Trust,Renewable Energy Infrastructure,False,announcements_only,GBX,1368,2021-06-02,2026-10-29,2023-06-30,2026-06-30,815,815,177.0,-0.43246311010215666,-0.4912118408880666,GBp,ok,committed+s3_archive,semiannual,183.5,7.0
 AEFS,Alcentra European Floating Rate Income,Debt - Loans & Bonds,False,announcements_only,GBX,0,,,,,0,0,,,,,,,,,
-AEI,Aberdeen Equity Income Trust,UK Equity Income,False,registry,GBX,5010,2007-01-02,2026-10-28,2009-03-02,2026-10-26,4459,4254,1.0,-0.04542546385156754,-0.02506963788300831,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4044.0
+AEI,Aberdeen Equity Income Trust,UK Equity Income,False,registry,GBX,5011,2007-01-02,2026-10-29,2009-03-02,2026-10-27,4460,4255,1.0,-0.045414892935111306,-0.01997001238618834,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4045.0
 AEIT,Thomas Lloyd Energy Impact Trust,Renewable Energy Infrastructure,False,announcements_only,,0,,,,,0,0,,,,,,,,,
-AERI,Aquila European Renewables,Renewable Energy Infrastructure,False,announcements_only,GBX,1870,2019-06-05,2026-10-27,,,0,0,,,,EUR,unresolved_no_nav_no_currency,,,,
+AERI,Aquila European Renewables,Renewable Energy Infrastructure,False,announcements_only,GBX,1872,2019-06-05,2026-10-29,,,0,0,,,,EUR,unresolved_no_nav_no_currency,,,,
 AEWL,AEW UK Long Lease REIT,Property Specialist,False,registry,,0,,,,,0,0,,,,,,,,,
-AEWU,AEW UK REIT,Property - UK Commercial,False,registry,GBX,2899,2015-05-12,2026-10-28,2015-07-31,2025-09-30,2830,2773,71.0,-0.014504649194961194,-0.050325433365834726,GBp,ok,committed+s3_archive,quarterly,104.0,53.0
-AFL,Artemis UK Future Leaders,UK Smaller Companies,False,registry,GBX,5010,2007-01-02,2026-10-28,2011-08-23,2026-10-26,3836,3836,0.0,-0.11153647307705655,-0.12613066427210406,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,3657.0
+AEWU,AEW UK REIT,Property - UK Commercial,False,registry,GBX,2900,2015-05-12,2026-10-29,2015-07-31,2025-09-30,2831,2773,71.0,-0.014504649194961194,-0.05765878584876882,GBp,ok,committed+s3_archive,quarterly,104.0,53.0
+AFL,Artemis UK Future Leaders,UK Smaller Companies,False,registry,GBX,5011,2007-01-02,2026-10-29,2011-08-23,2026-10-27,3837,3837,0.0,-0.11155889357025095,-0.13509867490589433,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,3658.0
 AFMC,Aberdeen Frontier Markets,Global Emerging Markets,False,registry,GBX,0,,,,,0,0,,,,,,,,,
 AGIT,Aberforth Geared Income,Split Capital Trust,False,registry,GBP,0,,,,,0,0,,,,,,,,,
 AGOL,Ashmore Global Opportunities USD,Global Emerging Markets,False,announcements_only,,0,,,,,0,0,,,,,,,,,
 AGOU,Ashmore Global Opportunities,Global Emerging Markets,False,announcements_only,GBX,0,,,,,0,0,,,,,,,,,
-AGT,AVI Global Trust,Global,False,registry,GBX,5010,2007-01-02,2026-10-28,2008-05-16,2026-10-27,4663,4295,0.0,-0.10072492575412195,-0.06027704979408466,GBp,ok,committed+s3_snapshot,daily,1.0,4242.0
-AGVI,Aberforth Geared Value & Income Trust,UK Smaller Companies,False,registry,GBX,591,2024-07-01,2026-10-28,2024-07-01,2026-10-26,590,590,1.0,-0.12271762253711938,-0.14437269372693728,GBp,ok,committed,daily,1.0,588.0
-AIC,Achilles Investment Company,Flexible Investment,False,announcements_only,,423,2025-02-25,2026-10-27,2025-02-28,2026-09-30,412,412,21.0,-0.004849464538290604,-0.06500044951901474,GBp,ok,committed+s3_archive+s3_snapshot,monthly,29.0,23.0
-AIE,Ashoka India Equity,India / Indian Subcontinent,False,registry,GBX,2101,2018-07-06,2026-10-28,2018-08-02,2026-10-26,2081,2080,1.0,0.008064516129032251,-0.027175426729797558,GBp,ok,committed+s3_snapshot,daily,1.0,2086.0
+AGT,AVI Global Trust,Global,False,registry,GBX,5011,2007-01-02,2026-10-29,2008-05-16,2026-10-28,4664,4296,0.0,-0.10072217510727682,-0.06908469285369201,GBp,ok,committed+s3_snapshot,daily,1.0,4243.0
+AGVI,Aberforth Geared Value & Income Trust,UK Smaller Companies,False,registry,GBX,592,2024-07-01,2026-10-29,2024-07-01,2026-10-27,591,591,1.0,-0.12272382397572079,-0.15071879864481275,GBp,ok,committed,daily,1.0,589.0
+AIC,Achilles Investment Company,Flexible Investment,False,announcements_only,,424,2025-02-25,2026-10-28,2025-02-28,2026-09-30,413,413,21.0,-0.004849464538290604,-0.06050525937247153,GBp,ok,committed+s3_archive+s3_snapshot,monthly,29.0,23.0
+AIE,Ashoka India Equity,India / Indian Subcontinent,False,registry,GBX,2102,2018-07-06,2026-10-29,2018-08-02,2026-10-27,2082,2081,1.0,0.008033250558778238,-0.042273423087490714,GBp,ok,committed+s3_snapshot,daily,1.0,2087.0
 AIF,Acorn Income,UK Equity & Bond Income,False,registry,GBX,0,,,,,0,0,,,,,,,daily,3.0,1070.0
 AIFZ,Acorn Income,Split Capital Trust,False,registry,,0,,,,,0,0,,,,,,,,,
 AJIT,abrdn Japan Investment Trust,Japan,False,registry,GBX,0,,,,,0,0,,,,,,,daily,1.0,3316.0
-AJOT,AVI Japan Opportunity Trust,Japanese Smaller Companies,False,registry,GBX,2025,2018-10-23,2026-10-28,2018-10-23,2026-10-26,2024,2024,1.0,-0.008940162528977003,-0.032380128655603024,GBp,ok,committed+s3_snapshot,daily,1.0,2031.0
+AJOT,AVI Japan Opportunity Trust,Japanese Smaller Companies,False,registry,GBX,2026,2018-10-23,2026-10-29,2018-10-23,2026-10-27,2025,2025,1.0,-0.008992475683611723,-0.05401773716742819,GBp,ok,committed+s3_snapshot,daily,1.0,2032.0
 ALAI,abrdn Latin American Income,Latin America,False,registry,GBX,3240,2010-08-13,2023-06-14,2010-08-16,2023-06-08,3237,3237,1.0,-0.10714283976540973,96.85410930967578,GBp,rescaled_x100,committed,daily,1.0,3072.0
-ALF,Alternative Liquidity Fund,Hedge Funds,False,announcements_only,USD,2808,2015-09-17,2026-10-27,2015-12-31,2015-12-31,0,0,2000.5,,,USD,currency_mismatch,committed,daily,1.0,2.0
-ALW,Alliance Witan,Global,False,registry,GBX,5010,2007-01-02,2026-10-28,2006-12-29,2026-10-26,5010,3396,1.0,0.78,-0.9904143086704394,GBp,rescaled_x0.01,committed+s3_archive+s3_snapshot,daily,1.0,3071.0
-ANII,Aberdeen New India Investment Trust,India / Indian Subcontinent,False,registry,GBX,5010,2007-01-02,2026-10-28,2008-06-19,2026-10-26,4640,4372,1.0,-0.12937999301523762,-0.08988084278086128,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4060.0
+ALF,Alternative Liquidity Fund,Hedge Funds,False,announcements_only,USD,2809,2015-09-17,2026-10-28,2015-12-31,2015-12-31,0,0,2001.0,,,USD,currency_mismatch,committed,daily,1.0,2.0
+ALW,Alliance Witan,Global,False,registry,GBX,5011,2007-01-02,2026-10-29,2006-12-29,2026-10-27,5011,3397,1.0,0.78,-0.9904914158615417,GBp,rescaled_x0.01,committed+s3_archive+s3_snapshot,daily,1.0,3072.0
+ANII,Aberdeen New India Investment Trust,India / Indian Subcontinent,False,registry,GBX,5011,2007-01-02,2026-10-29,2008-06-19,2026-10-27,4641,4373,1.0,-0.12934747371833466,-0.09909909909909909,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4061.0
 ANW,Aberdeen New Thai,Country Specialist,False,registry,GBX,0,,,,,0,0,,,,,,,,,
 APEF,Aberdeen Private Equity,Private Equity,False,announcements_only,,32,2018-05-16,2018-06-29,,,0,0,,,,,unresolved_no_nav_no_currency,,,,
-API,abrdn Property Income Trust,Property - UK Commercial,False,announcements_only,GBX,5010,2007-01-02,2026-10-28,2006-09-30,2026-06-30,5005,4974,78.0,-0.03117359413202936,-0.4395973298373639,GBp,ok,s3_archive,adhoc,340.0,89.0
-ARR,Aurora UK Alpha,UK All Companies,False,registry,GBX,5010,2007-01-02,2026-10-28,2008-06-04,2026-10-26,4651,4373,1.0,-0.09710919941098972,-0.12490599576126349,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2916.0
+API,abrdn Property Income Trust,Property - UK Commercial,False,announcements_only,GBX,5011,2007-01-02,2026-10-29,2006-09-30,2026-06-30,5006,4975,78.0,-0.03126203822357099,-0.44630873283283823,GBp,ok,s3_archive,adhoc,340.0,89.0
+ARR,Aurora UK Alpha,UK All Companies,False,registry,GBX,5011,2007-01-02,2026-10-29,2008-06-04,2026-10-27,4652,4374,1.0,-0.09711373144202179,-0.12812478713984066,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2917.0
 ASCI,abrdn Smaller Companies Income,UK Smaller Companies,False,registry,GBX,4289,2007-01-02,2023-12-20,2006-12-31,2023-11-27,4288,3993,1.0,-0.14601731269446006,0.0507313500064801,GBp,rescaled_x100,committed,daily,1.0,3424.0
 ASIT,Aberforth Split Level Income,UK Smaller Companies,False,registry,GBX,0,,,,,0,0,,,,,,,daily,1.0,1747.0
 ASIZ,Aberforth Split Level Income,UK Smaller Companies,False,registry,GBX,0,,,,,0,0,,,,,,,,,
-ASL,Aberforth Smaller Companies,UK Smaller Companies,False,registry,GBX,5010,2007-01-02,2026-10-28,2006-12-31,2026-10-26,5010,5008,1.0,-0.1189954837826741,-0.08684138434846134,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,3900.0
-ASLI,abrdn European Logistics Income,Property - Europe,False,announcements_only,GBX,2239,2017-12-15,2026-10-28,2018-03-31,2026-06-30,2143,2143,101.0,-0.13400001525878902,-0.9951999999152289,GBp,rescaled_x0.01,s3_archive+s3_snapshot,quarterly,90.5,36.0
+ASL,Aberforth Smaller Companies,UK Smaller Companies,False,registry,GBX,5011,2007-01-02,2026-10-29,2006-12-31,2026-10-27,5011,5009,1.0,-0.1189954837826741,-0.0898455220495189,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,3901.0
+ASLI,abrdn European Logistics Income,Property - Europe,False,announcements_only,GBX,2240,2017-12-15,2026-10-29,2018-03-31,2026-06-30,2144,2144,101.0,-0.13499999999999995,-0.9951822221544053,GBp,rescaled_x0.01,committed+s3_archive+s3_snapshot,quarterly,90.5,36.0
 ATI,Amati VCT,VCT AIM Quoted,True,registry,GBP,0,,,,,0,0,,,,,,,,,
-ATR,Schroder Asian Total Return,Asia Pacific,False,registry,GBX,5010,2007-01-02,2026-10-28,2006-12-29,2026-10-27,5010,4882,0.0,-0.05801376570033712,-0.022490077906805794,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4670.0
+ATR,Schroder Asian Total Return,Asia Pacific,False,registry,GBX,5011,2007-01-02,2026-10-29,2006-12-29,2026-10-28,5011,4883,0.0,-0.05800927846716708,-0.056974459724950854,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4671.0
 ATS,Artemis Alpha Trust,UK All Companies,False,registry,GBX,4527,2007-01-02,2024-11-28,2006-12-29,2024-11-28,4527,4526,1.0,-0.10778658976207645,-0.09640766951539048,GBp,ok,committed,daily,1.0,4503.0
-ATT,Allianz Technology Trust,Technology & Technology Innovation,False,registry,GBX,5010,2007-01-02,2026-10-28,2006-12-29,2026-10-27,5010,4815,1.0,-0.07430526104668789,-0.05528985126399333,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4742.0
+ATT,Allianz Technology Trust,Technology & Technology Innovation,False,registry,GBX,5011,2007-01-02,2026-10-29,2006-12-29,2026-10-28,5011,4816,1.0,-0.07430612117035285,-0.10258393934705234,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4743.0
 ATY,Athelney Trust,UK Smaller Companies,False,registry,GBX,5010,2007-01-02,2026-10-28,2006-12-31,2026-09-30,5004,4845,20.0,-0.06976744186046502,-0.028822055137844527,GBp,ok,committed+s3_snapshot,monthly,29.0,223.0
-AUSC,Aberdeen UK Smaller Companies Growth,UK Smaller Companies,False,registry,GBX,5010,2007-01-02,2026-10-28,2008-10-27,2026-10-26,4549,4301,1.0,-0.08076534241959032,-0.05342757927764352,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4050.0
-AWEM,Ashoka WhiteOak Emerging Markets,Global Emerging Markets,False,announcements_only,,884,2023-05-03,2026-10-28,2023-05-03,2026-10-26,883,883,1.0,0.001750632172729194,-0.0003528166529460641,GBp,ok,committed+s3_snapshot,daily,1.0,882.0
+AUSC,Aberdeen UK Smaller Companies Growth,UK Smaller Companies,False,registry,GBX,5011,2007-01-02,2026-10-29,2008-10-27,2026-10-27,4550,4302,1.0,-0.08075073032553398,-0.05798109010011121,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4051.0
+AWEM,Ashoka WhiteOak Emerging Markets,Global Emerging Markets,False,announcements_only,,885,2023-05-03,2026-10-29,2023-05-03,2026-10-27,884,884,1.0,0.0017314804699262165,-0.005756148613291545,GBp,ok,committed+s3_snapshot,daily,1.0,883.0
 BABU,BlueCrest AllBlue USD,Hedge Funds,False,announcements_only,,0,,,,,0,0,,,,,,,,,
-BAF,British & American,Global Equity Income,False,announcements_only,GBX,5009,2007-01-02,2026-10-27,2007-01-04,2026-09-08,5007,5007,17.0,0.1811023622047243,-0.9915789475566462,GBp,ok,s3_archive+s3_snapshot,monthly,30.0,201.0
+BAF,British & American,Global Equity Income,False,announcements_only,GBX,5010,2007-01-02,2026-10-28,2007-01-04,2026-09-08,5008,5008,17.0,0.1811023622047243,-0.9915789475566462,GBp,ok,s3_archive+s3_snapshot,monthly,30.0,201.0
 BAIL,Bailiwick Investments,Flexible Investment,False,announcements_only,,0,,,,,0,0,,,,,,,,,
-BASC,Brown Advisory US Smaller Companies,North American Smaller Companies,False,registry,GBX,5010,2007-01-02,2026-10-28,2008-06-30,2026-10-27,4632,4632,0.0,-0.09327076199899548,-0.04073541685987203,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4626.0
+BASC,Brown Advisory US Smaller Companies,North American Smaller Companies,False,registry,GBX,5011,2007-01-02,2026-10-29,2008-06-30,2026-10-28,4633,4633,0.0,-0.09324974812493003,-0.03785770664454313,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4627.0
 BAV,Baronsmead VCT 5,VCT Generalist,True,registry,GBP,2495,2007-01-03,2016-12-01,,,0,0,,,,,unresolved_no_nav_no_currency,,,,
-BBOX,Tritax Big Box REIT,Property - UK Logistics,False,announcements_only,GBX,3256,2013-12-09,2026-10-28,2014-06-30,2020-06-30,3076,1719,349.0,0.04746526928151229,-0.062318392326495387,GBp,ok,committed+s3_archive,adhoc,364.0,10.0
+BBOX,Tritax Big Box REIT,Property - UK Logistics,False,announcements_only,GBX,3257,2013-12-09,2026-10-29,2014-06-30,2020-06-30,3077,1719,349.0,0.04746526928151229,-0.057152082660639314,GBp,ok,committed+s3_archive,adhoc,364.0,10.0
 BC12,Better Capital 2012,Private Equity,False,announcements_only,GBX,0,,,,,0,0,,,,,,,,,
 BCAI,Blue Capital Alternative Income,Sector Specialist: Insurance & Reinsurance Strategies,False,announcements_only,,50,2018-05-16,2018-07-26,,,0,0,,,,,unresolved_no_nav_no_currency,,,,
 BCAP,Better Capital 2009,Private Equity,False,announcements_only,GBX,0,,,,,0,0,,,,,,,,,
 BDV,Baronsmead VCT,VCT Generalist,True,registry,GBP,0,,,,,0,0,,,,,,,,,
 BEEP,BlackRock Emerging Europe,European Emerging Markets,False,registry,GBP,132,2018-05-16,2018-11-27,,,0,0,,,,,unresolved_no_nav_no_currency,,,,
-BEMO,Barings Emerging EMEA Opportunities,Global Emerging Markets,False,registry,GBX,5010,2007-01-02,2026-10-28,2021-12-09,2026-10-26,1231,1231,1.0,-0.16617033948779036,-0.10775642304537703,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,1227.0
-BERI,BlackRock Energy and Resources Income,Commodities & Natural Resources,False,registry,GBX,5010,2007-01-02,2026-10-28,2007-09-03,2026-10-26,4840,4840,1.0,-0.029963644723483007,-0.02907043548201771,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4688.0
-BFSP,Blackfinch Spring VCT,VCT,True,announcements_only,,1653,2020-04-09,2026-10-27,2024-12-31,2026-06-30,0,0,78.0,,,GBp,unresolved_dispersed,committed+s3_archive+s3_snapshot,quarterly,85.0,8.0
-BGCG,Baillie Gifford China Growth,China / Greater China,False,registry,GBX,5010,2007-01-02,2026-10-28,2007-01-02,2026-10-27,5010,5010,0.0,-0.11981282061241572,-0.09862317165780699,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4995.0
-BGEU,Baillie Gifford European Growth,Europe,False,registry,GBX,5010,2007-01-02,2026-10-28,2007-01-02,2026-10-27,5010,4998,1.0,-0.1060948086955032,-0.10144927536231885,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4968.0
-BGFD,Baillie Gifford Japan Trust,Japan,False,registry,GBX,5010,2007-01-02,2026-10-28,2007-01-02,2026-10-27,5010,5010,0.0,-0.06030089443818343,-0.09578001915427825,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,5012.0
+BEMO,Barings Emerging EMEA Opportunities,Global Emerging Markets,False,registry,GBX,5011,2007-01-02,2026-10-29,2021-12-09,2026-10-27,1232,1232,1.0,-0.16615628365201351,-0.10231439670086939,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,1228.0
+BERI,BlackRock Energy and Resources Income,Commodities & Natural Resources,False,registry,GBX,5011,2007-01-02,2026-10-29,2007-09-03,2026-10-27,4841,4841,1.0,-0.029990592177157716,-0.042156419529837286,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4689.0
+BFSP,Blackfinch Spring VCT,VCT,True,announcements_only,,1654,2020-04-09,2026-10-28,2024-12-31,2026-09-30,0,0,78.0,,,GBp,unresolved_dispersed,committed+s3_archive+s3_snapshot,quarterly,84.0,10.0
+BGCG,Baillie Gifford China Growth,China / Greater China,False,registry,GBX,5011,2007-01-02,2026-10-29,2007-01-02,2026-10-28,5011,5011,0.0,-0.11980824393885814,-0.11286839219855804,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4996.0
+BGEU,Baillie Gifford European Growth,Europe,False,registry,GBX,5011,2007-01-02,2026-10-29,2007-01-02,2026-10-28,5011,4999,1.0,-0.1061048641572474,-0.0980307603852234,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4969.0
+BGFD,Baillie Gifford Japan Trust,Japan,False,registry,GBX,5011,2007-01-02,2026-10-29,2007-01-02,2026-10-28,5011,5011,0.0,-0.06039794910390894,-0.10065602242341387,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,5013.0
 BGHL,Boussard & Gavaudan Holding,Hedge Funds,False,announcements_only,GBX,4507,2007-01-02,2024-10-31,,,0,0,,,,EUR,unresolved_no_nav_no_currency,,,,
 BGLC,Blackstone/GSO Loan Financing C shares,Debt - Structured Finance,False,announcements_only,GBX,0,,,,,0,0,,,,,,,,,
 BGLF,Blackstone Loan Financing,Debt - Structured Finance,False,announcements_only,GBX,2650,2014-07-23,2025-01-16,,,0,0,,,,EUR,unresolved_no_nav_no_currency,,,,
-BGS,Baillie Gifford Shin Nippon,Japanese Smaller Companies,False,registry,GBX,5010,2007-01-02,2026-10-28,2007-01-02,2026-10-27,5010,5010,0.0,-0.04555106565653816,-0.07670763899760613,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,5012.0
-BGUK,Baillie Gifford UK Growth,UK All Companies,False,registry,GBX,5010,2007-01-02,2026-10-28,2007-01-03,2026-10-27,5009,5009,0.0,-0.08438122723837005,-0.09768378650553877,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4888.0
+BGS,Baillie Gifford Shin Nippon,Japanese Smaller Companies,False,registry,GBX,5011,2007-01-02,2026-10-29,2007-01-02,2026-10-28,5011,5011,0.0,-0.04559576867849413,-0.09437559580552901,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,5013.0
+BGUK,Baillie Gifford UK Growth,UK All Companies,False,registry,GBX,5011,2007-01-02,2026-10-29,2007-01-03,2026-10-28,5010,5010,0.0,-0.08438806584848435,-0.09830481304853123,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4889.0
 BHGG,BH Global,Hedge Funds,False,announcements_only,GBX,0,,,,,0,0,,,,,,,,,
 BHGU,BH Global,Hedge Funds,False,announcements_only,GBX,0,,,,,0,0,,,,,,,,,
 BHME,BH Macro Euro,Hedge Funds,False,announcements_only,,0,,,,,0,0,,,,,,,,,
-BHMG,BH Macro,Hedge Funds,False,announcements_only,GBX,4962,2007-03-09,2026-10-28,2007-03-20,2026-10-27,4955,4266,2.0,-0.028169014084507005,-0.06067415730337078,GBp,ok,committed+s3_snapshot,daily,2.0,1135.0
-BHMU,BH Macro,Hedge Funds,False,announcements_only,GBX,4958,2007-03-14,2026-10-27,2023-11-14,2026-10-22,0,0,2.0,,,USD,currency_mismatch,committed+s3_archive+s3_snapshot,weekly,6.0,193.0
-BIOG,Biotech Growth Trust,Biotechnology & Healthcare,False,registry,GBX,5010,2007-01-02,2026-10-28,2006-12-29,2026-10-26,5010,5010,1.0,-0.06506422669377387,-0.05186569471449476,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4989.0
-BIPS,Invesco Bond Income Plus,Debt - Loans & Bonds,False,registry,GBX,5010,2007-01-02,2026-10-28,2012-04-03,2026-10-27,3680,3677,0.0,0.013428907202011064,0.01952277657266821,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,3477.0
+BHMG,BH Macro,Hedge Funds,False,announcements_only,GBX,4963,2007-03-09,2026-10-29,2007-03-20,2026-10-27,4956,4267,2.0,-0.028169014084507005,-0.059550561797752755,GBp,ok,committed+s3_snapshot,daily,2.0,1135.0
+BHMU,BH Macro,Hedge Funds,False,announcements_only,GBX,4960,2007-03-14,2026-10-29,2023-11-14,2026-10-27,0,0,2.0,,,USD,currency_mismatch,committed+s3_archive+s3_snapshot,weekly,6.0,193.0
+BIOG,Biotech Growth Trust,Biotechnology & Healthcare,False,registry,GBX,5011,2007-01-02,2026-10-29,2006-12-29,2026-10-27,5011,5011,1.0,-0.06506782841244851,-0.06163964000350031,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4990.0
+BIPS,Invesco Bond Income Plus,Debt - Loans & Bonds,False,registry,GBX,5011,2007-01-02,2026-10-29,2012-04-03,2026-10-28,3681,3678,0.0,0.013429495150460102,0.017819576785051305,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,3478.0
 BLP,Blue Planet Investment Trust,Global,False,registry,GBX,0,,,,,0,0,,,,,,,,,
-BMD,Baronsmead Second Venture Trust,VCT,True,registry,GBX,5009,2007-01-02,2026-10-27,2025-09-30,2026-08-31,252,252,25.0,-0.047354790972993,-0.046186863031602354,GBp,ok,committed+s3_snapshot,monthly,25.0,14.0
-BNKR,Bankers Investment Trust,Global,False,registry,GBX,5010,2007-01-02,2026-10-28,2006-12-29,2026-10-26,5010,4890,1.0,-0.061065445782403305,-0.034965015564158874,GBp,ok,committed+s3_snapshot,daily,1.0,4677.0
+BMD,Baronsmead Second Venture Trust,VCT,True,registry,GBX,5010,2007-01-02,2026-10-28,2025-09-30,2026-08-31,253,253,25.0,-0.047354790972993,-0.046186863031602354,GBp,ok,committed+s3_snapshot,monthly,25.0,14.0
+BNKR,Bankers Investment Trust,Global,False,registry,GBX,5011,2007-01-02,2026-10-29,2006-12-29,2026-10-27,5011,4891,1.0,-0.06106522078174026,-0.05025127545073993,GBp,ok,committed+s3_snapshot,daily,1.0,4678.0
 BNS,Baronsmead VCT 4,VCT Generalist,True,registry,GBP,0,,,,,0,0,,,,,,,,,
-BOOK,Literacy Capital,Private Equity,False,announcements_only,,1470,2021-01-04,2026-10-28,2021-06-30,2026-09-30,1326,1250,82.0,-0.03463451970914666,-0.36071032186459484,GBp,ok,committed+s3_snapshot,quarterly,74.5,24.0
+BOOK,Literacy Capital,Private Equity,False,announcements_only,,1471,2021-01-04,2026-10-29,2021-06-30,2026-09-30,1327,1251,82.0,-0.03463451970914666,-0.35405105438401774,GBp,ok,committed+s3_snapshot,quarterly,74.5,24.0
 BPC1,BioPharma Credit C shares,Sector Specialist: Debt,False,registry,,0,,,,,0,0,,,,,,,,,
-BPCR,BioPharma Credit,Debt - Direct Lending,False,registry,USD,2423,2017-03-27,2026-10-28,,,0,0,,,,USD,unresolved_no_nav_no_currency,,,,
-BRAI,BlackRock American Income,North America,False,registry,GBX,3541,2012-10-24,2026-10-28,2012-10-24,2026-10-26,3540,3540,1.0,-0.04931627293120355,0.014995048804639977,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,3386.0
+BPCR,BioPharma Credit,Debt - Direct Lending,False,registry,USD,2424,2017-03-27,2026-10-29,,,0,0,,,,USD,unresolved_no_nav_no_currency,,,,
+BRAI,BlackRock American Income,North America,False,registry,GBX,3542,2012-10-24,2026-10-29,2012-10-24,2026-10-27,3541,3541,1.0,-0.049315849486887164,0.017559975974278386,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,3387.0
 BRFC,BlackRock Frontiers C shares,Global Emerging Markets,False,registry,GBX,0,,,,,0,0,,,,,,,,,
-BRFI,BlackRock Frontiers,Global Emerging Markets,False,registry,GBX,4006,2010-12-17,2026-10-28,2010-12-20,2026-10-26,4005,4005,1.0,-0.02749281903980294,0.023408345584077672,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,3847.0
-BRGE,BlackRock Greater Europe,Europe,False,registry,GBX,5010,2007-01-02,2026-10-28,2007-09-03,2026-10-26,4840,4840,1.0,-0.04766449640313769,-0.06260518343991928,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4686.0
-BRIG,BlackRock Income & Growth,UK Equity Income,False,registry,GBX,5010,2007-01-02,2026-10-28,2006-12-29,2026-10-26,5010,5009,1.0,-0.03607995829105237,-0.11197499809436695,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4829.0
-BRLA,BlackRock Latin American,Latin America,False,registry,GBX,5010,2007-01-02,2026-10-28,2006-12-29,2026-10-26,5010,4442,1.0,-0.09455337158751753,-0.06230809202135201,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4377.0
-BRSC,BlackRock Smaller Companies,UK Smaller Companies,False,registry,GBX,5010,2007-01-02,2026-10-28,2009-05-18,2026-10-26,4409,4409,1.0,-0.10863118414859296,-0.09323413159730298,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4257.0
-BRWM,BlackRock World Mining,Commodities & Natural Resources,False,registry,GBX,5010,2007-01-02,2026-10-28,2007-09-03,2026-10-26,4840,4840,1.0,-0.11341479674028165,0.008529341616599906,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4681.0
-BSC,British Smaller Companies VCT 2,VCT,True,announcements_only,GBX,5009,2007-01-02,2026-10-27,2026-06-30,2026-06-30,58,29,78.5,-0.0430622009569378,-0.07368418132289178,GBp,ok,committed+s3_snapshot,monthly,26.0,2.0
-BSRT,Baker Steel Resources Trust,Commodities & Natural Resources,False,announcements_only,GBX,4171,2010-04-27,2026-10-28,2010-04-30,2026-09-30,4163,4163,21.0,-0.2540073982737361,-0.2865429234338748,GBp,ok,committed+s3_archive+s3_snapshot,monthly,29.0,201.0
-BSV,British Smaller Companies VCT,VCT,True,announcements_only,GBX,5009,2007-01-02,2026-10-27,2026-06-30,2026-06-30,58,29,78.5,-0.07051282051282048,-0.07051282051282048,GBp,ok,committed+s3_snapshot,monthly,26.0,2.0
-BUT,Brunner Investment Trust,Global,False,registry,GBX,5010,2007-01-02,2026-10-28,2008-06-03,2026-10-27,4652,4514,1.0,-0.11507592129044814,-0.0917461436155097,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4264.0
-BVT,Baronsmead Venture Trust,VCT,True,registry,GBX,5010,2007-01-02,2026-10-28,2025-09-30,2026-08-31,253,253,25.0,-0.04949624341044878,-0.02759523596410618,GBp,ok,committed+s3_snapshot,monthly,25.0,14.0
+BRFI,BlackRock Frontiers,Global Emerging Markets,False,registry,GBX,4007,2010-12-17,2026-10-29,2010-12-20,2026-10-27,4006,4006,1.0,-0.027481660257364593,-0.004670818505338126,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,3848.0
+BRGE,BlackRock Greater Europe,Europe,False,registry,GBX,5011,2007-01-02,2026-10-29,2007-09-03,2026-10-27,4841,4841,1.0,-0.047668340148025456,-0.06962834975328536,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4687.0
+BRIG,BlackRock Income & Growth,UK Equity Income,False,registry,GBX,5011,2007-01-02,2026-10-29,2006-12-29,2026-10-27,5011,5010,1.0,-0.03613032937141514,-0.10762160091918815,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4830.0
+BRLA,BlackRock Latin American,Latin America,False,registry,GBX,5011,2007-01-02,2026-10-29,2006-12-29,2026-10-27,5011,4443,1.0,-0.09455113809891669,-0.07461775136810955,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4378.0
+BRSC,BlackRock Smaller Companies,UK Smaller Companies,False,registry,GBX,5011,2007-01-02,2026-10-29,2009-05-18,2026-10-27,4410,4410,1.0,-0.10860926139319033,-0.0985062841350266,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4258.0
+BRWM,BlackRock World Mining,Commodities & Natural Resources,False,registry,GBX,5011,2007-01-02,2026-10-29,2007-09-03,2026-10-27,4841,4841,1.0,-0.11339524539416346,-0.037043558646798536,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4682.0
+BSC,British Smaller Companies VCT 2,VCT,True,announcements_only,GBX,5011,2007-01-02,2026-10-29,2026-06-30,2026-06-30,60,29,79.5,-0.0430622009569378,-0.07368418132289178,GBp,ok,committed+s3_snapshot,monthly,26.0,2.0
+BSRT,Baker Steel Resources Trust,Commodities & Natural Resources,False,announcements_only,GBX,4172,2010-04-27,2026-10-29,2010-04-30,2026-09-30,4164,4164,21.0,-0.2540198281691261,-0.2865429234338748,GBp,ok,committed+s3_archive+s3_snapshot,monthly,29.0,201.0
+BSV,British Smaller Companies VCT,VCT,True,announcements_only,GBX,5010,2007-01-02,2026-10-28,2026-06-30,2026-06-30,59,29,79.0,-0.07051282051282048,-0.07051282051282048,GBp,ok,committed+s3_snapshot,monthly,26.0,2.0
+BUT,Brunner Investment Trust,Global,False,registry,GBX,5011,2007-01-02,2026-10-29,2008-06-03,2026-10-28,4653,4515,1.0,-0.1150609813746809,-0.09632228144565735,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4265.0
+BVT,Baronsmead Venture Trust,VCT,True,registry,GBX,5011,2007-01-02,2026-10-29,2025-09-30,2026-08-31,254,254,25.0,-0.04949624341044878,-0.04949624341044878,GBp,ok,committed+s3_snapshot,monthly,25.0,14.0
 CAT,CATCo Reinsurance Opportunities,Insurance & Reinsurance Strategies,False,registry,GBX,3537,2010-12-20,2024-12-19,2011-09-30,2021-09-30,0,0,417.0,,,USD,currency_mismatch,committed,adhoc,491.0,6.0
 CATC,CATCo Reinsurance Opportunities C shares,Insurance & Reinsurance Strategies,False,announcements_only,GBX,2304,2015-11-09,2024-12-19,,,0,0,,,,USD,unresolved_no_nav_no_currency,,,,
-CBA,Ceiba Investments,Property - Rest of World,False,announcements_only,,2025,2018-10-22,2026-10-27,2019-09-30,2026-03-31,1761,589,822.0,-0.6211142684922071,-0.9955927052939917,GBp,ok,s3_archive,semiannual,180.0,4.0
-CCJI,CC Japan Income & Growth Trust,Japan,False,registry,GBX,2746,2015-12-15,2026-10-28,2015-12-15,2026-10-26,2745,2745,1.0,-0.05650146404945233,-0.07065737324039911,GBp,ok,committed+s3_snapshot,daily,1.0,2746.0
+CBA,Ceiba Investments,Property - Rest of World,False,announcements_only,,2026,2018-10-22,2026-10-28,2019-09-30,2026-03-31,1762,590,821.5,-0.6211142684922071,-0.9955927052939917,GBp,ok,s3_archive,semiannual,180.0,4.0
+CCJI,CC Japan Income & Growth Trust,Japan,False,registry,GBX,2747,2015-12-15,2026-10-29,2015-12-15,2026-10-27,2746,2746,1.0,-0.05650185310095934,-0.08504676052533844,GBp,ok,committed+s3_snapshot,daily,1.0,2747.0
 CCRD,Cordiant Digital Infrastructure C Share,Infrastructure,False,announcements_only,,0,,,,,0,0,,,,,,,,,
 CDI,Candover,Private Equity,False,announcements_only,,2757,2007-01-03,2018-05-30,,,0,0,,,,,unresolved_no_nav_no_currency,,,,
-CGI,Canadian General Investments,North America,False,announcements_only,GBX,5010,2007-01-02,2026-10-28,2009-03-23,2026-10-27,4447,2648,0.0,-0.4165063989427942,-0.4008977512716062,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,3058.0
-CGL,Castelnau Group,Flexible Investment,False,announcements_only,,1270,2021-10-18,2026-10-28,2022-03-08,2026-10-22,1172,1164,20.0,-0.026226954037912198,-0.19469026548672552,GBp,ok,committed+s3_archive+s3_snapshot,monthly,31.5,42.0
-CGT,Capital Gearing Trust,Flexible Investment,False,registry,GBX,5010,2007-01-02,2026-10-28,2008-12-10,2026-10-26,4516,3788,1.0,0.023585445731494015,-0.009254636918705206,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,3175.0
-CHI,CT UK High Income Trust,UK Equity Income,False,registry,GBX,4968,2007-03-01,2026-10-28,2008-06-30,2026-10-27,4631,4630,0.0,-0.06499943674664865,-0.07548770144189998,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4617.0
-CHIB,CT UK High Income Trust,UK Equity Income,False,registry,GBX,4968,2007-03-01,2026-10-28,2026-08-26,2026-10-27,45,45,1.0,-0.08725506615307321,-0.07548770144189998,GBp,ok,committed+s3_snapshot,daily,1.0,45.0
-CHRY,Chrysalis Investments,Growth Capital,False,registry,GBX,2015,2018-11-06,2026-10-28,2018-12-31,2026-06-30,1933,1933,89.0,-0.3264316403370606,-0.5117857960180029,GBp,ok,committed+s3_archive+s3_snapshot,quarterly,92.0,34.0
+CGI,Canadian General Investments,North America,False,announcements_only,GBX,5011,2007-01-02,2026-10-29,2009-03-23,2026-10-28,4448,2647,0.0,-0.41705626821025155,-0.40905505274202447,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,3059.0
+CGL,Castelnau Group,Flexible Investment,False,announcements_only,,1271,2021-10-18,2026-10-29,2022-03-08,2026-10-22,1173,1165,20.0,-0.026226954037912198,-0.19469026548672552,GBp,ok,committed+s3_archive+s3_snapshot,monthly,31.5,42.0
+CGT,Capital Gearing Trust,Flexible Investment,False,registry,GBX,5011,2007-01-02,2026-10-29,2008-12-10,2026-10-27,4517,3789,1.0,0.02358490566037741,-0.005137248888207213,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,3176.0
+CHI,CT UK High Income Trust,UK Equity Income,False,registry,GBX,4969,2007-03-01,2026-10-29,2008-06-30,2026-10-28,4632,4631,0.0,-0.06500194455319963,-0.08567774936061379,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4618.0
+CHIB,CT UK High Income Trust,UK Equity Income,False,registry,GBX,4969,2007-03-01,2026-10-29,2026-08-26,2026-10-28,46,46,1.0,-0.08717287852484795,-0.07075873827791979,GBp,ok,committed+s3_snapshot,daily,1.0,46.0
+CHRY,Chrysalis Investments,Growth Capital,False,registry,GBX,2016,2018-11-06,2026-10-29,2018-12-31,2026-06-30,1934,1934,89.0,-0.3264316403370606,-0.5087344456031817,GBp,ok,committed+s3_archive+s3_snapshot,quarterly,92.0,34.0
 CIP,Channel Islands Property,Property - UK Commercial,False,announcements_only,,0,,,,,0,0,,,,,,,,,
 CIVSHP-OR,Civitas Social Housing,Property - UK Residential,False,announcements_only,GBP,1,2026-07-17,2026-07-17,,,0,0,,,,GBP,assumed_from_currency,,,,
-CLC,Calculus VCT,VCT,True,announcements_only,GBP,2686,2016-03-10,2026-10-27,2024-06-30,2026-06-30,578,578,113.0,-0.0620957309184994,-0.9909220364816081,GBp,ok,committed+s3_snapshot,semiannual,175.5,6.0
+CLC,Calculus VCT,VCT,True,announcements_only,GBP,2687,2016-03-10,2026-10-28,2024-06-30,2026-06-30,579,579,113.0,-0.0620957309184994,-0.9909220364816081,GBp,ok,committed+s3_snapshot,semiannual,175.5,6.0
 CLCC,Calculus VCT C shares,VCT Generalist,True,announcements_only,,0,,,,,0,0,,,,,,,,,
-CLDN,Caledonia Investments,Flexible Investment,False,registry,GBX,5010,2007-01-02,2026-10-28,2007-12-31,2026-09-30,4754,4580,22.0,-0.1876020641011727,62.54149133142568,GBp,rescaled_x100,committed+s3_archive+s3_snapshot,monthly,29.0,210.0
-CMPG,CT Global Managed Portfolio Growth,Flexible Investment,False,registry,GBX,4684,2008-04-16,2026-10-28,2008-07-01,2026-10-27,4631,4631,0.0,-0.003140290659461087,-0.017993290637389414,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4622.0
-CMPI,CT Global Managed Portfolio Income,Flexible Investment,False,registry,GBX,4684,2008-04-16,2026-10-28,2008-06-30,2026-10-27,4632,4632,0.0,0.007101222747985081,0.01945160534333268,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4614.0
-CORD,Cordiant Digital Infrastructure,Infrastructure,False,announcements_only,,1439,2021-02-16,2026-10-28,2021-09-30,2026-03-31,1243,1017,177.0,-0.2223255955895712,-0.17465753424657537,GBp,ok,committed,semiannual,182.0,12.0
-CREI,Custodian Property Income REIT,Property - UK Commercial,False,announcements_only,GBX,3182,2014-03-26,2026-10-28,2014-12-31,2022-03-31,2981,1836,112.0,0.01970957522570349,-0.31578946093668414,GBp,ok,committed+s3_archive,quarterly,91.0,34.0
-CRS,Crystal Amber Fund,Flexible Investment,False,announcements_only,GBX,4643,2008-06-16,2026-10-28,2008-06-30,2026-08-31,4629,3914,35.0,-0.09893835310910881,-0.5859575460695124,GBp,ok,committed+s3_archive+s3_snapshot,monthly,27.0,167.0
+CLDN,Caledonia Investments,Flexible Investment,False,registry,GBX,5011,2007-01-02,2026-10-29,2007-12-31,2026-09-30,4755,4581,22.0,-0.18759769918770763,62.54149133142568,GBp,rescaled_x100,committed+s3_archive+s3_snapshot,monthly,29.0,210.0
+CMPG,CT Global Managed Portfolio Growth,Flexible Investment,False,registry,GBX,4685,2008-04-16,2026-10-29,2008-07-01,2026-10-28,4632,4632,0.0,-0.003168791182655173,-0.02839383241302318,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4623.0
+CMPI,CT Global Managed Portfolio Income,Flexible Investment,False,registry,GBX,4685,2008-04-16,2026-10-29,2008-06-30,2026-10-28,4633,4633,0.0,0.007109004739336511,0.010531206442620622,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4615.0
+CORD,Cordiant Digital Infrastructure,Infrastructure,False,announcements_only,,1440,2021-02-16,2026-10-29,2021-09-30,2026-03-31,1244,1018,177.0,-0.2223255955895712,-0.15753424657534243,GBp,ok,committed,semiannual,182.0,12.0
+CREI,Custodian Property Income REIT,Property - UK Commercial,False,announcements_only,GBX,3183,2014-03-26,2026-10-29,2014-12-31,2022-03-31,2982,1836,112.5,0.019707004361620206,-0.3091061240748355,GBp,ok,committed+s3_archive,quarterly,91.0,34.0
+CRS,Crystal Amber Fund,Flexible Investment,False,announcements_only,GBX,4644,2008-06-16,2026-10-29,2008-06-30,2026-08-31,4630,3915,35.0,-0.09893835310910881,-0.6005365057149521,GBp,ok,committed+s3_archive+s3_snapshot,monthly,27.0,167.0
 CRWC,Albion Crown VCT C shares,VCT,True,registry,GBX,461,2024-12-20,2026-10-19,,,0,0,,,,GBp,assumed_from_currency,,,,
-CRWN,Albion Crown VCT,VCT,True,registry,GBX,5010,2007-01-02,2026-10-28,,,0,0,,,,GBp,assumed_from_currency,,,,
+CRWN,Albion Crown VCT,VCT,True,registry,GBX,5011,2007-01-02,2026-10-29,,,0,0,,,,GBp,assumed_from_currency,,,,
 CSHC,Civitas Social Housing C shares,Property Specialist,False,announcements_only,,0,,,,,0,0,,,,,,,,,
-CTHT,CT Healthcare Trust,Biotechnology & Healthcare,False,registry,GBX,2501,2016-12-02,2026-10-28,2016-12-02,2026-10-21,2500,2248,1.0,-0.006591491619999723,-0.03138873693530286,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2114.0
-CTPE,CT Private Equity Trust,Private Equity,False,announcements_only,GBX,5010,2007-01-02,2026-10-28,2008-11-25,2026-06-30,4526,4488,106.0,-0.20859080181216666,-0.3468283769980003,GBp,ok,committed+s3_archive,quarterly,91.5,70.0
+CTHT,CT Healthcare Trust,Biotechnology & Healthcare,False,registry,GBX,2502,2016-12-02,2026-10-29,2016-12-02,2026-10-28,2501,2249,1.0,-0.0066225165562914245,-0.04724096863834859,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2116.0
+CTPE,CT Private Equity Trust,Private Equity,False,announcements_only,GBX,5011,2007-01-02,2026-10-29,2008-11-25,2026-06-30,4527,4489,106.0,-0.20863841431846752,-0.34898643302113463,GBp,ok,committed+s3_archive,quarterly,91.5,70.0
 CTPT,CT Property Trust,Property - UK Commercial,False,announcements_only,GBX,0,,,,,0,0,,,,,,,quarterly,89.0,73.0
-CTUK,CT UK Capital and Income,UK Equity Income,False,registry,GBX,5010,2007-01-02,2026-10-28,2007-01-02,2026-10-27,5010,5000,0.0,-0.00580935412175726,-0.04454276485437425,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4974.0
-CTY,City of London Investment Trust,UK Equity Income,False,registry,GBX,5010,2007-01-02,2026-10-28,2006-12-29,2026-10-26,5010,4908,1.0,0.0061713664748442865,0.026582721231199757,GBp,ok,committed+s3_snapshot,daily,1.0,4684.0
-CVCE,CVC Income & Growth,Debt - Loans & Bonds,False,announcements_only,GBX,3374,2013-06-25,2026-10-28,2022-05-31,2026-10-16,0,0,11.0,,,EUR,currency_mismatch,committed+s3_archive+s3_snapshot,weekly,6.0,282.0
-CVCG,CVC Income & Growth,Debt - Loans & Bonds,False,announcements_only,GBX,3374,2013-06-25,2026-10-28,2013-07-10,2026-10-16,3363,2521,12.0,-0.005770084332001879,0.005875022253872375,GBp,ok,s3_archive+s3_snapshot,weekly,6.0,691.0
-CYN,CQS Natural Resources Growth & Income,Commodities & Natural Resources,False,registry,GBX,5010,2007-01-02,2026-10-28,2009-03-17,2026-10-26,4448,852,132.0,-0.9802064929328622,0.03940635966674688,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,671.0
+CTUK,CT UK Capital and Income,UK Equity Income,False,registry,GBX,5011,2007-01-02,2026-10-29,2007-01-02,2026-10-28,5011,5001,0.0,-0.005823036500497092,-0.04345226772466648,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4975.0
+CTY,City of London Investment Trust,UK Equity Income,False,registry,GBX,5011,2007-01-02,2026-10-29,2006-12-29,2026-10-27,5011,4909,1.0,0.006172823125293547,0.03266596417281353,GBp,ok,committed+s3_snapshot,daily,1.0,4685.0
+CVCE,CVC Income & Growth,Debt - Loans & Bonds,False,announcements_only,GBX,3375,2013-06-25,2026-10-29,2022-05-31,2026-10-16,0,0,11.0,,,EUR,currency_mismatch,committed+s3_archive+s3_snapshot,weekly,6.0,282.0
+CVCG,CVC Income & Growth,Debt - Loans & Bonds,False,announcements_only,GBX,3375,2013-06-25,2026-10-29,2013-07-10,2026-10-16,3364,2522,12.0,-0.005752226775693814,0.010325796688623878,GBp,ok,s3_archive+s3_snapshot,weekly,6.0,691.0
+CYN,CQS Natural Resources Growth & Income,Commodities & Natural Resources,False,registry,GBX,5011,2007-01-02,2026-10-29,2009-03-17,2026-10-27,4449,853,132.0,-0.9802064929328622,0.0197865070325538,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,672.0
 CYS,Chrysalis VCT,VCT Generalist,True,announcements_only,GBX,0,,,,,0,0,,,,,,,,,
 D4LC,Downing FOUR VCT 2011 Low Carbon shares,VCT Generalist,True,announcements_only,,0,,,,,0,0,,,,,,,,,
 D4OO,Downing FOUR VCT 2011 General shares,VCT Generalist,True,announcements_only,,0,,,,,0,0,,,,,,,,,
@@ -141,9 +141,9 @@ D4SO,Downing FOUR VCT 2011 Structured shares,VCT Generalist,True,announcements_o
 DAB,Dexion Absolute,Hedge Funds,False,announcements_only,,0,,,,,0,0,,,,,,,,,
 DABE,Dexion Absolute Euro,Hedge Funds,False,announcements_only,,0,,,,,0,0,,,,,,,,,
 DABU,Dexion Absolute USD,Hedge Funds,False,announcements_only,,0,,,,,0,0,,,,,,,,,
-DGI9,Digital 9 Infrastructure,Infrastructure,False,announcements_only,GBX,1408,2021-03-31,2026-10-28,2021-06-30,2026-06-30,1300,1226,169.0,-0.5161290322580645,-0.5186046666877214,GBp,ok,committed,quarterly,127.0,14.0
+DGI9,Digital 9 Infrastructure,Infrastructure,False,announcements_only,GBX,1409,2021-03-31,2026-10-29,2021-06-30,2026-06-30,1301,1227,169.0,-0.5161290322580645,-0.5232558250427246,GBp,ok,committed,quarterly,127.0,14.0
 DGN,Asia Dragon Trust,Asia Pacific,False,registry,GBX,0,,,,,0,0,,,,,,,daily,1.0,3709.0
-DIG,Dunedin Income Growth,UK Equity Income,False,registry,GBX,5010,2007-01-02,2026-10-28,2008-05-31,2026-10-26,4649,4438,1.0,-0.07276043777867847,-0.07797681770284504,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4092.0
+DIG,Dunedin Income Growth,UK Equity Income,False,registry,GBX,5011,2007-01-02,2026-10-29,2008-05-31,2026-10-27,4650,4439,1.0,-0.07279247459984056,-0.07651328884205588,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4093.0
 DIGS,GCP Student Living,Property - UK Residential,False,registry,GBX,0,,,,,0,0,,,,,,,,,
 DIVI,Diverse Income Trust,UK Equity Income,False,registry,GBX,0,,,,,0,0,,,,,,,daily,1.0,3514.0
 DNDL,Dunedin Smaller Companies,UK Smaller Companies,False,registry,GBP,102,2018-05-16,2018-10-10,,,0,0,,,,,unresolved_no_nav_no_currency,,,,
@@ -161,7 +161,7 @@ DP3D,Downing THREE VCT D shares,VCT Generalist,True,announcements_only,,0,,,,,0,
 DP3F,Downing THREE VCT F shares,VCT Generalist,True,announcements_only,GBX,0,,,,,0,0,,,,,,,,,
 DP3H,Downing THREE VCT H shares,VCT Generalist,True,announcements_only,GBX,0,,,,,0,0,,,,,,,,,
 DP3J,Downing THREE VCT J shares,VCT Generalist,True,announcements_only,GBP,0,,,,,0,0,,,,,,,,,
-DPA,DP Aircraft I,Leasing,False,announcements_only,GBX,3301,2013-10-04,2026-10-27,,,0,0,,,,USD,unresolved_no_nav_no_currency,,,,
+DPA,DP Aircraft I,Leasing,False,announcements_only,GBX,3303,2013-10-04,2026-10-29,,,0,0,,,,USD,unresolved_no_nav_no_currency,,,,
 DPV6,Downing Planned Exit VCT 6,VCT Generalist,True,announcements_only,,981,2007-04-09,2019-03-12,,,0,0,,,,,unresolved_no_nav_no_currency,,,,
 DREF,Duet Real Estate Finance,Sector Specialist: Debt,False,announcements_only,,0,,,,,0,0,,,,,,,,,
 DRIP,Drum Income Plus REIT,Property - UK Commercial,False,announcements_only,GBP,0,,,,,0,0,,,,,,,,,
@@ -178,38 +178,38 @@ EDGF,Edge Performance VCT F shares,"VCT Specialist: Media, Leisure & Events",Tru
 EDGG,Edge Performance VCT G shares,"VCT Specialist: Media, Leisure & Events",True,announcements_only,,0,,,,,0,0,,,,,,,,,
 EDGH,Edge Performance VCT H shares,"VCT Specialist: Media, Leisure & Events",True,announcements_only,,0,,,,,0,0,,,,,,,quarterly,48.0,10.0
 EDGI,Edge Performance VCT I shares,"VCT Specialist: Media, Leisure & Events",True,announcements_only,,0,,,,,0,0,,,,,,,,,
-EDIN,Edinburgh Investment Trust,UK Equity Income,False,registry,GBX,5010,2007-01-02,2026-10-28,2007-01-02,2026-10-27,5010,4278,0.0,-0.06152715901327088,-0.041807005257833985,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4112.0
+EDIN,Edinburgh Investment Trust,UK Equity Income,False,registry,GBX,5011,2007-01-02,2026-10-29,2007-01-02,2026-10-28,5011,4279,0.0,-0.061513309787966874,-0.04108521088329309,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4113.0
 EFR,EF Realisation Company,Sector Specialist: Utilities,False,announcements_only,,0,,,,,0,0,,,,,,,,,
-EGL,Ecofin Global Utilities and Infrastructure,Infrastructure Securities,False,registry,GBX,2550,2016-09-26,2026-10-28,2016-09-30,2026-10-26,2546,2468,1.0,-0.09078855192720908,0.027183252616778564,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2397.0
-EJFI,EJF Investments,Debt - Structured Finance,False,announcements_only,GBP,2304,2017-09-15,2026-10-28,2017-08-31,2026-09-30,2304,2004,39.0,-0.24705882352941178,-0.2171428571428572,GBp,ok,committed+s3_archive+s3_snapshot,monthly,30.0,100.0
-EJFZ,EJF Investments,Debt - Structured Finance,False,announcements_only,GBP,370,2025-05-14,2026-10-27,2025-04-30,2026-09-30,364,364,36.0,-0.3391812865497076,-0.3314285714285714,GBp,ok,s3_archive+s3_snapshot,monthly,29.5,19.0
+EGL,Ecofin Global Utilities and Infrastructure,Infrastructure Securities,False,registry,GBX,2551,2016-09-26,2026-10-29,2016-09-30,2026-10-27,2547,2469,1.0,-0.09076779608330743,0.01170019693400759,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2398.0
+EJFI,EJF Investments,Debt - Structured Finance,False,announcements_only,GBP,2305,2017-09-15,2026-10-29,2017-08-31,2026-09-30,2305,2005,39.0,-0.24705882352941178,-0.2114285714285714,GBp,ok,committed+s3_archive+s3_snapshot,monthly,30.0,100.0
+EJFZ,EJF Investments,Debt - Structured Finance,False,announcements_only,GBP,371,2025-05-14,2026-10-28,2025-04-30,2026-09-30,365,365,36.0,-0.3391812865497076,-0.3314285714285714,GBp,ok,s3_archive+s3_snapshot,monthly,29.5,19.0
 ELTA,Electra Private Equity,Private Equity,False,announcements_only,GBX,0,,,,,0,0,,,,,,,,,
 ELTZ,Electra Private Equity,Split Capital Trust,False,announcements_only,,0,,,,,0,0,,,,,,,,,
 ELX,El Oro,Sector Specialist: Commodities & Natural Resources,False,announcements_only,,0,,,,,0,0,,,,,,,,,
-ENRG,VH Global Energy Infrastructure,Renewable Energy Infrastructure,False,announcements_only,,1449,2021-02-02,2026-10-28,2021-09-30,2026-06-30,1260,1235,100.0,-0.27392802947690764,-0.38486443507627943,GBp,ok,committed+s3_archive+s3_snapshot,quarterly,91.0,19.0
+ENRG,VH Global Energy Infrastructure,Renewable Energy Infrastructure,False,announcements_only,,1450,2021-02-02,2026-10-29,2021-09-30,2026-06-30,1261,1236,100.0,-0.2741130568913891,-0.38486443507627943,GBp,ok,committed+s3_archive+s3_snapshot,quarterly,91.0,19.0
 EOT,European Opportunities Trust,Europe,False,registry,GBX,4953,2007-01-02,2026-08-07,2007-01-04,2026-07-31,4951,4628,0.0,-0.057587856551922556,-0.9898244402979516,GBp,ok,committed,daily,1.0,3698.0
-ESCT,The European Smaller Companies Trust,European Smaller Companies,False,registry,GBX,5010,2007-01-02,2026-10-28,2021-12-10,2026-10-26,1230,1230,1.0,-0.11246346369425264,-0.08121410992616906,GBp,ok,committed+s3_snapshot,daily,1.0,1234.0
+ESCT,The European Smaller Companies Trust,European Smaller Companies,False,registry,GBX,5011,2007-01-02,2026-10-29,2021-12-10,2026-10-27,1231,1231,1.0,-0.11244472520530646,-0.09496753246753253,GBp,ok,committed+s3_snapshot,daily,1.0,1235.0
 ET.,Establishment Investment Trust,Flexible Investment,False,registry,GBX,0,,,,,0,0,,,,,,,,,
-EWI,Edinburgh Worldwide,Global Smaller Companies,False,registry,GBX,5010,2007-01-02,2026-10-28,2007-01-02,2026-10-27,5010,5010,0.0,-0.09293539214122132,-0.047484653919424136,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,5013.0
+EWI,Edinburgh Worldwide,Global Smaller Companies,False,registry,GBX,5011,2007-01-02,2026-10-29,2007-01-02,2026-10-28,5011,5011,0.0,-0.09292339886796552,-0.07653078805003266,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,5014.0
 FA14,Fair Oaks Income 2014,Sector Specialist: Debt,False,announcements_only,,0,,,,,0,0,,,,,,,,,
 FAIC,Fair Oaks Income C shares,Sector Specialist: Debt,False,announcements_only,,0,,,,,0,0,,,,,,,,,
-FAIR,Fair Oaks Income 2021,Debt - Structured Finance,False,announcements_only,USD,3130,2014-06-12,2026-10-28,2014-08-13,2022-05-31,0,0,313.5,,,EUR,currency_mismatch,committed,adhoc,365.0,8.0
-FAS,Fidelity Asian Values,Asia Pacific Smaller Companies,False,registry,GBX,5010,2007-01-02,2026-10-28,2007-01-02,2026-10-27,5010,4255,0.0,-0.08939189534344744,-0.0380165289256198,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4233.0
+FAIR,Fair Oaks Income 2021,Debt - Structured Finance,False,announcements_only,USD,3131,2014-06-12,2026-10-29,2014-08-13,2022-05-31,0,0,314.0,,,EUR,currency_mismatch,committed,adhoc,365.0,8.0
+FAS,Fidelity Asian Values,Asia Pacific Smaller Companies,False,registry,GBX,5011,2007-01-02,2026-10-29,2007-01-02,2026-10-28,5011,4256,0.0,-0.08937129968987878,-0.08886813168805208,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4234.0
 FCIF,SME Credit Realisation Fund,Debt - Direct Lending,False,registry,GBX,0,,,,,0,0,,,,,,,,,
-FCIT,F&C Investment Trust,Global,False,registry,GBX,5010,2007-01-02,2026-10-28,2018-08-01,2026-10-27,2083,2083,0.0,-0.07421446473006843,-0.07279031115553403,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2087.0
+FCIT,F&C Investment Trust,Global,False,registry,GBX,5011,2007-01-02,2026-10-29,2018-08-01,2026-10-28,2084,2084,0.0,-0.07423985009436801,-0.08060179417777735,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2088.0
 FCO,Forest Company,Forestry & Timber,False,announcements_only,GBX,0,,,,,0,0,,,,,,,,,
-FCSS,Fidelity China Special Situations,China / Greater China,False,registry,GBX,4177,2010-04-19,2026-10-28,2010-04-19,2026-10-27,4177,4177,0.0,-0.09056013228216264,-0.0626927029804728,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4163.0
+FCSS,Fidelity China Special Situations,China / Greater China,False,registry,GBX,4178,2010-04-19,2026-10-29,2010-04-19,2026-10-28,4178,4178,0.0,-0.09055636922988436,-0.08553971486761713,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4164.0
 FEET,Fundsmith Emerging Equities,Global Emerging Markets,False,registry,GBX,0,,,,,0,0,,,,,,,,,
-FEML,Fidelity Emerging Markets,Global Emerging Markets,False,registry,GBX,5010,2007-01-02,2026-10-28,2009-11-12,2026-10-26,4284,4154,1.0,-0.10591865417582391,-0.026746239038127673,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,3270.0
-FEV,Fidelity European Trust,Europe,False,registry,GBX,5010,2007-01-02,2026-10-28,2007-01-02,2026-10-27,5010,5010,0.0,-0.08455966111095403,-0.04972603681881749,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4992.0
+FEML,Fidelity Emerging Markets,Global Emerging Markets,False,registry,GBX,5011,2007-01-02,2026-10-29,2009-11-12,2026-10-27,4285,4155,1.0,-0.10590827064144925,-0.05072339452164465,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,3271.0
+FEV,Fidelity European Trust,Europe,False,registry,GBX,5011,2007-01-02,2026-10-29,2007-01-02,2026-10-28,5011,5011,0.0,-0.08455446179497872,-0.04360957305633095,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4993.0
 FFWD,Fastforward Innovations,Private Equity,False,announcements_only,,0,,,,,0,0,,,,,,,,,
-FGEN,Foresight Environmental Infrastructure,Renewable Energy Infrastructure,False,announcements_only,GBX,3179,2014-03-31,2026-10-28,2014-12-31,2026-06-30,2962,2962,108.0,0.05672690763052213,-0.1451766953199618,GBp,ok,committed+s3_archive+s3_snapshot,quarterly,91.0,34.0
-FGT,Finsbury Growth & Income Trust,UK Equity Income,False,registry,GBX,5010,2007-01-02,2026-10-28,2006-12-29,2026-10-26,5010,4797,1.0,-0.00607796393355603,-0.08797346831907837,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4723.0
+FGEN,Foresight Environmental Infrastructure,Renewable Energy Infrastructure,False,announcements_only,GBX,3180,2014-03-31,2026-10-29,2014-12-31,2026-06-30,2963,2963,108.0,0.05672690763052213,-0.13944605086799344,GBp,ok,committed+s3_archive+s3_snapshot,quarterly,91.0,34.0
+FGT,Finsbury Growth & Income Trust,UK Equity Income,False,registry,GBX,5011,2007-01-02,2026-10-29,2006-12-29,2026-10-27,5011,4798,1.0,-0.00608771275934894,-0.07674045415576713,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4724.0
 FJV,Fidelity Japan Trust,Japan,False,registry,GBX,0,,,,,0,0,,,,,,,daily,1.0,4333.0
 FPEO,F&C Private Equity,Split Capital Trust,False,announcements_only,,2983,2007-01-03,2018-11-12,,,0,0,,,,GBp,assumed_from_currency,,,,
 FRGT,Franklin Global Trust,Global,False,registry,GBX,0,,,,,0,0,,,,,,,daily,1.0,4203.0
-FSFL,Foresight Solar Fund,Renewable Energy Infrastructure,False,announcements_only,GBX,3285,2013-10-29,2026-10-28,2014-06-30,2026-06-30,3110,2997,100.0,0.00842418235877096,-0.2834562697576397,GBp,ok,committed+s3_archive+s3_snapshot,quarterly,94.0,38.0
-FSV,Fidelity Special Values,UK All Companies,False,registry,GBX,5010,2007-01-02,2026-10-28,2007-01-02,2026-10-27,5010,5010,0.0,-0.06139663678510898,-0.024410581392924846,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4998.0
+FSFL,Foresight Solar Fund,Renewable Energy Infrastructure,False,announcements_only,GBX,3286,2013-10-29,2026-10-29,2014-06-30,2026-06-30,3111,2998,100.0,0.00842418235877096,-0.28134882035571984,GBp,ok,committed+s3_archive+s3_snapshot,quarterly,94.0,38.0
+FSV,Fidelity Special Values,UK All Companies,False,registry,GBX,5011,2007-01-02,2026-10-29,2007-01-02,2026-10-28,5011,5011,0.0,-0.06137526338666821,-0.024298909877673358,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4999.0
 FTD,Foresight 3 VCT,VCT Generalist,True,announcements_only,,0,,,,,0,0,,,,,,,,,
 FTF,Foresight Enterprise VCT,VCT,True,announcements_only,GBX,5010,2007-01-02,2026-10-28,2025-03-31,2026-03-31,353,353,156.0,-0.09543571630454173,-0.09543571630454173,GBp,ok,committed,semiannual,183.0,3.0
 FTFC,Foresight 4 VCT C shares,VCT Generalist,True,announcements_only,,0,,,,,0,0,,,,,,,,,
@@ -217,295 +217,295 @@ FTN,Foresight 2 VCT,VCT Generalist,True,announcements_only,,0,,,,,0,0,,,,,,,,,
 FTNI,Foresight 2 VCT Infrastructure shares,VCT Specialist: Infrastructure,True,announcements_only,,1,2026-07-17,2026-07-17,,,0,0,,,,GBP,assumed_from_currency,,,,
 FTNP,Foresight 2 VCT Planned Exit shares,VCT Generalist,True,announcements_only,,935,2021-04-20,2025-01-02,,,0,0,,,,GBp,assumed_from_currency,,,,
 FTSV,Foresight Solar & Technology VCT,VCT Specialist: Environmental,True,announcements_only,GBX,0,,,,,0,0,,,,,,,quarterly,112.5,15.0
-FTV,Foresight VCT,VCT,True,announcements_only,GBX,5009,2007-01-02,2026-10-27,2025-03-31,2026-03-31,358,358,122.5,-0.11976911976911975,-0.11976911976911975,GBp,ok,committed,semiannual,170.0,4.0
+FTV,Foresight VCT,VCT,True,announcements_only,GBX,5011,2007-01-02,2026-10-29,2025-03-31,2026-03-31,360,360,124.0,-0.11976911976911975,-0.11976911976911975,GBp,ok,committed,semiannual,170.0,4.0
 FTVI,Foresight VCT Infrastructure shares,VCT Specialist: Infrastructure,True,announcements_only,,0,,,,,0,0,,,,,,,,,
 FTVP,Foresight VCT Planned Exit shares,VCT Generalist,True,announcements_only,,0,,,,,0,0,,,,,,,,,
-FVEN,Foresight Ventures VCT,VCT,True,announcements_only,GBX,5009,2007-01-02,2026-10-27,2025-06-16,2026-06-30,347,343,73.0,-0.0561797752808989,-0.06633906633906639,GBp,ok,committed+s3_snapshot,quarterly,65.0,6.0
-FVV,Fuel Ventures VCT,VCT,True,announcements_only,,657,2024-03-22,2026-10-27,2024-09-30,2026-07-24,465,428,209.0,0.020199959192001682,-0.050959339086754096,GBp,rescaled_x100,committed,adhoc,288.5,3.0
-FWT,Foresight Solar & Tech VCT FWT,VTC,False,announcements_only,,1473,2020-03-11,2026-10-27,2023-06-30,2026-06-30,786,786,136.0,-0.02263374485596714,-0.04977375565610864,GBp,ok,committed+s3_archive+s3_snapshot,quarterly,112.0,10.0
+FVEN,Foresight Ventures VCT,VCT,True,announcements_only,GBX,5011,2007-01-02,2026-10-29,2025-06-16,2026-06-30,349,345,73.0,-0.0561797752808989,-0.06633906633906639,GBp,ok,committed+s3_snapshot,quarterly,65.0,6.0
+FVV,Fuel Ventures VCT,VCT,True,announcements_only,,658,2024-03-22,2026-10-28,2024-09-30,2026-07-24,466,429,208.0,0.020199959192001682,-0.050959339086754096,GBp,rescaled_x100,committed,adhoc,288.5,3.0
+FWT,Foresight Solar & Tech VCT FWT,VTC,False,announcements_only,,1474,2020-03-11,2026-10-28,2023-06-30,2026-06-30,787,787,136.0,-0.02263374485596714,-0.04977375565610864,GBp,ok,committed+s3_archive+s3_snapshot,quarterly,112.0,10.0
 GABC,GCP Asset Backed Income C Shares,Sector Specialist: Debt,False,announcements_only,,0,,,,,0,0,,,,,,,quarterly,59.5,3.0
-GABI,GCP Asset Backed Income,Debt - Direct Lending,False,registry,GBP,2783,2015-10-23,2026-10-28,2015-12-31,2025-12-31,2723,2402,81.0,-0.047804468389077814,-0.16263173971716682,GBp,ok,committed+s3_archive,semiannual,165.0,33.0
-GCL,Geiger Counter,Commodities & Natural Resources,False,registry,GBX,2299,2017-09-22,2026-10-28,2019-02-05,2026-10-26,1953,340,147.0,-0.9951111111111111,-0.029727497935590375,GBp,ok_recent_window,s3_archive+s3_snapshot,daily,1.0,273.0
-GCP,GCP Infrastructure Investments,Infrastructure,False,registry,GBX,4111,2010-07-22,2026-10-28,2010-10-29,2026-09-30,4037,4037,41.0,0.0623011706478902,-0.1799979877251232,GBp,ok,committed+s3_snapshot,quarterly,86.0,113.0
+GABI,GCP Asset Backed Income,Debt - Direct Lending,False,registry,GBP,2784,2015-10-23,2026-10-29,2015-12-31,2025-12-31,2724,2403,81.0,-0.047804468389077814,-0.15693533519026692,GBp,ok,committed+s3_archive,semiannual,165.0,33.0
+GCL,Geiger Counter,Commodities & Natural Resources,False,registry,GBX,2300,2017-09-22,2026-10-29,2019-02-05,2026-10-27,1954,341,146.5,-0.9951111111111111,-0.09055952245605559,GBp,ok_recent_window,s3_archive+s3_snapshot,daily,1.0,274.0
+GCP,GCP Infrastructure Investments,Infrastructure,False,registry,GBX,4112,2010-07-22,2026-10-29,2010-10-29,2026-09-30,4038,4038,41.0,0.06209869806172019,-0.1799979877251232,GBp,ok,committed+s3_snapshot,quarterly,86.0,113.0
 GFIR,Global Fixed Income Realisation,Hedge Funds,False,announcements_only,,151,2018-05-16,2018-12-28,,,0,0,,,,,unresolved_no_nav_no_currency,,,,
-GHV1,Gresham House Income & Growth VCT,VCT,True,registry,GBX,5009,2007-01-02,2026-10-27,2026-02-28,2026-02-28,151,0,135.0,-0.08286403861625102,-0.10699919549477066,GBp,ok,committed,single_observation,,1.0
+GHV1,Gresham House Income & Growth VCT,VCT,True,registry,GBX,5010,2007-01-02,2026-10-28,2026-02-28,2026-02-28,152,0,135.5,-0.08286403861625102,-0.10699919549477066,GBp,ok,committed,single_observation,,1.0
 GHV2,Gresham House Income & Growth 2 VCT,VCT,True,registry,GBX,5010,2007-01-02,2026-10-28,2026-02-28,2026-02-28,152,0,135.5,-0.0941668325701771,-0.11805695327372989,GBp,ok,committed,single_observation,,1.0
 GMP,Gabelli Merchant Partners,Hedge Funds,False,announcements_only,,2345,2017-07-19,2026-10-28,,,0,0,,,,USD,unresolved_no_nav_no_currency,,,,
-GOT,Global Opportunities Trust,Flexible Investment,False,registry,GBX,5010,2007-01-02,2026-10-28,2006-12-29,2026-10-26,5009,5009,1.0,-0.06298479677319269,-0.20642696188889975,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4342.0
-GPM,Golden Prospect Precious Metals,Commodities & Natural Resources,False,registry,GBX,2304,2017-09-15,2026-10-28,2014-08-20,2026-10-26,2304,454,159.0,-0.9954640875693507,-0.032623237624781365,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,482.0
-GRID,Gresham House Energy Storage,Renewable Energy Infrastructure,False,announcements_only,,2010,2018-11-13,2026-10-28,2018-12-31,2026-03-31,1957,1867,126.0,0.050072760947215134,-0.1716131151721464,GBp,ok,committed,quarterly,104.0,17.0
-GRIT,GRIT Investment Trust,Commodities & Natural Resources,False,registry,,3194,2014-03-07,2026-10-27,,,0,0,,,,GBp,assumed_from_currency,,,,
-GROW,Molten Ventures,Growth Capital,False,announcements_only,,2622,2016-06-15,2026-10-28,2016-11-28,2026-09-30,2505,2385,114.0,-0.12702702702702706,-0.2077100115074798,GBp,ok,committed,quarterly,91.0,32.0
-GRP,Greencoat Renewables,Renewable Energy Infrastructure,False,registry,EUR,2342,2017-07-25,2026-10-28,,,0,0,,,,EUR,unresolved_no_nav_no_currency,,,,
-GSCT,The Global Smaller Companies Trust,Global Smaller Companies,False,registry,GBX,5010,2007-01-02,2026-10-28,2006-12-29,2026-10-27,5010,5010,0.0,-0.05743166278875622,-0.03830395815363674,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4993.0
-GSF,Gore Street Energy Storage,Renewable Energy Infrastructure,False,announcements_only,,2130,2018-05-25,2026-10-28,2018-06-30,2026-06-30,2045,1653,164.0,-0.009793253536452773,-0.31053657945341817,GBp,ok,committed+s3_archive+s3_snapshot,quarterly,99.0,18.0
+GOT,Global Opportunities Trust,Flexible Investment,False,registry,GBX,5011,2007-01-02,2026-10-29,2006-12-29,2026-10-27,5010,5010,1.0,-0.06300858237296775,-0.20652413489089705,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4343.0
+GPM,Golden Prospect Precious Metals,Commodities & Natural Resources,False,registry,GBX,2305,2017-09-15,2026-10-29,2014-08-20,2026-10-27,2305,455,159.0,-0.9954640875693507,-0.06034222429821978,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,483.0
+GRID,Gresham House Energy Storage,Renewable Energy Infrastructure,False,announcements_only,,2011,2018-11-13,2026-10-29,2018-12-31,2026-03-31,1958,1868,126.5,0.04966692234552872,-0.1707402234636871,GBp,ok,committed,quarterly,104.0,17.0
+GRIT,GRIT Investment Trust,Commodities & Natural Resources,False,registry,,3195,2014-03-07,2026-10-28,,,0,0,,,,GBp,assumed_from_currency,,,,
+GROW,Molten Ventures,Growth Capital,False,announcements_only,,2623,2016-06-15,2026-10-29,2016-11-28,2026-09-30,2506,2386,114.0,-0.12702702702702706,-0.21173762945914842,GBp,ok,committed,quarterly,91.0,32.0
+GRP,Greencoat Renewables,Renewable Energy Infrastructure,False,registry,EUR,2343,2017-07-25,2026-10-29,,,0,0,,,,EUR,unresolved_no_nav_no_currency,,,,
+GSCT,The Global Smaller Companies Trust,Global Smaller Companies,False,registry,GBX,5011,2007-01-02,2026-10-29,2006-12-29,2026-10-28,5011,5011,0.0,-0.05743112938403483,-0.03760165703005913,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4994.0
+GSF,Gore Street Energy Storage,Renewable Energy Infrastructure,False,announcements_only,,2131,2018-05-25,2026-10-29,2018-06-30,2026-06-30,2046,1654,164.0,-0.009793253536452773,-0.31123159247900267,GBp,ok,committed+s3_archive+s3_snapshot,quarterly,99.0,18.0
 GVP,Gabelli Value Plus+,North America,False,registry,GBX,0,,,,,0,0,,,,,,,,,
-GWI,Globalworth Real Estate Investments,Property Direct - Europe,False,announcements_only,,3351,2013-07-25,2026-10-27,2016-06-30,2016-06-30,0,0,1954.0,,,EUR,currency_mismatch,s3_archive,single_observation,,1.0
-HAN,Hansa Investment Company,Flexible Investment,False,registry,GBX,5010,2007-01-02,2026-10-28,2007-01-02,2026-10-26,5010,3704,1.0,-0.35384467645135464,-0.3578980386368249,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,3586.0
-HANA,Hansa Investment Company,Flexible Investment,False,registry,GBX,5010,2007-01-02,2026-10-28,2026-08-25,2026-10-26,45,45,2.0,-0.39504150087322876,-0.39664557078805107,GBp,ok,committed+s3_snapshot,daily,1.0,45.0
+GWI,Globalworth Real Estate Investments,Property Direct - Europe,False,announcements_only,,3353,2013-07-25,2026-10-29,2016-06-30,2016-06-30,0,0,1957.0,,,EUR,currency_mismatch,s3_archive,single_observation,,1.0
+HAN,Hansa Investment Company,Flexible Investment,False,registry,GBX,5011,2007-01-02,2026-10-29,2007-01-02,2026-10-27,5011,3705,1.0,-0.3539210722981606,-0.36733305133062366,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,3587.0
+HANA,Hansa Investment Company,Flexible Investment,False,registry,GBX,5011,2007-01-02,2026-10-29,2026-08-25,2026-10-27,46,46,2.0,-0.3952014651735515,-0.39859856914277314,GBp,ok,committed+s3_snapshot,daily,1.0,46.0
 HAST,Henderson Alternative Strategies,Flexible Investment,False,registry,GBX,0,,,,,0,0,,,,,,,,,
 HDIV,Henderson Diversified Income,Debt - Loans & Bonds,False,registry,GBX,0,,,,,0,0,,,,,,,daily,1.0,3754.0
 HEIC,Harmony Energy Income C Shares,Renewable Energy Infrastructure,False,announcements_only,,0,,,,,0,0,,,,,,,,,
 HET,Henderson European Trust,Europe,False,registry,GBX,1,2025-09-25,2025-09-25,2025-09-19,2025-09-19,1,1,6.0,-0.9904513064586069,-0.9904513064586069,GBp,assumed_from_currency_thin_overlap,committed,daily,1.0,913.0
-HFEL,Henderson Far East Income,Asia Pacific Equity Income,False,registry,GBX,5010,2007-01-02,2026-10-28,2007-01-02,2026-10-26,5009,4723,0.0,0.012820512820512775,0.07770961145194266,GBp,ok,committed+s3_snapshot,daily,1.0,4623.0
+HFEL,Henderson Far East Income,Asia Pacific Equity Income,False,registry,GBX,5011,2007-01-02,2026-10-29,2007-01-02,2026-10-27,5010,4724,0.0,0.012824841150296917,0.025537089582488903,GBp,ok,committed+s3_snapshot,daily,1.0,4624.0
 HGL,Henderson Global,Global,False,registry,GBP,0,,,,,0,0,,,,,,,,,
-HGT,HgCapital Trust,Private Equity,False,announcements_only,GBX,5010,2007-01-02,2026-10-28,2006-12-31,2026-06-30,4960,4176,150.0,0.00531429639584069,-0.24722065196909748,GBp,ok,committed,quarterly,91.0,46.0
-HHI,Henderson High Income Trust,UK Equity & Bond Income,False,registry,GBX,5010,2007-01-02,2026-10-28,2006-12-29,2026-10-26,5010,4895,1.0,-0.013247322997507305,-0.05200184077312475,GBp,ok,committed+s3_snapshot,daily,1.0,4675.0
+HGT,HgCapital Trust,Private Equity,False,announcements_only,GBX,5011,2007-01-02,2026-10-29,2006-12-31,2026-06-30,4961,4176,150.0,0.004756268487835946,-0.2519314113435086,GBp,ok,committed,quarterly,91.0,46.0
+HHI,Henderson High Income Trust,UK Equity & Bond Income,False,registry,GBX,5011,2007-01-02,2026-10-29,2006-12-29,2026-10-27,5011,4896,1.0,-0.013254786450662692,-0.053117782909930744,GBp,ok,committed+s3_snapshot,daily,1.0,4676.0
 HHV,Hargreave Hale AIM VCT,VCT AIM Quoted,True,registry,GBX,5010,2007-01-02,2026-10-28,2026-05-08,2026-10-23,0,0,6.0,,,GBp,unresolved_dispersed,committed+s3_archive+s3_snapshot,weekly,6.0,34.0
 HHVT,Hargreave Hale AIM VCT 2,VCT AIM Quoted,True,registry,,320,2007-05-07,2018-03-23,,,0,0,,,,,unresolved_no_nav_no_currency,,,,
-HICL,HICL Infrastructure,Infrastructure,False,announcements_only,GBX,5010,2007-01-02,2026-10-28,2007-03-31,2026-08-03,4785,3074,201.0,0.06437771982535634,135.1999969482422,GBp,ok,s3_archive,quarterly,91.0,42.0
+HICL,HICL Infrastructure,Infrastructure,False,announcements_only,GBX,5011,2007-01-02,2026-10-29,2007-03-31,2026-08-03,4786,3075,201.0,0.06437771982535634,134.0,GBp,ok,s3_archive,quarterly,91.0,42.0
 HINC,Henderson International Income C shares,Global Equity Income,False,registry,,0,,,,,0,0,,,,,,,,,
 HNE,Henderson EuroTrust,Europe,False,registry,GBX,0,,,,,0,0,,,,,,,daily,1.0,4074.0
-HOME,Home REIT,Property - UK Residential,False,announcements_only,,1527,2020-10-12,2026-10-28,2021-02-28,2025-08-31,1390,484,456.5,-0.4765193422854935,-0.497237547985098,GBp,ok,committed,quarterly,95.0,8.0
+HOME,Home REIT,Property - UK Residential,False,announcements_only,,1528,2020-10-12,2026-10-29,2021-02-28,2025-08-31,1391,484,456.0,-0.4779005630240256,-0.508287313893355,GBp,ok,committed,quarterly,95.0,8.0
 HOT,Henderson Opportunities Trust,UK All Companies,False,registry,GBX,0,,,,,0,0,,,,,,,daily,1.0,4251.0
-HRI,Herald Investment Trust,Global Smaller Companies,False,registry,GBX,5010,2007-01-02,2026-10-28,2007-01-02,2026-10-26,5010,5010,1.0,-0.16040768799180133,-0.12221430312454684,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4893.0
-HSL,Henderson Smaller Companies,UK Smaller Companies,False,registry,GBX,5010,2007-01-02,2026-10-28,2006-12-29,2026-10-26,5010,4868,1.0,-0.13715202623099293,-0.08316961362148012,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4659.0
-HVPE,HarbourVest Global Private Equity,Private Equity,False,announcements_only,GBX,4128,2010-06-29,2026-10-28,2016-07-31,2026-09-30,2473,2328,36.0,-0.25024154589371983,-0.27218674300814794,GBp,ok,committed+s3_archive+s3_snapshot,monthly,29.0,126.0
-HWSC,Hadrian's Wall Secured Investments C shares,Sector Specialist: Debt,False,announcements_only,,1016,2022-10-20,2026-10-27,,,0,0,,,,USD,unresolved_no_nav_no_currency,,,,
+HRI,Herald Investment Trust,Global Smaller Companies,False,registry,GBX,5011,2007-01-02,2026-10-29,2007-01-02,2026-10-27,5011,5011,1.0,-0.1603981460375351,-0.14001367469421866,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4894.0
+HSL,Henderson Smaller Companies,UK Smaller Companies,False,registry,GBX,5011,2007-01-02,2026-10-29,2006-12-29,2026-10-27,5011,4869,1.0,-0.13715015677621645,-0.08551839155007868,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4660.0
+HVPE,HarbourVest Global Private Equity,Private Equity,False,announcements_only,GBX,4129,2010-06-29,2026-10-29,2016-07-31,2026-09-30,2474,2329,36.0,-0.2503762805553087,-0.2677824267782427,GBp,ok,committed+s3_archive+s3_snapshot,monthly,29.0,126.0
+HWSC,Hadrian's Wall Secured Investments C shares,Sector Specialist: Debt,False,announcements_only,,1017,2022-10-20,2026-10-28,,,0,0,,,,USD,unresolved_no_nav_no_currency,,,,
 HWSL,HWSI Realisation,Debt - Direct Lending,False,announcements_only,GBP,0,,,,,0,0,,,,,,,,,
-HYG,Seneca Growth Capital VCT,VCT,True,announcements_only,GBX,5009,2007-01-02,2026-10-27,2023-09-30,2026-09-30,0,0,163.0,,,GBp,unresolved_scale,committed+s3_snapshot,semiannual,156.0,6.0
-IAD,Invesco Asia Dragon Trust,Asia Pacific Equity Income,False,registry,GBX,5010,2007-01-02,2026-10-28,2011-08-23,2026-10-26,3836,3836,0.0,-0.10909663093896238,-0.04391783887468037,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,3661.0
-IBT,International Biotechnology,Biotechnology & Healthcare,False,registry,GBX,5010,2007-01-02,2026-10-28,2007-01-04,2026-10-27,5008,4687,0.0,-0.09880886265687688,-0.007785795670338103,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4628.0
-ICGT,ICG Enterprise Trust,Private Equity,False,registry,GBX,5010,2007-01-02,2026-10-28,2015-04-27,2026-07-31,2909,2093,221.0,-0.08236017209588198,-0.3390722142515543,GBp,ok,committed,semiannual,153.0,15.0
+HYG,Seneca Growth Capital VCT,VCT,True,announcements_only,GBX,5010,2007-01-02,2026-10-28,2023-09-30,2026-09-30,0,0,163.0,,,GBp,unresolved_scale,committed+s3_snapshot,semiannual,156.0,6.0
+IAD,Invesco Asia Dragon Trust,Asia Pacific Equity Income,False,registry,GBX,5011,2007-01-02,2026-10-29,2011-08-23,2026-10-27,3837,3837,0.0,-0.10909396537233151,-0.07091917591125196,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,3662.0
+IBT,International Biotechnology,Biotechnology & Healthcare,False,registry,GBX,5011,2007-01-02,2026-10-29,2007-01-04,2026-10-28,5009,4688,0.0,-0.09880652756353003,-0.03480278422273786,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4629.0
+ICGT,ICG Enterprise Trust,Private Equity,False,registry,GBX,5011,2007-01-02,2026-10-29,2015-04-27,2026-07-31,2910,2094,221.0,-0.08236017209588198,-0.33715925394548063,GBp,ok,committed,semiannual,153.0,15.0
 IE1D,Ingenious Entertainment VCT 1 D shares,"VCT Specialist: Media, Leisure & Events Pre Qualifying",True,announcements_only,,0,,,,,0,0,,,,,,,,,
-IEM,Impax Environmental Markets,Environmental,False,registry,GBX,5010,2007-01-02,2026-10-28,2007-01-02,2026-10-26,5009,5009,1.0,-0.09333751158171821,-0.10054443455399842,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4983.0
+IEM,Impax Environmental Markets,Environmental,False,registry,GBX,5011,2007-01-02,2026-10-29,2007-01-02,2026-10-27,5010,5010,1.0,-0.0933570141614457,-0.11014172196280814,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4984.0
 IEVD,Ingenious Entertainment VCT 2 D shares,"VCT Specialist: Media, Leisure & Events Pre Qualifying",True,announcements_only,,0,,,,,0,0,,,,,,,,,
-IGC,India Capital Growth Fund,India / Indian Subcontinent,False,announcements_only,GBX,5010,2007-01-02,2026-10-28,2006-12-31,2026-10-27,5004,3590,3.0,-0.1501197558525844,-0.09617362125886242,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2525.0
-IGET,Invesco Global Equity Income Trust,Global Equity Income,False,registry,GBX,5010,2007-01-02,2026-10-28,2023-11-14,2026-10-26,748,748,0.0,-0.004094427064883999,0.01085735679520794,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,751.0
+IGC,India Capital Growth Fund,India / Indian Subcontinent,False,announcements_only,GBX,5011,2007-01-02,2026-10-29,2006-12-31,2026-10-28,5005,3591,3.0,-0.1501197558525844,-0.10095145944202544,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2526.0
+IGET,Invesco Global Equity Income Trust,Global Equity Income,False,registry,GBX,5011,2007-01-02,2026-10-29,2023-11-14,2026-10-27,749,749,0.0,-0.004051316677920358,0.010327795240233417,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,752.0
 IGV,Income & Growth VCT,VCT Generalist,True,registry,,4981,2007-01-02,2026-09-17,,,0,0,,,,GBp,assumed_from_currency,,,,
 IIT,Independent Investment Trust,UK All Companies,False,registry,GBX,0,,,,,0,0,,,,,,,,,
-INOV,Schroders Capital Global Innovation Trust,Growth Capital,False,registry,GBX,2913,2015-04-21,2026-10-28,2015-04-21,2026-03-31,2912,2912,3.0,-0.2997198879551821,-0.30747922437673125,GBp,ok,committed+s3_archive,semiannual,179.5,1862.0
-INPP,International Public Partnerships,Infrastructure,False,announcements_only,GBX,5010,2007-01-02,2026-10-28,2006-12-31,2025-12-31,4830,4171,155.0,0.04394617845867477,-0.08735332464146028,GBp,ok,committed+s3_archive,quarterly,86.5,58.0
-INV,The Investment Company,Flexible Investment,False,registry,GBX,5009,2007-01-02,2026-10-27,2013-07-09,2026-10-23,3363,3009,5.0,-0.08554894360430199,0.023809523809523725,GBp,ok,committed+s3_archive+s3_snapshot,weekly,7.0,591.0
+INOV,Schroders Capital Global Innovation Trust,Growth Capital,False,registry,GBX,2914,2015-04-21,2026-10-29,2015-04-21,2026-03-31,2913,2913,3.0,-0.2997198879551821,-0.32017542098477714,GBp,ok,committed+s3_archive,semiannual,179.5,1862.0
+INPP,International Public Partnerships,Infrastructure,False,announcements_only,GBX,5011,2007-01-02,2026-10-29,2006-12-31,2025-12-31,4831,4171,155.0,0.04394617845867477,-0.08996084678281868,GBp,ok,committed+s3_archive,quarterly,86.5,58.0
+INV,The Investment Company,Flexible Investment,False,registry,GBX,5011,2007-01-02,2026-10-29,2013-07-09,2026-10-23,3365,3011,5.0,-0.08554894360430199,0.027210884353741527,GBp,ok,committed+s3_archive+s3_snapshot,weekly,7.0,591.0
 IPE,Invesco Enhanced Income,Debt - Loans & Bonds,False,registry,GBX,0,,,,,0,0,,,,,,,,,
 IVI,Invesco Income Growth,UK Equity Income,False,registry,GBX,0,,,,,0,0,,,,,,,,,
 IVPB,Invesco Select Trust - Balanced Risk Allocation sh,Flexible Investment,False,registry,GBX,0,,,,,0,0,,,,,,,daily,1.0,116.0
 IVPM,Invesco Select Trust - Managed Liquidity share,Liquidity Funds,False,registry,GBX,0,,,,,0,0,,,,,,,daily,1.0,116.0
 IVPU,Invesco Select Trust - UK Equity shares,UK Equity Income,False,registry,GBX,0,,,,,0,0,,,,,,,daily,1.0,116.0
-JAGI,JPMorgan Asia Growth & Income,Asia Pacific Equity Income,False,registry,GBX,5010,2007-01-02,2026-10-28,2009-03-18,2026-10-27,4450,3004,0.0,-0.10621552425268099,0.0017446114018795367,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2953.0
-JAM,JPMorgan American,North America,False,registry,GBX,5010,2007-01-02,2026-10-28,2008-01-02,2026-10-27,4757,3014,0.0,-0.05248111088421481,-0.01815311760063143,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2954.0
+JAGI,JPMorgan Asia Growth & Income,Asia Pacific Equity Income,False,registry,GBX,5011,2007-01-02,2026-10-29,2009-03-18,2026-10-28,4451,3005,0.0,-0.10621343192505106,-0.02011728899116627,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2954.0
+JAM,JPMorgan American,North America,False,registry,GBX,5011,2007-01-02,2026-10-29,2008-01-02,2026-10-28,4758,3015,0.0,-0.05246015336141008,-0.037778142255754155,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2955.0
 JARA,JPMorgan Global Core Real Assets,Flexible Investment,False,registry,GBX,1752,2019-09-24,2026-09-01,2025-09-17,2026-03-16,242,242,58.0,-0.17183820323262455,-0.9910842862385706,GBp,ok,committed+s3_archive,quarterly,90.0,3.0
-JCGI,JPMorgan China Growth & Income,China / Greater China,False,registry,GBX,5010,2007-01-02,2026-10-28,2009-03-18,2026-10-27,4450,3022,0.0,-0.13641630240797287,-0.09403805831388223,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2961.0
-JCH,JPMorgan Claverhouse,UK Equity Income,False,registry,GBX,5010,2007-01-02,2026-10-28,2008-12-24,2026-10-27,4507,3023,0.0,-0.058775174681463205,-0.04368527071845696,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2955.0
-JEDT,JPMorgan European Discovery,European Smaller Companies,False,registry,GBX,5010,2007-01-02,2026-10-28,2008-12-24,2026-10-27,4507,3012,0.0,-0.14189837008628947,-0.075005333577154,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2955.0
+JCGI,JPMorgan China Growth & Income,China / Greater China,False,registry,GBX,5011,2007-01-02,2026-10-29,2009-03-18,2026-10-28,4451,3023,0.0,-0.1363756964712125,-0.09729187562688069,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2962.0
+JCH,JPMorgan Claverhouse,UK Equity Income,False,registry,GBX,5011,2007-01-02,2026-10-29,2008-12-24,2026-10-28,4508,3024,0.0,-0.05871956428206765,-0.039357660047315224,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2956.0
+JEDT,JPMorgan European Discovery,European Smaller Companies,False,registry,GBX,5011,2007-01-02,2026-10-29,2008-12-24,2026-10-28,4508,3013,0.0,-0.14189837008628947,-0.0817388157597142,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2956.0
 JEFI,Jupiter Emerging & Frontier Income,Global Emerging Markets,False,registry,GBX,0,,,,,0,0,,,,,,,,,
-JEGI,JPMorgan European Growth & Income,Europe,False,registry,GBX,5010,2007-01-02,2026-10-28,2022-02-07,2026-10-27,1193,1193,0.0,-0.10277479404662282,-0.0371803575006493,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,1200.0
-JEMA,"JPMorgan Emerging Europe, Middle East & Africa",Global Emerging Markets,False,registry,GBX,5010,2007-01-02,2026-10-28,2009-03-18,2026-10-27,4450,3004,0.0,-0.15403484288751684,2.579385118075152,GBp,ok,committed+s3_snapshot,daily,1.0,2953.0
-JEMI,JPMorgan Emerging Markets Dividend Income,Global Emerging Markets,False,registry,GBX,4106,2010-07-29,2026-10-28,2010-07-29,2026-10-27,4106,2972,0.0,-0.08991049013680441,-0.05031892274982286,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2929.0
+JEGI,JPMorgan European Growth & Income,Europe,False,registry,GBX,5011,2007-01-02,2026-10-29,2022-02-07,2026-10-28,1194,1194,0.0,-0.10277402018807485,-0.040658504589213273,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,1201.0
+JEMA,"JPMorgan Emerging Europe, Middle East & Africa",Global Emerging Markets,False,registry,GBX,5011,2007-01-02,2026-10-29,2009-03-18,2026-10-28,4451,3005,0.0,-0.1540303272146848,2.4515608969661438,GBp,ok,committed+s3_snapshot,daily,1.0,2954.0
+JEMI,JPMorgan Emerging Markets Dividend Income,Global Emerging Markets,False,registry,GBX,4107,2010-07-29,2026-10-29,2010-07-29,2026-10-28,4107,2973,0.0,-0.08990140598564844,-0.07420362856210061,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2930.0
 JETI,JPMorgan European Income,Europe,False,registry,GBX,3826,2007-01-02,2022-02-17,,,0,0,,,,GBp,assumed_from_currency,,,,
-JFJ,JPMorgan Japanese,Japan,False,registry,GBX,5010,2007-01-02,2026-10-28,2009-03-18,2026-10-27,4450,3017,0.0,-0.10816000747625454,-0.06770665066691273,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2957.0
+JFJ,JPMorgan Japanese,Japan,False,registry,GBX,5011,2007-01-02,2026-10-29,2009-03-18,2026-10-28,4451,3018,0.0,-0.10815662687574801,-0.0774360028316321,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2958.0
 JGC,Jupiter Green Investment Trust,Environmental,False,registry,GBX,0,,,,,0,0,,,,,,,daily,1.0,2582.0
 JGCI,JPMorgan Global Convertibles Income,Debt - Loans & Bonds,False,registry,GBX,0,,,,,0,0,,,,,,,,,
 JGGC,JPMorgan Global Growth & Income C Shares,Global Equity Income,False,announcements_only,,0,,,,,0,0,,,,,,,,,
-JGGI,JPMorgan Global Growth & Income,Global Equity Income,False,registry,GBX,5010,2007-01-02,2026-10-28,2009-03-18,2026-10-27,4450,3014,0.0,-0.021797025727559427,-0.007563752797608347,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2952.0
+JGGI,JPMorgan Global Growth & Income,Global Equity Income,False,registry,GBX,5011,2007-01-02,2026-10-29,2009-03-18,2026-10-28,4451,3015,0.0,-0.021785199627023855,-0.01687216093445809,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2953.0
 JIGC,JPMorgan Income & Growth,Split Capital Trust,False,registry,GBP,0,,,,,0,0,,,,,,,,,
-JIGI,JPMorgan Income & Growth,Split Capital Trust,False,registry,,5010,2007-01-02,2026-10-28,2009-02-13,2026-10-27,4473,3015,0.0,-0.1724603322589524,-0.0884683670376305,GBp,ok,committed+s3_archive,daily,1.0,2947.0
+JIGI,JPMorgan Income & Growth,Split Capital Trust,False,registry,,5011,2007-01-02,2026-10-29,2009-02-13,2026-10-28,4474,3016,0.0,-0.17244825353752463,-0.08574759293640177,GBp,ok,committed+s3_archive,daily,1.0,2948.0
 JIL,Juridica Investments,Sector Specialist: Litigation,False,registry,,146,2018-05-16,2018-12-20,,,0,0,,,,,unresolved_no_nav_no_currency,,,,
 JLIF,John Laing Infrastructure,Sector Specialist: Infrastructure,False,announcements_only,,95,2018-05-16,2018-10-01,,,0,0,,,,,unresolved_no_nav_no_currency,,,,
 JMF,JPMorgan MidCap,UK All Companies,False,registry,GBX,4336,2007-01-02,2024-02-28,2007-09-25,2024-02-23,4151,2363,0.0,-0.030325880990446197,-0.13777618106700196,GBp,ok,committed,daily,1.0,2273.0
-JMGI,JPMorgan Emerging Markets Growth & Income,Global Emerging Markets,False,registry,GBX,5010,2007-01-02,2026-10-28,2008-12-24,2026-10-27,4507,3023,0.0,-0.12197757665811149,-0.042053259428846745,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2956.0
+JMGI,JPMorgan Emerging Markets Growth & Income,Global Emerging Markets,False,registry,GBX,5011,2007-01-02,2026-10-29,2008-12-24,2026-10-28,4508,3024,0.0,-0.12197247165181047,-0.0671908142511578,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2957.0
 JPB,JPMorgan Brazil,Country Specialist: Latin America,False,registry,GBX,0,,,,,0,0,,,,,,,,,
 JPE,JPMorgan Elect Managed Growth,Global,False,registry,GBX,0,,,,,0,0,,,,,,,,,
 JPEC,JPMorgan Elect Managed Cash,Liquidity Funds,False,registry,GBX,0,,,,,0,0,,,,,,,,,
 JPEI,JPMorgan Elect Managed Income,UK Equity Income,False,registry,GBX,0,,,,,0,0,,,,,,,,,
-JPEL,JPMorgan Private Equity,Split Capital Trust,False,announcements_only,,5009,2007-01-02,2026-10-27,2009-06-30,2016-01-31,0,0,1327.0,,,USD,currency_mismatch,committed+s3_archive,weekly,5.0,8.0
+JPEL,JPMorgan Private Equity,Split Capital Trust,False,announcements_only,,5010,2007-01-02,2026-10-28,2009-06-30,2016-01-31,0,0,1327.0,,,USD,currency_mismatch,committed+s3_archive,weekly,5.0,8.0
 JPI,JPMorgan Income & Capital,Split Capital Trust,False,registry,GBP,2764,2007-01-03,2018-02-27,,,0,0,,,,,unresolved_no_nav_no_currency,,,,
 JPSL,JPMorgan Senior Secured Loan,Sector Specialist: Debt,False,registry,,0,,,,,0,0,,,,,,,,,
 JRIC,Japan Residential,Property Direct - Asia Pacific,False,announcements_only,,2262,2007-01-03,2015-12-31,,,0,0,,,,,unresolved_no_nav_no_currency,,,,
 JSGI,JPMorgan Japan Small Cap Growth & Income,Japanese Smaller Companies,False,registry,GBX,4501,2007-01-02,2024-10-23,2009-03-18,2024-10-22,3941,2516,0.0,-0.13408982889733845,-0.9909331530421518,GBp,ok,committed,daily,1.0,2437.0
-JUGI,JPMorgan UK Small Cap Growth & Income,UK Smaller Companies,False,registry,GBX,5010,2007-01-02,2026-10-28,2008-12-24,2026-10-27,4507,3023,0.0,-0.15517502651916948,-0.07609827191338747,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2952.0
+JUGI,JPMorgan UK Small Cap Growth & Income,UK Smaller Companies,False,registry,GBX,5011,2007-01-02,2026-10-29,2008-12-24,2026-10-28,4508,3024,0.0,-0.155155956003182,-0.08259251602232787,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2953.0
 JUKG,Jupiter UK Growth,UK All Companies,False,registry,GBX,0,,,,,0,0,,,,,,,,,
-JUSC,JPMorgan US Smaller Companies,North American Smaller Companies,False,registry,GBX,5010,2007-01-02,2026-10-28,2008-12-24,2026-10-27,4507,3012,0.0,-0.09804854831032839,-0.07860138644414028,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2955.0
-JZCP,JZ Capital Partners,Flexible Investment,False,registry,GBX,5009,2007-01-02,2026-10-27,2012-10-19,2014-08-22,3543,555,1887.0,-0.9535628019323672,-0.9791062801932368,GBp,ok,committed,adhoc,672.0,2.0
+JUSC,JPMorgan US Smaller Companies,North American Smaller Companies,False,registry,GBX,5011,2007-01-02,2026-10-29,2008-12-24,2026-10-28,4508,3013,0.0,-0.09799772187682931,-0.07808292945611206,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2956.0
+JZCP,JZ Capital Partners,Flexible Investment,False,registry,GBX,5010,2007-01-02,2026-10-28,2012-10-19,2014-08-22,3544,555,1887.5,-0.9536231884057971,-0.9791062801932368,GBp,ok,committed,adhoc,672.0,2.0
 KPC,Keystone Positive Change,Global,False,registry,GBX,0,,,,,0,0,,,,,,,daily,1.0,3265.0
 KWE,Kennedy Wilson Europe Real Estate,Property Direct - Europe,False,announcements_only,,0,,,,,0,0,,,,,,,,,
-LBOW,ICG-Longbow Senior Secured UK Property Debt Invest,Property - Debt,False,announcements_only,GBX,3469,2013-02-05,2026-10-27,2013-07-31,2026-02-01,3305,2377,296.0,0.074278698588091,1.4899999618530275,GBp,ok,committed+s3_archive,adhoc,384.0,19.0
+LBOW,ICG-Longbow Senior Secured UK Property Debt Invest,Property - Debt,False,announcements_only,GBX,3471,2013-02-05,2026-10-29,2013-07-31,2026-02-01,3307,2379,296.0,0.074278698588091,1.4899999618530275,GBp,ok,committed+s3_archive,adhoc,384.0,19.0
 LEF,Ludgate Environmental,Sector Specialist: Environmental,False,announcements_only,,2508,2007-08-01,2017-07-24,,,0,0,,,,,unresolved_no_nav_no_currency,,,,
-LIVE,Living REIT,Property - UK Residential,False,announcements_only,GBP,2329,2017-08-08,2026-10-28,2018-03-31,2025-12-31,2114,1518,248.5,-0.11446681580909768,-0.31344149793239584,GBp,ok,committed+s3_archive,adhoc,367.0,9.0
-LMS,LMS Capital,Private Equity,False,registry,GBX,5010,2007-01-02,2026-10-28,2007-12-31,2025-12-31,4696,2340,402.0,-0.40594059405940597,-0.5819444391462538,GBp,ok,committed+s3_archive,adhoc,362.0,10.0
+LIVE,Living REIT,Property - UK Residential,False,announcements_only,GBP,2330,2017-08-08,2026-10-29,2018-03-31,2025-12-31,2115,1519,249.0,-0.11446681580909768,-0.3124758888736753,GBp,ok,committed+s3_archive,adhoc,367.0,9.0
+LMS,LMS Capital,Private Equity,False,registry,GBX,5011,2007-01-02,2026-10-29,2007-12-31,2025-12-31,4697,2341,402.0,-0.40594059405940597,-0.5819444391462538,GBp,ok,committed+s3_archive,adhoc,362.0,10.0
 LSLI,London & St Lawrence,Global Equity Income,False,registry,GBP,2589,2007-01-03,2017-04-20,,,0,0,,,,,unresolved_no_nav_no_currency,,,,
-LTI,Lindsell Train Investment Trust,Global,False,registry,GBP,5010,2007-01-02,2026-10-28,2009-03-18,2026-10-27,4450,517,189.0,7.797475089193174,-0.19366124970156573,GBP,rescaled_x100_recent_window,s3_archive+s3_snapshot,weekly,6.0,95.0
-LWDB,Law Debenture Corporation,UK Equity Income,False,registry,GBX,5010,2007-01-02,2026-10-28,2007-01-02,2026-10-26,5010,5006,4.0,0.016058901995535613,-0.018536908308507183,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2282.0
-LWI,Lowland Investment Company,UK Equity Income,False,registry,GBX,5010,2007-01-02,2026-10-28,2006-12-29,2026-10-26,5010,4986,1.0,-0.055962332022868044,-0.07206317867719647,GBp,ok,committed+s3_snapshot,daily,1.0,4738.0
-MAJE,Majedie Investments,Flexible Investment,False,registry,GBX,5010,2007-01-02,2026-10-28,2010-02-26,2026-10-16,0,0,154.0,,,GBp,unreliable_nav_series,s3_archive+s3_snapshot,monthly,15.0,117.0
-MAV4,Maven Income and Growth VCT 4,VCT,True,announcements_only,GBX,5009,2007-01-02,2026-10-27,2025-12-31,2026-06-30,200,200,83.0,-0.06516609184970057,-0.06641000962463917,GBp,ok,committed+s3_archive+s3_snapshot,quarterly,59.0,5.0
+LTI,Lindsell Train Investment Trust,Global,False,registry,GBP,5011,2007-01-02,2026-10-29,2009-03-18,2026-10-27,4451,518,189.0,7.789518191610554,-0.19366124970156573,GBP,rescaled_x100_recent_window,s3_archive+s3_snapshot,weekly,6.0,95.0
+LWDB,Law Debenture Corporation,UK Equity Income,False,registry,GBX,5011,2007-01-02,2026-10-29,2007-01-02,2026-10-27,5011,5007,4.0,0.016026544642276264,-0.020264958750175865,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2283.0
+LWI,Lowland Investment Company,UK Equity Income,False,registry,GBX,5011,2007-01-02,2026-10-29,2006-12-29,2026-10-27,5011,4987,1.0,-0.05597419861956743,-0.0714285714285714,GBp,ok,committed+s3_snapshot,daily,1.0,4739.0
+MAJE,Majedie Investments,Flexible Investment,False,registry,GBX,5011,2007-01-02,2026-10-29,2010-02-26,2026-10-16,0,0,154.0,,,GBp,unreliable_nav_series,s3_archive+s3_snapshot,monthly,15.0,117.0
+MAV4,Maven Income and Growth VCT 4,VCT,True,announcements_only,GBX,5010,2007-01-02,2026-10-28,2025-12-31,2026-06-30,201,201,83.0,-0.06516609184970057,-0.06641000962463917,GBp,ok,committed+s3_archive+s3_snapshot,quarterly,59.0,5.0
 MAVT,Momentum Multi-Asset Value,Flexible Investment,False,registry,GBX,4209,2007-01-02,2023-08-30,2008-06-30,2023-08-17,3829,2458,1.0,-0.050145808242778034,100.03653635481858,GBp,rescaled_x100,committed+s3_archive,daily,1.0,2240.0
 MCP,Martin Currie Asia Unconstrained,Asia Pacific Income,False,registry,GBX,0,,,,,0,0,,,,,,,,,
 MCT,Middlefield Canadian Income Trust,North America,False,announcements_only,GBX,1,2025-10-23,2025-10-23,,,0,0,,,,GBp,assumed_from_currency,,,,
-MGCI,M&G Credit Income,Debt - Loans & Bonds,False,registry,GBX,2009,2018-11-14,2026-10-28,2019-11-14,2026-06-16,1756,1468,36.5,-0.006867406233491913,0.00032902213713037476,GBp,ok,committed,adhoc,335.0,41.0
+MGCI,M&G Credit Income,Debt - Loans & Bonds,False,registry,GBX,2010,2018-11-14,2026-10-29,2019-11-14,2026-06-16,1757,1469,37.0,-0.006867406233491913,-0.02380168915213343,GBp,ok,committed,adhoc,335.0,41.0
 MGHC,M&G High Income,Split Capital Trust,False,registry,GBP,0,,,,,0,0,,,,,,,,,
 MGHZ,M&G High Income,Split Capital Trust,False,registry,,0,,,,,0,0,,,,,,,,,
 MIG1,Maven Income and Growth VCT,VCT,True,announcements_only,GBX,5010,2007-01-02,2026-10-28,2025-08-31,2026-05-31,227,137,109.0,-0.07972173553025941,-0.09244642720012808,GBp,ok,committed+s3_archive+s3_snapshot,monthly,39.0,7.0
 MIG2,Maven Income and Growth VCT 2,VCT Generalist,True,registry,,129,2018-05-16,2018-11-15,,,0,0,,,,,unresolved_no_nav_no_currency,,,,
-MIG3,Maven Income and Growth VCT 3,VCT,True,announcements_only,GBX,5009,2007-01-02,2026-10-27,2025-05-31,2026-05-31,330,266,103.5,-0.07968574635241299,-0.07968574635241299,GBp,ok,committed+s3_archive+s3_snapshot,quarterly,49.5,7.0
-MIG5,Maven Income and Growth VCT 5,VCT,True,registry,GBX,5010,2007-01-02,2026-10-28,2025-05-31,2026-05-31,331,272,106.0,-0.07890278486490176,-0.0653572508814858,GBp,ok,committed+s3_archive+s3_snapshot,quarterly,50.0,6.0
+MIG3,Maven Income and Growth VCT 3,VCT,True,announcements_only,GBX,5010,2007-01-02,2026-10-28,2025-05-31,2026-05-31,331,266,104.0,-0.07968574635241299,-0.07968574635241299,GBp,ok,committed+s3_archive+s3_snapshot,quarterly,49.5,7.0
+MIG5,Maven Income and Growth VCT 5,VCT,True,registry,GBX,5011,2007-01-02,2026-10-29,2025-05-31,2026-05-31,332,272,106.5,-0.07890278486490176,-0.0653572508814858,GBp,ok,committed+s3_archive+s3_snapshot,quarterly,50.0,6.0
 MIG6,Talisman First VCT,VCT Generalist,True,announcements_only,,0,,,,,0,0,,,,,,,,,
-MIGO,MIGO Opportunities Trust,Flexible Investment,False,registry,GBX,5010,2007-01-02,2026-10-28,2014-07-31,2026-10-26,3094,3076,1.0,-0.029508521972333723,0.006770091683529378,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,3061.0
+MIGO,MIGO Opportunities Trust,Flexible Investment,False,registry,GBX,5011,2007-01-02,2026-10-29,2014-07-31,2026-10-27,3095,3077,1.0,-0.029505125669979648,0.012591683981275192,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,3062.0
 MINC,Miton UK Microcap C shares,UK Smaller Companies,False,registry,,0,,,,,0,0,,,,,,,,,
 MINI,Miton UK Microcap Trust,UK Smaller Companies,False,registry,GBX,0,,,,,0,0,,,,,,,daily,1.0,2535.0
-MMIT,Mobius Investment Trust,Global Emerging Markets,False,registry,GBX,2041,2018-10-01,2026-10-28,2018-10-01,2026-10-26,2041,2041,1.0,-0.05619998815454663,-0.02767802883818571,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2045.0
-MNKS,Monks Investment Trust,Global,False,registry,GBX,5010,2007-01-02,2026-10-28,2007-01-02,2026-10-27,5010,5010,0.0,-0.10489035446787187,-0.04368253590650928,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,5011.0
+MMIT,Mobius Investment Trust,Global Emerging Markets,False,registry,GBX,2042,2018-10-01,2026-10-29,2018-10-01,2026-10-27,2042,2042,1.0,-0.05615192492446147,-0.05428976343617142,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2046.0
+MNKS,Monks Investment Trust,Global,False,registry,GBX,5011,2007-01-02,2026-10-29,2007-01-02,2026-10-28,5011,5011,0.0,-0.10488913051920312,-0.055298721874741386,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,5012.0
 MNTC,Schiehallion C Shares,Growth Capital,False,announcements_only,#N/A,0,,,,,0,0,,,,,,,,,
-MNTN,Schiehallion Fund,Growth Capital,False,registry,USD,1917,2019-03-27,2026-10-28,2019-12-31,2026-10-19,0,0,20.0,,,USD,currency_mismatch,committed+s3_archive+s3_snapshot,weekly,9.0,103.0
+MNTN,Schiehallion Fund,Growth Capital,False,registry,USD,1918,2019-03-27,2026-10-29,2019-12-31,2026-10-19,0,0,20.0,,,USD,currency_mismatch,committed+s3_archive+s3_snapshot,weekly,9.0,103.0
 MPLF,Marble Point Loan Financing,Debt - Structured Finance,False,announcements_only,,1669,2018-02-12,2024-09-20,,,0,0,,,,USD,unresolved_no_nav_no_currency,,,,
-MPO,Macau Property Opportunities,Property - Rest of World,False,announcements_only,GBX,5009,2007-01-02,2026-10-27,2010-09-30,2015-06-30,4031,1126,1221.0,-0.47282608695652173,-0.9797430830039525,GBp,ok,s3_archive,adhoc,639.0,6.0
-MRC,Mercantile Investment Trust,UK All Companies,False,registry,GBX,5010,2007-01-02,2026-10-28,2007-11-02,2026-10-27,4797,3021,0.0,-0.0971215008252958,-0.09357678513205081,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2956.0
-MRCH,Merchants Trust,UK Equity Income,False,registry,GBX,5010,2007-01-02,2026-10-28,2008-06-09,2026-10-27,4648,4495,1.0,-0.011629118223122015,-0.059258325983789106,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4228.0
-MRV,Maven Renovar VCT,VCT AIM Quoted,True,registry,GBX,5010,2007-01-02,2026-10-28,2026-03-31,2026-10-22,145,143,6.0,-0.053097345132743334,-0.10417040921674336,GBp,ok,committed+s3_snapshot,daily,4.0,39.0
-MTE,Montanaro European Smaller Companies,European Smaller Companies,False,registry,GBX,5010,2007-01-02,2026-10-28,2008-06-30,2026-10-26,4632,4632,0.0,-0.101322401165578,-0.07677614474452166,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4625.0
+MPO,Macau Property Opportunities,Property - Rest of World,False,announcements_only,GBX,5011,2007-01-02,2026-10-29,2010-09-30,2015-06-30,4033,1126,1224.0,-0.47381422924901184,-0.9806324106902473,GBp,ok,s3_archive,adhoc,639.0,6.0
+MRC,Mercantile Investment Trust,UK All Companies,False,registry,GBX,5011,2007-01-02,2026-10-29,2007-11-02,2026-10-28,4798,3022,0.0,-0.09713127297102597,-0.0929961844402768,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2957.0
+MRCH,Merchants Trust,UK Equity Income,False,registry,GBX,5011,2007-01-02,2026-10-29,2008-06-09,2026-10-28,4649,4496,1.0,-0.011630296305428889,-0.05845155152634374,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4229.0
+MRV,Maven Renovar VCT,VCT AIM Quoted,True,registry,GBX,5011,2007-01-02,2026-10-29,2026-03-31,2026-10-22,146,144,6.0,-0.053097345132743334,-0.10417040921674336,GBp,ok,committed+s3_snapshot,daily,4.0,39.0
+MTE,Montanaro European Smaller Companies,European Smaller Companies,False,registry,GBX,5011,2007-01-02,2026-10-29,2008-06-30,2026-10-27,4633,4633,0.0,-0.10132156669755943,-0.06998738965952078,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4626.0
 MTH,Mithras,Private Equity,False,registry,,82,2018-05-16,2018-09-12,,,0,0,,,,,unresolved_no_nav_no_currency,,,,
-MTU,Montanaro UK Smaller Companies,UK Smaller Companies,False,registry,GBX,5010,2007-01-02,2026-10-28,2006-12-31,2026-10-26,5010,5010,1.0,-0.1382874750301376,-0.0364850976361768,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4870.0
-MUT,Murray Income Trust,UK Equity Income,False,registry,GBX,5010,2007-01-02,2026-10-28,2008-05-31,2026-10-27,4649,4416,1.0,-0.06130268199233713,-0.06442077605217478,GBp,ok,committed+s3_snapshot,daily,1.0,4081.0
-MVCT,Molten Ventures VCT,VCT,True,registry,GBX,5009,2007-01-02,2026-10-27,2024-03-31,2026-03-31,0,0,164.0,,,GBp,unresolved_scale,committed,semiannual,166.0,6.0
-MVI,Marwyn Value Investors,UK Smaller Companies,False,announcements_only,GBX,5010,2007-01-02,2026-10-28,2010-06-30,2026-08-31,4121,1434,161.0,-0.9734768907563025,-0.4556331390539943,GBp,ok,committed+s3_archive,monthly,28.5,68.0
-MWY,Mid Wynd International,Global,False,registry,GBX,5010,2007-01-02,2026-10-28,2007-01-02,2026-10-26,5010,5010,1.0,-0.0022275410885868596,-0.020945541591861128,GBp,ok,committed+s3_snapshot,daily,1.0,4999.0
+MTU,Montanaro UK Smaller Companies,UK Smaller Companies,False,registry,GBX,5011,2007-01-02,2026-10-29,2006-12-31,2026-10-27,5011,5011,1.0,-0.13828677374077902,-0.05428329092451234,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4871.0
+MUT,Murray Income Trust,UK Equity Income,False,registry,GBX,5011,2007-01-02,2026-10-29,2008-05-31,2026-10-28,4650,4417,1.0,-0.061324608539787995,-0.06445297793840832,GBp,ok,committed+s3_snapshot,daily,1.0,4082.0
+MVCT,Molten Ventures VCT,VCT,True,registry,GBX,5010,2007-01-02,2026-10-28,2024-03-31,2026-03-31,0,0,164.0,,,GBp,unresolved_scale,committed,semiannual,166.0,6.0
+MVI,Marwyn Value Investors,UK Smaller Companies,False,announcements_only,GBX,5011,2007-01-02,2026-10-29,2010-06-30,2026-08-31,4122,1435,161.0,-0.9734768907563025,-0.4537095812414642,GBp,ok,committed+s3_archive,monthly,28.5,68.0
+MWY,Mid Wynd International,Global,False,registry,GBX,5011,2007-01-02,2026-10-29,2007-01-02,2026-10-27,5011,5011,1.0,-0.002247541345666737,-0.026827985270910126,GBp,ok,committed+s3_snapshot,daily,1.0,5000.0
 MXF,MedicX,Property Specialist,False,announcements_only,,0,,,,,0,0,,,,,,,semiannual,132.5,27.0
-MYI,Murray International Trust,Global Equity Income,False,registry,GBX,5010,2007-01-02,2026-10-28,2008-05-31,2026-10-26,4649,4467,1.0,0.014121120460249603,0.010935735338677421,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4084.0
-NAIT,North American Income Trust,North America,False,registry,GBX,5010,2007-01-02,2026-10-28,2008-05-31,2026-10-26,4649,4434,1.0,-0.06923517070379548,-0.01595147157942045,GBp,ok,committed+s3_snapshot,daily,1.0,4103.0
-NAS,North Atlantic Smaller Companies,North American Smaller Companies,False,registry,,5010,2007-01-02,2026-10-28,2009-04-30,2026-09-30,4413,4310,30.0,-0.20834204204806062,-0.349860250334184,GBp,ok,committed+s3_archive+s3_snapshot,monthly,30.0,204.0
-NAVF,Nippon Active Value Fund,Japanese Smaller Companies,False,registry,GBX,1688,2020-02-21,2026-10-28,2020-02-21,2026-10-26,1687,1246,1.0,-0.030428055698813905,-0.06406256677635802,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,1243.0
+MYI,Murray International Trust,Global Equity Income,False,registry,GBX,5011,2007-01-02,2026-10-29,2008-05-31,2026-10-27,4650,4468,1.0,0.014116964123017661,0.012212564638574008,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4085.0
+NAIT,North American Income Trust,North America,False,registry,GBX,5011,2007-01-02,2026-10-29,2008-05-31,2026-10-27,4650,4435,1.0,-0.06921823876919592,-0.0069335719078506,GBp,ok,committed+s3_snapshot,daily,1.0,4104.0
+NAS,North Atlantic Smaller Companies,North American Smaller Companies,False,registry,,5011,2007-01-02,2026-10-29,2009-04-30,2026-09-30,4414,4311,30.0,-0.20838673570028282,-0.34834123222748825,GBp,ok,committed+s3_archive+s3_snapshot,monthly,30.0,204.0
+NAVF,Nippon Active Value Fund,Japanese Smaller Companies,False,registry,GBX,1689,2020-02-21,2026-10-29,2020-02-21,2026-10-27,1688,1247,1.0,-0.03043953776035213,-0.06334202985329973,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,1244.0
 NBDD,NB Distressed Debt,Debt - Loans & Bonds,False,announcements_only,GBX,1,2025-12-10,2025-12-10,2023-02-14,2023-02-14,0,0,1030.0,,,USD,currency_mismatch,s3_archive,daily,1.0,135.0
 NBDG,NB Distressed Debt New Global shares,Debt - Loans & Bonds,False,announcements_only,GBX,1,2025-12-10,2025-12-10,,,0,0,,,,GBp,assumed_from_currency,,,,
 NBDX,NB Distressed Debt Extended Life shares,Debt - Loans & Bonds,False,announcements_only,GBX,1,2025-12-10,2025-12-10,,,0,0,,,,USD,unresolved_no_nav_no_currency,,,,
 NBLU,NB Global Floating Rate Income,Debt - Loans & Bonds,False,announcements_only,GBX,0,,,,,0,0,,,,,,,,,
-NBPE,Neuberger Private Equity Partners,Private Equity,False,announcements_only,GBX,4380,2009-06-30,2026-10-28,2018-08-31,2026-06-30,2030,897,215.5,-0.23407063959234953,-0.2684337349397591,GBp,ok,committed+s3_archive+s3_snapshot,monthly,30.5,40.0
+NBPE,Neuberger Private Equity Partners,Private Equity,False,announcements_only,GBX,4381,2009-06-30,2026-10-29,2018-08-31,2026-06-30,2031,897,215.0,-0.23413762287756923,-0.2636144578313253,GBp,ok,committed+s3_archive+s3_snapshot,monthly,30.5,40.0
 NBPZ,NB Private Equity Partners,Split Capital Trust,False,announcements_only,,0,,,,,0,0,,,,,,,,,
 NCE,New City Energy,Sector Specialist: Commodities & Natural Resources,False,registry,,0,,,,,0,0,,,,,,,,,
-NCYF,CQS New City High Yield Fund,Debt - Loans & Bonds,False,registry,GBX,5010,2007-01-02,2026-10-28,2008-07-02,2026-10-26,4630,2654,3.0,0.05124718494778702,0.06382978723404253,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2576.0
+NCYF,CQS New City High Yield Fund,Debt - Loans & Bonds,False,registry,GBX,5011,2007-01-02,2026-10-29,2008-07-02,2026-10-27,4631,2655,3.0,0.0512433918059636,0.04032604032604037,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2577.0
 NEP,Neptune-Calculus Income & Growth VCT,VCT Generalist,True,announcements_only,,2689,2007-01-03,2017-09-13,,,0,0,,,,,unresolved_no_nav_no_currency,,,,
-NESF,NextEnergy Solar Fund,Renewable Energy Infrastructure,False,announcements_only,GBP,3162,2014-04-25,2026-10-28,2015-01-31,2026-06-02,2961,2961,100.0,0.011453771381126021,-0.34016394484889967,GBp,ok,committed+s3_archive+s3_snapshot,quarterly,91.0,35.0
+NESF,NextEnergy Solar Fund,Renewable Energy Infrastructure,False,announcements_only,GBP,3163,2014-04-25,2026-10-29,2015-01-31,2026-06-02,2962,2962,100.0,0.01129934289298351,-0.33196719226941385,GBp,ok,committed+s3_archive+s3_snapshot,quarterly,91.0,35.0
 NRI,Northern Investors Company,Private Equity,False,announcements_only,,144,2018-05-16,2018-12-17,,,0,0,,,,,unresolved_no_nav_no_currency,,,,
-NTN,Northern 3 VCT,VCT,True,announcements_only,GBX,5009,2007-01-02,2026-10-27,2025-06-30,2026-06-30,309,309,111.0,-0.07386990077177513,-0.990734463357656,GBp,ok,committed+s3_snapshot,semiannual,172.0,4.0
-NTV,Northern 2 VCT,VCT,True,announcements_only,GBX,5009,2007-01-02,2026-10-27,2025-06-30,2026-06-30,309,309,111.0,-0.07279029462738307,-0.06525573192239864,GBp,ok,committed+s3_snapshot,semiannual,172.0,4.0
-NVT,Northern Venture Trust,VCT,True,announcements_only,GBX,5009,2007-01-02,2026-10-27,2025-06-30,2026-06-30,309,309,111.0,-0.07317073170731703,-0.06821963394342767,GBp,ok,committed+s3_snapshot,semiannual,172.0,4.0
-OAP3,Octopus Apollo VCT,VCT,True,registry,GBX,5010,2007-01-02,2026-10-28,2025-07-31,2026-07-31,271,271,144.0,-0.06924642030673211,-0.0766045864571202,GBp,ok,committed+s3_snapshot,semiannual,172.0,4.0
+NTN,Northern 3 VCT,VCT,True,announcements_only,GBX,5010,2007-01-02,2026-10-28,2025-06-30,2026-06-30,310,310,111.0,-0.07386990077177513,-0.990734463357656,GBp,ok,committed+s3_snapshot,semiannual,172.0,4.0
+NTV,Northern 2 VCT,VCT,True,announcements_only,GBX,5010,2007-01-02,2026-10-28,2025-06-30,2026-06-30,310,310,111.0,-0.07279029462738307,-0.06525573192239864,GBp,ok,committed+s3_snapshot,semiannual,172.0,4.0
+NVT,Northern Venture Trust,VCT,True,announcements_only,GBX,5011,2007-01-02,2026-10-29,2025-06-30,2026-06-30,311,311,111.0,-0.07317073170731703,-0.06821963394342767,GBp,ok,committed+s3_snapshot,semiannual,172.0,4.0
+OAP3,Octopus Apollo VCT,VCT,True,registry,GBX,5011,2007-01-02,2026-10-29,2025-07-31,2026-07-31,272,272,144.0,-0.06924642030673211,-0.045548685836002134,GBp,ok,committed+s3_snapshot,semiannual,172.0,4.0
 OAPC,Octopus Apollo VCT C shares,VCT Generalist Pre Qualifying,True,announcements_only,,0,,,,,0,0,,,,,,,,,
 OAPD,Octopus Apollo VCT D shares,VCT Generalist,True,announcements_only,,0,,,,,0,0,,,,,,,,,
-OCI,Oakley Capital Investments,Private Equity,False,registry,GBX,4862,2007-08-02,2026-10-28,2009-12-31,2026-06-30,4123,2186,129.0,8.214285714285714,-0.2915601023017903,GBp,ok,committed,quarterly,48.0,51.0
+OCI,Oakley Capital Investments,Private Equity,False,registry,GBX,4863,2007-08-02,2026-10-29,2009-12-31,2026-06-30,4124,2185,129.0,8.214285714285714,-0.3072060682680152,GBp,ok,committed,quarterly,48.0,52.0
 OCV3,Octopus VCT 3,VCT Specialist: Environmental,True,announcements_only,,0,,,,,0,0,,,,,,,,,
 OCV4,Octopus VCT 4,VCT Specialist: Environmental,True,announcements_only,,0,,,,,0,0,,,,,,,,,
 OEC1,Octopus Eclipse VCT,VCT Generalist,True,registry,,0,,,,,0,0,,,,,,,,,
-OFG,Octopus Future Generations VCT,VCT,True,announcements_only,,1150,2022-04-05,2026-10-27,2024-12-31,2026-06-30,405,395,162.0,-0.04938273959689665,-0.04620852233109318,GBp,rescaled_x100,committed+s3_snapshot,quarterly,86.0,7.0
-OIT,Odyssean Investment Trust,UK Smaller Companies,False,registry,GBX,2147,2018-05-01,2026-10-28,2018-05-01,2026-10-26,2146,2108,1.0,0.006766657669603715,0.02498941126641263,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2098.0
-ONWD,Onward Opportunities,UK Smaller Companies,False,announcements_only,,905,2023-03-30,2026-10-28,2026-04-22,2026-10-21,132,132,5.0,0.0031405788706744264,0.016439809086087998,GBp,ok,committed+s3_snapshot,weekly,6.0,42.0
-OOA,Octopus AIM VCT,VCT AIM Quoted,True,registry,GBX,4582,2008-09-09,2026-10-27,2026-03-31,2026-10-19,140,129,8.0,-0.049752456362884834,-0.04761904761904756,GBp,ok,committed+s3_snapshot,daily,4.0,40.0
-ORIT,Octopus Renewables Infrastructure Trust,Renewable Energy Infrastructure,False,announcements_only,GBX,1738,2019-12-10,2026-10-28,2020-06-30,2026-06-30,1576,1576,78.5,-0.1391077465901041,-0.29798097006265956,GBp,ok,committed+s3_archive+s3_snapshot,quarterly,90.0,27.0
-OSEC,Octopus AIM VCT 2,VCT AIM Quoted,True,registry,GBX,5009,2007-01-02,2026-10-27,2026-03-30,2026-10-19,146,135,8.0,-0.05063291139240511,-0.04702195553196631,GBp,ok,committed+s3_snapshot,weekly,4.5,41.0
-OT1,Oxford Technology 2 VCT - OT1 shares,VCT,True,announcements_only,GBX,5009,2007-01-02,2026-10-27,,,0,0,,,,GBp,assumed_from_currency,,,,
-OT3,Oxford Technology 2 VCT - OT3 shares,VCT,True,announcements_only,GBX,5009,2007-01-02,2026-10-27,,,0,0,,,,GBp,assumed_from_currency,,,,
-OT4,Oxford Technology 2 VCT - OT4 shares,VCT,True,announcements_only,GBX,5009,2007-01-02,2026-10-27,,,0,0,,,,GBp,assumed_from_currency,,,,
-OTV2,Octopus Titan VCT,VCT,True,registry,GBX,4759,2007-12-28,2026-10-28,2024-06-30,2026-06-30,537,537,161.0,-0.4863731656184487,-0.5898004434589801,GBp,ok,committed+s3_snapshot,semiannual,181.5,5.0
+OFG,Octopus Future Generations VCT,VCT,True,announcements_only,,1151,2022-04-05,2026-10-28,2024-12-31,2026-06-30,406,396,162.0,-0.04938273959689665,-0.04620852233109318,GBp,rescaled_x100,committed+s3_snapshot,quarterly,86.0,7.0
+OIT,Odyssean Investment Trust,UK Smaller Companies,False,registry,GBX,2148,2018-05-01,2026-10-29,2018-05-01,2026-10-27,2147,2109,1.0,0.006766793200198018,0.01710587147480358,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2099.0
+ONWD,Onward Opportunities,UK Smaller Companies,False,announcements_only,,906,2023-03-30,2026-10-29,2026-04-22,2026-10-21,133,133,5.0,0.003231887961217206,0.016439809086087998,GBp,ok,committed+s3_snapshot,weekly,6.0,42.0
+OOA,Octopus AIM VCT,VCT AIM Quoted,True,registry,GBX,4583,2008-09-09,2026-10-28,2026-03-31,2026-10-19,141,130,8.0,-0.04950491272576962,-0.04761904761904756,GBp,ok,committed+s3_snapshot,daily,4.0,40.0
+ORIT,Octopus Renewables Infrastructure Trust,Renewable Energy Infrastructure,False,announcements_only,GBX,1739,2019-12-10,2026-10-29,2020-06-30,2026-06-30,1577,1577,79.0,-0.1392757943524402,-0.3003017029814279,GBp,ok,committed+s3_archive+s3_snapshot,quarterly,90.0,27.0
+OSEC,Octopus AIM VCT 2,VCT AIM Quoted,True,registry,GBX,5010,2007-01-02,2026-10-28,2026-03-30,2026-10-19,147,136,8.0,-0.05063291139240511,-0.04702195553196631,GBp,ok,committed+s3_snapshot,weekly,4.5,41.0
+OT1,Oxford Technology 2 VCT - OT1 shares,VCT,True,announcements_only,GBX,5010,2007-01-02,2026-10-28,,,0,0,,,,GBp,assumed_from_currency,,,,
+OT3,Oxford Technology 2 VCT - OT3 shares,VCT,True,announcements_only,GBX,5010,2007-01-02,2026-10-28,,,0,0,,,,GBp,assumed_from_currency,,,,
+OT4,Oxford Technology 2 VCT - OT4 shares,VCT,True,announcements_only,GBX,5010,2007-01-02,2026-10-28,,,0,0,,,,GBp,assumed_from_currency,,,,
+OTV2,Octopus Titan VCT,VCT,True,registry,GBX,4760,2007-12-28,2026-10-29,2024-06-30,2026-06-30,538,538,160.5,-0.4863731656184487,-0.5898004434589801,GBp,ok,committed+s3_snapshot,semiannual,181.5,5.0
 OVC2,Octopus VCT 2,VCT Generalist,True,registry,,0,,,,,0,0,,,,,,,,,
-OXH,Oxford Technology 2 VCT - OT2 shares,VCT,True,announcements_only,GBX,5009,2007-01-02,2026-10-27,2021-11-30,2026-08-31,1213,18,376.0,-0.6594427244582043,-0.7677595628415301,GBp,ok,committed,single_observation,,6.0
+OXH,Oxford Technology 2 VCT - OT2 shares,VCT,True,announcements_only,GBX,5010,2007-01-02,2026-10-28,2021-11-30,2026-08-31,1214,18,375.5,-0.6594427244582043,-0.7677595628415301,GBp,ok,committed,single_observation,,6.0
 P2P2,P2P Global Investments C shares,Sector Specialist: Debt,False,announcements_only,,0,,,,,0,0,,,,,,,,,
 PAC,Pacific Assets Trust,Asia Pacific,False,registry,GBX,4983,2007-01-02,2026-09-21,2008-06-30,2026-09-18,4605,4575,1.0,-0.07086938607334148,-0.9907001943804815,GBp,ok,committed+s3_archive,daily,1.0,4545.0
-PAIM,Puma AIM VCT,VCT AIM Quoted,True,announcements_only,,397,2025-04-02,2026-10-27,2026-03-02,2026-10-26,167,167,2.0,-0.04503418970740747,-0.05332915098544,GBp,rescaled_x100,committed+s3_snapshot,weekly,7.0,45.0
+PAIM,Puma AIM VCT,VCT AIM Quoted,True,announcements_only,,398,2025-04-02,2026-10-28,2026-03-02,2026-10-26,168,168,2.0,-0.04503418970740747,-0.05332915098544,GBp,rescaled_x100,committed+s3_snapshot,weekly,7.0,45.0
 PCFC,Polar Capital Global Financials C Share,Financials,False,announcements_only,#N/A,0,,,,,0,0,,,,,,,,,
-PCFT,Polar Capital Global Financials,Financials & Financial Innovation,False,registry,GBX,3370,2013-07-01,2026-10-28,2013-07-01,2026-10-27,3369,3248,0.0,-0.05288461538461542,-0.04804706651413626,GBp,ok,committed+s3_snapshot,daily,1.0,3219.0
-PCGH,Polar Capital Global Healthcare,Biotechnology & Healthcare,False,registry,GBX,4138,2010-06-15,2026-10-28,2010-06-16,2026-10-27,4137,4137,0.0,-0.05267046654000418,0.02689930934205731,GBp,ok,committed,daily,1.0,4129.0
-PCT,Polar Capital Technology,Technology & Technology Innovation,False,registry,GBX,5010,2007-01-02,2026-10-28,2007-01-02,2026-10-27,5010,4909,0.0,-0.046579918740714765,-0.05856353591160224,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4743.0
+PCFT,Polar Capital Global Financials,Financials & Financial Innovation,False,registry,GBX,3371,2013-07-01,2026-10-29,2013-07-01,2026-10-28,3370,3249,0.0,-0.05287773453184297,-0.045754832395400014,GBp,ok,committed+s3_snapshot,daily,1.0,3220.0
+PCGH,Polar Capital Global Healthcare,Biotechnology & Healthcare,False,registry,GBX,4139,2010-06-15,2026-10-29,2010-06-16,2026-10-28,4138,4138,0.0,-0.05266894979403669,0.04197307387713556,GBp,ok,committed,daily,1.0,4130.0
+PCT,Polar Capital Technology,Technology & Technology Innovation,False,registry,GBX,5011,2007-01-02,2026-10-29,2007-01-02,2026-10-28,5011,4910,0.0,-0.04660826392761419,-0.08967430569603785,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4744.0
 PCTZ,Picton Property Income,Split Capital Trust,False,announcements_only,,0,,,,,0,0,,,,,,,,,
-PEMB,Pembroke VCT B shares,VCT,True,announcements_only,GBP,2925,2015-04-01,2026-10-28,,,0,0,,,,GBp,assumed_from_currency,,,,
+PEMB,Pembroke VCT B shares,VCT,True,announcements_only,GBP,2926,2015-04-01,2026-10-29,,,0,0,,,,GBp,assumed_from_currency,,,,
 PEMV,Pembroke VCT,VCT Generalist,True,announcements_only,GBX,0,,,,,0,0,,,,,,,,,
 PEQ,Private Equity Investor,Private Equity,False,registry,GBP,0,,,,,0,0,,,,,,,,,
 PEW,Premier Energy & Water,Split Capital Trust,False,registry,,0,,,,,0,0,,,,,,,,,
-PEY,Partners Group Private Equity,Private Equity,False,announcements_only,GBX,5010,2007-01-02,2026-10-28,,,0,0,,,,EUR,unresolved_no_nav_no_currency,,,,
+PEY,Partners Group Private Equity,Private Equity,False,announcements_only,GBX,5011,2007-01-02,2026-10-29,,,0,0,,,,EUR,unresolved_no_nav_no_currency,,,,
 PEZ,Premier Miton Global Renewables,Infrastructure Securities,False,registry,GBX,7,2018-07-06,2018-08-31,,,0,0,,,,GBp,assumed_from_currency,,,,
-PGOO,ProVen Growth and Income VCT,VCT,True,registry,GBX,5009,2007-01-02,2026-10-27,,,0,0,,,,GBp,assumed_from_currency,,,,
-PGV,PXN Growth VCT,VCT,True,announcements_only,,633,2024-04-29,2026-10-27,2024-10-31,2026-04-27,476,476,153.0,0.012658227848101333,0.012658227848101333,GBp,rescaled_x100,committed,adhoc,252.0,3.0
-PHI,Pacific Horizon Investment Trust,Asia Pacific,False,registry,GBX,5010,2007-01-02,2026-10-28,2007-01-02,2026-10-27,5010,4947,0.0,-0.08963295655098918,-0.049970077797726,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4936.0
-PIN,Pantheon International,Private Equity,False,registry,GBX,5010,2007-01-02,2026-10-28,2006-12-31,2026-05-31,4991,4448,109.0,-0.1752688948242258,-0.25371693377099824,GBp,ok,committed+s3_archive,semiannual,159.0,76.0
-PINT,Pantheon Infrastructure,Infrastructure,False,announcements_only,,1249,2021-11-16,2026-10-28,2022-09-30,2026-03-31,977,977,167.0,-0.15412846836475058,-0.07852564102564097,GBp,ok,committed+s3_archive,semiannual,182.0,8.0
+PGOO,ProVen Growth and Income VCT,VCT,True,registry,GBX,5011,2007-01-02,2026-10-29,,,0,0,,,,GBp,assumed_from_currency,,,,
+PGV,PXN Growth VCT,VCT,True,announcements_only,,634,2024-04-29,2026-10-28,2024-10-31,2026-04-27,477,477,153.0,0.012658227848101333,0.012658227848101333,GBp,rescaled_x100,committed,adhoc,252.0,3.0
+PHI,Pacific Horizon Investment Trust,Asia Pacific,False,registry,GBX,5011,2007-01-02,2026-10-29,2007-01-02,2026-10-28,5011,4948,0.0,-0.08963005876024166,-0.07445741676096906,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4937.0
+PIN,Pantheon International,Private Equity,False,registry,GBX,5011,2007-01-02,2026-10-29,2006-12-31,2026-05-31,4992,4449,109.0,-0.1752688948242258,-0.25178605908476537,GBp,ok,committed+s3_archive,semiannual,159.0,76.0
+PINT,Pantheon Infrastructure,Infrastructure,False,announcements_only,,1250,2021-11-16,2026-10-29,2022-09-30,2026-03-31,978,978,167.5,-0.15412846836475058,-0.07852564102564097,GBp,ok,committed+s3_archive,semiannual,182.0,8.0
 PJF,Prospect Japan,Japanese Smaller Companies,False,announcements_only,,0,,,,,0,0,,,,,,,,,
 PLI,Perpetual Income & Growth,UK Equity Income,False,registry,GBX,0,,,,,0,0,,,,,,,,,
 PMGR,Premier Miton Global Renewables,Infrastructure Securities,False,registry,GBX,0,,,,,0,0,,,,,,,daily,1.0,2564.0
 PMH,Puma High Income VCT,VCT Generalist,True,announcements_only,,0,,,,,0,0,,,,,,,,,
-PNL,Personal Assets Trust,Flexible Investment,False,registry,GBX,5010,2007-01-02,2026-10-28,2008-07-01,2026-10-26,4631,4631,1.0,0.010621140995015876,-0.0033756630766758056,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4629.0
-PPET,Patria Private Equity,Private Equity,False,registry,GBX,5010,2007-01-02,2026-10-28,2015-01-31,2026-03-31,2957,2871,35.0,-0.25312825860271115,-0.29934096427332635,GBp,ok,committed+s3_archive,monthly,30.0,136.0
-PSDL,Phoenix Spree Deutschland,Property - Europe,False,announcements_only,GBX,2876,2015-06-15,2026-10-28,,,0,0,,,,GBp,assumed_from_currency,,,,
-PSH,Pershing Square Holdings,North America,False,announcements_only,GBX,2434,2017-03-10,2026-10-28,2020-12-02,2026-10-02,1490,479,470.5,-0.1656976744186046,-0.34002422564457524,GBp,ok,committed+s3_archive+s3_snapshot,monthly,29.0,23.0
+PNL,Personal Assets Trust,Flexible Investment,False,registry,GBX,5011,2007-01-02,2026-10-29,2008-07-01,2026-10-27,4632,4632,1.0,0.010617500918714051,-0.008551912078455293,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4630.0
+PPET,Patria Private Equity,Private Equity,False,registry,GBX,5011,2007-01-02,2026-10-29,2015-01-31,2026-03-31,2958,2871,35.0,-0.2531875059247322,-0.29934096427332635,GBp,ok,committed+s3_archive,monthly,30.0,136.0
+PSDL,Phoenix Spree Deutschland,Property - Europe,False,announcements_only,GBX,2877,2015-06-15,2026-10-29,,,0,0,,,,GBp,assumed_from_currency,,,,
+PSH,Pershing Square Holdings,North America,False,announcements_only,GBX,2435,2017-03-10,2026-10-29,2020-12-02,2026-10-02,1491,480,470.0,-0.16615667074663398,-0.3396781450077868,GBp,ok,committed+s3_archive+s3_snapshot,monthly,29.0,23.0
 PTF,Phaunos Timber,Sector Specialist: Forestry & Timber,False,announcements_only,,139,2018-05-16,2018-12-07,,,0,0,,,,,unresolved_no_nav_no_currency,,,,
 PU11,Puma VCT 11,VCT Generalist,True,announcements_only,GBP,0,,,,,0,0,,,,,,,,,
 PU12,Puma VCT 12,VCT Generalist,True,announcements_only,GBP,0,,,,,0,0,,,,,,,,,
-PU13,Puma VCT 13,VCT,True,announcements_only,GBX,2126,2018-05-31,2026-10-27,2025-06-30,2026-10-05,0,0,85.0,,,GBp,unresolved_dispersed,committed+s3_snapshot,quarterly,108.0,5.0
-PUAL,Puma Alpha VCT,VCT,True,registry,GBX,1682,2020-02-28,2026-10-27,2025-03-31,2026-10-07,0,0,57.0,,,GBp,unresolved_dispersed,committed+s3_snapshot,quarterly,58.0,9.0
+PU13,Puma VCT 13,VCT,True,announcements_only,GBX,2127,2018-05-31,2026-10-28,2025-06-30,2026-10-05,0,0,85.0,,,GBp,unresolved_dispersed,committed+s3_snapshot,quarterly,108.0,5.0
+PUAL,Puma Alpha VCT,VCT,True,registry,GBX,1683,2020-02-28,2026-10-28,2025-03-31,2026-10-07,0,0,57.0,,,GBp,unresolved_dispersed,committed+s3_snapshot,quarterly,58.0,9.0
 PUM8,Puma VCT 8,VCT Generalist,True,announcements_only,,0,,,,,0,0,,,,,,,,,
 PUM9,Puma VCT 9,VCT Generalist,True,announcements_only,,0,,,,,0,0,,,,,,,,,
 PUMA,Puma VCT VII,VCT Generalist,True,announcements_only,,0,,,,,0,0,,,,,,,,,
 PUMX,Puma VCT 10,VCT Generalist,True,announcements_only,GBX,0,,,,,0,0,,,,,,,,,
-PVN,ProVen VCT,VCT,True,registry,GBX,5009,2007-01-02,2026-10-27,2025-03-01,2026-10-15,242,147,162.5,-0.06549520766773165,-0.6324253363964556,GBp,ok,committed,semiannual,168.5,3.0
+PVN,ProVen VCT,VCT,True,registry,GBX,5010,2007-01-02,2026-10-28,2025-03-01,2026-10-15,243,148,162.0,-0.06549520766773165,-0.6324253363964556,GBp,ok,committed,semiannual,168.5,3.0
 QIL,Qannas Investments,Global Emerging Markets,False,announcements_only,,0,,,,,0,0,,,,,,,,,
 RCOI,Riverstone Credit Opportunities Income,Debt - Direct Lending,False,registry,USD,1877,2019-05-28,2026-10-28,,,0,0,,,,USD,unresolved_no_nav_no_currency,,,,
-RCP,RIT Capital Partners,Flexible Investment,False,registry,GBX,5010,2007-01-02,2026-10-28,2006-12-31,2026-09-30,5007,4795,33.0,-0.014881767552268776,-0.2411966344655656,GBp,ok,committed+s3_archive+s3_snapshot,monthly,29.0,199.0
+RCP,RIT Capital Partners,Flexible Investment,False,registry,GBX,5011,2007-01-02,2026-10-29,2006-12-31,2026-09-30,5008,4796,33.0,-0.014903570343298589,-0.23963851667186042,GBp,ok,committed+s3_archive+s3_snapshot,monthly,29.0,199.0
 RDL,RDL Realisation,Debt - Direct Lending,False,announcements_only,,0,,,,,0,0,,,,,,,,,
 RDLC,Ranger Direct Lending C shares,Sector Specialist: Debt,False,registry,,0,,,,,0,0,,,,,,,,,
-RECI,Real Estate Credit Investments,Property - Debt,False,announcements_only,GBX,5010,2007-01-02,2026-10-28,2012-10-31,2026-08-31,3519,1245,242.0,14.092592592592592,-0.18948126801152743,GBp,ok,committed,monthly,31.0,56.0
-RESI,Residential Secure Income REIT,Property - UK Residential,False,announcements_only,GBX,2350,2017-07-12,2026-10-28,2018-05-30,2025-12-31,2128,1870,167.5,-0.13640824337585877,-0.8929712490532726,GBp,ok,committed+s3_archive,adhoc,284.0,14.0
+RECI,Real Estate Credit Investments,Property - Debt,False,announcements_only,GBX,5011,2007-01-02,2026-10-29,2012-10-31,2026-09-30,3520,1256,242.0,14.092592592592592,-0.156180606957809,GBp,ok,committed,monthly,32.0,57.0
+RESI,Residential Secure Income REIT,Property - UK Residential,False,announcements_only,GBX,2351,2017-07-12,2026-10-29,2018-05-30,2025-12-31,2129,1871,168.0,-0.13640824337585877,-0.897763576751319,GBp,ok,committed+s3_archive,adhoc,284.0,14.0
 REW,M7 Regional E-Warehouse REIT,Property - UK Logistics,False,announcements_only,,289,2022-11-01,2023-12-21,2023-06-30,2023-09-30,104,104,65.5,0.3212712942567726,0.21386822899544167,GBp,rescaled_x100,committed,quarterly,45.5,3.0
-RGL,Regional REIT,Property - UK Commercial,False,announcements_only,GBP,2773,2015-11-06,2026-10-28,2015-12-31,2026-06-30,2661,2119,161.0,-0.43917101450063833,-0.540639756297215,GBp,ok,committed,semiannual,182.0,17.0
+RGL,Regional REIT,Property - UK Commercial,False,announcements_only,GBP,2774,2015-11-06,2026-10-29,2015-12-31,2026-06-30,2662,2120,161.0,-0.43917101450063833,-0.5359202936549554,GBp,ok,committed,semiannual,182.0,17.0
 RHM,Round Hill Music Royalty Fund,Royalties,False,announcements_only,GBX,0,,,,,0,0,,,,,,,,,
 RHMC,Round Hill Music Royalty C Share,Royalties,False,announcements_only,#N/A,0,,,,,0,0,,,,,,,,,
-RICA,Ruffer Investment Company,Flexible Investment,False,announcements_only,GBX,5010,2007-01-02,2026-10-28,2007-01-04,2026-10-21,5008,4603,2.0,0.0040931194378242,-0.04101940950441729,GBp,ok,committed+s3_snapshot,weekly,7.0,1099.0
+RICA,Ruffer Investment Company,Flexible Investment,False,announcements_only,GBX,5011,2007-01-02,2026-10-29,2007-01-04,2026-10-28,5009,4604,2.0,0.004077471967380175,-0.04100637150792352,GBp,ok,committed+s3_snapshot,weekly,7.0,1101.0
 RIIC,Rights & Issues,Split Capital Trust,False,announcements_only,,0,,,,,0,0,,,,,,,,,
-RIII,Rights & Issues,Split Capital Trust,False,announcements_only,,5010,2007-01-02,2026-10-28,2007-02-01,2026-10-27,4988,1934,24.0,0.35243596468498994,-0.18081814162744125,GBp,ok_recent_window,committed+s3_archive,daily,1.0,861.0
-RKW,Rockwood Strategic,UK Smaller Companies,False,registry,GBX,5010,2007-01-02,2026-10-28,2015-08-14,2026-10-23,2831,2831,5.0,-0.10295003010234793,-0.012485454602635504,GBp,ok,committed+s3_archive+s3_snapshot,weekly,7.0,664.0
+RIII,Rights & Issues,Split Capital Trust,False,announcements_only,,5011,2007-01-02,2026-10-29,2007-02-01,2026-10-28,4989,1935,24.0,0.35243596468498994,-0.19151151772691843,GBp,ok_recent_window,committed+s3_archive,daily,1.0,862.0
+RKW,Rockwood Strategic,UK Smaller Companies,False,registry,GBX,5011,2007-01-02,2026-10-29,2015-08-14,2026-10-23,2832,2832,5.0,-0.10293066840256188,-0.03450011007327747,GBp,ok,committed+s3_archive+s3_snapshot,weekly,7.0,664.0
 RMDC,RM Secured Direct Lending C shares,Sector Specialist: Debt,False,announcements_only,,0,,,,,0,0,,,,,,,,,
-RMII,RM Infrastructure Income,Debt - Direct Lending,False,announcements_only,GBX,2492,2016-12-15,2026-10-28,2017-03-31,2026-07-29,2408,2345,25.0,-0.08895485720135121,-0.3754261661385443,GBp,ok,committed,monthly,33.5,102.0
-RMMC,River UK Micro Cap,UK Smaller Companies,False,announcements_only,GBP,3008,2014-12-02,2026-10-28,2014-12-02,2026-10-26,3007,2993,1.0,-0.13140311804008897,-0.11120157405522757,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2956.0
-RNEW,Ecofin US Renewables Infrastructure,Renewable Energy Infrastructure,False,announcements_only,USD,1475,2020-12-22,2026-10-27,,,0,0,,,,USD,unresolved_no_nav_no_currency,,,,
+RMII,RM Infrastructure Income,Debt - Direct Lending,False,announcements_only,GBX,2493,2016-12-15,2026-10-29,2017-03-31,2026-07-29,2409,2346,25.0,-0.08895485720135121,-0.3754261661385443,GBp,ok,committed,monthly,33.5,102.0
+RMMC,River UK Micro Cap,UK Smaller Companies,False,announcements_only,GBP,3009,2014-12-02,2026-10-29,2014-12-02,2026-10-27,3008,2994,1.0,-0.1313288739907496,-0.11357715600365414,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2957.0
+RNEW,Ecofin US Renewables Infrastructure,Renewable Energy Infrastructure,False,announcements_only,USD,1476,2020-12-22,2026-10-28,,,0,0,,,,USD,unresolved_no_nav_no_currency,,,,
 RSB,Rensburg AIM VCT,VCT AIM Quoted,True,announcements_only,,0,,,,,0,0,,,,,,,,,
-RSE,Riverstone Energy,Commodities & Natural Resources,False,announcements_only,GBX,3288,2013-10-24,2026-10-28,2021-09-30,2026-03-31,1263,1255,132.0,-0.40752351097178685,-0.511993382961125,GBp,ok,s3_archive,adhoc,287.0,9.0
-RTW,RTW Biotech Opportunities,Biotechnology & Healthcare,False,announcements_only,,1768,2019-10-23,2026-10-28,,,0,0,,,,USD,unresolved_no_nav_no_currency,,,,
-SAIN,Scottish American,Global Equity Income,False,registry,GBX,5010,2007-01-02,2026-10-28,2007-01-02,2026-10-27,5010,5010,0.0,-0.04131852982155909,-0.07516172261469478,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,5004.0
-SBO,Schroder British Opportunities,Growth Capital,False,registry,GBX,1522,2020-01-06,2026-10-28,2020-12-02,2026-10-27,1490,1164,0.0,-0.3101564525087947,-0.41462957759670316,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,1496.0
-SBSI,Schroder BSC Social Impact,Flexible Investment,False,announcements_only,#N/A,1476,2020-12-22,2026-10-28,2023-06-22,2026-03-31,850,850,185.0,-0.23260247855100102,-0.21828616663368294,GBp,ok,committed+s3_archive,semiannual,181.0,8.0
-SCF,Schroder Income Growth Fund,UK Equity Income,False,registry,GBX,5010,2007-01-02,2026-10-28,2008-01-02,2026-10-27,4757,4757,0.0,-0.0524056332129208,-0.061600164541340985,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4733.0
+RSE,Riverstone Energy,Commodities & Natural Resources,False,announcements_only,GBX,3289,2013-10-24,2026-10-29,2021-09-30,2026-03-31,1264,1256,132.0,-0.40754507448847294,-0.5202646815550042,GBp,ok,s3_archive,adhoc,287.0,9.0
+RTW,RTW Biotech Opportunities,Biotechnology & Healthcare,False,announcements_only,,1769,2019-10-23,2026-10-29,,,0,0,,,,USD,unresolved_no_nav_no_currency,,,,
+SAIN,Scottish American,Global Equity Income,False,registry,GBX,5011,2007-01-02,2026-10-29,2007-01-02,2026-10-28,5011,5011,0.0,-0.04133204389690115,-0.07837913860714463,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,5005.0
+SBO,Schroder British Opportunities,Growth Capital,False,registry,GBX,1523,2020-01-06,2026-10-29,2020-12-02,2026-10-28,1491,1165,0.0,-0.31031290501758935,-0.4170256602359993,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,1497.0
+SBSI,Schroder BSC Social Impact,Flexible Investment,False,announcements_only,#N/A,1477,2020-12-22,2026-10-29,2023-06-22,2026-03-31,851,851,185.0,-0.23260247855100102,-0.21828616663368294,GBp,ok,committed+s3_archive,semiannual,181.0,8.0
+SCF,Schroder Income Growth Fund,UK Equity Income,False,registry,GBX,5011,2007-01-02,2026-10-29,2008-01-02,2026-10-28,4758,4758,0.0,-0.05241302618255711,-0.06071049153991659,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4734.0
 SCIN,Scottish Investment Trust,Global,False,registry,GBX,0,,,,,0,0,,,,,,,,,
-SCP,Schroder UK Mid Cap Fund,UK All Companies,False,registry,GBX,5010,2007-01-02,2026-10-28,2007-12-31,2026-10-27,4757,4757,0.0,-0.13745004900851987,-0.05326018352187212,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4727.0
-SDP,Schroder AsiaPacific Fund,Asia Pacific,False,registry,GBX,5010,2007-01-02,2026-10-28,2007-01-04,2026-10-27,5008,5008,0.0,-0.10622911541126567,-0.06395514587094941,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4907.0
-SDV,Chelverton UK Dividend Trust,UK Equity Income,False,registry,GBX,5010,2007-01-02,2026-10-28,2006-12-31,2026-10-27,5006,2805,9.0,-0.08126745810055869,-0.1069125612587053,GBp,ok,committed+s3_archive,daily,1.0,1519.0
+SCP,Schroder UK Mid Cap Fund,UK All Companies,False,registry,GBX,5011,2007-01-02,2026-10-29,2007-12-31,2026-10-28,4758,4758,0.0,-0.13736381808919568,-0.062462390179323646,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4728.0
+SDP,Schroder AsiaPacific Fund,Asia Pacific,False,registry,GBX,5011,2007-01-02,2026-10-29,2007-01-04,2026-10-28,5009,5009,0.0,-0.10622828335576129,-0.09094112258200904,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4908.0
+SDV,Chelverton UK Dividend Trust,UK Equity Income,False,registry,GBX,5011,2007-01-02,2026-10-29,2006-12-31,2026-10-28,5007,2806,9.0,-0.08126745810055869,-0.08962687524041535,GBp,ok,committed+s3_archive,daily,1.0,1520.0
 SDVZ,Chelverton Small Companies Dividend,Split Capital Trust,False,registry,,0,,,,,0,0,,,,,,,,,
-SEC,Strategic Equity Capital,UK Smaller Companies,False,registry,GBX,5010,2007-01-02,2026-10-28,2006-12-31,2026-10-26,5008,4956,1.0,-0.13271860556937892,-0.10265947554398369,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,3455.0
-SEIT,SDCL Efficiency Income,Renewable Energy Infrastructure,False,announcements_only,,1990,2018-12-11,2026-10-28,2019-03-31,2026-03-31,1855,802,160.0,-0.14114392551548816,-0.5899742979623358,GBp,ok,committed,quarterly,49.0,26.0
+SEC,Strategic Equity Capital,UK Smaller Companies,False,registry,GBX,5011,2007-01-02,2026-10-29,2006-12-31,2026-10-27,5009,4957,1.0,-0.13271710601392217,-0.10440835266821347,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,3456.0
+SEIT,SDCL Efficiency Income,Renewable Energy Infrastructure,False,announcements_only,,1991,2018-12-11,2026-10-29,2019-03-31,2026-03-31,1856,802,160.0,-0.1412790334648148,-0.588046282299993,GBp,ok,committed,quarterly,49.0,26.0
 SEQC,Sequoia Economic Infrastructure Income C shares,Sector Specialist: Infrastructure,False,announcements_only,,0,,,,,0,0,,,,,,,,,
-SEQI,Sequoia Economic Infrastructure Income,Infrastructure,False,announcements_only,GBP,2946,2015-03-03,2026-10-28,2015-03-31,2026-10-15,2916,2815,27.0,0.047357469240785544,-0.10538536408405508,GBp,ok,committed+s3_archive+s3_snapshot,monthly,31.0,128.0
-SERE,Schroder European Real Estate,Property - Europe,False,announcements_only,GBP,2750,2015-12-09,2026-10-28,2016-06-30,2026-06-30,2590,2590,158.0,-0.2565597667638483,-0.47483987624996427,GBp,ok,committed+s3_archive,semiannual,182.0,21.0
+SEQI,Sequoia Economic Infrastructure Income,Infrastructure,False,announcements_only,GBP,2947,2015-03-03,2026-10-29,2015-03-31,2026-10-15,2917,2816,27.0,0.047172633888501014,-0.11754945204293032,GBp,ok,committed+s3_archive+s3_snapshot,monthly,31.0,128.0
+SERE,Schroder European Real Estate,Property - Europe,False,announcements_only,GBP,2751,2015-12-09,2026-10-29,2016-06-30,2026-06-30,2591,2591,158.0,-0.2565597667638483,-0.4949679710618531,GBp,ok,committed+s3_archive,semiannual,182.0,21.0
 SGEM,ScotGems,Global Emerging Markets,False,registry,GBX,0,,,,,0,0,,,,,,,,,
 SGRE,Schroder Global Real Estate Securities,Property Securities,False,announcements_only,,0,,,,,0,0,,,,,,,,,
-SHIP,Tufton Assets,Leasing,False,announcements_only,,2236,2017-12-20,2026-10-28,,,0,0,,,,USD,unresolved_no_nav_no_currency,,,,
+SHIP,Tufton Assets,Leasing,False,announcements_only,,2237,2017-12-20,2026-10-29,,,0,0,,,,USD,unresolved_no_nav_no_currency,,,,
 SHPC,Tufton Oceanic Assets C shares,Sector Specialist: Leasing,False,announcements_only,,0,,,,,0,0,,,,,,,,,
 SHRS,Shires Income,UK Equity Income,False,registry,GBX,0,,,,,0,0,,,,,,,daily,1.0,3961.0
 SIT,Sanditon Investment,UK All Companies,False,registry,GBX,0,,,,,0,0,,,,,,,,,
-SJG,Schroder Japan Trust,Japan,False,registry,GBX,5010,2007-01-02,2026-10-28,2007-01-08,2026-10-27,5006,5006,0.0,-0.10997367305447597,-0.08917291023945939,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4897.0
+SJG,Schroder Japan Trust,Japan,False,registry,GBX,5011,2007-01-02,2026-10-29,2007-01-08,2026-10-28,5007,5007,0.0,-0.10997133806003923,-0.09938340535029377,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4898.0
 SLFR,KKV Secured Loan,Leasing,False,announcements_only,GBX,0,,,,,0,0,,,,,,,,,
 SLFX,KKV Secured Loan C,Leasing,False,announcements_only,#N/A,2030,2016-12-12,2024-12-24,,,0,0,,,,GBp,assumed_from_currency,,,,
-SMIF,TwentyFour Select Monthly Income,Debt - Loans & Bonds,False,announcements_only,GBX,3194,2014-03-10,2026-10-28,2014-03-13,2026-10-22,3191,3178,4.0,0.022803981267815576,0.006661713226265631,GBp,ok,committed+s3_archive+s3_snapshot,weekly,7.0,613.0
-SMT,Scottish Mortgage Investment Trust,Global,False,registry,GBX,5010,2007-01-02,2026-10-28,2007-01-02,2026-10-27,5010,5010,0.0,-0.07918884588567288,-0.07663068813425611,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,5012.0
+SMIF,TwentyFour Select Monthly Income,Debt - Loans & Bonds,False,announcements_only,GBX,3195,2014-03-10,2026-10-29,2014-03-13,2026-10-22,3192,3179,4.0,0.02278551937950668,0.012829983643240617,GBp,ok,committed+s3_archive+s3_snapshot,weekly,7.0,613.0
+SMT,Scottish Mortgage Investment Trust,Global,False,registry,GBX,5011,2007-01-02,2026-10-29,2007-01-02,2026-10-28,5011,5011,0.0,-0.07927592212723944,-0.085850791454538,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,5013.0
 SOHC,Triple Point Social Housing REIT C shares,Property Specialist,False,announcements_only,,0,,,,,0,0,,,,,,,,,
-SOI,Schroder Oriental Income,Asia Pacific Equity Income,False,registry,GBX,5010,2007-01-02,2026-10-28,2007-01-05,2026-10-27,5007,5007,0.0,-0.018101663215550068,-0.01687584992308888,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4913.0
+SOI,Schroder Oriental Income,Asia Pacific Equity Income,False,registry,GBX,5011,2007-01-02,2026-10-29,2007-01-05,2026-10-28,5008,5008,0.0,-0.018250669769607764,-0.042412193505632856,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4914.0
 SONC,Hipgnosis Songs C shares,Royalties,False,announcements_only,,0,,,,,0,0,,,,,,,,,
 SONG,Hipgnosis Songs Fund,Royalties,False,announcements_only,,1529,2018-07-11,2024-07-30,,,0,0,,,,GBp,assumed_from_currency,,,,
-SSIC,Seraphim Space Investment Trust C shares,Growth Capital,False,announcements_only,,119,2026-05-13,2026-10-28,,,0,0,,,,GBp,assumed_from_currency,,,,
+SSIC,Seraphim Space Investment Trust C shares,Growth Capital,False,announcements_only,,120,2026-05-13,2026-10-29,,,0,0,,,,GBp,assumed_from_currency,,,,
 SSIF,Secured Income,Debt - Direct Lending,False,announcements_only,GBX,0,,,,,0,0,,,,,,,monthly,30.0,104.0
-SSIT,Seraphim Space Investment Trust,Growth Capital,False,announcements_only,#N/A,1337,2021-07-14,2026-10-28,2021-12-31,2026-06-30,1181,1093,169.0,-0.4099608836093841,-0.24238015323613382,GBp,ok,committed,quarterly,117.0,12.0
+SSIT,Seraphim Space Investment Trust,Growth Capital,False,announcements_only,#N/A,1338,2021-07-14,2026-10-29,2021-12-31,2026-06-30,1182,1094,169.0,-0.4098515056200667,-0.22242089068152526,GBp,ok,committed,quarterly,117.0,12.0
 SSON,Smithson Investment Trust,Global Smaller Companies,False,registry,GBX,0,,,,,0,0,,,,,,,daily,1.0,1830.0
-SST,Scottish Oriental Smaller Companies,Asia Pacific Smaller Companies,False,registry,GBX,5010,2007-01-02,2026-10-28,2007-01-08,2026-10-26,5006,4733,1.0,-0.11507852522265755,-0.05795544093416438,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4501.0
-STS,STS Global Income & Growth Trust,Global Equity Income,False,registry,GBX,5010,2007-01-02,2026-10-28,2009-11-12,2026-10-26,4283,4204,1.0,-0.01715345387111722,-0.015331461887281406,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4200.0
-SUPR,Supermarket Income REIT,Property - UK Commercial,False,announcements_only,,2344,2017-06-20,2026-10-28,2017-12-31,2025-12-31,2206,2174,157.0,0.03217821782178221,-0.033714250837053594,GBp,ok,committed,semiannual,182.0,18.0
+SST,Scottish Oriental Smaller Companies,Asia Pacific Smaller Companies,False,registry,GBX,5011,2007-01-02,2026-10-29,2007-01-08,2026-10-27,5007,4734,1.0,-0.1150600686498856,-0.08676611955709046,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4502.0
+STS,STS Global Income & Growth Trust,Global Equity Income,False,registry,GBX,5011,2007-01-02,2026-10-29,2009-11-12,2026-10-27,4284,4205,1.0,-0.017104554583673548,-0.013115179846773128,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4201.0
+SUPR,Supermarket Income REIT,Property - UK Commercial,False,announcements_only,,2345,2017-06-20,2026-10-29,2017-12-31,2025-12-31,2207,2174,157.0,0.03217821782178221,-0.04571428571428571,GBp,ok,committed,semiannual,182.0,18.0
 SURE,Sure Ventures,Technology & Technology Innovation,False,announcements_only,,2217,2018-01-19,2026-10-28,2018-08-20,2026-06-30,2070,1302,103.0,-0.053348255922402554,-0.7668305918263524,GBp,ok,committed,quarterly,98.0,18.0
-SVCT,Seneca Growth Capital VCT B shares,VCT,True,announcements_only,GBX,2056,2018-09-07,2026-10-27,2023-03-31,2026-09-30,901,787,172.0,-0.2682926829268293,-0.23295454545454553,GBp,ok,committed+s3_snapshot,semiannual,169.0,5.0
+SVCT,Seneca Growth Capital VCT B shares,VCT,True,announcements_only,GBX,2057,2018-09-07,2026-10-28,2023-03-31,2026-09-30,902,788,172.0,-0.2682926829268293,-0.23295454545454553,GBp,ok,committed+s3_snapshot,semiannual,169.0,5.0
 SVI,SVG Capital,Private Equity,False,announcements_only,,0,,,,,0,0,,,,,,,,,
-SYNC,Syncona,Biotechnology & Healthcare,False,announcements_only,GBX,3539,2012-10-26,2026-10-28,2012-11-19,2025-03-31,3523,2662,126.0,0.07531278109412054,24.60483870967742,GBp,ok,s3_archive,semiannual,217.0,81.0
+SYNC,Syncona,Biotechnology & Healthcare,False,announcements_only,GBX,3540,2012-10-26,2026-10-29,2012-11-19,2025-03-31,3524,2662,126.0,0.07531278109412054,24.806451612903228,GBp,ok,s3_archive,semiannual,217.0,81.0
 TCT,Cayenne Trust,Global,False,registry,GBP,0,,,,,0,0,,,,,,,,,
-TEM,Templeton Emerging Markets,Global Emerging Markets,False,registry,GBX,5010,2007-01-02,2026-10-28,2007-01-09,2026-10-26,5005,4835,0.0,-0.08158002093537708,-0.03816606231946418,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4654.0
-TFG,Tetragon Financial Group,Flexible Investment,False,announcements_only,USD,4405,2009-05-27,2026-10-28,,,0,0,,,,USD,unresolved_no_nav_no_currency,,,,
-TFIF,TwentyFour Income Fund,Debt - Structured Finance,False,announcements_only,GBX,3449,2013-03-06,2026-10-28,2013-03-11,2026-10-26,3446,3126,2.0,0.019506242648102856,0.021785232311548164,GBp,ok,committed+s3_archive+s3_snapshot,weekly,7.0,678.0
+TEM,Templeton Emerging Markets,Global Emerging Markets,False,registry,GBX,5011,2007-01-02,2026-10-29,2007-01-09,2026-10-27,5006,4836,0.0,-0.0815465591328488,-0.061498550282313325,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4655.0
+TFG,Tetragon Financial Group,Flexible Investment,False,announcements_only,USD,4406,2009-05-27,2026-10-29,,,0,0,,,,USD,unresolved_no_nav_no_currency,,,,
+TFIF,TwentyFour Income Fund,Debt - Structured Finance,False,announcements_only,GBX,3450,2013-03-06,2026-10-29,2013-03-11,2026-10-26,3447,3127,2.0,0.019511337669186224,0.021785232311548164,GBp,ok,committed+s3_archive+s3_snapshot,weekly,7.0,678.0
 THRG,BlackRock Throgmorton Trust,UK Smaller Companies,False,registry,GBX,0,,,,,0,0,,,,,,,daily,1.0,4325.0
-THRL,Target Healthcare REIT,Property - UK Healthcare,False,announcements_only,GBX,3448,2013-03-07,2026-10-28,2013-03-31,2026-06-30,3397,3090,88.0,0.05380332536290444,-0.04091655525170057,GBp,ok,committed+s3_archive+s3_snapshot,quarterly,105.0,43.0
+THRL,Target Healthcare REIT,Property - UK Healthcare,False,announcements_only,GBX,3449,2013-03-07,2026-10-29,2013-03-31,2026-06-30,3398,3091,88.0,0.05380332536290444,-0.03927985658036903,GBp,ok,committed+s3_archive+s3_snapshot,quarterly,105.0,43.0
 TIGT,Troy Income & Growth Trust,UK Equity Income,False,registry,GBX,4357,2007-01-02,2024-03-28,2006-09-30,2024-03-21,4356,3970,1.0,-0.00040717994334693586,0.022021699633673952,GBp,ok,committed+s3_archive,daily,1.0,3659.0
-TMI,Taylor Maritime Investments,Leasing,False,announcements_only,#N/A,418,2025-03-05,2026-10-28,,,0,0,,,,USD,unresolved_no_nav_no_currency,,,,
-TMPL,Temple Bar Investment Trust,UK Equity Income,False,registry,GBX,5010,2007-01-02,2026-10-28,2008-06-06,2026-10-26,4647,4459,1.0,-0.04227932542220958,0.00044102968826154054,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,3466.0
-TORO,Chenavari Toro Income Fund,Debt - Structured Finance,False,announcements_only,GBP,2900,2015-05-08,2026-10-27,,,0,0,,,,EUR,unresolved_no_nav_no_currency,,,,
+TMI,Taylor Maritime Investments,Leasing,False,announcements_only,#N/A,419,2025-03-05,2026-10-29,,,0,0,,,,USD,unresolved_no_nav_no_currency,,,,
+TMPL,Temple Bar Investment Trust,UK Equity Income,False,registry,GBX,5011,2007-01-02,2026-10-29,2008-06-06,2026-10-27,4648,4460,1.0,-0.042278354025807985,0.011091652072387603,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,3467.0
+TORO,Chenavari Toro Income Fund,Debt - Structured Finance,False,announcements_only,GBP,2902,2015-05-08,2026-10-29,,,0,0,,,,EUR,unresolved_no_nav_no_currency,,,,
 TP10,TP10 VCT,VCT Generalist,True,announcements_only,,0,,,,,0,0,,,,,,,,,
 TP5,TP5 VCT,VCT Generalist,True,announcements_only,,0,,,,,0,0,,,,,,,,,
 TP5B,TP5 VCT B shares,VCT Generalist,True,announcements_only,,0,,,,,0,0,,,,,,,,,
@@ -517,46 +517,46 @@ TPOA,Triple Point VCT 2011 A shares,VCT Generalist,True,announcements_only,GBP,2
 TPOB,Triple Point VCT 2011 B shares,VCT Generalist,True,announcements_only,GBP,0,,,,,0,0,,,,,,,,,
 TPOG,Third Point Offshore Investors,Hedge Funds,False,announcements_only,,51,2018-05-16,2018-07-27,,,0,0,,,,,unresolved_no_nav_no_currency,,,,
 TPOU,Third Point Investors,Hedge Funds,False,announcements_only,GBX,0,,,,,0,0,,,,,,,,,
-TPV,Triple Point Venture VCT Venture shares,VCT,True,announcements_only,,1904,2019-04-12,2026-10-27,2025-07-30,2026-07-31,0,0,98.0,,,GBp,unresolved_dispersed,committed+s3_snapshot,semiannual,187.0,4.0
+TPV,Triple Point Venture VCT Venture shares,VCT,True,announcements_only,,1905,2019-04-12,2026-10-28,2025-07-30,2026-07-31,0,0,98.0,,,GBp,unresolved_dispersed,committed+s3_snapshot,semiannual,187.0,4.0
 TPV1,Triple Point Income VCT,VCT Generalist,True,announcements_only,,429,2008-12-26,2019-06-20,,,0,0,,,,GBp,assumed_from_currency,,,,
 TPVC,Triple Point Income VCT C shares,VCT Generalist,True,announcements_only,GBX,2221,2014-02-20,2022-12-02,,,0,0,,,,GBp,assumed_from_currency,,,,
 TPVD,Triple Point Income VCT D shares,VCT Generalist,True,announcements_only,GBP,1981,2015-02-03,2022-12-02,,,0,0,,,,GBp,assumed_from_currency,,,,
 TPVE,Triple Point Income VCT E shares,VCT Generalist,True,announcements_only,GBP,1610,2017-04-19,2023-09-04,2019-09-30,2021-09-30,953,683,127.0,-0.19077976186115286,-0.009955888171006566,GBp,rescaled_x100,committed,quarterly,103.5,9.0
 TREE,Cambium Global Timberland,Sector Specialist: Forestry & Timber,False,registry,,0,,,,,0,0,,,,,,,,,
-TRIG,Renewables Infrastructure Group,Renewable Energy Infrastructure,False,announcements_only,GBX,3351,2013-07-29,2026-10-28,2021-12-31,2026-06-30,1076,1072,87.0,-0.22070186485428211,-0.2116716424506212,GBp,ok,archive+committed+s3_archive+s3_snapshot,quarterly,87.0,17.0
-TRY,TR Property Investment Trust,Property Securities,False,registry,GBX,5010,2007-01-02,2026-10-28,2006-12-29,2026-10-27,5010,4889,0.0,-0.0829688547305466,-0.09090909090909083,GBp,ok,committed+s3_snapshot,daily,1.0,4726.0
+TRIG,Renewables Infrastructure Group,Renewable Energy Infrastructure,False,announcements_only,GBX,3352,2013-07-29,2026-10-29,2021-12-31,2026-06-30,1077,1073,87.0,-0.22057365923088212,-0.20870425321463892,GBp,ok,archive+committed+s3_archive+s3_snapshot,quarterly,87.0,17.0
+TRY,TR Property Investment Trust,Property Securities,False,registry,GBX,5011,2007-01-02,2026-10-29,2006-12-29,2026-10-28,5011,4890,0.0,-0.08299866131191425,-0.0947030497592295,GBp,ok,committed+s3_snapshot,daily,1.0,4727.0
 TV2A,Thames Ventures VCT 2 AIM shares,VCT AIM Quoted,True,announcements_only,GBX,718,2022-01-17,2024-11-19,,,0,0,,,,GBp,assumed_from_currency,,,,
 TV2H,Thames Ventures VCT 2 Healthcare shares,VCT,True,announcements_only,GBP,1957,2017-02-21,2024-11-19,,,0,0,,,,GBp,assumed_from_currency,,,,
 TV2V,Thames Ventures VCT 2 Ventures shares,VCT,True,announcements_only,GBP,1957,2017-02-21,2024-11-19,,,0,0,,,,GBp,assumed_from_currency,,,,
-UAV,Unicorn AIM VCT,VCT AIM Quoted,True,registry,GBX,4940,2007-04-11,2026-10-27,2025-06-30,2026-09-30,334,334,21.0,-0.33999999999999997,-0.36,GBp,rescaled_x0.01_recent_window,committed,monthly,31.0,17.0
-UEM,Utilico Emerging Markets Trust,Global Emerging Markets,False,registry,GBX,5010,2007-01-02,2026-10-28,2007-01-08,2026-10-26,5006,5002,1.0,-0.10736847526728305,-0.055026779926994784,GBp,ok,committed+s3_snapshot,daily,1.0,4195.0
+UAV,Unicorn AIM VCT,VCT AIM Quoted,True,registry,GBX,4941,2007-04-11,2026-10-28,2025-06-30,2026-09-30,335,335,21.0,-0.33999999999999997,-0.36,GBp,rescaled_x0.01_recent_window,committed,monthly,31.0,17.0
+UEM,Utilico Emerging Markets Trust,Global Emerging Markets,False,registry,GBX,5011,2007-01-02,2026-10-29,2007-01-08,2026-10-27,5007,5003,1.0,-0.10736799636895455,-0.07816984636164104,GBp,ok,committed+s3_snapshot,daily,1.0,4196.0
 UKML,UK Mortgages,Debt - Structured Finance,False,announcements_only,GBP,0,,,,,0,0,,,,,,,,,
 UKRO,Ukraine Opportunity,Country Specialists: Europe,False,registry,,0,,,,,0,0,,,,,,,,,
 UKT,Threadneedle UK Select Trust,UK All Companies,False,registry,GBP,0,,,,,0,0,,,,,,,,,
-UKW,Greencoat UK Wind,Renewable Energy Infrastructure,False,registry,GBX,3435,2013-02-14,2026-10-28,2013-07-09,2026-06-30,3364,3297,57.0,0.0471331389698737,-0.10812827386934298,GBp,ok,committed+s3_archive,quarterly,91.0,49.0
-USA,Baillie Gifford US Growth,North America,False,registry,GBX,2172,2018-03-23,2026-10-28,2018-03-26,2026-10-27,2171,2171,0.0,-0.03959561920808763,-0.07227808687662696,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2176.0
-USF,US Solar Fund,Renewable Energy Infrastructure,False,announcements_only,,1903,2019-04-16,2026-10-28,,,0,0,,,,USD,unresolved_no_nav_no_currency,,,,
-UTL,UIL,Flexible Investment,False,registry,GBX,5010,2007-01-02,2026-10-28,2007-07-02,2026-10-27,4885,4878,1.0,-0.30910627508979505,-0.24201985694459272,GBp,ok,committed,daily,1.0,2163.0
+UKW,Greencoat UK Wind,Renewable Energy Infrastructure,False,registry,GBX,3436,2013-02-14,2026-10-29,2013-07-09,2026-06-30,3365,3298,57.0,0.0471331389698737,-0.10887397464578674,GBp,ok,committed+s3_archive,quarterly,91.0,49.0
+USA,Baillie Gifford US Growth,North America,False,registry,GBX,2173,2018-03-23,2026-10-29,2018-03-26,2026-10-28,2172,2172,0.0,-0.039659923852238155,-0.08774868047097029,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,2177.0
+USF,US Solar Fund,Renewable Energy Infrastructure,False,announcements_only,,1904,2019-04-16,2026-10-29,,,0,0,,,,USD,unresolved_no_nav_no_currency,,,,
+UTL,UIL,Flexible Investment,False,registry,GBX,5011,2007-01-02,2026-10-29,2007-07-02,2026-10-28,4886,4879,1.0,-0.3090659420420868,-0.24615112369492131,GBp,ok,committed,daily,1.0,2164.0
 UTLF,UIL,Flexible Investment,False,registry,GBX,0,,,,,0,0,,,,,,,,,
-UTLH,UIL,Flexible Investment,False,registry,GBX,1896,2019-04-26,2026-10-27,2026-08-27,2026-10-26,43,43,1.0,-0.44166202930810616,-0.47063630227022424,GBp,ok,committed+s3_snapshot,daily,1.0,44.0
-UTLI,UIL,Flexible Investment,False,registry,GBX,1393,2021-04-23,2026-10-28,,,0,0,,,,GBp,assumed_from_currency,,,,
-VEIL,Ventus VCT D shares,VCT Specialist: Environmental,True,announcements_only,GBX,2608,2016-07-05,2026-10-28,2016-07-05,2026-10-27,2608,2608,0.0,-0.15060240963855426,-0.11778846153846156,GBp,ok,committed+s3_archive,daily,1.0,2434.0
+UTLH,UIL,Flexible Investment,False,registry,GBX,1897,2019-04-26,2026-10-28,2026-08-27,2026-10-27,44,44,1.0,-0.4416723857773652,-0.46976975908330665,GBp,ok,committed+s3_snapshot,daily,1.0,45.0
+UTLI,UIL,Flexible Investment,False,registry,GBX,1394,2021-04-23,2026-10-29,,,0,0,,,,GBp,assumed_from_currency,,,,
+VEIL,Ventus VCT D shares,VCT Specialist: Environmental,True,announcements_only,GBX,2609,2016-07-05,2026-10-29,2016-07-05,2026-10-28,2609,2609,0.0,-0.1506024096385542,-0.13669064748201443,GBp,ok,committed+s3_archive,daily,1.0,2435.0
 VEN,Ventus VCT,VCT Specialist: Environmental,True,announcements_only,GBX,3821,2007-01-02,2022-02-10,,,0,0,,,,GBp,assumed_from_currency,,,,
 VEN2,Ventus 2 VCT,VCT Specialist: Environmental,True,announcements_only,GBX,3820,2007-01-02,2022-02-09,,,0,0,,,,GBp,assumed_from_currency,,,,
 VENC,Ventus VCT C shares,VCT Specialist: Environmental,True,announcements_only,GBX,3251,2009-04-01,2022-02-10,,,0,0,,,,GBp,assumed_from_currency,,,,
-VIP,Value and Indexed Property Income Trust,Property - UK Commercial,False,registry,GBX,5010,2007-01-02,2026-10-28,2007-03-31,2026-03-31,4800,4466,162.5,-0.1940120649261427,-0.014150943396226467,GBp,ok,committed,semiannual,207.0,36.0
+VIP,Value and Indexed Property Income Trust,Property - UK Commercial,False,registry,GBX,5011,2007-01-02,2026-10-29,2007-03-31,2026-03-31,4801,4467,163.0,-0.1939451824838644,-0.028301886792452824,GBp,ok,committed,semiannual,207.0,36.0
 VND,Ventus 2 VCT D shares,VCT Specialist: Environmental,True,announcements_only,GBX,1976,2014-04-17,2022-02-09,,,0,0,,,,GBp,assumed_from_currency,,,,
-VNH,VietNam Holding,Country Specialist,False,announcements_only,,5010,2007-01-02,2026-10-28,2011-09-30,2026-10-21,3807,1764,22.0,-0.836121157323689,-0.10862022951694683,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,1816.0
+VNH,VietNam Holding,Country Specialist,False,announcements_only,,5011,2007-01-02,2026-10-29,2011-09-30,2026-10-28,3808,1765,22.0,-0.8247050969342697,-0.11387329591018447,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,1818.0
 VNI,Vietnam Infrastructure Private Equity,Sector Specialist: Infrastructure,False,announcements_only,,0,,,,,0,0,,,,,,,,,
 VNIL,Vietnam Infrastructure Listed,Sector Specialist: Infrastructure,False,announcements_only,,0,,,,,0,0,,,,,,,,,
 VNL,Vinaland,Property Direct - Asia Pacific,False,announcements_only,,0,,,,,0,0,,,,,,,,,
-VOF,VinaCapital Vietnam Opportunity,Country Specialist,False,announcements_only,GBX,5010,2007-01-02,2026-10-28,2010-06-30,2026-10-26,4114,2599,3.0,-0.21529856748375797,-0.1838649155722326,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,1888.0
-VSL,VPC Specialty Lending Investments,Debt - Direct Lending,False,announcements_only,GBP,2936,2015-03-17,2026-10-28,2015-03-31,2026-06-30,2905,2905,51.0,-0.20094855139705114,-0.41868930187040165,GBp,ok,committed+s3_snapshot,quarterly,86.5,123.0
+VOF,VinaCapital Vietnam Opportunity,Country Specialist,False,announcements_only,GBX,5011,2007-01-02,2026-10-29,2010-06-30,2026-10-27,4115,2600,3.0,-0.2152974504249292,-0.19475655430711614,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,1889.0
+VSL,VPC Specialty Lending Investments,Debt - Direct Lending,False,announcements_only,GBP,2937,2015-03-17,2026-10-29,2015-03-31,2026-06-30,2906,2906,51.0,-0.20095474363251342,-0.4089805732652979,GBp,ok,committed+s3_snapshot,quarterly,86.5,123.0
 VSLC,VPC Specialty Lending Investments C shares,Sector Specialist: Debt,False,announcements_only,,0,,,,,0,0,,,,,,,,,
-VTA,Volta Finance,Debt - Structured Finance,False,registry,EUR,5010,2007-01-02,2026-10-27,,,0,0,,,,EUR,unresolved_no_nav_no_currency,,,,
+VTA,Volta Finance,Debt - Structured Finance,False,registry,EUR,5012,2007-01-02,2026-10-29,,,0,0,,,,EUR,unresolved_no_nav_no_currency,,,,
 WINV,Worsley Investors,UK Smaller Companies,False,announcements_only,GBX,5010,2007-01-02,2026-10-28,2006-12-31,2026-06-30,4983,4891,100.0,-0.33392764994796453,-0.4236252701209665,GBp,ok,committed+s3_archive+s3_snapshot,quarterly,85.0,72.0
 WTAN,Witan Investment Trust,Global,False,registry,GBX,0,,,,,0,0,,,,,,,daily,1.0,4233.0
 WTR,Lazard World Trust Fund,Global,False,registry,GBP,0,,,,,0,0,,,,,,,,,
-WWH,Worldwide Healthcare Trust,Biotechnology & Healthcare,False,registry,GBX,5010,2007-01-02,2026-10-28,2006-12-29,2026-10-26,5010,5010,1.0,-0.030147523406568844,-0.06225547730829417,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4984.0
+WWH,Worldwide Healthcare Trust,Biotechnology & Healthcare,False,registry,GBX,5011,2007-01-02,2026-10-29,2006-12-29,2026-10-27,5011,5011,1.0,-0.030242214791988853,-0.049341945510174345,GBp,ok,committed+s3_archive+s3_snapshot,daily,1.0,4985.0
 WWW,SuperSeed Capital,Technology & Technology Innovation,False,announcements_only,,43,2026-07-17,2026-09-16,2025-12-31,2025-12-31,43,43,229.0,5.25,5.25,GBP,assumed_from_currency_thin_overlap,committed,adhoc,570.0,3.0
 YATRA,Yatra Capital,Property Direct - Asia Pacific,False,announcements_only,,4740,2007-01-02,2025-10-03,,,0,0,,,,EUR,unresolved_no_nav_no_currency,,,,
