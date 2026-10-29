@@ -4,13 +4,13 @@
   "rows_without_nav": 328,
   "basis_counts": {
     "nan": 328,
-    "3.0": 303,
-    "0.0": 274,
+    "3.0": 304,
+    "0.0": 273,
     "1.0": 211
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 168,
+  "alert_eligible": 169,
   "z_extremes": [
     {
       "security_id": "SEDOL:3115202",
@@ -50,8 +50,8 @@
     },
     {
       "security_id": "ASX:GCI",
-      "z_adj": -38.7196,
-      "discount_est": -0.912997,
+      "z_adj": -38.7199,
+      "discount_est": -0.913002,
       "staleness_days": 4.0
     },
     {
@@ -62,8 +62,8 @@
     },
     {
       "security_id": "SEDOL:B1G3N11",
-      "z_adj": -36.1594,
-      "discount_est": -0.886041,
+      "z_adj": -36.1593,
+      "discount_est": -0.886038,
       "staleness_days": 1.0
     },
     {
@@ -83,14 +83,10 @@
       "live_prices": 99
     },
     "uk_identity_blocked": 337,
-    "uk_nav_targets": 306,
+    "uk_nav_targets": 307,
     "uk_registry_only_targets": 111,
     "uk_aux_z_history_funds": 255,
-    "uk_fx_pairs": [
-      "CAD",
-      "EUR",
-      "USD"
-    ],
+    "uk_fx_pairs": [],
     "uk_nav_validation": {
       "comparable_pairs": 5057,
       "agreement_rate_pairs": 0.9693
@@ -135,21 +131,21 @@
       "discount_control": 3,
       "manager_change": 2,
       "scheme_merger_rollover": 2,
+      "takeover_offer": 1,
       "strategic_review": 1,
-      "legal_sanctions": 1,
-      "takeover_offer": 1
+      "legal_sanctions": 1
     },
     "unalerted": 673,
     "holdings_with_terms": 79,
     "tr1": {
-      "candidates": 3,
-      "fetched": 3,
-      "parsed": 3,
+      "candidates": 0,
+      "fetched": 0,
+      "parsed": 0,
       "failed": 0
     },
     "realisations": {
-      "candidates": 2,
-      "fetched": 2,
+      "candidates": 0,
+      "fetched": 0,
       "parsed": 0,
       "failed": 0
     },
