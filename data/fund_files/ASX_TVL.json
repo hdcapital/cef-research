@@ -6,7 +6,7 @@
  "sector": "Equity - Global Strategy",
  "liveness": {
   "status": "live",
-  "reason": "nav_15d_old",
+  "reason": "nav_16d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-13",
   "last_announcement": "2026-10-13"
@@ -17,7 +17,7 @@
   "anchor_source": "asx_ann:03152017",
   "estimate": 0.105,
   "basis": 0.0,
-  "staleness_days": 20.0,
+  "staleness_days": 21.0,
   "staleness_limit_days": 91.5,
   "current": true,
   "unit": "AUD",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 0.054999999701976776,
+  "price": 0.05700000002980232,
   "ccy": "AUD",
-  "date": "2026-10-27",
+  "date": "2026-10-29",
   "source": "yahoo:TVL.AX"
  },
  "discount": {
-  "estimate": -0.47619,
-  "z": -0.2315,
+  "estimate": -0.457143,
+  "z": -0.2052,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-28T22:19:38+00:00"
+ "updated_at": "2026-10-29T21:25:00+00:00"
 }

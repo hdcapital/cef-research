@@ -6,7 +6,7 @@
  "sector": "Equity - Asia",
  "liveness": {
   "status": "delisted",
-  "reason": "own_delisting_notice_429d",
+  "reason": "own_delisting_notice_430d",
   "source": "own_delisting_notice",
   "last_nav": "2025-08-19",
   "last_announcement": "2025-08-25"
@@ -15,9 +15,9 @@
   "anchor": 1.2545,
   "anchor_date": "2025-08-15",
   "anchor_source": "own_nav_history:2025-08-15",
-  "estimate": 1.288176,
+  "estimate": 1.306187,
   "basis": 1.0,
-  "staleness_days": 313.0,
+  "staleness_days": 314.0,
   "staleness_limit_days": 45.0,
   "current": false,
   "unit": "AUD",
@@ -31,8 +31,8 @@
   "source": "aggregator_panel"
  },
  "discount": {
-  "estimate": -0.17325,
-  "z": -0.6755,
+  "estimate": -0.18465,
+  "z": -0.8436,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1096,
-  "discount_only": 0.02,
+  "central": 0.1082,
+  "discount_only": 0.0187,
   "g_used": 0.0754,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-28T22:19:38+00:00"
+ "updated_at": "2026-10-29T21:25:00+00:00"
 }

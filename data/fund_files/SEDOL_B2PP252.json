@@ -8,14 +8,14 @@
   "status": "live",
   "reason": "nav_1d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-27",
+  "last_nav": "2026-10-28",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 331.41,
-  "anchor_date": "2026-10-28",
-  "anchor_source": "investegate:9846285",
-  "estimate": 331.41,
+  "anchor": 332.9,
+  "anchor_date": "2026-10-29",
+  "anchor_source": "investegate:9848677",
+  "estimate": 332.9,
   "basis": 0.0,
   "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
@@ -27,12 +27,12 @@
  "price": {
   "price": 322.0,
   "ccy": "GBp",
-  "date": "2026-10-28",
+  "date": "2026-10-29",
   "source": "yahoo:CMPG.L"
  },
  "discount": {
-  "estimate": -0.028394,
-  "z": -0.3537,
+  "estimate": -0.032743,
+  "z": -0.5753,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -49,6 +49,16 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-10-29",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Transaction in Own Shares and Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/ct-global-managed-portfolio-trust-grwth-shs--cmpg/transaction-in-own-shares-and-issue-of-equity/9849018",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-10-16",
    "class": "issuance",
@@ -70,5 +80,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-10-28T22:19:38+00:00"
+ "updated_at": "2026-10-29T21:25:01+00:00"
 }

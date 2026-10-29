@@ -1,12 +1,12 @@
 {
-  "delist_candidates": 614,
+  "delist_candidates": 615,
   "vehicles": 1116,
   "by_market": {
     "AU": 172,
     "UK": 944
   },
-  "live": 359,
-  "live_stale_nav": 43,
+  "live": 343,
+  "live_stale_nav": 58,
   "status_before_evidence": {
     "delisted": 737,
     "live": 374,
@@ -16,23 +16,23 @@
   "au_code_reuse_cutoffs": 77,
   "persisted_to": "data/universe/registry.parquet",
   "live_status_source": {
-    "corroborated_delisting": 607,
-    "own_nav_announcement": 348,
+    "corroborated_delisting": 608,
+    "own_nav_announcement": 332,
     "own_delisting_notice": 100,
-    "own_periodic_report": 38,
+    "own_periodic_report": 49,
     "registry_deferral_no_own_filings": 11,
+    "own_nav_announcement_stale": 9,
     "own_announcement_only": 6,
-    "own_nav_announcement_stale": 5,
     "registry_last_seen": 1
   },
-  "revived_by_own_filings": 34,
+  "revived_by_own_filings": 33,
   "aggregator_said_live_evidence_says_not": 6,
   "by_liveness_reason": {
     "aggregator_delisted_and_own_filings_silent_alwaysd": 523,
-    "nav": 353,
+    "nav": 341,
     "own_delisting_notice": 100,
-    "aggregator_delisted_and_own_filings_silent": 84,
-    "periodic_report": 38,
+    "aggregator_delisted_and_own_filings_silent": 85,
+    "periodic_report": 49,
     "no_own_filings_held_deferring_to_registry": 11,
     "filings_but_no_nav_or_report": 6,
     "registry_listed": 1
@@ -40,13 +40,13 @@
   "delisted": 100,
   "priced_by_source": 639,
   "announcements_only": 477,
-  "live_announcements_only": 96,
+  "live_announcements_only": 81,
   "offshore": 195,
   "vct": 228,
   "live_by_domicile": {
-    "GB": 204,
+    "GB": 191,
     "null": 97,
-    "GG": 30,
+    "GG": 27,
     "JE": 13,
     "BM": 11,
     "KY": 2,
@@ -82,15 +82,6 @@
       "months_listed": 39
     },
     {
-      "security_id": "SEDOL:B1NPGV1",
-      "name": "BH Macro",
-      "sector": "Hedge Funds",
-      "domicile": "GG",
-      "isin": "GG00BQBFY479",
-      "first_seen": "2007-09",
-      "months_listed": 228
-    },
-    {
       "security_id": "SEDOL:B1NP514",
       "name": "BH Macro",
       "sector": "Hedge Funds",
@@ -98,6 +89,15 @@
       "isin": "GG00B1NP5142",
       "first_seen": "2007-09",
       "months_listed": 185
+    },
+    {
+      "security_id": "SEDOL:B1NPGV1",
+      "name": "BH Macro",
+      "sector": "Hedge Funds",
+      "domicile": "GG",
+      "isin": "GG00BQBFY479",
+      "first_seen": "2007-09",
+      "months_listed": 228
     },
     {
       "security_id": "SEDOL:B6686L2",
@@ -154,20 +154,20 @@
       "months_listed": 236
     },
     {
-      "security_id": "SEDOL:B9G79F5",
-      "name": "CVC Income & Growth",
-      "sector": "Debt - Loans & Bonds",
-      "domicile": "JE",
-      "isin": "JE00B9G79F59",
-      "first_seen": "2013-06",
-      "months_listed": 159
-    },
-    {
       "security_id": "SEDOL:B9MRHZ5",
       "name": "CVC Income & Growth",
       "sector": "Debt - Loans & Bonds",
       "domicile": "JE",
       "isin": "JE00B9MRHZ51",
+      "first_seen": "2013-06",
+      "months_listed": 159
+    },
+    {
+      "security_id": "SEDOL:B9G79F5",
+      "name": "CVC Income & Growth",
+      "sector": "Debt - Loans & Bonds",
+      "domicile": "JE",
+      "isin": "JE00B9G79F59",
       "first_seen": "2013-06",
       "months_listed": 159
     },
@@ -271,15 +271,6 @@
       "months_listed": 150
     },
     {
-      "security_id": "SEDOL:BKF2JH0",
-      "name": "Foresight Solar & Tech VCT FWT",
-      "sector": "VTC",
-      "domicile": "GB",
-      "isin": "GB00BKF2JH04",
-      "first_seen": "2021-06",
-      "months_listed": 27
-    },
-    {
       "security_id": "SEDOL:BD3QJR5",
       "name": "Foresight Solar Fund",
       "sector": "Renewable Energy Infrastructure",
@@ -289,15 +280,6 @@
       "months_listed": 119
     },
     {
-      "security_id": "SEDOL:B61LT73",
-      "name": "Foresight Ventures VCT",
-      "sector": "VCT",
-      "domicile": "GB",
-      "isin": "GB00BRBQ0C76",
-      "first_seen": "2010-04",
-      "months_listed": 197
-    },
-    {
       "security_id": "SEDOL:BP2RHT1",
       "name": "Fuel Ventures VCT",
       "sector": "VCT",
@@ -305,15 +287,6 @@
       "isin": "GB00BP2RHT10",
       "first_seen": "2024-06",
       "months_listed": 17
-    },
-    {
-      "security_id": "SEDOL:BG0P0V7",
-      "name": "Gore Street Energy Storage",
-      "sector": "Renewable Energy Infrastructure",
-      "domicile": "GB",
-      "isin": "GB00BG0P0V73",
-      "first_seen": "2018-08",
-      "months_listed": 97
     },
     {
       "security_id": "SEDOL:B0T4LH6",
@@ -415,15 +388,6 @@
       "months_listed": 8
     },
     {
-      "security_id": "SEDOL:BD0FRW6",
-      "name": "NB Private Equity Partners",
-      "sector": "Private Equity",
-      "domicile": "GG",
-      "isin": "GG00BD0FRW63",
-      "first_seen": "2016-09",
-      "months_listed": 72
-    },
-    {
       "security_id": "SEDOL:BD96PR1",
       "name": "NB Private Equity Partners",
       "sector": "Private Equity",
@@ -431,15 +395,6 @@
       "isin": "GG00BD96PR19",
       "first_seen": "2018-05",
       "months_listed": 77
-    },
-    {
-      "security_id": "SEDOL:B1ZBD49",
-      "name": "Neuberger Private Equity Partners",
-      "sector": "Private Equity",
-      "domicile": "GG",
-      "isin": "GG00B1ZBD492",
-      "first_seen": "2014-07",
-      "months_listed": 146
     },
     {
       "security_id": "SEDOL:BJ0JVY0",
@@ -476,15 +431,6 @@
       "isin": "GB0006450703",
       "first_seen": "2007-01",
       "months_listed": 236
-    },
-    {
-      "security_id": "SEDOL:BNGFHX1",
-      "name": "Octopus Future Generations VCT",
-      "sector": "VCT",
-      "domicile": "GB",
-      "isin": "GB00BNGFHX14",
-      "first_seen": "2022-05",
-      "months_listed": 51
     },
     {
       "security_id": "SEDOL:BJM0293",
@@ -548,15 +494,6 @@
       "isin": "GB00BL690L89",
       "first_seen": "2026-02",
       "months_listed": 7
-    },
-    {
-      "security_id": "SEDOL:BN6JYS7",
-      "name": "Parvus Energy Efficiency Trust",
-      "sector": "Renewable Energy Infrastructure",
-      "domicile": "GB",
-      "isin": "GB00BN6JYS78",
-      "first_seen": "2021-06",
-      "months_listed": 61
     },
     {
       "security_id": "SEDOL:BQVC9S7",
@@ -629,24 +566,6 @@
       "isin": "GB00B0HW5366",
       "first_seen": "2010-05",
       "months_listed": 196
-    },
-    {
-      "security_id": "SEDOL:BH4TCL6",
-      "name": "Regional REIT",
-      "sector": "Property Direct - UK",
-      "domicile": "GB",
-      "isin": "GB00BH4TCL65",
-      "first_seen": "2018-04",
-      "months_listed": 9
-    },
-    {
-      "security_id": "SEDOL:BYV2ZQ3",
-      "name": "Regional REIT",
-      "sector": "Property - UK Commercial",
-      "domicile": "GG",
-      "isin": "GG00BSY2LD72",
-      "first_seen": "2016-04",
-      "months_listed": 125
     },
     {
       "security_id": "SEDOL:BBHX2H9",
@@ -730,15 +649,6 @@
       "months_listed": 116
     },
     {
-      "security_id": "SEDOL:BY7R8K7",
-      "name": "Schroder European Real Estate",
-      "sector": "Property - Europe",
-      "domicile": "GB",
-      "isin": "GB00BY7R8K77",
-      "first_seen": "2016-04",
-      "months_listed": 125
-    },
-    {
       "security_id": "SEDOL:3125610",
       "name": "Seneca Growth Capital VCT",
       "sector": "VCT",
@@ -766,15 +676,6 @@
       "months_listed": 139
     },
     {
-      "security_id": "SEDOL:BKPG013",
-      "name": "Seraphim Space Investment Trust",
-      "sector": "Growth Capital",
-      "domicile": "GB",
-      "isin": "GB00BKPG0138",
-      "first_seen": "2021-08",
-      "months_listed": 61
-    },
-    {
       "security_id": "SEDOL:BW6HS59",
       "name": "Seraphim Space Investment Trust C shares",
       "sector": "Growth Capital",
@@ -782,15 +683,6 @@
       "isin": "GB00BW6HS596",
       "first_seen": "2026-06",
       "months_listed": 3
-    },
-    {
-      "security_id": "SEDOL:BYWYZ46",
-      "name": "Sure Ventures",
-      "sector": "Technology & Technology Innovation",
-      "domicile": "GB",
-      "isin": "GB00BYWYZ460",
-      "first_seen": "2020-07",
-      "months_listed": 42
     },
     {
       "security_id": "SEDOL:B95CGW7",
@@ -836,15 +728,6 @@
       "isin": "GG00BJVDZ946",
       "first_seen": "2014-03",
       "months_listed": 150
-    },
-    {
-      "security_id": "SEDOL:BNKVP75",
-      "name": "VH Global Energy Infrastructure",
-      "sector": "Renewable Energy Infrastructure",
-      "domicile": "GB",
-      "isin": "GB00BNKVP754",
-      "first_seen": "2021-02",
-      "months_listed": 67
     },
     {
       "security_id": "SEDOL:BVG6X43",
@@ -899,53 +782,32 @@
       "isin": "GG00BHXH0C87",
       "first_seen": "2008-06",
       "months_listed": 158
-    },
-    {
-      "security_id": "SEDOL:BD9PXH4",
-      "name": "abrdn European Logistics Income",
-      "sector": "Property - Europe",
-      "domicile": "GB",
-      "isin": "GB00BD9PXH49",
-      "first_seen": "2018-01",
-      "months_listed": 104
-    },
-    {
-      "security_id": "SEDOL:3387528",
-      "name": "abrdn Property Income Trust",
-      "sector": "Property - UK Commercial",
-      "domicile": "GB",
-      "isin": "GB0033875286",
-      "first_seen": "2007-01",
-      "months_listed": 204
     }
   ],
   "live_announcements_only_by_sector": {
-    "VCT": 23,
-    "Renewable Energy Infrastructure": 8,
-    "Private Equity": 7,
-    "UK Smaller Companies": 5,
+    "VCT": 21,
+    "Private Equity": 5,
     "Debt - Structured Finance": 5,
+    "UK Smaller Companies": 5,
+    "Renewable Energy Infrastructure": 5,
+    "Flexible Investment": 4,
     "Infrastructure": 4,
     "Australian Indices": 4,
-    "Flexible Investment": 4,
-    "Property - UK Commercial": 3,
-    "Growth Capital": 3,
-    "Property - Europe": 3,
-    "Hedge Funds": 3,
     "Debt - Loans & Bonds": 3,
-    "Debt - Direct Lending": 3,
+    "Hedge Funds": 3,
     "Country Specialist": 3,
+    "Debt - Direct Lending": 3,
+    "Growth Capital": 2,
     "North America": 2,
-    "Global Emerging Markets": 1,
     "Global Equity Income": 1,
     "Commodities & Natural Resources": 1,
+    "Global Emerging Markets": 1,
+    "Property - UK Commercial": 1,
+    "Property - Europe": 1,
     "India / Indian Subcontinent": 1,
-    "VTC": 1,
-    "VCT AIM Quoted": 1,
     "Property - Debt": 1,
+    "VCT AIM Quoted": 1,
     "Split Capital Trust": 1,
-    "Property Direct - UK": 1,
-    "Technology & Technology Innovation": 1,
     "Property - UK Healthcare": 1,
     "Property - UK Logistics": 1,
     "VCT Specialist: Environmental": 1

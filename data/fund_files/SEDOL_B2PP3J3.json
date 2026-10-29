@@ -8,14 +8,14 @@
   "status": "live",
   "reason": "nav_1d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-27",
+  "last_nav": "2026-10-28",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 129.14,
-  "anchor_date": "2026-10-28",
-  "anchor_source": "investegate:9846284",
-  "estimate": 129.14,
+  "anchor": 129.34,
+  "anchor_date": "2026-10-29",
+  "anchor_source": "investegate:9848676",
+  "estimate": 129.34,
   "basis": 0.0,
   "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
@@ -27,12 +27,12 @@
  "price": {
   "price": 130.5,
   "ccy": "GBp",
-  "date": "2026-10-28",
+  "date": "2026-10-29",
   "source": "yahoo:CMPI.L"
  },
  "discount": {
-  "estimate": 0.010531,
-  "z": 0.4745,
+  "estimate": 0.008969,
+  "z": 0.3865,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,14 +41,24 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0363,
-  "discount_only": -0.008,
+  "central": 0.0437,
+  "discount_only": -0.001,
   "g_used": 0.0447,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-10-29",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Transaction in Own Shares and Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/ct-global-managed-portfolio-trust-inc-shs--cmpi/transaction-in-own-shares-and-issue-of-equity/9849015",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-10-16",
    "class": "issuance",
@@ -70,5 +80,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-10-28T22:19:38+00:00"
+ "updated_at": "2026-10-29T21:25:01+00:00"
 }
