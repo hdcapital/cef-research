@@ -1,14 +1,14 @@
 {
  "lookback_days": 45,
  "codes_requested": 172,
- "index_rows_in_window": 1218,
- "candidates": 478,
+ "index_rows_in_window": 1162,
+ "candidates": 435,
  "codes_with_a_candidate": 92,
- "attempted": 110,
- "parsed": 77,
- "parse_failed": 30,
+ "attempted": 105,
+ "parsed": 74,
+ "parse_failed": 28,
  "ambiguous_unit": 0,
- "codes_parsed": 77,
+ "codes_parsed": 74,
  "budget_reached": false,
  "deadline_reached": false,
  "by_code": {
@@ -38,7 +38,7 @@
   "CD3": "parsed",
   "REV": "parsed",
   "QRI": "parsed",
-  "WHI": "parsed",
+  "WHI": "no_nta_parsed",
   "CAM": "parsed",
   "IBC": "parsed",
   "KIT": "parsed",
@@ -47,9 +47,9 @@
   "TGF": "parsed",
   "WAA": "no_nta_parsed",
   "GVF": "parsed",
-  "WHF": "parsed",
+  "WHF": "no_nta_parsed",
   "WQG": "parsed",
-  "WMI": "parsed",
+  "WMI": "no_nta_parsed",
   "PIA": "parsed",
   "NSC": "parsed",
   "NAC": "parsed",
@@ -351,8 +351,8 @@
  "image_only": 3,
  "by_outcome": {
   "no_candidate_in_window": 80,
-  "no_nta_parsed": 14,
+  "no_nta_parsed": 17,
   "no_text_layer": 1,
-  "parsed": 77
+  "parsed": 74
  }
 }
