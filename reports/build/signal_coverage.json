@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T21:25:07+00:00",
+  "generated_at": "2026-10-29T22:23:15+00:00",
   "target_pct": 90.0,
   "markets": {
     "AU": {
@@ -22,9 +22,14 @@
     }
   },
   "excluded_not_trading": {
-    "count": 8,
+    "count": 9,
     "rule": "no price bar within 14 days",
     "funds": [
+      {
+        "security_id": "SEDOL:BDVK708",
+        "name": "AEW UK Long Lease REIT",
+        "market": "UK"
+      },
       {
         "security_id": "SEDOL:891055",
         "name": "BlackRock Throgmorton Trust",
