@@ -8,14 +8,14 @@
   "status": "live",
   "reason": "nav_2d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-27",
+  "last_nav": "2026-10-28",
   "last_announcement": "2026-10-29"
  },
  "nav": {
-  "anchor": 184.1,
-  "anchor_date": "2026-10-28",
-  "anchor_source": "investegate:9848743",
-  "estimate": 184.1,
+  "anchor": 181.72,
+  "anchor_date": "2026-10-29",
+  "anchor_source": "investegate:9850969",
+  "estimate": 181.72,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 176.0,
+  "price": 176.5,
   "ccy": "GBp",
-  "date": "2026-10-29",
+  "date": "2026-10-30",
   "source": "yahoo:AJOT.L"
  },
  "discount": {
-  "estimate": -0.043998,
-  "z": -0.7333,
-  "z_status": "computed",
+  "estimate": -0.028726,
+  "z": 0.0679,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.03002,
   "sigma_36m": 0.019063,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1091,
-  "discount_only": 0.0028,
+  "central": 0.1105,
+  "discount_only": 0.004,
   "g_used": 0.0819,
   "g_source": "own_nav_history"
  },
@@ -56,7 +56,7 @@
    "direction": "positive",
    "headline": "Tender Offer for a Top 10 Portfolio Holding",
    "url": "https://www.investegate.co.uk/announcement/rns/avi-japan-opportunity-trust--ajot/tender-offer-for-a-top-10-portfolio-holding-/9848223",
-   "alerted_at": null,
+   "alerted_at": "2026-10-29T23:16:05+00:00",
    "terms": {
     "llm": "error",
     "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
@@ -101,5 +101,5 @@
    }
   }
  ],
- "updated_at": "2026-10-29T22:23:06+00:00"
+ "updated_at": "2026-10-30T21:30:20+00:00"
 }

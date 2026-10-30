@@ -8,14 +8,14 @@
   "status": "live",
   "reason": "nav_1d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-28",
+  "last_nav": "2026-10-29",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 411.96,
-  "anchor_date": "2026-10-29",
-  "anchor_source": "investegate:9848486",
-  "estimate": 411.96,
+  "anchor": 410.41,
+  "anchor_date": "2026-10-30",
+  "anchor_source": "investegate:9850875",
+  "estimate": 410.41,
   "basis": 0.0,
   "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
@@ -25,30 +25,42 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 371.0,
+  "price": 361.0,
   "ccy": "GBp",
-  "date": "2026-10-29",
+  "date": "2026-10-30",
   "source": "yahoo:SJG.L"
  },
  "discount": {
-  "estimate": -0.099427,
-  "z": -0.0823,
-  "z_status": "within_error_band",
+  "estimate": -0.120392,
+  "z": -0.5954,
+  "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.096063,
   "sigma_36m": 0.040864,
-  "alert_eligible": false
+  "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1213,
-  "discount_only": -0.0031,
+  "central": 0.1219,
+  "discount_only": -0.0026,
   "g_used": 0.1058,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-10-30",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/schroder-japan-growth-fund--sjg/holding-s-in-company/9851505",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Name 1607 Capital Partners, LLC"
+   }
+  },
   {
    "date": "2026-10-29",
    "class": "holdings_notification",
@@ -74,5 +86,5 @@
    }
   }
  ],
- "updated_at": "2026-10-29T22:23:08+00:00"
+ "updated_at": "2026-10-30T21:30:22+00:00"
 }

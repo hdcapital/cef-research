@@ -6,7 +6,7 @@
  "sector": "UK Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_6d_old",
+  "reason": "nav_7d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-23",
   "last_announcement": "2026-10-12"
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9842069",
   "estimate": 317.97,
   "basis": 0.0,
-  "staleness_days": 4.0,
+  "staleness_days": 5.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 307.0,
+  "price": 304.0,
   "ccy": "GBp",
-  "date": "2026-10-29",
+  "date": "2026-10-30",
   "source": "yahoo:RKW.L"
  },
  "discount": {
-  "estimate": -0.0345,
-  "z": -2.043,
+  "estimate": -0.043935,
+  "z": -2.4339,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.101,
-  "discount_only": 0.004,
+  "central": 0.1058,
+  "discount_only": 0.0085,
   "g_used": 0.0694,
   "g_source": "panel_tr_cagr"
  },
@@ -188,17 +188,7 @@
    "url": "https://www.investegate.co.uk/announcement/rns/rockwood-strategic--rkw/issue-of-equity-and-tvr/9701461",
    "alerted_at": null,
    "terms": null
-  },
-  {
-   "date": "2026-07-31",
-   "class": "issuance",
-   "weight": 0,
-   "direction": "neutral",
-   "headline": "Issue of Equity and TVR",
-   "url": "https://www.investegate.co.uk/announcement/rns/rockwood-strategic--rkw/issue-of-equity-and-tvr/9697038",
-   "alerted_at": null,
-   "terms": null
   }
  ],
- "updated_at": "2026-10-29T22:23:08+00:00"
+ "updated_at": "2026-10-30T21:30:22+00:00"
 }

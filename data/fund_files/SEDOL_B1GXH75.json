@@ -8,14 +8,14 @@
   "status": "live",
   "reason": "nav_2d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-27",
+  "last_nav": "2026-10-28",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 250.3,
-  "anchor_date": "2026-10-28",
-  "anchor_source": "investegate:9848609",
-  "estimate": 250.3,
+  "anchor": 242.2,
+  "anchor_date": "2026-10-29",
+  "anchor_source": "investegate:9851259",
+  "estimate": 242.2,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,30 +25,40 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 253.0,
+  "price": 247.5,
   "ccy": "GBp",
-  "date": "2026-10-29",
+  "date": "2026-10-30",
   "source": "yahoo:HFEL.L"
  },
  "discount": {
-  "estimate": 0.010787,
-  "z": -0.2647,
-  "z_status": "computed",
+  "estimate": 0.021883,
+  "z": 0.078,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": 0.019358,
   "sigma_36m": 0.032377,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0844,
-  "discount_only": -0.008,
+  "central": 0.0964,
+  "discount_only": 0.003,
   "g_used": 0.0932,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-10-30",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/henderson-far-east-income-ltd---hfel/issue-of-equity/9851447",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-10-28",
    "class": "issuance",
@@ -348,17 +358,7 @@
    "url": "https://www.investegate.co.uk/announcement/rns/henderson-far-east-income-ltd---hfel/issue-of-equity/9702152",
    "alerted_at": null,
    "terms": null
-  },
-  {
-   "date": "2026-07-31",
-   "class": "issuance",
-   "weight": 0,
-   "direction": "neutral",
-   "headline": "Issue of Equity",
-   "url": "https://www.investegate.co.uk/announcement/rns/henderson-far-east-income-ltd---hfel/issue-of-equity/9699377",
-   "alerted_at": null,
-   "terms": null
   }
  ],
- "updated_at": "2026-10-29T22:23:07+00:00"
+ "updated_at": "2026-10-30T21:30:21+00:00"
 }

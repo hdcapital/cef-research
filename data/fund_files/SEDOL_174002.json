@@ -8,14 +8,14 @@
   "status": "live",
   "reason": "nav_1d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-28",
+  "last_nav": "2026-10-29",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 878.52,
-  "anchor_date": "2026-10-29",
-  "anchor_source": "investegate:9848472",
-  "estimate": 878.52,
+  "anchor": 884.62,
+  "anchor_date": "2026-10-30",
+  "anchor_source": "investegate:9850647",
+  "estimate": 884.62,
   "basis": 0.0,
   "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 808.0,
+  "price": 788.0,
   "ccy": "GBp",
-  "date": "2026-10-29",
+  "date": "2026-10-30",
   "source": "yahoo:JFJ.L"
  },
  "discount": {
-  "estimate": -0.080271,
-  "z": 0.7624,
+  "estimate": -0.109222,
+  "z": -0.9661,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,14 +41,26 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0683,
-  "discount_only": -0.0015,
+  "central": 0.0689,
+  "discount_only": -0.0009,
   "g_used": 0.058,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-10-30",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/jpmorgan-japanese-inv-trust--jfj/holding-s-in-company/9850467",
+   "alerted_at": null,
+   "terms": {
+    "holder": "Allspring Global Investments Holdings, LLC"
+   }
+  },
   {
    "date": "2026-09-23",
    "class": "holdings_notification",
@@ -62,5 +74,5 @@
    }
   }
  ],
- "updated_at": "2026-10-29T22:23:07+00:00"
+ "updated_at": "2026-10-30T21:30:22+00:00"
 }

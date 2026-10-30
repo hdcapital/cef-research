@@ -8,14 +8,14 @@
   "status": "live",
   "reason": "nav_2d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-27",
+  "last_nav": "2026-10-28",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 46.85,
-  "anchor_date": "2026-10-28",
-  "anchor_source": "investegate:9848687",
-  "estimate": 46.85,
+  "anchor": 45.87,
+  "anchor_date": "2026-10-29",
+  "anchor_source": "investegate:9851124",
+  "estimate": 45.87,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 48.5,
+  "price": 48.349998474121094,
   "ccy": "GBp",
-  "date": "2026-10-29",
+  "date": "2026-10-30",
   "source": "yahoo:NCYF.L"
  },
  "discount": {
-  "estimate": 0.035219,
-  "z": -3.0015,
+  "estimate": 0.054066,
+  "z": -0.7789,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,14 +41,24 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.129,
-  "discount_only": -0.0003,
+  "central": 0.1341,
+  "discount_only": 0.0048,
   "g_used": 0.0525,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-10-30",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/cqs-new-city-high-yield-fund-limited--ncyf/issue-of-equity/9851390",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-10-07",
    "class": "issuance",
@@ -238,17 +248,7 @@
    "url": "https://www.investegate.co.uk/announcement/rns/cqs-new-city-high-yield-fund-limited--ncyf/issue-of-equity/9702147",
    "alerted_at": null,
    "terms": null
-  },
-  {
-   "date": "2026-07-31",
-   "class": "issuance",
-   "weight": 0,
-   "direction": "neutral",
-   "headline": "Issue of Equity",
-   "url": "https://www.investegate.co.uk/announcement/rns/cqs-new-city-high-yield-fund-limited--ncyf/issue-of-equity/9699346",
-   "alerted_at": null,
-   "terms": null
   }
  ],
- "updated_at": "2026-10-29T22:23:06+00:00"
+ "updated_at": "2026-10-30T21:30:21+00:00"
 }

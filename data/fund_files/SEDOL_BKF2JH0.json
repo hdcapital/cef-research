@@ -6,7 +6,7 @@
  "sector": "VTC",
  "liveness": {
   "status": "live_stale_nav",
-  "reason": "periodic_report_315d_old_no_recent_nav",
+  "reason": "periodic_report_316d_old_no_recent_nav",
   "source": "own_periodic_report",
   "last_nav": "2026-06-30",
   "last_announcement": "2026-09-30"
@@ -17,23 +17,23 @@
   "anchor_source": "investegate:9777857",
   "estimate": 88.4,
   "basis": 0.0,
-  "staleness_days": 87.0,
+  "staleness_days": 88.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
-  "quality_ok": true,
-  "quality_reason": ""
+  "quality_ok": false,
+  "quality_reason": "unit_suspect_scale"
  },
  "price": {
-  "price": 84.0,
+  "price": 0.8399999737739563,
   "ccy": "GBp",
-  "date": "2026-10-28",
+  "date": "2026-10-29",
   "source": "yahoo:FWT.L"
  },
  "discount": {
-  "estimate": -0.049774,
-  "z": -1.0354,
-  "z_status": "within_error_band",
+  "estimate": -0.990498,
+  "z": -37.0231,
+  "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
   "mu_36m": -0.022709,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-29T22:23:07+00:00"
+ "updated_at": "2026-10-30T21:30:21+00:00"
 }

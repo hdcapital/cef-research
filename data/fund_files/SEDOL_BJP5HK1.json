@@ -6,7 +6,7 @@
  "sector": "Property - UK Residential",
  "liveness": {
   "status": "live_stale_nav",
-  "reason": "periodic_report_162d_old_no_recent_nav",
+  "reason": "periodic_report_163d_old_no_recent_nav",
   "source": "own_periodic_report",
   "last_nav": "2026-05-20",
   "last_announcement": "2026-10-21"
@@ -17,7 +17,7 @@
   "anchor_source": "investegate_fs:9576465",
   "estimate": 18.1,
   "basis": 0.0,
-  "staleness_days": 303.0,
+  "staleness_days": 304.0,
   "staleness_limit_days": 200.0,
   "current": false,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 8.899999618530273,
+  "price": 8.199999809265137,
   "ccy": "GBp",
-  "date": "2026-10-29",
+  "date": "2026-10-30",
   "source": "yahoo:HOME.L"
  },
  "discount": {
-  "estimate": -0.508287,
-  "z": -1.7426,
+  "estimate": -0.546961,
+  "z": -1.8913,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 24,
@@ -41,8 +41,8 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.2278,
-  "discount_only": 0.1638,
+  "central": 0.2333,
+  "discount_only": 0.1689,
   "g_used": 0.055,
   "g_source": "market_median"
  },
@@ -74,17 +74,7 @@
     "llm": "error",
     "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
    }
-  },
-  {
-   "date": "2026-07-31",
-   "class": "holdings_notification",
-   "weight": 0,
-   "direction": "neutral",
-   "headline": "Holding(s) in Company",
-   "url": "https://www.investegate.co.uk/announcement/rns/home-reit--home/holding-s-in-company/9699432",
-   "alerted_at": null,
-   "terms": null
   }
  ],
- "updated_at": "2026-10-29T22:23:07+00:00"
+ "updated_at": "2026-10-30T21:30:21+00:00"
 }

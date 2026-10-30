@@ -6,7 +6,7 @@
  "sector": "Equity - Australia Strategy",
  "liveness": {
   "status": "live",
-  "reason": "nav_16d_old",
+  "reason": "nav_17d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-13",
   "last_announcement": "2026-10-15"
@@ -15,9 +15,9 @@
   "anchor": 1.1845,
   "anchor_date": "2026-07-31",
   "anchor_source": "aggregator_panel:2026-07",
-  "estimate": 1.181632,
+  "estimate": 1.183283,
   "basis": 1.0,
-  "staleness_days": 64.0,
+  "staleness_days": 65.0,
   "staleness_limit_days": 45.0,
   "current": false,
   "unit": "AUD",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 0.9599999785423279,
+  "price": 0.9649999737739563,
   "ccy": "AUD",
-  "date": "2026-10-29",
+  "date": "2026-10-30",
   "source": "yahoo:WMA.AX"
  },
  "discount": {
-  "estimate": -0.187565,
-  "z": -1.352,
+  "estimate": -0.184472,
+  "z": -1.227,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-29T22:23:06+00:00"
+ "updated_at": "2026-10-30T21:30:20+00:00"
 }
