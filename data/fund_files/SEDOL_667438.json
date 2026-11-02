@@ -6,7 +6,7 @@
  "sector": "Asia Pacific",
  "liveness": {
   "status": "live",
-  "reason": "nav_39d_old",
+  "reason": "nav_42d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-21",
   "last_announcement": "2026-09-24"
@@ -14,10 +14,10 @@
  "nav": {
   "anchor": 449.55,
   "anchor_date": "2026-09-21",
-  "anchor_source": "investegate:9785106",
-  "estimate": 449.55,
-  "basis": 0.0,
-  "staleness_days": 29.0,
+  "anchor_source": "own_nav_history:2026-09-21",
+  "estimate": 443.858838,
+  "basis": 1.0,
+  "staleness_days": 30.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -31,8 +31,8 @@
   "source": "aggregator_panel"
  },
  "discount": {
-  "estimate": -0.05461,
-  "z": 1.856,
+  "estimate": -0.042488,
+  "z": 2.3185,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -63,5 +63,5 @@
    }
   }
  ],
- "updated_at": "2026-10-30T22:28:30+00:00"
+ "updated_at": "2026-11-02T21:33:01+00:00"
 }

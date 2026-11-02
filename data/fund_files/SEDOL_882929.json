@@ -6,16 +6,16 @@
  "sector": "Global Emerging Markets",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_4d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-28",
+  "last_nav": "2026-10-29",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 328.95,
-  "anchor_date": "2026-10-29",
-  "anchor_source": "investegate:9850458",
-  "estimate": 328.95,
+  "anchor": 323.12,
+  "anchor_date": "2026-10-30",
+  "anchor_source": "investegate:9853011",
+  "estimate": 323.12,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 297.5,
+  "price": 303.0,
   "ccy": "GBp",
-  "date": "2026-10-30",
+  "date": "2026-11-02",
   "source": "yahoo:TEM.L"
  },
  "discount": {
-  "estimate": -0.095607,
-  "z": 0.6884,
+  "estimate": -0.062268,
+  "z": 1.8861,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,14 +41,26 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1134,
-  "discount_only": -0.0098,
+  "central": 0.117,
+  "discount_only": -0.0064,
   "g_used": 0.1039,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-11-02",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/templeton-emerging-markets-inv-trust--tem/holding-s-in-company/9853972",
+   "alerted_at": null,
+   "terms": {
+    "unparsed": true
+   }
+  },
   {
    "date": "2026-08-26",
    "class": "holdings_notification",
@@ -62,5 +74,5 @@
    }
   }
  ],
- "updated_at": "2026-10-30T22:28:31+00:00"
+ "updated_at": "2026-11-02T21:33:01+00:00"
 }

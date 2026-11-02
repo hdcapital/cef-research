@@ -6,18 +6,18 @@
  "sector": "Technology & Technology Innovation",
  "liveness": {
   "status": "live_stale_nav",
-  "reason": "periodic_report_93d_old_no_recent_nav",
+  "reason": "periodic_report_96d_old_no_recent_nav",
   "source": "own_periodic_report",
   "last_nav": "2026-06-30",
   "last_announcement": "2026-09-22"
  },
  "nav": {
   "anchor": 117.94,
-  "anchor_date": "2026-06-30",
-  "anchor_source": "own_nav_history:2026-06-30",
+  "anchor_date": "2026-07-29",
+  "anchor_source": "investegate_fs:9694528",
   "estimate": 117.94,
-  "basis": 3.0,
-  "staleness_days": 88.0,
+  "basis": 0.0,
+  "staleness_days": 68.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -27,17 +27,17 @@
  "price": {
   "price": 27.5,
   "ccy": "GBp",
-  "date": "2026-10-29",
+  "date": "2026-11-02",
   "source": "yahoo:SURE.L"
  },
  "discount": {
   "estimate": -0.766831,
-  "z": -1.5718,
+  "z": -1.4717,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.199625,
-  "sigma_36m": 0.36087,
+  "mu_36m": -0.219134,
+  "sigma_36m": 0.372165,
   "alert_eligible": true
  },
  "forward_irr": {
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-30T22:28:31+00:00"
+ "updated_at": "2026-11-02T21:33:01+00:00"
 }

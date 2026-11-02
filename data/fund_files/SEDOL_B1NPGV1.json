@@ -6,7 +6,7 @@
  "sector": "Hedge Funds",
  "liveness": {
   "status": "live",
-  "reason": "nav_3d_old",
+  "reason": "nav_6d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-27",
   "last_announcement": "2026-10-29"
@@ -14,24 +14,24 @@
  "nav": {
   "anchor": 4.56,
   "anchor_date": "2026-10-27",
-  "anchor_source": "investegate:9844300",
+  "anchor_source": "own_nav_history:2026-10-27",
   "estimate": 4.56,
-  "basis": 0.0,
-  "staleness_days": 3.0,
+  "basis": 3.0,
+  "staleness_days": 4.0,
   "staleness_limit_days": 45.0,
   "current": true,
-  "unit": "USD",
+  "unit": "GBX",
   "quality_ok": true,
   "quality_reason": ""
  },
  "price": {
-  "price": 4.260000228881836,
+  "price": 4.269999980926514,
   "ccy": "USD",
-  "date": "2026-10-30",
+  "date": "2026-11-02",
   "source": "yahoo:BHMU.L"
  },
  "discount": {
-  "estimate": -0.065789,
+  "estimate": -0.063596,
   "z": null,
   "z_status": "no_discount_history",
   "z_source": null,
@@ -46,14 +46,7 @@
   "g_used": 0.0537,
   "g_source": "own_nav_history"
  },
- "holder_churn": {
-  "filings": 3,
-  "sellers": 0,
-  "buyers": 0,
-  "largest_move": null,
-  "holder": null,
-  "direction": "churn"
- },
+ "holder_churn": null,
  "realisations": null,
  "events_90d": [
   {
@@ -106,5 +99,5 @@
    }
   }
  ],
- "updated_at": "2026-10-30T22:28:29+00:00"
+ "updated_at": "2026-11-02T21:33:00+00:00"
 }

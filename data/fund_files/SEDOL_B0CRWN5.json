@@ -6,16 +6,16 @@
  "sector": "Asia Pacific Equity Income",
  "liveness": {
   "status": "live",
-  "reason": "nav_1d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-29",
+  "last_nav": "2026-10-30",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 454.94,
-  "anchor_date": "2026-10-30",
-  "anchor_source": "investegate:9850874",
-  "estimate": 454.94,
+  "anchor": 451.04,
+  "anchor_date": "2026-11-02",
+  "anchor_source": "investegate:9853556",
+  "estimate": 451.04,
   "basis": 0.0,
   "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 426.0,
+  "price": 430.0,
   "ccy": "GBp",
-  "date": "2026-10-30",
+  "date": "2026-11-02",
   "source": "yahoo:SOI.L"
  },
  "discount": {
-  "estimate": -0.063613,
-  "z": -1.3958,
-  "z_status": "computed",
+  "estimate": -0.046648,
+  "z": -0.0895,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.045485,
   "sigma_36m": 0.012987,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1536,
-  "discount_only": 0.0031,
+  "central": 0.1543,
+  "discount_only": 0.0038,
   "g_used": 0.125,
   "g_source": "panel_tr_cagr"
  },
@@ -62,5 +62,5 @@
    }
   }
  ],
- "updated_at": "2026-10-30T22:28:31+00:00"
+ "updated_at": "2026-11-02T21:33:01+00:00"
 }

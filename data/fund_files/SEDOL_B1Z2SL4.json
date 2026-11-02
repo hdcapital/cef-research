@@ -6,7 +6,7 @@
  "sector": "Flexible Investment",
  "liveness": {
   "status": "live",
-  "reason": "nav_60d_old",
+  "reason": "nav_63d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-08-31",
   "last_announcement": "2026-10-20"
@@ -14,10 +14,10 @@
  "nav": {
   "anchor": 171.48,
   "anchor_date": "2026-08-31",
-  "anchor_source": "investegate:9832163",
+  "anchor_source": "own_nav_history:2026-08-31",
   "estimate": 171.48,
-  "basis": 0.0,
-  "staleness_days": 44.0,
+  "basis": 3.0,
+  "staleness_days": 45.0,
   "staleness_limit_days": 93.0,
   "current": true,
   "unit": "GBX",
@@ -27,27 +27,27 @@
  "price": {
   "price": 68.0,
   "ccy": "GBp",
-  "date": "2026-10-30",
+  "date": "2026-11-02",
   "source": "yahoo:CRS.L"
  },
  "discount": {
   "estimate": -0.603452,
-  "z": -2.3434,
+  "z": -2.1355,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.325752,
-  "sigma_36m": 0.118504,
+  "mu_36m": -0.33215,
+  "sigma_36m": 0.127045,
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1497,
-  "discount_only": 0.1178,
+  "central": 0.1514,
+  "discount_only": 0.1195,
   "g_used": 0.0285,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-30T22:28:30+00:00"
+ "updated_at": "2026-11-02T21:33:00+00:00"
 }

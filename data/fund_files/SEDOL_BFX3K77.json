@@ -6,18 +6,18 @@
  "sector": "Renewable Energy Infrastructure",
  "liveness": {
   "status": "live_stale_nav",
-  "reason": "periodic_report_401d_old_no_recent_nav",
+  "reason": "periodic_report_404d_old_no_recent_nav",
   "source": "own_periodic_report",
   "last_nav": "2026-05-22",
   "last_announcement": "2026-10-01"
  },
  "nav": {
   "anchor": 131.3,
-  "anchor_date": "2026-06-30",
+  "anchor_date": "2026-09-23",
   "anchor_source": "investegate_fs:9785600",
   "estimate": 131.3,
   "basis": 0.0,
-  "staleness_days": 88.0,
+  "staleness_days": 28.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -25,30 +25,43 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 94.9000015258789,
+  "price": 102.25,
   "ccy": "GBp",
-  "date": "2026-10-30",
+  "date": "2026-11-02",
   "source": "yahoo:GRID.L"
  },
  "discount": {
-  "estimate": -0.277228,
-  "z": 0.5753,
+  "estimate": -0.221249,
+  "z": 0.9235,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.380965,
-  "sigma_36m": 0.180331,
+  "mu_36m": -0.383484,
+  "sigma_36m": 0.175672,
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0835,
-  "discount_only": 0.027,
+  "central": 0.0836,
+  "discount_only": 0.0271,
   "g_used": 0.055,
   "g_source": "market_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-11-02",
+   "class": "strategic_review",
+   "weight": 3,
+   "direction": "positive",
+   "headline": "Launch of a Formal Sale Process",
+   "url": "https://www.investegate.co.uk/announcement/rns/gresham-house-energy-storage-fund--grid/launch-of-a-formal-sale-process-/9853973",
+   "alerted_at": null,
+   "terms": {
+    "llm": "error",
+    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
+   }
+  },
   {
    "date": "2026-08-19",
    "class": "holdings_notification",
@@ -98,5 +111,5 @@
    }
   }
  ],
- "updated_at": "2026-10-30T22:28:30+00:00"
+ "updated_at": "2026-11-02T21:33:00+00:00"
 }

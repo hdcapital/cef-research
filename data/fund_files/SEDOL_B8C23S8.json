@@ -6,18 +6,18 @@
  "sector": "Property - Debt",
  "liveness": {
   "status": "live_stale_nav",
-  "reason": "periodic_report_176d_old_no_recent_nav",
+  "reason": "periodic_report_179d_old_no_recent_nav",
   "source": "own_periodic_report",
   "last_nav": "2026-05-07",
   "last_announcement": "2026-10-19"
  },
  "nav": {
   "anchor": 5.0,
-  "anchor_date": "2026-07-31",
-  "anchor_source": "investegate_fs:9828204",
+  "anchor_date": "2026-02-01",
+  "anchor_source": "own_nav_history:2026-02-01",
   "estimate": 5.0,
-  "basis": 0.0,
-  "staleness_days": 65.0,
+  "basis": 3.0,
+  "staleness_days": 195.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -27,7 +27,7 @@
  "price": {
   "price": 12.449999809265137,
   "ccy": "GBp",
-  "date": "2026-10-29",
+  "date": "2026-10-30",
   "source": "yahoo:LBOW.L"
  },
  "discount": {
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-30T22:28:30+00:00"
+ "updated_at": "2026-11-02T21:33:00+00:00"
 }

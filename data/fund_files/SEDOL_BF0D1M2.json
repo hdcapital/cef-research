@@ -6,7 +6,7 @@
  "sector": "Debt - Structured Finance",
  "liveness": {
   "status": "live",
-  "reason": "nav_30d_old",
+  "reason": "nav_33d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-30",
   "last_announcement": null
@@ -14,10 +14,10 @@
  "nav": {
   "anchor": 175.0,
   "anchor_date": "2026-09-30",
-  "anchor_source": "investegate:9832846",
+  "anchor_source": "own_nav_history:2026-09-30",
   "estimate": 175.0,
-  "basis": 0.0,
-  "staleness_days": 22.0,
+  "basis": 3.0,
+  "staleness_days": 23.0,
   "staleness_limit_days": 93.0,
   "current": true,
   "unit": "GBX",
@@ -25,13 +25,13 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 138.5,
+  "price": 137.5,
   "ccy": "GBp",
-  "date": "2026-10-30",
+  "date": "2026-11-02",
   "source": "yahoo:EJFI.L"
  },
  "discount": {
-  "estimate": -0.208571,
+  "estimate": -0.214286,
   "z": null,
   "z_status": "no_discount_history",
   "z_source": null,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-30T22:28:30+00:00"
+ "updated_at": "2026-11-02T21:33:00+00:00"
 }

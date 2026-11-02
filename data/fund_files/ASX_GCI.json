@@ -6,33 +6,33 @@
  "sector": "Fixed Income - Australian Dollar",
  "liveness": {
   "status": "live",
-  "reason": "nav_14d_old",
+  "reason": "nav_17d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-16",
   "last_announcement": "2026-10-16"
  },
  "nav": {
-  "anchor": 23.0,
-  "anchor_date": "2026-10-23",
-  "anchor_source": "own_nav_history:2026-10-23",
-  "estimate": 23.096762,
+  "anchor": 27.0,
+  "anchor_date": "2026-10-27",
+  "anchor_source": "own_nav_history:2026-10-27",
+  "estimate": 27.056908,
   "basis": 1.0,
-  "staleness_days": 5.0,
+  "staleness_days": 4.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "AUD",
   "quality_ok": false,
-  "quality_reason": "nav_jump_1047%_vs_prior"
+  "quality_reason": "nav_jump_1246%_vs_prior"
  },
  "price": {
-  "price": 2.0,
+  "price": 2.005000114440918,
   "ccy": "AUD",
-  "date": "2026-10-30",
+  "date": "2026-11-02",
   "source": "yahoo:GCI.AX"
  },
  "discount": {
-  "estimate": -0.913408,
-  "z": -38.7369,
+  "estimate": -0.925897,
+  "z": -39.2618,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.8708,
-  "discount_only": 0.6325,
+  "central": 0.8726,
+  "discount_only": 0.634,
   "g_used": 0.1037,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-10-30T22:28:29+00:00"
+ "updated_at": "2026-11-02T21:32:59+00:00"
 }
