@@ -56,8 +56,8 @@
     },
     {
       "security_id": "ASX:GCI",
-      "z_adj": -38.7371,
-      "discount_est": -0.913412,
+      "z_adj": -38.7217,
+      "discount_est": -0.913047,
       "staleness_days": 6.0
     },
     {
@@ -68,12 +68,12 @@
     },
     {
       "security_id": "SEDOL:BKF2JH0",
-      "z_adj": -37.0231,
-      "discount_est": -0.990498,
-      "staleness_days": 89.0
+      "z_adj": -37.0339,
+      "discount_est": -0.990779,
+      "staleness_days": 73.0
     }
   ],
-  "date": "2026-11-01",
+  "date": "2026-11-02",
   "markets": {
     "au_identity_blocked": 0,
     "au": {
@@ -96,17 +96,17 @@
       "agreement_rate_pairs": 0.9693
     },
     "uk": {
-      "tier0_navs": 44,
+      "tier0_navs": 45,
       "nav_publishers_found": 349,
       "daily_weekly": 201
     }
   },
   "catalysts": {
-    "catalysts": 44,
+    "catalysts": 42,
     "funds": 23,
     "by_class": {
       "realisation": 18,
-      "substantial_holder": 11,
+      "substantial_holder": 9,
       "tender_offer": 6,
       "discount_control": 3,
       "scheme_merger_rollover": 2,
@@ -118,29 +118,29 @@
   },
   "events": {
     "events_total": 799,
-    "events_30d": 216,
-    "funds_30d": 100,
+    "events_30d": 207,
+    "funds_30d": 95,
     "by_direction_30d": {
-      "neutral": 174,
-      "positive": 41,
+      "neutral": 167,
+      "positive": 39,
       "negative": 1
     },
     "by_class_30d": {
-      "issuance": 103,
-      "holdings_notification": 67,
+      "issuance": 101,
+      "holdings_notification": 64,
       "realisation": 16,
-      "substantial_holder": 11,
+      "substantial_holder": 9,
       "tender_offer": 6,
-      "portfolio_holding": 4,
       "discount_control": 3,
       "scheme_merger_rollover": 2,
+      "portfolio_holding": 2,
       "takeover_offer": 1,
       "manager_change": 1,
       "strategic_review": 1,
       "legal_sanctions": 1
     },
     "unalerted": 687,
-    "holdings_with_terms": 66,
+    "holdings_with_terms": 63,
     "tr1": {
       "candidates": 0,
       "fetched": 0,
@@ -154,7 +154,7 @@
       "failed": 0
     },
     "terms": {
-      "candidates": 26,
+      "candidates": 24,
       "read": 3,
       "accepted": 0,
       "rejected": 0,
@@ -175,16 +175,15 @@
       "stale_panel_price_only": 217,
       "nav_not_positive": 180,
       "no_price": 39,
-      "unit_suspect_scale": 10,
+      "unit_suspect_scale": 11,
       "nav_jump_N_vs_prior": 8,
       "nav_unit_mismatch_N_vs_prior": 3,
-      "nav_jump_N_vs_own": 2,
-      "nav_jump_N_vs_yesterday": 1
+      "nav_jump_N_vs_own": 2
     }
   },
-  "snapshot": "s3_uploaded:nta_live/2026-11-01.parquet",
+  "snapshot": "s3_uploaded:nta_live/2026-11-02.parquet",
   "live_history": {
-    "rows": 62496,
-    "days": 56
+    "rows": 63612,
+    "days": 57
   }
 }
