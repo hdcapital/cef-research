@@ -689,3 +689,33 @@ session-held Routines are a timeliness guarantee rather than the only
 path to delivery. The open question about a session-independent layer
 stands, with lower urgency than the 2026-10-08..13 record suggested.
 
+
+### 2026-11-01..03 — a false opportunity from a mis-dated NAV; the session container reset
+
+Home REIT (SEDOL BJP5HK1) appeared as a second OPPORTUNITY in the Sunday
+1 November pre-ASX brief and the Monday 2 November pre-LSE brief
+(z -1.89, discount -54.7%, legal_sanctions catalyst from a litigation
+update of 6 October) and was gone from Monday's pre-ASX brief. The
+anchor behind the two verdicts was 18.1p "as at 2026-05-20, basis 0,
+118 days stale" from the half-year report announcement of that date;
+the report states that NAV as at 31 August 2025. The scan-time harvests
+of those two runs were degraded (44-45 announcements parsed against 164
+in the evening rebuild), parsed the number but not its as-at date, and
+the harvester dated the NAV by the announcement. Fourteen months old
+read as 118 days, inside the fund's 200-day cadence allowance, so the
+freshness gate passed. The evening rebuild of 2 November found no NAV
+for the fund at all; the anchor fell back to our own NAV history (31
+August 2025, basis 3) and the basis gate dropped the fund - the right
+answer, reached by accident. Fix committed today: a results-route NAV
+without an as-at date is not emitted (config/CHANGELOG.md
+2026-11-03). Two briefs carried a verdict that the fund's own filings
+did not support; readers of those briefs should disregard it.
+
+The same weekend the session's container was reclaimed and rebuilt: the
+checkout came back on the old diverged branch at a September commit
+with no virtualenv. The working tree was moved to a local `main`
+tracking origin/main (nothing pushed, the old branch untouched) and the
+environment rebuilt. Delivery was unaffected - Monday's pre-LSE brief
+went by dispatch at 05:41Z and the pre-ASX brief by dispatch at 22:45Z,
+the first evening since 19 October on which no cron landed in its
+window at all.

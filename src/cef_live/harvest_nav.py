@@ -1234,6 +1234,39 @@ def parse_uk_nav_text(text: str, sedol: str | None = None) -> dict:
     return out
 
 
+def uk_tier0_row(sid: str, got: dict, best: dict) -> dict | None:
+    """One fund-published NAV row, or None when the NAV cannot be dated.
+
+    A NAV announcement reached by its headline (the daily/weekly route)
+    states a value the fund struck a day or so before publishing it, so the
+    announcement date stands in when the text gives no as-at date. A
+    results or factsheet document (the factsheet route, ``best["route"]``)
+    states a NAV as at a period end that can be months before publication,
+    and the announcement date is not a proxy for it. Home REIT's half-year
+    report of 2026-05-20 carried the 31 August 2025 NAV; two degraded
+    harvests (2026-11-01 and 2026-11-02) parsed the number but not the
+    date, dated it 2026-05-20, and the live table read a fourteen-month-old
+    anchor as 118 days old at basis 0 - an OPPORTUNITY in two briefs that
+    the next clean harvest withdrew. A results NAV without an as-at date is
+    not emitted; the caller counts it as ``fs_no_asat``.
+    """
+    asat = got.get("asat")
+    if asat is None and best.get("route"):
+        return None
+    return {"security_id": sid,
+            "nav_date": asat or best["date"],
+            "nav_value": got["nav_cum_pence"],
+            # a NAV the currency rules read in dollars or euros must say
+            # so: without this a $1.91 NAV travelled as 1.91 PENCE against
+            # a 200p price
+            "unit": got.get("nav_ccy", "GBX"),
+            "nav_ex": got.get("nav_ex_pence"),
+            "cum_assumed": got.get("cum_assumed", False),
+            "source": (f"investegate{'_fs' if best.get('route') else ''}"
+                       f":{best['url'].rsplit('/', 1)[-1]}"),
+            "headline": best["headline"][:120]}
+
+
 def harvest_uk(ticker_map: pd.DataFrame, census: pd.DataFrame,
                lookback_days: int = 45, budget: int = 0,
                extra_targets: dict[str, str] | None = None,
@@ -1441,19 +1474,12 @@ def harvest_uk(ticker_map: pd.DataFrame, census: pd.DataFrame,
                 stats["fail_samples"].append({"ticker": tk, "url": best["url"],
                                               "text_head": text[200:6500]})
             continue
+        row = uk_tier0_row(tick2sid[tk], got, best)
+        if row is None:
+            stats["fs_no_asat"] = stats.get("fs_no_asat", 0) + 1
+            continue
         stats["parsed"] += 1
-        rows.append({"security_id": tick2sid[tk],
-                     "nav_date": got.get("asat", best["date"]),
-                     "nav_value": got["nav_cum_pence"],
-                     # a NAV the currency rules read in dollars or euros
-                     # must say so: without this a $1.91 NAV travelled as
-                     # 1.91 PENCE against a 200p price
-                     "unit": got.get("nav_ccy", "GBX"),
-                     "nav_ex": got.get("nav_ex_pence"),
-                     "cum_assumed": got.get("cum_assumed", False),
-                     "source": (f"investegate{'_fs' if best.get('route') else ''}"
-                                f":{best['url'].rsplit('/', 1)[-1]}"),
-                     "headline": best["headline"][:120]})
+        rows.append(row)
     if write_listing_cache and listing_rows:
         stats["listing_cache_written"] = _write_listing_cache(listing_rows)
     try:

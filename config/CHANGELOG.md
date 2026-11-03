@@ -4,6 +4,25 @@ Every change to `config/params.yaml` gets a dated entry here, committed in
 the same commit as the change, with a rationale. Parameters are never
 tuned against live outcomes.
 
+## 2026-11-03 — a results-document NAV is dated by its as-at date or not at all
+No parameter changed; the rule the Tier 0 harvest applies to a NAV it
+reads from a results or factsheet document did. Such a document states a
+NAV as at a period end that can be months before publication. Previously
+a NAV whose as-at date the parser missed was dated by the announcement.
+Home REIT's half-year report of 2026-05-20 carries the 31 August 2025
+NAV (18.1p); the harvests feeding the 2026-11-01 pre-ASX and 2026-11-02
+pre-LSE scans parsed the number but not the date, dated it 2026-05-20,
+and the live table read a fourteen-month-old anchor as 118 days old at
+basis 0. With a 200-day cadence allowance that is "fresh", and the fund
+went out as an OPPORTUNITY in two briefs (z -1.89, discount -54.7%) on a
+NAV its own filings date fourteen months back. The clean harvest the
+same evening found no NAV at all, the anchor fell back to own history at
+basis 3, and the fund dropped from the brief entirely. Rule now: a
+results-route NAV without a parsed as-at date is not emitted
+(`fs_no_asat` in the harvest stats); a headline-route NAV announcement,
+struck a day or so before it is published, keeps the announcement date
+as its fallback.
+
 ## 2026-10-13 — brief window fixed at firing, not when scoring finishes
 
 The scan labelled its brief by the clock when the scoring step ran, some

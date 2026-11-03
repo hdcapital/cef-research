@@ -1435,7 +1435,10 @@ def test_a_dollar_nav_is_priced_against_a_pence_line_through_fx():
     n = out.loc["NOFX"]
     assert not bool(n["has_nav"]), "no FX level: refused, not guessed"
     from cef_live import harvest_nav as HN
-    assert '"unit": got.get("nav_ccy", "GBX")' in inspect.getsource(HN.harvest_uk)
+    # the row is assembled in uk_tier0_row (2026-11-03); the currency it
+    # read travels with it, and harvest_uk emits rows only through it
+    assert '"unit": got.get("nav_ccy", "GBX")' in inspect.getsource(HN.uk_tier0_row)
+    assert "uk_tier0_row(" in inspect.getsource(HN.harvest_uk)
 
 
 def test_a_reissued_asx_code_cannot_revive_a_delisted_lic():

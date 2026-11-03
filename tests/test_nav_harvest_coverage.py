@@ -921,3 +921,30 @@ def test_another_companys_epra_nta_is_not_this_funds():
             "EPRA NTA per share 1 61.2p 63.3p (3)% EPRA NTA Total Return (0.2)%")
     got = parse_uk_nav_text(text)
     assert got["nav_cum_pence"] == 61.2, got
+
+
+def test_a_results_nav_without_an_as_at_date_is_not_dated_by_its_announcement():
+    """Home REIT, 2026-11-01/02: the half-year report of 2026-05-20 carries
+    the 31 August 2025 NAV. Two degraded harvests parsed the number but not
+    the as-at date, dated it by the announcement, and the live table read a
+    fourteen-month-old anchor as 118 days old at basis 0 - an OPPORTUNITY in
+    two briefs. A results-route NAV that cannot be dated is not emitted."""
+    results = {"date": "2026-05-20", "headline": "Half-year Financial Report",
+               "url": "https://www.investegate.co.uk/announcement/rns/x/9576465",
+               "route": "factsheet"}
+    assert H.uk_tier0_row("SEDOL:BJP5HK1", {"nav_cum_pence": 18.1}, results) is None
+    row = H.uk_tier0_row("SEDOL:BJP5HK1",
+                         {"nav_cum_pence": 18.1, "asat": "2025-08-31"}, results)
+    assert row["nav_date"] == "2025-08-31"
+    assert row["source"] == "investegate_fs:9576465"
+    # a NAV announcement reached by its headline is struck a day or so
+    # before it is published: the announcement date still stands in
+    daily = {"date": "2026-11-02", "headline": "Net Asset Value(s)",
+             "url": "https://www.investegate.co.uk/announcement/rns/y/1"}
+    row = H.uk_tier0_row("SEDOL:X", {"nav_cum_pence": 100.0}, daily)
+    assert row["nav_date"] == "2026-11-02" and row["source"] == "investegate:1"
+
+
+def test_the_harvester_counts_the_results_navs_it_declines_to_date():
+    src = inspect.getsource(H.harvest_uk)
+    assert "uk_tier0_row(" in src and 'stats["fs_no_asat"]' in src
