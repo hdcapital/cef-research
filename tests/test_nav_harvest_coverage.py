@@ -933,6 +933,21 @@ def test_a_results_nav_without_an_as_at_date_is_not_dated_by_its_announcement():
                "url": "https://www.investegate.co.uk/announcement/rns/x/9576465",
                "route": "factsheet"}
     assert H.uk_tier0_row("SEDOL:BJP5HK1", {"nav_cum_pence": 18.1}, results) is None
+    # the document's own period end dates the NAV when the body never says
+    # "as at": SDCL's "Results for the year ended 31 March 2026" of
+    # 2026-06-25 carried a 2026-06-25 anchor for months
+    sdcl = {"date": "2026-06-25", "url": "https://x/9635404", "route": "factsheet",
+            "headline": "Results for the year ended 31 March 2026"}
+    row = H.uk_tier0_row("SEDOL:BGHVZM4", {"nav_cum_pence": 77.8}, sdcl)
+    assert row["nav_date"] == "2026-03-31"
+    body = ("Home REIT plc Half-year Financial Report for the six months ended "
+            "28 February 2026 ... net asset value per share 18.1p")
+    row = H.uk_tier0_row("SEDOL:BJP5HK1", {"nav_cum_pence": 18.1}, results, body)
+    assert row["nav_date"] == "2026-02-28"
+    # a period end after the announcement is a misread, not a valuation date
+    assert H.results_asat("Results for the year ending 31 March 2027", "",
+                          "2026-06-25") is None
+    assert H.results_asat("NAV as at 30 September 2026", "", "2026-10-15") == "2026-09-30"
     row = H.uk_tier0_row("SEDOL:BJP5HK1",
                          {"nav_cum_pence": 18.1, "asat": "2025-08-31"}, results)
     assert row["nav_date"] == "2025-08-31"

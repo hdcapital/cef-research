@@ -18,10 +18,19 @@ went out as an OPPORTUNITY in two briefs (z -1.89, discount -54.7%) on a
 NAV its own filings date fourteen months back. The clean harvest the
 same evening found no NAV at all, the anchor fell back to own history at
 basis 3, and the fund dropped from the brief entirely. Rule now: a
-results-route NAV without a parsed as-at date is not emitted
-(`fs_no_asat` in the harvest stats); a headline-route NAV announcement,
-struck a day or so before it is published, keeps the announcement date
-as its fallback.
+results-route NAV whose body states no as-at date is dated by the
+period end the document names - "Results for the year ended 31 March
+2026", "six months ended 30 June 2026" - in its headline or its body
+(`fs_asat_inferred` in the harvest stats); one that nothing dates is not
+emitted (`fs_no_asat`). A headline-route NAV announcement, struck a day
+or so before it is published, keeps the announcement date as its
+fallback. The first morning under the refusal alone (2026-11-03) showed
+the footprint: 35 funds had carried a results NAV at basis 0 dated by
+its announcement - SDCL Efficiency Income's year-end NAV at 92 days
+stale when its own filing dates it 155 - and all 35 fell back to own
+NAV history at basis 3, in several cases to an older value than the
+results document holds. The period-end inference keeps the value and
+dates it as the filing does.
 
 ## 2026-10-13 — brief window fixed at firing, not when scoring finishes
 

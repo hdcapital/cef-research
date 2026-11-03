@@ -706,10 +706,17 @@ read as 118 days, inside the fund's 200-day cadence allowance, so the
 freshness gate passed. The evening rebuild of 2 November found no NAV
 for the fund at all; the anchor fell back to our own NAV history (31
 August 2025, basis 3) and the basis gate dropped the fund - the right
-answer, reached by accident. Fix committed today: a results-route NAV
-without an as-at date is not emitted (config/CHANGELOG.md
-2026-11-03). Two briefs carried a verdict that the fund's own filings
-did not support; readers of those briefs should disregard it.
+answer, reached by accident. Fix committed today in two steps
+(config/CHANGELOG.md 2026-11-03): a results-route NAV is dated by the
+period end its document names, and one that nothing dates is not
+emitted. The first morning's scan under the refusal alone showed the
+mis-dating was systemic, not one fund: 35 funds had carried a results
+NAV dated by its announcement at basis 0 (SDCL Efficiency Income's
+year-end NAV read 92 days stale against the 155 its filing states), and
+all 35 fell back to own NAV history at basis 3. Two briefs carried a
+Home REIT verdict that the fund's own filings did not support; readers
+of those briefs should disregard it. SDCL's verdict stood on either
+dating: z -1.61 on both anchors, OPPORTUNITY in every brief.
 
 The same weekend the session's container was reclaimed and rebuilt: the
 checkout came back on the old diverged branch at a September commit

@@ -653,6 +653,14 @@ def uk_frequency_census(cache_dir: Path) -> pd.DataFrame:
 UK_ASAT = re.compile(r"(?:as at|at)\s+(?:(?:the\s+)?close of business on\s+)?"
                      r"(?:(?:Mon|Tues|Wednes|Thurs|Fri|Satur|Sun)day,?\s+)?"
                      r"(\d{1,2}\s+\w{3,9}\s+\d{4})", re.I)
+# "Results for the year ended 31 March 2026", "six months ended 30 June
+# 2026", "quarter to 30 September 2026": the period end a results or
+# factsheet document states its NAV at, when the body never says "as at"
+UK_PERIOD_END = re.compile(
+    r"(?:year|period|half[- ]?year|six months|nine months|three months|"
+    r"quarter|months?)\s+(?:ended|ending|to)\s+"
+    r"(?:(?:the\s+)?close of business on\s+)?"
+    r"(\d{1,2}\s+\w{3,9}\s+\d{4})", re.I)
 # pence numbers may carry thousands commas: "1,941.32p"
 UK_PNUM = r"(?:=\s*)?([0-9][0-9,]*(?:\.[0-9]+)?)"
 UK_PENCE = UK_PNUM + r"\s*p(?:ence)?\b"
@@ -1234,7 +1242,37 @@ def parse_uk_nav_text(text: str, sedol: str | None = None) -> dict:
     return out
 
 
-def uk_tier0_row(sid: str, got: dict, best: dict) -> dict | None:
+def results_asat(headline: str, text: str, announced: str) -> str | None:
+    """The as-at date of a NAV read from a results or factsheet document.
+
+    Such a document names the period it reports on - "Results for the year
+    ended 31 March 2026", "six months ended 30 June 2026", "quarter to 30
+    September 2026" - in its headline or its opening line, and the NAV it
+    states is struck at that period end. The first period-end phrase in the
+    headline, then in the body, dates the NAV; a headline that itself says
+    "as at 30 September 2026" does too. A date after the announcement is a
+    misread, not a valuation date. None when nothing dates it.
+    """
+    announced = announced or "9999-12-31"
+    for src in (headline or "", text or ""):
+        m = UK_PERIOD_END.search(src)
+        if not m:
+            continue
+        try:
+            d = pd.to_datetime(m.group(1), dayfirst=True).date().isoformat()
+        except Exception:  # noqa: BLE001
+            continue
+        if d <= announced:
+            return d
+    h = _asat_date(headline or "")
+    if h is not None:
+        d = h.date().isoformat()
+        if d <= announced:
+            return d
+    return None
+
+
+def uk_tier0_row(sid: str, got: dict, best: dict, text: str = "") -> dict | None:
     """One fund-published NAV row, or None when the NAV cannot be dated.
 
     A NAV announcement reached by its headline (the daily/weekly route)
@@ -1247,12 +1285,16 @@ def uk_tier0_row(sid: str, got: dict, best: dict) -> dict | None:
     harvests (2026-11-01 and 2026-11-02) parsed the number but not the
     date, dated it 2026-05-20, and the live table read a fourteen-month-old
     anchor as 118 days old at basis 0 - an OPPORTUNITY in two briefs that
-    the next clean harvest withdrew. A results NAV without an as-at date is
-    not emitted; the caller counts it as ``fs_no_asat``.
+    the next clean harvest withdrew. When the text states no as-at date the
+    document's own period end dates the NAV (results_asat); a results NAV
+    that nothing dates is not emitted, and the caller counts it as
+    ``fs_no_asat``.
     """
     asat = got.get("asat")
     if asat is None and best.get("route"):
-        return None
+        asat = results_asat(best.get("headline", ""), text, best.get("date", ""))
+        if asat is None:
+            return None
     return {"security_id": sid,
             "nav_date": asat or best["date"],
             "nav_value": got["nav_cum_pence"],
@@ -1474,10 +1516,12 @@ def harvest_uk(ticker_map: pd.DataFrame, census: pd.DataFrame,
                 stats["fail_samples"].append({"ticker": tk, "url": best["url"],
                                               "text_head": text[200:6500]})
             continue
-        row = uk_tier0_row(tick2sid[tk], got, best)
+        row = uk_tier0_row(tick2sid[tk], got, best, text)
         if row is None:
             stats["fs_no_asat"] = stats.get("fs_no_asat", 0) + 1
             continue
+        if best.get("route") and "asat" not in got:
+            stats["fs_asat_inferred"] = stats.get("fs_asat_inferred", 0) + 1
         stats["parsed"] += 1
         rows.append(row)
     if write_listing_cache and listing_rows:
