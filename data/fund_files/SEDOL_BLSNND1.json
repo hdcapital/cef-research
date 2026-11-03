@@ -15,9 +15,9 @@
   "anchor": 1313.66,
   "anchor_date": "2022-10-31",
   "anchor_source": "aggregator_panel:2022-10",
-  "estimate": 1308.5381,
+  "estimate": 1311.152093,
   "basis": 1.0,
-  "staleness_days": 1045.0,
+  "staleness_days": 1046.0,
   "staleness_limit_days": 45.0,
   "current": false,
   "unit": "GBX",
@@ -31,8 +31,8 @@
   "source": "aggregator_panel"
  },
  "discount": {
-  "estimate": -0.071483,
-  "z": 0.7489,
+  "estimate": -0.073334,
+  "z": 0.6997,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0495,
-  "discount_only": 0.0008,
+  "central": 0.0485,
+  "discount_only": -0.0002,
   "g_used": 0.0487,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-02T22:34:41+00:00"
+ "updated_at": "2026-11-03T22:00:58+00:00"
 }

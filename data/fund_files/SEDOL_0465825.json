@@ -6,7 +6,7 @@
  "sector": "Flexible Investment",
  "liveness": {
   "status": "live",
-  "reason": "nav_10d_old",
+  "reason": "nav_11d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-23",
   "last_announcement": "2026-10-12"
@@ -15,9 +15,9 @@
   "anchor": 73.5,
   "anchor_date": "2026-10-23",
   "anchor_source": "own_nav_history:2026-10-23",
-  "estimate": 73.417261,
+  "estimate": 73.362501,
   "basis": 1.0,
-  "staleness_days": 6.0,
+  "staleness_days": 7.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 76.0,
+  "price": 75.5,
   "ccy": "GBp",
-  "date": "2026-10-30",
+  "date": "2026-11-02",
   "source": "yahoo:INV.L"
  },
  "discount": {
-  "estimate": 0.035179,
-  "z": 2.2055,
+  "estimate": 0.029136,
+  "z": 2.1166,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.012,
-  "discount_only": -0.0308,
+  "central": 0.0118,
+  "discount_only": -0.031,
   "g_used": 0.0335,
   "g_source": "panel_tr_cagr"
  },
@@ -94,17 +94,7 @@
    "terms": {
     "holder": "Chelverton Asset Management Limited"
    }
-  },
-  {
-   "date": "2026-08-04",
-   "class": "holdings_notification",
-   "weight": 0,
-   "direction": "neutral",
-   "headline": "Holding(s) in Company",
-   "url": "https://www.investegate.co.uk/announcement/rns/investment-company--inv/holding-s-in-company/9703831",
-   "alerted_at": null,
-   "terms": null
   }
  ],
- "updated_at": "2026-11-02T22:34:42+00:00"
+ "updated_at": "2026-11-03T22:00:59+00:00"
 }

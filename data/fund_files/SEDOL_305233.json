@@ -6,48 +6,48 @@
  "sector": "UK Equity Income",
  "liveness": {
   "status": "live",
-  "reason": "nav_3d_old",
+  "reason": "nav_4d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-30",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 934.17,
-  "anchor_date": "2026-10-30",
-  "anchor_source": "investegate:9853267",
-  "estimate": 934.17,
+  "anchor": 7.48,
+  "anchor_date": "2026-11-03",
+  "anchor_source": "investegate:9855914",
+  "estimate": 7.48,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
-  "quality_ok": true,
-  "quality_reason": ""
+  "quality_ok": false,
+  "quality_reason": "nav_unit_mismatch_0x_vs_prior"
  },
  "price": {
-  "price": 865.0,
+  "price": 859.0,
   "ccy": "GBp",
-  "date": "2026-11-02",
+  "date": "2026-11-03",
   "source": "yahoo:EDIN.L"
  },
  "discount": {
-  "estimate": -0.074044,
-  "z": 0.8881,
+  "estimate": 113.839572,
+  "z": 8594.7885,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.085817,
   "sigma_36m": 0.013255,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1104,
-  "discount_only": -0.0094,
+  "central": 0.1187,
+  "discount_only": -0.0016,
   "g_used": 0.0926,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-02T22:34:41+00:00"
+ "updated_at": "2026-11-03T22:00:58+00:00"
 }

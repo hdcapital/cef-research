@@ -6,16 +6,16 @@
  "sector": "Technology & Technology Innovation",
  "liveness": {
   "status": "live",
-  "reason": "nav_3d_old",
+  "reason": "nav_4d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-30",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 648.84,
-  "anchor_date": "2026-10-30",
-  "anchor_source": "investegate:9853736",
-  "estimate": 648.84,
+  "anchor": 632.02,
+  "anchor_date": "2026-11-02",
+  "anchor_source": "investegate:9856225",
+  "estimate": 632.02,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 594.0,
+  "price": 583.5,
   "ccy": "GBp",
-  "date": "2026-11-02",
+  "date": "2026-11-03",
   "source": "yahoo:PCT.L"
  },
  "discount": {
-  "estimate": -0.08452,
-  "z": 0.8442,
+  "estimate": -0.07677,
+  "z": 1.2681,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,26 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.5023,
-  "discount_only": 0.0075,
+  "central": 0.4893,
+  "discount_only": -0.0041,
   "g_used": 0.15,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [],
- "updated_at": "2026-11-02T22:34:42+00:00"
+ "events_90d": [
+  {
+   "date": "2026-11-03",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/polar-capital-technology-trust--pct/holding-s-in-company/9855591",
+   "alerted_at": null,
+   "terms": {
+    "unparsed": true
+   }
+  }
+ ],
+ "updated_at": "2026-11-03T22:00:59+00:00"
 }

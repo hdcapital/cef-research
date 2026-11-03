@@ -6,16 +6,16 @@
  "sector": "North America",
  "liveness": {
   "status": "live",
-  "reason": "nav_4d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-29",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 447.3,
-  "anchor_date": "2026-10-30",
-  "anchor_source": "investegate:9853986",
-  "estimate": 447.3,
+  "anchor": 448.0,
+  "anchor_date": "2026-11-02",
+  "anchor_source": "investegate:9856165",
+  "estimate": 448.0,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -27,12 +27,12 @@
  "price": {
   "price": 440.0,
   "ccy": "GBp",
-  "date": "2026-11-02",
+  "date": "2026-11-03",
   "source": "yahoo:NAIT.L"
  },
  "discount": {
-  "estimate": -0.01632,
-  "z": 1.9867,
+  "estimate": -0.017857,
+  "z": 1.946,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0845,
-  "discount_only": -0.0142,
+  "central": 0.0821,
+  "discount_only": -0.0164,
   "g_used": 0.1001,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-02T22:34:42+00:00"
+ "updated_at": "2026-11-03T22:00:59+00:00"
 }

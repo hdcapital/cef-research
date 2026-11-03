@@ -6,16 +6,16 @@
  "sector": "European Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_3d_old",
+  "reason": "nav_4d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-30",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 663.76,
-  "anchor_date": "2026-10-30",
-  "anchor_source": "investegate:9853386",
-  "estimate": 663.76,
+  "anchor": 667.96,
+  "anchor_date": "2026-11-02",
+  "anchor_source": "investegate:9855879",
+  "estimate": 667.96,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,29 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 611.0,
+  "price": 608.0,
   "ccy": "GBp",
-  "date": "2026-11-02",
+  "date": "2026-11-03",
   "source": "yahoo:JEDT.L"
  },
  "discount": {
-  "estimate": -0.079487,
-  "z": 0.466,
-  "z_status": "computed",
+  "estimate": -0.089766,
+  "z": -0.0107,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.089534,
   "sigma_36m": 0.021562,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0672,
-  "discount_only": -0.0034,
+  "central": 0.0639,
+  "discount_only": -0.0066,
   "g_used": 0.0505,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-02T22:34:41+00:00"
+ "updated_at": "2026-11-03T22:00:59+00:00"
 }

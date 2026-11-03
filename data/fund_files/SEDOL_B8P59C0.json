@@ -6,7 +6,7 @@
  "sector": "Biotechnology & Healthcare",
  "liveness": {
   "status": "live_stale_nav",
-  "reason": "periodic_report_354d_old_no_recent_nav",
+  "reason": "periodic_report_355d_old_no_recent_nav",
   "source": "own_periodic_report",
   "last_nav": "2026-06-18",
   "last_announcement": "2026-10-20"
@@ -17,7 +17,7 @@
   "anchor_source": "own_nav_history:2025-03-31",
   "estimate": 4.96,
   "basis": 3.0,
-  "staleness_days": 415.0,
+  "staleness_days": 416.0,
   "staleness_limit_days": 200.0,
   "current": false,
   "unit": "GBX",
@@ -25,13 +25,13 @@
   "quality_reason": "nav_jump_212%_vs_own"
  },
  "price": {
-  "price": 124.5999984741211,
+  "price": 122.0,
   "ccy": "GBp",
-  "date": "2026-11-02",
+  "date": "2026-11-03",
   "source": "yahoo:SYNC.L"
  },
  "discount": {
-  "estimate": 24.120967,
+  "estimate": 23.596774,
   "z": null,
   "z_status": "no_discount_history",
   "z_source": null,
@@ -41,8 +41,8 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1572,
-  "discount_only": 0.1045,
+  "central": -0.4279,
+  "discount_only": -0.454,
   "g_used": 0.0478,
   "g_source": "sector_median"
  },
@@ -132,17 +132,7 @@
    "terms": {
     "holder": "Saba Capital Management, L.P"
    }
-  },
-  {
-   "date": "2026-08-04",
-   "class": "holdings_notification",
-   "weight": 0,
-   "direction": "neutral",
-   "headline": "Holding(s) in Company",
-   "url": "https://www.investegate.co.uk/announcement/rns/syncona-limited-npv--sync/holding-s-in-company/9704314",
-   "alerted_at": null,
-   "terms": null
   }
  ],
- "updated_at": "2026-11-02T22:34:42+00:00"
+ "updated_at": "2026-11-03T22:00:59+00:00"
 }

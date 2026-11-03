@@ -6,16 +6,16 @@
  "sector": "Flexible Investment",
  "liveness": {
   "status": "live",
-  "reason": "nav_3d_old",
+  "reason": "nav_4d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-30",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 126.82,
-  "anchor_date": "2026-11-02",
-  "anchor_source": "investegate:9853769",
-  "estimate": 126.82,
+  "anchor": 128.03,
+  "anchor_date": "2026-11-03",
+  "anchor_source": "investegate:9856125",
+  "estimate": 128.03,
   "basis": 0.0,
   "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
@@ -27,12 +27,12 @@
  "price": {
   "price": 131.0,
   "ccy": "GBp",
-  "date": "2026-11-02",
+  "date": "2026-11-03",
   "source": "yahoo:CMPI.L"
  },
  "discount": {
-  "estimate": 0.03296,
-  "z": 1.738,
+  "estimate": 0.023198,
+  "z": 1.1881,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,14 +41,24 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0437,
-  "discount_only": -0.0009,
+  "central": 0.0391,
+  "discount_only": -0.0054,
   "g_used": 0.0447,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-11-03",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/ct-global-managed-portfolio-trust-inc-shs--cmpi/issue-of-equity/9856683",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-10-29",
    "class": "issuance",
@@ -80,5 +90,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-11-02T22:34:41+00:00"
+ "updated_at": "2026-11-03T22:00:58+00:00"
 }

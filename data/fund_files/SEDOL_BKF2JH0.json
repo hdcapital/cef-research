@@ -6,18 +6,18 @@
  "sector": "VTC",
  "liveness": {
   "status": "live_stale_nav",
-  "reason": "periodic_report_319d_old_no_recent_nav",
+  "reason": "periodic_report_320d_old_no_recent_nav",
   "source": "own_periodic_report",
   "last_nav": "2026-06-30",
   "last_announcement": "2026-10-30"
  },
  "nav": {
-  "anchor": 91.1,
-  "anchor_date": "2026-07-22",
-  "anchor_source": "investegate_fs:9682712",
-  "estimate": 91.1,
-  "basis": 0.0,
-  "staleness_days": 73.0,
+  "anchor": 88.4,
+  "anchor_date": "2026-06-30",
+  "anchor_source": "own_nav_history:2026-06-30",
+  "estimate": 88.4,
+  "basis": 3.0,
+  "staleness_days": 90.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -27,12 +27,12 @@
  "price": {
   "price": 0.8399999737739563,
   "ccy": "GBp",
-  "date": "2026-10-30",
+  "date": "2026-11-02",
   "source": "yahoo:FWT.L"
  },
  "discount": {
-  "estimate": -0.990779,
-  "z": -37.0339,
+  "estimate": -0.990498,
+  "z": -37.0231,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 1.6651,
-  "discount_only": 1.5261,
+  "central": 1.6812,
+  "discount_only": 1.5413,
   "g_used": 0.055,
   "g_source": "market_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-02T22:34:41+00:00"
+ "updated_at": "2026-11-03T22:00:58+00:00"
 }

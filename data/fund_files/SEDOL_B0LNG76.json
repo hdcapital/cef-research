@@ -6,18 +6,18 @@
  "sector": "Debt - Loans & Bonds",
  "liveness": {
   "status": "live",
-  "reason": "nav_3d_old",
+  "reason": "nav_4d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-30",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 160.78,
-  "anchor_date": "2026-10-30",
-  "anchor_source": "investegate:9853449",
-  "estimate": 160.78,
+  "anchor": 162.43,
+  "anchor_date": "2026-11-03",
+  "anchor_source": "investegate:9856069",
+  "estimate": 162.43,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,30 +25,40 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 165.0,
+  "price": 164.5,
   "ccy": "GBp",
-  "date": "2026-11-02",
+  "date": "2026-11-03",
   "source": "yahoo:BIPS.L"
  },
  "discount": {
-  "estimate": 0.026247,
-  "z": 2.2792,
-  "z_status": "computed",
+  "estimate": 0.012744,
+  "z": -0.3382,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": 0.014489,
   "sigma_36m": 0.005159,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0986,
-  "discount_only": -0.0001,
+  "central": 0.0962,
+  "discount_only": -0.0025,
   "g_used": 0.0387,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-11-03",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/mfn/invesco-bond-income-plus-limited-npv--bips/issue-of-equity/9856613",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-10-29",
    "class": "issuance",
@@ -328,17 +338,7 @@
    "url": "https://www.investegate.co.uk/announcement/mfn/invesco-bond-income-plus-limited-npv--bips/issue-of-equity/9707043",
    "alerted_at": null,
    "terms": null
-  },
-  {
-   "date": "2026-08-04",
-   "class": "issuance",
-   "weight": 0,
-   "direction": "neutral",
-   "headline": "Issue of Equity",
-   "url": "https://www.investegate.co.uk/announcement/mfn/invesco-bond-income-plus-limited-npv--bips/issue-of-equity/9704616",
-   "alerted_at": null,
-   "terms": null
   }
  ],
- "updated_at": "2026-11-02T22:34:41+00:00"
+ "updated_at": "2026-11-03T22:00:58+00:00"
 }
