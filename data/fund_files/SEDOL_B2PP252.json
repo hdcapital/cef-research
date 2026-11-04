@@ -12,12 +12,12 @@
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 327.46,
-  "anchor_date": "2026-11-03",
-  "anchor_source": "investegate:9856126",
-  "estimate": 327.46,
+  "anchor": 324.79,
+  "anchor_date": "2026-11-04",
+  "anchor_source": "investegate:9858512",
+  "estimate": 324.79,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,30 +25,40 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 318.0,
+  "price": 319.0,
   "ccy": "GBp",
-  "date": "2026-11-02",
+  "date": "2026-11-04",
   "source": "yahoo:CMPG.L"
  },
  "discount": {
-  "estimate": -0.028889,
-  "z": -0.379,
-  "z_status": "computed",
+  "estimate": -0.017827,
+  "z": 0.1847,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.021452,
   "sigma_36m": 0.019626,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
   "central": null,
   "discount_only": null,
-  "g_used": 0.0563,
+  "g_used": 0.0529,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-11-04",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/ct-global-managed-portfolio-trust-grwth-shs--cmpg/issue-of-equity/9858963",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-11-03",
    "class": "issuance",
@@ -90,5 +100,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-11-04T01:42:28+00:00"
+ "updated_at": "2026-11-04T21:59:36+00:00"
 }

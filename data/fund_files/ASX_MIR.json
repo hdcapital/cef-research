@@ -6,17 +6,17 @@
  "sector": "Equity - Australia",
  "liveness": {
   "status": "live",
-  "reason": "nav_24d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-11",
-  "last_announcement": "2026-10-11"
+  "last_nav": "2026-11-01",
+  "last_announcement": "2026-11-01"
  },
  "nav": {
   "anchor": 2.68,
   "anchor_date": "2026-10-23",
-  "anchor_source": "own_nav_history:2026-10-23",
-  "estimate": 2.679275,
-  "basis": 1.0,
+  "anchor_source": "asx_ann:03156955",
+  "estimate": 2.68,
+  "basis": 0.0,
   "staleness_days": 8.0,
   "staleness_limit_days": 45.0,
   "current": true,
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 2.3399999141693115,
+  "price": 2.3499999046325684,
   "ccy": "AUD",
-  "date": "2026-11-03",
+  "date": "2026-11-04",
   "source": "yahoo:MIR.AX"
  },
  "discount": {
-  "estimate": -0.12663,
-  "z": -2.0144,
+  "estimate": -0.123134,
+  "z": -1.9063,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
-  "mu_36m": -0.009884,
-  "sigma_36m": 0.057955,
+  "mu_36m": -0.011045,
+  "sigma_36m": 0.058801,
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1738,
-  "discount_only": 0.033,
+  "central": 0.1704,
+  "discount_only": 0.0298,
   "g_used": 0.1009,
   "g_source": "panel_tr_cagr"
  },
@@ -60,5 +60,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-11-04T01:42:28+00:00"
+ "updated_at": "2026-11-04T21:59:36+00:00"
 }

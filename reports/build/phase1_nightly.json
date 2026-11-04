@@ -1,23 +1,17 @@
 {
   "rows": 1116,
-  "rows_with_nav": 788,
-  "rows_without_nav": 328,
+  "rows_with_nav": 789,
+  "rows_without_nav": 327,
   "basis_counts": {
-    "3.0": 356,
-    "nan": 328,
-    "1.0": 232,
-    "0.0": 200
+    "3.0": 354,
+    "nan": 327,
+    "0.0": 225,
+    "1.0": 210
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 148,
+  "alert_eligible": 163,
   "z_extremes": [
-    {
-      "security_id": "SEDOL:B0JQZZ8",
-      "z_adj": -156.5595,
-      "discount_est": -0.9905,
-      "staleness_days": 7.0
-    },
     {
       "security_id": "SEDOL:3115202",
       "z_adj": -78.6506,
@@ -44,9 +38,9 @@
     },
     {
       "security_id": "SEDOL:BDHXP96",
-      "z_adj": -44.4672,
-      "discount_est": -0.726375,
-      "staleness_days": 2.0
+      "z_adj": -44.4127,
+      "discount_est": -0.725508,
+      "staleness_days": 1.0
     },
     {
       "security_id": "SEDOL:BRC8992",
@@ -61,15 +55,21 @@
       "staleness_days": 112.0
     },
     {
-      "security_id": "ASX:GCI",
-      "z_adj": -38.7298,
-      "discount_est": -0.91324,
-      "staleness_days": 8.0
-    },
-    {
       "security_id": "SEDOL:BNGFHX1",
       "z_adj": -38.2523,
       "discount_est": -0.990462,
+      "staleness_days": 91.0
+    },
+    {
+      "security_id": "ASX:REV",
+      "z_adj": -37.304,
+      "discount_est": -0.376206,
+      "staleness_days": 1.0
+    },
+    {
+      "security_id": "SEDOL:BKF2JH0",
+      "z_adj": -37.0231,
+      "discount_est": -0.990498,
       "staleness_days": 91.0
     }
   ],
@@ -77,7 +77,7 @@
   "markets": {
     "au_identity_blocked": 0,
     "au": {
-      "tier0_navs": 74,
+      "tier0_navs": 75,
       "factors_monthly": true,
       "factors_daily": true,
       "live_prices": 99
@@ -96,61 +96,62 @@
       "agreement_rate_pairs": 0.9693
     },
     "uk": {
-      "tier0_navs": 157,
+      "tier0_navs": 158,
       "nav_publishers_found": 350,
       "daily_weekly": 201
     }
   },
   "catalysts": {
-    "catalysts": 45,
-    "funds": 24,
+    "catalysts": 59,
+    "funds": 31,
     "by_class": {
-      "realisation": 20,
-      "substantial_holder": 9,
+      "realisation": 23,
+      "substantial_holder": 19,
       "tender_offer": 6,
       "discount_control": 3,
       "strategic_review": 2,
       "scheme_merger_rollover": 2,
       "takeover_offer": 1,
       "manager_change": 1,
-      "legal_sanctions": 1
+      "legal_sanctions": 1,
+      "distribution_policy": 1
     }
   },
   "events": {
-    "events_total": 821,
-    "events_30d": 229,
-    "funds_30d": 101,
+    "events_total": 854,
+    "events_30d": 262,
+    "funds_30d": 112,
     "by_direction_30d": {
-      "neutral": 186,
-      "positive": 42,
+      "neutral": 205,
+      "positive": 56,
       "negative": 1
     },
     "by_class_30d": {
-      "issuance": 114,
-      "holdings_notification": 70,
-      "realisation": 18,
-      "substantial_holder": 9,
+      "issuance": 124,
+      "holdings_notification": 75,
+      "realisation": 21,
+      "substantial_holder": 19,
       "tender_offer": 6,
+      "portfolio_holding": 6,
       "discount_control": 3,
-      "strategic_review": 2,
-      "portfolio_holding": 2,
       "scheme_merger_rollover": 2,
+      "strategic_review": 2,
       "takeover_offer": 1,
       "manager_change": 1,
       "legal_sanctions": 1
     },
-    "unalerted": 708,
-    "holdings_with_terms": 69,
+    "unalerted": 741,
+    "holdings_with_terms": 71,
     "tr1": {
-      "candidates": 0,
-      "fetched": 0,
+      "candidates": 2,
+      "fetched": 2,
       "parsed": 0,
       "failed": 0
     },
     "realisations": {
-      "candidates": 0,
-      "fetched": 0,
-      "parsed": 0,
+      "candidates": 3,
+      "fetched": 3,
+      "parsed": 2,
       "failed": 0
     },
     "terms": {
@@ -170,14 +171,14 @@
   },
   "carried_forward_rows": 0,
   "nav_quarantine": {
-    "rows": 466,
+    "rows": 474,
     "by_reason": {
       "stale_panel_price_only": 217,
       "nav_not_positive": 180,
       "no_price": 39,
-      "nav_jump_N_vs_prior": 11,
+      "nav_jump_N_vs_prior": 17,
       "unit_suspect_scale": 10,
-      "nav_unit_mismatch_N_vs_prior": 6,
+      "nav_unit_mismatch_N_vs_prior": 8,
       "nav_jump_N_vs_own": 3
     }
   },

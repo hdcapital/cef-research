@@ -6,17 +6,17 @@
  "sector": "Fixed Income - Global Dollar",
  "liveness": {
   "status": "live",
-  "reason": "nav_21d_old",
+  "reason": "nav_0d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-14",
-  "last_announcement": "2026-10-15"
+  "last_nav": "2026-11-04",
+  "last_announcement": "2026-11-04"
  },
  "nav": {
-  "anchor": 2.013,
-  "anchor_date": "2026-10-31",
-  "anchor_source": "own_nav_history:2026-10-31",
-  "estimate": 2.013,
-  "basis": 3.0,
+  "anchor": 2.11,
+  "anchor_date": "2026-11-02",
+  "anchor_source": "asx_ann:03162020",
+  "estimate": 2.11,
+  "basis": 0.0,
   "staleness_days": 2.0,
   "staleness_limit_days": 45.0,
   "current": true,
@@ -25,30 +25,60 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1.6749999523162842,
+  "price": 1.6349999904632568,
   "ccy": "AUD",
   "date": "2026-11-04",
   "source": "yahoo:KIT.AX"
  },
  "discount": {
-  "estimate": -0.167909,
-  "z": null,
-  "z_status": "insufficient_history_5m",
+  "estimate": -0.225118,
+  "z": -7.0996,
+  "z_status": "computed_growing_6m",
   "z_source": "aggregator_panel",
-  "z_window_months": 5,
-  "mu_36m": null,
-  "sigma_36m": null,
+  "z_window_months": 6,
+  "mu_36m": -0.044913,
+  "sigma_36m": 0.025382,
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1777,
-  "discount_only": 0.0363,
+  "central": 0.1714,
+  "discount_only": 0.0307,
   "g_used": 0.1161,
   "g_source": "sector_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-11-02",
+   "class": "substantial_holder",
+   "weight": 2,
+   "direction": "positive",
+   "headline": "Change in substantial holding",
+   "url": "https://announcements.asx.com.au/asxpdf/20261102/pdf/0764rt9swpjnhp.pdf",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-10-30",
+   "class": "substantial_holder",
+   "weight": 2,
+   "direction": "positive",
+   "headline": "Change in substantial holding from HUB",
+   "url": "https://announcements.asx.com.au/asxpdf/20261030/pdf/07624rxzymw7t9.pdf",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-10-26",
+   "class": "substantial_holder",
+   "weight": 2,
+   "direction": "positive",
+   "headline": "Change in substantial holding",
+   "url": "https://announcements.asx.com.au/asxpdf/20261026/pdf/075sq2f5gzf0y7.pdf",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-08-07",
    "class": "substantial_holder",
@@ -60,5 +90,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-11-04T01:42:28+00:00"
+ "updated_at": "2026-11-04T21:59:36+00:00"
 }
