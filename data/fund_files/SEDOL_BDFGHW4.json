@@ -6,7 +6,7 @@
  "sector": "North America",
  "liveness": {
   "status": "live",
-  "reason": "nav_4d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-30",
   "last_announcement": "2026-10-13"
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9855990",
   "estimate": 380.25,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 2.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 348.5,
+  "price": 352.5,
   "ccy": "GBp",
-  "date": "2026-11-03",
+  "date": "2026-11-02",
   "source": "yahoo:USA.L"
  },
  "discount": {
-  "estimate": -0.083498,
-  "z": 0.1464,
+  "estimate": -0.072978,
+  "z": 0.3359,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1308,
-  "discount_only": -0.0077,
+  "central": 0.1332,
+  "discount_only": -0.0053,
   "g_used": 0.0572,
   "g_source": "panel_tr_cagr"
  },
@@ -132,17 +132,7 @@
    "terms": {
     "holder": "Bank of America Corporation"
    }
-  },
-  {
-   "date": "2026-08-05",
-   "class": "holdings_notification",
-   "weight": 0,
-   "direction": "neutral",
-   "headline": "Holding(s) in Company",
-   "url": "https://www.investegate.co.uk/announcement/rns/baillie-gifford-us-growth-trust--usa/holding-s-in-company/9706869",
-   "alerted_at": null,
-   "terms": null
   }
  ],
- "updated_at": "2026-11-03T22:00:58+00:00"
+ "updated_at": "2026-11-04T01:42:28+00:00"
 }

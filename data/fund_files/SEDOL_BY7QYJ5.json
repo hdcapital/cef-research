@@ -6,10 +6,10 @@
  "sector": "Growth Capital",
  "liveness": {
   "status": "live",
-  "reason": "nav_34d_old",
+  "reason": "nav_35d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-30",
-  "last_announcement": "2026-11-02"
+  "last_announcement": "2026-11-03"
  },
  "nav": {
   "anchor": 869.0,
@@ -17,7 +17,7 @@
   "anchor_source": "own_nav_history:2026-09-30",
   "estimate": 869.0,
   "basis": 3.0,
-  "staleness_days": 24.0,
+  "staleness_days": 25.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 695.5,
+  "price": 698.0,
   "ccy": "GBp",
-  "date": "2026-11-03",
+  "date": "2026-11-02",
   "source": "yahoo:GROW.L"
  },
  "discount": {
-  "estimate": -0.199655,
-  "z": 1.0397,
+  "estimate": -0.196778,
+  "z": 1.0542,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": -0.1387,
-  "discount_only": -0.0933,
+  "central": -0.138,
+  "discount_only": -0.0927,
   "g_used": -0.05,
   "g_source": "sector_median"
  },
@@ -289,17 +289,7 @@
    "url": "https://www.investegate.co.uk/announcement/eqs/molten-ventures--grow/holding-s-in-company/9710748",
    "alerted_at": null,
    "terms": null
-  },
-  {
-   "date": "2026-08-05",
-   "class": "holdings_notification",
-   "weight": 0,
-   "direction": "neutral",
-   "headline": "Holding(s) in Company",
-   "url": "https://www.investegate.co.uk/announcement/eqs/molten-ventures--grow/holding-s-in-company/9707135",
-   "alerted_at": null,
-   "terms": null
   }
  ],
- "updated_at": "2026-11-03T22:00:59+00:00"
+ "updated_at": "2026-11-04T01:42:29+00:00"
 }

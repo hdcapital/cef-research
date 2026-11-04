@@ -6,7 +6,7 @@
  "sector": "Debt - Direct Lending",
  "liveness": {
   "status": "live",
-  "reason": "nav_109d_old",
+  "reason": "nav_110d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-07-17",
   "last_announcement": "2026-09-15"
@@ -17,7 +17,7 @@
   "anchor_source": "investegate_fs:9771478",
   "estimate": 70.22,
   "basis": 0.0,
-  "staleness_days": 90.0,
+  "staleness_days": 91.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 60.0,
+  "price": 59.0,
   "ccy": "GBp",
-  "date": "2026-11-03",
+  "date": "2026-11-02",
   "source": "yahoo:GABI.L"
  },
  "discount": {
-  "estimate": -0.145543,
-  "z": 0.6925,
+  "estimate": -0.159784,
+  "z": 0.5439,
   "z_status": "within_error_band",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0605,
-  "discount_only": 0.0052,
+  "central": 0.0569,
+  "discount_only": 0.0018,
   "g_used": 0.055,
   "g_source": "market_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-03T22:00:58+00:00"
+ "updated_at": "2026-11-04T01:42:28+00:00"
 }

@@ -6,7 +6,7 @@
  "sector": "Asia Pacific",
  "liveness": {
   "status": "live",
-  "reason": "nav_4d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-30",
   "last_announcement": "2026-10-13"
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9856007",
   "estimate": 1082.36,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 2.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 961.0,
+  "price": 979.0,
   "ccy": "GBp",
-  "date": "2026-11-03",
+  "date": "2026-11-02",
   "source": "yahoo:PHI.L"
  },
  "discount": {
-  "estimate": -0.112125,
-  "z": -0.3864,
+  "estimate": -0.095495,
+  "z": 0.4408,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0198,
-  "discount_only": 0.0056,
+  "central": 0.0186,
+  "discount_only": 0.0044,
   "g_used": 0.0035,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-03T22:00:59+00:00"
+ "updated_at": "2026-11-04T01:42:29+00:00"
 }

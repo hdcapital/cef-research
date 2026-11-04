@@ -16,64 +16,64 @@
       "security_id": "SEDOL:B0JQZZ8",
       "z_adj": -156.5595,
       "discount_est": -0.9905,
-      "staleness_days": 6.0
+      "staleness_days": 7.0
     },
     {
       "security_id": "SEDOL:3115202",
       "z_adj": -78.6506,
       "discount_est": -0.990734,
-      "staleness_days": 90.0
+      "staleness_days": 91.0
     },
     {
       "security_id": "SEDOL:721163",
       "z_adj": -72.5944,
       "discount_est": -0.976268,
-      "staleness_days": 3182.0
+      "staleness_days": 3183.0
     },
     {
       "security_id": "SEDOL:BL690L8",
-      "z_adj": -61.7795,
+      "z_adj": -62.5065,
       "discount_est": -0.989873,
-      "staleness_days": 136.0
+      "staleness_days": 137.0
     },
     {
       "security_id": "SEDOL:BYMJ7X4",
       "z_adj": -59.1482,
       "discount_est": -0.629934,
-      "staleness_days": 1297.0
+      "staleness_days": 1298.0
     },
     {
       "security_id": "SEDOL:BDHXP96",
       "z_adj": -44.4672,
       "discount_est": -0.726375,
-      "staleness_days": 1.0
+      "staleness_days": 2.0
     },
     {
       "security_id": "SEDOL:BRC8992",
-      "z_adj": -41.4351,
+      "z_adj": -42.803,
       "discount_est": -0.990155,
-      "staleness_days": 1.0
+      "staleness_days": 2.0
     },
     {
       "security_id": "SEDOL:3115376",
       "z_adj": -41.2456,
       "discount_est": -0.728513,
-      "staleness_days": 111.0
+      "staleness_days": 112.0
     },
     {
       "security_id": "ASX:GCI",
-      "z_adj": -38.7369,
-      "discount_est": -0.913407,
-      "staleness_days": 7.0
+      "z_adj": -38.7227,
+      "discount_est": -0.913071,
+      "staleness_days": 8.0
     },
     {
       "security_id": "SEDOL:BNGFHX1",
-      "z_adj": -37.746,
+      "z_adj": -38.2523,
       "discount_est": -0.990462,
-      "staleness_days": 90.0
+      "staleness_days": 91.0
     }
   ],
-  "date": "2026-11-03",
+  "date": "2026-11-04",
   "markets": {
     "au_identity_blocked": 0,
     "au": {
@@ -175,15 +175,15 @@
       "stale_panel_price_only": 217,
       "nav_not_positive": 180,
       "no_price": 39,
-      "unit_suspect_scale": 11,
-      "nav_jump_N_vs_prior": 10,
-      "nav_unit_mismatch_N_vs_prior": 5,
-      "nav_jump_N_vs_own": 4
+      "nav_jump_N_vs_prior": 11,
+      "unit_suspect_scale": 10,
+      "nav_unit_mismatch_N_vs_prior": 6,
+      "nav_jump_N_vs_own": 3
     }
   },
-  "snapshot": "s3_exists_not_overwritten:nta_live/2026-11-03.parquet",
+  "snapshot": "s3_uploaded:nta_live/2026-11-04.parquet",
   "live_history": {
-    "rows": 64728,
-    "days": 58
+    "rows": 65844,
+    "days": 59
   }
 }

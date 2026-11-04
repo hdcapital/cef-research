@@ -6,7 +6,7 @@
  "sector": "Global Equity Income",
  "liveness": {
   "status": "live",
-  "reason": "nav_56d_old",
+  "reason": "nav_57d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-08",
   "last_announcement": "2026-10-06"
@@ -17,7 +17,7 @@
   "anchor_source": "own_nav_history:2026-09-08",
   "estimate": 9.5,
   "basis": 3.0,
-  "staleness_days": 40.0,
+  "staleness_days": 41.0,
   "staleness_limit_days": 93.0,
   "current": true,
   "unit": "GBX",
@@ -27,27 +27,27 @@
  "price": {
   "price": 8.0,
   "ccy": "GBp",
-  "date": "2026-11-03",
+  "date": "2026-11-02",
   "source": "yahoo:BAF.L"
  },
  "discount": {
   "estimate": -0.157895,
-  "z": -0.801,
+  "z": -0.8061,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": 0.138255,
-  "sigma_36m": 0.369717,
+  "mu_36m": 0.139348,
+  "sigma_36m": 0.368754,
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 1.4796,
-  "discount_only": 1.6101,
+  "central": -0.0129,
+  "discount_only": 0.0391,
   "g_used": -0.05,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-03T22:00:58+00:00"
+ "updated_at": "2026-11-04T01:42:28+00:00"
 }
