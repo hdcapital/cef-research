@@ -10,7 +10,7 @@
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 152,
+  "alert_eligible": 148,
   "z_extremes": [
     {
       "security_id": "SEDOL:B0JQZZ8",
@@ -62,8 +62,8 @@
     },
     {
       "security_id": "ASX:GCI",
-      "z_adj": -38.7227,
-      "discount_est": -0.913071,
+      "z_adj": -38.7298,
+      "discount_est": -0.91324,
       "staleness_days": 8.0
     },
     {
@@ -181,7 +181,7 @@
       "nav_jump_N_vs_own": 3
     }
   },
-  "snapshot": "s3_uploaded:nta_live/2026-11-04.parquet",
+  "snapshot": "s3_exists_not_overwritten:nta_live/2026-11-04.parquet",
   "live_history": {
     "rows": 65844,
     "days": 59
