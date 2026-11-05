@@ -12,10 +12,10 @@
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 135.43,
+  "anchor": 138.92,
   "anchor_date": "2026-11-04",
-  "anchor_source": "investegate:9858348",
-  "estimate": 135.43,
+  "anchor_source": "investegate:9860728",
+  "estimate": 138.92,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 122.0,
+  "price": 124.0,
   "ccy": "GBp",
-  "date": "2026-11-03",
+  "date": "2026-11-05",
   "source": "yahoo:BGEU.L"
  },
  "discount": {
-  "estimate": -0.099166,
-  "z": 0.3761,
-  "z_status": "computed",
+  "estimate": -0.1074,
+  "z": 0.1382,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.112182,
   "sigma_36m": 0.034611,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.3146,
-  "discount_only": -0.0123,
+  "central": 0.3188,
+  "discount_only": -0.0075,
   "g_used": -0.0275,
   "g_source": "panel_tr_cagr"
  },
@@ -110,5 +110,5 @@
    }
   }
  ],
- "updated_at": "2026-11-05T01:51:48+00:00"
+ "updated_at": "2026-11-05T21:54:32+00:00"
 }

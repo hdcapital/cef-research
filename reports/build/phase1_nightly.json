@@ -5,12 +5,12 @@
   "basis_counts": {
     "3.0": 354,
     "nan": 327,
-    "0.0": 226,
-    "1.0": 209
+    "0.0": 222,
+    "1.0": 213
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 151,
+  "alert_eligible": 144,
   "z_extremes": [
     {
       "security_id": "SEDOL:721163",
@@ -68,8 +68,8 @@
     },
     {
       "security_id": "SEDOL:B1G3N11",
-      "z_adj": -36.2139,
-      "discount_est": -0.887226,
+      "z_adj": -36.1588,
+      "discount_est": -0.886027,
       "staleness_days": 3.0
     }
   ],
@@ -102,10 +102,10 @@
     }
   },
   "catalysts": {
-    "catalysts": 58,
+    "catalysts": 59,
     "funds": 31,
     "by_class": {
-      "realisation": 23,
+      "realisation": 24,
       "substantial_holder": 18,
       "tender_offer": 6,
       "discount_control": 3,
@@ -118,18 +118,18 @@
     }
   },
   "events": {
-    "events_total": 855,
-    "events_30d": 251,
+    "events_total": 862,
+    "events_30d": 258,
     "funds_30d": 106,
     "by_direction_30d": {
-      "neutral": 195,
-      "positive": 55,
+      "neutral": 201,
+      "positive": 56,
       "negative": 1
     },
     "by_class_30d": {
-      "issuance": 119,
-      "holdings_notification": 70,
-      "realisation": 21,
+      "issuance": 124,
+      "holdings_notification": 71,
+      "realisation": 22,
       "substantial_holder": 18,
       "portfolio_holding": 6,
       "tender_offer": 6,
@@ -140,17 +140,17 @@
       "takeover_offer": 1,
       "manager_change": 1
     },
-    "unalerted": 731,
-    "holdings_with_terms": 67,
+    "unalerted": 738,
+    "holdings_with_terms": 68,
     "tr1": {
-      "candidates": 0,
-      "fetched": 0,
+      "candidates": 1,
+      "fetched": 1,
       "parsed": 0,
       "failed": 0
     },
     "realisations": {
-      "candidates": 0,
-      "fetched": 0,
+      "candidates": 1,
+      "fetched": 1,
       "parsed": 0,
       "failed": 0
     },
