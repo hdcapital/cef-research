@@ -6,48 +6,48 @@
  "sector": "Flexible Investment",
  "liveness": {
   "status": "live",
-  "reason": "nav_5d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-30",
+  "last_nav": "2026-11-02",
   "last_announcement": null
  },
  "nav": {
-  "anchor": 5.45,
-  "anchor_date": "2026-10-30",
-  "anchor_source": "own_nav_history:2026-10-30",
-  "estimate": 5.482007,
+  "anchor": 286.68,
+  "anchor_date": "2026-11-02",
+  "anchor_source": "own_nav_history:2026-11-02",
+  "estimate": 286.008573,
   "basis": 1.0,
   "staleness_days": 3.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
-  "quality_ok": false,
-  "quality_reason": "nav_unit_mismatch_0x_vs_prior"
+  "quality_ok": true,
+  "quality_reason": ""
  },
  "price": {
   "price": 213.0,
   "ccy": "GBp",
-  "date": "2026-11-04",
+  "date": "2026-11-03",
   "source": "yahoo:UTL.L"
  },
  "discount": {
-  "estimate": 37.854382,
-  "z": 706.3947,
+  "estimate": -0.255267,
+  "z": 1.346,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.32802,
   "sigma_36m": 0.054053,
-  "alert_eligible": false
+  "alert_eligible": true
  },
  "forward_irr": {
-  "central": -0.3338,
-  "discount_only": -0.5565,
+  "central": -0.3337,
+  "discount_only": -0.5557,
   "g_used": -0.0039,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-04T21:59:38+00:00"
+ "updated_at": "2026-11-05T01:51:49+00:00"
 }

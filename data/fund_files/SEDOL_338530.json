@@ -6,9 +6,9 @@
  "sector": "Biotechnology & Healthcare",
  "liveness": {
   "status": "live",
-  "reason": "nav_5d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-30",
+  "last_nav": "2026-11-02",
   "last_announcement": "2026-10-13"
  },
  "nav": {
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9858785",
   "estimate": 422.08,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 2.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 396.0,
+  "price": 393.0,
   "ccy": "GBp",
-  "date": "2026-11-04",
+  "date": "2026-11-03",
   "source": "yahoo:WWH.L"
  },
  "discount": {
-  "estimate": -0.061789,
-  "z": 1.2496,
+  "estimate": -0.068897,
+  "z": 0.9629,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.4176,
-  "discount_only": -0.0044,
+  "central": 0.4169,
+  "discount_only": -0.0052,
   "g_used": 0.036,
   "g_source": "panel_tr_cagr"
  },
@@ -84,17 +84,7 @@
    "terms": {
     "holder": "Rathbones Investment Management Ltd"
    }
-  },
-  {
-   "date": "2026-08-06",
-   "class": "holdings_notification",
-   "weight": 0,
-   "direction": "neutral",
-   "headline": "Holding(s) in Company",
-   "url": "https://www.investegate.co.uk/announcement/prn/worldwide-healthcare-trust--wwh/holding-s-in-company/9709430",
-   "alerted_at": null,
-   "terms": null
   }
  ],
- "updated_at": "2026-11-04T21:59:38+00:00"
+ "updated_at": "2026-11-05T01:51:49+00:00"
 }

@@ -6,10 +6,10 @@
  "sector": "UK Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_5d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-30",
-  "last_announcement": "2026-11-03"
+  "last_nav": "2026-11-02",
+  "last_announcement": "2026-11-04"
  },
  "nav": {
   "anchor": 237.5,
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9858485",
   "estimate": 237.5,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 2.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 242.0,
+  "price": 241.0,
   "ccy": "GBp",
-  "date": "2026-11-04",
+  "date": "2026-11-03",
   "source": "yahoo:OIT.L"
  },
  "discount": {
-  "estimate": 0.018947,
-  "z": 1.0353,
+  "estimate": 0.014737,
+  "z": 0.8411,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0297,
-  "discount_only": -0.0015,
+  "central": 0.0287,
+  "discount_only": -0.0024,
   "g_used": 0.0312,
   "g_source": "panel_tr_cagr"
  },
@@ -388,17 +388,7 @@
    "url": "https://www.investegate.co.uk/announcement/rns/odyssean-investment-trust--oit/issue-of-equity/9711680",
    "alerted_at": null,
    "terms": null
-  },
-  {
-   "date": "2026-08-06",
-   "class": "holdings_notification",
-   "weight": 0,
-   "direction": "neutral",
-   "headline": "Holding(s) in Company",
-   "url": "https://www.investegate.co.uk/announcement/rns/odyssean-investment-trust--oit/holding-s-in-company/9708442",
-   "alerted_at": null,
-   "terms": null
   }
  ],
- "updated_at": "2026-11-04T21:59:37+00:00"
+ "updated_at": "2026-11-05T01:51:49+00:00"
 }

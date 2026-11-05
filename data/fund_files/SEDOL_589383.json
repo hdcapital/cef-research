@@ -6,34 +6,34 @@
  "sector": "Global",
  "liveness": {
   "status": "live",
-  "reason": "nav_5d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-30",
+  "last_nav": "2026-11-02",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 1.73,
-  "anchor_date": "2026-10-30",
-  "anchor_source": "own_nav_history:2026-10-30",
-  "estimate": 1.74385,
+  "anchor": 836.85,
+  "anchor_date": "2026-11-02",
+  "anchor_source": "own_nav_history:2026-11-02",
+  "estimate": 834.592429,
   "basis": 1.0,
   "staleness_days": 3.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
-  "quality_ok": false,
-  "quality_reason": "nav_jump_100%_vs_prior"
+  "quality_ok": true,
+  "quality_reason": ""
  },
  "price": {
-  "price": 824.0,
+  "price": 820.0,
   "ccy": "GBp",
-  "date": "2026-11-04",
+  "date": "2026-11-03",
   "source": "yahoo:MWY.L"
  },
  "discount": {
-  "estimate": 471.5177,
-  "z": 91765.474,
-  "z_status": "computed",
+  "estimate": -0.017484,
+  "z": 0.7452,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.021314,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.4659,
-  "discount_only": 0.0006,
+  "central": 0.1661,
+  "discount_only": -0.7093,
   "g_used": 0.0358,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-04T21:59:37+00:00"
+ "updated_at": "2026-11-05T01:51:49+00:00"
 }

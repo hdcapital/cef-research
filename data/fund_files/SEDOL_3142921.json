@@ -6,7 +6,7 @@
  "sector": "UK Equity Income",
  "liveness": {
   "status": "live",
-  "reason": "nav_5d_old",
+  "reason": "nav_6d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-30",
   "last_announcement": "2026-10-13"
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9858737",
   "estimate": 1167.13,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 2.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,40 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1194.0,
+  "price": 1178.0,
   "ccy": "GBp",
-  "date": "2026-11-04",
+  "date": "2026-11-03",
   "source": "yahoo:LWDB.L"
  },
  "discount": {
-  "estimate": 0.023022,
-  "z": 1.098,
-  "z_status": "computed",
+  "estimate": 0.009313,
+  "z": 0.391,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": 0.001734,
   "sigma_36m": 0.019388,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1306,
-  "discount_only": -0.0005,
+  "central": 0.1288,
+  "discount_only": -0.0022,
   "g_used": 0.105,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [
-  {
-   "date": "2026-08-06",
-   "class": "issuance",
-   "weight": 0,
-   "direction": "neutral",
-   "headline": "Issue of Equity",
-   "url": "https://www.investegate.co.uk/announcement/rns/law-debenture-corp---lwdb/issue-of-equity/9709552",
-   "alerted_at": null,
-   "terms": null
-  }
- ],
- "updated_at": "2026-11-04T21:59:37+00:00"
+ "events_90d": [],
+ "updated_at": "2026-11-05T01:51:49+00:00"
 }
