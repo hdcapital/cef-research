@@ -5,19 +5,13 @@
   "basis_counts": {
     "3.0": 354,
     "nan": 327,
-    "0.0": 225,
-    "1.0": 210
+    "0.0": 226,
+    "1.0": 209
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 139,
+  "alert_eligible": 151,
   "z_extremes": [
-    {
-      "security_id": "SEDOL:3115202",
-      "z_adj": -78.6506,
-      "discount_est": -0.990734,
-      "staleness_days": 92.0
-    },
     {
       "security_id": "SEDOL:721163",
       "z_adj": -72.5944,
@@ -38,9 +32,9 @@
     },
     {
       "security_id": "SEDOL:BDHXP96",
-      "z_adj": -44.4127,
-      "discount_est": -0.725508,
-      "staleness_days": 2.0
+      "z_adj": -44.8435,
+      "discount_est": -0.732364,
+      "staleness_days": 1.0
     },
     {
       "security_id": "SEDOL:BRC8992",
@@ -68,9 +62,15 @@
     },
     {
       "security_id": "ASX:REV",
-      "z_adj": -36.983,
-      "discount_est": -0.37299,
+      "z_adj": -36.6621,
+      "discount_est": -0.369775,
       "staleness_days": 2.0
+    },
+    {
+      "security_id": "SEDOL:B1G3N11",
+      "z_adj": -36.2139,
+      "discount_est": -0.887226,
+      "staleness_days": 3.0
     }
   ],
   "date": "2026-11-05",
@@ -96,7 +96,7 @@
       "agreement_rate_pairs": 0.9693
     },
     "uk": {
-      "tier0_navs": 158,
+      "tier0_navs": 161,
       "nav_publishers_found": 350,
       "daily_weekly": 201
     }
@@ -118,16 +118,16 @@
     }
   },
   "events": {
-    "events_total": 854,
-    "events_30d": 250,
+    "events_total": 855,
+    "events_30d": 251,
     "funds_30d": 106,
     "by_direction_30d": {
-      "neutral": 194,
+      "neutral": 195,
       "positive": 55,
       "negative": 1
     },
     "by_class_30d": {
-      "issuance": 118,
+      "issuance": 119,
       "holdings_notification": 70,
       "realisation": 21,
       "substantial_holder": 18,
@@ -140,7 +140,7 @@
       "takeover_offer": 1,
       "manager_change": 1
     },
-    "unalerted": 730,
+    "unalerted": 731,
     "holdings_with_terms": 67,
     "tr1": {
       "candidates": 0,
@@ -171,18 +171,18 @@
   },
   "carried_forward_rows": 0,
   "nav_quarantine": {
-    "rows": 473,
+    "rows": 474,
     "by_reason": {
       "stale_panel_price_only": 217,
       "nav_not_positive": 180,
       "no_price": 39,
-      "nav_jump_N_vs_prior": 15,
+      "nav_jump_N_vs_prior": 16,
       "unit_suspect_scale": 11,
       "nav_unit_mismatch_N_vs_prior": 7,
       "nav_jump_N_vs_own": 4
     }
   },
-  "snapshot": "s3_uploaded:nta_live/2026-11-05.parquet",
+  "snapshot": "s3_exists_not_overwritten:nta_live/2026-11-05.parquet",
   "live_history": {
     "rows": 66960,
     "days": 60
