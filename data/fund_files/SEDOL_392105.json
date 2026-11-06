@@ -6,7 +6,7 @@
  "sector": "Private Equity",
  "liveness": {
   "status": "live",
-  "reason": "nav_87d_old",
+  "reason": "nav_88d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-08-10",
   "last_announcement": "2026-11-05"
@@ -17,7 +17,7 @@
   "anchor_source": "investegate_fs:9859128",
   "estimate": 539.1,
   "basis": 0.0,
-  "staleness_days": 26.0,
+  "staleness_days": 27.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 394.0,
+  "price": 395.0,
   "ccy": "GBp",
-  "date": "2026-11-05",
+  "date": "2026-11-04",
   "source": "yahoo:HGT.L"
  },
  "discount": {
-  "estimate": -0.269152,
-  "z": -1.1768,
+  "estimate": -0.267297,
+  "z": -1.1588,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1127,
-  "discount_only": 0.0402,
+  "central": 0.1152,
+  "discount_only": 0.0427,
   "g_used": 0.0458,
   "g_source": "sector_median"
  },
@@ -129,5 +129,5 @@
    }
   }
  ],
- "updated_at": "2026-11-05T21:54:32+00:00"
+ "updated_at": "2026-11-06T02:00:44+00:00"
 }

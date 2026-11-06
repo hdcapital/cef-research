@@ -6,7 +6,7 @@
  "sector": "Private Equity",
  "liveness": {
   "status": "live_stale_nav",
-  "reason": "periodic_report_129d_old_no_recent_nav",
+  "reason": "periodic_report_130d_old_no_recent_nav",
   "source": "own_periodic_report",
   "last_nav": "2026-05-05",
   "last_announcement": "2026-11-02"
@@ -17,7 +17,7 @@
   "anchor_source": "own_nav_history:2026-03-31",
   "estimate": 864.9,
   "basis": 3.0,
-  "staleness_days": 157.0,
+  "staleness_days": 158.0,
   "staleness_limit_days": 93.0,
   "current": false,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 608.0,
+  "price": 606.0,
   "ccy": "GBp",
-  "date": "2026-11-05",
+  "date": "2026-11-04",
   "source": "yahoo:PPET.L"
  },
  "discount": {
-  "estimate": -0.297029,
-  "z": 0.2299,
+  "estimate": -0.299341,
+  "z": 0.1868,
   "z_status": "within_error_band",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0395,
-  "discount_only": -0.0002,
+  "central": 0.0388,
+  "discount_only": -0.0008,
   "g_used": 0.0396,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-05T21:54:33+00:00"
+ "updated_at": "2026-11-06T02:00:45+00:00"
 }

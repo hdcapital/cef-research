@@ -6,7 +6,7 @@
  "sector": "Renewable Energy Infrastructure",
  "liveness": {
   "status": "live_stale_nav",
-  "reason": "periodic_report_407d_old_no_recent_nav",
+  "reason": "periodic_report_408d_old_no_recent_nav",
   "source": "own_periodic_report",
   "last_nav": "2026-05-22",
   "last_announcement": "2026-11-05"
@@ -17,7 +17,7 @@
   "anchor_source": "investegate_fs:9785600",
   "estimate": 131.3,
   "basis": 0.0,
-  "staleness_days": 92.0,
+  "staleness_days": 93.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 105.5,
+  "price": 104.5,
   "ccy": "GBp",
-  "date": "2026-11-05",
+  "date": "2026-11-04",
   "source": "yahoo:GRID.L"
  },
  "discount": {
-  "estimate": -0.196497,
-  "z": 1.0653,
+  "estimate": -0.204113,
+  "z": 1.0127,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.383544,
-  "sigma_36m": 0.175574,
+  "mu_36m": -0.382938,
+  "sigma_36m": 0.176581,
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0681,
-  "discount_only": 0.0124,
+  "central": 0.0609,
+  "discount_only": 0.0056,
   "g_used": 0.055,
   "g_source": "market_median"
  },
@@ -111,5 +111,5 @@
    }
   }
  ],
- "updated_at": "2026-11-05T21:54:32+00:00"
+ "updated_at": "2026-11-06T02:00:44+00:00"
 }

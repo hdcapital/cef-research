@@ -6,10 +6,10 @@
  "sector": "Debt - Structured Finance",
  "liveness": {
   "status": "live",
-  "reason": "nav_10d_old",
+  "reason": "nav_11d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-26",
-  "last_announcement": "2026-11-03"
+  "last_announcement": "2026-11-05"
  },
  "nav": {
   "anchor": 103.74,
@@ -17,7 +17,7 @@
   "anchor_source": "own_nav_history:2026-10-26",
   "estimate": 103.74,
   "basis": 3.0,
-  "staleness_days": 8.0,
+  "staleness_days": 9.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -27,22 +27,22 @@
  "price": {
   "price": 106.0,
   "ccy": "GBp",
-  "date": "2026-11-05",
+  "date": "2026-11-04",
   "source": "yahoo:TFIF.L"
  },
  "discount": {
   "estimate": 0.021785,
-  "z": 0.9724,
+  "z": 0.969,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.008172,
-  "sigma_36m": 0.030807,
+  "mu_36m": -0.008118,
+  "sigma_36m": 0.030859,
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0401,
-  "discount_only": -0.0039,
+  "central": 0.0398,
+  "discount_only": -0.0043,
   "g_used": 0.0443,
   "g_source": "own_nav_history"
  },
@@ -118,17 +118,7 @@
    "url": "https://www.investegate.co.uk/announcement/prn/twentyfour-income-fund-limited-ord-red--tfif/issue-of-equity/9778342",
    "alerted_at": null,
    "terms": null
-  },
-  {
-   "date": "2026-08-07",
-   "class": "issuance",
-   "weight": 0,
-   "direction": "neutral",
-   "headline": "Issue of Equity",
-   "url": "https://www.investegate.co.uk/announcement/prn/twentyfour-income-fund-limited-ord-red--tfif/issue-of-equity/9711742",
-   "alerted_at": null,
-   "terms": null
   }
  ],
- "updated_at": "2026-11-05T21:54:33+00:00"
+ "updated_at": "2026-11-06T02:00:45+00:00"
 }
