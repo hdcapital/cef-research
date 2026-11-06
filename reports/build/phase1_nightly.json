@@ -55,21 +55,21 @@
       "staleness_days": 93.0
     },
     {
-      "security_id": "ASX:REV",
-      "z_adj": -37.304,
-      "discount_est": -0.376206,
-      "staleness_days": 3.0
-    },
-    {
       "security_id": "SEDOL:BKF2JH0",
       "z_adj": -37.0231,
       "discount_est": -0.990498,
       "staleness_days": 93.0
     },
     {
+      "security_id": "ASX:REV",
+      "z_adj": -36.6621,
+      "discount_est": -0.369775,
+      "staleness_days": 3.0
+    },
+    {
       "security_id": "SEDOL:B1G3N11",
-      "z_adj": -36.2603,
-      "discount_est": -0.888236,
+      "z_adj": -36.2377,
+      "discount_est": -0.887743,
       "staleness_days": 3.0
     }
   ],
@@ -180,7 +180,7 @@
       "nav_jump_N_vs_own": 3
     }
   },
-  "snapshot": "s3_uploaded:nta_live/2026-11-06.parquet",
+  "snapshot": "s3_exists_not_overwritten:nta_live/2026-11-06.parquet",
   "live_history": {
     "rows": 68076,
     "days": 61
