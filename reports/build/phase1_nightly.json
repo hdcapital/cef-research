@@ -3,14 +3,14 @@
   "rows_with_nav": 789,
   "rows_without_nav": 327,
   "basis_counts": {
-    "3.0": 353,
+    "3.0": 352,
     "nan": 327,
-    "0.0": 228,
-    "1.0": 208
+    "0.0": 227,
+    "1.0": 210
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 142,
+  "alert_eligible": 150,
   "z_extremes": [
     {
       "security_id": "SEDOL:721163",
@@ -62,8 +62,8 @@
     },
     {
       "security_id": "SEDOL:B1G3N11",
-      "z_adj": -36.2303,
-      "discount_est": -0.887581,
+      "z_adj": -36.2348,
+      "discount_est": -0.887679,
       "staleness_days": 3.0
     },
     {
@@ -96,7 +96,7 @@
       "agreement_rate_pairs": 0.9693
     },
     "uk": {
-      "tier0_navs": 167,
+      "tier0_navs": 169,
       "nav_publishers_found": 350,
       "daily_weekly": 201
     }
@@ -117,15 +117,15 @@
     }
   },
   "events": {
-    "events_total": 863,
-    "events_30d": 250,
+    "events_total": 869,
+    "events_30d": 256,
     "funds_30d": 104,
     "by_direction_30d": {
-      "neutral": 197,
+      "neutral": 203,
       "positive": 53
     },
     "by_class_30d": {
-      "issuance": 121,
+      "issuance": 127,
       "holdings_notification": 70,
       "realisation": 20,
       "substantial_holder": 17,
@@ -138,11 +138,11 @@
       "takeover_offer": 1,
       "manager_change": 1
     },
-    "unalerted": 739,
+    "unalerted": 745,
     "holdings_with_terms": 67,
     "tr1": {
-      "candidates": 1,
-      "fetched": 1,
+      "candidates": 0,
+      "fetched": 0,
       "parsed": 0,
       "failed": 0
     },
@@ -169,14 +169,14 @@
   },
   "carried_forward_rows": 0,
   "nav_quarantine": {
-    "rows": 473,
+    "rows": 474,
     "by_reason": {
       "stale_panel_price_only": 218,
       "nav_not_positive": 180,
       "no_price": 39,
       "nav_jump_N_vs_prior": 15,
       "unit_suspect_scale": 10,
-      "nav_unit_mismatch_N_vs_prior": 8,
+      "nav_unit_mismatch_N_vs_prior": 9,
       "nav_jump_N_vs_own": 3
     }
   },

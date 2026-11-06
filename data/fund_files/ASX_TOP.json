@@ -15,7 +15,7 @@
   "anchor": 0.959,
   "anchor_date": "2026-06-30",
   "anchor_source": "aggregator_panel:2026-06",
-  "estimate": 1.017972,
+  "estimate": 0.974616,
   "basis": 1.0,
   "staleness_days": 93.0,
   "staleness_limit_days": 138.0,
@@ -27,12 +27,12 @@
  "price": {
   "price": 0.5199999809265137,
   "ccy": "AUD",
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "source": "yahoo:TOP.AX"
  },
  "discount": {
-  "estimate": -0.489181,
-  "z": -1.7205,
+  "estimate": -0.466457,
+  "z": -1.4472,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.215,
-  "discount_only": 0.0541,
+  "central": 0.2198,
+  "discount_only": 0.0585,
   "g_used": 0.1159,
   "g_source": "panel_tr_cagr"
  },
@@ -60,5 +60,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-11-06T02:00:43+00:00"
+ "updated_at": "2026-11-06T21:54:17+00:00"
 }
