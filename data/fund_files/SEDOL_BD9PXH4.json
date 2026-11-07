@@ -6,7 +6,7 @@
  "sector": "Property - Europe",
  "liveness": {
   "status": "live_stale_nav",
-  "reason": "periodic_report_18d_old_no_recent_nav",
+  "reason": "periodic_report_19d_old_no_recent_nav",
   "source": "own_periodic_report",
   "last_nav": "2026-06-30",
   "last_announcement": "2026-10-19"
@@ -17,7 +17,7 @@
   "anchor_source": "own_nav_history:2026-06-30",
   "estimate": 22.5,
   "basis": 3.0,
-  "staleness_days": 93.0,
+  "staleness_days": 94.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -27,7 +27,7 @@
  "price": {
   "price": 10.800000190734863,
   "ccy": "GBp",
-  "date": "2026-11-06",
+  "date": "2026-11-05",
   "source": "yahoo:ASLI.L"
  },
  "discount": {
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1344,
-  "discount_only": 0.0752,
+  "central": 0.1293,
+  "discount_only": 0.0704,
   "g_used": 0.055,
   "g_source": "market_median"
  },
@@ -71,5 +71,5 @@
    }
   }
  ],
- "updated_at": "2026-11-06T21:54:18+00:00"
+ "updated_at": "2026-11-07T01:10:46+00:00"
 }
