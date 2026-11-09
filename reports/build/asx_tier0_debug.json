@@ -1,14 +1,14 @@
 {
  "lookback_days": 45,
  "codes_requested": 172,
- "index_rows_in_window": 1344,
- "candidates": 494,
+ "index_rows_in_window": 1328,
+ "candidates": 483,
  "codes_with_a_candidate": 92,
- "attempted": 107,
- "parsed": 75,
+ "attempted": 105,
+ "parsed": 73,
  "parse_failed": 25,
  "ambiguous_unit": 4,
- "codes_parsed": 75,
+ "codes_parsed": 73,
  "budget_reached": false,
  "deadline_reached": false,
  "by_code": {
@@ -62,8 +62,8 @@
   "CDO": "no_nta_parsed",
   "CDM": "no_nta_parsed",
   "MRE": "no_nta_parsed",
-  "MOT": "parsed",
-  "MXT": "parsed",
+  "MOT": "no_nta_parsed",
+  "MXT": "no_nta_parsed",
   "CD3": "parsed",
   "WHI": "no_nta_parsed",
   "IBC": "parsed",
@@ -330,8 +330,8 @@
  "image_only": 3,
  "by_outcome": {
   "no_candidate_in_window": 80,
-  "no_nta_parsed": 16,
+  "no_nta_parsed": 18,
   "no_text_layer": 1,
-  "parsed": 75
+  "parsed": 73
  }
 }
