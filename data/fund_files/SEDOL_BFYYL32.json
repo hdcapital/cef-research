@@ -6,7 +6,7 @@
  "sector": "Debt - Loans & Bonds",
  "liveness": {
   "status": "live_stale_nav",
-  "reason": "periodic_report_222d_old_no_recent_nav",
+  "reason": "periodic_report_224d_old_no_recent_nav",
   "source": "own_periodic_report",
   "last_nav": "2026-06-16",
   "last_announcement": "2026-11-04"
@@ -15,7 +15,7 @@
   "anchor": 89.96,
   "anchor_date": "2026-07-31",
   "anchor_source": "aggregator_panel:2026-07",
-  "estimate": 87.461659,
+  "estimate": 90.009679,
   "basis": 1.0,
   "staleness_days": 71.0,
   "staleness_limit_days": 94.5,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 89.80000305175781,
+  "price": 90.19999694824219,
   "ccy": "GBp",
-  "date": "2026-11-05",
+  "date": "2026-11-09",
   "source": "yahoo:MGCI.L"
  },
  "discount": {
-  "estimate": 0.026736,
-  "z": 0.0601,
+  "estimate": 0.002114,
+  "z": -0.0716,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,14 +41,24 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.2495,
-  "discount_only": -0.0089,
+  "central": 0.2483,
+  "discount_only": -0.0101,
   "g_used": -0.0049,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-11-09",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/eqs/m-g-credit-income-investment-trust--mgci/issue-of-equity-/9865885",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-10-29",
    "class": "issuance",
@@ -182,5 +192,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-11-07T01:10:45+00:00"
+ "updated_at": "2026-11-09T21:58:28+00:00"
 }

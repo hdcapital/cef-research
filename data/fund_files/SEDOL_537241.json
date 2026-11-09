@@ -6,7 +6,7 @@
  "sector": "Global",
  "liveness": {
   "status": "delist_candidate",
-  "reason": "aggregator_delisted_and_own_filings_silent_257d",
+  "reason": "aggregator_delisted_and_own_filings_silent_259d",
   "source": "corroborated_delisting",
   "last_nav": "2026-02-23",
   "last_announcement": "2026-02-23"
@@ -15,7 +15,7 @@
   "anchor": 350.07,
   "anchor_date": "2026-02-20",
   "anchor_source": "own_nav_history:2026-02-20",
-  "estimate": 347.02843,
+  "estimate": 352.277638,
   "basis": 1.0,
   "staleness_days": 186.0,
   "staleness_limit_days": 45.0,
@@ -31,9 +31,9 @@
   "source": "aggregator_panel"
  },
  "discount": {
-  "estimate": 0.069077,
-  "z": 9.9613,
-  "z_status": "history_stale_2025-10",
+  "estimate": 0.053147,
+  "z": 8.1299,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.017573,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.4489,
-  "discount_only": -0.0151,
+  "central": 0.4486,
+  "discount_only": -0.0154,
   "g_used": 0.0579,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-07T01:10:45+00:00"
+ "updated_at": "2026-11-09T21:58:28+00:00"
 }

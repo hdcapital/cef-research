@@ -6,48 +6,48 @@
  "sector": "Flexible Investment",
  "liveness": {
   "status": "live",
-  "reason": "nav_4d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-11-03",
+  "last_nav": "2026-11-04",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 3.26,
-  "anchor_date": "2026-11-05",
-  "anchor_source": "investegate:9863335",
-  "estimate": 3.26,
+  "anchor": 406.48,
+  "anchor_date": "2026-11-06",
+  "anchor_source": "investegate:9865677",
+  "estimate": 406.48,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
-  "quality_ok": false,
-  "quality_reason": "nav_unit_mismatch_0x_vs_prior"
+  "quality_ok": true,
+  "quality_reason": ""
  },
  "price": {
-  "price": 406.5,
+  "price": 403.0,
   "ccy": "GBp",
-  "date": "2026-11-05",
+  "date": "2026-11-09",
   "source": "yahoo:MIGO.L"
  },
  "discount": {
-  "estimate": 123.693252,
-  "z": 9728.2803,
+  "estimate": -0.008561,
+  "z": 2.1035,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.035315,
   "sigma_36m": 0.012718,
-  "alert_eligible": false
+  "alert_eligible": true
  },
  "forward_irr": {
   "central": -0.3568,
-  "discount_only": -0.621,
+  "discount_only": -0.6213,
   "g_used": 0.0516,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-07T01:10:45+00:00"
+ "updated_at": "2026-11-09T21:58:28+00:00"
 }

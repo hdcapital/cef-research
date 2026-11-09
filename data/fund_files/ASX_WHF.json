@@ -6,7 +6,7 @@
  "sector": "Equity - Australia",
  "liveness": {
   "status": "live",
-  "reason": "nav_25d_old",
+  "reason": "nav_27d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-13",
   "last_announcement": "2026-11-03"
@@ -15,7 +15,7 @@
   "anchor": 6.07,
   "anchor_date": "2026-08-31",
   "anchor_source": "aggregator_panel:2026-08",
-  "estimate": 5.96576,
+  "estimate": 6.009008,
   "basis": 1.0,
   "staleness_days": 50.0,
   "staleness_limit_days": 93.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 4.860000133514404,
+  "price": 4.869999885559082,
   "ccy": "AUD",
-  "date": "2026-11-06",
+  "date": "2026-11-09",
   "source": "yahoo:WHF.AX"
  },
  "discount": {
-  "estimate": -0.185351,
-  "z": -0.976,
+  "estimate": -0.18955,
+  "z": -1.0421,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-07T01:10:44+00:00"
+ "updated_at": "2026-11-09T21:58:27+00:00"
 }

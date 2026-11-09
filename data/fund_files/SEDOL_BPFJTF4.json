@@ -6,10 +6,10 @@
  "sector": "North America",
  "liveness": {
   "status": "live",
-  "reason": "nav_4d_old",
+  "reason": "nav_6d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-11-03",
-  "last_announcement": "2026-11-06"
+  "last_announcement": "2026-11-09"
  },
  "nav": {
   "anchor": 5889.0,
@@ -25,29 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 3850.0,
+  "price": 3926.0,
   "ccy": "GBp",
-  "date": "2026-11-05",
+  "date": "2026-11-09",
   "source": "yahoo:PSH.L"
  },
  "discount": {
-  "estimate": -0.346239,
-  "z": -1.0355,
+  "estimate": -0.333333,
+  "z": -0.7258,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 24,
-  "mu_36m": -0.29766,
-  "sigma_36m": 0.046912,
+  "mu_36m": -0.298693,
+  "sigma_36m": 0.047725,
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1435,
-  "discount_only": 0.0163,
+  "central": 0.1444,
+  "discount_only": 0.0171,
   "g_used": 0.1251,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-07T01:10:45+00:00"
+ "updated_at": "2026-11-09T21:58:29+00:00"
 }

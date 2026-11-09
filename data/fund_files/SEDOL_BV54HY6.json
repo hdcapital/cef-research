@@ -6,7 +6,7 @@
  "sector": "Infrastructure",
  "liveness": {
   "status": "live",
-  "reason": "nav_23d_old",
+  "reason": "nav_25d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-15",
   "last_announcement": "2026-11-06"
@@ -25,19 +25,19 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 81.19999694824219,
+  "price": 81.30000305175781,
   "ccy": "GBp",
-  "date": "2026-11-05",
+  "date": "2026-11-09",
   "source": "yahoo:SEQI.L"
  },
  "discount": {
-  "estimate": -0.102068,
-  "z": 1.2555,
+  "estimate": -0.100962,
+  "z": 1.2538,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.141949,
-  "sigma_36m": 0.031766,
+  "mu_36m": -0.141427,
+  "sigma_36m": 0.032273,
   "alert_eligible": true
  },
  "forward_irr": {
@@ -65,5 +65,5 @@
    }
   }
  ],
- "updated_at": "2026-11-07T01:10:46+00:00"
+ "updated_at": "2026-11-09T21:58:29+00:00"
 }

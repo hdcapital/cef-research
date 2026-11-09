@@ -6,7 +6,7 @@
  "sector": "Debt - Loans & Bonds",
  "liveness": {
   "status": "live",
-  "reason": "nav_22d_old",
+  "reason": "nav_24d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-16",
   "last_announcement": "2026-11-06"
@@ -27,7 +27,7 @@
  "price": {
   "price": 109.5,
   "ccy": "GBp",
-  "date": "2026-11-05",
+  "date": "2026-11-09",
   "source": "yahoo:CVCG.L"
  },
  "discount": {
@@ -41,14 +41,24 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0378,
-  "discount_only": 0.0025,
+  "central": 0.0369,
+  "discount_only": 0.0016,
   "g_used": 0.0352,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-11-09",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/cvc-income-growth-limited-npv-gbp--cvcg/issue-of-equity/9866000",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-11-06",
    "class": "issuance",
@@ -212,5 +222,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-11-07T01:10:44+00:00"
+ "updated_at": "2026-11-09T21:58:28+00:00"
 }

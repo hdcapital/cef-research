@@ -6,7 +6,7 @@
  "sector": "Private Equity",
  "liveness": {
   "status": "live_stale_nav",
-  "reason": "periodic_report_101d_old_no_recent_nav",
+  "reason": "periodic_report_103d_old_no_recent_nav",
   "source": "own_periodic_report",
   "last_nav": "2026-02-16",
   "last_announcement": "2026-10-21"
@@ -25,19 +25,19 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 14.199999809265137,
+  "price": 13.800000190734863,
   "ccy": "GBp",
-  "date": "2026-11-05",
+  "date": "2026-11-09",
   "source": "yahoo:LMS.L"
  },
  "discount": {
-  "estimate": -0.605556,
-  "z": -0.1426,
+  "estimate": -0.616667,
+  "z": -0.3162,
   "z_status": "within_error_band",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.596594,
-  "sigma_36m": 0.06286,
+  "mu_36m": -0.596787,
+  "sigma_36m": 0.062877,
   "alert_eligible": false
  },
  "forward_irr": {
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-07T01:10:45+00:00"
+ "updated_at": "2026-11-09T21:58:28+00:00"
 }

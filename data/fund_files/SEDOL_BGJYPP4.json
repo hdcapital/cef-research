@@ -6,7 +6,7 @@
  "sector": "Growth Capital",
  "liveness": {
   "status": "live",
-  "reason": "nav_38d_old",
+  "reason": "nav_40d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-30",
   "last_announcement": "2026-11-02"
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 66.19999694824219,
+  "price": 67.4000015258789,
   "ccy": "GBp",
-  "date": "2026-11-05",
+  "date": "2026-11-09",
   "source": "yahoo:CHRY.L"
  },
  "discount": {
-  "estimate": -0.504268,
-  "z": -1.5284,
+  "estimate": -0.495282,
+  "z": -1.38,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.396428,
-  "sigma_36m": 0.070559,
+  "mu_36m": -0.396927,
+  "sigma_36m": 0.071273,
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": -0.0227,
-  "discount_only": 0.0288,
+  "central": -0.0239,
+  "discount_only": 0.0275,
   "g_used": -0.05,
   "g_source": "sector_median"
  },
@@ -99,5 +99,5 @@
    }
   }
  ],
- "updated_at": "2026-11-07T01:10:45+00:00"
+ "updated_at": "2026-11-09T21:58:28+00:00"
 }

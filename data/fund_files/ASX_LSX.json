@@ -6,7 +6,7 @@
  "sector": "Equity - Global",
  "liveness": {
   "status": "live",
-  "reason": "nav_37d_old",
+  "reason": "nav_39d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-01",
   "last_announcement": "2026-10-29"
@@ -15,7 +15,7 @@
   "anchor": 0.953,
   "anchor_date": "2026-10-31",
   "anchor_source": "own_nav_history:2026-10-31",
-  "estimate": 0.974483,
+  "estimate": 0.968261,
   "basis": 1.0,
   "staleness_days": 5.0,
   "staleness_limit_days": 93.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 0.800000011920929,
+  "price": 0.8349999785423279,
   "ccy": "AUD",
-  "date": "2026-11-06",
+  "date": "2026-11-09",
   "source": "yahoo:LSX.AX"
  },
  "discount": {
-  "estimate": -0.179052,
-  "z": 0.2302,
+  "estimate": -0.137629,
+  "z": 0.652,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -60,5 +60,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-11-07T01:10:44+00:00"
+ "updated_at": "2026-11-09T21:58:27+00:00"
 }

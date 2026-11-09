@@ -6,7 +6,7 @@
  "sector": "Equity - Australia Small/Mid Cap",
  "liveness": {
   "status": "live",
-  "reason": "nav_25d_old",
+  "reason": "nav_27d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-13",
   "last_announcement": "2026-10-29"
@@ -15,7 +15,7 @@
   "anchor": 1.2131,
   "anchor_date": "2026-08-31",
   "anchor_source": "aggregator_panel:2026-08",
-  "estimate": 1.23893,
+  "estimate": 1.243727,
   "basis": 1.0,
   "staleness_days": 50.0,
   "staleness_limit_days": 93.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1.1100000143051147,
+  "price": 1.125,
   "ccy": "AUD",
-  "date": "2026-11-06",
+  "date": "2026-11-09",
   "source": "yahoo:WMI.AX"
  },
  "discount": {
-  "estimate": -0.104066,
-  "z": -1.8597,
+  "estimate": -0.095461,
+  "z": -1.7729,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -98,17 +98,7 @@
    "url": "https://announcements.asx.com.au/asxpdf/20260831/pdf/073jmpvvmh08mt.pdf",
    "alerted_at": null,
    "terms": null
-  },
-  {
-   "date": "2026-08-10",
-   "class": "portfolio_holding",
-   "weight": 0,
-   "direction": "neutral",
-   "headline": "Becoming a substantial holder for VYS",
-   "url": "https://announcements.asx.com.au/asxpdf/20260810/pdf/072m00vngzryjj.pdf",
-   "alerted_at": null,
-   "terms": null
   }
  ],
- "updated_at": "2026-11-07T01:10:44+00:00"
+ "updated_at": "2026-11-09T21:58:27+00:00"
 }

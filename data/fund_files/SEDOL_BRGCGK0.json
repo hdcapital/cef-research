@@ -6,10 +6,10 @@
  "sector": "UK Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_9d_old",
+  "reason": "nav_11d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-29",
-  "last_announcement": "2026-11-06"
+  "last_announcement": "2026-11-09"
  },
  "nav": {
   "anchor": 296.66,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 261.0,
+  "price": 265.0,
   "ccy": "GBp",
-  "date": "2026-11-05",
+  "date": "2026-11-09",
   "source": "yahoo:RMMC.L"
  },
  "discount": {
-  "estimate": -0.120205,
-  "z": 1.2976,
+  "estimate": -0.106721,
+  "z": 1.8499,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,14 +41,27 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": -0.001,
-  "discount_only": -0.0033,
+  "central": -0.0065,
+  "discount_only": -0.0087,
   "g_used": 0.0022,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-11-09",
+   "class": "liquidation_wind_down",
+   "weight": 5,
+   "direction": "positive",
+   "headline": "Realisation Opportunity",
+   "url": "https://www.investegate.co.uk/announcement/rns/river-uk-micro-cap-limited--rmmc/realisation-opportunity/9865066",
+   "alerted_at": "2026-11-09T15:22:11+00:00",
+   "terms": {
+    "llm": "error",
+    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
+   }
+  },
   {
    "date": "2026-09-22",
    "class": "holdings_notification",
@@ -75,5 +88,5 @@
    }
   }
  ],
- "updated_at": "2026-11-07T01:10:46+00:00"
+ "updated_at": "2026-11-09T21:58:29+00:00"
 }
