@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T01:10:53+00:00",
+  "generated_at": "2026-11-09T02:43:03+00:00",
   "target_pct": 90.0,
   "markets": {
     "AU": {
@@ -14,11 +14,11 @@
     "UK": {
       "denominator_live_research_eligible": 221,
       "nav_ok": 199,
-      "z_ok": 201,
+      "z_ok": 202,
       "growth_ok": 221,
       "irr_ok": 205,
-      "signal_complete": 191,
-      "signal_complete_pct": 86.4
+      "signal_complete": 192,
+      "signal_complete_pct": 86.9
     }
   },
   "excluded_not_trading": {
@@ -74,16 +74,15 @@
   },
   "total": {
     "denominator": 311,
-    "signal_complete": 271,
-    "signal_complete_pct": 87.1,
+    "signal_complete": 272,
+    "signal_complete_pct": 87.5,
     "top_blockers": {
       "nav": 17,
       "nav+z:no_discount_history": 12,
       "z:no_discount_history": 7,
-      "nav+z:insufficient_history_5m": 1,
       "nav+z:insufficient_history_2m": 1,
       "z:insufficient_history_5m": 1,
-      "z:history_unit_mismatch": 1
+      "nav+z:insufficient_history_5m": 1
     }
   }
 }
