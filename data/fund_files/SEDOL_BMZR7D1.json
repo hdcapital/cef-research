@@ -12,12 +12,12 @@
   "last_announcement": "2026-11-09"
  },
  "nav": {
-  "anchor": 162.68,
-  "anchor_date": "2026-11-06",
-  "anchor_source": "investegate:9865593",
-  "estimate": 162.68,
+  "anchor": 165.05,
+  "anchor_date": "2026-11-09",
+  "anchor_source": "investegate:9868233",
+  "estimate": 165.05,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 160.0,
+  "price": 161.5,
   "ccy": "GBp",
-  "date": "2026-11-06",
+  "date": "2026-11-10",
   "source": "yahoo:AWEM.L"
  },
  "discount": {
-  "estimate": -0.016474,
-  "z": -0.6209,
+  "estimate": -0.021509,
+  "z": -0.8713,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,14 +41,26 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1216,
-  "discount_only": 0.0016,
+  "central": 0.1237,
+  "discount_only": 0.0034,
   "g_used": 0.1198,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-11-10",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/prn/ashoka-whiteoak-emerging-markets-trust--awem/holding-s-in-company/9868435",
+   "alerted_at": null,
+   "terms": {
+    "unparsed": true
+   }
+  },
   {
    "date": "2026-11-04",
    "class": "holdings_notification",
@@ -74,5 +86,5 @@
    }
   }
  ],
- "updated_at": "2026-11-10T03:47:42+00:00"
+ "updated_at": "2026-11-10T21:59:04+00:00"
 }

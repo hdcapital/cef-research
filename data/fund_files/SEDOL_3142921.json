@@ -15,7 +15,7 @@
   "anchor": 1184.2,
   "anchor_date": "2026-11-04",
   "anchor_source": "own_nav_history:2026-11-04",
-  "estimate": 1176.644296,
+  "estimate": 1175.468535,
   "basis": 1.0,
   "staleness_days": 4.0,
   "staleness_limit_days": 45.0,
@@ -25,29 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1180.0,
+  "price": 1198.0,
   "ccy": "GBp",
-  "date": "2026-11-06",
+  "date": "2026-11-10",
   "source": "yahoo:LWDB.L"
  },
  "discount": {
-  "estimate": 0.002852,
-  "z": 0.0577,
-  "z_status": "within_error_band",
+  "estimate": 0.019168,
+  "z": 0.8992,
+  "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": 0.001734,
   "sigma_36m": 0.019388,
-  "alert_eligible": false
+  "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1305,
-  "discount_only": -0.0006,
+  "central": 0.1331,
+  "discount_only": 0.0018,
   "g_used": 0.105,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-10T03:47:43+00:00"
+ "updated_at": "2026-11-10T21:59:05+00:00"
 }
