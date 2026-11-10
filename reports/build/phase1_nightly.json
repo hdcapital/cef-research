@@ -3,14 +3,14 @@
   "rows_with_nav": 789,
   "rows_without_nav": 327,
   "basis_counts": {
-    "3.0": 354,
+    "3.0": 355,
     "nan": 327,
-    "1.0": 225,
-    "0.0": 210
+    "1.0": 239,
+    "0.0": 195
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 166,
+  "alert_eligible": 170,
   "z_extremes": [
     {
       "security_id": "SEDOL:721163",
@@ -61,16 +61,16 @@
       "staleness_days": 95.0
     },
     {
-      "security_id": "ASX:REV",
-      "z_adj": -36.8225,
-      "discount_est": -0.371383,
-      "staleness_days": 5.0
+      "security_id": "SEDOL:B1G3N11",
+      "z_adj": -36.4635,
+      "discount_est": -0.892653,
+      "staleness_days": 3.0
     },
     {
-      "security_id": "SEDOL:B1G3N11",
-      "z_adj": -36.4636,
-      "discount_est": -0.892654,
-      "staleness_days": 3.0
+      "security_id": "ASX:REV",
+      "z_adj": -33.8028,
+      "discount_est": -0.371383,
+      "staleness_days": 5.0
     }
   ],
   "date": "2026-11-10",
@@ -141,8 +141,8 @@
     "unalerted": 766,
     "holdings_with_terms": 69,
     "tr1": {
-      "candidates": 5,
-      "fetched": 5,
+      "candidates": 0,
+      "fetched": 0,
       "parsed": 0,
       "failed": 0
     },
@@ -169,14 +169,14 @@
   },
   "carried_forward_rows": 0,
   "nav_quarantine": {
-    "rows": 470,
+    "rows": 467,
     "by_reason": {
       "stale_panel_price_only": 218,
       "nav_not_positive": 180,
       "no_price": 39,
-      "nav_jump_N_vs_prior": 11,
       "unit_suspect_scale": 11,
-      "nav_unit_mismatch_N_vs_prior": 8,
+      "nav_jump_N_vs_prior": 9,
+      "nav_unit_mismatch_N_vs_prior": 7,
       "nav_jump_N_vs_own": 3
     }
   },
