@@ -726,3 +726,32 @@ environment rebuilt. Delivery was unaffected - Monday's pre-LSE brief
 went by dispatch at 05:41Z and the pre-ASX brief by dispatch at 22:45Z,
 the first evening since 19 October on which no cron landed in its
 window at all.
+
+### 2026-11-05..10 — five days offline: five briefs hours late, one missed
+
+This session was unreachable from about 00:00Z Thursday 5 November until
+05:41Z Tuesday 10 November (its worker process restarted repeatedly; the
+fourteen Routine wakes in between arrived together on reconnection). The
+GitHub crons alone delivered:
+
+- Thu 5 pre-LSE 14:25Z (6.4 hours after the open)
+- Thu 5 pre-ASX 03:30Z Friday (4.5 hours after the open; the 02:34Z
+  run, inside the window's past-midnight tail)
+- Fri 6 pre-LSE 14:12Z (6.2 hours late)
+- Sun 8 pre-ASX 02:44Z Monday (3.7 hours late)
+- Mon 9 pre-LSE 15:22Z (7.4 hours late)
+- Mon 9 pre-ASX: not sent. The five evening crons fired at 04:11Z-04:46Z
+  Tuesday, inside the pre-LSE label and before its 05:00Z earliest hour,
+  and the gate held all five back as designed.
+- Tue 10 pre-LSE: dispatched 05:42Z on reconnection
+
+Every brief in the stretch carried SDCL Efficiency Income as the one
+opportunity (z -1.65, discount -59.8% by Monday). Set against
+2026-10-22..27, when the crons landed within an hour of schedule,
+GitHub's scheduler has drifted to four to eight hours late since
+2 November, and this session has been down for five of the last ten
+days. Neither delivery layer is reliable on its own and this week they
+failed together. The session-independent layer is now the open item
+with the highest urgency: a dispatcher Routine that starts a fresh
+session on each firing would dispatch the workflow whether or not this
+session is alive, at the cost of one short session per firing.
