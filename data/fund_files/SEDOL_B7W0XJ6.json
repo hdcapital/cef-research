@@ -8,41 +8,41 @@
   "status": "live",
   "reason": "nav_5d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-11-04",
+  "last_nav": "2026-11-05",
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 0.67,
-  "anchor_date": "2026-11-04",
-  "anchor_source": "own_nav_history:2026-11-04",
-  "estimate": 0.666038,
+  "anchor": 278.34,
+  "anchor_date": "2026-11-05",
+  "anchor_source": "own_nav_history:2026-11-05",
+  "estimate": 282.041613,
   "basis": 1.0,
   "staleness_days": 3.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
-  "quality_ok": false,
-  "quality_reason": "nav_jump_100%_vs_prior"
+  "quality_ok": true,
+  "quality_reason": ""
  },
  "price": {
-  "price": 287.0,
+  "price": 285.0,
   "ccy": "GBp",
-  "date": "2026-11-09",
+  "date": "2026-11-06",
   "source": "yahoo:BRAI.L"
  },
  "discount": {
-  "estimate": 429.906407,
-  "z": 10177.2661,
+  "estimate": 0.010489,
+  "z": 1.6553,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.059443,
   "sigma_36m": 0.042248,
-  "alert_eligible": false
+  "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1065,
-  "discount_only": -0.0174,
+  "central": -0.4592,
+  "discount_only": -0.7063,
   "g_used": 0.1105,
   "g_source": "panel_tr_cagr"
  },
@@ -388,17 +388,7 @@
    "url": "https://www.investegate.co.uk/announcement/prn/blackrock-american-income-trust-plc--brai/issue-of-equity/9718866",
    "alerted_at": null,
    "terms": null
-  },
-  {
-   "date": "2026-08-11",
-   "class": "issuance",
-   "weight": 0,
-   "direction": "neutral",
-   "headline": "Issue of Equity",
-   "url": "https://www.investegate.co.uk/announcement/prn/blackrock-american-income-trust-plc--brai/issue-of-equity/9716500",
-   "alerted_at": null,
-   "terms": null
   }
  ],
- "updated_at": "2026-11-09T21:58:28+00:00"
+ "updated_at": "2026-11-10T03:47:42+00:00"
 }

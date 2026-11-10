@@ -6,7 +6,7 @@
  "sector": "Growth Capital",
  "liveness": {
   "status": "live",
-  "reason": "nav_40d_old",
+  "reason": "nav_41d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-30",
   "last_announcement": "2026-11-09"
@@ -17,7 +17,7 @@
   "anchor_source": "own_nav_history:2026-09-30",
   "estimate": 869.0,
   "basis": 3.0,
-  "staleness_days": 28.0,
+  "staleness_days": 29.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 654.0,
+  "price": 645.5,
   "ccy": "GBp",
-  "date": "2026-11-09",
+  "date": "2026-11-06",
   "source": "yahoo:GROW.L"
  },
  "discount": {
-  "estimate": -0.247411,
-  "z": 0.8132,
+  "estimate": -0.257192,
+  "z": 0.7653,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.40822,
-  "sigma_36m": 0.19775,
+  "mu_36m": -0.408412,
+  "sigma_36m": 0.197596,
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": -0.1267,
-  "discount_only": -0.0807,
+  "central": -0.1274,
+  "discount_only": -0.0814,
   "g_used": -0.05,
   "g_source": "sector_median"
  },
@@ -267,19 +267,7 @@
    "terms": {
     "holder": "Bank of America Corporation"
    }
-  },
-  {
-   "date": "2026-08-11",
-   "class": "holdings_notification",
-   "weight": 0,
-   "direction": "neutral",
-   "headline": "Holding(s) in Company",
-   "url": "https://www.investegate.co.uk/announcement/eqs/molten-ventures--grow/holding-s-in-company/9715515",
-   "alerted_at": null,
-   "terms": {
-    "holder": "Bank of America Corporation"
-   }
   }
  ],
- "updated_at": "2026-11-09T21:58:28+00:00"
+ "updated_at": "2026-11-10T03:47:43+00:00"
 }

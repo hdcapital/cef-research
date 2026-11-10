@@ -6,9 +6,9 @@
  "sector": "Debt - Loans & Bonds",
  "liveness": {
   "status": "live",
-  "reason": "nav_6d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-11-03",
+  "last_nav": "2026-11-05",
   "last_announcement": "2026-10-13"
  },
  "nav": {
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9865590",
   "estimate": 45.59,
   "basis": 0.0,
-  "staleness_days": 0.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -27,7 +27,7 @@
  "price": {
   "price": 48.29999923706055,
   "ccy": "GBp",
-  "date": "2026-11-09",
+  "date": "2026-11-06",
   "source": "yahoo:NCYF.L"
  },
  "discount": {
@@ -41,8 +41,8 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1297,
-  "discount_only": 0.0004,
+  "central": 0.1295,
+  "discount_only": 0.0001,
   "g_used": 0.0525,
   "g_source": "panel_tr_cagr"
  },
@@ -228,17 +228,7 @@
    "url": "https://www.investegate.co.uk/announcement/rns/cqs-new-city-high-yield-fund-limited--ncyf/issue-of-equity/9721258",
    "alerted_at": null,
    "terms": null
-  },
-  {
-   "date": "2026-08-11",
-   "class": "issuance",
-   "weight": 0,
-   "direction": "neutral",
-   "headline": "Issue of Equity",
-   "url": "https://www.investegate.co.uk/announcement/rns/cqs-new-city-high-yield-fund-limited--ncyf/issue-of-equity/9716455",
-   "alerted_at": null,
-   "terms": null
   }
  ],
- "updated_at": "2026-11-09T21:58:28+00:00"
+ "updated_at": "2026-11-10T03:47:42+00:00"
 }

@@ -8,7 +8,7 @@
   "status": "live",
   "reason": "nav_5d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-11-04",
+  "last_nav": "2026-11-05",
   "last_announcement": null
  },
  "nav": {
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9865337",
   "estimate": 997.88,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 2.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -33,7 +33,7 @@
  "discount": {
   "estimate": -0.11813,
   "z": 0.2883,
-  "z_status": "computed",
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.132697,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0434,
-  "discount_only": -0.0167,
+  "central": 0.0476,
+  "discount_only": -0.0126,
   "g_used": 0.0462,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-09T21:58:28+00:00"
+ "updated_at": "2026-11-10T03:47:43+00:00"
 }
