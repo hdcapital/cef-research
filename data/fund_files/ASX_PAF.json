@@ -6,7 +6,7 @@
  "sector": "Equity - Asia",
  "liveness": {
   "status": "delisted",
-  "reason": "own_delisting_notice_1688d",
+  "reason": "own_delisting_notice_1689d",
   "source": "own_delisting_notice",
   "last_nav": "2022-03-03",
   "last_announcement": "2022-03-28"
@@ -15,9 +15,9 @@
   "anchor": 1.07,
   "anchor_date": "2022-02-28",
   "anchor_source": "own_nav_history:2022-02-28",
-  "estimate": 1.091147,
+  "estimate": 1.091909,
   "basis": 1.0,
-  "staleness_days": 1226.0,
+  "staleness_days": 1227.0,
   "staleness_limit_days": 45.0,
   "current": false,
   "unit": "AUD",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 2.309999942779541,
+  "price": 2.259999990463257,
   "ccy": "AUD",
-  "date": "2026-11-10",
+  "date": "2026-11-11",
   "source": "yahoo:PAF.AX"
  },
  "discount": {
-  "estimate": 1.117038,
-  "z": 16.5309,
+  "estimate": 1.06977,
+  "z": 15.9056,
   "z_status": "history_stale_2022-01",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": -0.0867,
-  "discount_only": -0.1607,
+  "central": -0.0834,
+  "discount_only": -0.1572,
   "g_used": 0.0382,
   "g_source": "panel_tr_cagr"
  },
@@ -117,5 +117,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-11-10T21:59:04+00:00"
+ "updated_at": "2026-11-11T01:45:33+00:00"
 }

@@ -6,7 +6,7 @@
  "sector": "Property - UK Healthcare",
  "liveness": {
   "status": "live",
-  "reason": "nav_97d_old",
+  "reason": "nav_98d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-08-05",
   "last_announcement": "2026-11-03"
@@ -17,7 +17,7 @@
   "anchor_source": "own_nav_history:2026-06-30",
   "estimate": 122.2,
   "basis": 3.0,
-  "staleness_days": 95.0,
+  "staleness_days": 96.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 118.4000015258789,
+  "price": 119.80000305175781,
   "ccy": "GBp",
-  "date": "2026-11-10",
+  "date": "2026-11-09",
   "source": "yahoo:THRL.L"
  },
  "discount": {
-  "estimate": -0.031097,
-  "z": 1.6771,
+  "estimate": -0.01964,
+  "z": 1.8201,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.167819,
-  "sigma_36m": 0.081523,
+  "mu_36m": -0.167864,
+  "sigma_36m": 0.081437,
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0318,
-  "discount_only": -0.022,
+  "central": 0.0346,
+  "discount_only": -0.0194,
   "g_used": 0.055,
   "g_source": "market_median"
  },
@@ -62,5 +62,5 @@
    }
   }
  ],
- "updated_at": "2026-11-10T21:59:05+00:00"
+ "updated_at": "2026-11-11T01:45:35+00:00"
 }

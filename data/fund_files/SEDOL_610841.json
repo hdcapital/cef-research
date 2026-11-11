@@ -6,9 +6,9 @@
  "sector": "UK All Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_5d_old",
+  "reason": "nav_2d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-11-05",
+  "last_nav": "2026-11-09",
   "last_announcement": "2026-10-13"
  },
  "nav": {
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9867946",
   "estimate": 829.07,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 2.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 780.0,
+  "price": 781.0,
   "ccy": "GBp",
-  "date": "2026-11-10",
+  "date": "2026-11-09",
   "source": "yahoo:SCP.L"
  },
  "discount": {
-  "estimate": -0.059187,
-  "z": 0.8124,
+  "estimate": -0.057981,
+  "z": 0.8489,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": -0.3029,
-  "discount_only": -0.4864,
+  "central": 0.0554,
+  "discount_only": -0.0111,
   "g_used": 0.0145,
   "g_source": "panel_tr_cagr"
  },
@@ -72,19 +72,7 @@
    "terms": {
     "holder": "Saba Capital Management, L.P"
    }
-  },
-  {
-   "date": "2026-08-12",
-   "class": "holdings_notification",
-   "weight": 0,
-   "direction": "neutral",
-   "headline": "Holding(s) in Company",
-   "url": "https://www.investegate.co.uk/announcement/rns/schroder-uk-mid-cap-fund--scp/holding-s-in-company/9718628",
-   "alerted_at": null,
-   "terms": {
-    "holder": "Raymond James Wealth Management Limited"
-   }
   }
  ],
- "updated_at": "2026-11-10T21:59:05+00:00"
+ "updated_at": "2026-11-11T01:45:35+00:00"
 }
