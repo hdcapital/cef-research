@@ -15,7 +15,7 @@
   "anchor": 1.554,
   "anchor_date": "2026-09-30",
   "anchor_source": "aggregator_panel:2026-09",
-  "estimate": 1.641552,
+  "estimate": 1.653275,
   "basis": 1.0,
   "staleness_days": 30.0,
   "staleness_limit_days": 91.5,
@@ -27,12 +27,12 @@
  "price": {
   "price": 1.3799999952316284,
   "ccy": "AUD",
-  "date": "2026-11-09",
+  "date": "2026-11-10",
   "source": "yahoo:AIQ.AX"
  },
  "discount": {
-  "estimate": -0.159332,
-  "z": -0.1828,
+  "estimate": -0.165293,
+  "z": -0.2241,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1843,
-  "discount_only": -0.0063,
+  "central": 0.2164,
+  "discount_only": 0.0053,
   "g_used": 0.15,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-11T01:45:33+00:00"
+ "updated_at": "2026-11-11T22:02:13+00:00"
 }

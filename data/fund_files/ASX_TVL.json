@@ -15,7 +15,7 @@
   "anchor": 0.105,
   "anchor_date": "2026-09-30",
   "anchor_source": "aggregator_panel:2026-09",
-  "estimate": 0.104702,
+  "estimate": 0.102555,
   "basis": 1.0,
   "staleness_days": 30.0,
   "staleness_limit_days": 91.5,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 0.05700000002980232,
+  "price": 0.057999998331069946,
   "ccy": "AUD",
-  "date": "2026-11-10",
+  "date": "2026-11-11",
   "source": "yahoo:TVL.AX"
  },
  "discount": {
-  "estimate": -0.455599,
-  "z": -0.2102,
+  "estimate": -0.43445,
+  "z": -0.1809,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,9 +41,9 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.056,
-  "discount_only": 0.0034,
-  "g_used": 0.0524,
+  "central": 0.0596,
+  "discount_only": 0.0028,
+  "g_used": 0.0566,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
@@ -60,5 +60,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-11-11T01:45:33+00:00"
+ "updated_at": "2026-11-11T22:02:13+00:00"
 }
