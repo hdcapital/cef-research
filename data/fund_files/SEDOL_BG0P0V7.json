@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 49.650001525878906,
+  "price": 49.5,
   "ccy": "GBp",
-  "date": "2026-11-10",
+  "date": "2026-11-12",
   "source": "yahoo:GSF.L"
  },
  "discount": {
-  "estimate": -0.309842,
-  "z": 1.4903,
+  "estimate": -0.311927,
+  "z": 1.4608,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.043,
-  "discount_only": -0.0114,
+  "central": 0.0428,
+  "discount_only": -0.0116,
   "g_used": 0.055,
   "g_source": "market_median"
  },
  "holder_churn": {
-  "filings": 3,
+  "filings": 4,
   "sellers": 0,
   "buyers": 0,
   "largest_move": null,
@@ -75,6 +75,18 @@
   "window_days": 365
  },
  "events_90d": [
+  {
+   "date": "2026-11-12",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/gore-street-energy-storage-fund--gsf/holding-s-in-company/9872280",
+   "alerted_at": null,
+   "terms": {
+    "unparsed": true
+   }
+  },
   {
    "date": "2026-11-06",
    "class": "holdings_notification",
@@ -202,5 +214,5 @@
    }
   }
  ],
- "updated_at": "2026-11-12T02:59:35+00:00"
+ "updated_at": "2026-11-12T21:57:25+00:00"
 }

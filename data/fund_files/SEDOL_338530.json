@@ -12,12 +12,12 @@
   "last_announcement": "2026-10-13"
  },
  "nav": {
-  "anchor": 432.78,
-  "anchor_date": "2026-11-10",
-  "anchor_source": "investegate:9870609",
-  "estimate": 432.78,
+  "anchor": 435.52,
+  "anchor_date": "2026-11-11",
+  "anchor_source": "investegate:9872865",
+  "estimate": 435.52,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 401.5,
+  "price": 408.5,
   "ccy": "GBp",
-  "date": "2026-11-10",
+  "date": "2026-11-12",
   "source": "yahoo:WWH.L"
  },
  "discount": {
-  "estimate": -0.072277,
-  "z": 0.8265,
+  "estimate": -0.062041,
+  "z": 1.2394,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,14 +41,26 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.4167,
-  "discount_only": -0.0054,
+  "central": 0.4191,
+  "discount_only": -0.0029,
   "g_used": 0.036,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-11-12",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/prn/worldwide-healthcare-trust--wwh/holding-s-in-company/9873265",
+   "alerted_at": null,
+   "terms": {
+    "unparsed": true
+   }
+  },
   {
    "date": "2026-10-28",
    "class": "holdings_notification",
@@ -74,5 +86,5 @@
    }
   }
  ],
- "updated_at": "2026-11-12T02:59:36+00:00"
+ "updated_at": "2026-11-12T21:57:26+00:00"
 }

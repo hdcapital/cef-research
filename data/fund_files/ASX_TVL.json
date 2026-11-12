@@ -13,11 +13,11 @@
  },
  "nav": {
   "anchor": 0.105,
-  "anchor_date": "2026-09-30",
-  "anchor_source": "aggregator_panel:2026-09",
-  "estimate": 0.104377,
+  "anchor_date": "2026-10-30",
+  "anchor_source": "own_nav_history:2026-10-30",
+  "estimate": 0.099697,
   "basis": 1.0,
-  "staleness_days": 31.0,
+  "staleness_days": 9.0,
   "staleness_limit_days": 91.5,
   "current": true,
   "unit": "AUD",
@@ -31,8 +31,8 @@
   "source": "yahoo:TVL.AX"
  },
  "discount": {
-  "estimate": -0.444319,
-  "z": -0.1946,
+  "estimate": -0.418236,
+  "z": -0.1585,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0515,
-  "discount_only": -0.0048,
+  "central": 0.0552,
+  "discount_only": -0.0013,
   "g_used": 0.0566,
   "g_source": "panel_tr_cagr"
  },
@@ -60,5 +60,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-11-12T02:59:34+00:00"
+ "updated_at": "2026-11-12T21:57:24+00:00"
 }

@@ -15,7 +15,7 @@
   "anchor": 1.3352,
   "anchor_date": "2026-09-30",
   "anchor_source": "aggregator_panel:2026-09",
-  "estimate": 1.368138,
+  "estimate": 1.374177,
   "basis": 1.0,
   "staleness_days": 31.0,
   "staleness_limit_days": 93.0,
@@ -25,29 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1.3300000429153442,
+  "price": 1.3049999475479126,
   "ccy": "AUD",
   "date": "2026-11-12",
   "source": "yahoo:FGX.AX"
  },
  "discount": {
-  "estimate": -0.027876,
-  "z": 1.6163,
-  "z_status": "computed",
+  "estimate": -0.050341,
+  "z": 1.1447,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.104864,
   "sigma_36m": 0.047633,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1589,
-  "discount_only": -0.0146,
+  "central": 0.1562,
+  "discount_only": -0.017,
   "g_used": 0.1301,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-12T02:59:34+00:00"
+ "updated_at": "2026-11-12T21:57:24+00:00"
 }
