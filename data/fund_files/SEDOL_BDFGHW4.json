@@ -6,9 +6,9 @@
  "sector": "North America",
  "liveness": {
   "status": "live",
-  "reason": "nav_5d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-11-06",
+  "last_nav": "2026-11-09",
   "last_announcement": "2026-10-13"
  },
  "nav": {
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9870285",
   "estimate": 378.12,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 2.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 350.5,
+  "price": 342.5,
   "ccy": "GBp",
-  "date": "2026-11-11",
+  "date": "2026-11-10",
   "source": "yahoo:USA.L"
  },
  "discount": {
-  "estimate": -0.073046,
-  "z": 0.3347,
-  "z_status": "computed",
+  "estimate": -0.094203,
+  "z": -0.0464,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.091626,
   "sigma_36m": 0.055511,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1359,
-  "discount_only": -0.0027,
+  "central": 0.1309,
+  "discount_only": -0.0076,
   "g_used": 0.0572,
   "g_source": "panel_tr_cagr"
  },
@@ -134,5 +134,5 @@
    }
   }
  ],
- "updated_at": "2026-11-11T22:02:14+00:00"
+ "updated_at": "2026-11-12T02:59:34+00:00"
 }

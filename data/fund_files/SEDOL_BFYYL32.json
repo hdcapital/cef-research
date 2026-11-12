@@ -6,18 +6,18 @@
  "sector": "Debt - Loans & Bonds",
  "liveness": {
   "status": "live_stale_nav",
-  "reason": "periodic_report_226d_old_no_recent_nav",
+  "reason": "periodic_report_227d_old_no_recent_nav",
   "source": "own_periodic_report",
   "last_nav": "2026-06-16",
-  "last_announcement": "2026-11-09"
+  "last_announcement": "2026-11-11"
  },
  "nav": {
   "anchor": 89.96,
   "anchor_date": "2026-07-31",
   "anchor_source": "aggregator_panel:2026-07",
-  "estimate": 91.071458,
+  "estimate": 90.008654,
   "basis": 1.0,
-  "staleness_days": 73.0,
+  "staleness_days": 74.0,
   "staleness_limit_days": 94.5,
   "current": true,
   "unit": "GBX",
@@ -27,12 +27,12 @@
  "price": {
   "price": 90.19999694824219,
   "ccy": "GBp",
-  "date": "2026-11-11",
+  "date": "2026-11-10",
   "source": "yahoo:MGCI.L"
  },
  "discount": {
-  "estimate": -0.009569,
-  "z": -0.1341,
+  "estimate": 0.002126,
+  "z": -0.0715,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.2532,
-  "discount_only": -0.0048,
+  "central": 0.2548,
+  "discount_only": -0.003,
   "g_used": -0.0049,
   "g_source": "own_nav_history"
  },
@@ -158,29 +158,7 @@
    "url": "https://www.investegate.co.uk/announcement/eqs/m-g-credit-income-investment-trust--mgci/issue-of-equity/9744171",
    "alerted_at": null,
    "terms": null
-  },
-  {
-   "date": "2026-08-13",
-   "class": "issuance",
-   "weight": 0,
-   "direction": "neutral",
-   "headline": "Issue of Equity",
-   "url": "https://www.investegate.co.uk/announcement/eqs/m-g-credit-income-investment-trust--mgci/issue-of-equity/9721382",
-   "alerted_at": null,
-   "terms": null
-  },
-  {
-   "date": "2026-08-13",
-   "class": "holdings_notification",
-   "weight": 0,
-   "direction": "neutral",
-   "headline": "Holding(s) in Company",
-   "url": "https://www.investegate.co.uk/announcement/eqs/m-g-credit-income-investment-trust--mgci/holding-s-in-company/9720594",
-   "alerted_at": null,
-   "terms": {
-    "holder": "M&G Plc"
-   }
   }
  ],
- "updated_at": "2026-11-11T22:02:15+00:00"
+ "updated_at": "2026-11-12T02:59:35+00:00"
 }

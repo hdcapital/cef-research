@@ -6,9 +6,9 @@
  "sector": "Global Equity Income",
  "liveness": {
   "status": "live",
-  "reason": "nav_6d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-11-05",
+  "last_nav": "2026-11-09",
   "last_announcement": "2026-10-13"
  },
  "nav": {
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9870137",
   "estimate": 369.66,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 2.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 379.5,
+  "price": 374.5,
   "ccy": "GBp",
-  "date": "2026-11-11",
+  "date": "2026-11-10",
   "source": "yahoo:MYI.L"
  },
  "discount": {
-  "estimate": 0.026619,
-  "z": 1.8656,
+  "estimate": 0.013093,
+  "z": 1.5413,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -88,17 +88,7 @@
    "url": "https://www.investegate.co.uk/announcement/rns/murray-international-trust--myi/issue-of-equity/9778363",
    "alerted_at": null,
    "terms": null
-  },
-  {
-   "date": "2026-08-13",
-   "class": "issuance",
-   "weight": 0,
-   "direction": "neutral",
-   "headline": "Issue of Equity",
-   "url": "https://www.investegate.co.uk/announcement/rns/murray-international-trust--myi/issue-of-equity/9721405",
-   "alerted_at": null,
-   "terms": null
   }
  ],
- "updated_at": "2026-11-11T22:02:15+00:00"
+ "updated_at": "2026-11-12T02:59:35+00:00"
 }
