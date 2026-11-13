@@ -9,41 +9,41 @@
   "reason": "nav_3d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-11-10",
-  "last_announcement": "2026-10-13"
+  "last_announcement": "2026-11-13"
  },
  "nav": {
-  "anchor": 6.57,
-  "anchor_date": "2026-11-10",
-  "anchor_source": "own_nav_history:2026-11-10",
-  "estimate": 6.637323,
-  "basis": 1.0,
-  "staleness_days": 3.0,
+  "anchor": 621.59,
+  "anchor_date": "2026-11-12",
+  "anchor_source": "investegate:9874892",
+  "estimate": 621.59,
+  "basis": 0.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
-  "quality_ok": false,
-  "quality_reason": "nav_unit_mismatch_0x_vs_prior"
+  "quality_ok": true,
+  "quality_reason": ""
  },
  "price": {
-  "price": 581.0,
+  "price": 573.0,
   "ccy": "GBp",
-  "date": "2026-11-11",
+  "date": "2026-11-13",
   "source": "yahoo:BRGE.L"
  },
  "discount": {
-  "estimate": 86.535291,
-  "z": 7269.7027,
+  "estimate": -0.07817,
+  "z": -1.6133,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.058953,
   "sigma_36m": 0.011912,
-  "alert_eligible": false
+  "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1145,
-  "discount_only": 0.002,
-  "g_used": 0.0921,
+  "central": -0.4077,
+  "discount_only": -0.5957,
+  "g_used": 0.0948,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
@@ -63,5 +63,5 @@
    }
   }
  ],
- "updated_at": "2026-11-13T02:21:07+00:00"
+ "updated_at": "2026-11-13T22:03:30+00:00"
 }

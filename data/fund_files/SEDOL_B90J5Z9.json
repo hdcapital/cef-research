@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 106.0,
+  "price": 106.4000015258789,
   "ccy": "GBp",
-  "date": "2026-11-11",
+  "date": "2026-11-13",
   "source": "yahoo:TFIF.L"
  },
  "discount": {
-  "estimate": 0.021785,
-  "z": 0.969,
+  "estimate": 0.025641,
+  "z": 1.094,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -49,6 +49,16 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-11-13",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/prn/twentyfour-income-fund-limited-ord-red--tfif/issue-of-equity/9875441",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-11-05",
    "class": "issuance",
@@ -120,5 +130,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-11-13T02:21:09+00:00"
+ "updated_at": "2026-11-13T22:03:32+00:00"
 }

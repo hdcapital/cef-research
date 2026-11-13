@@ -46,9 +46,28 @@
   "g_used": 0.055,
   "g_source": "market_median"
  },
- "holder_churn": null,
+ "holder_churn": {
+  "filings": 3,
+  "sellers": 0,
+  "buyers": 1,
+  "largest_move": 62.35,
+  "holder": "Glenstone REIT plc",
+  "direction": "accumulation"
+ },
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-11-13",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/alternative-income-reit--aire/holding-s-in-company/9875506",
+   "alerted_at": null,
+   "terms": {
+    "unparsed": true
+   }
+  },
   {
    "date": "2026-11-10",
    "class": "holdings_notification",
@@ -125,5 +144,5 @@
    }
   }
  ],
- "updated_at": "2026-11-13T02:21:07+00:00"
+ "updated_at": "2026-11-13T22:03:30+00:00"
 }
