@@ -6,7 +6,7 @@
  "sector": "Latin America",
  "liveness": {
   "status": "live",
-  "reason": "nav_6d_old",
+  "reason": "nav_7d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-11-06",
   "last_announcement": "2026-10-13"
@@ -15,9 +15,9 @@
   "anchor": 405.23,
   "anchor_date": "2026-11-06",
   "anchor_source": "own_nav_history:2026-11-06",
-  "estimate": 413.608137,
+  "estimate": 415.912363,
   "basis": 1.0,
-  "staleness_days": 4.0,
+  "staleness_days": 5.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 402.0,
+  "price": 400.0,
   "ccy": "GBp",
-  "date": "2026-11-12",
+  "date": "2026-11-11",
   "source": "yahoo:BRLA.L"
  },
  "discount": {
-  "estimate": -0.028066,
-  "z": 1.6197,
+  "estimate": -0.038259,
+  "z": 1.3624,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.093849,
-  "sigma_36m": 0.040614,
+  "mu_36m": -0.093781,
+  "sigma_36m": 0.040752,
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.019,
-  "discount_only": -0.0171,
+  "central": 0.0183,
+  "discount_only": -0.0178,
   "g_used": -0.007,
   "g_source": "panel_tr_cagr"
  },
@@ -62,5 +62,5 @@
    }
   }
  ],
- "updated_at": "2026-11-12T21:57:24+00:00"
+ "updated_at": "2026-11-13T02:21:07+00:00"
 }

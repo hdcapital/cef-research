@@ -6,7 +6,7 @@
  "sector": "Equity - Australia Strategy",
  "liveness": {
   "status": "live",
-  "reason": "nav_31d_old",
+  "reason": "nav_32d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-12",
   "last_announcement": "2026-10-30"
@@ -17,7 +17,7 @@
   "anchor_source": "asx_ann:03151635",
   "estimate": 0.0031,
   "basis": 0.0,
-  "staleness_days": 23.0,
+  "staleness_days": 24.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "AUD",
@@ -25,14 +25,14 @@
   "quality_reason": "nav_jump_100%_vs_prior"
  },
  "price": {
-  "price": 1.6100000143051147,
+  "price": 1.600000023841858,
   "ccy": "AUD",
-  "date": "2026-11-12",
+  "date": "2026-11-13",
   "source": "yahoo:WMX.AX"
  },
  "discount": {
-  "estimate": 518.354843,
-  "z": 17654.447,
+  "estimate": 515.12904,
+  "z": 17544.5815,
   "z_status": "computed_growing_13m",
   "z_source": "aggregator_panel",
   "z_window_months": 13,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": -0.3715,
-  "discount_only": -0.7133,
+  "central": -0.3716,
+  "discount_only": -0.714,
   "g_used": 0.0783,
   "g_source": "sector_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-12T21:57:24+00:00"
+ "updated_at": "2026-11-13T02:21:07+00:00"
 }

@@ -6,18 +6,18 @@
  "sector": "Flexible Investment",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-11-10",
   "last_announcement": null
  },
  "nav": {
-  "anchor": 289.17,
+  "anchor": 291.56,
   "anchor_date": "2026-11-10",
   "anchor_source": "own_nav_history:2026-11-10",
-  "estimate": 292.160448,
+  "estimate": 295.7477,
   "basis": 1.0,
-  "staleness_days": 2.0,
+  "staleness_days": 3.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -31,8 +31,8 @@
   "source": "yahoo:UTL.L"
  },
  "discount": {
-  "estimate": -0.257257,
-  "z": 1.3091,
+  "estimate": -0.266266,
+  "z": 1.1425,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0329,
-  "discount_only": -0.0195,
+  "central": 0.0328,
+  "discount_only": -0.0196,
   "g_used": 0.0008,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-12T21:57:25+00:00"
+ "updated_at": "2026-11-13T02:21:09+00:00"
 }

@@ -6,7 +6,7 @@
  "sector": "Property Direct - Europe",
  "liveness": {
   "status": "live_stale_nav",
-  "reason": "periodic_report_51d_old_no_recent_nav",
+  "reason": "periodic_report_52d_old_no_recent_nav",
   "source": "own_periodic_report",
   "last_nav": "2016-06-30",
   "last_announcement": "2026-10-14"
@@ -17,7 +17,7 @@
   "anchor_source": "own_nav_history:2016-06-30",
   "estimate": 6003.0,
   "basis": 3.0,
-  "staleness_days": 2705.0,
+  "staleness_days": 2706.0,
   "staleness_limit_days": 45.0,
   "current": false,
   "unit": "GBX",
@@ -25,13 +25,13 @@
   "quality_reason": "unit_suspect_scale"
  },
  "price": {
-  "price": 1.815000057220459,
+  "price": 1.7999999523162842,
   "ccy": "EUR",
-  "date": "2026-11-12",
+  "date": "2026-11-11",
   "source": "yahoo:GWI.L"
  },
  "discount": {
-  "estimate": -0.999698,
+  "estimate": -0.9997,
   "z": null,
   "z_status": "no_discount_history",
   "z_source": null,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-12T21:57:25+00:00"
+ "updated_at": "2026-11-13T02:21:08+00:00"
 }

@@ -6,7 +6,7 @@
  "sector": "Fixed Income - Global Dollar",
  "liveness": {
   "status": "delisted",
-  "reason": "own_delisting_notice_1087d",
+  "reason": "own_delisting_notice_1088d",
   "source": "own_delisting_notice",
   "last_nav": "2023-11-17",
   "last_announcement": "2023-11-21"
@@ -15,9 +15,9 @@
   "anchor": 1.85,
   "anchor_date": "2023-11-10",
   "anchor_source": "own_nav_history:2023-11-10",
-  "estimate": 1.974528,
+  "estimate": 1.969536,
   "basis": 1.0,
-  "staleness_days": 784.0,
+  "staleness_days": 785.0,
   "staleness_limit_days": 45.0,
   "current": false,
   "unit": "AUD",
@@ -31,8 +31,8 @@
   "source": "aggregator_panel"
  },
  "discount": {
-  "estimate": -0.118777,
-  "z": -1.2351,
+  "estimate": -0.116543,
+  "z": -1.1894,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1743,
-  "discount_only": 0.0148,
+  "central": 0.1759,
+  "discount_only": 0.0164,
   "g_used": 0.0852,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-12T21:57:24+00:00"
+ "updated_at": "2026-11-13T02:21:07+00:00"
 }

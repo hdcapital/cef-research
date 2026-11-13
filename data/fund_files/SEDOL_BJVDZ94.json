@@ -6,10 +6,10 @@
  "sector": "Debt - Loans & Bonds",
  "liveness": {
   "status": "live",
-  "reason": "nav_14d_old",
+  "reason": "nav_15d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-29",
-  "last_announcement": "2026-11-05"
+  "last_announcement": "2026-11-12"
  },
  "nav": {
   "anchor": 80.73,
@@ -17,7 +17,7 @@
   "anchor_source": "own_nav_history:2026-10-29",
   "estimate": 80.73,
   "basis": 3.0,
-  "staleness_days": 10.0,
+  "staleness_days": 11.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 82.5,
+  "price": 82.0999984741211,
   "ccy": "GBp",
-  "date": "2026-11-12",
+  "date": "2026-11-11",
   "source": "yahoo:SMIF.L"
  },
  "discount": {
-  "estimate": 0.021925,
-  "z": 0.4442,
+  "estimate": 0.01697,
+  "z": 0.048,
   "z_status": "within_error_band",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": 0.016332,
+  "mu_36m": 0.016366,
   "sigma_36m": 0.012591,
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0322,
-  "discount_only": 0.0002,
+  "central": 0.0309,
+  "discount_only": -0.001,
   "g_used": 0.032,
   "g_source": "own_nav_history"
  },
@@ -108,17 +108,7 @@
    "url": "https://www.investegate.co.uk/announcement/prn/twentyfour-select-monthly-income-fund-limited--smif/issue-of-equity/9725994",
    "alerted_at": null,
    "terms": null
-  },
-  {
-   "date": "2026-08-14",
-   "class": "issuance",
-   "weight": 0,
-   "direction": "neutral",
-   "headline": "Issue of Equity",
-   "url": "https://www.investegate.co.uk/announcement/prn/twentyfour-select-monthly-income-fund-limited--smif/issue-of-equity/9723600",
-   "alerted_at": null,
-   "terms": null
   }
  ],
- "updated_at": "2026-11-12T21:57:25+00:00"
+ "updated_at": "2026-11-13T02:21:09+00:00"
 }

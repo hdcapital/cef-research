@@ -6,10 +6,10 @@
  "sector": "Debt - Loans & Bonds",
  "liveness": {
   "status": "live",
-  "reason": "nav_27d_old",
+  "reason": "nav_28d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-16",
-  "last_announcement": "2026-11-11"
+  "last_announcement": "2026-11-12"
  },
  "nav": {
   "anchor": 1.0251,
@@ -17,7 +17,7 @@
   "anchor_source": "own_nav_history:2026-10-16",
   "estimate": 1.0251,
   "basis": 3.0,
-  "staleness_days": 19.0,
+  "staleness_days": 20.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,13 +25,13 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1.0149999856948853,
+  "price": 1.0049999952316284,
   "ccy": "EUR",
-  "date": "2026-11-12",
+  "date": "2026-11-11",
   "source": "yahoo:CVCE.L"
  },
  "discount": {
-  "estimate": -0.009853,
+  "estimate": -0.019608,
   "z": null,
   "z_status": "no_discount_history",
   "z_source": null,
@@ -208,29 +208,7 @@
    "url": "https://www.investegate.co.uk/announcement/rns/cvc-income-growth-limited-npv-euro--cvce/issue-of-equity/9750096",
    "alerted_at": null,
    "terms": null
-  },
-  {
-   "date": "2026-08-14",
-   "class": "tender_offer",
-   "weight": 4,
-   "direction": "positive",
-   "headline": "Result of Tender Offer",
-   "url": "https://www.investegate.co.uk/announcement/rns/cvc-income-growth-limited-npv-euro--cvce/result-of-tender-offer/9722546",
-   "alerted_at": "2026-09-07T07:45:12+00:00",
-   "terms": {
-    "llm": "rejected",
-    "model": "claude-haiku-4-5",
-    "prompt_version": "v1:8e1a87976ca0",
-    "stop_reason": "end_turn",
-    "input_tokens": 2159,
-    "output_tokens": 300,
-    "cache_read": 0,
-    "rejected": [
-     "quote_not_in_document",
-     "computed_signal_field:expected_return_pct_of_nav"
-    ]
-   }
   }
  ],
- "updated_at": "2026-11-12T21:57:24+00:00"
+ "updated_at": "2026-11-13T02:21:07+00:00"
 }

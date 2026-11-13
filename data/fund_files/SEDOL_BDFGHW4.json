@@ -8,7 +8,7 @@
   "status": "live",
   "reason": "nav_3d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-11-09",
+  "last_nav": "2026-11-10",
   "last_announcement": "2026-10-13"
  },
  "nav": {
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9872556",
   "estimate": 381.79,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 2.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 351.5,
+  "price": 350.5,
   "ccy": "GBp",
-  "date": "2026-11-12",
+  "date": "2026-11-11",
   "source": "yahoo:USA.L"
  },
  "discount": {
-  "estimate": -0.079337,
-  "z": 0.2214,
+  "estimate": -0.081956,
+  "z": 0.1742,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1355,
-  "discount_only": -0.003,
+  "central": 0.1323,
+  "discount_only": -0.0062,
   "g_used": 0.0572,
   "g_source": "panel_tr_cagr"
  },
@@ -120,19 +120,7 @@
    "terms": {
     "holder": "Sessa Capital IM, L.P"
    }
-  },
-  {
-   "date": "2026-08-14",
-   "class": "holdings_notification",
-   "weight": 0,
-   "direction": "neutral",
-   "headline": "Holding(s) in Company",
-   "url": "https://www.investegate.co.uk/announcement/rns/baillie-gifford-us-growth-trust--usa/holding-s-in-company/9723609",
-   "alerted_at": null,
-   "terms": {
-    "holder": "Bank of America Corporation"
-   }
   }
  ],
- "updated_at": "2026-11-12T21:57:24+00:00"
+ "updated_at": "2026-11-13T02:21:07+00:00"
 }

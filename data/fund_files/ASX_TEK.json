@@ -6,7 +6,7 @@
  "sector": "Equity - Global Strategy",
  "liveness": {
   "status": "live",
-  "reason": "nav_30d_old",
+  "reason": "nav_31d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-13",
   "last_announcement": "2026-11-01"
@@ -15,9 +15,9 @@
   "anchor": 2.0,
   "anchor_date": "2026-10-31",
   "anchor_source": "own_nav_history:2026-10-31",
-  "estimate": 2.052374,
+  "estimate": 2.030577,
   "basis": 1.0,
-  "staleness_days": 8.0,
+  "staleness_days": 9.0,
   "staleness_limit_days": 93.0,
   "current": true,
   "unit": "AUD",
@@ -31,8 +31,8 @@
   "source": "yahoo:TEK.AX"
  },
  "discount": {
-  "estimate": -0.955174,
-  "z": -6.8341,
+  "estimate": -0.954693,
+  "z": -6.8272,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0983,
-  "discount_only": 0.0644,
+  "central": 0.7229,
+  "discount_only": 0.6698,
   "g_used": 0.0318,
   "g_source": "panel_tr_cagr"
  },
@@ -90,5 +90,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-11-12T21:57:24+00:00"
+ "updated_at": "2026-11-13T02:21:07+00:00"
 }

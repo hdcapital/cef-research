@@ -6,7 +6,7 @@
  "sector": "Fixed Income - Australian Dollar",
  "liveness": {
   "status": "live",
-  "reason": "nav_8d_old",
+  "reason": "nav_9d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-11-04",
   "last_announcement": "2026-11-04"
@@ -17,7 +17,7 @@
   "anchor_source": "own_nav_history:2026-11-10",
   "estimate": 2.0075,
   "basis": 3.0,
-  "staleness_days": 2.0,
+  "staleness_days": 3.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "AUD",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1.9500000476837158,
+  "price": 1.9550000429153442,
   "ccy": "AUD",
-  "date": "2026-11-12",
+  "date": "2026-11-13",
   "source": "yahoo:REV.AX"
  },
  "discount": {
-  "estimate": -0.028643,
-  "z": -2.2759,
+  "estimate": -0.026152,
+  "z": -2.0468,
   "z_status": "computed_growing_13m",
   "z_source": "aggregator_panel",
   "z_window_months": 13,
@@ -60,5 +60,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-11-12T21:57:24+00:00"
+ "updated_at": "2026-11-13T02:21:07+00:00"
 }
