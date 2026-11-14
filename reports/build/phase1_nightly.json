@@ -10,70 +10,70 @@
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 153,
+  "alert_eligible": 149,
   "z_extremes": [
     {
       "security_id": "SEDOL:721163",
       "z_adj": -72.5944,
       "discount_est": -0.976268,
-      "staleness_days": 3190.0
+      "staleness_days": 3191.0
     },
     {
       "security_id": "SEDOL:BL690L8",
       "z_adj": -62.5065,
       "discount_est": -0.989873,
-      "staleness_days": 144.0
+      "staleness_days": 145.0
     },
     {
       "security_id": "SEDOL:BYMJ7X4",
       "z_adj": -59.1482,
       "discount_est": -0.629934,
-      "staleness_days": 1305.0
+      "staleness_days": 1306.0
     },
     {
       "security_id": "SEDOL:BDHXP96",
       "z_adj": -45.0706,
       "discount_est": -0.735978,
-      "staleness_days": 1.0
+      "staleness_days": 2.0
     },
     {
       "security_id": "SEDOL:3115376",
       "z_adj": -41.2456,
       "discount_est": -0.728513,
-      "staleness_days": 119.0
+      "staleness_days": 120.0
     },
     {
       "security_id": "SEDOL:BNGFHX1",
       "z_adj": -38.2523,
       "discount_est": -0.990462,
-      "staleness_days": 98.0
+      "staleness_days": 99.0
     },
     {
       "security_id": "SEDOL:BKF2JH0",
       "z_adj": -37.0231,
       "discount_est": -0.990498,
-      "staleness_days": 98.0
+      "staleness_days": 99.0
     },
     {
       "security_id": "SEDOL:B1G3N11",
-      "z_adj": -36.5663,
-      "discount_est": -0.894887,
+      "z_adj": -36.6045,
+      "discount_est": -0.895718,
       "staleness_days": 3.0
     },
     {
       "security_id": "SEDOL:BRC8992",
       "z_adj": -36.0539,
       "discount_est": -0.989864,
-      "staleness_days": 4.0
+      "staleness_days": 5.0
     },
     {
       "security_id": "ASX:GCI",
-      "z_adj": -35.2386,
-      "discount_est": -0.818162,
-      "staleness_days": 2.0
+      "z_adj": -35.2334,
+      "discount_est": -0.81804,
+      "staleness_days": 3.0
     }
   ],
-  "date": "2026-11-13",
+  "date": "2026-11-14",
   "markets": {
     "au_identity_blocked": 0,
     "au": {
@@ -92,7 +92,7 @@
       "USD"
     ],
     "uk_nav_validation": {
-      "comparable_pairs": 5057,
+      "comparable_pairs": 5056,
       "agreement_rate_pairs": 0.9711
     },
     "uk": {
@@ -119,37 +119,37 @@
   },
   "events": {
     "events_total": 925,
-    "events_30d": 272,
-    "funds_30d": 102,
+    "events_30d": 264,
+    "funds_30d": 99,
     "by_direction_30d": {
-      "neutral": 223,
+      "neutral": 215,
       "positive": 49
     },
     "by_class_30d": {
-      "issuance": 141,
-      "holdings_notification": 78,
+      "issuance": 136,
+      "holdings_notification": 75,
       "realisation": 21,
       "substantial_holder": 15,
       "tender_offer": 6,
       "portfolio_holding": 4,
+      "scheme_merger_rollover": 1,
       "liquidation_wind_down": 1,
       "distribution_policy": 1,
       "strategic_review": 1,
       "takeover_offer": 1,
-      "discount_control": 1,
-      "manager_change": 1
+      "discount_control": 1
     },
     "unalerted": 798,
-    "holdings_with_terms": 75,
+    "holdings_with_terms": 72,
     "tr1": {
-      "candidates": 3,
-      "fetched": 3,
+      "candidates": 0,
+      "fetched": 0,
       "parsed": 0,
       "failed": 0
     },
     "realisations": {
-      "candidates": 1,
-      "fetched": 1,
+      "candidates": 0,
+      "fetched": 0,
       "parsed": 0,
       "failed": 0
     },
@@ -170,20 +170,21 @@
   },
   "carried_forward_rows": 0,
   "nav_quarantine": {
-    "rows": 472,
+    "rows": 470,
     "by_reason": {
       "stale_panel_price_only": 218,
       "nav_not_positive": 180,
       "no_price": 39,
       "nav_jump_N_vs_prior": 13,
-      "unit_suspect_scale": 12,
+      "unit_suspect_scale": 11,
       "nav_unit_mismatch_N_vs_prior": 6,
-      "nav_jump_N_vs_own": 4
+      "nav_jump_N_vs_own": 2,
+      "nav_jump_N_vs_yesterday": 1
     }
   },
-  "snapshot": "s3_exists_not_overwritten:nta_live/2026-11-13.parquet",
+  "snapshot": "s3_uploaded:nta_live/2026-11-14.parquet",
   "live_history": {
-    "rows": 74772,
-    "days": 67
+    "rows": 75888,
+    "days": 68
   }
 }

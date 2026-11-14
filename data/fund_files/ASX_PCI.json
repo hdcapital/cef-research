@@ -6,7 +6,7 @@
  "sector": "Fixed Income - Global Dollar",
  "liveness": {
   "status": "live",
-  "reason": "nav_9d_old",
+  "reason": "nav_10d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-11-04",
   "last_announcement": "2026-11-04"
@@ -17,7 +17,7 @@
   "anchor_source": "asx_ann:03161963",
   "estimate": 1.092,
   "basis": 0.0,
-  "staleness_days": 8.0,
+  "staleness_days": 9.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "AUD",
@@ -33,12 +33,12 @@
  "discount": {
   "estimate": -0.00641,
   "z": -0.6042,
-  "z_status": "computed",
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": 0.022575,
   "sigma_36m": 0.047976,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
   "central": 0.1706,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-13T22:03:30+00:00"
+ "updated_at": "2026-11-14T01:52:59+00:00"
 }

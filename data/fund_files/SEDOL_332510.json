@@ -6,7 +6,7 @@
  "sector": "UK All Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-11-11",
   "last_announcement": "2026-11-13"
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9875594",
   "estimate": 486.81,
   "basis": 0.0,
-  "staleness_days": 0.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -27,7 +27,7 @@
  "price": {
   "price": 478.0,
   "ccy": "GBp",
-  "date": "2026-11-13",
+  "date": "2026-11-12",
   "source": "yahoo:FSV.L"
  },
  "discount": {
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1054,
-  "discount_only": -0.0076,
+  "central": 0.1047,
+  "discount_only": -0.0082,
   "g_used": 0.0832,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-13T22:03:31+00:00"
+ "updated_at": "2026-11-14T01:53:00+00:00"
 }

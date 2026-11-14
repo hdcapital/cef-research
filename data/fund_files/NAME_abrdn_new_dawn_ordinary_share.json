@@ -6,7 +6,7 @@
  "sector": "Asia Pacific",
  "liveness": {
   "status": "delist_candidate",
-  "reason": "aggregator_delisted_and_own_filings_silent_1103d",
+  "reason": "aggregator_delisted_and_own_filings_silent_1104d",
   "source": "corroborated_delisting",
   "last_nav": "2023-11-06",
   "last_announcement": "2023-11-06"
@@ -15,9 +15,9 @@
   "anchor": 273.21,
   "anchor_date": "2023-11-02",
   "anchor_source": "own_nav_history:2023-11-02",
-  "estimate": 271.277369,
+  "estimate": 271.813084,
   "basis": 1.0,
-  "staleness_days": 791.0,
+  "staleness_days": 792.0,
   "staleness_limit_days": 45.0,
   "current": false,
   "unit": "GBX",
@@ -31,8 +31,8 @@
   "source": "aggregator_panel"
  },
  "discount": {
-  "estimate": -0.08212,
-  "z": 3.4652,
+  "estimate": -0.083929,
+  "z": 3.2949,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0419,
-  "discount_only": -0.0085,
+  "central": 0.0409,
+  "discount_only": -0.0095,
   "g_used": 0.0509,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-13T22:03:32+00:00"
+ "updated_at": "2026-11-14T01:53:01+00:00"
 }
