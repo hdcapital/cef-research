@@ -1,14 +1,14 @@
 {
  "lookback_days": 45,
  "codes_requested": 172,
- "index_rows_in_window": 1136,
- "candidates": 425,
- "codes_with_a_candidate": 92,
- "attempted": 105,
- "parsed": 73,
+ "index_rows_in_window": 1110,
+ "candidates": 417,
+ "codes_with_a_candidate": 90,
+ "attempted": 103,
+ "parsed": 71,
  "parse_failed": 25,
  "ambiguous_unit": 4,
- "codes_parsed": 73,
+ "codes_parsed": 71,
  "budget_reached": false,
  "deadline_reached": false,
  "by_code": {
@@ -102,8 +102,6 @@
   "TOP": "no_nta_parsed",
   "OEQ": "parsed",
   "BEL": "no_nta_parsed",
-  "HCF": "parsed",
-  "LSX": "parsed",
   "8EC": "no_candidate_in_window",
   "ABW": "no_candidate_in_window",
   "AEG": "no_candidate_in_window",
@@ -144,12 +142,14 @@
   "EMF": "no_candidate_in_window",
   "FOR": "no_candidate_in_window",
   "FPP": "no_candidate_in_window",
+  "HCF": "no_candidate_in_window",
   "HGV": "no_candidate_in_window",
   "HHV": "no_candidate_in_window",
   "HHY": "no_candidate_in_window",
   "HML": "no_candidate_in_window",
   "IPE": "no_candidate_in_window",
   "LAN": "no_candidate_in_window",
+  "LSX": "no_candidate_in_window",
   "MAX": "no_candidate_in_window",
   "MGF": "no_candidate_in_window",
   "MGG": "no_candidate_in_window",
@@ -329,9 +329,9 @@
  ],
  "image_only": 3,
  "by_outcome": {
-  "no_candidate_in_window": 80,
+  "no_candidate_in_window": 82,
   "no_nta_parsed": 18,
   "no_text_layer": 1,
-  "parsed": 73
+  "parsed": 71
  }
 }
