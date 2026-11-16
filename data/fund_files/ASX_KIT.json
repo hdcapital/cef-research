@@ -6,33 +6,33 @@
  "sector": "Fixed Income - Global Dollar",
  "liveness": {
   "status": "live",
-  "reason": "nav_10d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-11-04",
-  "last_announcement": "2026-11-04"
+  "last_nav": "2026-11-11",
+  "last_announcement": "2026-11-16"
  },
  "nav": {
-  "anchor": 2.001,
+  "anchor": 9.11,
   "anchor_date": "2026-11-09",
-  "anchor_source": "own_nav_history:2026-11-09",
-  "estimate": 2.001,
-  "basis": 3.0,
+  "anchor_source": "asx_ann:03164649",
+  "estimate": 9.11,
+  "basis": 0.0,
   "staleness_days": 5.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "AUD",
-  "quality_ok": true,
-  "quality_reason": ""
+  "quality_ok": false,
+  "quality_reason": "nav_jump_355%_vs_prior"
  },
  "price": {
-  "price": 1.7799999713897705,
+  "price": 1.7599999904632568,
   "ccy": "AUD",
-  "date": "2026-11-13",
+  "date": "2026-11-16",
   "source": "yahoo:KIT.AX"
  },
  "discount": {
-  "estimate": -0.110445,
-  "z": -1.8431,
+  "estimate": -0.806806,
+  "z": -24.1241,
   "z_status": "computed_growing_7m",
   "z_source": "aggregator_panel",
   "z_window_months": 7,
@@ -49,6 +49,16 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-11-12",
+   "class": "substantial_holder",
+   "weight": 2,
+   "direction": "positive",
+   "headline": "Ceasing to be a substantial holder",
+   "url": "https://announcements.asx.com.au/asxpdf/20261112/pdf/076jwmv9zkws70.pdf",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-11-02",
    "class": "substantial_holder",
@@ -80,5 +90,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-11-14T01:52:59+00:00"
+ "updated_at": "2026-11-16T22:00:30+00:00"
 }

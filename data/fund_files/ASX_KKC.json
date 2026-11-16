@@ -6,18 +6,18 @@
  "sector": "Fixed Income - Global Dollar",
  "liveness": {
   "status": "live",
-  "reason": "nav_13d_old",
+  "reason": "nav_1d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-11-01",
-  "last_announcement": "2026-11-01"
+  "last_nav": "2026-11-15",
+  "last_announcement": "2026-11-15"
  },
  "nav": {
-  "anchor": 2.2956,
-  "anchor_date": "2026-11-01",
-  "anchor_source": "asx_ann:03160885",
-  "estimate": 2.2956,
+  "anchor": 2.296,
+  "anchor_date": "2026-11-15",
+  "anchor_source": "asx_ann:03165935",
+  "estimate": 2.296,
   "basis": 0.0,
-  "staleness_days": 10.0,
+  "staleness_days": 0.0,
   "staleness_limit_days": 93.0,
   "current": true,
   "unit": "AUD",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 2.0,
+  "price": 2.009999990463257,
   "ccy": "AUD",
-  "date": "2026-11-13",
+  "date": "2026-11-16",
   "source": "yahoo:KKC.AX"
  },
  "discount": {
-  "estimate": -0.128768,
-  "z": -1.9402,
+  "estimate": -0.124564,
+  "z": -1.798,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-14T01:52:59+00:00"
+ "updated_at": "2026-11-16T22:00:30+00:00"
 }

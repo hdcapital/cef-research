@@ -6,7 +6,7 @@
  "sector": "Equity - Australia Small/Mid Cap",
  "liveness": {
   "status": "delisted",
-  "reason": "own_delisting_notice_24d",
+  "reason": "own_delisting_notice_26d",
   "source": "own_delisting_notice",
   "last_nav": "2026-10-14",
   "last_announcement": "2026-10-21"
@@ -79,49 +79,7 @@
    "url": "https://announcements.asx.com.au/asxpdf/20260819/pdf/072yg12ms49gzh.pdf",
    "alerted_at": "2026-09-07T07:45:12+00:00",
    "terms": null
-  },
-  {
-   "date": "2026-08-17",
-   "class": "tender_offer",
-   "weight": 4,
-   "direction": "positive",
-   "headline": "Capital Return - Further Update",
-   "url": "https://announcements.asx.com.au/asxpdf/20260818/pdf/072w5mv2jrz5wr.pdf",
-   "alerted_at": "2026-09-07T07:45:12+00:00",
-   "terms": {
-    "llm": "rejected",
-    "model": "claude-haiku-4-5",
-    "prompt_version": "v1:8e1a87976ca0",
-    "stop_reason": "end_turn",
-    "input_tokens": 1468,
-    "output_tokens": 445,
-    "cache_read": 0,
-    "rejected": [
-     "computed_signal_field:expected_return_pct_of_nav"
-    ]
-   }
-  },
-  {
-   "date": "2026-08-17",
-   "class": "tender_offer",
-   "weight": 4,
-   "direction": "positive",
-   "headline": "Results of General Meeting and Capital Return Update",
-   "url": "https://announcements.asx.com.au/asxpdf/20260817/pdf/072twy6cj8m2kc.pdf",
-   "alerted_at": "2026-09-07T07:45:12+00:00",
-   "terms": {
-    "llm": "rejected",
-    "model": "claude-haiku-4-5",
-    "prompt_version": "v1:8e1a87976ca0",
-    "stop_reason": "end_turn",
-    "input_tokens": 1602,
-    "output_tokens": 354,
-    "cache_read": 0,
-    "rejected": [
-     "computed_signal_field:expected_return_pct_of_nav"
-    ]
-   }
   }
  ],
- "updated_at": "2026-11-14T01:52:59+00:00"
+ "updated_at": "2026-11-16T22:00:30+00:00"
 }

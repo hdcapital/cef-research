@@ -6,17 +6,17 @@
  "sector": "Equity - Global Strategy",
  "liveness": {
   "status": "live",
-  "reason": "nav_32d_old",
+  "reason": "nav_4d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-10-13",
-  "last_announcement": "2026-11-01"
+  "last_nav": "2026-11-12",
+  "last_announcement": "2026-11-13"
  },
  "nav": {
   "anchor": 2.0,
   "anchor_date": "2026-10-31",
-  "anchor_source": "own_nav_history:2026-10-31",
-  "estimate": 2.03495,
-  "basis": 1.0,
+  "anchor_source": "asx_ann:03165213",
+  "estimate": 2.0,
+  "basis": 0.0,
   "staleness_days": 10.0,
   "staleness_limit_days": 93.0,
   "current": true,
@@ -27,12 +27,12 @@
  "price": {
   "price": 0.0949999988079071,
   "ccy": "AUD",
-  "date": "2026-11-13",
+  "date": "2026-11-15",
   "source": "yahoo:TEK.AX"
  },
  "discount": {
-  "estimate": -0.953316,
-  "z": -6.8076,
+  "estimate": -0.9525,
+  "z": -6.7959,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,14 +41,24 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.7088,
-  "discount_only": 0.6562,
+  "central": 0.709,
+  "discount_only": 0.6563,
   "g_used": 0.0318,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-11-06",
+   "class": "discount_control",
+   "weight": 3,
+   "direction": "positive",
+   "headline": "Renewal of On-Market Share Buy-Back",
+   "url": "https://announcements.asx.com.au/asxpdf/20261106/pdf/0769w93m32f0q8.pdf",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-10-02",
    "class": "portfolio_holding",
@@ -78,17 +88,7 @@
    "url": "https://announcements.asx.com.au/asxpdf/20260102/pdf/06txmwc8ln4kmg.pdf",
    "alerted_at": null,
    "terms": null
-  },
-  {
-   "date": "2026-08-17",
-   "class": "portfolio_holding",
-   "weight": 0,
-   "direction": "neutral",
-   "headline": "Change in substantial holding for SPA",
-   "url": "https://announcements.asx.com.au/asxpdf/20260818/pdf/072vqtgrp85f8k.pdf",
-   "alerted_at": null,
-   "terms": null
   }
  ],
- "updated_at": "2026-11-14T01:52:59+00:00"
+ "updated_at": "2026-11-16T22:00:30+00:00"
 }

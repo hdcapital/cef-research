@@ -6,18 +6,18 @@
  "sector": "Global Equity Income",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_4d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-11-12",
   "last_announcement": "2026-11-13"
  },
  "nav": {
-  "anchor": 370.56,
-  "anchor_date": "2026-11-12",
-  "anchor_source": "investegate:9875056",
-  "estimate": 370.56,
+  "anchor": 371.48,
+  "anchor_date": "2026-11-13",
+  "anchor_source": "investegate:9877085",
+  "estimate": 371.48,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 383.0,
+  "price": 378.5,
   "ccy": "GBp",
-  "date": "2026-11-12",
+  "date": "2026-11-16",
   "source": "yahoo:MYI.L"
  },
  "discount": {
-  "estimate": 0.033571,
-  "z": 2.0323,
+  "estimate": 0.018897,
+  "z": 1.6805,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1293,
-  "discount_only": -0.0148,
+  "central": 0.1276,
+  "discount_only": -0.0164,
   "g_used": 0.1119,
   "g_source": "panel_tr_cagr"
  },
@@ -110,5 +110,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-11-14T01:53:00+00:00"
+ "updated_at": "2026-11-16T22:00:32+00:00"
 }

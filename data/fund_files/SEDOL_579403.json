@@ -6,18 +6,18 @@
  "sector": "UK All Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_3d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-11-11",
   "last_announcement": "2026-11-13"
  },
  "nav": {
-  "anchor": 314.46,
-  "anchor_date": "2026-11-12",
-  "anchor_source": "investegate:9874702",
-  "estimate": 314.46,
+  "anchor": 313.15,
+  "anchor_date": "2026-11-13",
+  "anchor_source": "investegate:9877164",
+  "estimate": 313.15,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 283.5,
+  "price": 281.5,
   "ccy": "GBp",
-  "date": "2026-11-12",
+  "date": "2026-11-16",
   "source": "yahoo:MRC.L"
  },
  "discount": {
-  "estimate": -0.098454,
-  "z": 0.3743,
+  "estimate": -0.10107,
+  "z": 0.1923,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0573,
-  "discount_only": -0.0009,
+  "central": 0.0565,
+  "discount_only": -0.0016,
   "g_used": 0.0352,
   "g_source": "panel_tr_cagr"
  },
@@ -62,5 +62,5 @@
    }
   }
  ],
- "updated_at": "2026-11-14T01:53:00+00:00"
+ "updated_at": "2026-11-16T22:00:32+00:00"
 }

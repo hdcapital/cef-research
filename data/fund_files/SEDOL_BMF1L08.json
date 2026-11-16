@@ -6,7 +6,7 @@
  "sector": "Private Equity",
  "liveness": {
   "status": "live",
-  "reason": "nav_45d_old",
+  "reason": "nav_47d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-30",
   "last_announcement": "2026-11-04"
@@ -27,7 +27,7 @@
  "price": {
   "price": 294.0,
   "ccy": "GBp",
-  "date": "2026-11-12",
+  "date": "2026-11-16",
   "source": "yahoo:BOOK.L"
  },
  "discount": {
@@ -48,6 +48,20 @@
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [],
- "updated_at": "2026-11-14T01:53:00+00:00"
+ "events_90d": [
+  {
+   "date": "2026-11-16",
+   "class": "realisation",
+   "weight": 1,
+   "direction": "positive",
+   "headline": "Sale of residual holding in Kernel Global",
+   "url": "https://www.investegate.co.uk/announcement/rns/literacy-capital--book/sale-of-residual-holding-in-kernel-global/9875729",
+   "alerted_at": null,
+   "terms": {
+    "unparsed": true,
+    "parser": "r2"
+   }
+  }
+ ],
+ "updated_at": "2026-11-16T22:00:31+00:00"
 }

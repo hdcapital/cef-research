@@ -6,18 +6,18 @@
  "sector": "North America",
  "liveness": {
   "status": "live",
-  "reason": "nav_3d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-11-11",
   "last_announcement": "2026-11-13"
  },
  "nav": {
-  "anchor": 288.88,
-  "anchor_date": "2026-11-11",
-  "anchor_source": "own_nav_history:2026-11-11",
-  "estimate": 288.660631,
-  "basis": 1.0,
-  "staleness_days": 3.0,
+  "anchor": 285.77,
+  "anchor_date": "2026-11-16",
+  "anchor_source": "investegate:9877370",
+  "estimate": 285.77,
+  "basis": 0.0,
+  "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 292.0,
+  "price": 289.0,
   "ccy": "GBp",
-  "date": "2026-11-12",
+  "date": "2026-11-16",
   "source": "yahoo:BRAI.L"
  },
  "discount": {
-  "estimate": 0.011568,
-  "z": 1.6808,
+  "estimate": 0.011303,
+  "z": 1.6745,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,14 +41,24 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1118,
-  "discount_only": -0.0126,
+  "central": 0.1099,
+  "discount_only": -0.0143,
   "g_used": 0.1105,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-11-16",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/prn/blackrock-american-income-trust-plc--brai/issue-of-equity/9878034",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-11-11",
    "class": "issuance",
@@ -388,17 +398,7 @@
    "url": "https://www.investegate.co.uk/announcement/prn/blackrock-american-income-trust-plc--brai/issue-of-equity/9728370",
    "alerted_at": null,
    "terms": null
-  },
-  {
-   "date": "2026-08-17",
-   "class": "issuance",
-   "weight": 0,
-   "direction": "neutral",
-   "headline": "Issue of Equity",
-   "url": "https://www.investegate.co.uk/announcement/prn/blackrock-american-income-trust-plc--brai/issue-of-equity/9726059",
-   "alerted_at": null,
-   "terms": null
   }
  ],
- "updated_at": "2026-11-14T01:53:00+00:00"
+ "updated_at": "2026-11-16T22:00:31+00:00"
 }

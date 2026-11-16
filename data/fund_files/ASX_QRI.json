@@ -6,18 +6,18 @@
  "sector": "Fixed Income - Australian Dollar",
  "liveness": {
   "status": "delist_candidate",
-  "reason": "aggregator_delisted_and_own_filings_silent_198d",
+  "reason": "aggregator_delisted_and_own_filings_silent_200d",
   "source": "corroborated_delisting",
   "last_nav": "2026-04-29",
   "last_announcement": "2026-04-30"
  },
  "nav": {
-  "anchor": 1.6007,
-  "anchor_date": "2026-11-02",
-  "anchor_source": "asx_ann:03162090",
-  "estimate": 1.6007,
+  "anchor": 1.6032,
+  "anchor_date": "2026-11-09",
+  "anchor_source": "asx_ann:03164705",
+  "estimate": 1.6032,
   "basis": 0.0,
-  "staleness_days": 10.0,
+  "staleness_days": 5.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "AUD",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1.4900000095367432,
+  "price": 1.5,
   "ccy": "AUD",
-  "date": "2026-11-13",
+  "date": "2026-11-16",
   "source": "yahoo:QRI.AX"
  },
  "discount": {
-  "estimate": -0.069157,
-  "z": -1.2649,
+  "estimate": -0.064371,
+  "z": -1.154,
   "z_status": "history_stale_2025-12",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-14T01:52:59+00:00"
+ "updated_at": "2026-11-16T22:00:30+00:00"
 }

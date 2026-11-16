@@ -6,7 +6,7 @@
  "sector": "Hedge Funds",
  "liveness": {
   "status": "live",
-  "reason": "nav_18d_old",
+  "reason": "nav_20d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-27",
   "last_announcement": "2026-11-13"
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 412.5,
+  "price": 411.0,
   "ccy": "GBp",
-  "date": "2026-11-12",
+  "date": "2026-11-16",
   "source": "yahoo:BHMG.L"
  },
  "discount": {
-  "estimate": -0.073034,
-  "z": -0.3721,
+  "estimate": -0.076404,
+  "z": -0.391,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0994,
-  "discount_only": 0.0232,
+  "central": 0.0984,
+  "discount_only": 0.0222,
   "g_used": 0.0745,
   "g_source": "own_nav_history"
  },
@@ -99,5 +99,5 @@
    }
   }
  ],
- "updated_at": "2026-11-14T01:53:00+00:00"
+ "updated_at": "2026-11-16T22:00:31+00:00"
 }

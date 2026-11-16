@@ -6,18 +6,18 @@
  "sector": "European Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_3d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-11-11",
   "last_announcement": "2026-11-13"
  },
  "nav": {
-  "anchor": 246.7,
-  "anchor_date": "2026-11-12",
-  "anchor_source": "investegate:9874941",
-  "estimate": 246.7,
+  "anchor": 244.7,
+  "anchor_date": "2026-11-13",
+  "anchor_source": "investegate:9877662",
+  "estimate": 244.7,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 228.5,
+  "price": 225.5,
   "ccy": "GBp",
-  "date": "2026-11-12",
+  "date": "2026-11-16",
   "source": "yahoo:ESCT.L"
  },
  "discount": {
-  "estimate": -0.073774,
-  "z": 0.7006,
+  "estimate": -0.078463,
+  "z": 0.54,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-14T01:53:01+00:00"
+ "updated_at": "2026-11-16T22:00:32+00:00"
 }

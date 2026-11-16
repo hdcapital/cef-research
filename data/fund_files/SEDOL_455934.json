@@ -6,48 +6,48 @@
  "sector": "Biotechnology & Healthcare",
  "liveness": {
   "status": "live",
-  "reason": "nav_3d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-11-11",
   "last_announcement": "2026-11-13"
  },
  "nav": {
-  "anchor": 1106.1,
-  "anchor_date": "2026-11-12",
-  "anchor_source": "investegate:9874774",
-  "estimate": 1106.1,
+  "anchor": 41.5,
+  "anchor_date": "2026-11-13",
+  "anchor_source": "investegate:9877256",
+  "estimate": 41.5,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
-  "quality_ok": true,
-  "quality_reason": ""
+  "quality_ok": false,
+  "quality_reason": "nav_jump_96%_vs_prior"
  },
  "price": {
-  "price": 1110.0,
+  "price": 1065.0,
   "ccy": "GBp",
-  "date": "2026-11-12",
+  "date": "2026-11-16",
   "source": "yahoo:IBT.L"
  },
  "discount": {
-  "estimate": 0.003526,
-  "z": 4.0418,
+  "estimate": 24.662651,
+  "z": 1084.2883,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.088738,
   "sigma_36m": 0.022827,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.2347,
-  "discount_only": -0.008,
+  "central": 0.2266,
+  "discount_only": -0.0162,
   "g_used": 0.0721,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-14T01:53:00+00:00"
+ "updated_at": "2026-11-16T22:00:31+00:00"
 }
