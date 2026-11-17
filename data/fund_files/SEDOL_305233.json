@@ -6,48 +6,48 @@
  "sector": "UK Equity Income",
  "liveness": {
   "status": "live",
-  "reason": "nav_5d_old",
+  "reason": "nav_4d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-11-11",
+  "last_nav": "2026-11-13",
   "last_announcement": "2026-11-13"
  },
  "nav": {
-  "anchor": 45.3,
-  "anchor_date": "2026-11-11",
-  "anchor_source": "own_nav_history:2026-11-11",
-  "estimate": 44.745234,
+  "anchor": 897.46,
+  "anchor_date": "2026-11-13",
+  "anchor_source": "own_nav_history:2026-11-13",
+  "estimate": 890.089243,
   "basis": 1.0,
-  "staleness_days": 3.0,
+  "staleness_days": 2.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
-  "quality_ok": false,
-  "quality_reason": "nav_jump_95%_vs_prior"
+  "quality_ok": true,
+  "quality_reason": ""
  },
  "price": {
-  "price": 875.0,
+  "price": 876.0,
   "ccy": "GBp",
-  "date": "2026-11-16",
+  "date": "2026-11-13",
   "source": "yahoo:EDIN.L"
  },
  "discount": {
-  "estimate": 18.555155,
-  "z": 1406.317,
+  "estimate": -0.015829,
+  "z": 5.28,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.085817,
   "sigma_36m": 0.013255,
-  "alert_eligible": false
+  "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1085,
-  "discount_only": -0.0111,
+  "central": -0.3107,
+  "discount_only": -0.4575,
   "g_used": 0.0926,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-16T22:00:31+00:00"
+ "updated_at": "2026-11-17T03:58:22+00:00"
 }

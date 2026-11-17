@@ -6,7 +6,7 @@
  "sector": "Europe",
  "liveness": {
   "status": "live",
-  "reason": "nav_4d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-11-12",
   "last_announcement": "2026-11-13"
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9877116",
   "estimate": 131.4,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 2.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 122.0,
+  "price": 123.5,
   "ccy": "GBp",
-  "date": "2026-11-16",
+  "date": "2026-11-13",
   "source": "yahoo:BGEU.L"
  },
  "discount": {
-  "estimate": -0.071537,
-  "z": 1.1743,
+  "estimate": -0.060122,
+  "z": 1.5041,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.3162,
-  "discount_only": -0.0104,
+  "central": 0.3135,
+  "discount_only": -0.0135,
   "g_used": -0.0275,
   "g_source": "panel_tr_cagr"
  },
@@ -110,5 +110,5 @@
    }
   }
  ],
- "updated_at": "2026-11-16T22:00:31+00:00"
+ "updated_at": "2026-11-17T03:58:21+00:00"
 }

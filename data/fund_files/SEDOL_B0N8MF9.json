@@ -6,7 +6,7 @@
  "sector": "Commodities & Natural Resources",
  "liveness": {
   "status": "live",
-  "reason": "nav_5d_old",
+  "reason": "nav_6d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-11-11",
   "last_announcement": "2026-11-13"
@@ -15,9 +15,9 @@
   "anchor": 0.56,
   "anchor_date": "2026-11-11",
   "anchor_source": "own_nav_history:2026-11-11",
-  "estimate": 0.554773,
+  "estimate": 0.554501,
   "basis": 1.0,
-  "staleness_days": 3.0,
+  "staleness_days": 4.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": "nav_jump_100%_vs_prior"
  },
  "price": {
-  "price": 162.5,
+  "price": 165.0,
   "ccy": "GBp",
-  "date": "2026-11-16",
+  "date": "2026-11-13",
   "source": "yahoo:BERI.L"
  },
  "discount": {
-  "estimate": 291.912607,
-  "z": 10690.2776,
+  "estimate": 296.564665,
+  "z": 10860.5928,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -42,12 +42,12 @@
  },
  "forward_irr": {
   "central": -0.3963,
-  "discount_only": -0.6847,
+  "discount_only": -0.6844,
   "g_used": 0.15,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-16T22:00:31+00:00"
+ "updated_at": "2026-11-17T03:58:21+00:00"
 }

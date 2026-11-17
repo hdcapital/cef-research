@@ -6,9 +6,9 @@
  "sector": "Debt - Loans & Bonds",
  "liveness": {
   "status": "live",
-  "reason": "nav_5d_old",
+  "reason": "nav_4d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-11-11",
+  "last_nav": "2026-11-13",
   "last_announcement": "2026-11-13"
  },
  "nav": {
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9877555",
   "estimate": 161.24,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 2.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -27,7 +27,7 @@
  "price": {
   "price": 165.5,
   "ccy": "GBp",
-  "date": "2026-11-16",
+  "date": "2026-11-13",
   "source": "yahoo:BIPS.L"
  },
  "discount": {
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0981,
-  "discount_only": -0.0007,
+  "central": 0.0962,
+  "discount_only": -0.0026,
   "g_used": 0.0387,
   "g_source": "panel_tr_cagr"
  },
@@ -308,17 +308,7 @@
    "url": "https://www.investegate.co.uk/announcement/mfn/invesco-bond-income-plus-limited-npv--bips/issue-of-equity/9730584",
    "alerted_at": null,
    "terms": null
-  },
-  {
-   "date": "2026-08-18",
-   "class": "issuance",
-   "weight": 0,
-   "direction": "neutral",
-   "headline": "Issue of Equity",
-   "url": "https://www.investegate.co.uk/announcement/mfn/invesco-bond-income-plus-limited-npv--bips/issue-of-equity/9728282",
-   "alerted_at": null,
-   "terms": null
   }
  ],
- "updated_at": "2026-11-16T22:00:31+00:00"
+ "updated_at": "2026-11-17T03:58:22+00:00"
 }

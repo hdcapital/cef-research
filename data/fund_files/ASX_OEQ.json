@@ -6,7 +6,7 @@
  "sector": "Equity - Australia",
  "liveness": {
   "status": "live",
-  "reason": "nav_6d_old",
+  "reason": "nav_7d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-11-10",
   "last_announcement": "2026-11-10"
@@ -17,7 +17,7 @@
   "anchor_source": "asx_ann:03164201",
   "estimate": 0.4188,
   "basis": 0.0,
-  "staleness_days": 10.0,
+  "staleness_days": 11.0,
   "staleness_limit_days": 91.5,
   "current": true,
   "unit": "AUD",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 0.07999999821186066,
+  "price": 0.07100000232458115,
   "ccy": "AUD",
-  "date": "2026-11-15",
+  "date": "2026-11-17",
   "source": "yahoo:OEQ.AX"
  },
  "discount": {
-  "estimate": -0.808978,
-  "z": -1.162,
+  "estimate": -0.830468,
+  "z": -1.2415,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.3872,
-  "discount_only": 0.2062,
+  "central": 0.4,
+  "discount_only": 0.2174,
   "g_used": 0.15,
   "g_source": "panel_tr_cagr"
  },
@@ -63,5 +63,5 @@
    }
   }
  ],
- "updated_at": "2026-11-16T22:00:30+00:00"
+ "updated_at": "2026-11-17T03:58:21+00:00"
 }
