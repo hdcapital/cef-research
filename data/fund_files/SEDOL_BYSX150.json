@@ -21,18 +21,18 @@
   "staleness_limit_days": 200.0,
   "current": false,
   "unit": "GBX",
-  "quality_ok": true,
-  "quality_reason": ""
+  "quality_ok": false,
+  "quality_reason": "unit_suspect_scale"
  },
  "price": {
-  "price": 6.300000190734863,
+  "price": 6.159999847412109,
   "ccy": "GBp",
-  "date": "2026-11-13",
+  "date": "2026-11-17",
   "source": "yahoo:RESI.L"
  },
  "discount": {
-  "estimate": -0.899361,
-  "z": -2.4857,
+  "estimate": -0.901597,
+  "z": -2.4954,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -135,5 +135,5 @@
    }
   }
  ],
- "updated_at": "2026-11-17T03:58:22+00:00"
+ "updated_at": "2026-11-17T21:59:01+00:00"
 }

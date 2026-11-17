@@ -12,12 +12,12 @@
   "last_announcement": "2026-11-16"
  },
  "nav": {
-  "anchor": 2.038,
-  "anchor_date": "2026-11-13",
-  "anchor_source": "asx_ann:03166275",
-  "estimate": 2.038,
-  "basis": 0.0,
-  "staleness_days": 2.0,
+  "anchor": 2.03,
+  "anchor_date": "2026-11-16",
+  "anchor_source": "own_nav_history:2026-11-16",
+  "estimate": 2.03,
+  "basis": 3.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "AUD",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 2.049999952316284,
+  "price": 2.069999933242798,
   "ccy": "AUD",
   "date": "2026-11-17",
   "source": "yahoo:SET.AX"
  },
  "discount": {
-  "estimate": 0.005888,
-  "z": -6.1514,
+  "estimate": 0.019704,
+  "z": -4.8237,
   "z_status": "computed_growing_6m",
   "z_source": "aggregator_panel",
   "z_window_months": 6,
@@ -41,8 +41,8 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0993,
-  "discount_only": 0.0135,
+  "central": 0.0983,
+  "discount_only": 0.0126,
   "g_used": 0.0783,
   "g_source": "sector_median"
  },
@@ -70,5 +70,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-11-17T03:58:21+00:00"
+ "updated_at": "2026-11-17T21:59:00+00:00"
 }

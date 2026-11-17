@@ -12,17 +12,17 @@
   "last_announcement": "2026-11-16"
  },
  "nav": {
-  "anchor": 2.0099,
-  "anchor_date": "2026-11-13",
-  "anchor_source": "asx_ann:03166197",
-  "estimate": 2.0099,
-  "basis": 0.0,
-  "staleness_days": 2.0,
+  "anchor": 16.0,
+  "anchor_date": "2026-11-16",
+  "anchor_source": "own_nav_history:2026-11-16",
+  "estimate": 15.937099,
+  "basis": 1.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "AUD",
-  "quality_ok": true,
-  "quality_reason": ""
+  "quality_ok": false,
+  "quality_reason": "nav_jump_698%_vs_prior"
  },
  "price": {
   "price": 2.0,
@@ -31,23 +31,23 @@
   "source": "yahoo:GCI.AX"
  },
  "discount": {
-  "estimate": -0.004926,
-  "z": -0.6181,
+  "estimate": -0.874507,
+  "z": -37.6372,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": 0.009593,
   "sigma_36m": 0.02349,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1831,
-  "discount_only": 0.0032,
+  "central": 0.1825,
+  "discount_only": 0.0027,
   "g_used": 0.1166,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-17T03:58:21+00:00"
+ "updated_at": "2026-11-17T21:59:00+00:00"
 }
