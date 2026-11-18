@@ -12,12 +12,12 @@
   "last_announcement": "2026-11-13"
  },
  "nav": {
-  "anchor": 181.5,
-  "anchor_date": "2026-11-16",
-  "anchor_source": "investegate:9879904",
-  "estimate": 181.5,
+  "anchor": 180.82,
+  "anchor_date": "2026-11-17",
+  "anchor_source": "investegate:9882044",
+  "estimate": 180.82,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 174.0,
+  "price": 173.5,
   "ccy": "GBp",
-  "date": "2026-11-16",
+  "date": "2026-11-18",
   "source": "yahoo:AJOT.L"
  },
  "discount": {
-  "estimate": -0.041322,
-  "z": -0.5929,
+  "estimate": -0.040482,
+  "z": -0.5488,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,14 +41,27 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0984,
-  "discount_only": 0.0046,
+  "central": 0.0972,
+  "discount_only": 0.0035,
   "g_used": 0.0691,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-11-18",
+   "class": "tender_offer",
+   "weight": 4,
+   "direction": "positive",
+   "headline": "Result of Tender Offer and Tender Price",
+   "url": "https://www.investegate.co.uk/announcement/rns/avi-japan-opportunity-trust--ajot/result-of-tender-offer-and-tender-price/9882415",
+   "alerted_at": null,
+   "terms": {
+    "llm": "error",
+    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
+   }
+  },
   {
    "date": "2026-10-29",
    "class": "takeover_offer",
@@ -101,5 +114,5 @@
    }
   }
  ],
- "updated_at": "2026-11-18T03:31:41+00:00"
+ "updated_at": "2026-11-18T21:59:42+00:00"
 }
