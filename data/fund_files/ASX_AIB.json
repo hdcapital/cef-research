@@ -6,7 +6,7 @@
  "sector": "Equity - Global",
  "liveness": {
   "status": "delisted",
-  "reason": "own_delisting_notice_1177d",
+  "reason": "own_delisting_notice_1178d",
   "source": "own_delisting_notice",
   "last_nav": "2023-08-22",
   "last_announcement": "2023-08-28"
@@ -15,9 +15,9 @@
   "anchor": 0.1145,
   "anchor_date": "2023-08-31",
   "anchor_source": "aggregator_panel:2023-08",
-  "estimate": 0.085592,
+  "estimate": 0.085423,
   "basis": 1.0,
-  "staleness_days": 838.0,
+  "staleness_days": 839.0,
   "staleness_limit_days": 45.0,
   "current": false,
   "unit": "AUD",
@@ -31,8 +31,8 @@
   "source": "aggregator_panel"
  },
  "discount": {
-  "estimate": 0.168332,
-  "z": 1.0415,
+  "estimate": 0.17065,
+  "z": 1.0513,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": -0.0044,
-  "discount_only": -0.0544,
+  "central": -0.004,
+  "discount_only": -0.054,
   "g_used": 0.0528,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-17T21:59:00+00:00"
+ "updated_at": "2026-11-18T03:31:41+00:00"
 }

@@ -6,10 +6,10 @@
  "sector": "Renewable Energy Infrastructure",
  "liveness": {
   "status": "live_stale_nav",
-  "reason": "periodic_report_419d_old_no_recent_nav",
+  "reason": "periodic_report_420d_old_no_recent_nav",
   "source": "own_periodic_report",
   "last_nav": "2026-05-22",
-  "last_announcement": "2026-11-16"
+  "last_announcement": "2026-11-17"
  },
  "nav": {
   "anchor": 134.23,
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9878255",
   "estimate": 134.23,
   "basis": 0.0,
-  "staleness_days": 34.0,
+  "staleness_days": 35.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 108.5,
+  "price": 109.0,
   "ccy": "GBp",
-  "date": "2026-11-17",
+  "date": "2026-11-16",
   "source": "yahoo:GRID.L"
  },
  "discount": {
-  "estimate": -0.191686,
-  "z": 1.0629,
+  "estimate": -0.187961,
+  "z": 1.0858,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.381726,
-  "sigma_36m": 0.178801,
+  "mu_36m": -0.381847,
+  "sigma_36m": 0.178567,
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0247,
-  "discount_only": -0.0287,
+  "central": 0.0596,
+  "discount_only": 0.0044,
   "g_used": 0.055,
   "g_source": "market_median"
  },
@@ -61,19 +61,7 @@
     "llm": "error",
     "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
    }
-  },
-  {
-   "date": "2026-08-19",
-   "class": "holdings_notification",
-   "weight": 0,
-   "direction": "neutral",
-   "headline": "Holding(s) in Company",
-   "url": "https://www.investegate.co.uk/announcement/rns/gresham-house-energy-storage-fund--grid/holding-s-in-company/9730103",
-   "alerted_at": null,
-   "terms": {
-    "holder": "Schroders Plc"
-   }
   }
  ],
- "updated_at": "2026-11-17T21:59:01+00:00"
+ "updated_at": "2026-11-18T03:31:42+00:00"
 }

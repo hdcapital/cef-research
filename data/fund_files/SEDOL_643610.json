@@ -6,9 +6,9 @@
  "sector": "UK Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_4d_old",
+  "reason": "nav_2d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-11-13",
+  "last_nav": "2026-11-16",
   "last_announcement": "2026-11-13"
  },
  "nav": {
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9879630",
   "estimate": 313.89,
   "basis": 0.0,
-  "staleness_days": 0.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 269.0,
+  "price": 271.0,
   "ccy": "GBp",
-  "date": "2026-11-17",
+  "date": "2026-11-16",
   "source": "yahoo:BRSC.L"
  },
  "discount": {
-  "estimate": -0.143012,
-  "z": -1.424,
+  "estimate": -0.13664,
+  "z": -1.0545,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1233,
-  "discount_only": 0.0037,
+  "central": 0.1241,
+  "discount_only": 0.0044,
   "g_used": 0.0943,
   "g_source": "panel_tr_cagr"
  },
@@ -108,19 +108,7 @@
    "terms": {
     "holder": "Jefferies Financial Group Inc"
    }
-  },
-  {
-   "date": "2026-08-19",
-   "class": "holdings_notification",
-   "weight": 0,
-   "direction": "neutral",
-   "headline": "Holding(s) in Company",
-   "url": "https://www.investegate.co.uk/announcement/prn/blackrock-smaller-companies-trust--brsc/holding-s-in-company/9730543",
-   "alerted_at": null,
-   "terms": {
-    "holder": "Jefferies Financial Group Inc"
-   }
   }
  ],
- "updated_at": "2026-11-17T21:59:00+00:00"
+ "updated_at": "2026-11-18T03:31:41+00:00"
 }

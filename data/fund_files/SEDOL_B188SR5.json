@@ -6,7 +6,7 @@
  "sector": "Infrastructure",
  "liveness": {
   "status": "live",
-  "reason": "nav_83d_old",
+  "reason": "nav_84d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-08-26",
   "last_announcement": "2026-11-04"
@@ -17,7 +17,7 @@
   "anchor_source": "own_nav_history:2025-12-31",
   "estimate": 153.4,
   "basis": 3.0,
-  "staleness_days": 229.0,
+  "staleness_days": 230.0,
   "staleness_limit_days": 200.0,
   "current": false,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 139.60000610351562,
+  "price": 139.8000030517578,
   "ccy": "GBp",
-  "date": "2026-11-17",
+  "date": "2026-11-16",
   "source": "yahoo:INPP.L"
  },
  "discount": {
-  "estimate": -0.089961,
-  "z": 0.8438,
+  "estimate": -0.088657,
+  "z": 0.865,
   "z_status": "within_error_band",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0579,
-  "discount_only": 0.0028,
+  "central": 0.0597,
+  "discount_only": 0.0045,
   "g_used": 0.055,
   "g_source": "market_median"
  },
@@ -67,25 +67,6 @@
   },
   "window_days": 365
  },
- "events_90d": [
-  {
-   "date": "2026-08-19",
-   "class": "realisation",
-   "weight": 1,
-   "direction": "positive",
-   "headline": "Disposal of nine UK PPP projects at a premium",
-   "url": "https://www.investegate.co.uk/announcement/rns/international-public-partnerships-ltd---inpp/disposal-of-nine-uk-ppp-projects-at-a-premium/9728502",
-   "alerted_at": null,
-   "terms": {
-    "realisation": {
-     "vs_carrying_pct": 0.0,
-     "sign": 0,
-     "at_least": true,
-     "basis": "valuation",
-     "quote": "million, approximately 17% of its portfolio, with all sales at or above valuation, while reinvesting approximately \u00a3480 m"
-    }
-   }
-  }
- ],
- "updated_at": "2026-11-17T21:59:01+00:00"
+ "events_90d": [],
+ "updated_at": "2026-11-18T03:31:42+00:00"
 }
