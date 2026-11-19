@@ -6,7 +6,7 @@
  "sector": "Private Equity",
  "liveness": {
   "status": "live",
-  "reason": "nav_82d_old",
+  "reason": "nav_83d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-08-28",
   "last_announcement": "2026-11-02"
@@ -17,7 +17,7 @@
   "anchor_source": "own_nav_history:2026-06-30",
   "estimate": 695.07,
   "basis": 3.0,
-  "staleness_days": 101.0,
+  "staleness_days": 102.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -27,27 +27,27 @@
  "price": {
   "price": 461.0,
   "ccy": "GBp",
-  "date": "2026-11-18",
+  "date": "2026-11-17",
   "source": "yahoo:CTPE.L"
  },
  "discount": {
   "estimate": -0.336757,
-  "z": -0.7025,
+  "z": -0.6986,
   "z_status": "within_error_band",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.305449,
-  "sigma_36m": 0.044564,
+  "mu_36m": -0.305569,
+  "sigma_36m": 0.044645,
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0496,
-  "discount_only": 0.0037,
+  "central": 0.051,
+  "discount_only": 0.005,
   "g_used": 0.0458,
   "g_source": "sector_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-18T21:59:42+00:00"
+ "updated_at": "2026-11-19T02:53:56+00:00"
 }

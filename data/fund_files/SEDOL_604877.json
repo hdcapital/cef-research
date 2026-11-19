@@ -6,7 +6,7 @@
  "sector": "India / Indian Subcontinent",
  "liveness": {
   "status": "live",
-  "reason": "nav_5d_old",
+  "reason": "nav_6d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-11-13",
   "last_announcement": "2026-11-13"
@@ -15,9 +15,9 @@
   "anchor": 858.25,
   "anchor_date": "2026-11-13",
   "anchor_source": "own_nav_history:2026-11-13",
-  "estimate": 848.806086,
+  "estimate": 851.16362,
   "basis": 1.0,
-  "staleness_days": 3.0,
+  "staleness_days": 4.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 772.0,
+  "price": 780.0,
   "ccy": "GBp",
-  "date": "2026-11-18",
+  "date": "2026-11-17",
   "source": "yahoo:ANII.L"
  },
  "discount": {
-  "estimate": -0.090487,
-  "z": 1.1805,
+  "estimate": -0.083607,
+  "z": 1.3424,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0401,
-  "discount_only": -0.0186,
+  "central": 0.0402,
+  "discount_only": -0.0185,
   "g_used": 0.0493,
   "g_source": "own_nav_history"
  },
@@ -74,28 +74,7 @@
     "llm": "error",
     "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
    }
-  },
-  {
-   "date": "2026-08-20",
-   "class": "tender_offer",
-   "weight": 4,
-   "direction": "positive",
-   "headline": "Conditional Tender Offer - Performance Update",
-   "url": "https://www.investegate.co.uk/announcement/rns/aberdeen-new-india-investment-trust--anii/conditional-tender-offer-performance-update/9731980",
-   "alerted_at": "2026-09-07T07:45:12+00:00",
-   "terms": {
-    "llm": "rejected",
-    "model": "claude-haiku-4-5",
-    "prompt_version": "v1:8e1a87976ca0",
-    "stop_reason": "end_turn",
-    "input_tokens": 2750,
-    "output_tokens": 364,
-    "cache_read": 0,
-    "rejected": [
-     "computed_signal_field:expected_return_pct_of_nav"
-    ]
-   }
   }
  ],
- "updated_at": "2026-11-18T21:59:42+00:00"
+ "updated_at": "2026-11-19T02:53:56+00:00"
 }

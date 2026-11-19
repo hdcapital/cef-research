@@ -5,8 +5,8 @@
     "AU": 172,
     "UK": 944
   },
-  "live": 342,
-  "live_stale_nav": 59,
+  "live": 343,
+  "live_stale_nav": 58,
   "status_before_evidence": {
     "delisted": 739,
     "live": 373,
@@ -17,9 +17,9 @@
   "persisted_to": "data/universe/registry.parquet",
   "live_status_source": {
     "corroborated_delisting": 607,
-    "own_nav_announcement": 331,
+    "own_nav_announcement": 332,
     "own_delisting_notice": 102,
-    "own_periodic_report": 50,
+    "own_periodic_report": 49,
     "registry_deferral_no_own_filings": 11,
     "own_nav_announcement_stale": 9,
     "own_announcement_only": 5,
@@ -29,10 +29,10 @@
   "aggregator_said_live_evidence_says_not": 6,
   "by_liveness_reason": {
     "aggregator_delisted_and_own_filings_silent_alwaysd": 523,
-    "nav": 340,
+    "nav": 341,
     "own_delisting_notice": 102,
     "aggregator_delisted_and_own_filings_silent": 84,
-    "periodic_report": 50,
+    "periodic_report": 49,
     "no_own_filings_held_deferring_to_registry": 11,
     "filings_but_no_nav_or_report": 5,
     "registry_listed": 1
@@ -40,11 +40,11 @@
   "delisted": 102,
   "priced_by_source": 639,
   "announcements_only": 477,
-  "live_announcements_only": 82,
+  "live_announcements_only": 83,
   "offshore": 195,
   "vct": 228,
   "live_by_domicile": {
-    "GB": 190,
+    "GB": 191,
     "null": 96,
     "GG": 28,
     "JE": 13,
@@ -287,6 +287,15 @@
       "isin": "GB00BP2RHT10",
       "first_seen": "2024-06",
       "months_listed": 17
+    },
+    {
+      "security_id": "SEDOL:BFX3K77",
+      "name": "Gresham House Energy Storage",
+      "sector": "Renewable Energy Infrastructure",
+      "domicile": "GB",
+      "isin": "GB00BFX3K770",
+      "first_seen": "2018-11",
+      "months_listed": 94
     },
     {
       "security_id": "SEDOL:B0T4LH6",
@@ -795,9 +804,9 @@
   ],
   "live_announcements_only_by_sector": {
     "VCT": 21,
+    "Renewable Energy Infrastructure": 6,
     "Private Equity": 5,
     "Debt - Structured Finance": 5,
-    "Renewable Energy Infrastructure": 5,
     "UK Smaller Companies": 5,
     "Flexible Investment": 4,
     "Australian Indices": 4,

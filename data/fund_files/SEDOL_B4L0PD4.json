@@ -6,9 +6,9 @@
  "sector": "Global Emerging Markets",
  "liveness": {
   "status": "live",
-  "reason": "nav_5d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-11-13",
+  "last_nav": "2026-11-16",
   "last_announcement": "2026-11-13"
  },
  "nav": {
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9881402",
   "estimate": 1232.55,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 2.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -27,7 +27,7 @@
  "price": {
   "price": 1148.0,
   "ccy": "GBp",
-  "date": "2026-11-18",
+  "date": "2026-11-17",
   "source": "yahoo:FEML.L"
  },
  "discount": {
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0854,
-  "discount_only": -0.0101,
+  "central": 0.0851,
+  "discount_only": -0.0104,
   "g_used": 0.0521,
   "g_source": "own_nav_history"
  },
  "holder_churn": {
-  "filings": 4,
+  "filings": 3,
   "sellers": 0,
   "buyers": 0,
   "largest_move": null,
@@ -153,5 +153,5 @@
    }
   }
  ],
- "updated_at": "2026-11-18T21:59:42+00:00"
+ "updated_at": "2026-11-19T02:53:56+00:00"
 }

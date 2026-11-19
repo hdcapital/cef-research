@@ -6,9 +6,9 @@
  "sector": "Debt - Loans & Bonds",
  "liveness": {
   "status": "live",
-  "reason": "nav_5d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-11-13",
+  "last_nav": "2026-11-16",
   "last_announcement": "2026-11-12"
  },
  "nav": {
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9882071",
   "estimate": 45.57,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 2.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 48.599998474121094,
+  "price": 48.400001525878906,
   "ccy": "GBp",
-  "date": "2026-11-18",
+  "date": "2026-11-17",
   "source": "yahoo:NCYF.L"
  },
  "discount": {
-  "estimate": 0.066491,
-  "z": 0.6864,
-  "z_status": "computed",
+  "estimate": 0.062102,
+  "z": 0.1688,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": 0.060671,
   "sigma_36m": 0.00848,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1282,
-  "discount_only": -0.0011,
+  "central": 0.1281,
+  "discount_only": -0.0012,
   "g_used": 0.0525,
   "g_source": "panel_tr_cagr"
  },
@@ -180,5 +180,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-11-18T21:59:42+00:00"
+ "updated_at": "2026-11-19T02:53:56+00:00"
 }

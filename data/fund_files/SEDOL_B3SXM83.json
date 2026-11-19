@@ -6,16 +6,16 @@
  "sector": "Global Emerging Markets",
  "liveness": {
   "status": "live",
-  "reason": "nav_5d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-11-13",
+  "last_nav": "2026-11-16",
   "last_announcement": "2026-11-13"
  },
  "nav": {
-  "anchor": 183.49,
-  "anchor_date": "2026-11-13",
-  "anchor_source": "own_nav_history:2026-11-13",
-  "estimate": 181.952016,
+  "anchor": 182.81,
+  "anchor_date": "2026-11-16",
+  "anchor_source": "own_nav_history:2026-11-16",
+  "estimate": 182.523932,
   "basis": 1.0,
   "staleness_days": 3.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 183.0,
+  "price": 184.0,
   "ccy": "GBp",
-  "date": "2026-11-18",
+  "date": "2026-11-17",
   "source": "yahoo:BRFI.L"
  },
  "discount": {
-  "estimate": 0.00576,
-  "z": 1.476,
+  "estimate": 0.008087,
+  "z": 1.534,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1161,
-  "discount_only": -0.0177,
+  "central": 0.1168,
+  "discount_only": -0.017,
   "g_used": 0.0908,
   "g_source": "panel_tr_cagr"
  },
@@ -60,5 +60,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-11-18T21:59:42+00:00"
+ "updated_at": "2026-11-19T02:53:56+00:00"
 }

@@ -6,9 +6,9 @@
  "sector": "UK All Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_6d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-11-12",
+  "last_nav": "2026-11-16",
   "last_announcement": "2026-11-13"
  },
  "nav": {
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9881860",
   "estimate": 32.65,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 2.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": "nav_jump_96%_vs_prior"
  },
  "price": {
-  "price": 768.0,
+  "price": 762.0,
   "ccy": "GBp",
-  "date": "2026-11-18",
+  "date": "2026-11-17",
   "source": "yahoo:SCP.L"
  },
  "discount": {
-  "estimate": 22.522205,
-  "z": 684.4564,
+  "estimate": 22.338438,
+  "z": 678.8929,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,26 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": -0.3008,
-  "discount_only": -0.4808,
+  "central": -0.3007,
+  "discount_only": -0.4806,
   "g_used": 0.0145,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [
-  {
-   "date": "2026-08-20",
-   "class": "holdings_notification",
-   "weight": 0,
-   "direction": "neutral",
-   "headline": "Holding(s) in Company",
-   "url": "https://www.investegate.co.uk/announcement/rns/schroder-uk-mid-cap-fund--scp/holding-s-in-company/9732856",
-   "alerted_at": null,
-   "terms": {
-    "holder": "Mr Andy Brough"
-   }
-  }
- ],
- "updated_at": "2026-11-18T21:59:43+00:00"
+ "events_90d": [],
+ "updated_at": "2026-11-19T02:53:57+00:00"
 }
