@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 110.0,
+  "price": 110.5,
   "ccy": "GBp",
-  "date": "2026-11-17",
+  "date": "2026-11-19",
   "source": "yahoo:CVCG.L"
  },
  "discount": {
-  "estimate": -0.02083,
-  "z": -0.7481,
+  "estimate": -0.016379,
+  "z": -0.5602,
   "z_status": "within_error_band",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -49,6 +49,16 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-11-19",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/cvc-income-growth-limited-npv-gbp--cvcg/issue-of-equity/9885016",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-11-13",
    "class": "issuance",
@@ -220,5 +230,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-11-19T02:53:56+00:00"
+ "updated_at": "2026-11-19T22:01:25+00:00"
 }

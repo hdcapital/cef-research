@@ -25,13 +25,13 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1.0149999856948853,
+  "price": 1.0049999952316284,
   "ccy": "EUR",
-  "date": "2026-11-17",
+  "date": "2026-11-19",
   "source": "yahoo:CVCE.L"
  },
  "discount": {
-  "estimate": -0.009853,
+  "estimate": -0.019608,
   "z": null,
   "z_status": "no_discount_history",
   "z_source": null,
@@ -43,12 +43,22 @@
  "forward_irr": {
   "central": null,
   "discount_only": null,
-  "g_used": 0.0381,
+  "g_used": 0.0363,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-11-19",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/cvc-income-growth-limited-npv-euro--cvce/issue-of-equity/9885016",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-11-13",
    "class": "issuance",
@@ -220,5 +230,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-11-19T02:53:56+00:00"
+ "updated_at": "2026-11-19T22:01:25+00:00"
 }

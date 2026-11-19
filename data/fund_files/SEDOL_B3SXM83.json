@@ -12,12 +12,12 @@
   "last_announcement": "2026-11-13"
  },
  "nav": {
-  "anchor": 182.81,
-  "anchor_date": "2026-11-16",
-  "anchor_source": "own_nav_history:2026-11-16",
-  "estimate": 182.523932,
-  "basis": 1.0,
-  "staleness_days": 3.0,
+  "anchor": 181.06,
+  "anchor_date": "2026-11-18",
+  "anchor_source": "investegate:9884621",
+  "estimate": 181.06,
+  "basis": 0.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -27,12 +27,12 @@
  "price": {
   "price": 184.0,
   "ccy": "GBp",
-  "date": "2026-11-17",
+  "date": "2026-11-19",
   "source": "yahoo:BRFI.L"
  },
  "discount": {
-  "estimate": 0.008087,
-  "z": 1.534,
+  "estimate": 0.016238,
+  "z": 1.7371,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,14 +41,24 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1168,
-  "discount_only": -0.017,
+  "central": 0.1163,
+  "discount_only": -0.0175,
   "g_used": 0.0908,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-11-19",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/prn/blackrock-frontiers-investment-trust--brfi/issue-of-equity/9885006",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-11-17",
    "class": "issuance",
@@ -60,5 +70,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-11-19T02:53:56+00:00"
+ "updated_at": "2026-11-19T22:01:25+00:00"
 }

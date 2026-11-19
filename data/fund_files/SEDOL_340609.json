@@ -12,42 +12,42 @@
   "last_announcement": "2026-11-13"
  },
  "nav": {
-  "anchor": 328.6,
-  "anchor_date": "2026-11-18",
-  "anchor_source": "investegate:9881824",
-  "estimate": 328.6,
+  "anchor": 5.9,
+  "anchor_date": "2026-11-19",
+  "anchor_source": "investegate:9884124",
+  "estimate": 5.9,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
-  "quality_ok": true,
-  "quality_reason": ""
+  "quality_ok": false,
+  "quality_reason": "nav_unit_mismatch_0x_vs_prior"
  },
  "price": {
-  "price": 308.0,
+  "price": 306.0,
   "ccy": "GBp",
-  "date": "2026-11-17",
+  "date": "2026-11-19",
   "source": "yahoo:DIG.L"
  },
  "discount": {
-  "estimate": -0.06269,
-  "z": 1.8927,
+  "estimate": 50.864407,
+  "z": 3134.6141,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.093459,
   "sigma_36m": 0.016257,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0951,
-  "discount_only": -0.0047,
+  "central": 0.0961,
+  "discount_only": -0.0037,
   "g_used": 0.0678,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-19T02:53:56+00:00"
+ "updated_at": "2026-11-19T22:01:25+00:00"
 }

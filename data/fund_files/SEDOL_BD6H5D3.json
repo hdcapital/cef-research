@@ -12,12 +12,12 @@
   "last_announcement": "2026-11-13"
  },
  "nav": {
-  "anchor": 180.82,
-  "anchor_date": "2026-11-17",
-  "anchor_source": "investegate:9882044",
-  "estimate": 180.82,
+  "anchor": 181.81,
+  "anchor_date": "2026-11-18",
+  "anchor_source": "investegate:9884627",
+  "estimate": 181.81,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 173.0,
+  "price": 172.5,
   "ccy": "GBp",
-  "date": "2026-11-17",
+  "date": "2026-11-19",
   "source": "yahoo:AJOT.L"
  },
  "discount": {
-  "estimate": -0.043247,
-  "z": -0.6939,
+  "estimate": -0.051207,
+  "z": -1.1115,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.097,
-  "discount_only": 0.0033,
+  "central": 0.0977,
+  "discount_only": 0.0039,
   "g_used": 0.0691,
   "g_source": "own_nav_history"
  },
@@ -50,13 +50,25 @@
  "realisations": null,
  "events_90d": [
   {
+   "date": "2026-11-19",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/avi-japan-opportunity-trust--ajot/holding-s-in-company/9884950",
+   "alerted_at": null,
+   "terms": {
+    "unparsed": true
+   }
+  },
+  {
    "date": "2026-11-18",
    "class": "tender_offer",
    "weight": 4,
    "direction": "positive",
    "headline": "Result of Tender Offer and Tender Price",
    "url": "https://www.investegate.co.uk/announcement/rns/avi-japan-opportunity-trust--ajot/result-of-tender-offer-and-tender-price/9882415",
-   "alerted_at": null,
+   "alerted_at": "2026-11-19T15:41:34+00:00",
    "terms": {
     "llm": "error",
     "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
@@ -114,5 +126,5 @@
    }
   }
  ],
- "updated_at": "2026-11-19T02:53:56+00:00"
+ "updated_at": "2026-11-19T22:01:25+00:00"
 }

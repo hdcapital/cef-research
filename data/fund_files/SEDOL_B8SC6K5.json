@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 121.0,
+  "price": 120.4000015258789,
   "ccy": "GBp",
-  "date": "2026-11-17",
+  "date": "2026-11-19",
   "source": "yahoo:UKW.L"
  },
  "discount": {
-  "estimate": -0.108327,
-  "z": -1.0107,
+  "estimate": -0.112749,
+  "z": -1.048,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 35,
@@ -41,13 +41,26 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": -0.0411,
-  "discount_only": -0.0059,
+  "central": -0.0402,
+  "discount_only": -0.0049,
   "g_used": -0.0355,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [],
- "updated_at": "2026-11-19T02:53:56+00:00"
+ "events_90d": [
+  {
+   "date": "2026-11-19",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/greencoat-uk-wind--ukw/holding-s-in-company/9882929",
+   "alerted_at": null,
+   "terms": {
+    "unparsed": true
+   }
+  }
+ ],
+ "updated_at": "2026-11-19T22:01:25+00:00"
 }
