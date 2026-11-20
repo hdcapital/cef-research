@@ -1,18 +1,18 @@
 {
-  "delist_candidates": 613,
+  "delist_candidates": 614,
   "vehicles": 1116,
   "by_market": {
     "AU": 172,
     "UK": 944
   },
-  "live": 341,
+  "live": 340,
   "live_stale_nav": 59,
   "status_before_evidence": {
     "delisted": 739,
     "live": 373,
     "delist_candidate": 4
   },
-  "evidence_rows": 582,
+  "evidence_rows": 583,
   "au_code_reuse_cutoffs": 78,
   "persisted_to": "data/universe/registry.parquet",
   "live_status_source": {
@@ -20,21 +20,21 @@
     "own_nav_announcement": 330,
     "own_delisting_notice": 103,
     "own_periodic_report": 50,
-    "registry_deferral_no_own_filings": 11,
+    "registry_deferral_no_own_filings": 10,
     "own_nav_announcement_stale": 9,
-    "own_announcement_only": 5,
+    "own_announcement_only": 6,
     "registry_last_seen": 1
   },
   "revived_by_own_filings": 33,
-  "aggregator_said_live_evidence_says_not": 6,
+  "aggregator_said_live_evidence_says_not": 7,
   "by_liveness_reason": {
     "aggregator_delisted_and_own_filings_silent_alwaysd": 523,
     "nav": 339,
     "own_delisting_notice": 103,
     "aggregator_delisted_and_own_filings_silent": 84,
     "periodic_report": 50,
-    "no_own_filings_held_deferring_to_registry": 11,
-    "filings_but_no_nav_or_report": 5,
+    "no_own_filings_held_deferring_to_registry": 10,
+    "filings_but_no_nav_or_report": 6,
     "registry_listed": 1
   },
   "delisted": 103,
@@ -48,7 +48,7 @@
     "null": 96,
     "GG": 27,
     "JE": 13,
-    "BM": 11,
+    "BM": 10,
     "KY": 2,
     "IE": 1,
     "CA": 1

@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 3405.0,
+  "price": 3380.0,
   "ccy": "GBp",
-  "date": "2026-11-18",
+  "date": "2026-11-20",
   "source": "yahoo:HVPE.L"
  },
  "discount": {
-  "estimate": -0.250165,
-  "z": 1.3681,
+  "estimate": -0.255671,
+  "z": 1.2859,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,14 +41,24 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": -0.0054,
-  "discount_only": -0.0414,
+  "central": -0.004,
+  "discount_only": -0.04,
   "g_used": 0.0376,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-11-20",
+   "class": "tender_offer",
+   "weight": 4,
+   "direction": "positive",
+   "headline": "Results of Tender Offer elections",
+   "url": "https://www.investegate.co.uk/announcement/rns/harbourvest-global-private-equity-limited-a-shs--hvpe/results-of-tender-offer-elections-/9887246",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-11-12",
    "class": "holdings_notification",
@@ -125,5 +135,5 @@
    }
   }
  ],
- "updated_at": "2026-11-20T02:46:19+00:00"
+ "updated_at": "2026-11-20T22:06:35+00:00"
 }

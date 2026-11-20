@@ -12,12 +12,12 @@
   "last_announcement": "2026-11-13"
  },
  "nav": {
-  "anchor": 184.04,
-  "anchor_date": "2026-11-18",
-  "anchor_source": "investegate:9884436",
-  "estimate": 184.04,
+  "anchor": 184.75,
+  "anchor_date": "2026-11-19",
+  "anchor_source": "investegate:9886912",
+  "estimate": 184.75,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,30 +25,40 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 173.0,
+  "price": 167.0,
   "ccy": "GBp",
-  "date": "2026-11-18",
+  "date": "2026-11-20",
   "source": "yahoo:MTE.L"
  },
  "discount": {
-  "estimate": -0.059987,
-  "z": 0.9489,
-  "z_status": "computed",
+  "estimate": -0.096076,
+  "z": -0.0182,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.095398,
   "sigma_36m": 0.037319,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.0924,
-  "discount_only": -0.0074,
+  "central": 0.0918,
+  "discount_only": -0.008,
   "g_used": 0.0823,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-11-20",
+   "class": "tender_offer",
+   "weight": 4,
+   "direction": "positive",
+   "headline": "Results of Tender Offer",
+   "url": "https://www.investegate.co.uk/announcement/rns/montanaro-european-smaller-companies-trust--mte/results-of-tender-offer/9887286",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-11-02",
    "class": "holdings_notification",
@@ -75,5 +85,5 @@
    }
   }
  ],
- "updated_at": "2026-11-20T02:46:20+00:00"
+ "updated_at": "2026-11-20T22:06:36+00:00"
 }

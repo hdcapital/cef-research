@@ -12,43 +12,53 @@
   "last_announcement": "2026-11-13"
  },
  "nav": {
-  "anchor": 3.88,
+  "anchor": 356.41,
   "anchor_date": "2026-11-19",
-  "anchor_source": "investegate:9884125",
-  "estimate": 3.88,
+  "anchor_source": "investegate:9886619",
+  "estimate": 356.41,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
-  "quality_ok": false,
-  "quality_reason": "nav_unit_mismatch_0x_vs_prior"
+  "quality_ok": true,
+  "quality_reason": ""
  },
  "price": {
-  "price": 370.5,
+  "price": 364.0,
   "ccy": "GBp",
-  "date": "2026-11-18",
+  "date": "2026-11-20",
   "source": "yahoo:MYI.L"
  },
  "discount": {
-  "estimate": 94.489691,
-  "z": 2267.1448,
+  "estimate": 0.021296,
+  "z": 1.738,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.051179,
   "sigma_36m": 0.0417,
-  "alert_eligible": false
+  "alert_eligible": true
  },
  "forward_irr": {
-  "central": -0.3499,
-  "discount_only": -0.6014,
+  "central": -0.3501,
+  "discount_only": -0.6022,
   "g_used": 0.1119,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-11-20",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/murray-international-trust--myi/issue-of-equity/9887311",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-11-13",
    "class": "issuance",
@@ -110,5 +120,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-11-20T02:46:20+00:00"
+ "updated_at": "2026-11-20T22:06:36+00:00"
 }

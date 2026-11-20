@@ -12,42 +12,42 @@
   "last_announcement": "2026-11-13"
  },
  "nav": {
-  "anchor": 1.92,
-  "anchor_date": "2026-11-18",
-  "anchor_source": "investegate:9884234",
-  "estimate": 1.92,
-  "basis": 0.0,
-  "staleness_days": 2.0,
+  "anchor": 851.49,
+  "anchor_date": "2026-11-13",
+  "anchor_source": "own_nav_history:2026-11-13",
+  "estimate": 807.190883,
+  "basis": 1.0,
+  "staleness_days": 5.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
-  "quality_ok": false,
-  "quality_reason": "nav_jump_100%_vs_prior"
+  "quality_ok": true,
+  "quality_reason": ""
  },
  "price": {
-  "price": 812.0,
+  "price": 800.0,
   "ccy": "GBp",
-  "date": "2026-11-18",
+  "date": "2026-11-20",
   "source": "yahoo:MWY.L"
  },
  "discount": {
-  "estimate": 421.916667,
-  "z": 82112.6941,
+  "estimate": -0.008909,
+  "z": 2.4141,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.021314,
   "sigma_36m": 0.005139,
-  "alert_eligible": false
+  "alert_eligible": true
  },
  "forward_irr": {
   "central": 0.1657,
-  "discount_only": -0.703,
+  "discount_only": -0.7028,
   "g_used": 0.0346,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-20T02:46:20+00:00"
+ "updated_at": "2026-11-20T22:06:36+00:00"
 }
