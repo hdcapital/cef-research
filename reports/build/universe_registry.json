@@ -5,8 +5,8 @@
     "AU": 172,
     "UK": 944
   },
-  "live": 343,
-  "live_stale_nav": 57,
+  "live": 341,
+  "live_stale_nav": 59,
   "status_before_evidence": {
     "delisted": 739,
     "live": 373,
@@ -17,9 +17,9 @@
   "persisted_to": "data/universe/registry.parquet",
   "live_status_source": {
     "corroborated_delisting": 607,
-    "own_nav_announcement": 332,
+    "own_nav_announcement": 330,
     "own_delisting_notice": 103,
-    "own_periodic_report": 48,
+    "own_periodic_report": 50,
     "registry_deferral_no_own_filings": 11,
     "own_nav_announcement_stale": 9,
     "own_announcement_only": 5,
@@ -29,10 +29,10 @@
   "aggregator_said_live_evidence_says_not": 6,
   "by_liveness_reason": {
     "aggregator_delisted_and_own_filings_silent_alwaysd": 523,
-    "nav": 341,
+    "nav": 339,
     "own_delisting_notice": 103,
     "aggregator_delisted_and_own_filings_silent": 84,
-    "periodic_report": 48,
+    "periodic_report": 50,
     "no_own_filings_held_deferring_to_registry": 11,
     "filings_but_no_nav_or_report": 5,
     "registry_listed": 1
@@ -40,13 +40,13 @@
   "delisted": 103,
   "priced_by_source": 639,
   "announcements_only": 477,
-  "live_announcements_only": 83,
+  "live_announcements_only": 81,
   "offshore": 195,
   "vct": 228,
   "live_by_domicile": {
-    "GB": 191,
+    "GB": 190,
     "null": 96,
-    "GG": 28,
+    "GG": 27,
     "JE": 13,
     "BM": 11,
     "KY": 2,
@@ -397,15 +397,6 @@
       "months_listed": 8
     },
     {
-      "security_id": "SEDOL:BD96PR1",
-      "name": "NB Private Equity Partners",
-      "sector": "Private Equity",
-      "domicile": "GG",
-      "isin": "GG00BD96PR19",
-      "first_seen": "2018-05",
-      "months_listed": 77
-    },
-    {
       "security_id": "SEDOL:BJ0JVY0",
       "name": "NextEnergy Solar Fund",
       "sector": "Renewable Energy Infrastructure",
@@ -494,15 +485,6 @@
       "isin": "GB00BN73FP21",
       "first_seen": "2023-01",
       "months_listed": 44
-    },
-    {
-      "security_id": "SEDOL:BL690L8",
-      "name": "PXN Growth VCT",
-      "sector": "VCT",
-      "domicile": "GB",
-      "isin": "GB00BL690L89",
-      "first_seen": "2026-02",
-      "months_listed": 7
     },
     {
       "security_id": "SEDOL:BQVC9S7",
@@ -803,11 +785,11 @@
     }
   ],
   "live_announcements_only_by_sector": {
-    "VCT": 21,
+    "VCT": 20,
     "Renewable Energy Infrastructure": 6,
-    "Private Equity": 5,
     "Debt - Structured Finance": 5,
     "UK Smaller Companies": 5,
+    "Private Equity": 4,
     "Flexible Investment": 4,
     "Australian Indices": 4,
     "Infrastructure": 4,

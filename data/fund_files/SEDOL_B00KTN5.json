@@ -8,21 +8,21 @@
   "status": "live",
   "reason": "nav_2d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-11-17",
+  "last_nav": "2026-11-18",
   "last_announcement": null
  },
  "nav": {
-  "anchor": 5.51,
-  "anchor_date": "2026-11-17",
-  "anchor_source": "own_nav_history:2026-11-17",
-  "estimate": 5.453228,
+  "anchor": 282.8,
+  "anchor_date": "2026-11-18",
+  "anchor_source": "own_nav_history:2026-11-18",
+  "estimate": 284.073683,
   "basis": 1.0,
   "staleness_days": 2.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
-  "quality_ok": false,
-  "quality_reason": "nav_unit_mismatch_0x_vs_prior"
+  "quality_ok": true,
+  "quality_reason": ""
  },
  "price": {
   "price": 217.0,
@@ -31,23 +31,23 @@
   "source": "yahoo:UTL.L"
  },
  "discount": {
-  "estimate": 38.792944,
-  "z": 723.7586,
+  "estimate": -0.236114,
+  "z": 1.7003,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.32802,
   "sigma_36m": 0.054053,
-  "alert_eligible": false
+  "alert_eligible": true
  },
  "forward_irr": {
-  "central": -0.3339,
-  "discount_only": -0.5567,
+  "central": -0.3341,
+  "discount_only": -0.5578,
   "g_used": -0.0039,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-19T22:01:26+00:00"
+ "updated_at": "2026-11-20T02:46:20+00:00"
 }
