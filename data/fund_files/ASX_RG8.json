@@ -6,7 +6,7 @@
  "sector": "Equity - Asia",
  "liveness": {
   "status": "live",
-  "reason": "nav_5d_old",
+  "reason": "nav_6d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-11-15",
   "last_announcement": "2026-11-15"
@@ -17,7 +17,7 @@
   "anchor_source": "asx_ann:03165875",
   "estimate": 2.42,
   "basis": 0.0,
-  "staleness_days": 4.0,
+  "staleness_days": 5.0,
   "staleness_limit_days": 93.0,
   "current": true,
   "unit": "AUD",
@@ -33,16 +33,16 @@
  "discount": {
   "estimate": -0.196281,
   "z": -1.2943,
-  "z_status": "computed",
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.148015,
   "sigma_36m": 0.037292,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.22,
-  "discount_only": 0.011,
+  "central": 0.2206,
+  "discount_only": 0.0115,
   "g_used": 0.15,
   "g_source": "panel_tr_cagr"
  },
@@ -70,5 +70,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-11-20T22:06:34+00:00"
+ "updated_at": "2026-11-21T02:36:20+00:00"
 }
