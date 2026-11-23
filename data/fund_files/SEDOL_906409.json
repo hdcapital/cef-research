@@ -6,7 +6,7 @@
  "sector": "Property Securities",
  "liveness": {
   "status": "live",
-  "reason": "nav_22d_old",
+  "reason": "nav_24d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-30",
   "last_announcement": "2026-11-13"
@@ -15,7 +15,7 @@
   "anchor": 10.6,
   "anchor_date": "2026-10-30",
   "anchor_source": "own_nav_history:2026-10-30",
-  "estimate": 10.214285,
+  "estimate": 10.304986,
   "basis": 1.0,
   "staleness_days": 16.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": "nav_jump_97%_vs_prior"
  },
  "price": {
-  "price": 282.0,
+  "price": 281.5,
   "ccy": "GBp",
-  "date": "2026-11-19",
+  "date": "2026-11-23",
   "source": "yahoo:TRY.L"
  },
  "discount": {
-  "estimate": 26.608393,
-  "z": 1522.1805,
+  "estimate": 26.316875,
+  "z": 1505.5542,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": -0.521,
-  "discount_only": -0.4958,
+  "central": -0.519,
+  "discount_only": -0.4937,
   "g_used": -0.05,
   "g_source": "panel_tr_cagr"
  },
@@ -62,5 +62,5 @@
    }
   }
  ],
- "updated_at": "2026-11-21T02:36:21+00:00"
+ "updated_at": "2026-11-23T22:00:53+00:00"
 }

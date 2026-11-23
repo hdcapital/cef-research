@@ -6,7 +6,7 @@
  "sector": "North American Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_21d_old",
+  "reason": "nav_23d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-31",
   "last_announcement": "2026-11-12"
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 420.0,
+  "price": 415.0,
   "ccy": "GBp",
-  "date": "2026-11-19",
+  "date": "2026-11-23",
   "source": "yahoo:NAS.L"
  },
  "discount": {
-  "estimate": -0.356953,
-  "z": -0.7472,
+  "estimate": -0.364608,
+  "z": -0.9159,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1838,
-  "discount_only": 0.0491,
+  "central": 0.174,
+  "discount_only": 0.0405,
   "g_used": 0.1284,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-21T02:36:21+00:00"
+ "updated_at": "2026-11-23T22:00:52+00:00"
 }

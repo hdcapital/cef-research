@@ -6,7 +6,7 @@
  "sector": "Flexible Investment",
  "liveness": {
   "status": "live_stale_nav",
-  "reason": "periodic_report_358d_old_no_recent_nav",
+  "reason": "periodic_report_360d_old_no_recent_nav",
   "source": "own_periodic_report",
   "last_nav": "2026-03-16",
   "last_announcement": "2026-08-27"
@@ -69,28 +69,7 @@
      "computed_signal_field:expected_return_pct_of_nav"
     ]
    }
-  },
-  {
-   "date": "2026-08-24",
-   "class": "suspension",
-   "weight": -4,
-   "direction": "negative",
-   "headline": "Suspension of shares from trading on main market",
-   "url": "https://www.investegate.co.uk/announcement/rns/jpmorgan-global-core-real-assets-limited-npv-eur---jare/suspension-of-shares-from-trading-on-main-market/9737224",
-   "alerted_at": "2026-09-07T07:45:12+00:00",
-   "terms": {
-    "llm": "rejected",
-    "model": "claude-haiku-4-5",
-    "prompt_version": "v1:8e1a87976ca0",
-    "stop_reason": "end_turn",
-    "input_tokens": 2538,
-    "output_tokens": 348,
-    "cache_read": 0,
-    "rejected": [
-     "computed_signal_field:expected_return_pct_of_nav"
-    ]
-   }
   }
  ],
- "updated_at": "2026-11-21T02:36:21+00:00"
+ "updated_at": "2026-11-23T22:00:52+00:00"
 }

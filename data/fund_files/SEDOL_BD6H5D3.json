@@ -6,18 +6,18 @@
  "sector": "Japanese Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_3d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-11-18",
   "last_announcement": "2026-11-13"
  },
  "nav": {
-  "anchor": 180.33,
-  "anchor_date": "2026-11-19",
-  "anchor_source": "investegate:9886886",
-  "estimate": 180.33,
+  "anchor": 176.89,
+  "anchor_date": "2026-11-20",
+  "anchor_source": "investegate:9889552",
+  "estimate": 176.89,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 172.5,
+  "price": 180.5,
   "ccy": "GBp",
-  "date": "2026-11-19",
+  "date": "2026-11-23",
   "source": "yahoo:AJOT.L"
  },
  "discount": {
-  "estimate": -0.04342,
-  "z": -0.703,
+  "estimate": 0.020408,
+  "z": 2.6454,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0965,
-  "discount_only": 0.0028,
+  "central": 0.0977,
+  "discount_only": 0.0039,
   "g_used": 0.0691,
   "g_source": "own_nav_history"
  },
@@ -139,5 +139,5 @@
    }
   }
  ],
- "updated_at": "2026-11-21T02:36:20+00:00"
+ "updated_at": "2026-11-23T22:00:51+00:00"
 }

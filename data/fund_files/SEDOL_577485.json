@@ -6,7 +6,7 @@
  "sector": "Commodities & Natural Resources",
  "liveness": {
   "status": "live",
-  "reason": "nav_3d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-11-18",
   "last_announcement": "2026-11-13"
@@ -15,7 +15,7 @@
   "anchor": 797.18,
   "anchor_date": "2026-11-18",
   "anchor_source": "own_nav_history:2026-11-18",
-  "estimate": 784.755374,
+  "estimate": 791.355327,
   "basis": 1.0,
   "staleness_days": 3.0,
   "staleness_limit_days": 45.0,
@@ -25,42 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 782.0,
+  "price": 770.0,
   "ccy": "GBp",
-  "date": "2026-11-19",
+  "date": "2026-11-23",
   "source": "yahoo:BRWM.L"
  },
  "discount": {
-  "estimate": -0.003511,
-  "z": 1.5539,
-  "z_status": "computed",
+  "estimate": -0.026986,
+  "z": 0.7877,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.051116,
   "sigma_36m": 0.030635,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1738,
-  "discount_only": 0.007,
+  "central": 0.1594,
+  "discount_only": -0.0058,
   "g_used": 0.1469,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [
-  {
-   "date": "2026-08-24",
-   "class": "holdings_notification",
-   "weight": 0,
-   "direction": "neutral",
-   "headline": "Holding(s) in Company",
-   "url": "https://www.investegate.co.uk/announcement/prn/blackrock-world-mining-trust--brwm/holding-s-in-company/9737400",
-   "alerted_at": null,
-   "terms": {
-    "holder": "Rathbones Investment Management Ltd"
-   }
-  }
- ],
- "updated_at": "2026-11-21T02:36:20+00:00"
+ "events_90d": [],
+ "updated_at": "2026-11-23T22:00:51+00:00"
 }

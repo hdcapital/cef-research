@@ -6,7 +6,7 @@
  "sector": "India / Indian Subcontinent",
  "liveness": {
   "status": "live",
-  "reason": "nav_8d_old",
+  "reason": "nav_10d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-11-13",
   "last_announcement": "2026-11-13"
@@ -15,7 +15,7 @@
   "anchor": 858.25,
   "anchor_date": "2026-11-13",
   "anchor_source": "own_nav_history:2026-11-13",
-  "estimate": 844.752414,
+  "estimate": 847.186196,
   "basis": 1.0,
   "staleness_days": 6.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 784.0,
+  "price": 790.0,
   "ccy": "GBp",
-  "date": "2026-11-19",
+  "date": "2026-11-23",
   "source": "yahoo:ANII.L"
  },
  "discount": {
-  "estimate": -0.071917,
-  "z": 1.6175,
+  "estimate": -0.067501,
+  "z": 1.7215,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,14 +41,27 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0307,
-  "discount_only": -0.0277,
+  "central": 0.0361,
+  "discount_only": -0.0224,
   "g_used": 0.0493,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-11-23",
+   "class": "tender_offer",
+   "weight": 4,
+   "direction": "positive",
+   "headline": "Conditional Tender Offer - Performance Update",
+   "url": "https://www.investegate.co.uk/announcement/rns/aberdeen-new-india-investment-trust--anii/conditional-tender-offer-performance-update/9889380",
+   "alerted_at": null,
+   "terms": {
+    "llm": "error",
+    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
+   }
+  },
   {
    "date": "2026-10-26",
    "class": "tender_offer",
@@ -76,5 +89,5 @@
    }
   }
  ],
- "updated_at": "2026-11-21T02:36:20+00:00"
+ "updated_at": "2026-11-23T22:00:51+00:00"
 }

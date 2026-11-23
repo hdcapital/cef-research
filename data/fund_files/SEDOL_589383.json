@@ -6,48 +6,48 @@
  "sector": "Global",
  "liveness": {
   "status": "live",
-  "reason": "nav_3d_old",
+  "reason": "nav_5d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-11-18",
   "last_announcement": "2026-11-13"
  },
  "nav": {
-  "anchor": 1.92,
-  "anchor_date": "2026-11-18",
-  "anchor_source": "own_nav_history:2026-11-18",
-  "estimate": 1.901301,
-  "basis": 1.0,
-  "staleness_days": 3.0,
+  "anchor": 808.03,
+  "anchor_date": "2026-11-20",
+  "anchor_source": "investegate:9889033",
+  "estimate": 808.03,
+  "basis": 0.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
-  "quality_ok": false,
-  "quality_reason": "nav_jump_100%_vs_prior"
+  "quality_ok": true,
+  "quality_reason": ""
  },
  "price": {
-  "price": 814.0,
+  "price": 824.0,
   "ccy": "GBp",
-  "date": "2026-11-19",
+  "date": "2026-11-23",
   "source": "yahoo:MWY.L"
  },
  "discount": {
-  "estimate": 427.127907,
-  "z": 83126.8455,
+  "estimate": 0.019764,
+  "z": 7.9941,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.021314,
   "sigma_36m": 0.005139,
-  "alert_eligible": false
+  "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.462,
-  "discount_only": -0.0022,
-  "g_used": 0.0346,
+  "central": 0.1671,
+  "discount_only": -0.7035,
+  "g_used": 0.0377,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-21T02:36:21+00:00"
+ "updated_at": "2026-11-23T22:00:52+00:00"
 }

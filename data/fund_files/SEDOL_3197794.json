@@ -6,7 +6,7 @@
  "sector": "Global",
  "liveness": {
   "status": "live",
-  "reason": "nav_8d_old",
+  "reason": "nav_10d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-11-13",
   "last_announcement": "2026-11-11"
@@ -25,14 +25,14 @@
   "quality_reason": "nav_unit_mismatch_105x_vs_prior"
  },
  "price": {
-  "price": 6.21999979019165,
+  "price": 6.199999809265137,
   "ccy": "GBP",
-  "date": "2026-11-19",
+  "date": "2026-11-23",
   "source": "yahoo:LTI.L"
  },
  "discount": {
-  "estimate": -0.991631,
-  "z": -20.4556,
+  "estimate": -0.991658,
+  "z": -20.4563,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,8 +41,8 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 1.8015,
-  "discount_only": 1.528,
+  "central": 1.7979,
+  "discount_only": 1.5247,
   "g_used": 0.0767,
   "g_source": "sector_median"
  },
@@ -104,5 +104,5 @@
    }
   }
  ],
- "updated_at": "2026-11-21T02:36:21+00:00"
+ "updated_at": "2026-11-23T22:00:52+00:00"
 }

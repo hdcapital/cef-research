@@ -6,7 +6,7 @@
  "sector": "Flexible Investment",
  "liveness": {
   "status": "live",
-  "reason": "nav_21d_old",
+  "reason": "nav_23d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-31",
   "last_announcement": "2026-11-20"
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 2435.0,
+  "price": 2395.0,
   "ccy": "GBp",
-  "date": "2026-11-19",
+  "date": "2026-11-23",
   "source": "yahoo:RCP.L"
  },
  "discount": {
-  "estimate": -0.220301,
-  "z": 1.05,
+  "estimate": -0.233109,
+  "z": 0.65,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0662,
-  "discount_only": 0.0017,
+  "central": 0.0609,
+  "discount_only": -0.0033,
   "g_used": 0.0644,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-21T02:36:21+00:00"
+ "updated_at": "2026-11-23T22:00:53+00:00"
 }
