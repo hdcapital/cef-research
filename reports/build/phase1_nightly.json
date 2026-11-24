@@ -56,8 +56,8 @@
     },
     {
       "security_id": "ASX:GCI",
-      "z_adj": -38.7254,
-      "discount_est": -0.900069,
+      "z_adj": -38.7385,
+      "discount_est": -0.900375,
       "staleness_days": 2.0
     },
     {
@@ -181,7 +181,7 @@
       "nav_jump_N_vs_own": 2
     }
   },
-  "snapshot": "s3_uploaded:nta_live/2026-11-24.parquet",
+  "snapshot": "s3_exists_not_overwritten:nta_live/2026-11-24.parquet",
   "live_history": {
     "rows": 85932,
     "days": 77
