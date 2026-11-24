@@ -755,3 +755,37 @@ failed together. The session-independent layer is now the open item
 with the highest urgency: a dispatcher Routine that starts a fresh
 session on each firing would dispatch the workflow whether or not this
 session is alive, at the cost of one short session per firing.
+
+### 2026-11-18..24 — five days offline: four briefs missed, three late
+
+This session was unreachable from about 22:46Z Wednesday 18 November
+until 05:40Z Tuesday 24 November (its worker process restarted
+repeatedly; the fifteen Routine wakes in between arrived together on
+reconnection). The GitHub crons alone delivered:
+
+- Wed 18 pre-ASX: not sent. The evening crons fired 03:40Z-04:28Z
+  Thursday, inside the pre-LSE label and before its 05:00Z earliest
+  hour; the gate held all five back.
+- Thu 19 pre-LSE 15:41Z (7.7 hours after the open)
+- Thu 19 pre-ASX: not sent, as Wednesday's (crons 03:31Z-04:15Z Friday)
+- Fri 20 pre-LSE 15:19Z (7.3 hours late)
+- Sun 22 pre-ASX 03:55Z Monday (4.9 hours after the open; the 02:54Z
+  run, inside the window's past-midnight tail)
+- Mon 23 pre-LSE: not sent. The morning crons fired 16:31Z-18:46Z, past
+  15:00Z and so inside the pre-ASX label, before its 22:00Z earliest
+  hour; the gate held all five back.
+- Mon 23 pre-ASX: not sent. No cron fired between 18:46Z Monday and
+  05:40Z Tuesday.
+- Tue 24 pre-LSE: dispatched 05:41Z on reconnection
+
+Four briefs missed and three delivered hours late in five days is the
+worst stretch on record, and it is the scheduler's doing: the crons now
+land eight to eleven hours late, far enough to cross from one window's
+label into the next and be refused as premature. The Sunday brief, the
+only one on time by the gate's standard, changed the roster: SDCL
+Efficiency Income left the opportunity list after seven weeks and Regal
+Asian Investments (ASX:RG8) entered it (z -1.63, discount -20.9%,
+substantial-holder notice of 29 October). Both facts reached the owner
+five hours after the ASX opened. The fresh-session dispatcher proposed
+on 10 November is now the only change that would have delivered these
+briefs; nothing in this repository can.
