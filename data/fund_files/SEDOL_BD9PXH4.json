@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 10.399999618530273,
+  "price": 10.680000305175781,
   "ccy": "GBp",
-  "date": "2026-11-20",
+  "date": "2026-11-24",
   "source": "yahoo:ASLI.L"
  },
  "discount": {
-  "estimate": -0.537778,
-  "z": -0.9283,
+  "estimate": -0.525333,
+  "z": -0.8298,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,13 +41,26 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1116,
-  "discount_only": 0.0537,
+  "central": 0.1379,
+  "discount_only": 0.0785,
   "g_used": 0.055,
   "g_source": "market_median"
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [],
- "updated_at": "2026-11-24T05:55:12+00:00"
+ "events_90d": [
+  {
+   "date": "2026-11-24",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/abrdn-european-logistics-income--asli/holding-s-in-company/9891969",
+   "alerted_at": null,
+   "terms": {
+    "unparsed": true
+   }
+  }
+ ],
+ "updated_at": "2026-11-24T21:59:26+00:00"
 }

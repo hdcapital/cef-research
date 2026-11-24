@@ -12,10 +12,10 @@
   "last_announcement": "2026-11-13"
  },
  "nav": {
-  "anchor": 1671.49,
+  "anchor": 1737.83,
   "anchor_date": "2026-11-23",
-  "anchor_source": "investegate:9889035",
-  "estimate": 1671.49,
+  "anchor_source": "investegate:9891273",
+  "estimate": 1737.83,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1650.0,
+  "price": 1640.0,
   "ccy": "GBp",
-  "date": "2026-11-20",
+  "date": "2026-11-24",
   "source": "yahoo:BASC.L"
  },
  "discount": {
-  "estimate": -0.012857,
-  "z": 3.6089,
+  "estimate": -0.056294,
+  "z": 1.7027,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,14 +41,26 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.4059,
-  "discount_only": -0.0247,
-  "g_used": 0.0658,
+  "central": 0.4025,
+  "discount_only": -0.0236,
+  "g_used": 0.0609,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-11-24",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/brown-advisory-us-smaller-companies--basc/holding-s-in-company/9891605",
+   "alerted_at": null,
+   "terms": {
+    "unparsed": true
+   }
+  },
   {
    "date": "2026-10-07",
    "class": "scheme_merger_rollover",
@@ -63,5 +75,5 @@
    }
   }
  ],
- "updated_at": "2026-11-24T05:55:11+00:00"
+ "updated_at": "2026-11-24T21:59:24+00:00"
 }

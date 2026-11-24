@@ -14,9 +14,9 @@
  "nav": {
   "anchor": 553.0,
   "anchor_date": "2026-11-23",
-  "anchor_source": "investegate:9889469",
-  "estimate": 553.0,
-  "basis": 0.0,
+  "anchor_source": "own_nav_history:2026-11-23",
+  "estimate": 551.930176,
+  "basis": 1.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 572.0,
+  "price": 576.0,
   "ccy": "GBp",
-  "date": "2026-11-20",
+  "date": "2026-11-24",
   "source": "yahoo:CTY.L"
  },
  "discount": {
-  "estimate": 0.034358,
-  "z": 1.9571,
+  "estimate": 0.04361,
+  "z": 2.5106,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,14 +41,24 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1384,
-  "discount_only": -0.0069,
+  "central": 0.141,
+  "discount_only": -0.0045,
   "g_used": 0.1118,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-11-24",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/city-of-london-inv-trust--cty/issue-of-equity/9891921",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-11-16",
    "class": "issuance",
@@ -170,5 +180,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-11-24T05:55:11+00:00"
+ "updated_at": "2026-11-24T21:59:24+00:00"
 }

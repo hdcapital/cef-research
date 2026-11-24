@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 125.0,
+  "price": 125.19999694824219,
   "ccy": "GBp",
-  "date": "2026-11-20",
+  "date": "2026-11-24",
   "source": "yahoo:SYNC.L"
  },
  "discount": {
-  "estimate": -0.28856,
-  "z": -2.4565,
+  "estimate": -0.287422,
+  "z": -2.4507,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,14 +41,26 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1655,
-  "discount_only": 0.1124,
+  "central": 0.167,
+  "discount_only": 0.1138,
   "g_used": 0.0478,
   "g_source": "sector_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-11-24",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/syncona-limited-npv--sync/holding-s-in-company/9891198",
+   "alerted_at": null,
+   "terms": {
+    "unparsed": true
+   }
+  },
   {
    "date": "2026-10-20",
    "class": "holdings_notification",
@@ -110,5 +122,5 @@
    }
   }
  ],
- "updated_at": "2026-11-24T05:55:12+00:00"
+ "updated_at": "2026-11-24T21:59:25+00:00"
 }

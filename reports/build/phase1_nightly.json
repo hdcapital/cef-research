@@ -5,12 +5,12 @@
   "basis_counts": {
     "3.0": 343,
     "nan": 327,
-    "1.0": 223,
-    "0.0": 223
+    "1.0": 225,
+    "0.0": 221
   },
   "share_basis_le3_labelled": 1.0,
   "share_with_sigma": 1.0,
-  "alert_eligible": 164,
+  "alert_eligible": 169,
   "z_extremes": [
     {
       "security_id": "SEDOL:721163",
@@ -32,9 +32,9 @@
     },
     {
       "security_id": "SEDOL:BDHXP96",
-      "z_adj": -44.1924,
-      "discount_est": -0.722002,
-      "staleness_days": 2.0
+      "z_adj": -44.6226,
+      "discount_est": -0.728848,
+      "staleness_days": 1.0
     },
     {
       "security_id": "SEDOL:BRC8992",
@@ -49,16 +49,16 @@
       "staleness_days": 126.0
     },
     {
+      "security_id": "ASX:GCI",
+      "z_adj": -39.3092,
+      "discount_est": -0.913782,
+      "staleness_days": 1.0
+    },
+    {
       "security_id": "SEDOL:263193",
       "z_adj": -38.8923,
       "discount_est": -0.990468,
       "staleness_days": 16.0
-    },
-    {
-      "security_id": "ASX:GCI",
-      "z_adj": -38.7385,
-      "discount_est": -0.900375,
-      "staleness_days": 2.0
     },
     {
       "security_id": "SEDOL:BNGFHX1",
@@ -68,8 +68,8 @@
     },
     {
       "security_id": "SEDOL:B1G3N11",
-      "z_adj": -36.8866,
-      "discount_est": -0.901851,
+      "z_adj": -36.8781,
+      "discount_est": -0.901668,
       "staleness_days": 2.0
     }
   ],
@@ -96,16 +96,16 @@
       "agreement_rate_pairs": 0.9711
     },
     "uk": {
-      "tier0_navs": 177,
+      "tier0_navs": 175,
       "nav_publishers_found": 351,
       "daily_weekly": 201
     }
   },
   "catalysts": {
-    "catalysts": 54,
+    "catalysts": 55,
     "funds": 29,
     "by_class": {
-      "realisation": 22,
+      "realisation": 23,
       "substantial_holder": 14,
       "tender_offer": 7,
       "takeover_offer": 5,
@@ -117,18 +117,18 @@
     }
   },
   "events": {
-    "events_total": 992,
-    "events_30d": 255,
-    "funds_30d": 94,
+    "events_total": 1004,
+    "events_30d": 267,
+    "funds_30d": 100,
     "by_direction_30d": {
-      "neutral": 200,
-      "positive": 54,
+      "neutral": 211,
+      "positive": 55,
       "negative": 1
     },
     "by_class_30d": {
-      "issuance": 136,
-      "holdings_notification": 59,
-      "realisation": 22,
+      "issuance": 141,
+      "holdings_notification": 65,
+      "realisation": 23,
       "substantial_holder": 14,
       "tender_offer": 7,
       "takeover_offer": 5,
@@ -139,17 +139,17 @@
       "liquidation_wind_down": 1,
       "distribution_policy": 1
     },
-    "unalerted": 852,
-    "holdings_with_terms": 57,
+    "unalerted": 861,
+    "holdings_with_terms": 63,
     "tr1": {
-      "candidates": 0,
-      "fetched": 0,
+      "candidates": 6,
+      "fetched": 6,
       "parsed": 0,
       "failed": 0
     },
     "realisations": {
-      "candidates": 0,
-      "fetched": 0,
+      "candidates": 1,
+      "fetched": 1,
       "parsed": 0,
       "failed": 0
     },
@@ -170,12 +170,12 @@
   },
   "carried_forward_rows": 0,
   "nav_quarantine": {
-    "rows": 464,
+    "rows": 465,
     "by_reason": {
       "stale_panel_price_only": 218,
       "nav_not_positive": 180,
       "no_price": 39,
-      "nav_jump_N_vs_prior": 12,
+      "nav_jump_N_vs_prior": 13,
       "unit_suspect_scale": 9,
       "nav_unit_mismatch_N_vs_prior": 4,
       "nav_jump_N_vs_own": 2

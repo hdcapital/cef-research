@@ -12,12 +12,12 @@
   "last_announcement": "2026-11-13"
  },
  "nav": {
-  "anchor": 445.15,
-  "anchor_date": "2026-11-20",
-  "anchor_source": "investegate:9889068",
-  "estimate": 445.15,
+  "anchor": 466.87,
+  "anchor_date": "2026-11-23",
+  "anchor_source": "investegate:9891178",
+  "estimate": 466.87,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 418.5,
+  "price": 423.5,
   "ccy": "GBp",
-  "date": "2026-11-20",
+  "date": "2026-11-24",
   "source": "yahoo:JUSC.L"
  },
  "discount": {
-  "estimate": -0.059867,
-  "z": 0.7887,
-  "z_status": "computed",
+  "estimate": -0.092895,
+  "z": -0.1779,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.086818,
   "sigma_36m": 0.03417,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.4722,
-  "discount_only": -0.0092,
+  "central": 0.4753,
+  "discount_only": -0.0061,
   "g_used": 0.0551,
   "g_source": "panel_tr_cagr"
  },
@@ -63,5 +63,5 @@
    }
   }
  ],
- "updated_at": "2026-11-24T05:55:11+00:00"
+ "updated_at": "2026-11-24T21:59:25+00:00"
 }

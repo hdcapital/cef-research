@@ -12,10 +12,10 @@
   "last_announcement": "2026-11-13"
  },
  "nav": {
-  "anchor": 393.82,
+  "anchor": 404.36,
   "anchor_date": "2026-11-23",
-  "anchor_source": "investegate:9889318",
-  "estimate": 393.82,
+  "anchor_source": "investegate:9891342",
+  "estimate": 404.36,
   "basis": 0.0,
   "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 402.0,
+  "price": 410.0,
   "ccy": "GBp",
-  "date": "2026-11-20",
+  "date": "2026-11-24",
   "source": "yahoo:IGET.L"
  },
  "discount": {
-  "estimate": 0.020771,
-  "z": 0.9978,
+  "estimate": 0.013948,
+  "z": 0.8955,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,14 +41,24 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1275,
-  "discount_only": -0.025,
+  "central": 0.1329,
+  "discount_only": -0.0202,
   "g_used": 0.1383,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-11-24",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/mfn/invesco-global-equity-income-trust-plc--iget/issue-of-equity/9891912",
+   "alerted_at": null,
+   "terms": null
+  },
   {
    "date": "2026-11-20",
    "class": "issuance",
@@ -220,5 +230,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-11-24T05:55:11+00:00"
+ "updated_at": "2026-11-24T21:59:25+00:00"
 }
