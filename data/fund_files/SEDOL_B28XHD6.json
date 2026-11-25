@@ -12,12 +12,12 @@
   "last_announcement": "2026-11-23"
  },
  "nav": {
-  "anchor": 4541.0,
-  "anchor_date": "2026-09-30",
-  "anchor_source": "own_nav_history:2026-09-30",
-  "estimate": 4541.0,
-  "basis": 3.0,
-  "staleness_days": 40.0,
+  "anchor": 4493.0,
+  "anchor_date": "2026-10-31",
+  "anchor_source": "investegate:9892161",
+  "estimate": 4493.0,
+  "basis": 0.0,
+  "staleness_days": 17.0,
   "staleness_limit_days": 91.5,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 3335.0,
+  "price": 3325.0,
   "ccy": "GBp",
-  "date": "2026-11-23",
+  "date": "2026-11-25",
   "source": "yahoo:HVPE.L"
  },
  "discount": {
-  "estimate": -0.26558,
-  "z": 1.1539,
+  "estimate": -0.25996,
+  "z": 1.2385,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,14 +41,26 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0023,
-  "discount_only": -0.034,
+  "central": 0.0002,
+  "discount_only": -0.036,
   "g_used": 0.0376,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-11-25",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/harbourvest-global-private-equity-limited-a-shs--hvpe/holding-s-in-company/9893255",
+   "alerted_at": null,
+   "terms": {
+    "unparsed": true
+   }
+  },
   {
    "date": "2026-11-20",
    "class": "tender_offer",
@@ -135,5 +147,5 @@
    }
   }
  ],
- "updated_at": "2026-11-25T04:38:26+00:00"
+ "updated_at": "2026-11-25T21:56:52+00:00"
 }

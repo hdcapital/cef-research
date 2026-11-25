@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 102.0,
+  "price": 101.0,
   "ccy": "GBp",
-  "date": "2026-11-23",
+  "date": "2026-11-25",
   "source": "yahoo:AIC.L"
  },
  "discount": {
-  "estimate": -0.081826,
-  "z": -1.1107,
+  "estimate": -0.090827,
+  "z": -1.2786,
   "z_status": "computed_growing_21m",
   "z_source": "own_daily_panel",
   "z_window_months": 21,
@@ -49,6 +49,18 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-11-25",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/achilles-investment-company-limited--aic/holding-s-in-company/9894108",
+   "alerted_at": null,
+   "terms": {
+    "unparsed": true
+   }
+  },
   {
    "date": "2026-11-16",
    "class": "holdings_notification",
@@ -86,5 +98,5 @@
    }
   }
  ],
- "updated_at": "2026-11-25T04:38:25+00:00"
+ "updated_at": "2026-11-25T21:56:52+00:00"
 }

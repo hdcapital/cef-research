@@ -12,12 +12,12 @@
   "last_announcement": "2026-11-13"
  },
  "nav": {
-  "anchor": 476.84,
-  "anchor_date": "2026-11-23",
-  "anchor_source": "investegate:9891662",
-  "estimate": 476.84,
+  "anchor": 467.8,
+  "anchor_date": "2026-11-24",
+  "anchor_source": "investegate:9893872",
+  "estimate": 467.8,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 412.0,
+  "price": 428.0,
   "ccy": "GBp",
-  "date": "2026-11-23",
+  "date": "2026-11-25",
   "source": "yahoo:IEM.L"
  },
  "discount": {
-  "estimate": -0.135979,
-  "z": -1.6689,
+  "estimate": -0.085079,
+  "z": 0.6727,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,14 +41,27 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.063,
-  "discount_only": 0.0149,
+  "central": 0.0605,
+  "discount_only": 0.0124,
   "g_used": 0.0342,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-11-25",
+   "class": "strategic_review",
+   "weight": 3,
+   "direction": "positive",
+   "headline": "Result of Strategic Review",
+   "url": "https://www.investegate.co.uk/announcement/rns/impax-environmental-markets--iem/result-of-strategic-review/9892186",
+   "alerted_at": null,
+   "terms": {
+    "llm": "error",
+    "error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
+   }
+  },
   {
    "date": "2026-09-15",
    "class": "holdings_notification",
@@ -74,5 +87,5 @@
    }
   }
  ],
- "updated_at": "2026-11-25T04:38:26+00:00"
+ "updated_at": "2026-11-25T21:56:52+00:00"
 }

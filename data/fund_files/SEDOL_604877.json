@@ -15,7 +15,7 @@
   "anchor": 858.25,
   "anchor_date": "2026-11-13",
   "anchor_source": "own_nav_history:2026-11-13",
-  "estimate": 845.314549,
+  "estimate": 844.326278,
   "basis": 1.0,
   "staleness_days": 8.0,
   "staleness_limit_days": 45.0,
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 790.0,
+  "price": 804.0,
   "ccy": "GBp",
-  "date": "2026-11-23",
+  "date": "2026-11-25",
   "source": "yahoo:ANII.L"
  },
  "discount": {
-  "estimate": -0.065437,
-  "z": 1.77,
+  "estimate": -0.047761,
+  "z": 2.186,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,14 +41,26 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0341,
-  "discount_only": -0.0243,
+  "central": 0.0347,
+  "discount_only": -0.0238,
   "g_used": 0.0493,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-11-25",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/aberdeen-new-india-investment-trust--anii/holding-s-in-company/9894133",
+   "alerted_at": null,
+   "terms": {
+    "unparsed": true
+   }
+  },
   {
    "date": "2026-11-23",
    "class": "tender_offer",
@@ -89,5 +101,5 @@
    }
   }
  ],
- "updated_at": "2026-11-25T04:38:25+00:00"
+ "updated_at": "2026-11-25T21:56:52+00:00"
 }
