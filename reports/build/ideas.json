@@ -1,34 +1,35 @@
 {
-  "generated_at": "2026-11-24T23:44:49+00:00",
-  "brief": "pre-ASX open",
-  "window_day": "2026-11-24",
+  "generated_at": "2026-11-25T06:21:45+00:00",
+  "brief": "pre-LSE open",
+  "window_day": "2026-11-25",
   "evaluated": 400,
-  "opportunities": 0,
-  "watch": 99,
-  "ledger_rows": 6828,
+  "opportunities": 1,
+  "watch": 96,
+  "ledger_rows": 6925,
   "min_irr_central": 0.15,
   "new_events": 0,
   "attribution": {
-    "attributed": 99,
-    "verdicts": 99,
+    "attributed": 97,
+    "verdicts": 97,
     "bars_fetched": 60,
     "uk_panel_histories": 266,
-    "store_days": 77,
+    "store_days": 78,
     "drivers": {
-      "mixed": 41,
-      "price-led": 32,
-      "NAV-led": 23,
+      "mixed": 38,
+      "NAV-led": 28,
+      "price-led": 27,
       "series break - verify units": 2,
-      "flat": 1
+      "flat": 2
     },
     "scopes": {
       "idiosyncratic": 67,
-      "unknown": 18,
+      "unknown": 16,
       "sector-wide": 8,
-      "partly sector": 6
+      "partly sector": 5,
+      "flat": 1
     }
   },
   "emailed": true,
-  "workbook": "outputs/live/cef_universe_2026-11-24.xlsx",
+  "workbook": "outputs/live/cef_universe_2026-11-25.xlsx",
   "workbook_error": null
 }
