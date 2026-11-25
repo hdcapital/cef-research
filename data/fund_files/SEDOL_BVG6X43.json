@@ -6,7 +6,7 @@
  "sector": "Debt - Direct Lending",
  "liveness": {
   "status": "live",
-  "reason": "nav_55d_old",
+  "reason": "nav_56d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-09-30",
   "last_announcement": "2026-11-11"
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9868683",
   "estimate": 20.81,
   "basis": 0.0,
-  "staleness_days": 39.0,
+  "staleness_days": 40.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -32,22 +32,22 @@
  },
  "discount": {
   "estimate": -0.48222,
-  "z": -0.2827,
+  "z": -0.2894,
   "z_status": "within_error_band",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.455467,
-  "sigma_36m": 0.094639,
+  "mu_36m": -0.4549,
+  "sigma_36m": 0.094409,
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": -0.0083,
-  "discount_only": 0.0439,
+  "central": -0.0162,
+  "discount_only": 0.0355,
   "g_used": -0.05,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-24T21:59:26+00:00"
+ "updated_at": "2026-11-25T04:38:26+00:00"
 }

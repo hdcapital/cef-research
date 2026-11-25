@@ -6,7 +6,7 @@
  "sector": "Property Specialist",
  "liveness": {
   "status": "delisted",
-  "reason": "own_delisting_notice_5d",
+  "reason": "own_delisting_notice_6d",
   "source": "own_delisting_notice",
   "last_nav": "2026-06-30",
   "last_announcement": "2026-11-23"
@@ -17,7 +17,7 @@
   "anchor_source": "investegate_fs:9846890",
   "estimate": 83.27,
   "basis": 0.0,
-  "staleness_days": 105.0,
+  "staleness_days": 106.0,
   "staleness_limit_days": 45.0,
   "current": false,
   "unit": "GBX",
@@ -133,28 +133,7 @@
    "terms": {
     "holder": "Trium Capital LLP"
    }
-  },
-  {
-   "date": "2026-08-26",
-   "class": "offer_withdrawn",
-   "weight": -3,
-   "direction": "negative",
-   "headline": "No Intention to Bid Statement",
-   "url": "https://www.investegate.co.uk/announcement/rns/alternative-income-reit--aire/no-intention-to-bid-statement-/9739892",
-   "alerted_at": null,
-   "terms": {
-    "llm": "rejected",
-    "model": "claude-haiku-4-5",
-    "prompt_version": "v1:8e1a87976ca0",
-    "stop_reason": "end_turn",
-    "input_tokens": 3355,
-    "output_tokens": 249,
-    "cache_read": 0,
-    "rejected": [
-     "computed_signal_field:expected_return_pct_of_nav"
-    ]
-   }
   }
  ],
- "updated_at": "2026-11-24T21:59:26+00:00"
+ "updated_at": "2026-11-25T04:38:27+00:00"
 }

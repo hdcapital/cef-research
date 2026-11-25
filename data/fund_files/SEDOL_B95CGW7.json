@@ -6,7 +6,7 @@
  "sector": "Property - UK Healthcare",
  "liveness": {
   "status": "live",
-  "reason": "nav_111d_old",
+  "reason": "nav_112d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-08-05",
   "last_announcement": "2026-11-03"
@@ -17,7 +17,7 @@
   "anchor_source": "own_nav_history:2026-06-30",
   "estimate": 122.2,
   "basis": 3.0,
-  "staleness_days": 105.0,
+  "staleness_days": 106.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -25,29 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 117.4000015258789,
+  "price": 116.5999984741211,
   "ccy": "GBp",
-  "date": "2026-11-24",
+  "date": "2026-11-23",
   "source": "yahoo:THRL.L"
  },
  "discount": {
-  "estimate": -0.03928,
-  "z": 1.6339,
+  "estimate": -0.045827,
+  "z": 1.5311,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.169092,
-  "sigma_36m": 0.079448,
+  "mu_36m": -0.168592,
+  "sigma_36m": 0.080183,
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0417,
-  "discount_only": -0.0126,
+  "central": 0.0363,
+  "discount_only": -0.0177,
   "g_used": 0.055,
   "g_source": "market_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-24T21:59:25+00:00"
+ "updated_at": "2026-11-25T04:38:26+00:00"
 }
