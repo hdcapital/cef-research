@@ -1021,6 +1021,15 @@ def test_the_harvester_falls_back_to_the_previous_nav_announcement():
     assert row["source"].endswith(":9891268")
     assert stats["parse_fail"] == 1 and stats["summary_only_pages"] == 1
     assert stats["fallback_fetches"] == 1 and stats["fallback_recovered"] == 1
+    assert stats["fail_samples"][0]["summary_only"] is True
+    assert "html_head" not in stats["fail_samples"][0]   # text-only fetch: no markup kept
+    # a fetch that also returns the raw page keeps the markup around the
+    # missing body as evidence of how the page was served
+    stats = {}
+    html = "<html><div class='x'>" + _NAVF_SUMMARY_ONLY + "</div><script>body()</script></html>"
+    H.uk_parse_candidates("SEDOL:BKLGLS1", "NAVF", cands[:1],
+                          lambda u: (pages[u], html), stats)
+    assert "<script>body()</script>" in stats["fail_samples"][0]["html_head"]
 
 
 def test_the_fallback_is_bounded_and_a_readable_first_page_costs_nothing():

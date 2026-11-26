@@ -1355,18 +1355,31 @@ def uk_parse_candidates(sid: str, tk: str, cands: list[dict], fetch,
         if i:
             stats["fallback_fetches"] = stats.get("fallback_fetches", 0) + 1
         try:
-            text = fetch(cand["url"])
+            fetched = fetch(cand["url"])
         except Exception:  # noqa: BLE001
             stats["detail_fail"] = stats.get("detail_fail", 0) + 1
             continue
+        # fetch may return the page text, or (text, raw_html) so a body-less
+        # page's markup can be kept as evidence of how it was served
+        text, html = (fetched if isinstance(fetched, tuple) else (fetched, None))
         got = parse_uk_nav_text(text, sedol=sid)
         if "nav_cum_pence" not in got:
             stats["parse_fail"] = stats.get("parse_fail", 0) + 1
-            if _summary_only_page(text):
+            summary_only = _summary_only_page(text)
+            if summary_only:
                 stats["summary_only_pages"] = stats.get("summary_only_pages", 0) + 1
             if len(stats.setdefault("fail_samples", [])) < 8:
-                stats["fail_samples"].append({"ticker": tk, "url": cand["url"],
-                                              "text_head": text[200:6500]})
+                sample = {"ticker": tk, "url": cand["url"],
+                          "summary_only": summary_only,
+                          "text_head": text[200:6500]}
+                if summary_only and html:
+                    # 2026-11-26: every parse failure in the harvest and the
+                    # archive was a page with no RNS body. The markup around
+                    # where the body should be is the evidence for a fix.
+                    cut = html.find("AI Summary")
+                    sample["html_head"] = html[max(0, cut - 1500): cut + 6500] \
+                        if cut >= 0 else html[:8000]
+                stats["fail_samples"].append(sample)
             continue
         row = uk_tier0_row(sid, got, cand, text)
         if row is None:
@@ -1634,11 +1647,12 @@ def harvest_uk(ticker_map: pd.DataFrame, census: pd.DataFrame,
         # every NAV-headlined row in the window, newest first
         tries = cands if (cands and cands[0] is best) else [best]
 
-        def _fetch(url: str) -> str:
+        def _fetch(url: str) -> tuple[str, str]:
             _t.sleep(1.5)
             r = s.get(url, timeout=45)
-            return re.sub(r"\s+", " ",
-                          BeautifulSoup(r.text, "html.parser").get_text(" "))
+            return (re.sub(r"\s+", " ",
+                           BeautifulSoup(r.text, "html.parser").get_text(" ")),
+                    r.text)
 
         row = uk_parse_candidates(tick2sid[tk], tk, tries, _fetch, stats)
         if row is None:
