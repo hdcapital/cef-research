@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 7.199999809265137,
+  "price": 7.099999904632568,
   "ccy": "GBp",
-  "date": "2026-11-24",
+  "date": "2026-11-26",
   "source": "yahoo:RESI.L"
  },
  "discount": {
-  "estimate": -0.884984,
-  "z": -2.4359,
+  "estimate": -0.886581,
+  "z": -2.4428,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
@@ -41,14 +41,27 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.5866,
-  "discount_only": 0.5039,
+  "central": 0.5639,
+  "discount_only": 0.4824,
   "g_used": 0.055,
   "g_source": "market_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-11-26",
+   "class": "realisation",
+   "weight": 1,
+   "direction": "positive",
+   "headline": "Sale of Shared Ownership Portfolio",
+   "url": "https://www.investegate.co.uk/announcement/rns/residential-secure-income--resi/sale-of-shared-ownership-portfolio/9896321",
+   "alerted_at": null,
+   "terms": {
+    "unparsed": true,
+    "parser": "r2"
+   }
+  },
   {
    "date": "2026-10-13",
    "class": "realisation",
@@ -111,5 +124,5 @@
    }
   }
  ],
- "updated_at": "2026-11-26T03:54:14+00:00"
+ "updated_at": "2026-11-26T21:58:21+00:00"
 }
