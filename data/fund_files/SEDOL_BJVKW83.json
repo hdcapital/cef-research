@@ -6,7 +6,7 @@
  "sector": "Flexible Investment",
  "liveness": {
   "status": "live_stale_nav",
-  "reason": "periodic_report_362d_old_no_recent_nav",
+  "reason": "periodic_report_363d_old_no_recent_nav",
   "source": "own_periodic_report",
   "last_nav": "2026-03-16",
   "last_announcement": "2026-08-27"
@@ -17,7 +17,7 @@
   "anchor_source": "own_nav_history:2026-03-16",
   "estimate": 94.44,
   "basis": 3.0,
-  "staleness_days": 182.0,
+  "staleness_days": 183.0,
   "staleness_limit_days": 45.0,
   "current": false,
   "unit": "GBX",
@@ -48,28 +48,6 @@
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [
-  {
-   "date": "2026-08-27",
-   "class": "liquidation_wind_down",
-   "weight": 5,
-   "direction": "positive",
-   "headline": "Result of EGM and Entry into Voluntary Liquidation",
-   "url": "https://www.investegate.co.uk/announcement/rns/jpmorgan-global-core-real-assets-limited-npv-eur---jare/result-of-egm-and-entry-into-voluntary-liquidation/9743834",
-   "alerted_at": "2026-09-07T07:45:12+00:00",
-   "terms": {
-    "llm": "rejected",
-    "model": "claude-haiku-4-5",
-    "prompt_version": "v1:8e1a87976ca0",
-    "stop_reason": "end_turn",
-    "input_tokens": 2799,
-    "output_tokens": 344,
-    "cache_read": 0,
-    "rejected": [
-     "computed_signal_field:expected_return_pct_of_nav"
-    ]
-   }
-  }
- ],
- "updated_at": "2026-11-25T21:56:52+00:00"
+ "events_90d": [],
+ "updated_at": "2026-11-26T03:54:14+00:00"
 }

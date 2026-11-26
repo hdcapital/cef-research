@@ -6,7 +6,7 @@
  "sector": "UK Equity Income",
  "liveness": {
   "status": "delist_candidate",
-  "reason": "aggregator_delisted_and_own_filings_silent_152d",
+  "reason": "aggregator_delisted_and_own_filings_silent_153d",
   "source": "corroborated_delisting",
   "last_nav": "2026-06-26",
   "last_announcement": "2026-06-26"
@@ -15,9 +15,9 @@
   "anchor": 119.51,
   "anchor_date": "2026-06-26",
   "anchor_source": "own_nav_history:2026-06-26",
-  "estimate": 117.508255,
+  "estimate": 117.495089,
   "basis": 1.0,
-  "staleness_days": 108.0,
+  "staleness_days": 109.0,
   "staleness_limit_days": 45.0,
   "current": false,
   "unit": "GBX",
@@ -31,8 +31,8 @@
   "source": "aggregator_panel"
  },
  "discount": {
-  "estimate": 0.004185,
-  "z": 3.8733,
+  "estimate": 0.004297,
+  "z": 3.8793,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -42,12 +42,12 @@
  },
  "forward_irr": {
   "central": 0.1036,
-  "discount_only": -0.0132,
+  "discount_only": -0.0131,
   "g_used": 0.0689,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-25T21:56:52+00:00"
+ "updated_at": "2026-11-26T03:54:13+00:00"
 }

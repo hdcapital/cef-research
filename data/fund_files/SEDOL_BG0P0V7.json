@@ -6,7 +6,7 @@
  "sector": "Renewable Energy Infrastructure",
  "liveness": {
   "status": "live_stale_nav",
-  "reason": "periodic_report_345d_old_no_recent_nav",
+  "reason": "periodic_report_346d_old_no_recent_nav",
   "source": "own_periodic_report",
   "last_nav": "2026-06-30",
   "last_announcement": "2026-11-19"
@@ -17,7 +17,7 @@
   "anchor_source": "own_nav_history:2026-06-30",
   "estimate": 71.94,
   "basis": 3.0,
-  "staleness_days": 106.0,
+  "staleness_days": 107.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 48.400001525878906,
+  "price": 47.599998474121094,
   "ccy": "GBp",
-  "date": "2026-11-25",
+  "date": "2026-11-24",
   "source": "yahoo:GSF.L"
  },
  "discount": {
-  "estimate": -0.327217,
-  "z": 1.2607,
+  "estimate": -0.338338,
+  "z": 1.1153,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.415653,
-  "sigma_36m": 0.070147,
+  "mu_36m": -0.416039,
+  "sigma_36m": 0.069667,
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0472,
-  "discount_only": -0.0074,
+  "central": 0.0481,
+  "discount_only": -0.0066,
   "g_used": 0.055,
   "g_source": "market_median"
  },
@@ -194,19 +194,7 @@
    "terms": {
     "holder": "Jefferies Financial Group Inc"
    }
-  },
-  {
-   "date": "2026-08-27",
-   "class": "holdings_notification",
-   "weight": 0,
-   "direction": "neutral",
-   "headline": "Holding(s) in Company",
-   "url": "https://www.investegate.co.uk/announcement/rns/gore-street-energy-storage-fund--gsf/holding-s-in-company/9744225",
-   "alerted_at": null,
-   "terms": {
-    "holder": "Saba Capital Management, L.P"
-   }
   }
  ],
- "updated_at": "2026-11-25T21:56:52+00:00"
+ "updated_at": "2026-11-26T03:54:14+00:00"
 }

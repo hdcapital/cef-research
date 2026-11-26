@@ -6,7 +6,7 @@
  "sector": "Fixed Income - Global Dollar",
  "liveness": {
   "status": "live",
-  "reason": "nav_20d_old",
+  "reason": "nav_21d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-11-05",
   "last_announcement": "2026-11-16"
@@ -17,7 +17,7 @@
   "anchor_source": "asx_ann:03162852",
   "estimate": 1.9733,
   "basis": 0.0,
-  "staleness_days": 17.0,
+  "staleness_days": 18.0,
   "staleness_limit_days": 93.0,
   "current": true,
   "unit": "AUD",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1.9299999475479126,
+  "price": 1.9249999523162842,
   "ccy": "AUD",
-  "date": "2026-11-25",
+  "date": "2026-11-26",
   "source": "yahoo:PCX.AX"
  },
  "discount": {
-  "estimate": -0.021943,
-  "z": -1.6264,
+  "estimate": -0.024477,
+  "z": -1.763,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 28,
@@ -41,13 +41,13 @@
   "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1288,
-  "discount_only": 0.0085,
+  "central": 0.1267,
+  "discount_only": 0.0064,
   "g_used": 0.0547,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-25T21:56:51+00:00"
+ "updated_at": "2026-11-26T03:54:13+00:00"
 }

@@ -1,12 +1,12 @@
 {
-  "delist_candidates": 613,
+  "delist_candidates": 614,
   "vehicles": 1116,
   "by_market": {
     "AU": 172,
     "UK": 944
   },
-  "live": 343,
-  "live_stale_nav": 57,
+  "live": 344,
+  "live_stale_nav": 55,
   "status_before_evidence": {
     "delisted": 739,
     "live": 373,
@@ -16,23 +16,23 @@
   "au_code_reuse_cutoffs": 78,
   "persisted_to": "data/universe/registry.parquet",
   "live_status_source": {
-    "corroborated_delisting": 606,
-    "own_nav_announcement": 333,
+    "corroborated_delisting": 607,
+    "own_nav_announcement": 334,
     "own_delisting_notice": 103,
-    "own_periodic_report": 49,
+    "own_periodic_report": 48,
     "registry_deferral_no_own_filings": 10,
-    "own_nav_announcement_stale": 8,
+    "own_nav_announcement_stale": 7,
     "own_announcement_only": 6,
     "registry_last_seen": 1
   },
-  "revived_by_own_filings": 34,
+  "revived_by_own_filings": 33,
   "aggregator_said_live_evidence_says_not": 7,
   "by_liveness_reason": {
     "aggregator_delisted_and_own_filings_silent_alwaysd": 523,
     "nav": 341,
     "own_delisting_notice": 103,
-    "aggregator_delisted_and_own_filings_silent": 83,
-    "periodic_report": 49,
+    "aggregator_delisted_and_own_filings_silent": 84,
+    "periodic_report": 48,
     "no_own_filings_held_deferring_to_registry": 10,
     "filings_but_no_nav_or_report": 6,
     "registry_listed": 1
@@ -40,11 +40,11 @@
   "delisted": 103,
   "priced_by_source": 639,
   "announcements_only": 477,
-  "live_announcements_only": 84,
+  "live_announcements_only": 85,
   "offshore": 195,
   "vct": 228,
   "live_by_domicile": {
-    "GB": 190,
+    "GB": 191,
     "null": 96,
     "GG": 30,
     "JE": 13,
@@ -397,15 +397,6 @@
       "months_listed": 8
     },
     {
-      "security_id": "SEDOL:BD0FRW6",
-      "name": "NB Private Equity Partners",
-      "sector": "Private Equity",
-      "domicile": "GG",
-      "isin": "GG00BD0FRW63",
-      "first_seen": "2016-09",
-      "months_listed": 72
-    },
-    {
       "security_id": "SEDOL:BD96PR1",
       "name": "NB Private Equity Partners",
       "sector": "Private Equity",
@@ -413,6 +404,15 @@
       "isin": "GG00BD96PR19",
       "first_seen": "2018-05",
       "months_listed": 77
+    },
+    {
+      "security_id": "SEDOL:BD0FRW6",
+      "name": "NB Private Equity Partners",
+      "sector": "Private Equity",
+      "domicile": "GG",
+      "isin": "GG00BD0FRW63",
+      "first_seen": "2016-09",
+      "months_listed": 72
     },
     {
       "security_id": "SEDOL:B1ZBD49",
@@ -757,6 +757,15 @@
       "months_listed": 150
     },
     {
+      "security_id": "SEDOL:BNKVP75",
+      "name": "VH Global Energy Infrastructure",
+      "sector": "Renewable Energy Infrastructure",
+      "domicile": "GB",
+      "isin": "GB00BNKVP754",
+      "first_seen": "2021-02",
+      "months_listed": 67
+    },
+    {
       "security_id": "SEDOL:BVG6X43",
       "name": "VPC Specialty Lending Investments",
       "sector": "Debt - Direct Lending",
@@ -814,7 +823,7 @@
   "live_announcements_only_by_sector": {
     "VCT": 20,
     "Private Equity": 7,
-    "Renewable Energy Infrastructure": 6,
+    "Renewable Energy Infrastructure": 7,
     "Debt - Structured Finance": 5,
     "UK Smaller Companies": 5,
     "Flexible Investment": 4,

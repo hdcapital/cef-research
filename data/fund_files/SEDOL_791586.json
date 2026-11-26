@@ -6,18 +6,18 @@
  "sector": "UK Equity Income",
  "liveness": {
   "status": "live",
-  "reason": "nav_5d_old",
+  "reason": "nav_2d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-11-20",
+  "last_nav": "2026-11-24",
   "last_announcement": "2026-11-13"
  },
  "nav": {
-  "anchor": 376.78,
-  "anchor_date": "2026-11-20",
-  "anchor_source": "own_nav_history:2026-11-20",
-  "estimate": 383.918741,
+  "anchor": 380.07,
+  "anchor_date": "2026-11-24",
+  "anchor_source": "own_nav_history:2026-11-24",
+  "estimate": 379.939287,
   "basis": 1.0,
-  "staleness_days": 3.0,
+  "staleness_days": 2.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,29 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 355.0,
+  "price": 358.0,
   "ccy": "GBp",
-  "date": "2026-11-25",
+  "date": "2026-11-24",
   "source": "yahoo:SCF.L"
  },
  "discount": {
-  "estimate": -0.075325,
-  "z": 0.4318,
-  "z_status": "within_error_band",
+  "estimate": -0.057744,
+  "z": 1.1401,
+  "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.086045,
   "sigma_36m": 0.024824,
-  "alert_eligible": false
+  "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.1225,
-  "discount_only": 0.0006,
+  "central": 0.1252,
+  "discount_only": 0.0031,
   "g_used": 0.0906,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-25T21:56:53+00:00"
+ "updated_at": "2026-11-26T03:54:14+00:00"
 }

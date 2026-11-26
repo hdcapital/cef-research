@@ -5,9 +5,9 @@
  "ticker": null,
  "sector": "UK Smaller Companies",
  "liveness": {
-  "status": "live_stale_nav",
-  "reason": "periodic_report_481d_old_no_recent_nav",
-  "source": "own_periodic_report",
+  "status": "delist_candidate",
+  "reason": "aggregator_delisted_and_own_filings_silent_121d",
+  "source": "corroborated_delisting",
   "last_nav": "2026-04-16",
   "last_announcement": "2026-07-28"
  },
@@ -15,9 +15,9 @@
   "anchor": 665.89,
   "anchor_date": "2026-04-15",
   "anchor_source": "own_nav_history:2026-04-15",
-  "estimate": 624.088035,
+  "estimate": 624.021644,
   "basis": 1.0,
-  "staleness_days": 160.0,
+  "staleness_days": 161.0,
   "staleness_limit_days": 45.0,
   "current": false,
   "unit": "GBX",
@@ -31,8 +31,8 @@
   "source": "aggregator_panel"
  },
  "discount": {
-  "estimate": -0.161977,
-  "z": -2.8569,
+  "estimate": -0.161888,
+  "z": -2.8534,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -42,12 +42,12 @@
  },
  "forward_irr": {
   "central": 0.0485,
-  "discount_only": 0.0216,
+  "discount_only": 0.0215,
   "g_used": -0.0047,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-25T21:56:52+00:00"
+ "updated_at": "2026-11-26T03:54:13+00:00"
 }

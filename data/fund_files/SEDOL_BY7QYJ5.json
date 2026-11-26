@@ -6,18 +6,18 @@
  "sector": "Growth Capital",
  "liveness": {
   "status": "live",
-  "reason": "nav_56d_old",
+  "reason": "nav_2d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-09-30",
-  "last_announcement": "2026-11-24"
+  "last_nav": "2026-11-24",
+  "last_announcement": "2026-11-25"
  },
  "nav": {
-  "anchor": 869.0,
-  "anchor_date": "2026-09-30",
-  "anchor_source": "own_nav_history:2026-09-30",
-  "estimate": 869.0,
+  "anchor": 873.0,
+  "anchor_date": "2026-11-24",
+  "anchor_source": "own_nav_history:2026-11-24",
+  "estimate": 873.0,
   "basis": 3.0,
-  "staleness_days": 40.0,
+  "staleness_days": 2.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 578.5,
+  "price": 610.0,
   "ccy": "GBp",
-  "date": "2026-11-25",
+  "date": "2026-11-24",
   "source": "yahoo:GROW.L"
  },
  "discount": {
-  "estimate": -0.334292,
-  "z": 0.3774,
+  "estimate": -0.30126,
+  "z": 0.5741,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.408764,
-  "sigma_36m": 0.19733,
+  "mu_36m": -0.423187,
+  "sigma_36m": 0.212387,
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": -0.1221,
-  "discount_only": -0.0759,
+  "central": -0.1057,
+  "discount_only": -0.0586,
   "g_used": -0.05,
   "g_source": "sector_median"
  },
@@ -245,5 +245,5 @@
    }
   }
  ],
- "updated_at": "2026-11-25T21:56:52+00:00"
+ "updated_at": "2026-11-26T03:54:14+00:00"
 }

@@ -6,7 +6,7 @@
  "sector": "North American Smaller Companies",
  "liveness": {
   "status": "live",
-  "reason": "nav_2d_old",
+  "reason": "nav_3d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-11-23",
   "last_announcement": "2026-11-13"
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9893609",
   "estimate": 1721.08,
   "basis": 0.0,
-  "staleness_days": 0.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 1645.0,
+  "price": 1640.0,
   "ccy": "GBp",
-  "date": "2026-11-25",
+  "date": "2026-11-24",
   "source": "yahoo:BASC.L"
  },
  "discount": {
-  "estimate": -0.044205,
-  "z": 1.9722,
+  "estimate": -0.04711,
+  "z": 1.9575,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.094261,
-  "sigma_36m": 0.02538,
+  "mu_36m": -0.094593,
+  "sigma_36m": 0.024257,
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.4089,
-  "discount_only": -0.0171,
+  "central": 0.4088,
+  "discount_only": -0.0172,
   "g_used": 0.0609,
   "g_source": "own_nav_history"
  },
@@ -75,5 +75,5 @@
    }
   }
  ],
- "updated_at": "2026-11-25T21:56:52+00:00"
+ "updated_at": "2026-11-26T03:54:13+00:00"
 }
