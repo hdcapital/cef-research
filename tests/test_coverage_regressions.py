@@ -1438,7 +1438,8 @@ def test_a_dollar_nav_is_priced_against_a_pence_line_through_fx():
     # the row is assembled in uk_tier0_row (2026-11-03); the currency it
     # read travels with it, and harvest_uk emits rows only through it
     assert '"unit": got.get("nav_ccy", "GBX")' in inspect.getsource(HN.uk_tier0_row)
-    assert "uk_tier0_row(" in inspect.getsource(HN.harvest_uk)
+    assert "uk_tier0_row(" in inspect.getsource(HN.uk_parse_candidates)
+    assert "uk_parse_candidates(" in inspect.getsource(HN.harvest_uk)
 
 
 def test_a_reissued_asx_code_cannot_revive_a_delisted_lic():

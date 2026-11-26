@@ -789,3 +789,38 @@ substantial-holder notice of 29 October). Both facts reached the owner
 five hours after the ASX opened. The fresh-session dispatcher proposed
 on 10 November is now the only change that would have delivered these
 briefs; nothing in this repository can.
+
+### 2026-11-25..26 — a spurious opportunity from a NAV the harvester lost
+
+Both briefs on 25 November and the pre-LSE brief on 26 November were
+delivered before their opens (the 05:23Z cron on both mornings, the
+22:45Z dispatch at night), the first mornings since 17 November that
+GitHub's own schedule arrived inside the window. The roster, though,
+moved for the wrong reason. Nippon Active Value Fund (SEDOL BKLGLS1)
+went OPPORTUNITY in the pre-ASX brief of 25 November at z -1.94 and a
+-8.6% discount, and back to WATCH at -1.36 the next morning. The fund
+publishes a NAV every trading day; its announcements of 19, 20 and 25
+November were served by Investegate with the RNS body missing (only the
+site's generated summary, which the parser never reads), and the
+harvester only ever fetched a fund's newest NAV-headlined page. With no
+tier-0 row, the live table anchored on the own-history NAV of 20
+November and the factor model rolled it forward to 228.75p against a
+published 225.89p of 23 November: a 1.3% overshoot that, at a 2.4-point
+discount sigma, is 0.5 of a z-score. The surrounding scans, which still
+held the 23 November NAV, had the fund at -1.46 and -0.73.
+
+Two changes (config/CHANGELOG.md, 2026-11-26): the harvester now reads up
+to two older NAV announcements when the newest page fails, keeping the
+older NAV's own date; and the NAVs one harvest finds are carried into the
+next for any fund that harvest lost, newest date winning, ageing out at
+200 days. Either alone would have kept Nippon at WATCH on 25 November.
+Regal Asian Investments (ASX:RG8) also left and re-entered the list this
+week on genuine price moves (z -1.96 to -1.57); its 29 October
+substantial-holder catalyst leaves the 30-day window on 28 November.
+
+| Window | Delivered | How |
+|---|---|---|
+| Tue 24 pre-ASX | 23:44Z | 22:45Z dispatch |
+| Wed 25 pre-LSE | 06:21Z | 05:23Z cron (first on-time pre-LSE cron since 17 Nov) |
+| Wed 25 pre-ASX | 23:43Z | 22:45Z dispatch |
+| Thu 26 pre-LSE | 06:06Z | 05:11Z cron |

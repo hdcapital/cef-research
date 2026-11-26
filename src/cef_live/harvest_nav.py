@@ -1309,6 +1309,127 @@ def uk_tier0_row(sid: str, got: dict, best: dict, text: str = "") -> dict | None
             "headline": best["headline"][:120]}
 
 
+UK_NAV_FALLBACK_TRIES = 2
+"""How many OLDER NAV announcements the harvester reads when a fund's
+newest one cannot be parsed. Nippon Active Value Fund publishes a NAV every
+day; on 19, 20 and 25 November 2026 Investegate served its announcement
+page with the RNS body missing (only the site's generated summary, which is
+never read as a source), and because only the newest NAV-headlined row was
+ever fetched the fund had NO published NAV in those harvests. The live
+table fell back to a NAV three trading days older, rolled forward by the
+factor model, and on 25 November that estimate overshot the published NAV
+by 1.3% - enough, at the fund's 2.4-point discount sigma, to put a WATCH
+name into the pre-ASX brief as an OPPORTUNITY. One parseable announcement
+back is a day-old NAV with its true date; nothing is a model estimate."""
+
+
+def _summary_only_page(text: str) -> bool:
+    """True when an Investegate announcement page carries the site's
+    generated summary but no RNS body (no 'This information is provided by
+    RNS' trailer and no LEI line). Diagnostic only: the summary is never
+    parsed, so the page is treated like any other unparseable one."""
+    t = text or ""
+    return ("AI Summary" in t
+            and "provided by RNS" not in t
+            and not re.search(r"\bLEI\b", t))
+
+
+def uk_parse_candidates(sid: str, tk: str, cands: list[dict], fetch,
+                        stats: dict,
+                        max_fallback: int = UK_NAV_FALLBACK_TRIES) -> dict | None:
+    """Read a fund's NAV from the newest announcement that can be read.
+
+    cands - NAV-headlined announcements, newest first (one entry for the
+    factsheet route). fetch(url) -> page text; it may raise.
+
+    The first candidate is always fetched. Each later one is fetched only
+    because the one before it failed (fetch error, no NAV parsed, or a
+    results NAV with no as-at date), and at most max_fallback of them are
+    tried. A NAV read from a fallback keeps ITS OWN announcement date and
+    as-at date - it is an older published NAV, honestly dated, never the
+    newest date with an older value. Statistics: parse_fail/detail_fail
+    count every failed page; fallback_fetches counts the extra pages read;
+    fallback_recovered counts funds whose NAV came from one.
+    """
+    for i, cand in enumerate(cands[: 1 + max_fallback]):
+        if i:
+            stats["fallback_fetches"] = stats.get("fallback_fetches", 0) + 1
+        try:
+            text = fetch(cand["url"])
+        except Exception:  # noqa: BLE001
+            stats["detail_fail"] = stats.get("detail_fail", 0) + 1
+            continue
+        got = parse_uk_nav_text(text, sedol=sid)
+        if "nav_cum_pence" not in got:
+            stats["parse_fail"] = stats.get("parse_fail", 0) + 1
+            if _summary_only_page(text):
+                stats["summary_only_pages"] = stats.get("summary_only_pages", 0) + 1
+            if len(stats.setdefault("fail_samples", [])) < 8:
+                stats["fail_samples"].append({"ticker": tk, "url": cand["url"],
+                                              "text_head": text[200:6500]})
+            continue
+        row = uk_tier0_row(sid, got, cand, text)
+        if row is None:
+            stats["fs_no_asat"] = stats.get("fs_no_asat", 0) + 1
+            continue
+        if cand.get("route") and "asat" not in got:
+            stats["fs_asat_inferred"] = stats.get("fs_asat_inferred", 0) + 1
+        if i:
+            stats["fallback_recovered"] = stats.get("fallback_recovered", 0) + 1
+        return row
+    return None
+
+
+def merge_prior_tier0(fresh: pd.DataFrame | None, prior_path,
+                      today=None, max_age_days: int = 200) -> tuple[pd.DataFrame, int]:
+    """Carry the last harvest's published NAVs through a harvest that lost them.
+
+    A fund's own published NAV does not stop being its NAV because today's
+    fetch of its page failed, the listing page did not load, or the run hit
+    its deadline before reaching it. Without this, every such miss made the
+    live table fall back to an older own-history anchor rolled forward by
+    the factor model - and a model estimate replaced a published number
+    exactly on the days the source was flaky.
+
+    Per security the row with the newest nav_date wins (fresh wins a tie).
+    A prior row older than max_age_days is dropped, so a fund that stopped
+    publishing ages out at the cadence cap the staleness gate already
+    applies. Carried rows keep their original nav_date and source and are
+    marked carried=True; fresh rows are marked carried=False. Returns
+    (merged, number of carried rows).
+    """
+    cols = ["security_id", "nav_date", "nav_value"]
+    f = fresh.copy() if fresh is not None and len(fresh) else pd.DataFrame(columns=cols)
+    f["carried"] = False
+    p = Path(prior_path)
+    if not p.exists():
+        return f, 0
+    try:
+        prior = pd.read_csv(p, dtype=str)
+    except Exception:  # noqa: BLE001
+        return f, 0
+    if not set(cols) <= set(prior.columns) or not len(prior):
+        return f, 0
+    prior = prior.copy()
+    prior["carried"] = True
+    today = pd.Timestamp(today or datetime.now(timezone.utc).date())
+    nd = pd.to_datetime(prior["nav_date"], errors="coerce")
+    prior = prior[nd.notna() & ((today - nd).dt.days <= max_age_days)]
+    if not len(prior):
+        return f, 0
+    both = pd.concat([f.astype({"nav_date": str}), prior], ignore_index=True)
+    both["_d"] = pd.to_datetime(both["nav_date"], errors="coerce")
+    # newest nav_date per security; stable sort keeps fresh ahead of carried
+    # on a tie, so the fund's own re-publication of a date beats the memory
+    both["carried"] = both["carried"].astype(bool)
+    both["_fresh"] = (~both["carried"]).astype(int)
+    both = both.sort_values(["security_id", "_d", "_fresh"],
+                            ascending=[True, False, False], kind="stable")
+    out = both.drop_duplicates("security_id", keep="first")
+    out = out.drop(columns=["_d", "_fresh"]).reset_index(drop=True)
+    return out, int(out["carried"].sum())
+
+
 def harvest_uk(ticker_map: pd.DataFrame, census: pd.DataFrame,
                lookback_days: int = 45, budget: int = 0,
                extra_targets: dict[str, str] | None = None,
@@ -1366,7 +1487,9 @@ def harvest_uk(ticker_map: pd.DataFrame, census: pd.DataFrame,
     stats = {"targets": len(targets), "unmapped_tickers": len(unmapped),
              "registry_only_targets": len(extra_targets or {}),
              "listing_fail": 0, "no_recent_nav": 0, "detail_fail": 0,
-             "parse_fail": 0, "parsed": 0, "fail_samples": []}
+             "parse_fail": 0, "parsed": 0, "fail_samples": [],
+             "fallback_fetches": 0, "fallback_recovered": 0,
+             "summary_only_pages": 0}
     s = requests.Session()
     s.headers["User-Agent"] = P.UA
     pat = UK_NAV_HEAD
@@ -1440,6 +1563,7 @@ def harvest_uk(ticker_map: pd.DataFrame, census: pd.DataFrame,
                 stats["identity_mismatch"] = stats.get("identity_mismatch", 0) + 1
                 continue
         best = None
+        cands: list[dict] = []
         for tr in soup.select("table.table-investegate tbody tr"):
             tds = tr.find_all("td")
             if len(tds) < 4:
@@ -1470,10 +1594,15 @@ def harvest_uk(ticker_map: pd.DataFrame, census: pd.DataFrame,
             if not pat.search(head):
                 continue
             if d >= cutoff:
-                best = best or {"date": d,
-                                "url": ("https://www.investegate.co.uk" + href)
-                                       if href.startswith("/") else href,
-                                "headline": head}
+                # every NAV-headlined row in the window is kept, newest
+                # first: the newest is fetched, and the ones behind it are
+                # the fallback when its page cannot be read (see
+                # uk_parse_candidates)
+                cands.append({"date": d,
+                              "url": ("https://www.investegate.co.uk" + href)
+                                     if href.startswith("/") else href,
+                              "headline": head})
+                best = best or cands[-1]
                 # keep scanning the page so catalysts below the NAV row are
                 # still collected (rows are newest-first)
         if best is None:
@@ -1501,27 +1630,19 @@ def harvest_uk(ticker_map: pd.DataFrame, census: pd.DataFrame,
         if best is None:
             stats["no_recent_nav"] += 1
             continue
-        _t.sleep(1.5)
-        try:
-            r = s.get(best["url"], timeout=45)
-            text = re.sub(r"\s+", " ",
+        # the factsheet route has one candidate; the headline route has
+        # every NAV-headlined row in the window, newest first
+        tries = cands if (cands and cands[0] is best) else [best]
+
+        def _fetch(url: str) -> str:
+            _t.sleep(1.5)
+            r = s.get(url, timeout=45)
+            return re.sub(r"\s+", " ",
                           BeautifulSoup(r.text, "html.parser").get_text(" "))
-        except Exception:  # noqa: BLE001
-            stats["detail_fail"] += 1
-            continue
-        got = parse_uk_nav_text(text, sedol=tick2sid.get(tk))
-        if "nav_cum_pence" not in got:
-            stats["parse_fail"] += 1
-            if len(stats["fail_samples"]) < 8:
-                stats["fail_samples"].append({"ticker": tk, "url": best["url"],
-                                              "text_head": text[200:6500]})
-            continue
-        row = uk_tier0_row(tick2sid[tk], got, best, text)
+
+        row = uk_parse_candidates(tick2sid[tk], tk, tries, _fetch, stats)
         if row is None:
-            stats["fs_no_asat"] = stats.get("fs_no_asat", 0) + 1
             continue
-        if best.get("route") and "asat" not in got:
-            stats["fs_asat_inferred"] = stats.get("fs_asat_inferred", 0) + 1
         stats["parsed"] += 1
         rows.append(row)
     if write_listing_cache and listing_rows:

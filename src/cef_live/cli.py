@@ -1140,6 +1140,8 @@ def nightly(markets: list[str]) -> int:
                     .str.replace("ASX:", "", regex=False)) | \
             set(au_reg["security_id"].astype(str).str.replace("ASX:", "", regex=False))
         tier0 = harvest_nav.harvest_au(codes)
+        tier0, au_carried = harvest_nav.merge_prior_tier0(
+            tier0, "data/nta_live/au_tier0_latest.csv")
         mf = prices.monthly_factor_returns(ysess, "AU")
         df = prices.daily_factor_returns(ysess, "AU")
         # only ask for a quote where the code is unambiguously this
@@ -1152,6 +1154,7 @@ def nightly(markets: list[str]) -> int:
         notes["markets"]["au_identity_blocked"] = len(blocked)
         live_px = prices.latest_prices(ysess, syms)
         notes["markets"]["au"] = {"tier0_navs": int(len(tier0)),
+                                  "tier0_carried": au_carried,
                                   "factors_monthly": mf is not None,
                                   "factors_daily": df is not None,
                                   "live_prices": int(len(live_px))}
@@ -1262,10 +1265,17 @@ def nightly(markets: list[str]) -> int:
                             tmap, census, extra_targets=extra,
                             isin_by_ticker=isin_map, name_by_ticker=name_map)
                         all_anns.extend(uk_anns)
-                        if len(uk_tier0):
-                            uk_tier0.to_csv("data/nta_live/uk_tier0_latest.csv", index=False)
                     except Exception as exc:  # noqa: BLE001
                         notes["markets"]["uk_tier0_error"] = str(exc)
+                    # a fund the harvest lost today keeps the published NAV
+                    # it had yesterday (its own date, its own source) rather
+                    # than falling back to a model roll-forward of an older
+                    # anchor; see harvest_nav.merge_prior_tier0
+                    uk_tier0, carried = harvest_nav.merge_prior_tier0(
+                        uk_tier0, "data/nta_live/uk_tier0_latest.csv")
+                    notes["markets"]["uk_tier0_carried"] = carried
+                    if len(uk_tier0):
+                        uk_tier0.to_csv("data/nta_live/uk_tier0_latest.csv", index=False)
 
             aux_uk = None
             try:

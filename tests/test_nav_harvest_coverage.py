@@ -961,5 +961,152 @@ def test_a_results_nav_without_an_as_at_date_is_not_dated_by_its_announcement():
 
 
 def test_the_harvester_counts_the_results_navs_it_declines_to_date():
-    src = inspect.getsource(H.harvest_uk)
+    # since 2026-11-26 the page reads live in uk_parse_candidates, which
+    # harvest_uk emits every row through
+    assert "uk_parse_candidates(" in inspect.getsource(H.harvest_uk)
+    src = inspect.getsource(H.uk_parse_candidates)
     assert "uk_tier0_row(" in src and 'stats["fs_no_asat"]' in src
+
+
+# --- 2026-11-26: a fund's published NAV survives one unreadable page --------
+
+_NAVF_GOOD = (
+    " Net Asset Value(s) | Company Announcement | Investegate Net Asset Value(s) "
+    "Nippon Active Value Fund PLC 25 November 2026 NIPPON ACTIVE VALUE FUND PLC "
+    '(the "Company") LEI: 213800JOFEGZJYS21P75 The Company announces that as at '
+    "the close of business on 24 November 2026 its unaudited net asset value "
+    '("NAV") per ordinary share ("Share") was as follows: NAV per Share '
+    "(including current financial year revenue items) 226.10p NAV per Share "
+    "(excluding current financial year revenue items) 221.95p Enquiries: Company "
+    "Secretary This information is provided by RNS, the news service of the "
+    "London Stock Exchange.")
+
+# what Investegate served for announcement 9893549 on 25 November 2026: the
+# site's generated summary and the page furniture, no RNS body at all
+_NAVF_SUMMARY_ONLY = (
+    " Net Asset Value(s) | Company Announcement | Investegate Welcome Articles "
+    "Net Asset Value(s) AI Summary Close X Nippon Active Value Fund reported an "
+    "unaudited net asset value per ordinary share at the close of business on "
+    "24 November 2026 of 226.10p including current financial year revenue items "
+    "and 221.95p excluding them. Disclaimer* AI Summary Disclaimer BETA The "
+    "content you are viewing has been generated or assisted by artificial "
+    "intelligence (AI). Companies Nippon Active Value Fund (NAVF) UK 100 FTSE "
+    "quotes by TradingView Latest directors dealings 9 hours ago Greggs")
+
+
+def test_the_harvester_falls_back_to_the_previous_nav_announcement():
+    cands = [
+        {"date": "2026-11-25", "url": "u/9893549", "headline": "Net Asset Value(s)"},
+        {"date": "2026-11-24", "url": "u/9891268", "headline": "Net Asset Value(s)"},
+        {"date": "2026-11-23", "url": "u/9889082", "headline": "Net Asset Value(s)"},
+    ]
+    pages = {"u/9893549": _NAVF_SUMMARY_ONLY,
+             "u/9891268": _NAVF_GOOD.replace("24 November 2026", "23 November 2026")
+                                    .replace("226.10p", "225.89p"),
+             "u/9889082": _NAVF_GOOD}
+    fetched = []
+
+    def fetch(url):
+        fetched.append(url)
+        return pages[url]
+
+    stats = {}
+    row = H.uk_parse_candidates("SEDOL:BKLGLS1", "NAVF", cands, fetch, stats)
+    # the summary-only page is read, rejected and counted; the day-older
+    # announcement supplies the NAV with ITS OWN as-at date and source
+    assert fetched == ["u/9893549", "u/9891268"]
+    assert row is not None
+    assert row["nav_date"] == "2026-11-23"
+    assert row["nav_value"] == 225.89
+    assert row["source"].endswith(":9891268")
+    assert stats["parse_fail"] == 1 and stats["summary_only_pages"] == 1
+    assert stats["fallback_fetches"] == 1 and stats["fallback_recovered"] == 1
+
+
+def test_the_fallback_is_bounded_and_a_readable_first_page_costs_nothing():
+    cands = [{"date": f"2026-11-{d}", "url": f"u/{d}", "headline": "Net Asset Value(s)"}
+             for d in (25, 24, 23, 20, 19)]
+    bad = {c["url"]: _NAVF_SUMMARY_ONLY for c in cands}
+    fetched = []
+    stats = {}
+    assert H.uk_parse_candidates("SEDOL:X", "X", cands,
+                                 lambda u: fetched.append(u) or bad[u], stats) is None
+    # the newest page plus UK_NAV_FALLBACK_TRIES older ones, never the whole window
+    assert len(fetched) == 1 + H.UK_NAV_FALLBACK_TRIES
+    assert stats["parse_fail"] == 1 + H.UK_NAV_FALLBACK_TRIES
+    assert "fallback_recovered" not in stats
+    # a readable newest page: one fetch, nothing counted as a fallback
+    fetched.clear()
+    stats = {}
+    row = H.uk_parse_candidates("SEDOL:X", "X", cands,
+                                lambda u: fetched.append(u) or _NAVF_GOOD, stats)
+    assert fetched == ["u/25"] and row["nav_date"] == "2026-11-24"
+    assert stats.get("fallback_fetches", 0) == 0
+    # a fetch error on the newest page is also a reason to look back
+    fetched.clear()
+    stats = {}
+
+    def flaky(u):
+        fetched.append(u)
+        if u == "u/25":
+            raise OSError("timeout")
+        return _NAVF_GOOD
+
+    row = H.uk_parse_candidates("SEDOL:X", "X", cands, flaky, stats)
+    assert fetched == ["u/25", "u/24"] and row is not None
+    assert stats["detail_fail"] == 1 and stats["fallback_recovered"] == 1
+
+
+def test_a_published_nav_the_harvest_lost_is_carried_from_the_last_one(tmp_path):
+    prior = tmp_path / "uk_tier0_latest.csv"
+    pd.DataFrame([
+        # lost today: carried with its own date and source
+        {"security_id": "SEDOL:BKLGLS1", "nav_date": "2026-11-23", "nav_value": "225.89",
+         "unit": "GBX", "source": "investegate:9891268", "headline": "Net Asset Value(s)"},
+        # harvested again today with a newer date: the fresh row wins
+        {"security_id": "SEDOL:A", "nav_date": "2026-11-20", "nav_value": "100",
+         "unit": "GBX", "source": "investegate:1", "headline": "NAV"},
+        # harvested today but with an OLDER announcement than we already
+        # hold (the newer page unreadable, two back readable): memory wins
+        {"security_id": "SEDOL:B", "nav_date": "2026-11-24", "nav_value": "50",
+         "unit": "GBX", "source": "investegate:2", "headline": "NAV"},
+        # stopped publishing long ago: ages out at the cadence cap
+        {"security_id": "SEDOL:OLD", "nav_date": "2026-04-01", "nav_value": "9",
+         "unit": "GBX", "source": "investegate:3", "headline": "NAV"},
+    ]).to_csv(prior, index=False)
+    fresh = pd.DataFrame([
+        {"security_id": "SEDOL:A", "nav_date": "2026-11-25", "nav_value": 101.0,
+         "unit": "GBX", "nav_ex": None, "cum_assumed": False,
+         "source": "investegate:11", "headline": "NAV"},
+        {"security_id": "SEDOL:B", "nav_date": "2026-11-21", "nav_value": 49.0,
+         "unit": "GBX", "nav_ex": None, "cum_assumed": False,
+         "source": "investegate:22", "headline": "NAV"},
+    ])
+    merged, carried = H.merge_prior_tier0(fresh, prior, today="2026-11-26")
+    by = merged.set_index("security_id")
+    assert carried == 2
+    assert set(by.index) == {"SEDOL:BKLGLS1", "SEDOL:A", "SEDOL:B"}
+    assert by.loc["SEDOL:BKLGLS1", "nav_date"] == "2026-11-23"
+    assert by.loc["SEDOL:BKLGLS1", "source"] == "investegate:9891268"
+    assert bool(by.loc["SEDOL:BKLGLS1", "carried"]) is True
+    assert by.loc["SEDOL:A", "nav_date"] == "2026-11-25" and not by.loc["SEDOL:A", "carried"]
+    assert by.loc["SEDOL:B", "nav_date"] == "2026-11-24" and by.loc["SEDOL:B", "carried"]
+    # the fresh row's value is what the table sees, as a number
+    assert float(by.loc["SEDOL:A", "nav_value"]) == 101.0
+    # a harvest that raised (None) or found nothing still has yesterday's NAVs
+    merged, carried = H.merge_prior_tier0(None, prior, today="2026-11-26")
+    assert carried == 3 and "SEDOL:OLD" not in set(merged["security_id"])
+    # no memory yet: the fresh rows pass through, none carried
+    merged, carried = H.merge_prior_tier0(fresh, tmp_path / "missing.csv")
+    assert carried == 0 and len(merged) == 2 and not merged["carried"].any()
+
+
+def test_the_live_table_anchors_on_a_carried_published_nav():
+    # the carried row is a published NAV with its own date: tier 0, basis 0,
+    # dated 2026-11-23 - not the own-history anchor rolled forward
+    src = inspect.getsource(H.harvest_uk)
+    assert "uk_parse_candidates(" in src and "cands.append(" in src
+    from cef_live import cli
+    csrc = inspect.getsource(cli)
+    assert csrc.count("harvest_nav.merge_prior_tier0(") == 2
+    assert '"uk_tier0_carried"' in csrc and '"tier0_carried": au_carried' in csrc

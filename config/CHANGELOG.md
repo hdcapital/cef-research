@@ -4,6 +4,32 @@ Every change to `config/params.yaml` gets a dated entry here, committed in
 the same commit as the change, with a rationale. Parameters are never
 tuned against live outcomes.
 
+## 2026-11-26 — a published NAV survives one unreadable page and one lost harvest
+No parameter changed; two rules the Tier 0 harvest applies did. (1) The
+UK harvester fetched only a fund's NEWEST NAV-headlined announcement. If
+that page could not be parsed the fund had no published NAV at all, and
+the live table fell back to its own-history anchor rolled forward by the
+factor model. Nippon Active Value Fund publishes a NAV every trading day;
+on 19, 20 and 25 November Investegate served its page with the RNS body
+missing (only the site's generated summary, which is never read as a
+source). In the 25 November pre-ASX scan the fallback anchor was the NAV
+of 20 November rolled forward to 228.75p against a published 225.89p of
+23 November; at the fund's 2.4-point discount sigma the 1.3% overshoot
+moved z from about -1.4 to -1.94 and the brief carried the fund as an
+OPPORTUNITY on a model estimate. The harvester now tries up to
+`UK_NAV_FALLBACK_TRIES` (2) older NAV announcements when the newest page
+fails, and a NAV read from one keeps its own announcement and as-at date.
+(2) The published NAVs a harvest found are carried into the next one for
+any fund that harvest lost (page or listing failure, run deadline): the
+newer nav_date wins per fund, a fresh row wins a tie, and a carried row
+older than 200 days (the cadence cap the staleness gate already applies)
+is dropped. Carried rows keep their original date and source and are
+marked `carried`; the run notes count `uk_tier0_carried` /
+`tier0_carried`, the harvest statistics count `fallback_fetches`,
+`fallback_recovered` and `summary_only_pages`. ideas.yml now commits the
+two tier-0 files so the memory is continuous across the pre-open scans
+as well as the nightly table.
+
 ## 2026-11-03 — a results-document NAV is dated by its as-at date or not at all
 No parameter changed; the rule the Tier 0 harvest applies to a NAV it
 reads from a results or factsheet document did. Such a document states a
