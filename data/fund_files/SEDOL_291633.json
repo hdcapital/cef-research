@@ -12,12 +12,12 @@
   "last_announcement": "2026-11-13"
  },
  "nav": {
-  "anchor": 261.99,
-  "anchor_date": "2026-11-25",
-  "anchor_source": "investegate:9895845",
-  "estimate": 261.99,
+  "anchor": 262.29,
+  "anchor_date": "2026-11-27",
+  "anchor_source": "investegate:9897878",
+  "estimate": 262.29,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 0.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 227.0,
+  "price": 236.0,
   "ccy": "GBp",
-  "date": "2026-11-25",
+  "date": "2026-11-27",
   "source": "yahoo:EWI.L"
  },
  "discount": {
-  "estimate": -0.133555,
-  "z": -1.2428,
+  "estimate": -0.100233,
+  "z": -0.5871,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,14 +41,26 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0652,
-  "discount_only": 0.0053,
+  "central": 0.0711,
+  "discount_only": 0.0119,
   "g_used": -0.0258,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-11-27",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/edinburgh-worldwide-inv-trust--ewi/holding-s-in-company/9897712",
+   "alerted_at": null,
+   "terms": {
+    "unparsed": true
+   }
+  },
   {
    "date": "2026-11-10",
    "class": "holdings_notification",
@@ -74,5 +86,5 @@
    }
   }
  ],
- "updated_at": "2026-11-27T04:04:44+00:00"
+ "updated_at": "2026-11-27T22:16:53+00:00"
 }

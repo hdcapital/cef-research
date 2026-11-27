@@ -25,29 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 0.5099999904632568,
+  "price": 0.5400000214576721,
   "ccy": "AUD",
   "date": "2026-11-27",
   "source": "yahoo:NAC.AX"
  },
  "discount": {
-  "estimate": -0.227273,
-  "z": -1.2144,
-  "z_status": "computed",
+  "estimate": -0.181818,
+  "z": -0.8357,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.081511,
   "sigma_36m": 0.120029,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.2271,
-  "discount_only": 0.0408,
+  "central": 0.218,
+  "discount_only": 0.0325,
   "g_used": 0.1191,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-27T04:04:43+00:00"
+ "updated_at": "2026-11-27T22:16:52+00:00"
 }

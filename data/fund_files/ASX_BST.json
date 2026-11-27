@@ -21,18 +21,18 @@
   "staleness_limit_days": 45.0,
   "current": false,
   "unit": "AUD",
-  "quality_ok": true,
-  "quality_reason": ""
+  "quality_ok": false,
+  "quality_reason": "unit_suspect_scale"
  },
  "price": {
-  "price": 0.12999999523162842,
+  "price": 0.125,
   "ccy": "AUD",
   "date": "2026-11-27",
   "source": "yahoo:BST.AX"
  },
  "discount": {
-  "estimate": -0.899244,
-  "z": -18.0305,
+  "estimate": -0.903119,
+  "z": -18.1295,
   "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 34,
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-27T04:04:43+00:00"
+ "updated_at": "2026-11-27T22:16:52+00:00"
 }

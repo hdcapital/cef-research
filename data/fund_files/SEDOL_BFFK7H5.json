@@ -12,12 +12,12 @@
   "last_announcement": "2026-11-13"
  },
  "nav": {
-  "anchor": 215.48,
-  "anchor_date": "2026-11-25",
-  "anchor_source": "investegate:9896203",
-  "estimate": 215.48,
+  "anchor": 220.68,
+  "anchor_date": "2026-11-26",
+  "anchor_source": "investegate:9897944",
+  "estimate": 220.68,
   "basis": 0.0,
-  "staleness_days": 2.0,
+  "staleness_days": 1.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,14 +25,14 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 223.0,
+  "price": 227.0,
   "ccy": "GBp",
-  "date": "2026-11-25",
+  "date": "2026-11-27",
   "source": "yahoo:OIT.L"
  },
  "discount": {
-  "estimate": 0.034899,
-  "z": 1.7713,
+  "estimate": 0.028639,
+  "z": 1.4825,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,14 +41,46 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0246,
-  "discount_only": -0.0064,
+  "central": 0.0255,
+  "discount_only": -0.0055,
   "g_used": 0.0312,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-11-27",
+   "class": "substantial_holder",
+   "weight": 2,
+   "direction": "positive",
+   "headline": "Holding(s) in Company - Replacement",
+   "url": "https://www.investegate.co.uk/announcement/rns/odyssean-investment-trust--oit/holding-s-in-company-replacement/9898260",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-11-27",
+   "class": "issuance",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Issue of Equity",
+   "url": "https://www.investegate.co.uk/announcement/rns/odyssean-investment-trust--oit/issue-of-equity/9898161",
+   "alerted_at": null,
+   "terms": null
+  },
+  {
+   "date": "2026-11-27",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/odyssean-investment-trust--oit/holding-s-in-company/9898079",
+   "alerted_at": null,
+   "terms": {
+    "unparsed": true
+   }
+  },
   {
    "date": "2026-11-23",
    "class": "substantial_holder",
@@ -338,5 +370,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-11-27T04:04:44+00:00"
+ "updated_at": "2026-11-27T22:16:54+00:00"
 }

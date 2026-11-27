@@ -27,7 +27,7 @@
  "price": {
   "price": 1.0099999904632568,
   "ccy": "EUR",
-  "date": "2026-11-25",
+  "date": "2026-11-27",
   "source": "yahoo:CVCE.L"
  },
  "discount": {
@@ -43,12 +43,24 @@
  "forward_irr": {
   "central": null,
   "discount_only": null,
-  "g_used": 0.0363,
+  "g_used": 0.0356,
   "g_source": "own_nav_history"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [
+  {
+   "date": "2026-11-27",
+   "class": "holdings_notification",
+   "weight": 0,
+   "direction": "neutral",
+   "headline": "Holding(s) in Company",
+   "url": "https://www.investegate.co.uk/announcement/rns/cvc-income-growth-limited-npv-euro--cvce/holding-s-in-company/9897776",
+   "alerted_at": null,
+   "terms": {
+    "unparsed": true
+   }
+  },
   {
    "date": "2026-11-19",
    "class": "issuance",
@@ -230,5 +242,5 @@
    "terms": null
   }
  ],
- "updated_at": "2026-11-27T04:04:44+00:00"
+ "updated_at": "2026-11-27T22:16:53+00:00"
 }

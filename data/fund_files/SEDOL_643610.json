@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 258.5,
+  "price": 268.0,
   "ccy": "GBp",
-  "date": "2026-11-25",
+  "date": "2026-11-27",
   "source": "yahoo:BRSC.L"
  },
  "discount": {
-  "estimate": -0.140939,
-  "z": -1.3038,
-  "z_status": "computed",
+  "estimate": -0.109368,
+  "z": 0.5269,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.118455,
   "sigma_36m": 0.017246,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1182,
-  "discount_only": -0.0011,
+  "central": 0.1235,
+  "discount_only": 0.0039,
   "g_used": 0.0943,
   "g_source": "panel_tr_cagr"
  },
@@ -110,5 +110,5 @@
    }
   }
  ],
- "updated_at": "2026-11-27T04:04:43+00:00"
+ "updated_at": "2026-11-27T22:16:53+00:00"
 }
