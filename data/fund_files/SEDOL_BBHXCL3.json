@@ -6,7 +6,7 @@
  "sector": "Commodities & Natural Resources",
  "liveness": {
   "status": "live_stale_nav",
-  "reason": "periodic_report_267d_old_no_recent_nav",
+  "reason": "periodic_report_268d_old_no_recent_nav",
   "source": "own_periodic_report",
   "last_nav": "2026-05-18",
   "last_announcement": "2026-10-02"
@@ -17,7 +17,7 @@
   "anchor_source": "own_nav_history:2026-03-31",
   "estimate": 1209.0,
   "basis": 3.0,
-  "staleness_days": 172.0,
+  "staleness_days": 173.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -25,29 +25,29 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 555.0,
+  "price": 578.0,
   "ccy": "GBp",
-  "date": "2026-11-26",
+  "date": "2026-11-25",
   "source": "yahoo:RSE.L"
  },
  "discount": {
-  "estimate": -0.540943,
-  "z": -1.7026,
+  "estimate": -0.521919,
+  "z": -1.4994,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.377709,
-  "sigma_36m": 0.095874,
+  "mu_36m": -0.377847,
+  "sigma_36m": 0.096084,
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.198,
-  "discount_only": 0.0417,
+  "central": 0.2103,
+  "discount_only": 0.0524,
   "g_used": 0.15,
   "g_source": "sector_median"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-26T21:58:21+00:00"
+ "updated_at": "2026-11-27T04:04:45+00:00"
 }

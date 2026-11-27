@@ -6,7 +6,7 @@
  "sector": "Commodities & Natural Resources",
  "liveness": {
   "status": "live",
-  "reason": "nav_27d_old",
+  "reason": "nav_28d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-10-30",
   "last_announcement": "2026-11-25"
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9861483",
   "estimate": 149.2,
   "basis": 0.0,
-  "staleness_days": 19.0,
+  "staleness_days": 20.0,
   "staleness_limit_days": 91.5,
   "current": true,
   "unit": "GBX",
@@ -25,19 +25,19 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 103.0,
+  "price": 102.0,
   "ccy": "GBp",
-  "date": "2026-11-26",
+  "date": "2026-11-25",
   "source": "yahoo:BSRT.L"
  },
  "discount": {
-  "estimate": -0.309651,
-  "z": 0.3066,
+  "estimate": -0.316354,
+  "z": 0.2176,
   "z_status": "within_error_band",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.33206,
-  "sigma_36m": 0.073082,
+  "mu_36m": -0.332246,
+  "sigma_36m": 0.073032,
   "alert_eligible": false
  },
  "forward_irr": {
@@ -49,5 +49,5 @@
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-26T21:58:20+00:00"
+ "updated_at": "2026-11-27T04:04:43+00:00"
 }

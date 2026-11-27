@@ -6,7 +6,7 @@
  "sector": "Equity - Australia Small/Mid Cap",
  "liveness": {
   "status": "delisted",
-  "reason": "own_delisting_notice_36d",
+  "reason": "own_delisting_notice_37d",
   "source": "own_delisting_notice",
   "last_nav": "2026-10-14",
   "last_announcement": "2026-10-21"
@@ -17,7 +17,7 @@
   "anchor_source": "asx_ann:03152638",
   "estimate": 0.0156,
   "basis": 0.0,
-  "staleness_days": 41.0,
+  "staleness_days": 42.0,
   "staleness_limit_days": 93.0,
   "current": true,
   "unit": "AUD",
@@ -48,28 +48,6 @@
  },
  "holder_churn": null,
  "realisations": null,
- "events_90d": [
-  {
-   "date": "2026-08-28",
-   "class": "tender_offer",
-   "weight": 4,
-   "direction": "positive",
-   "headline": "Completion of Capital Return & Request to Defer Delisting",
-   "url": "https://announcements.asx.com.au/asxpdf/20260828/pdf/073f85sb4dc3xx.pdf",
-   "alerted_at": "2026-09-07T07:45:12+00:00",
-   "terms": {
-    "llm": "rejected",
-    "model": "claude-haiku-4-5",
-    "prompt_version": "v1:8e1a87976ca0",
-    "stop_reason": "end_turn",
-    "input_tokens": 1383,
-    "output_tokens": 319,
-    "cache_read": 0,
-    "rejected": [
-     "computed_signal_field:expected_return_pct_of_nav"
-    ]
-   }
-  }
- ],
- "updated_at": "2026-11-26T21:58:20+00:00"
+ "events_90d": [],
+ "updated_at": "2026-11-27T04:04:43+00:00"
 }

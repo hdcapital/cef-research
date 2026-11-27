@@ -8,7 +8,7 @@
   "status": "live",
   "reason": "nav_3d_old",
   "source": "own_nav_announcement",
-  "last_nav": "2026-11-23",
+  "last_nav": "2026-11-24",
   "last_announcement": "2026-11-13"
  },
  "nav": {
@@ -17,7 +17,7 @@
   "anchor_source": "investegate:9896226",
   "estimate": 246.01,
   "basis": 0.0,
-  "staleness_days": 1.0,
+  "staleness_days": 2.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "GBX",
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 235.5,
+  "price": 231.5,
   "ccy": "GBp",
-  "date": "2026-11-26",
+  "date": "2026-11-25",
   "source": "yahoo:PCFT.L"
  },
  "discount": {
-  "estimate": -0.042722,
-  "z": 0.5727,
-  "z_status": "computed",
+  "estimate": -0.058981,
+  "z": 0.0058,
+  "z_status": "within_error_band",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
   "mu_36m": -0.059148,
   "sigma_36m": 0.02868,
-  "alert_eligible": true
+  "alert_eligible": false
  },
  "forward_irr": {
-  "central": 0.1423,
-  "discount_only": -0.0017,
+  "central": 0.1407,
+  "discount_only": -0.0031,
   "g_used": 0.1224,
   "g_source": "panel_tr_cagr"
  },
@@ -72,19 +72,7 @@
    "terms": {
     "holder": "TrinityBridge Limited"
    }
-  },
-  {
-   "date": "2026-08-28",
-   "class": "holdings_notification",
-   "weight": 0,
-   "direction": "neutral",
-   "headline": "Holding(s) in Company",
-   "url": "https://www.investegate.co.uk/announcement/rns/polar-capital-global-financials-trust--pcft/holding-s-in-company/9746249",
-   "alerted_at": null,
-   "terms": {
-    "holder": "Rathbones Investment Management Ltd"
-   }
   }
  ],
- "updated_at": "2026-11-26T21:58:21+00:00"
+ "updated_at": "2026-11-27T04:04:45+00:00"
 }

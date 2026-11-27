@@ -6,7 +6,7 @@
  "sector": "Fixed Income - Australian Dollar",
  "liveness": {
   "status": "live",
-  "reason": "nav_13d_old",
+  "reason": "nav_14d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-11-13",
   "last_announcement": "2026-11-16"
@@ -15,9 +15,9 @@
   "anchor": 1.9323999999999997,
   "anchor_date": "2026-09-30",
   "anchor_source": "aggregator_panel:2026-09",
-  "estimate": 1.957149,
+  "estimate": 1.963321,
   "basis": 1.0,
-  "staleness_days": 41.0,
+  "staleness_days": 42.0,
   "staleness_limit_days": 45.0,
   "current": true,
   "unit": "AUD",
@@ -27,12 +27,12 @@
  "price": {
   "price": 1.284999966621399,
   "ccy": "AUD",
-  "date": "2026-11-26",
+  "date": "2026-11-27",
   "source": "yahoo:MOT.AX"
  },
  "discount": {
-  "estimate": -0.343433,
-  "z": -2.9609,
+  "estimate": -0.345497,
+  "z": -2.9836,
   "z_status": "computed",
   "z_source": "aggregator_panel",
   "z_window_months": 36,
@@ -41,13 +41,13 @@
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.3059,
-  "discount_only": 0.0811,
+  "central": 0.3039,
+  "discount_only": 0.0793,
   "g_used": 0.141,
   "g_source": "panel_tr_cagr"
  },
  "holder_churn": null,
  "realisations": null,
  "events_90d": [],
- "updated_at": "2026-11-26T21:58:20+00:00"
+ "updated_at": "2026-11-27T04:04:43+00:00"
 }
