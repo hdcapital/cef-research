@@ -6,10 +6,10 @@
  "sector": "Private Equity",
  "liveness": {
   "status": "live",
-  "reason": "nav_115d_old",
+  "reason": "nav_116d_old",
   "source": "own_nav_announcement",
   "last_nav": "2026-08-04",
-  "last_announcement": "2026-11-26"
+  "last_announcement": "2026-11-27"
  },
  "nav": {
   "anchor": 517.9,
@@ -17,7 +17,7 @@
   "anchor_source": "own_nav_history:2026-05-31",
   "estimate": 517.9,
   "basis": 3.0,
-  "staleness_days": 129.0,
+  "staleness_days": 130.0,
   "staleness_limit_days": 200.0,
   "current": true,
   "unit": "GBX",
@@ -25,24 +25,24 @@
   "quality_reason": ""
  },
  "price": {
-  "price": 410.0,
+  "price": 404.0,
   "ccy": "GBp",
-  "date": "2026-11-27",
+  "date": "2026-11-26",
   "source": "yahoo:PIN.L"
  },
  "discount": {
-  "estimate": -0.208341,
-  "z": 1.1813,
+  "estimate": -0.219927,
+  "z": 1.0679,
   "z_status": "computed",
   "z_source": "own_daily_panel",
   "z_window_months": 36,
-  "mu_36m": -0.336206,
-  "sigma_36m": 0.108245,
+  "mu_36m": -0.335884,
+  "sigma_36m": 0.108582,
   "alert_eligible": true
  },
  "forward_irr": {
-  "central": 0.0357,
-  "discount_only": -0.0096,
+  "central": 0.0296,
+  "discount_only": -0.0155,
   "g_used": 0.0458,
   "g_source": "sector_median"
  },
@@ -129,5 +129,5 @@
    }
   }
  ],
- "updated_at": "2026-11-27T22:16:54+00:00"
+ "updated_at": "2026-11-28T03:54:22+00:00"
 }

@@ -6,7 +6,7 @@
  "sector": "Property Specialist",
  "liveness": {
   "status": "delisted",
-  "reason": "own_delisting_notice_8d",
+  "reason": "own_delisting_notice_9d",
   "source": "own_delisting_notice",
   "last_nav": "2026-06-30",
   "last_announcement": "2026-11-23"
@@ -17,7 +17,7 @@
   "anchor_source": "investegate_fs:9846890",
   "estimate": 83.27,
   "basis": 0.0,
-  "staleness_days": 108.0,
+  "staleness_days": 109.0,
   "staleness_limit_days": 45.0,
   "current": false,
   "unit": "GBX",
@@ -47,12 +47,12 @@
   "g_source": "market_median"
  },
  "holder_churn": {
-  "filings": 4,
+  "filings": 3,
   "sellers": 0,
-  "buyers": 1,
-  "largest_move": 62.35,
-  "holder": "Glenstone REIT plc",
-  "direction": "accumulation"
+  "buyers": 0,
+  "largest_move": null,
+  "holder": null,
+  "direction": "churn"
  },
  "realisations": null,
  "events_90d": [
@@ -123,5 +123,5 @@
    }
   }
  ],
- "updated_at": "2026-11-27T22:16:55+00:00"
+ "updated_at": "2026-11-28T03:54:22+00:00"
 }
